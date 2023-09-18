@@ -16,10 +16,12 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                            formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection" (change)="getdata()"
-                                            #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" autofocus>
+                                        <ng-select appTheme id="BRANCH_CODE" bindValue="value"
+                                            [(ngModel)]="ngBranchCode" formControlName="BRANCH_CODE" bindLabel="label"
+                                            title="Compulsory Selection" (change)="getdata()" #BRANCH_CODE
+                                            (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' [virtualScroll]="true"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
+                                            autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -40,8 +42,8 @@
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                             formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                            (change)="schemechange($event)" [virtualScroll]="true"
-                                            #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
+                                            (change)="schemechange($event)" [virtualScroll]="true" #AC_TYPE
+                                            (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
                                             [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme">
                                             <ng-option *ngFor="let values of allScheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
@@ -99,11 +101,12 @@
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                            class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                            [minDate]="accountOpenDate" [maxDate]="maxDate" appButton minlength="8" maxlength="10"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            #FROM_DATE="bsDatepicker"  (keydown.Tab)="FROM_DATE.hide()"
+                                        <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE"
+                                            id="FROM_DATE" class="form-control" [(ngModel)]="fromdate"
+                                            [bsValue]="bsValue" [minDate]="accountOpenDate" [maxDate]="maxDate"
+                                            appButton minlength="8" maxlength="10"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #FROM_DATE="bsDatepicker"
+                                            (keydown.Tab)="FROM_DATE.hide()"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
@@ -123,11 +126,11 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input appTheme type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                            class="form-control" [(ngModel)]="todate" appButton minlength="8" maxlength="10"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                            [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            #TO_DATE="bsDatepicker"  (keydown.Tab)="TO_DATE.hide()"
-                                            formControlName="TO_DATE"
+                                            class="form-control" [(ngModel)]="todate" appButton minlength="8"
+                                            maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [minDate]="fromdate" [maxDate]="maxDate"
+                                            [ngClass]="{'form-submitted': formSubmitted}" #TO_DATE="bsDatepicker"
+                                            (keydown.Tab)="TO_DATE.hide()" formControlName="TO_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
@@ -169,8 +172,8 @@
                             <!-- </div>
                          <div class="row" > -->
                             <div class="col-sm" *ngIf="showView">
-                                <button class="btn btn-outline-primary btn-sm"
-                                    (click)="getTransactionsDeatils()"  (keydown.Tab)="focus()">View</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="getTransactionsDeatils()"
+                                    (keydown.Tab)="focus()">View</button>
                             </div>
                         </div>
                     </div>
@@ -181,11 +184,12 @@
 </div>
 <div class="row" *ngIf="tableData.length == 0 && showLoader">
     <div class=" col-12">
-        <div class="loader-block">
+        <!-- <div class="loader-block">
             <svg id="loader2" viewBox="0 0 100 100">
               <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>
             </svg>
-          </div>
+          </div> -->
+        <div class="modalShow"></div>
     </div>
 </div>
 <div class="row">
