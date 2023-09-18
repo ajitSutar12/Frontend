@@ -5,7 +5,7 @@ const routes: Routes = [{
   path: '',
   component:  NProfitLossComponent,
   data: {
-    title: ' N prof and loss acc',
+    title: ' N profit-loss Account',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

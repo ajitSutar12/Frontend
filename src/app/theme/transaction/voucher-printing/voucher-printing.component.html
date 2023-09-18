@@ -86,7 +86,7 @@
                                 <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select bindValue="TRAN_NO"   [(ngModel)]="voucherNo"
+                                            <ng-select bindValue="TRAN_NO"   [(ngModel)]="voucherNo" (change)="getType2($event)"
                                                 formControlName="VOUCHER_NO">
                                                 <ng-option *ngFor="let values of glDetails" [value]="values">
                                                     {{values.TRAN_NO}}</ng-option>

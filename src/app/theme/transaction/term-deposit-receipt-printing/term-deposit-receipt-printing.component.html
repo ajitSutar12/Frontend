@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row"> 
                                     <div class="col-md-2"> <label for="from no">From A/c Number<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -67,8 +67,8 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <ng-select id="cdropdown" [(ngModel)]="firstno"
-                                                    formControlName="FIRST_NO" bindValue="AC_NO" bindLabel="AC_NO"
-                                                    (focus)="getIntroducer()"
+                                                    formControlName="FIRST_NO"
+                                                    (focus)="getIntroducer()" (change)="getIntTrans($event)"
                                                     placeholder=" From A/c No">
                                                     <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                         {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
@@ -90,7 +90,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <ng-select id="tdropdown" [(ngModel)]="lastno" formControlName="LAST_NO"
-                                                    bindValue="AC_NO" bindLabel="AC_NO"
+                                                    (change)="getIntTrans1($event)"
                                                     (focus)="getIntroducer()" placeholder=" To A/c No">
                                                     <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                         {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option> 
@@ -106,7 +106,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <!-- <div class="row">
                                     <div class="col-sm-5">
                                         <div class="checkbox checkbox-primary">
                                             <div class="border-checkbox-group border-checkbox-group-primary">
@@ -115,10 +115,10 @@
                                                     (change)="isReceivedTds($event)">
 
                                                 <label class="border-checkbox-label" for="IRTDSDFY">Bond Receipt</label>
-                                            </div>
+                                            </div> 
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="row" id="TDSFORM" *ngIf="isTdsForm">
 

@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ProcessACMComponent,
     data: {
-      title: 'Process And Calculation Menu',
+      title: 'Process & Calculation Menu',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

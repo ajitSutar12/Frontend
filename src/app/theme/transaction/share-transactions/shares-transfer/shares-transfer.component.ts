@@ -38,7 +38,7 @@ export class SharesTransferComponent implements OnInit {
   url = environment.base_url;
   selectedBranch
   branchOption: any;
-  showdata:boolean = false;
+  showdata: boolean = false;
   scheme
   schemeCode
   schemeCode1
@@ -122,7 +122,7 @@ export class SharesTransferComponent implements OnInit {
       this.narrationList = data
     });
   }
-  
+
   getNarration(ele) {
     alert("hello")
     this.particulars = ele;
@@ -134,7 +134,7 @@ export class SharesTransferComponent implements OnInit {
     let el: HTMLElement = this.narrationhide.nativeElement;
     el.click();
   }
-  getBranch() {                                                                 
+  getBranch() {
     this.getIntroducer()
   }
   getIntroducer() {
@@ -331,7 +331,7 @@ export class SharesTransferComponent implements OnInit {
   //function for edit button clicked
   editClickHandler(id): void {
     this.http.get(this.url + '/shares-transfer/' + id).subscribe((data: any) => {
-      
+      this.angForm.disable()
       this.updateID = data.id
       if (data.TRAN_STATUS == 0) {
         this.approveShow = true;
@@ -480,6 +480,7 @@ export class SharesTransferComponent implements OnInit {
     }
     else {
       this.http.post(this.url + '/shares-transfer/update', object).subscribe(data => {
+        this.angForm.enable()
         Swal.fire(
           'success', "Data Updated Successfully!!", 'success'
         );
@@ -508,6 +509,7 @@ export class SharesTransferComponent implements OnInit {
       RESULATION_NO: formVal.RESOLUTIONNO,
     }
     this.http.post(this.url + '/shares-transfer/approve', object).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'success', "Data Approved Successfully!!", 'success'
       );
@@ -527,6 +529,7 @@ export class SharesTransferComponent implements OnInit {
       USER_CODE: result.id,
     }
     this.http.post(this.url + '/shares-transfer/reject', object).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'success', "Data Rejected Successfully!!", 'success'
       );
@@ -561,6 +564,7 @@ export class SharesTransferComponent implements OnInit {
       RESULATION_NO: formVal.RESOLUTIONNO,
     }
     this.http.post(this.url + '/shares-transfer/unapprove/ ', object).subscribe(data => {
+      this.angForm.enable()
       Swal.fire(
         'success', "Data Unapproved Successfully!!", 'success'
       );

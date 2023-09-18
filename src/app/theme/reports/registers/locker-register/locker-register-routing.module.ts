@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  LockerRegisterComponent,
     data: {
-      title: 'Locker Register ',
+      title: 'Locker Register',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

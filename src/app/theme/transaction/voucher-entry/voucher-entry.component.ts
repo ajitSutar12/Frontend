@@ -34,6 +34,7 @@ export class VoucherEntryComponent implements OnInit {
   @ViewChild('submitbtn') submitbtn: ElementRef;
   @ViewChild('INTAMT') INTAMT: ElementRef;
   @ViewChild('NOTINTAMT') NOTINTAMT: ElementRef;
+  @ViewChild('token') token: ElementRef;
   @ViewChild('bankNameField') bankNameField: ElementRef;
   @ViewChild('narrationField') narrationField: ElementRef;
   // @ViewChild('tran_mode') tran_mode: ElementRef;
@@ -529,95 +530,102 @@ export class VoucherEntryComponent implements OnInit {
     //debugger
     if (this.angForm.status == "INVALID") {
       this.angForm.markAllAsTouched();
-
     }
-    //debugger
-    let user = JSON.parse(localStorage.getItem('user'));
-    let obj = this.angForm.value;
-    obj['user'] = user;
-    for (let ele of this.headData) {
-      if (ele['INTEREST_DATE_INPUT'] == '0' && ele.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
-        ele['date'] = null
+    else if (this.submitTranMode.tran_drcr == 'D' && (this.angForm.controls['token'].value == 0 || this.angForm.controls['token'].value == null || this.angForm.controls['token'].value == '')) {
+      Swal.fire('warning', 'Please enter token number', 'warning')
+    }
+    // else if (Number(this.angForm.controls['amt'].value) == 0) {
+    //   Swal.fire('Oops!', 'Amount cannot be 0', 'error');
+    // }
+    else {
+      //debugger
+      let user = JSON.parse(localStorage.getItem('user'));
+      let obj = this.angForm.value;
+      obj['user'] = user;
+      for (let ele of this.headData) {
+        if (ele['INTEREST_DATE_INPUT'] == '0' && ele.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          ele['date'] = null
+        }
       }
-    }
-    obj['branch_code'] = this.selectedBranch;
-    obj['InputHead'] = this.headData;
-    obj['scheme'] = this.Submitscheme;
-    obj['account_no'] = this.submitCustomer;
-    obj['tran_mode'] = this.submitTranMode;
-    obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
-    if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
-      let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
-      let amount = Number(this.angForm.controls['amt'].value)
-      if (amount > ledgerbal)
-        obj['isOverdraftTaken'] = 1
-      else
-        obj['isOverdraftTaken'] = 0
-    }
-    console.log(obj);
-    if (Number(this.totalAmt) != 0 && this.totalAmt != undefined && this.totalAmt != '' && this.totalAmt != '0.00' && this.totalAmt != 'NaN.00') {
-      this.disableSubmit = true
-      this._service.insertVoucher(obj).subscribe(data => {
-        this.disableSubmit = false
-        // this.getVoucherData();
-        // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
-        Swal.fire({
-          icon: 'success',
-          title: 'Voucher update Successfully!',
-          html:
-            '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
+      obj['branch_code'] = this.selectedBranch;
+      obj['InputHead'] = this.headData;
+      obj['scheme'] = this.Submitscheme;
+      obj['account_no'] = this.submitCustomer;
+      obj['tran_mode'] = this.submitTranMode;
+      obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
+      if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+        let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+        let amount = Number(this.angForm.controls['amt'].value)
+        if (amount > ledgerbal)
+          obj['isOverdraftTaken'] = 1
+        else
+          obj['isOverdraftTaken'] = 0
+      }
+      // console.log(obj);
+      if (Number(this.totalAmt) != 0 && this.totalAmt != undefined && this.totalAmt != '' && this.totalAmt != '0.00' && this.totalAmt != 'NaN.00') {
+        this.disableSubmit = true
+        this._service.insertVoucher(obj).subscribe(data => {
+          this.disableSubmit = false
+          // this.getVoucherData();
+          // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+          Swal.fire({
+            icon: 'success',
+            title: 'Voucher update Successfully!',
+            html:
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
+          })
+          this.angForm.controls['temp_over_draft'].reset()
+          this.angForm.controls['over_draft'].reset()
+          this.angForm.controls['token'].reset()
+          // this.angForm.controls['particulars'].reset()
+          this.angForm.controls['total_amt'].reset()
+          this.angForm.controls['amt'].reset()
+          this.angForm.controls['slip_no'].reset()
+          this.angForm.controls['tran_mode'].reset()
+          this.angForm.controls['account_no'].reset()
+          this.angForm.controls['scheme'].reset()
+          this.angForm.controls['scheme_type'].reset()
+          this.angForm.controls['type'].reset()
+          this.angForm.controls['chequeDate'].reset()
+          this.angForm.controls['chequeNo'].reset()
+          this.angForm.controls['bank'].reset()
+          this.angForm.patchValue({
+            type: 'cash',
+          })
+          this.type = 'cash';
+          this.headData = [];
+          this.selectedMode = null
+          this.Customer_Name = null
+          this.DayOpBal = 0
+          this.Pass = 0
+          this.Unpass = 0
+          this.sanctionamt = 0
+          this.ClearBalance = 0
+          this.overdraftAmt = 0
+          this.AfterVoucher = 0
+          this.customerImg = 'assets/images/nouser.png';
+          this.signture = 'assets/images/nosignature.png'
+          this.Status = '0'
+          this.Customer_Pan_No = '---'
+          this.Customer_Contact_No = '---'
+          this.headShow = false;
+          this.maturityamt = 0
+          this.depositamt = 0
+          this.expirydate = ''
+          this.sanctiondate = ''
+          this.asondate = ''
+          this.opendate = ''
+          this.renewaldate = ''
+          this.showChequeDetails = false;
+        }, err => {
+          console.log(err);
+          this.disableSubmit = false
         })
-        this.angForm.controls['temp_over_draft'].reset()
-        this.angForm.controls['over_draft'].reset()
-        this.angForm.controls['token'].reset()
-        // this.angForm.controls['particulars'].reset()
-        this.angForm.controls['total_amt'].reset()
-        this.angForm.controls['amt'].reset()
-        this.angForm.controls['slip_no'].reset()
-        this.angForm.controls['tran_mode'].reset()
-        this.angForm.controls['account_no'].reset()
-        this.angForm.controls['scheme'].reset()
-        this.angForm.controls['scheme_type'].reset()
-        this.angForm.controls['type'].reset()
-        this.angForm.controls['chequeDate'].reset()
-        this.angForm.controls['chequeNo'].reset()
-        this.angForm.controls['bank'].reset()
-        this.angForm.patchValue({
-          type: 'cash',
-        })
-        this.type = 'cash';
-        this.headData = [];
-        this.selectedMode = null
-        this.Customer_Name = null
-        this.DayOpBal = 0
-        this.Pass = 0
-        this.Unpass = 0
-        this.sanctionamt = 0
-        this.ClearBalance = 0
-        this.overdraftAmt = 0
-        this.AfterVoucher = 0
-        this.customerImg = 'assets/images/nouser.png';
-        this.signture = 'assets/images/nosignature.png'
-        this.Status = '0'
-        this.Customer_Pan_No = '---'
-        this.Customer_Contact_No = '---'
-        this.headShow = false;
-        this.maturityamt = 0
-        this.depositamt = 0
-        this.expirydate = ''
-        this.sanctiondate = ''
-        this.asondate = ''
-        this.opendate = ''
-        this.renewaldate = ''
-        this.showChequeDetails = false;
-      }, err => {
-        console.log(err);
+      } else {
+        this.swiper.nativeElement.focus()
         this.disableSubmit = false
-      })
-    } else {
-      this.swiper.nativeElement.focus()
-      this.disableSubmit = false
-      Swal.fire('Oops!', 'Invalid Amount Details', 'error');
+        Swal.fire('Oops!', 'Invalid Amount Details', 'error');
+      }
     }
   }
   // Reset Function
@@ -653,6 +661,7 @@ export class VoucherEntryComponent implements OnInit {
     this.angForm.patchValue({
       amt: 0
     })
+    this.totalAmt = 0
     this.submitForm = true
     this.headData = []
     this.submitTranMode = item;
@@ -1999,28 +2008,38 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   checkTokenCondition(event) {
-    let obj = {
-      value: Number(event.target.value),
-      clearBalance: Number(this.ClearBalance),
-      accountNo: this.submitCustomer.BANKACNO,
-      schemeType: this.selectedCode,
-      scheme: this.Submitscheme.S_APPL,
-      tran: this.submitTranMode.tran_drcr,
-      tranMode: this.submitTranMode.id,
-      tran_type: this.submitTranMode.tran_type,
-      odAmount: this.overdraftAmt,
-      currentDate: this.date
-    }
-
-
-    this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
-      if (data != 0) {
-        Swal.fire('Oops!', data.message, 'error');
+    if (Number(event.target.value) != 0 && (event.target.value) != '' && (event.target.value) != null) {
+      let obj = {
+        value: Number(event.target.value),
+        clearBalance: Number(this.ClearBalance),
+        accountNo: this.submitCustomer.BANKACNO,
+        schemeType: this.selectedCode,
+        scheme: this.Submitscheme.S_APPL,
+        tran: this.submitTranMode.tran_drcr,
+        tranMode: this.submitTranMode.id,
+        tran_type: this.submitTranMode.tran_type,
+        odAmount: this.overdraftAmt,
+        currentDate: this.date
       }
-    }, err => {
-      console.log(err);
-    })
-
+      this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
+        if (data != 0) {
+          Swal.fire('Oops!', data.message, 'error');
+        }
+      }, err => {
+        console.log(err);
+      })
+    }
+    else {
+      // Swal.fire('warning', 'Please enter token number', 'warning')
+      Swal.fire({
+        // position: 'top-end',
+        icon: 'warning',
+        title: 'Please enter token number',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.token.nativeElement.focus();
+    }
   }
 
   ngAfterViewInit(): void {

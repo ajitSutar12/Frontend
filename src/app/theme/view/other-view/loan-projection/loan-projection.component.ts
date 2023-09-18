@@ -25,7 +25,7 @@ export class LoanProjectionComponent implements OnInit {
   angForm: FormGroup;
   repay: string
   resultData: any;
-
+  modalClass: string = 'modalHide';
   installmentType: string
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
 
@@ -122,9 +122,13 @@ export class LoanProjectionComponent implements OnInit {
   Process() {
     let obj = this.angForm.value;
     obj['user'] = JSON.parse(localStorage.getItem('user'));
+    this.modalClass = 'modalShow';
     this._services.loanProjection(obj).subscribe(data => {
-      console.log(data);
+      this.modalClass = 'modalHide';
+      // console.log(data);
       this.resultData = data.result;
+    }, err => {
+      this.modalClass = 'modalHide';
     })
   }
   close() {

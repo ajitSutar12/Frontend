@@ -7,7 +7,7 @@ const routes: Routes = [
     path: 'depositSizeWiseBalanceComponent',
     component: DepositSizeWiseBalanceComponent,
     data: {
-      title: 'Dt Size Wise Baln',
+      title: 'Deposit Wise Balance',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

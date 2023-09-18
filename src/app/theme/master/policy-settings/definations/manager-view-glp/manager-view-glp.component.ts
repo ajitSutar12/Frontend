@@ -169,7 +169,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
           title: 'Sr. No',
           data: 'SR_NO'
         }, {
-          title: 'Type',
+          title: '  Type  ',
           data: 'TYPE'
         }, {
           title: 'Statement Code',
