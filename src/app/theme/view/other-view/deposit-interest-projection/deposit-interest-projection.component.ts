@@ -37,6 +37,7 @@ export class DepositInterestProjectionComponent implements OnInit {
   result: number;
   i: number;
   resultData: any;
+  modalClass: string = 'modalHide';
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private _termDepositScheme: TermDepositSchemeService,
@@ -555,7 +556,6 @@ export class DepositInterestProjectionComponent implements OnInit {
 
   Process() {
     let formVal = this.ngForm.value;
-
     let obj = {
       cmDepositAmount: formVal.DEPO_AMT,
       cmIntRate: formVal.INT_RATE,
@@ -564,13 +564,14 @@ export class DepositInterestProjectionComponent implements OnInit {
       cmMonths: formVal.AC_MONTHS,
       cmDays: formVal.AC_DAYS
     }
-
-
-
     obj['user'] = JSON.parse(localStorage.getItem('user'));
+    this.modalClass = 'modalShow';
     this._services.depositProjection(obj).subscribe(data => {
-      console.log(data);
+      this.modalClass = 'modalHide';
+      // console.log(data);
       this.resultData = data;
+    }, err => {
+      this.modalClass = 'modalHide';
     })
   }
 
