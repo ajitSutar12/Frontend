@@ -119,7 +119,7 @@ export class BnkTDStatementComponent implements OnInit{
       Starting_Date: ['', [Validators.required]],
       Ending_Date: ['', [Validators.required]],
       // Print_Every_Account_on_New_Page: [''],
-      Print_Closed_Account: [''],
+      // Print_Closed_Account: [''],
       Print_Added_Penal_Interest: [''],
       Print_Concise_Report: [''],
     });

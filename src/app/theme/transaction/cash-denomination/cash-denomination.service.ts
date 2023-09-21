@@ -63,4 +63,8 @@ export class CashDenominationService {
   cashiertosafevault(data):Observable<any>{
     return this.http.post(this.url+'/accept-denomination/cashiertosafevault',data);
   }
+
+  safevaulttocashier(data):Observable<any>{
+    return this.http.post(this.url+'/accept-denomination/safevaulttocashier',data);
+  }
 }
