@@ -111,7 +111,7 @@ export class BnkLNamtStatementComponent implements OnInit {
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
       Starting_Account: ['', [Validators.required]],
-      Ending_Account: ['', [Validators.required]],
+      // Ending_Account: ['', [Validators.required]],
       Starting_Date: ['', [Validators.required]],
       Ending_Date: ['', [Validators.required]],
       Print_Closed_Account: [''],
@@ -206,7 +206,7 @@ export class BnkLNamtStatementComponent implements OnInit {
      var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY'); 
      let branch = obj.BRANCH_CODE;
       let startingcode= obj.Starting_Account;
-     let endingcode =obj.Ending_Account;
+    //  let endingcode =obj.Ending_Account;
      let PrintEveryAccountonNewPage=obj.Print_Every_Account_on_New_Page;
      let PrintClosedAccount=obj.Print_Closed_Account;
      let PrintAddedPenalInterest=obj.Print_Added_Penal_Interest;
@@ -214,7 +214,7 @@ export class BnkLNamtStatementComponent implements OnInit {
      let scheme=obj.Scheme_code;
   
  
-    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ endingcode +"&scheme= "+scheme+
+    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ startingcode +"&scheme= "+scheme+
                     " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     
@@ -261,7 +261,7 @@ export class BnkLNamtStatementComponent implements OnInit {
       this.ngForm.controls.BRANCH_CODE.reset();
       this.ngForm.controls.Scheme_code.reset();
       this.ngForm.controls.Starting_Account.reset();
-      this.ngForm.controls.Ending_Account.reset();
+      // this.ngForm.controls.Ending_Account.reset();
       this.showRepo = false;
       this.clicked=false;
     }

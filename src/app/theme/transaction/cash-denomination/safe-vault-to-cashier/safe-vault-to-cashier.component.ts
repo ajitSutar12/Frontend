@@ -60,7 +60,7 @@ export class SafeVaultToCashierComponent implements OnInit {
       TRAN_DATE: ['', [Validators.required]],
       DENOMINATION_AMT: ['', [Validators.required]],
       Branch: ['', [Validators.required]],
-      Available: ['']
+      // Available: ['']
     })
     this.systemParameter.getFormData(1).subscribe(data => {
       this.angForm.patchValue({
@@ -151,9 +151,16 @@ export class SafeVaultToCashierComponent implements OnInit {
     }
   }
   submit() {
-    let object = this.angForm.value;
+    // let object = this.angForm.value;
     const formVal = this.angForm.value;
 
+
+    var object =
+    {
+      data: this.angForm.value,
+      currency: this.currencyData,
+      user: JSON.parse(localStorage.getItem('user'))
+    }
     if (formVal.DENOMINATION_AMT != this.sum) {
       Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
     }
@@ -168,7 +175,7 @@ export class SafeVaultToCashierComponent implements OnInit {
         confirmButtonText: 'Yes, transfer it!'
       }).then((result) => {
         if (result.isConfirmed) {
-          this._service.cashiertosafevault(object).subscribe(data => {
+          this._service.safevaulttocashier(object).subscribe(data => {
             Swal.fire(
               'Transferd!',
               'Your cash has been transfered.',

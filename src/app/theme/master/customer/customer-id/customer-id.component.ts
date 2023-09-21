@@ -522,7 +522,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
-        'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
+        'AC_MEMBTYPE': formVal.AC_MEMBTYPE, 
         'AC_MEMBNO': formVal.AC_MEMBNO,
         'AC_TITLE': formVal.AC_TITLE,
         'F_NAME': formVal.F_NAME?.toUpperCase(),
