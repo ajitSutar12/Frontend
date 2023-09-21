@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { BankMasterService } from '../../../../shared/dropdownService/bank-Master-dropdown.service';
-import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { ClearingbranchMasterService } from '../../../../shared/dropdownService/clearing-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { InvestmentService } from './account-opening.service';
@@ -112,7 +112,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   minDate: Date
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
-    private ownbranchMasterService: OwnbranchMasterService,
+    private ownbranchMasterService: ClearingbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private bankService: BankService,
     private investmentService: InvestmentService,
@@ -245,7 +245,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     this.bankMasterService.getBankList().pipe(first()).subscribe(data => {
       this.BankCode = data;
     })
-    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+    this.ownbranchMasterService.getClearingbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
     })
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
@@ -625,4 +625,5 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       AC_EXPDT: expiryDate
     })
   }
-}
+  
+} 
