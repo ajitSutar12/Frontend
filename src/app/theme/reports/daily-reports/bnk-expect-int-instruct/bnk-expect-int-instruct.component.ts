@@ -153,7 +153,9 @@ export class BnkExpectIntInstructComponent implements OnInit {
 
 
       this.iframe1url = this.report_url + "examples/InterestExecutionListDebit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
+      console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });

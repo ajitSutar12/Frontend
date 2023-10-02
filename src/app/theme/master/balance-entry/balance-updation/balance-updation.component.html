@@ -11,9 +11,11 @@
                 (ngSubmit)="submit();BRANCH_CODE.focus()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
+
                         <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch Code<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
@@ -34,10 +36,12 @@
                                     This field is required.
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme Code<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
@@ -58,6 +62,7 @@
                                     This field is required.
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
                         <div class="col-sm-12 col-md-2">
@@ -105,6 +110,7 @@
                         <div class="col-sm-12 col-md-2"> <label for="TO_AC">To Account Number<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
@@ -125,6 +131,7 @@
                                     This field is required.
                                 </div>
                             </div>
+
                         </div>
 
                     </div>

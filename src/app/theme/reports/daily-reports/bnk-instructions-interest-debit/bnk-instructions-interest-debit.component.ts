@@ -174,7 +174,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let branched = obj.BRANCH_CODE;
       let success = obj.RADIO;
       let flag = obj.FREQUENCY;
-      let frequency
+      let frequency: string;
 
       if(flag == 'Monthly')
       {
@@ -192,7 +192,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
         frequency = 'H'
       }else if(flag == 'None')
       {
-        frequency = 'N'
+        frequency = 'None'
       }
 
 
