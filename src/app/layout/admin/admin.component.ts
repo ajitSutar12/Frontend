@@ -592,11 +592,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   onClickedOutsideSidebar(e: Event) {
-    if ((this.windowWidth <= 992 && this.toggleOn && this.verticalNavType !== 'offcanvas') || this.verticalEffect === 'overlay') {
+    // if ((this.windowWidth <= 992 && this.toggleOn && this.verticalNavType !== 'offcanvas') || this.verticalEffect === 'overlay') {
       this.toggleOn = true;
       this.verticalNavType = 'offcanvas';
       this.toggleIcon = 'icon-toggle-left';
-    }
+    // }
   }
 
   toggleRightbar() {
