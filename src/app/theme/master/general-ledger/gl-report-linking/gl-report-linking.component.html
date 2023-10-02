@@ -43,7 +43,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="EFFECT_DATE"
-                                            id="EFFECT_DATE" class="form-control " [maxDate]="maxDate" minlength="8" maxlength="10"
+                                            id="EFFECT_DATE" class="form-control " [maxDate]="maxDate" minlength="10" maxlength="10"
                                             [(ngModel)]="effectdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
                                             placement="right" formControlName="EFFECT_DATE" bsDatepicker required>
@@ -66,7 +66,7 @@
                                     <span class="border-lable-flt">
                                         <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="EFFECT_TO_DATE"
                                             id="EFFECT_TO_DATE" class="form-control " [minDate]="effectdate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" minlength="8" maxlength="10"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" minlength="10"s maxlength="10"
                                             #EFFECT_TO_DATE="bsDatepicker" (keydown.Tab)="EFFECT_TO_DATE.hide()"
                                             placement="right" formControlName="EFFECT_TO_DATE" bsDatepicker required>
                                     </span>

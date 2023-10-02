@@ -113,17 +113,18 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     // this.maxDate.setDate(this.maxDate.getDate())
- 
+
     this.systemParameter.getFormData(1).subscribe(data => {
- 
+
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d 
+      this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
     })
 
   }
 
   ngOnInit(): void {
+    console.log(this.Accountno, this.scheme, this.AC_ACNOTYPE, this.sec_code, this.branchCode)
     this.createForm();
     // Fetching Server side data
     this.dtExportButtonOptions = {
@@ -132,114 +133,114 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'ftip'
     }
 
-   
+
     this.loadTable();
 
     this.dtTrigger.next();
 
 
-    this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/vehicle",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.vehiclemasters = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/vehicle",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.vehiclemasters = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
 
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "RTO Registration Date",
-          data: "RTO_REG_DATE",
-        },
-        {
-          title: "Vehicle Make.",
-          data: "VEHICLE_MAKE",
-        },
-        {
-          title: "Year of Manufacture",
-          data: "MANUFACTURE_YEAR",
-        },
-        {
-          title: "Vehicle No.",
-          data: "VEHICLE_NO",
-        },
-        {
-          title: "Chassis No",
-          data: "CHASSIS_NO",
-        },
-        {
-          title: "Date of Acquisition",
-          data: "AQUISITION_DATE",
-        },
-        {
-          title: "New Vehicle",
-          data: "NEW_VEHICLE",
-        },
-        {
-          title: "Supplier Name",
-          data: "SUPPLIER_NAME",
-        },
-        {
-          title: "Purchase Price",
-          data: "PURCHASE_PRICE",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "RTO Registration Date",
+    //       data: "RTO_REG_DATE",
+    //     },
+    //     {
+    //       title: "Vehicle Make.",
+    //       data: "VEHICLE_MAKE",
+    //     },
+    //     {
+    //       title: "Year of Manufacture",
+    //       data: "MANUFACTURE_YEAR",
+    //     },
+    //     {
+    //       title: "Vehicle No.",
+    //       data: "VEHICLE_NO",
+    //     },
+    //     {
+    //       title: "Chassis No",
+    //       data: "CHASSIS_NO",
+    //     },
+    //     {
+    //       title: "Date of Acquisition",
+    //       data: "AQUISITION_DATE",
+    //     },
+    //     {
+    //       title: "New Vehicle",
+    //       data: "NEW_VEHICLE",
+    //     },
+    //     {
+    //       title: "Supplier Name",
+    //       data: "SUPPLIER_NAME",
+    //     },
+    //     {
+    //       title: "Purchase Price",
+    //       data: "PURCHASE_PRICE",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
   }
 
   createForm() {
@@ -276,12 +277,12 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
         SECU_CODE: this.sec_code,
         'SUBMISSION_DATE': (formVal.SUBMISSION_DATE == '' || formVal.SUBMISSION_DATE == 'Invalid date') ? submissiondate = '' : submissiondate = moment(formVal.SUBMISSION_DATE).format('DD/MM/YYYY'),
 
-        RTO_REG_DATE: formVal.RTO_REG_DATE,
+        RTO_REG_DATE: (formVal.RTO_REG_DATE == '' || formVal.RTO_REG_DATE == null || formVal.RTO_REG_DATE == 'Invalid date') ? '' : moment(formVal.RTO_REG_DATE).format('DD/MM/YYYY'),
         VEHICLE_MAKE: formVal.VEHICLE_MAKE,
         MANUFACTURE_YEAR: formVal.MANUFACTURE_YEAR,
         VEHICLE_NO: formVal.VEHICLE_NO,
         CHASSIS_NO: formVal.CHASSIS_NO,
-        'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
+        'AQUISITION_DATE': (formVal.AQUISITION_DATE == '' || formVal.AQUISITION_DATE == null || formVal.AQUISITION_DATE == 'Invalid date') ? acquisitiondate = '' : acquisitiondate = moment(formVal.AQUISITION_DATE).format('DD/MM/YYYY'),
 
         NEW_VEHICLE: (formVal.NEW_VEHICLE == true ? '1' : '0'),
         SUPPLIER_NAME: formVal.SUPPLIER_NAME,
@@ -316,8 +317,8 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   }
-  loadTable(){
-   
+  loadTable() {
+
     let obj = {
       scheme: this.scheme,
       ac_no: this.Accountno,
@@ -325,12 +326,12 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       branch: this.branchCode
     }
     this._vehicle.getdatatable(obj).pipe(first()).subscribe((data) => {
-      this.vehiclemasters =this.sort_by_key(data, 'SUBMISSION_DATE');
+      this.vehiclemasters = this.sort_by_key(data, 'SUBMISSION_DATE');
     })
-      
-  
+
+
   }
-  
+
   sort_by_key(array: any, key: any) {
     return array.sort(function (a: any, b: any) {
       let p = moment(a[key], 'DD/MM/YYYY');
@@ -424,15 +425,18 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.updatecheckdata.AQUISITION_DATE != data.AQUISITION_DATE) {
       (data.AQUISITION_DATE == 'Invalid date' || data.AQUISITION_DATE == '' || data.AQUISITION_DATE == null) ? (acquisitiondate = '', data['AQUISITION_DATE'] = acquisitiondate) : (acquisitiondate = data.AQUISITION_DATE, data['AQUISITION_DATE'] = moment(acquisitiondate).format('DD/MM/YYYY'))
     }
+    if (this.updatecheckdata.RTO_REG_DATE != data.RTO_REG_DATE) {
+      (data.RTO_REG_DATE == 'Invalid date' || data.RTO_REG_DATE == '' || data.RTO_REG_DATE == null) ? (data['RTO_REG_DATE'] = '') : (data['RTO_REG_DATE'] = moment(data.RTO_REG_DATE).format('DD/MM/YYYY'))
+    }
     this._vehicle.updateData(data).subscribe(() => {
       console.log(data);
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-
+      // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      //   dtInstance.ajax.reload()
+      // });
+      this.loadTable();
       this.resetForm();
     });
   }
