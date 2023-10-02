@@ -12,7 +12,7 @@ ng-select.ng-select>div>div.single {
     border-radius: 0.25rem;
     height: 6em;
     opacity: 1 !important;
-  
+
 }
 
 #ngselect {
@@ -29,7 +29,7 @@ ng-select.ng-select>div>div.single {
     user-select: none;
     width: 100%;
     height: 36px !important;
-   
+
 }
 
 #custicon {
@@ -904,7 +904,8 @@ input[type="file" i]::-webkit-file-upload-button {
 }
 
 .main-body .page-wrapper {
-    padding: 0.5rem;
+    // padding: 0.5rem;
+    padding-top: 0.1rem;
     padding-bottom: 5% !important;
     transition: all ease-in 0.3s;
 }
@@ -999,6 +1000,7 @@ tr:hover {
 .form-control {
     color: #1d2022 !important;
 }
+
 .scroll {
     width: 100%;
     height: 500px;
@@ -1009,4 +1011,3 @@ tr:hover {
     overflow-x: hidden;
 
 }
-
