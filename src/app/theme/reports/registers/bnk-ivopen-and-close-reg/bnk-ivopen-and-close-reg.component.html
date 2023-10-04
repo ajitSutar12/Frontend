@@ -10,9 +10,9 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="BRANCH_CODE">Branch<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="BRANCH_CODE">Branch<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
@@ -31,8 +31,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="scheme_code">Scheme</label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-2"> <label for="scheme_code">Scheme</label></div>
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="scheme_code" bindValue="value" bindLabel="label"
@@ -50,9 +50,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"> <label for="START_DATE">Starting Date<sub class="required">*</sub></label>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
@@ -71,8 +73,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label></div>
-                        <div class="col-md-2">
+                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label></div>
+                        <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
@@ -94,7 +96,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>

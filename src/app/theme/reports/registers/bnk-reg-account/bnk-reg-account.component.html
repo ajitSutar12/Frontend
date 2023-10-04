@@ -11,9 +11,9 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="BRANCH_CODE">Branch<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="BRANCH_CODE">Branch<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
@@ -32,9 +32,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
@@ -57,7 +57,7 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="ACOPEN" formControlName="ACOPEN" value="ACOPEN" [checked]="true">
+                                        <input type="radio" name="ACOPEN" formControlName="ACCLOSE" value="ACOPEN" [checked]="true">
                                         <i class="helper"></i>Account Open</label> 
                                 </div>
                                 <div class="radio radio-inline">
@@ -69,9 +69,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
@@ -91,9 +91,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">End Date<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
@@ -136,7 +136,22 @@
                     </div>
 
 
-                    <div class="row"></div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="ACOPEN" formControlName="ACOPEN" value="ACOPEN" [checked]="true">
+                                        <i class="helper"></i>Account Open</label> 
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="ACOPEN" formControlName="ACCLOSE" value="ACCLOSE">
+                                        <i class="helper"></i>Account Closed </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-2">

@@ -252,8 +252,7 @@
                                     <span class="border-lable-flt" autofocus>
                                         <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST"
                                             bindLabel="label" #cast (focus)="onFocus(cast)" [selectOnTab]='true'
-                                            [virtualScroll]="true" formControlName="AC_CAST" #cast
-                                            [dropdownPosition]="'bottom'">
+                                            [virtualScroll]="true" formControlName="AC_CAST"   [dropdownPosition]="'bottom'">
                                             <ng-option *ngFor="let values of castMaster" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -803,7 +802,8 @@
                                                                         id="editbutton"
                                                                         style="color: green;font-size: 20px;"
                                                                         placement="left"
-                                                                        ngbTooltip="file uploaded"></span> &nbsp;
+                                                                        ngbTooltip="file uploaded"></span>
+                                                                    &nbsp;
                                                                     <span *ngIf="!data.status"
                                                                         class="fa fa-times-circle-o" id="editbutton"
                                                                         style="color: red;font-size: 20px;"
