@@ -186,7 +186,7 @@ maxDate: Date;
     let branch = obj.BRANCH_CODE;
     let schemeName = this.tScheme
     
-    if (obj.R_TYPE == 'deposit') {
+    if (obj.R_TYPE == 'deposit') { 
 
       this.iframe5url=this.report_url+ "examples/TermDepositInterestList1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&branchName='" + this.branchName + "'&branch_code='" + branch + "'";
      
@@ -197,7 +197,7 @@ maxDate: Date;
 
       this.iframe5url=this.report_url+ "examples/LoanInterestList1.php?Branchname='" + this.branchName + "'&date='" + obj.date + "'&Branch='" + bankName + "'&branch_code=" + branch + "";
       console.log(this.iframe5url); 
-      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 
     }
     else if (obj.R_TYPE == 'pigmy') {

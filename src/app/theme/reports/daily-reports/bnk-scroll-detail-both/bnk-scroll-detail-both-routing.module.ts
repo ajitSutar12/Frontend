@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkScrollDetailBothComponent,
     data: {
-      title: 'Scroll Book DT/CR',
+      title: 'ScrollBook Debit/Credit',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

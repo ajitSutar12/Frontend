@@ -6,7 +6,7 @@ const routes: Routes = [ {
   path: '',
   component:  BnkAmbalListComponent,
   data: {
-    title: 'Amtwise Bal-List',
+    title: 'Amount Balance List',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

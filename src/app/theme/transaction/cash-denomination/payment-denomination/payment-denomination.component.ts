@@ -51,6 +51,7 @@ export class PaymentDenominationComponent implements OnInit {
 
   ]
   transactionAmt: any;
+  cashier_list: any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
@@ -117,6 +118,16 @@ export class PaymentDenominationComponent implements OnInit {
 
     })
     this.cashierName = user.F_NAME +' '+user.L_NAME;
+
+      //  Get Cashier List
+      this._service.getList({ branch_id: user.branchId }).subscribe(data => {
+        this.cashier_list = data;
+        console.log(data);
+        
+        const result = this.cashier_list.find((CASHIER_CODE) => CASHIER_CODE.CASHIER_CODE == user.id);
+        console.log(result)
+        this.changeData(result)
+      })
 
   })
   }
@@ -229,4 +240,19 @@ submit() {
     else
       event.target.value = 0
   } 
+
+  changeData(user) {
+    console.log(user)
+    this.currencyData[0].available = user.DENO_2000;
+    this.currencyData[1].available = user.DENO_1000;
+    this.currencyData[2].available = user.DENO_500;
+    this.currencyData[3].available = user.DENO_200;
+    this.currencyData[4].available = user.DENO_100;
+    this.currencyData[5].available = user.DENO_50;
+    this.currencyData[6].available = user.DENO_20;
+    this.currencyData[7].available = user.DENO_10;
+    this.currencyData[8].available = user.DENO_5;
+    this.currencyData[9].available = user.DENO_2;
+    this.currencyData[10].available = user.DENO_1;
+  }
 }

@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  BnkDptambalListComponent,
     data: {
-      title: 'Deposite Amountwise List',
+      title: 'Deposit Amount List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

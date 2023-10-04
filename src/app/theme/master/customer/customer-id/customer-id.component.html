@@ -43,13 +43,14 @@
 
                     <div class="row">
                         <div class="col-sm-2">
+                            <!-- <div class="city"> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngTitle" id="AC_TITLE"
-                                        bindLabel="label" formControlName="AC_TITLE" title="Compulsory Selection"
-                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)" [selectOnTab]='true'
-                                        autofocus>
+                                    <ng-select class="sticky-drpodown" appTheme bindValue="value" [(ngModel)]="ngTitle"
+                                        id="AC_TITLE" bindLabel="label" formControlName="AC_TITLE"
+                                        title="Compulsory Selection" [virtualScroll]="true"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="" #AC_TITLE
+                                        (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus>
 
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
@@ -64,6 +65,7 @@
                                     This is required field
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
@@ -148,24 +150,26 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select appTheme bindValue="regValue" [(ngModel)]="ngTitlereg" id="AC_TITLE_REG"
-                                        bindLabel="regValue" formControlName="AC_TITLE_REG" title="Compulsory Selection"
-                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="" #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)"
-                                        [selectOnTab]='true'>
-                                        <ng-option *ngFor="let values of regPrifix" [value]="values">
-                                            {{values.regValue}} </ng-option>
-                                    </ng-select>
-                                    <label for="AC_TYPE">Regional Title <sub class="required"> * </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_TITLE_REG'].invalid && (angForm.controls['AC_TITLE_REG'].dirty || angForm.controls['AC_TITLE_REG'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TITLE_REG'].errors?.required">
-                                    This field is required
+                            <div class="city">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select appTheme bindValue="regValue" [(ngModel)]="ngTitlereg"
+                                            id="AC_TITLE_REG" bindLabel="regValue" formControlName="AC_TITLE_REG"
+                                            title="Compulsory Selection" [virtualScroll]="true"
+                                            [ngClass]="{'form-submitted': formSubmitted}" required placeholder=""
+                                            #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)" [selectOnTab]='true'>
+                                            <ng-option *ngFor="let values of regPrifix" [value]="values">
+                                                {{values.regValue}} </ng-option>
+                                        </ng-select>
+                                        <label for="AC_TYPE">Regional Title <sub class="required"> * </sub></label>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_TITLE_REG'].invalid && (angForm.controls['AC_TITLE_REG'].dirty || angForm.controls['AC_TITLE_REG'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_TITLE_REG'].errors?.required">
+                                        This field is required
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -243,45 +247,52 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" autofocus>
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST"
-                                        bindLabel="label" #cast (focus)="onFocus(cast)" [selectOnTab]='true'
-                                        [virtualScroll]="true" formControlName="AC_CAST" #cast>
-                                        <ng-option *ngFor="let values of castMaster" [value]="values">
-                                            {{values.label}} </ng-option>
-                                    </ng-select>
-                                    <label for="AC_CAST">Cast</label>
-                                </span>
+                            <div class="city">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" autofocus>
+                                        <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST"
+                                            bindLabel="label" #cast (focus)="onFocus(cast)" [selectOnTab]='true'
+                                            [virtualScroll]="true" formControlName="AC_CAST"   [dropdownPosition]="'bottom'">
+                                            <ng-option *ngFor="let values of castMaster" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+                                        <label for="AC_CAST">Cast</label>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" autofocus>
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
-                                        #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true'
-                                        [virtualScroll]="true" bindLabel="label" formControlName="AC_OCODE"
-                                        placeholder="Occupation">
-                                        <ng-option *ngFor="let values of occupation" [value]="values">
-                                            {{values.label}} </ng-option>
-                                    </ng-select>
-                                    <label for="AC_OCODE">Occupation</label>
-                                </span>
-                            </div>
+                            <!-- <div class="city"> -->
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" autofocus>
+                                        <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
+                                            #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true'
+                                            [virtualScroll]="true" bindLabel="label" formControlName="AC_OCODE"
+                                            placeholder="Occupation" [dropdownPosition]="'bottom'">
+                                            <ng-option *ngFor="let values of occupation" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+                                        <label for="AC_OCODE">Occupation</label>
+                                    </span>
+                                </div>
+                            <!-- </div> -->
                         </div>
                         <div class="col-sm-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" autofocus>
-                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG"
-                                        bindLabel="label" #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)"
-                                        [selectOnTab]='true' [virtualScroll]="true" formControlName="AC_RISKCATG"
-                                        placeholder="Risk Category">
-                                        <ng-option *ngFor="let values of risk" [value]="values">
-                                            {{values.label}} </ng-option>
-                                    </ng-select>
-                                    <label for="AC_RISKCATG">Risk Category </label>
-                                </span>
-                            </div>
+
+                            <!-- <div class="city"> -->
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" autofocus>
+                                        <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG"
+                                            bindLabel="label" #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)"
+                                            [selectOnTab]='true' [virtualScroll]="true" formControlName="AC_RISKCATG"
+                                            placeholder="Risk Category">
+                                            <ng-option *ngFor="let values of risk" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+                                        <label for="AC_RISKCATG">Risk Category </label>
+                                    </span>
+                                </div>
+                            <!-- </div> -->
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
@@ -312,7 +323,8 @@
                                         pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
                                         style="text-transform:uppercase;"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
-                                        maxlength="10" id="AC_PANNO" formControlName="AC_PANNO">
+                                        minlength="10" maxlength="10" id="AC_PANNO" formControlName="AC_PANNO"
+                                        (focusout)=" checkPancard()">
                                     <label for="AC_PANNO">Pan Number</label>
                                     <!-- (focusout)=" checkPancard()" -->
                                 </span>
@@ -321,8 +333,8 @@
                                 *ngIf="angForm.controls['AC_PANNO'].invalid && (angForm.controls['AC_PANNO'].dirty || angForm.controls['AC_PANNO'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_PANNO'].errors?.pattern || angForm.controls['AC_PANNO'].errors?.maxlength">
-                                    Enter Uppercase letters and digits only
+                                    *ngIf="angForm.controls['AC_PANNO'].errors?.pattern || angForm.controls['AC_PANNO'].errors?.minlength">
+                                    Enter Uppercase letters and digits only(It should have 10 letters and digits)
                                 </div>
                             </div>
                         </div>
@@ -448,23 +460,25 @@
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
-                                        bindLabel="CITY_NAME" formControlName="AC_CTCODE" title="Compulsory Selection"
-                                        #City (focus)="onFocus(City)" [selectOnTab]='true' [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="City" required>
+                                    <ng-select appTheme id="AC_CTCODE" [items]="city" bindValue="id"
+                                        [(ngModel)]="ngCity" bindLabel="CITY_NAME" formControlName="AC_CTCODE"
+                                        title="Compulsory Selection" #City (focus)="onFocus(City)" [selectOnTab]='true'
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
+                                        placeholder="City" required>
 
-                                    </ng-select>
-                                    <label for="AC_CTCODE">City<sub class="required">*
-                                        </sub></label>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_CTCODE'].errors?.required">
-                                    This field is required.
+                                        </ng-select>
+                                        <label for="AC_CTCODE">City<sub class="required">*
+                                            </sub></label>
+                                    </span>
                                 </div>
-                            </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AC_CTCODE'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            <!-- </div> -->
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group input-group">
@@ -633,10 +647,11 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appButton type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE" id="SUBMIT_DATE"
-                                        class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" minlength="8" 
-                                        maxlength="10" [(ngModel)]="ngSubmitDate" placement="top"
+                                    <input appButton type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE"
+                                        id="SUBMIT_DATE" class="form-control"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" minlength="8" maxlength="10"
+                                        [(ngModel)]="ngSubmitDate" placement="top"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="SUBMIT_DATE" [bsValue]="bsValue" #SUBMIT_DATE="bsDatepicker"
                                         (keydown.Tab)="SUBMIT_DATE.hide()" bsDatepicker>
@@ -787,7 +802,8 @@
                                                                         id="editbutton"
                                                                         style="color: green;font-size: 20px;"
                                                                         placement="left"
-                                                                        ngbTooltip="file uploaded"></span> &nbsp;
+                                                                        ngbTooltip="file uploaded"></span>
+                                                                    &nbsp;
                                                                     <span *ngIf="!data.status"
                                                                         class="fa fa-times-circle-o" id="editbutton"
                                                                         style="color: red;font-size: 20px;"
@@ -886,9 +902,9 @@
                                     id="customermastertable">
                                     <tbody *ngIf="customerMaster?.length != 0">
                                         <tr *ngFor="let data of customerMaster">
-                                            <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"  onclick="this.blur()"
-                                                    (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
-                                                    ngbTooltip="Edit"></span>
+                                            <td> <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                    onclick="this.blur()" (click)="editClickHandler(data.id);gotoTop()"
+                                                    placement="bottom" ngbTooltip="Edit"></span>
                                             </td>
                                             <td class="td_right">{{data.AC_NO}}</td>
                                             <td class="td_right"

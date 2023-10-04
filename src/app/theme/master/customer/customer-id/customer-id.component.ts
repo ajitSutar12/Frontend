@@ -205,6 +205,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   filenotuploaded: boolean = true
   FinYear = '';
   autofacus: boolean = false;
+  
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -522,7 +523,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
-        'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
+        'AC_MEMBTYPE': formVal.AC_MEMBTYPE, 
         'AC_MEMBNO': formVal.AC_MEMBNO,
         'AC_TITLE': formVal.AC_TITLE,
         'F_NAME': formVal.F_NAME?.toUpperCase(),
@@ -737,7 +738,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   customerDoc
   //Method for append data into fields
   editClickHandler(id) {
-    debugger
     this.autofacus = false;
     this.showButton = false;
     this.updateShow = true;
@@ -774,7 +774,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_ADDR: data.custAddress[0]?.AC_ADDR,
           AC_GALLI: data.custAddress[0]?.AC_GALLI,
           AC_AREA: data.custAddress[0]?.AC_AREA,
-          AC_CTCODE: data.custAddress[0]?.AC_CTCODE,
+          AC_CTCODE: Number(data.custAddress[0]?.AC_CTCODE),
           AC_PIN: data.custAddress[0]?.AC_PIN,
           AC_SALARYDIVISION_CODE: data.AC_SALARYDIVISION_CODE,
           AC_PANNO: data.AC_PANNO,
@@ -868,6 +868,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_NAME_REG'] = (data.L_NAME_REG + ' ' + data.F_NAME_REG + ' ' + data.M_NAME_REG)?.toUpperCase()
     data['AC_ADD_REG'] = data.AC_ADD_REG
     data['BRANCH_CODE'] = branchCode
+    data['AC_PANNO'] = data.AC_PANNO
+
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
     }
@@ -885,29 +887,29 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               if (id.id != this.updateID) {
                 Swal.fire({
                   icon: 'info',
-                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
+                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.AC_NO,
                 })
-                this.angForm.controls['AC_ADHARNO'].reset();
+                // this.angForm.controls['AC_ADHARNO'].reset();
               }
             }
           }
         }
         else {
-          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
-            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
-              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
-                if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
-                  if (id.id != this.angForm.controls['AC_NO'].value) {
-                    Swal.fire({
-                      icon: 'info',
-                      title: 'This Customer is Already Exists Having Customer ID ' + id.id
-                    })
-                    this.resetForm();
-                  }
-                }
+          // if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+          //   if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+          if (data.find(data => data['AC_NAME'] == this.angForm.controls['AC_NAME'].value?.toUpperCase())) {
+            if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+              let id = data.find(data => data['AC_NAME'] == this.angForm.controls['AC_NAME'].value?.toUpperCase())
+              if (id.AC_NO != this.angForm.controls['AC_NO'].value) {
+                Swal.fire({
+                  icon: 'info',
+                  title: 'This Customer is Already Exists Having Customer ID ' + id.AC_NO
+                })
+                this.resetForm();
               }
             }
+            // }
+            // }
           }
         }
       }
@@ -1220,107 +1222,131 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   checkCustomer() {
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
-        if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
-          if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
-            if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
-              let id = data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())
-              Swal.fire({
-                title: "Are you sure?",
-                text: "This Customer is Already Exists Having Customer ID " + id.id,
-                //   html:
-                // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
-                // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
+        let ac_name = this.lname + ' ' + this.fname + ' ' + this.mname
+        // if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+        //   if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+        if (data.find(data => data['AC_NAME'] == ac_name?.toUpperCase())) {
+          let id = data.find(data => data['AC_NAME'] == ac_name?.toUpperCase())
+          Swal.fire({
+            title: "Are you sure?",
+            text: "This Customer is Already Exists Having Customer ID " + id.AC_NO,
+            //   html:
+            // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+            // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
 
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#229954",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Continue",
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  // Swal.fire("Your data is safe.");
-                  // to reload after delete of data
-                  // this.rerender();
-                  this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-                    dtInstance.ajax.reload()
-                  });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                  this.angForm.controls['F_NAME'].reset()
-                  this.angForm.controls['M_NAME'].reset()
-                  this.angForm.controls['L_NAME'].reset()
-                  this.angForm.controls['AC_NAME'].reset()
-                  this.angForm.patchValue({
-                    L_NAME: '',
-                    F_NAME: '',
-                    M_NAME: ''
-                  })
-
-                }
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#229954",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Continue",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Swal.fire("Your data is safe.");
+              // to reload after delete of data
+              // this.rerender();
+              this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                dtInstance.ajax.reload()
               });
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              this.angForm.controls['F_NAME'].reset()
+              this.angForm.controls['M_NAME'].reset()
+              this.angForm.controls['L_NAME'].reset()
+              this.angForm.controls['AC_NAME'].reset()
+              this.angForm.patchValue({
+                L_NAME: '',
+                F_NAME: '',
+                M_NAME: ''
+              })
+
             }
-          }
+          });
         }
+        //   }
+        // }
       }
     })
   }
 
   checkAdhar() {
     let adhar: any[];
-    this.customerIdService.getData().subscribe(data => {
-      if (data?.length != 0) {
-        if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
+    if (this.showButton) {
+      this.customerIdService.getData().subscribe(data => {
+        if (data?.length != 0) {
+          if (this.angForm.controls['AC_ADHARNO'].value != '' && this.angForm.controls['AC_ADHARNO'].value != null) {
 
-          if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
+            if (data.find(data => data['AC_ADHARNO'] != (this.angForm.controls['AC_ADHARNO'].value == ''))) {
 
-            if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-              let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
-              Swal.fire({
-                icon: 'info',
-                title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.id,
-              })
-              this.angForm.controls['AC_ADHARNO'].reset();
+              if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+                let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
+                Swal.fire({
+                  icon: 'info',
+                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.AC_NO,
+                })
+                this.angForm.controls['AC_ADHARNO'].reset();
+              }
             }
           }
-        }
-        else {
-          if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
-            if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
-              if (data.find(data => data['M_NAME'] == this.angForm.controls['M_NAME'].value?.toUpperCase())) {
-                if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
-                  let id = data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())
-                  if (id.id != this.angForm.controls['AC_NO'].value) {
-                    Swal.fire({
-                      icon: 'info',
-                      title: 'This Customer is Already Exists Having Customer ID ' + id.id
-                    })
-                    this.resetForm();
-                  }
+          else {
+            // if (data.find(data => data['L_NAME'] == this.angForm.controls['L_NAME'].value?.toUpperCase())) {
+            //   if (data.find(data => data['F_NAME'] == this.angForm.controls['F_NAME'].value?.toUpperCase())) {
+            if (data.find(data => data['AC_NAME'] == this.angForm.controls['AC_NAME'].value?.toUpperCase())) {
+              if (data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)) {
+                let id = data.find(data => data['AC_NAME'] == this.angForm.controls['AC_NAME'].value?.toUpperCase())
+                if (id.AC_NO != this.angForm.controls['AC_NO'].value) {
+                  Swal.fire({
+                    icon: 'info',
+                    title: 'This Customer is Already Exists Having Customer ID ' + id.AC_NO
+                  })
+                  this.resetForm();
                 }
               }
             }
+            //   }
+            // }
+          }
+        }
+      })
+    }
+  }
+
+  checkPancard() {
+    this.customerIdService.getData().subscribe(data => {
+      if (data?.length != 0) {
+        if ((this.angForm.controls['AC_PANNO'].value != '')) {
+          if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
+            let id = data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)
+            Swal.fire({
+              title: "Are you sure?",
+              text: "This Pan Number is Already Exists Having Customer ID " + id.AC_NO,
+              //   html:
+              // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
+              // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
+
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#229954",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Continue",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Swal.fire("Your data is safe.");
+                // to reload after delete of data
+                // this.rerender();
+                this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+                  dtInstance.ajax.reload()
+                });
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                this.angForm.controls['AC_PANNO'].reset()
+                this.angForm.patchValue({
+                  AC_PANNO: ''
+                })
+              }
+            });
           }
         }
       }
     })
   }
-
-  // checkPancard() {
-  //   this.customerIdService.getData().subscribe(data => {
-  //     if (data?.length != 0) {
-  //       if (data.find(data => data['AC_PANNO'] == (this.angForm.controls['AC_PANNO'].value == ''))) {
-  //         if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
-  //           Swal.fire({
-
-
-  //             icon: 'info',
-  //             title: 'This Pan Number is Already Extsts',
-  //           })
-  //           this.angForm.controls['AC_PANNO'].reset();
-  //         }
-  //       }
-  //     }
-  //   })
-  // }
 
   validation(event) {
     if (event != (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {

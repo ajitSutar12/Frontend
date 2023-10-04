@@ -37,6 +37,7 @@ export class DepositInterestProjectionComponent implements OnInit {
   result: number;
   i: number;
   resultData: any;
+  modalClass: string = 'modalHide';
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private _termDepositScheme: TermDepositSchemeService,
@@ -163,7 +164,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         }
       }
 
-      var date1 = this.ngForm.controls['DEPO_DATE'].value;
+      var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
       let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.ngForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
       let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.ngForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
       this.expiryDate = expiryDate
@@ -194,8 +195,8 @@ export class DepositInterestProjectionComponent implements OnInit {
   installmentType
   simpleInterestCalculation() {
 
-    var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-    var date2 = this.ngForm.controls['AC_EXPDT'].value;
+    var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+    var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
     // date1 = moment(date1).format('DD/MM/YYYY');
     // date2 = moment(date2).format('DD/MM/YYYY');
@@ -225,7 +226,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         // IS_RECURRING_TYPE: string;
         // IS_CALLDEPOSIT_TYPE: string; 
         // REINVESTMENT: string;
-        if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0')) {
+        if ((data.INTEREST_RULE == "0" && data.IS_RECURRING_TYPE == '0' && data.IS_CALLDEPOSIT_TYPE == '0' && data.REINVESTMENT == '0') || data.IS_CALLDEPOSIT_TYPE == '1') {
           if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "S") {
             this.simpleInterestCalculation()
           } else if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "C") {
@@ -239,8 +240,8 @@ export class DepositInterestProjectionComponent implements OnInit {
               var Quarters = Math.floor(this.ngForm.controls['AC_MONTHS'].value) / 12;
             }
 
-            var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-            var date2 = this.ngForm.controls['AC_EXPDT'].value;
+            var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+            var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
             // date1 = moment(date1).format('DD/MM/YYYY');
 
@@ -269,8 +270,8 @@ export class DepositInterestProjectionComponent implements OnInit {
             })
           } else if (data.S_INTCALTP == "M" && data.S_INTCALC_METHOD == "S") {
 
-            var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-            var date2 = this.ngForm.controls['AC_EXPDT'].value;
+            var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+            var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
             // date1 = moment(date1).format('DD/MM/YYYY');
             // date2 = moment(date2).format('DD/MM/YYYY');
@@ -283,11 +284,11 @@ export class DepositInterestProjectionComponent implements OnInit {
 
             var days = a.diff(b, 'days');
 
-
+            var noOfInstallment = Math.floor(this.ngForm.controls['AC_MONTHS'].value) / 1;
             var tmpAmt1 = Math.round(((Number(this.ngForm.controls['DEPO_AMT'].value) * Number(this.ngForm.controls['INT_RATE'].value) * months) / (12 * 100)))
             var tmpAmt2 = Math.round(((Number(this.ngForm.controls['DEPO_AMT'].value) * Number(this.ngForm.controls['INT_RATE'].value) * days) / (365 * 100)))
             var Interest = (tmpAmt1 + tmpAmt2)
-            var Maturity = Math.round(Number(this.ngForm.controls['DEPO_AMT'].value) + Interest)
+            var Maturity = Math.round((Number(this.ngForm.controls['DEPO_AMT'].value) * Number(noOfInstallment)) + Interest)
             this.ngForm.patchValue({
               MATUR_AMT: Number(Maturity).toFixed(2)
             })
@@ -296,8 +297,8 @@ export class DepositInterestProjectionComponent implements OnInit {
               MATUR_AMT: 0
             })
           } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "S") {
-            var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-            var date2 = this.ngForm.controls['AC_EXPDT'].value;
+            var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+            var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
             // date1 = moment(date1).format('DD/MM/YYYY');
             // date2 = moment(date2).format('DD/MM/YYYY');
@@ -320,8 +321,8 @@ export class DepositInterestProjectionComponent implements OnInit {
             })
           } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "C") {
             var Quarters = Math.floor(this.ngForm.controls['AC_MONTHS'].value) / 3;
-            var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-            var date2 = this.ngForm.controls['AC_EXPDT'].value;
+            var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+            var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
             // date1 = moment(date1).format('DD/MM/YYYY');
 
@@ -339,7 +340,7 @@ export class DepositInterestProjectionComponent implements OnInit {
             var Start = moment(date1, "DD/MM/YYYY").subtract(1, 'days');
             var StartDate = Start.format("DD/MM/YYYY");
 
-            var CurrentDate = this.ngForm.controls['AC_ASON_DATE'].value
+            var CurrentDate = this.ngForm.controls['DEPO_DATE'].value
             var lngMonths = 0;
             var lngDays = 0;
             var VcumPeriod = 0;
@@ -446,8 +447,8 @@ export class DepositInterestProjectionComponent implements OnInit {
           } else if (data.S_INTCALTP == "M" && data.S_INTCALC_METHOD == "C") {
             this.recurringCompoundInterest()
           } else if (data.S_INTCALTP == "B" && data.IS_START_WITH_MONTHS == '1' && data.S_INTCALC_METHOD == "S") {
-            var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-            var date2 = this.ngForm.controls['AC_EXPDT'].value;
+            var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+            var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
             // date1 = moment(date1).format('DD/MM/YYYY');
             // date2 = moment(date2).format('DD/MM/YYYY');
@@ -488,15 +489,15 @@ export class DepositInterestProjectionComponent implements OnInit {
     var amount = this.ngForm.controls['DEPO_AMT'].value
     var rate = this.ngForm.controls['INT_RATE'].value
     var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * Number(amount) * Number(rate) / 1200
-    var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
+    var maturity = Math.round((Number(amount) * Number(noOfInstallment)) + Number(Interest))
     this.ngForm.patchValue({
       MATUR_AMT: Number(maturity).toFixed(2)
     })
   }
   recurringCompoundInterest() {
 
-    var date1 = this.ngForm.controls['AC_ASON_DATE'].value;
-    var date2 = this.ngForm.controls['AC_EXPDT'].value;
+    var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
+    var date2 = this.ngForm.controls['MATUR_DATE'].value;
 
     // date1 = moment(date1).format('DD/MM/YYYY');
 
@@ -555,7 +556,6 @@ export class DepositInterestProjectionComponent implements OnInit {
 
   Process() {
     let formVal = this.ngForm.value;
-
     let obj = {
       cmDepositAmount: formVal.DEPO_AMT,
       cmIntRate: formVal.INT_RATE,
@@ -564,13 +564,14 @@ export class DepositInterestProjectionComponent implements OnInit {
       cmMonths: formVal.AC_MONTHS,
       cmDays: formVal.AC_DAYS
     }
-
-
-
     obj['user'] = JSON.parse(localStorage.getItem('user'));
+    this.modalClass = 'modalShow';
     this._services.depositProjection(obj).subscribe(data => {
-      console.log(data);
+      this.modalClass = 'modalHide';
+      // console.log(data);
       this.resultData = data;
+    }, err => {
+      this.modalClass = 'modalHide';
     })
   }
 

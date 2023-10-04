@@ -104,8 +104,8 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_REF_RECEIPTNO"
                                         class="form-control" placeholder=" " id="AC_REF_RECEIPTNO" required
-                                        pattern="^[0-9]+$" maxlength="10"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        pattern="^[A-Za-z0-9]+$" maxlength="20"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
                                         title="Input allowed only 0-9" formControlName="AC_REF_RECEIPTNO">
                                     <label for="AC_REF_RECEIPTNO">Receipt Number <sub class="required">*</sub></label>
                                 </span>
@@ -176,7 +176,7 @@
                                         title="Input allowed only 0-9" (change)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_MONTHS">
-                                    <label for="AC_MONTHS">Months<sub class="required">*</sub></label>
+                                    <label for="AC_MONTHS">Months<sub class="required">*</sub></label> 
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

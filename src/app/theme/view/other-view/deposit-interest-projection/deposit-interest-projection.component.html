@@ -175,7 +175,7 @@
                 <span class="border-lable-flt">
                   <input style="text-align: right ;" type="text" name="InterestRate" class="form-control"
                     placeholder=" " id="InterestRate" maxlength="5" formControlName="INT_RATE" #margin
-                    (keyup)="checkmargin(margin.value)"
+                    (keyup)="checkmargin(margin.value)" (change)="setMaturityDate()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     (keyup)="decimalAllContent($event)">
 
@@ -234,7 +234,7 @@
   <div class="col-sm-12">
     <div class="col-12">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped table-bordered table-hover compact">
           <thead>
             <tr>
               <td class="td_right">Sr.NO</td>
@@ -254,7 +254,7 @@
               <td class="td_right">{{item.colPeriod}}</td>
               <td class="td_right">{{item.colCrIntAmt | number: '1.0-2' }}</td>
               <td class="td_right">{{item.colBal | number: '1.0-2'}}</td>
-              <td class="td_right">{{item.Days}}</td>
+              <td class="td_right">{{item.colProduct}}</td>
             </tr>
           </tbody>
         </table>
@@ -262,3 +262,4 @@
     </div>
   </div>
 </div>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>

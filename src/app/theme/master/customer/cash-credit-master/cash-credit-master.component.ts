@@ -1002,13 +1002,14 @@ export class CashCreditMasterComponent implements OnInit {
     this.ngpurpose = null
     this.sanctionDate = null
     this.ngresodate = null
+    this.accountedit = null
     // this.angForm.controls['AC_COREG_DATE'].reset()
     this.getSystemParaDate()
     this.switchNgBTab('Basic')
   }
 
   //Method for append data into fields
-
+  tempbankacno
   editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     this.switchNgBTab('Basic')
@@ -1022,6 +1023,8 @@ export class CashCreditMasterComponent implements OnInit {
     this.columnShowButton = true
     this.cashCreditService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.tempbankacno = data.BANKACNO
+      this.accountedit = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1030,7 +1033,7 @@ export class CashCreditMasterComponent implements OnInit {
         this.approveShow = false;
         this.rejectShow = false;
       }
-      if (data.SYSCHNG_LOGIN == null && status == 0) {
+      if (data.SYSCHNG_LOGIN == null && data.status == 0) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -1057,9 +1060,12 @@ export class CashCreditMasterComponent implements OnInit {
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiSecurity = data.securityMaster
-      this.multiCoBorrower = data.CoborrowerMaster,
-        this.multiGuarantor = data.guaranterMaster
-
+      this.multiSecurity.forEach(ele => {
+        let findSecurity = this.security.find(ob => ob['value'] === Number(ele.SECURITY_CODE))
+        ele['SECU_NAME'] = findSecurity.name
+      })
+      this.multiCoBorrower = data.CoborrowerMaster
+      this.multiGuarantor = data.guaranterMaster
       this.int_category = Number(data.AC_INTCATA)
       this.sanctionAutho = Number(data.AC_AUTHORITY)
       this.recomBy = Number(data.AC_RECOMMEND_BY)
@@ -1214,6 +1220,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.multiCoBorrower = [];
       this.multiSecurity = []
       this.customerDoc = []
+      this.accountedit = null
       this.resetForm();
     })
   }
@@ -1452,15 +1459,15 @@ export class CashCreditMasterComponent implements OnInit {
   // Add Security
 
   addField() {
-    const formVal = this.angForm.value;
+    let formVal = this.angForm.value;
     var object = {
       AC_ACNOTYPE: formVal.AC_ACNOTYPE,
       AC_TYPE: formVal.AC_TYPE,
       AC_NO: formVal.AC_NO,
       SECURITY_CODE: this.SECU_CODE,
-      SECURITY_VALUE: this.SECU_NAME,
+      SECU_NAME: this.SECU_NAME,
+      SECURITY_VALUE: formVal.SECURITY_VALUE,
     }
-
     if (formVal.AC_CUSTID != "") {
       if (object.SECURITY_CODE != undefined) {
         if (this.multiSecurity.length == 0) {
@@ -1559,11 +1566,20 @@ export class CashCreditMasterComponent implements OnInit {
       this.vehicleid.push(this.security_id);
     }
   }
-
+  getschemename = 'CC'
+  ngBranchCode
+  accountedit
+  schemeedit
   // Show security Detals Components
   showSecurity(code) {
-
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
     this._SecurityCode.getFormData(code).subscribe(data => {
+      this.getschemename = 'CC'
+      this.schemeedit = this.schemeCode
+      this.accountedit = (this.tempbankacno != undefined ? this.tempbankacno : '')
+      this.ngsecurityCode = code
+      this.ngBranchCode = result.branchId
 
       if (data.BOOK_DEBTS == '1') {
         this.BOOK_DEBTS = true

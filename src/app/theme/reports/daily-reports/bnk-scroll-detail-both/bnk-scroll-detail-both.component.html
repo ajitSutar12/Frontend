@@ -34,7 +34,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-sm-12 col-md-2">
                             <label for=""> Cashier Code</label>
                         </div>
@@ -44,8 +43,8 @@
 
                                     <ng-select bindValue="id" [(ngModel)]="cashiar" formControlName="Cashier_Code"
                                         bindLabel="label" placeholder="" required>
-                                        <ng-option *ngFor="let values of cashier_list"
-                                            [value]="values">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option>
+                                        <ng-option *ngFor="let values of cashier_list" [value]="values">{{values.id}}
+                                            {{values.F_NAME}} {{values.L_NAME}}</ng-option>
 
                                     </ng-select>
                                 </span>
@@ -89,7 +88,7 @@
                         <div class="col-sm-12 col-md-2">
                             <label for=""> Scroll Type<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-radio">
 
                                 <div class="radio radio-inline">
@@ -125,7 +124,7 @@
                         <div class="col-sm-12 col-md-2">
                             <label for="">Print Side<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-radio">
 
                                 <div class="radio radio-inline">

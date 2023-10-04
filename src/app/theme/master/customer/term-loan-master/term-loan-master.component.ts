@@ -866,6 +866,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.weakerSec = null
     this.ngpurpose = null
     this.sanctionDate = null
+    this.accountedit = null
     this.ngresodate = null
     this.angForm.controls['AC_COREG_DATE'].reset()
     this.getSystemParaDate()
@@ -887,6 +888,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
     this.termLoanService.getFormData(id).subscribe(data => {
       this.tempbankacno = data.BANKACNO
+      this.accountedit = data.BANKACNO
       this.updatecheckdata = data
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
@@ -896,7 +898,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+      else if (data.SYSCHNG_LOGIN == null && data.status == 0) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
@@ -923,6 +925,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
       this.multiSecurity = data.securityMaster
+      this.multiSecurity.forEach(ele => {
+        let findSecurity = this.security.find(ob => ob['value'] === Number(ele.SECURITY_CODE))
+        ele['SECU_NAME'] = findSecurity.name
+      })
       this.multiCoBorrower = data.CoborrowerMaster
       this.multiGuarantor = data.guaranterMaster
       this.int_category = Number(data.AC_INTCATA)
@@ -1077,6 +1083,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.multiCoBorrower = [];
       this.multiSecurity = []
       this.customerDoc = []
+      this.accountedit = null
+      this.ngsecurityCode = null
       this.resetForm();
     })
   }
@@ -1431,7 +1439,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: 0
       })
     }
-    else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
+    // else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'M' && (this.installmentType == 'Null')) {
 
       this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
       this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
@@ -1440,7 +1449,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Q' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'Q' && (this.installmentType == 'Null')) {
 
       this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
       this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
@@ -1448,7 +1457,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'H' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'H' && (this.installmentType == 'Null')) {
 
       this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
       this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 6));
@@ -1456,7 +1465,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'Y' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'Y' && (this.installmentType == 'Null')) {
 
       this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
       this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 12));
@@ -1464,7 +1473,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         AC_INSTALLMENT: this.result
       })
     }
-    else if (this.repay == 'O' && (this.installmentType == 'WithInterest')) {
+    else if (this.repay == 'O' && (this.installmentType == 'Null')) {
       this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
       this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 0));
       this.angForm.patchValue({
@@ -1483,7 +1492,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_TYPE: formVal.AC_TYPE,
       AC_NO: formVal.AC_NO,
       SECURITY_CODE: this.SECU_CODE,
-      SECURITY_VALUE: this.SECU_NAME,
+      SECU_NAME: this.SECU_NAME,
+      SECURITY_VALUE: formVal.SECURITY_VALUE,
     }
 
     if (formVal.AC_CUSTID != "") {
@@ -1584,7 +1594,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.vehicleid.push(this.security_id);
     }
   }
-  getschemename
+  getschemename = 'LN'
   ngBranchCode
   accountedit
   schemeedit
