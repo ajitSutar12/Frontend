@@ -205,6 +205,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   filenotuploaded: boolean = true
   FinYear = '';
   autofacus: boolean = false;
+  
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,

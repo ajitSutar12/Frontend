@@ -128,7 +128,7 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input appTheme appButton minlength="8"
+                                                                    <input appTheme appButton minlength="10"
                                                                         maxlength="10" type="text"
                                                                         placeholder="dd/mm/yyyy" name="AC_OPDATE"
                                                                         id="AC_OPDATE" class="form-control" required
@@ -156,7 +156,7 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
+                                                                    <input type="text" appButton minlength="10"
                                                                         maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_OPEN_OLD_DATE" id="AC_OPEN_OLD_DATE"
                                                                         class="form-control" [(ngModel)]="renewDate"
@@ -174,7 +174,7 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
+                                                                    <input type="text" appButton minlength="10"
                                                                         maxlength="10" name="AC_BIRTH_DT"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_BIRTH_DT" max="9999-12-31"
@@ -316,7 +316,7 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input appTheme appButton minlength="8"
+                                                                    <input appTheme appButton minlength="10"
                                                                         maxlength="10" type="text"
                                                                         placeholder="dd/mm/yyyy" name="AC_SANCTION_DATE"
                                                                         id="AC_SANCTION_DATE" class="form-control"
@@ -404,7 +404,7 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
+                                                                    <input type="text" appButton minlength="10"
                                                                         maxlength="10" name="AC_EXPIRE_DATE"
                                                                         id="AC_EXPIRE_DATE" class="form-control"
                                                                         required [(ngModel)]="ngexpiry"
@@ -901,7 +901,7 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
+                                                                    <input type="text" appButton minlength="10"
                                                                         maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_COREG_DATE" id="AC_COREG_DATE"
                                                                         class="form-control" [(ngModel)]="ngredate"
@@ -967,7 +967,7 @@
                                                         <div class="col-sm-2">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
+                                                                    <input type="text" appButton minlength="10"
                                                                         maxlength="10" placeholder="dd/mm/yyyy"
                                                                         name="AC_RESO_DATE" id="AC_RESO_DATE"
                                                                         class="form-control" [(ngModel)]="ngresodate"
@@ -1483,6 +1483,7 @@
                                                                         <td style="max-width: 10px;">Action</td>
                                                                         <td style="max-width: 10px;">Code</td>
                                                                         <td>Description</td>
+                                                                        <td>Security amount</td>
                                                                         <td style="max-width: 10px;">Add Security</td>
                                                                     </thead>
                                                                     <tbody *ngIf="multiSecurity?.length != 0">
@@ -1498,6 +1499,7 @@
                                                                                     ngbTooltip="Delete"></span>
                                                                             </td>
                                                                             <td>{{data.SECURITY_CODE }}</td>
+                                                                            <td>{{data.SECU_NAME }}</td>
                                                                             <td>{{data.SECURITY_VALUE }}</td>
                                                                             <td><span
                                                                                     class="fa fa-fw fa-plus-circle field-icon"
@@ -1531,77 +1533,178 @@
                                                                         <perfect-scrollbar
                                                                             style="max-width: 800px; max-height: 450px;">
                                                                             <ng-container *ngIf="BOOK_DEBTS">
-                                                                                <app-book-debts [scheme]="scheme1"
+                                                                                <!-- <app-book-debts [scheme]="scheme1"
+                                                                                    (newbookEvent)="newItemEvent($event)">
+                                                                                </app-book-debts> -->
+                                                                                <app-book-debts
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newbookEvent)="newItemEvent($event)">
                                                                                 </app-book-debts>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="CUST_INSURANCE">
                                                                                 <app-customer-insurance
-                                                                                    [scheme]="scheme1"
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newcustomerInsuranceEvent)="newItemEvent($event)">
                                                                                 </app-customer-insurance>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="FIRE_POLICY">
-                                                                                <app-fire-policy [scheme]="scheme1"
+                                                                                <!-- <app-fire-policy [scheme]="scheme1"
+                                                                                    (newfirePolicyEvent)="newItemEvent($event)">
+                                                                                </app-fire-policy> -->
+                                                                                <app-fire-policy
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newfirePolicyEvent)="newItemEvent($event)">
                                                                                 </app-fire-policy>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="FURNITURE_FIXTURE">
-                                                                                <app-furniture-and-fixture
+                                                                                <!-- <app-furniture-and-fixture
                                                                                     [scheme]="scheme1"
+                                                                                    (newfurnitureFixEvent)="newItemEvent($event)">
+                                                                                </app-furniture-and-fixture> -->
+                                                                                <app-furniture-and-fixture
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newfurnitureFixEvent)="newItemEvent($event)">
                                                                                 </app-furniture-and-fixture>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="GOLD_SILVER">
-                                                                                <app-gold-and-silver [scheme]="scheme1"
+                                                                                <!-- <app-gold-and-silver [scheme]="scheme1"
+                                                                                    (newGoldsilverEvent)="newItemEvent($event)">
+                                                                                </app-gold-and-silver> -->
+                                                                                <app-gold-and-silver
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newGoldsilverEvent)="newItemEvent($event)">
                                                                                 </app-gold-and-silver>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="GOVT_SECU_LIC">
-                                                                                <app-govt-security-and-lic
+                                                                                <!-- <app-govt-security-and-lic
                                                                                     [scheme]="scheme1"
+                                                                                    (newgovtSecurityEvent)="newItemEvent($event)">
+                                                                                </app-govt-security-and-lic> -->
+                                                                                <app-govt-security-and-lic
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newgovtSecurityEvent)="newItemEvent($event)">
                                                                                 </app-govt-security-and-lic>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="LAND_BUILDING">
-                                                                                <app-land-and-buildings
+                                                                                <!-- <app-land-and-buildings
                                                                                     [scheme]="scheme1"
+                                                                                    (newLandBuldingEvent)="newItemEvent($event)">
+                                                                                </app-land-and-buildings> -->
+                                                                                <app-land-and-buildings
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newLandBuldingEvent)="newItemEvent($event)">
                                                                                 </app-land-and-buildings>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="MARKET_SHARE">
-                                                                                <app-market-shares [scheme]="scheme1"
+                                                                                <!-- <app-market-shares [scheme]="scheme1"
+                                                                                    (newmarketShareEvent)="newItemEvent($event)">
+                                                                                </app-market-shares> -->
+                                                                                <app-market-shares
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newmarketShareEvent)="newItemEvent($event)">
                                                                                 </app-market-shares>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="OTHER_SECURITY">
-                                                                                <app-other-security [scheme]="scheme1"
+                                                                                <!-- <app-other-security [scheme]="scheme1"
+                                                                                    (newOtherSecurityEvent)="newItemEvent($event)">
+                                                                                </app-other-security> -->
+                                                                                <app-other-security
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newOtherSecurityEvent)="newItemEvent($event)">
                                                                                 </app-other-security>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="OWN_DEPOSIT">
-                                                                                <app-own-deposits [scheme]="scheme1"
+                                                                                <!-- <app-own-deposits [scheme]="scheme1"
+                                                                                    (newOwnDepositEvent)="newItemEvent($event)">
+                                                                                </app-own-deposits> -->
+                                                                                <app-own-deposits
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newOwnDepositEvent)="newItemEvent($event)">
                                                                                 </app-own-deposits>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="PLANT_MACHINARY">
                                                                                 <app-plant-and-machinery
-                                                                                    [scheme]="scheme1"
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newPlantandMachiEvent)="newItemEvent($event)">
                                                                                 </app-plant-and-machinery>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="PLEDGE_STOCK">
-                                                                                <app-pleadge-stock [scheme]="scheme1"
+                                                                                <app-pleadge-stock
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newPleadgeEvent)="newItemEvent($event)">
                                                                                 </app-pleadge-stock>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="STOCK_STATEMENT">
-                                                                                <app-stock-statement [scheme]="scheme1"
+                                                                                <!-- <app-stock-statement [scheme]="scheme1"
+                                                                                    (newStockEvent)="newItemEvent($event)">
+                                                                                </app-stock-statement> -->
+                                                                                <app-stock-statement
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newStockEvent)="newItemEvent($event)">
                                                                                 </app-stock-statement>
                                                                             </ng-container>
                                                                             <ng-container *ngIf="VEHICLE">
-                                                                                <app-vehicle [scheme]="scheme1"
+                                                                                <!-- <app-vehicle [scheme]="scheme1"
+                                                                                    (newVehicalEvent)="newItemEvent($event)">
+                                                                                </app-vehicle> -->
+                                                                                <app-vehicle
+                                                                                    [AC_ACNOTYPE]="getschemename"
+                                                                                    [scheme]="code"
+                                                                                    [Accountno]="accountedit"
+                                                                                    [sec_code]="ngsecurityCode"
+                                                                                    [branchCode]="ngBranchCode"
                                                                                     (newVehicalEvent)="newItemEvent($event)">
                                                                                 </app-vehicle>
                                                                             </ng-container>
@@ -1765,7 +1868,7 @@
                                                                             <div class="form-group input-group">
                                                                                 <span class="border-lable-flt">
                                                                                     <input type="text" appButton
-                                                                                        minlength="8" maxlength="10"
+                                                                                        minlength="10" maxlength="10"
                                                                                         placeholder="dd/mm/yyyy"
                                                                                         name="EXP_DATE" id="EXP_DATE"
                                                                                         class="form-control"

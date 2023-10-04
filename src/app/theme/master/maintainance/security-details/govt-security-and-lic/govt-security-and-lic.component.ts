@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import { Subject } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms"; 
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Angular Datatable Directive
@@ -127,7 +127,7 @@ export class GovtSecurityAndLicComponent
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _govsecurity: governmentsecuritycomponentservice,private systemParameter: SystemMasterParametersService,
+    private _govsecurity: governmentsecuritycomponentservice, private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
@@ -138,7 +138,7 @@ export class GovtSecurityAndLicComponent
     this.systemParameter.getFormData(1).subscribe(data => {
 
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d 
+      this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
     })
 
@@ -155,115 +155,115 @@ export class GovtSecurityAndLicComponent
       dom: 'ftip'
     }
 
-   
+
     this.loadTable();
     this.dtTrigger.next();
-    this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/govt-security-and-lic",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.governmentmasters = resp.data;
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/govt-security-and-lic",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.governmentmasters = resp.data;
 
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Cert/Policy Date",
-          data: "CERT_POLICY_DATE",
-        },
-        {
-          title: "Cert/Policy No.",
-          data: "CERT_POLICY_NO",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Assured Name",
-          data: "ASSURED_NAME",
-        },
-        {
-          title: "Paid Up Amount",
-          data: "PAIDUP_AMT",
-        },
-        {
-          title: "Sum of Assured",
-          data: "SUM_ASSURED",
-        },
-        {
-          title: "Premium Amount",
-          data: "PREMIUM",
-        },
-        {
-          title: "Surrender Value",
-          data: "SURRENDER_VALUE",
-        },
-        {
-          title: "Premium Due Date",
-          data: "PREMIUM_DUE_DATE",
-        },
-        {
-          title: "Matured Due Date",
-          data: "MATURE_DUE_DATE",
-        },
-        {
-          title: "Nominee",
-          data: "NOMINEE",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Cert/Policy Date",
+    //       data: "CERT_POLICY_DATE",
+    //     },
+    //     {
+    //       title: "Cert/Policy No.",
+    //       data: "CERT_POLICY_NO",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Assured Name",
+    //       data: "ASSURED_NAME",
+    //     },
+    //     {
+    //       title: "Paid Up Amount",
+    //       data: "PAIDUP_AMT",
+    //     },
+    //     {
+    //       title: "Sum of Assured",
+    //       data: "SUM_ASSURED",
+    //     },
+    //     {
+    //       title: "Premium Amount",
+    //       data: "PREMIUM",
+    //     },
+    //     {
+    //       title: "Surrender Value",
+    //       data: "SURRENDER_VALUE",
+    //     },
+    //     {
+    //       title: "Premium Due Date",
+    //       data: "PREMIUM_DUE_DATE",
+    //     },
+    //     {
+    //       title: "Matured Due Date",
+    //       data: "MATURE_DUE_DATE",
+    //     },
+    //     {
+    //       title: "Nominee",
+    //       data: "NOMINEE",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
   }
 
   createForm() {
@@ -343,8 +343,8 @@ export class GovtSecurityAndLicComponent
     }
 
   }
-  loadTable(){
-   
+  loadTable() {
+
 
     let obj = {
       scheme: this.scheme,
@@ -356,7 +356,7 @@ export class GovtSecurityAndLicComponent
       this.governmentmasters = this.sort_by_key(data, 'SUBMISSION_DATE');
     })
   }
-  
+
   sort_by_key(array: any, key: any) {
     return array.sort(function (a: any, b: any) {
       let p = moment(a[key], 'DD/MM/YYYY');

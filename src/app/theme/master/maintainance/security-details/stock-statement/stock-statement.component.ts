@@ -151,99 +151,97 @@ export class StockStatementComponent
     this.loadTable();
     this.dtTrigger.next();
 
-    this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/stock-statement",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.stockmasters = resp.data;
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/stock-statement",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.stockmasters = resp.data;
 
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Submission Date",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Statement Date",
-          data: "STATEMENT_DATE",
-        },
-        {
-          title: "Raw Materials",
-          data: "RAW_MATERIAL",
-        },
-        {
-          title: "R/M Margin %",
-          data: "RAW_MARGIN",
-        },
-        {
-          title: "Work In Progress",
-          data: "WORK_PROGRESS",
-        },
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Submission Date",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Statement Date",
+    //       data: "STATEMENT_DATE",
+    //     },
+    //     {
+    //       title: "Raw Materials",
+    //       data: "RAW_MATERIAL",
+    //     },
+    //     {
+    //       title: "R/M Margin %",
+    //       data: "RAW_MARGIN",
+    //     },
+    //     {
+    //       title: "Work In Progress",
+    //       data: "WORK_PROGRESS",
+    //     },
 
-        {
-          title: "Finished Goods",
-          data: "FINISHED_GOODS",
-        },
-        {
-          title: "W/P Margin %",
-          data: "WORK_MARGIN",
-        },
-        {
-          title: "F/G Margin %",
-          data: "FINISHED_MARGIN",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-      ],
-      dom: "Blrtip",
-    };
-
-
+    //     {
+    //       title: "Finished Goods",
+    //       data: "FINISHED_GOODS",
+    //     },
+    //     {
+    //       title: "W/P Margin %",
+    //       data: "WORK_MARGIN",
+    //     },
+    //     {
+    //       title: "F/G Margin %",
+    //       data: "FINISHED_MARGIN",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
   }
 
   createForm() {
@@ -312,8 +310,8 @@ export class StockStatementComponent
     }
 
   }
-  loadTable(){
-   
+  loadTable() {
+
     let obj = {
       scheme: this.scheme,
       ac_no: this.Accountno,
@@ -323,9 +321,9 @@ export class StockStatementComponent
     this._stock.getdatatable(obj).pipe(first()).subscribe((data) => {
       this.stockmasters = this.sort_by_key(data, 'SUBMISSION_DATE');
     })
-  
+
   }
-  
+
   sort_by_key(array: any, key: any) {
     return array.sort(function (a: any, b: any) {
       let p = moment(a[key], 'DD/MM/YYYY');
@@ -339,7 +337,7 @@ export class StockStatementComponent
     //check  if given value  is below 100
 
     if (ele <= 100) {
- 
+
     }
     else {
       Swal.fire("Invalid Input", "Please insert values below 100", "error");
