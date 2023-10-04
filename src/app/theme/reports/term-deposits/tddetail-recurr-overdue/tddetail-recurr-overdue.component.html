@@ -49,7 +49,7 @@
                                         [(ngModel)]="scode" (change)="getTransferAccountList($event)"
                                         #Scheme_code (focus)="onFocus(Scheme_code)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.name}} {{values.label}} </ng-option>
+                                            {{values.id}} {{values.label}} </ng-option>
                                     </ng-select>
 
                                 </span>

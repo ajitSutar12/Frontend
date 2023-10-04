@@ -113,7 +113,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'IV' );
+        return (scheme.name == 'IV');
       });
       this.schemeList = filtered;
       this.ngIntroducer = null;
@@ -125,8 +125,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
 
 
   }
-  getTransferAccountList(event)
-  {
+  getTransferAccountList(event) {
     this.tScheme = event.label
   }
   src: any;
@@ -155,12 +154,18 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
       let scheme = obj.scheme_code;
       let Branch = obj.BRANCH_CODE
       let GROUP_BY = obj.GROUP_BY
-      let type = this.schemeList.filter(ele => ele.value == scheme); 
+      let type = this.schemeList.filter(ele => ele.value == scheme);
       let schemeName = this.tScheme
-
+      let acclose
+      if (obj.AC_OPEN == 'AC_OPEN') {
+        acclose = 1
+      }
+      else {
+        acclose = 0
+      }
 
       // this.iframeurl = this.report_url+"examples/InvestmentRegister.php?startDate_='"+startDate+"'&endDate_='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
-      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName+ "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branch="+Branch+"&AC_DATA="+obj.AC_OPEN
+      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName + "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branchcode=" + Branch + "&AC_DATA=" + obj.AC_OPEN + "&acclose=" + acclose
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

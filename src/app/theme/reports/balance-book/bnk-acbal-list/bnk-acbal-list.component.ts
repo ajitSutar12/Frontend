@@ -415,7 +415,7 @@ debugger
     let Rdiosort  = obj.radio_sort
     let checkbox1 = obj.PRINT_MAN_NO
     let checkbox2 = obj.PRINT_OP_DATE
-    let checkbox3 = obj.PRINT_ANA_REASON
+    let checkbox3 = obj.PRINT_ANA_REASON  
 
          
    this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"&bankName=" + bankName + "";
