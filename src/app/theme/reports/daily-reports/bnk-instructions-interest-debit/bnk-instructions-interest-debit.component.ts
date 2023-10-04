@@ -198,6 +198,13 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
 
       let startscheme = obj.NEWPAGE;
       let sort = obj.SORT.value;
+
+      if(sort == null || sort==false){
+        sort = 'Debit';
+      }else{
+        sort = 'Credit';
+      }
+
       this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + obj.SORT.value + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
