@@ -186,7 +186,7 @@ maxDate: Date;
     let branch = obj.BRANCH_CODE;
     let schemeName = this.tScheme
     
-    if (obj.R_TYPE == 'deposit') {
+    if (obj.R_TYPE == 'deposit') { 
 
       this.iframe5url=this.report_url+ "examples/TermDepositInterestList1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&branchName='" + this.branchName + "'&branch_code='" + branch + "'";
      

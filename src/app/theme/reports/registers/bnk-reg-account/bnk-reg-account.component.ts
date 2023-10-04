@@ -73,7 +73,7 @@ export class BnkRegAccountComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
-      ACOPEN: new FormControl ('ACOPEN'),
+      ACOPEN: new FormControl ('ACCLOSE'),
       ACCLOSE: [],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
@@ -154,15 +154,15 @@ export class BnkRegAccountComponent implements OnInit {
       let ACOPEN = obj.ACOPEN;
       let ACCLOSE = obj.ACCLOSE;
       let GROUP_BY = obj.GROUP_BY;
-      if(ACCLOSE == null){
-        ACCLOSE = 'NA';
+      if(ACCLOSE == 'ACOPEN'){
+        ACCLOSE = 1;
       }else{
-        ACCLOSE = 'NOT';
+        ACCLOSE = 0;
       }
-      if(ACCLOSE == 'NA'){
-        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE='" +ACCLOSE+ "'&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+      if(ACCLOSE == 1){
+        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE=" +ACCLOSE+ "&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
       }else{
-        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE='" +ACCLOSE+ "'&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE=" +ACCLOSE+ "&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
 
       }
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
@@ -183,7 +183,7 @@ export class BnkRegAccountComponent implements OnInit {
     // this.angForm.controls.BRANCH_CODE.reset();
     this.angForm.controls.AC_TYPE.reset();
     // this.angForm.controls.ACOPEN.reset();
-    this.angForm.controls.ACCLOSE.reset();
+    // this.angForm.controls.ACCLOSE.reset();
     this.showRepo = false;
     this.clicked=false;
   }
