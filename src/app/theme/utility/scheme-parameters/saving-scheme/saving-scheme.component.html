@@ -8,8 +8,8 @@
         </h6>
       </div>
       <div class="card-block">
-        
-        <form action="javascript:void(0)"  [formGroup]="angForm">
+
+        <form action="javascript:void(0)" [formGroup]="angForm">
           <div class="row">
             <div class="col-sm-3">
               <div class="form-group input-group">
@@ -17,7 +17,7 @@
                   <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
                     placeholder=" " id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     (focusout)="checkDuplicate($event)" pattern="^[0-9]+$" maxlength="3" minlength="3" min="101"
-                    max="150" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus >
+                    max="150" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus>
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -90,7 +90,7 @@
                 </div>
               </div>
             </div>
-           
+
 
           </div>
           <div class="row">
@@ -103,8 +103,9 @@
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
-                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" [virtualScroll]="true"
-                    #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required placeholder="GL Account Number">
+                    bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                    [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
+                    placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -202,9 +203,7 @@
                     <div class="row">
                       <div class="col-sm">
                         <div class="checkbox checkbox-primary">
-                          <div class="
-                              border-checkbox-group border-checkbox-group-primary
-                            ">
+                          <div class=" border-checkbox-group border-checkbox-group-primary">
                             <input class="border-checkbox" type="checkbox" id="S_INT_APPLICABLE"
                               formControlName="S_INT_APPLICABLE" (click)="isIntrestApplicable($event)" />
                             <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is Interest Applicable ?</label>
@@ -352,8 +351,9 @@
                             <input style="text-align: right;" type="text" name="MIN_INT_LIMIT" class="form-control"
                               placeholder=" "
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                              max="100" id="MIN_INT_LIMIT" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
-                              title="Input allowed only . 0-9" formControlName="MIN_INT_LIMIT" disabled />
+                              max="100" id="MIN_INT_LIMIT" (focusout)="getDecimalPoint($event)"
+                              (keyup)="getDecimal($event)" title="Input allowed only . 0-9"
+                              formControlName="MIN_INT_LIMIT" disabled />
                             <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                           </span>
                         </div>
@@ -404,9 +404,9 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input appTheme style="text-align: right;" type="text" name="ROUNDOFF_FACTOR" class="form-control"
-                            placeholder=" " maxlength="2" id="ROUNDOFF_FACTOR" required="" pattern="^[0-9]+$"
-                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
+                          <input appTheme style="text-align: right;" type="text" name="ROUNDOFF_FACTOR"
+                            class="form-control" placeholder=" " maxlength="2" id="ROUNDOFF_FACTOR" required=""
+                            pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
                             title="Input allowed only  0-9" formControlName="ROUNDOFF_FACTOR" />
                           <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise<sub class="required">*
                             </sub></label>
@@ -440,8 +440,9 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input appTheme style="text-align: right;" type="text" name="CHEQUEBOOK_MIN_BAL" class="form-control"
-                            placeholder=" " id="CHEQUEBOOK_MIN_BAL" required="" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                          <input appTheme style="text-align: right;" type="text" name="CHEQUEBOOK_MIN_BAL"
+                            class="form-control" placeholder=" " id="CHEQUEBOOK_MIN_BAL" required=""
+                            (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 ." formControlName="CHEQUEBOOK_MIN_BAL" />
                           <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance<sub class="required">*
@@ -496,8 +497,9 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input appTheme style="text-align: right;" type="text" name="MIN_BAL_FOR_INT" class="form-control"
-                            placeholder=" " id="MIN_BAL_FOR_INT" required="" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                          <input appTheme style="text-align: right;" type="text" name="MIN_BAL_FOR_INT"
+                            class="form-control" placeholder=" " id="MIN_BAL_FOR_INT" required=""
+                            (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 . (Space)" formControlName="MIN_BAL_FOR_INT" />
                           <label for="MIN_BAL_FOR_INT">Minimum Balance for Interest ?<sub class="required">*
@@ -547,7 +549,7 @@
                         <span class="border-lable-flt">
                           <input appTheme style="text-align: right;" type="text" name="OVERDRAFT_INTEREST_RATE"
                             class="form-control" placeholder=" " id="OVERDRAFT_INTEREST_RATE" required=""
-                            (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
+                            (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 . (Space)" formControlName="OVERDRAFT_INTEREST_RATE" />
                           <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate ?<sub class="required">*
@@ -584,8 +586,8 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
-                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" (click)="submit()"
-                    *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
+                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                    (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
@@ -622,8 +624,8 @@
                 <tbody *ngIf="savingscheme?.length != 0">
                   <tr *ngFor="let data of savingscheme">
                     <td>
-                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id);gotoTop()"
-                        placement="bottom" ngbTooltip="Edit"></span>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                        (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
                     </td>

@@ -102,7 +102,7 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _pleadge: pleadgestockService,  private systemParameter: SystemMasterParametersService,
+    private _pleadge: pleadgestockService, private systemParameter: SystemMasterParametersService,
     public router: Router
   ) {
 
@@ -114,7 +114,7 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     this.systemParameter.getFormData(1).subscribe(data => {
 
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d 
+      this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
     })
   }
@@ -128,7 +128,7 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
       dom: 'ftip'
     }
 
-   
+
     this.loadTable();
     this.dtTrigger.next();
     // Fetching Server side data
@@ -301,8 +301,8 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
   }
-  loadTable(){
-   
+  loadTable() {
+
     let obj = {
       scheme: this.scheme,
       ac_no: this.Accountno,
@@ -312,10 +312,10 @@ export class PleadgeStockComponent implements OnInit, AfterViewInit, OnDestroy {
     this._pleadge.getdatatable(obj).pipe(first()).subscribe((data) => {
       this.pleadgeMaster = this.sort_by_key(data, 'SUBMISSION_DATE');
     })
-        
-  
+
+
   }
-  
+
   sort_by_key(array: any, key: any) {
     return array.sort(function (a: any, b: any) {
       let p = moment(a[key], 'DD/MM/YYYY');

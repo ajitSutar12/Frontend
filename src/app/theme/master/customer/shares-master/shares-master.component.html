@@ -12,6 +12,7 @@
                 <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="row">
                         <div class="col-sm-3">
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select bindValue="value" appTheme [(ngModel)]="schemeCode" id="AC_TYPE"
@@ -34,7 +35,9 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-sm-4">
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
@@ -60,6 +63,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
                                 <h4 class="modal-title">Customer ID</h4>
@@ -116,6 +120,7 @@
                                                     <div class="card-block highlight ">
                                                         <div class="row">
                                                             <div class="col-sm-4">
+
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
                                                                         <ng-select id="AC_CATG" appTheme
@@ -145,6 +150,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
@@ -170,7 +176,8 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_MEM_BIRTH_DT"
                                                                             class="form-control" placeholder=" "
-                                                                            id="AC_MEM_BIRTH_DT" minlength="8" maxlength="10"
+                                                                            id="AC_MEM_BIRTH_DT" minlength="8"
+                                                                            maxlength="10"
                                                                             formControlName="AC_MEM_BIRTH_DT" disabled>
                                                                         <label for="AC_MEM_BIRTH_DT">Birth Date</label>
                                                                     </span>
@@ -211,6 +218,7 @@
                                                                 </div>
                                                             </div> -->
                                                             <div class="col-sm-3">
+
                                                                 <div class="form-group form-primary form-static-label">
                                                                     <span class="border-lable-flt">
                                                                         <ng-select [(ngModel)]="selectmembershipType"
@@ -239,6 +247,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-sm">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
@@ -694,7 +703,7 @@
                                                                         <input type="text" appTheme appButton
                                                                             placeholder="dd/mm/yyyy" name="AC_OPDATE"
                                                                             id="AC_OPDATE" class="form-control" required
-                                                                            [maxDate]="maxDate" 
+                                                                            [maxDate]="maxDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="8"
@@ -719,9 +728,10 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group input-group">
                                                                     <span class="border-lable-flt">
-                                                                        <input type="text" appButton placeholder="dd/mm/yyyy"
-                                                                            name="AC_EXPDT" id="AC_EXPDT"
-                                                                            class="form-control" [minDate]="maxDate"
+                                                                        <input type="text" appButton
+                                                                            placeholder="dd/mm/yyyy" name="AC_EXPDT"
+                                                                            id="AC_EXPDT" class="form-control"
+                                                                            [minDate]="maxDate"
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_EXPDT"
@@ -1257,10 +1267,12 @@
                                                                             <div class="col-sm-2">
                                                                                 <div class="form-group input-group">
                                                                                     <span class="border-lable-flt">
-                                                                                        <input type="text" appTheme appButton
+                                                                                        <input type="text" appTheme
+                                                                                            appButton
                                                                                             placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
-                                                                                            name="AC_NDATE" minlength="8" maxlength="10"
+                                                                                            name="AC_NDATE"
+                                                                                            minlength="8" maxlength="10"
                                                                                             [(ngModel)]="ngnomineedate"
                                                                                             [minDate]="maxDate"
                                                                                             class="form-control"

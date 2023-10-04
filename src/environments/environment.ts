@@ -11,11 +11,11 @@ export const environment = {
   // base_url: 'http://139.59.63.215:7276',   //CBS test server
 
   // base_url: 'http://139.59.63.215:7276',  //CBS  test server
-  // base_url: 'http://139.59.63.215:4713',  //CBS sidhanerli server
+  base_url: 'http://139.59.63.215:4771',  //CBS sidhanerli server
 
 
   // base_url: 'http://139.59.63.215:9152',  //CBS  BHAIRAVNATH site server
-  base_url: 'http://localhost:7276',
+  // base_url: 'http://localhost:7276',
   // base_url: 'http://localhost:3000',
   // base_url: 'http://localhost:4000',
 
@@ -28,9 +28,7 @@ export const environment = {
   report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
   //  report_url: 'http://localhost/phpjasper/', //report folder local path
-  // report_url: 'http://localhost/phpjasper/examples/r', //report folder path
-  // report_url: 'http://localhost/phpjasper/vaibhavi/', //report folder path
-  // report_url: 'http://localhost/phpjasper/examples/s', //report folder path
+  //  report_url: 'http://localhost/Phpnew/', //report folder local path
 
   // sitename: 'http://139.59.63.215/bhn_cbs'  //server bhairavnath hotkey
 

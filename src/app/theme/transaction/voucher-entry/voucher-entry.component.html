@@ -298,6 +298,7 @@
                                                     required formControlName="amt" #swiper
                                                     (keyup)="getDecimal($event);getAmt(amt.value)"
                                                     (focusout)="focusSubmit();getDecimalPoint($event);">
+                                                    <!-- (keydown.Tab)="focusSubmit();getDecimalPoint($event);"> -->
                                             </span>
                                         </div>
                                     </div>

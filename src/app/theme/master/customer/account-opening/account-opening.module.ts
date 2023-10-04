@@ -19,6 +19,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { ClearingbranchMasterService } from 'src/app/shared/dropdownService/clearing-branch-master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -38,7 +39,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
   providers: [Scheme1Service, A1Service, BranchService,
     BankMasterService,
     OwnbranchMasterService,
-    SchemeCodeDropdownService,
+    SchemeCodeDropdownService,ClearingbranchMasterService,
     BankService,
     InvestmentService,
     SystemMasterParametersService,
