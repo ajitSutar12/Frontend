@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: PigmyagentchangeComponent,
     data: {
-      title: 'Pigmy agent change',
+      title: 'Pigmy Agent Change',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

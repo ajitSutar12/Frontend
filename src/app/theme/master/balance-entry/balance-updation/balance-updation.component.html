@@ -11,9 +11,9 @@
                 (ngSubmit)="submit();BRANCH_CODE.focus()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch Code<sub
+                        <div class="col-sm-12 col-md-3"> <label for="BRANCH_CODE">Branch Code<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
@@ -34,10 +34,12 @@
                                     This field is required.
                                 </div>
                             </div>
+
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-3"> <label for="AC_TYPE">Scheme Code<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
+
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
@@ -58,12 +60,15 @@
                                     This field is required.
                                 </div>
                             </div>
+
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="TRAN_DATE">Balance Date</label></div>
-                        <div class="col-sm-12 col-md-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">Balance Date</label></div>
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme appButton minlength="8" maxlength="10"
+                                    <input appTheme appButton minlength="10" maxlength="10"
                                          type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                         class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         (change)="getTable()" #TRAN_DATE="bsDatepicker" (keydown.Tab)="TRAN_DATE.hide()"
@@ -75,36 +80,37 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-3"> <label for="FROM_AC">From Account Number<sub
+                            class="required">*</sub></label></div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="form-group form-primary form-static-label">
+                        <span class="border-lable-flt">
+                            <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
+                                formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
+                                (change)="getTable()" [virtualScroll]="true"
+                                [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
+                                #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
+                                <ng-option *ngFor="let values of fromAC" [value]="values">
+                                    {{values.label}} {{values.name}}</ng-option>
+                            </ng-select>
+
+                        </span>
+                    </div>
+                    <div class="form-group form-primary form-static-label"
+                        *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
+                            This field is required.
+                        </div>
+                    </div>
+                </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From Account Number<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
-                                        formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        (change)="getTable()" [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
-                                        #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
-                                        <ng-option *ngFor="let values of fromAC" [value]="values">
-                                            {{values.label}} {{values.name}}</ng-option>
-                                    </ng-select>
+                        
 
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                    This field is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">To Account Number<sub
+                        <div class="col-sm-12 col-md-3"> <label for="TO_AC">To Account Number<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
@@ -125,6 +131,7 @@
                                     This field is required.
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
@@ -279,7 +286,7 @@
                                                             (change)="getColumnValue(data.id,data.AC_NO,data.BANKACNO,AC_PRODUCT.value,AC_PRODUCT.name)">
                                                     </td>
                                                     <td *ngIf="lastTranDate" class="td_center">
-                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                        <input type="text" appButton minlength="10" maxlength="10"
                                                              name="AC_ACTDATE" id="tran_date"
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -365,7 +372,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
                                                     <td *ngIf="tdsopDate" class="td_center" class="td_right">
-                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                        <input type="text" appButton minlength="10" maxlength="10"
                                                              name="LAST_TDS_DATE" id="LAST_TDS_DATE"
                                                             #LAST_TDS_DATE placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -428,7 +435,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)">
                                                     </td>
                                                     <td *ngIf="balanceDate" class="td_center">
-                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                        <input type="text" appButton minlength="10" maxlength="10"
                                                          name="AC_BALDATE" id="AC_BALDATE"
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
@@ -481,7 +488,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                                     </td>
                                                     <td *ngIf="npaDate" class="td_center">
-                                                        <input type="text" appButton minlength="8" maxlength="10"
+                                                        <input type="text" appButton minlength="10" maxlength="10"
                                                          name="OP_NPA_DATE" id="OP_NPA_DATE"
                                                             placeholder="dd/mm/yyyy" class="form-control"
                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"

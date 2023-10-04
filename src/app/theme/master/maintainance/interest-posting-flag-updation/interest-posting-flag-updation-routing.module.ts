@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: InterestPostingFlagUpdationComponent,
     data: {
-      title: 'Posting Flag Updation',
+      title: ' Posting Flag Updation',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
