@@ -997,11 +997,17 @@ const MENUITEMS1 = [
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
-              // {
-              //   state: 'SubsidiarySummaryComponent',
-              //   name: 'Subsidiary Summary',
-              //   id: 161
-              // },
+              {
+                state: 'SubsidiarySummaryComponent',
+                name: 'Subsidiary Summary',
+                id: 161
+              },
+
+                  {
+                state: 'OtherSubsidiaryComponent',
+                name: 'Other Subsidiary',
+                id: 341
+              },
               {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
@@ -3718,6 +3724,11 @@ const MENUITEMS = [
               //   name: 'Subsidiary Summary Report',
               //   id: 161
               // },
+              {
+                state: 'OtherSubsidiaryComponent',
+                name: 'Other Subsidiary',
+                id: 341
+              },
               {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
