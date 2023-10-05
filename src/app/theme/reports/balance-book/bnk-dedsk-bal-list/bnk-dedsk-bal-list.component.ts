@@ -216,6 +216,7 @@ newcustid: any = null;
   }
   else {
     Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+    this.ngForm.controls.Ending_Account.reset();
   }
 } 
 getBranch(event) {

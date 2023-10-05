@@ -120,14 +120,14 @@ export class BnkRegInterestInstructionComponent implements OnInit {
       // let etdate = obj.END_DATE;
       let revoke = obj.REVOKE_INST; 
 
-      if(revoke == null){
-        revoke = 'Active';
+      if(revoke == null || revoke==false){
+        revoke = 0;
       }else{
-        revoke = 'Revoke';
+        revoke = 1;
       }
 
 
-      this.iframe3url = this.report_url+"examples/InterestInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&branch='" + branch + "'&revoke='" + revoke + "'&bankName='" + bankName + "' &branchName ='"+branchName;
+      this.iframe3url = this.report_url+"examples/InterestInstruction.php?&stdate='" + stdate + "'&etdate='" + etdate + "'&branch='" + branch + "'&revoke=" + revoke + "&bankName='" + bankName + "' &branchName ='"+branchName;
       console.log(this.iframe3url);
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 

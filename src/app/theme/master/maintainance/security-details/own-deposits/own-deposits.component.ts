@@ -171,100 +171,100 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.loadTable();
     this.dtTrigger.next();
 
-    this.dtExportButtonOptions = {
-      pagingType: "full_numbers",
-      paging: true,
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTableParameters: any, callback) => {
-        dataTableParameters.minNumber = dataTableParameters.start + 1;
-        dataTableParameters.maxNumber =
-          dataTableParameters.start + dataTableParameters.length;
-        let datatableRequestParam: any;
-        this.page = dataTableParameters.start / dataTableParameters.length;
+    // this.dtExportButtonOptions = {
+    //   pagingType: "full_numbers",
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
 
-        dataTableParameters.columns.forEach((element) => {
-          if (element.search.value != "") {
-            let string = element.search.value;
-            this.filterData[element.data] = string;
-          } else {
-            let getColumnName = element.data;
-            let columnValue = element.value;
-            if (this.filterData.hasOwnProperty(element.data)) {
-              let value = this.filterData[getColumnName];
-              if (columnValue != undefined || value != undefined) {
-                delete this.filterData[element.data];
-              }
-            }
-          }
-        });
-        dataTableParameters["filterData"] = this.filterData;
-        this.http
-          .post<DataTableResponse>(
-            this.url + "/own-deposits",
-            dataTableParameters
-          )
-          .subscribe((resp) => {
-            this.depositemasters = resp.data;
-            callback({
-              recordsTotal: resp.recordsTotal,
-              recordsFiltered: resp.recordsTotal,
-              data: [],
-            });
-          });
-      },
+    //     dataTableParameters.columns.forEach((element) => {
+    //       if (element.search.value != "") {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     dataTableParameters["filterData"] = this.filterData;
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + "/own-deposits",
+    //         dataTableParameters
+    //       )
+    //       .subscribe((resp) => {
+    //         this.depositemasters = resp.data;
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: [],
+    //         });
+    //       });
+    //   },
 
-      columns: [
-        {
-          title: "Action",
-          render: function (data: any, type: any, full: any) {
-            return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
-        },
-        {
-          title: "Branch",
-          data: "BRANCH_CODE",
-        },
-        {
-          title: "Scheme",
-          data: "DEPO_AC_TYPE",
-        },
-        {
-          title: "Account Number",
-          data: "DEPO_AC_NO",
-        },
-        {
-          title: "Date of Submission",
-          data: "SUBMISSION_DATE",
-        },
-        {
-          title: "Receipt Number",
-          data: "RECEIPT_NO",
-        },
-        {
-          title: "Deposit Amount",
-          data: "DEPOSIT_AMT",
-        },
-        {
-          title: "Remarks",
-          data: "REMARK",
-        },
-        {
-          title: "Maturity Date",
-          data: "MATURITY_DATE",
-        },
-        {
-          title: "Margin %",
-          data: "MARGIN",
-        },
-        {
-          title: "Ledger Balance",
-          data: "LEDGER_Bal",
-        },
-      ],
-      dom: "Blrtip",
-    };
+    //   columns: [
+    //     {
+    //       title: "Action",
+    //       render: function (data: any, type: any, full: any) {
+    //         return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
+    //       },
+    //     },
+    //     {
+    //       title: "Branch",
+    //       data: "BRANCH_CODE",
+    //     },
+    //     {
+    //       title: "Scheme",
+    //       data: "DEPO_AC_TYPE",
+    //     },
+    //     {
+    //       title: "Account Number",
+    //       data: "DEPO_AC_NO",
+    //     },
+    //     {
+    //       title: "Date of Submission",
+    //       data: "SUBMISSION_DATE",
+    //     },
+    //     {
+    //       title: "Receipt Number",
+    //       data: "RECEIPT_NO",
+    //     },
+    //     {
+    //       title: "Deposit Amount",
+    //       data: "DEPOSIT_AMT",
+    //     },
+    //     {
+    //       title: "Remarks",
+    //       data: "REMARK",
+    //     },
+    //     {
+    //       title: "Maturity Date",
+    //       data: "MATURITY_DATE",
+    //     },
+    //     {
+    //       title: "Margin %",
+    //       data: "MARGIN",
+    //     },
+    //     {
+    //       title: "Ledger Balance",
+    //       data: "LEDGER_Bal",
+    //     },
+    //   ],
+    //   dom: "Blrtip",
+    // };
 
     this.schemeCodeDropdownService.getAllSchemeList1().pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {

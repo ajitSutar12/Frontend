@@ -155,7 +155,7 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation and Posting Successfully Completed", "success");
+          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
           this.ngOnInit()
           this.showButton = true;
         },
@@ -194,7 +194,7 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation and Posting Successfully Completed", "success");
+          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
@@ -226,7 +226,7 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation and Posting Successfully Completed", "success");
+          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
           this.ngOnInit()
           this.showButton = true;
         }, err => {

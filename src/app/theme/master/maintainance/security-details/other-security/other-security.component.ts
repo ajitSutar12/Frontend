@@ -247,10 +247,10 @@ export class OtherSecurityComponent
           info.push("otherSecurity")
 
           // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-            //   dtInstance.ajax.reload()
-            // });
-            this.loadTable();
-            this.newItemEvent(info);
+          //   dtInstance.ajax.reload()
+          // });
+          this.loadTable();
+          this.newItemEvent(info);
 
 
         },
@@ -264,8 +264,8 @@ export class OtherSecurityComponent
 
   }
 
-  loadTable(){
-   
+  loadTable() {
+
     let obj = {
       scheme: this.scheme,
       ac_no: this.Accountno,
@@ -273,12 +273,12 @@ export class OtherSecurityComponent
       branch: this.branchCode
     }
     this._security.getdatatable(obj).pipe(first()).subscribe((data) => {
-            this.securitymasters = this.sort_by_key(data, 'SUBMISSION_DATE');
+      this.securitymasters = this.sort_by_key(data, 'SUBMISSION_DATE');
       // this.securitymasters = data
     })
-  
+
   }
-  
+
   sort_by_key(array: any, key: any) {
     return array.sort(function (a: any, b: any) {
       let p = moment(a[key], 'DD/MM/YYYY');

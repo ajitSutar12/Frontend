@@ -552,4 +552,10 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngscheme = null
     this.schemeACNo = null
   }
+
+  addNewData()
+  {
+    this.resetForm();
+  }
+
 }

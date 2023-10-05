@@ -57,8 +57,17 @@
   .checkbox input[type="checkbox"]:disabled + label {
     opacity: 0.65;
   }
-  
-  .checkbox input[type="checkbox"]:disabled + label::before {
+ 
+
+.city
+{
+  // position: sticky;
+  // z-index:100;
+  // top: 0;
+ 
+ }
+ 
+ .checkbox input[type="checkbox"]:disabled + label::before {
     background-color: #eeeeee;
     cursor: not-allowed;
   }
@@ -94,5 +103,10 @@ input:not([type="button"]):not([type="submit"]):not([type="reset"]):hover, input
   border-color: #81256f;
   box-shadow: none;
 }
+
+
+// .fa-check-circle{
+//   font-size: large;
+// }
 
 
