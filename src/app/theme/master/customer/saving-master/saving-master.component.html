@@ -12,6 +12,7 @@
         <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
           <div class="row">
             <div class="col-sm-3">
+
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt" autofocus>
                   <ng-select bindValue="value" appTheme [(ngModel)]="selectedValue" id="AC_TYPE"
@@ -35,6 +36,7 @@
               </div>
             </div>
             <div class="col-sm-4">
+
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt" autofocus>
                   <ng-select [(ngModel)]="newcustid" appTheme id="AC_CUSTID" bindValue="value"
@@ -254,6 +256,7 @@
                               </div>
                             </div>
                             <div class="col-sm-3">
+
                               <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                   <ng-select id="AC_OPR_CODE" appTheme bindValue="value" [(ngModel)]="ngOccupation"

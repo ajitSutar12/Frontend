@@ -148,10 +148,10 @@ export class TddetailRecurrOverdueComponent implements OnInit {
 
       let flag = obj.Show_Only_Top;
 
-      if(flag == null){
-        flag = '0';
+      if(flag == null || flag == false){
+        flag = 0;
       }else{
-        flag = '1';
+        flag = 1;
       }
 
       //  let startingcode= obj.Starting_Account;

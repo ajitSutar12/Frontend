@@ -209,8 +209,9 @@ export class BnkGlAcStatementComponent implements OnInit {
       let startingcode = obj.FROM_AC;
       // let endingcode = obj.TO_AC;
       let MonthwiseSummary = obj.Month_wise_Summary
+      let AC_NO = obj.FROM_AC;
 
-      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + branch + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "";
+      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + branch + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "&AC_NO='" + AC_NO +  "'";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {

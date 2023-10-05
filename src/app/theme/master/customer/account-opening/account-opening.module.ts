@@ -20,6 +20,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { ClearingbranchMasterService } from 'src/app/shared/dropdownService/clearing-branch-master-dropdown.service';
+import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
 
 @NgModule({
   imports: [
@@ -39,7 +40,7 @@ import { ClearingbranchMasterService } from 'src/app/shared/dropdownService/clea
   providers: [Scheme1Service, A1Service, BranchService,
     BankMasterService,
     OwnbranchMasterService,
-    SchemeCodeDropdownService,ClearingbranchMasterService,
+    SchemeCodeDropdownService,ClearingbranchMasterService,TermDepositSchemeService,
     BankService,
     InvestmentService,
     SystemMasterParametersService,

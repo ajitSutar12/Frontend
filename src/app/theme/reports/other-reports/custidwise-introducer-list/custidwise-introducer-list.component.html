@@ -11,9 +11,9 @@
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch <sub
                                         class="required">*</sub></label></div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
@@ -32,10 +32,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -55,11 +55,12 @@
                                 </div>
                             </div>
 
-
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for=" Date">Starting Customer<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                               
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
@@ -79,38 +80,38 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Ending Customer<sub
+                                class="required">*</sub></label>
+                    </div>
+                    <div class="col-sm-4">
+                       
+                        <div class="form-group form-primary form-static-label">
+                            <span class="border-lable-flt">
+                                <ng-select id="END_CUST" bindValue="value" [(ngModel)]="ngcust2"
+                                    [virtualScroll]="true" formControlName="END_CUST" bindLabel="label"
+                                    placeholder="">
+                                    <ng-option *ngFor="let values of Cust_ID" [value]="values"> 
+                                        {{values.label}}</ng-option>
+                                </ng-select>
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                            *ngIf="ngForm.controls['END_CUST'].invalid && (ngForm.controls['END_CUST'].dirty || ngForm.controls['END_CUST'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="ngForm.controls['END_CUST'].errors?.required">
+                                This field is required
+                            </div>
+                        </div>
+                    </div>
 
                         </div>
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">Ending Customer<sub
-                                        class="required">*</sub></label>
-                            </div>
-                            <div class="col-sm-3">
-                               
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select id="END_CUST" bindValue="value" [(ngModel)]="ngcust2"
-                                            [virtualScroll]="true" formControlName="END_CUST" bindLabel="label"
-                                            placeholder="">
-                                            <ng-option *ngFor="let values of Cust_ID" [value]="values"> 
-                                                {{values.label}}</ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="ngForm.controls['END_CUST'].invalid && (ngForm.controls['END_CUST'].dirty || ngForm.controls['END_CUST'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="ngForm.controls['END_CUST'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-
+                           
                         
-                            <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                            <div class="col-md-2"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
@@ -130,10 +131,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">End Date<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">End Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"

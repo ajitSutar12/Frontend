@@ -139,10 +139,10 @@ view(event) {
   let branch = obj.BRANCH_CODE;
 
   let PrintClosedAccounts =obj.Print_Closed_Accounts;
-  if(PrintClosedAccounts == null){
-    PrintClosedAccounts = '0';
+  if(PrintClosedAccounts == null || PrintClosedAccounts == false){
+    PrintClosedAccounts = 0;
   }else{
-    PrintClosedAccounts = '1';
+    PrintClosedAccounts = 1;
   }
 
 

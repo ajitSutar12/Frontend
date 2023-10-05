@@ -409,8 +409,6 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
-
   createForm() {
     this.angForm = this.fb.group({
       S_ACNOTYPE: ["SB"],
@@ -735,4 +733,5 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       behavior: 'smooth' 
     });
   }
+  
 }
