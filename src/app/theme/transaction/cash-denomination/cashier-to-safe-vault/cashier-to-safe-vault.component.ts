@@ -132,7 +132,7 @@ export class CashierToSafeVaultComponent implements OnInit {
             'Your cash has been transfered.',
             'success'
           )
-          this.angForm.reset();
+          // this.reset();
           this.DenominationChart = false;
         },err=>{
           console.log(err);
@@ -140,7 +140,9 @@ export class CashierToSafeVaultComponent implements OnInit {
       }
     })
   }
-  
+  // reset(){
+
+  // }
 
   changeData(ele){
     this.DenominationChart =true;
