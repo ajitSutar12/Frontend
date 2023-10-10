@@ -302,7 +302,7 @@ export class GlAccountsMasterComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       AC_NO: [''],
-      AC_NAME: ['', [Validators.required, Validators.pattern]],
+      AC_NAME: ['', [Validators.required]],
       AC_CODE: [''],
       AC_BCD: ['', [Validators.required]],
       IS_DIRECT_ENTRY_ALLOW: [true],
