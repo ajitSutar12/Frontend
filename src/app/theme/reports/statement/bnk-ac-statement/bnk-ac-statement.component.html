@@ -61,7 +61,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" [virtualScroll]="true"
                                         formControlName="AC_NOFrom" bindLabel="label" placeholder="Range Starting Code"
-                                        (change)="getIntTrans($event)" >
+                                        (change)="getIntTranscus($event)" >
                                         <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                             {{ values.value }} {{ values.name }}</ng-option>
                                     </ng-select>
