@@ -175,10 +175,12 @@ export class BnkAcStatementComponent implements OnInit {
   //get acnotype from selected scheme
   getIntTrans(event) { 
     this.getschemename = event.name
-    this.getbankAcNo =  event.bankacno
+    // this.getbankAcNo =  event.bankacno
     this.getInterestTransfer()
   }
-
+  getIntTranscus(event) { 
+    this.getbankAcNo =  event.bankacno
+  }
   getIntTrans1(event) {
     this.getbankAcNo2 =  event.bankacno
     this.getInterestTransfer()
