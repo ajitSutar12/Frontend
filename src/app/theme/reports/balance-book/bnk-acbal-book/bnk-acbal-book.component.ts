@@ -286,6 +286,14 @@ export class BnkACBalBookComponent implements OnInit {
         date = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
+      let year: any;
+      if (this.defaultDate == userData.branch.syspara.CURRENT_DATE) {
+        year = moment(userData.branch.syspara.CURRENT_DATE, 'DD/MM/YYYY').format('YYYY-MM-DD')
+      }
+      else {
+        year = moment(this.defaultDate, 'DD/MM/YYYY').format('YYYY-MM-DD')
+
+      };
       let scheme = obj.Scheme_code
       let Rstartingacc = obj.FROM_AC_NO
       let EndingAccount = obj.TO_AC_NO
@@ -293,7 +301,7 @@ export class BnkACBalBookComponent implements OnInit {
       let Rdio = obj.radio
       let Rdiosort = obj.radio_sort
 
-      this.iframeurl = this.report_url + "examples/BalanceBook.php?&date='" + date + "'&Rdio='" + Rdio + "&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='" + branch + "'&Rstartingacc='" + Rstartingacc + "'&EndingAccount='" + EndingAccount + "'&Rdiosort='" + Rdiosort + "&bankName=" + bankName + "";
+      this.iframeurl = this.report_url + "examples/BalanceBook.php?&date='" + date + "'&Rdio='" + Rdio + "'&scheme='" + scheme + "'&sdate='" + date + "'&branch='" + branch + "'&Rstartingacc='" + Rstartingacc + "'&EndingAccount='" + EndingAccount + "'&Rdiosort='" + Rdiosort + "'&bankName='" + bankName + "'&year='" + year + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
