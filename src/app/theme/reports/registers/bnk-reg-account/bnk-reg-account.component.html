@@ -58,12 +58,12 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="ACOPEN" formControlName="ACCLOSE" value="ACOPEN" [checked]="true">
-                                        <i class="helper"></i>Account Open</label> 
+                                        <i class="helper"></i> Open Account</label> 
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="ACOPEN" formControlName="ACCLOSE" value="ACCLOSE">
-                                        <i class="helper"></i>Account Closed </label>
+                                        <i class="helper"></i> Closed Account </label>
                                 </div>
                             </div>
                         </div>
@@ -113,30 +113,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-sm-12 col-md-1"> <label for="GROUP_BY">Grouping By</label></div> -->
-                        <!-- <div class="col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="selectedType" formControlName="GROUP_BY"
-                                        placeholder="Group By" required>
-                                        <ng-option *ngFor="let type of Types" [value]="type.name">{{ type.name }}
-                                        </ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf=" angForm.controls['GROUP_BY'].invalid &&(angForm.controls['GROUP_BY'].dirty || angForm.controls['GROUP_BY'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['GROUP_BY'].errors?.required ||angForm.controls['GROUP_BY'].errors?.pattern">
-                                    This is required field
-                                </div>
-                            </div>
-                        </div> -->
+                        
                     </div>
-
-
-                    <div class="row"></div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-2">

@@ -73,8 +73,8 @@ export class BnkRegAccountComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
-      ACOPEN: new FormControl ('ACCLOSE'),
-      ACCLOSE: [],
+      // ACOPEN: new FormControl ('ACCLOSE'),
+      ACCLOSE: ['ACOPEN'],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       // GROUP_BY: ['', [Validators.required]],
