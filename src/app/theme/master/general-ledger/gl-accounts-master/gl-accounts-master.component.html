@@ -23,7 +23,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TYPE" class="form-control" placeholder=" " id="AC_NAME"
-                                        #autofocus required pattern="^[A-Za-z\./ -]+$" maxlength="250"
+                                        #autofocus required maxlength="250"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
                                     <label for="AC_NAME">General Ledger Name<sub class="required">*
                                         </sub></label>
@@ -33,7 +33,7 @@
                                 *ngIf="angForm.controls['AC_NAME'].invalid && (angForm.controls['AC_NAME'].dirty || angForm.controls['AC_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_NAME'].errors?.pattern || angForm.controls['AC_NAME'].errors?.required || angForm.controls['AC_NAME'].errors?.maxlength">
+                                    *ngIf=" angForm.controls['AC_NAME'].errors?.required || angForm.controls['AC_NAME'].errors?.maxlength">
                                     This field is required and Input allowed only A-Z a-z - / . (Space)
                                 </div>
                             </div>

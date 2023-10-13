@@ -153,11 +153,11 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
 
-    this.dtExportButtonOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 5,
-      dom: 'ftip'
-    }
+    // this.dtExportButtonOptions = {
+    //   pagingType: 'full_numbers',
+    //   pageLength: 5,
+    //   dom: 'ftip'
+    // }
 
     let obj = {
       scheme: this.scheme,

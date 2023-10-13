@@ -167,7 +167,7 @@
                 const decodedPayload = atob(payloadBase64);
                 const parsedPayload = JSON.parse(decodedPayload);
                 // console.log(parsedPayload)
-                return parsedPayload; 
+                return parsedPayload;
             }
         }
 
@@ -190,7 +190,11 @@
                     $.ajax({
                         // url: 'http://localhost:7276/user-defination/logout',
                         //  url: 'http://139.59.63.215:9152/user-defination/logout',
-                        url: 'http://139.59.63.215:4713/user-defination/logout',
+                        // url: 'http://103.174.87.104:7276/user-defination/logout',
+                        // url: 'http://103.174.87.104:7796/user-defination/logout',
+                        // url: 'http://139.59.63.215:4713/user-defination/logout',
+                        url: 'http://139.59.63.215:4771/user-defination/logout',
+
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -198,7 +202,10 @@
                     $.ajax({
                         // url: 'http://localhost:7276/user-defination/logoffhistory',
                         //  url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
-                        url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
+                        // url: 'http://103.174.87.104:7276/user-defination/logoffhistory',
+                        // url: 'http://103.174.87.104:7796/user-defination/logoffhistory',
+                        // url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
+                        url: 'http://139.59.63.215:4771/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -212,10 +219,13 @@
                 // console.error('Error decoding token:', error);
             }
             // your function for too long inactivity goes here
-            window.location.href = 'http://localhost:4200/auth/login/simple';
+            // window.location.href = 'http://localhost:4200/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/bhn_cbs/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
+            // window.location.href = 'http://103.174.87.104/VENKATESH/CBS/auth/login/simple';
+            // window.location.href = 'http://103.174.87.104/VADGAON/CBS/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/SIDHANERLI/CBS/auth/login/simple';
+            window.location.href = 'http://139.59.63.215/TESTSIDHANERLI/CBS/auth/login/simple';
             window.close()
         }
 
@@ -235,7 +245,9 @@
                     $.ajax({
                         // url: 'http://localhost:7276/refresh-token',
                         //  url: 'http://139.59.63.215:9152/refresh-token',
-                        url: 'http://139.59.63.215:4713/refresh-token',
+                         url: 'http://139.59.63.215:4771/refresh-token',
+                        // url: 'http://103.174.87.104:7276/refresh-token',
+                        // url: 'http://103.174.87.104:7796/refresh-token',
                         method: 'POST',
                         data: payload,
                         success: function (result) {
