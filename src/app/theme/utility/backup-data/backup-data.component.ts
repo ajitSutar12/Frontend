@@ -19,7 +19,7 @@ export class BackupDataComponent implements OnInit {
   }
   fileUrl = this.url + '/upload/backup.sql'
 
-  download() { 
+  download() {
     this.http.post(this.url + '/voucher/backupdb', '').subscribe(data => {
       if (data == 0) {
         Swal.fire('Opps', 'Failed', 'error');
@@ -30,7 +30,7 @@ export class BackupDataComponent implements OnInit {
         Swal.fire('success', 'File is ready to download', 'success');
         this.showDButton= true 
       }
-        });
-   
+    });
+
   }
 }

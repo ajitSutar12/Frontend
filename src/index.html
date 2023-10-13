@@ -85,6 +85,39 @@
     </app-root>
 </body>
 <script>
+////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
+    window.addEventListener('popstate', function (event) {
+        if (window.location.href == 'http://139.59.63.215/TESTSIDHANERLI/CBS/auth/login/simple') {
+            let data = localStorage.getItem('user');
+            let result = JSON.parse(data);
+            let obj = {
+                USERID: result.id,
+                BRANCH_CODE: result.branchId,
+                REMARK: 'SESSION LOGOUT',
+                id: result.id,
+            }
+            $.ajax({
+                // url: 'http://localhost:7276/user-defination/logout',
+                //  url: 'http://139.59.63.215:9152/user-defination/logout',
+                url: 'http://139.59.63.215:4771/user-defination/logout',
+                method: 'POST',
+                data: obj,
+                success: function (result) { }
+            })
+            $.ajax({
+                // url: 'http://localhost:7276/user-defination/logoffhistory',
+                //  url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
+                url: 'http://139.59.63.215:4771/user-defination/logoffhistory',
+                method: 'POST',
+                data: obj,
+                success: function (result) { }
+            })
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
+    });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // window.addEventListener("beforeunload", function (e) 
     // {
@@ -202,54 +235,7 @@
 
     function ConfirmClose() { }
     function HandleOnClose() { }
-    // function stateChanged() {
-    //     if (request.readyState == 4 || request.readyState == "complete")
-    //         alert("Succes!");
-    // }
-    // window.addEventListener("beforeunload", function (e) {
-    //     console.log('unload')
-    //     try {
-    //         const decodedToken = decodeJwtToken(localStorage.getItem('token'));
-    //         const currentTime = Math.floor(Date.now() / 1000);
-    //         // Check if the token has an expiration time
-    //         if (decodedToken.exp !== undefined && decodedToken.exp < currentTime) {
-    //             // console.log(decodedToken.exp < currentTime, 'decodedToken.exp < currentTime')
-
-    //             let data = localStorage.getItem('user');
-    //             let result = JSON.parse(data);
-    //             let obj = {
-    //                 USERID: result.id,
-    //                 BRANCH_CODE: result.branchId,
-    //                 REMARK: 'SESSION LOGOUT',
-    //                 id: result.id,
-    //             }
-    //             $.ajax({
-    //                 url: 'http://localhost:7276/user-defination/logout',
-    //                 // url: 'http://139.59.63.215:9152/user-defination/logout',
-    //                 // url: 'http://139.59.63.215:4713/user-defination/logout',
-    //                 method: 'POST',
-    //                 data: obj,
-    //                 success: function (result) { }
-    //             })
-    //             $.ajax({
-    //                 url: 'http://localhost:7276/user-defination/logoffhistory',
-    //                 // url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
-    //                 // url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
-    //                 method: 'POST',
-    //                 data: obj,
-    //                 success: function (result) { }
-    //             })
-    //             localStorage.removeItem('token');
-    //             localStorage.removeItem('user');
-    //         }
-    //     } catch (error) {
-    //         localStorage.removeItem('token');
-    //         localStorage.removeItem('user');
-    //         console.error('Error decoding token:', error);
-    //     }
-    //     window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
-    // })
-
+    
     function idleLogout() {
         var t;
         window.onload = resetTimer;
@@ -271,8 +257,7 @@
             }
         }
 
-        function yourFunction() {
-            // console.log('inactive')
+        function yourFunction() {        
             try {
                 const decodedToken = decodeJwtToken(localStorage.getItem('token'));
                 const currentTime = Math.floor(Date.now() / 1000);
@@ -289,7 +274,7 @@
                     }
                     $.ajax({
                         // url: 'http://localhost:7276/user-defination/logout',
-                        //  url: 'http://139.59.63.215:9152/user-defination/logout',
+                        url: 'http://139.59.63.215:4771/user-defination/logout',
                         // url: 'http://103.174.87.104:7276/user-defination/logout',
                         // url: 'http://103.174.87.104:7796/user-defination/logout',
                         // url: 'http://139.59.63.215:4713/user-defination/logout',
@@ -301,11 +286,8 @@
                     })
                     $.ajax({
                         // url: 'http://localhost:7276/user-defination/logoffhistory',
-                        //  url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
-                        // url: 'http://103.174.87.104:7276/user-defination/logoffhistory',
-                        // url: 'http://103.174.87.104:7796/user-defination/logoffhistory',
-                        // url: 'http://139.59.63.215:4713/user-defination/logoffhistory',
                         url: 'http://139.59.63.215:4771/user-defination/logoffhistory',
+                        // url: 'http://103.174.87.104:7276/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -320,7 +302,7 @@
             }
             // your function for too long inactivity goes here
             // window.location.href = 'http://localhost:4200/auth/login/simple';
-            // window.location.href = 'http://139.59.63.215/bhn_cbs/auth/login/simple';
+            window.location.href = 'http://139.59.63.215/TESTSIDHANERLI/CBS/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
             // window.location.href = 'http://103.174.87.104/VENKATESH/CBS/auth/login/simple';
             // window.location.href = 'http://103.174.87.104/VADGAON/CBS/auth/login/simple';
@@ -344,8 +326,7 @@
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
                         // url: 'http://localhost:7276/refresh-token',
-                        //  url: 'http://139.59.63.215:9152/refresh-token',
-                         url: 'http://139.59.63.215:4771/refresh-token',
+                        url: 'http://139.59.63.215:4771/refresh-token',
                         // url: 'http://103.174.87.104:7276/refresh-token',
                         // url: 'http://103.174.87.104:7796/refresh-token',
                         method: 'POST',

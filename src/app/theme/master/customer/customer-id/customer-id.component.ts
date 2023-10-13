@@ -205,7 +205,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   filenotuploaded: boolean = true
   FinYear = '';
   autofacus: boolean = false;
-  
+
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -523,7 +523,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       const formVal = this.angForm.value;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
-        'AC_MEMBTYPE': formVal.AC_MEMBTYPE, 
+        'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
         'AC_MEMBNO': formVal.AC_MEMBNO,
         'AC_TITLE': formVal.AC_TITLE,
         'F_NAME': formVal.F_NAME?.toUpperCase(),
@@ -1077,25 +1077,99 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   fileChangeEvent(event, id, valueid) {
-    if (this.customerDoc[id]['status'] == true) {
-      Swal.fire({
-        // title: 'Do You Want To Replace previous document?',
-        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'No',
-        confirmButtonText: 'Yes'
-      }).then((result) => {
-        if (result.isConfirmed) {
+    let selectedFile = event.target.files[0];
+    if (selectedFile) {
+      const fileSize = selectedFile.size; // in bytes
+      const maxSize = 2 * 1024 * 1024; // 2MB (adjust as needed)
+      if (fileSize > maxSize) {
+        Swal.fire('File size exceeds the maximum allowed size(2 MB).');
+        // Clear the file input to prevent submission
+        event.target.value = null;
+      }
+      else {
+        if (this.customerDoc[id]['status'] == true) {
+          Swal.fire({
+            // title: 'Do You Want To Replace previous document?',
+            html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              let result
+              let obj = {};
+              let selectedObj = {};
+              let file = (event.target as HTMLInputElement).files[0];
+              this.customerDoc[id]['status'] = true
+              let reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+              };
+              reader.onerror = function (error) {
+                console.log('Error: ', error);
+              };
+              let isExist: boolean = false
+              for (let element of this.imageObject) {
+                if (Number(Object.keys(element)[0]) == valueid) {
+                  isExist = true
+                  reader.onload = async function (ele: any) {
+                    result = await reader.result;
+                    let selecetedImg = ele.target.result;
+                    selectedObj[valueid] = selecetedImg
+                    obj[valueid] = result;
+                    element[valueid] = selecetedImg
+                  };
+                  this.customerDoc[id]['status'] = true
+                  break
+                }
+              }
+              if (!isExist) {
+                reader.onload = async function (ele: any) {
+                  result = await reader.result;
+                  let selecetedImg = ele.target.result;
+                  selectedObj[valueid] = selecetedImg
+                  obj[valueid] = result;
+                };
+                this.imageObject.push(obj);
+                this.selectedImgArrayDetails.push(selectedObj);
+                this.customerDoc[id]['status'] = true
+              }
+              else {
+                for (let element of this.selectedImgArrayDetails) {
+                  if (Number(Object.keys(element)) == valueid) {
+                    reader.onload = async function (ele: any) {
+                      result = await reader.result;
+                      let selecetedImg = ele.target.result;
+                      selectedObj[valueid] = selecetedImg
+                      element[valueid] = selecetedImg
+                      obj[valueid] = result;
+                    };
+                  }
+                }
+                this.customerDoc[id]['status'] = true
+              }
+            } else {
+              event.target.value = null
+            }
+          })
+        }
+        else {
           let result
           let arr = [];
           let me = this;
           let obj = {};
           let selectedObj = {};
+
           let file = (event.target as HTMLInputElement).files[0];
           this.customerDoc[id]['status'] = true
+
           let reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = async function (ele: any) {
@@ -1107,6 +1181,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           reader.onerror = function (error) {
             console.log('Error: ', error);
           };
+
           let isExist: boolean = false
           for (let element of this.imageObject) {
             if (Number(Object.keys(element)[0]) == valueid) {
@@ -1122,6 +1197,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               break
             }
           }
+
           if (!isExist) {
             reader.onload = async function (ele: any) {
               result = await reader.result;
@@ -1133,59 +1209,21 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             this.selectedImgArrayDetails.push(selectedObj);
             this.customerDoc[id]['status'] = true
           }
-        } else {
-          event.target.value = null
+          else {
+            for (let element of this.selectedImgArrayDetails) {
+              if (Number(Object.keys(element)) == valueid) {
+                reader.onload = async function (ele: any) {
+                  result = await reader.result;
+                  let selecetedImg = ele.target.result;
+                  selectedObj[valueid] = selecetedImg
+                  element[valueid] = selecetedImg
+                  obj[valueid] = result;
+                };
+              }
+            }
+            this.customerDoc[id]['status'] = true
+          }
         }
-      })
-    }
-    else {
-      let result
-      let arr = [];
-      let me = this;
-      let obj = {};
-      let selectedObj = {};
-
-      let file = (event.target as HTMLInputElement).files[0];
-      this.customerDoc[id]['status'] = true
-
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = async function (ele: any) {
-        result = await reader.result;
-        let selecetedImg = ele.target.result;
-        selectedObj[valueid] = selecetedImg
-        obj[valueid] = result;
-      };
-      reader.onerror = function (error) {
-        console.log('Error: ', error);
-      };
-
-      let isExist: boolean = false
-      for (let element of this.imageObject) {
-        if (Number(Object.keys(element)[0]) == valueid) {
-          isExist = true
-          reader.onload = async function (ele: any) {
-            result = await reader.result;
-            let selecetedImg = ele.target.result;
-            selectedObj[valueid] = selecetedImg
-            obj[valueid] = result;
-            element[valueid] = result
-          };
-          this.customerDoc[id]['status'] = true
-          break
-        }
-      }
-
-      if (!isExist) {
-        reader.onload = async function (ele: any) {
-          result = await reader.result;
-          let selecetedImg = ele.target.result;
-          selectedObj[valueid] = selecetedImg
-          obj[valueid] = result;
-        };
-        this.imageObject.push(obj);
-        this.selectedImgArrayDetails.push(selectedObj);
-        this.customerDoc[id]['status'] = true
       }
     }
   }
