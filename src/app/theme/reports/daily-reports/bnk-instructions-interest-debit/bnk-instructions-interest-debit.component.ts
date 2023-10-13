@@ -119,7 +119,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      SORT: ["", [Validators.required]],
+      // SORT: ["", [Validators.required]],
       FREQUENCY: ["", [Validators.required]],
       NEWPAGE: [""],
       RADIO: new FormControl('success'),
@@ -197,15 +197,15 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
 
 
       let startscheme = obj.NEWPAGE;
-      let sort = obj.SORT.value;
+      // let sort = obj.SORT.value;
 
-      if(sort == null || sort==false){
-        sort = 'Debit';
-      }else{
-        sort = 'Credit';
-      }
+      // if(sort == null || sort==false){
+      //   sort = 'Debit';
+      // }else{
+      //   sort = 'Credit';
+      // }
 
-      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + obj.SORT.value + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
+      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
@@ -226,9 +226,9 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let failure = obj.RADIO;
       let frequency = obj.FREQUENCY;
       let startscheme = obj.NEWPAGE;
-      let sort = obj.SORT;
+      // let sort = obj.SORT;
 
-      this.iframe1url = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&sort='" + sort + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
+      this.iframe1url = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
