@@ -86,6 +86,10 @@
 </body>
 <script>
 
+    // window.addEventListener("beforeunload", function (e) 
+    // {
+    //     // debugger
+
 
 
 
@@ -125,18 +129,77 @@
 
     // window.addEventListener("beforeunload", function (e) {
     //     debugger
+
     //     alert('working');
     //     //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
     //     // if (e.target.URL == 'http://139.59.86.29/CBS/auth/login/simple') {
     //     //     return true;
-    //     // } else {
+    //     // } else 
+    //     // {
     //     var user = JSON.parse(localStorage.getItem('user'));
     //     console.log({ id: user.id })
-    //     alert('working');    //    
+    //     alert('working');    
     //     return
     //     // }
 
     // });
+
+    // window.addEventListener('popstate', function (event) {
+
+    //     if (window.location.href == 'http://localhost:4200/auth/login/simple') {
+    //         console.log('logout')
+           
+    //         let data = localStorage.getItem('user');
+    //                 let result = JSON.parse(data);
+    //                 let obj = {
+    //                     USERID: result.id,
+    //                     BRANCH_CODE: result.branchId,
+    //                     REMARK: 'SESSION LOGOUT',
+    //                     id: result.id,
+    //                 }
+    //                 $.ajax({
+    //                     // url: 'http://localhost:7276/user-defination/logout',
+    //                     //  url: 'http://139.59.63.215:9152/user-defination/logout',
+    //                     url: 'http://139.59.63.215:4771/user-defination/logout',
+    //                     method: 'POST',
+    //                     data: obj,
+    //                     success: function (result) { }
+    //                 })
+    //                 $.ajax({
+    //                     // url: 'http://localhost:7276/user-defination/logoffhistory',
+    //                     //  url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
+    //                     url: 'http://139.59.63.215:4771/user-defination/logoffhistory',
+    //                     method: 'POST',
+    //                     data: obj,
+    //                     success: function (result) { }
+    //                 })
+    //                 localStorage.removeItem('token');
+    //                 localStorage.removeItem('user');
+                          
+    //     }
+        
+        
+    //     // console.log('backbutton', window.location.href)
+    //     // history.pushState(null, null, window.location.href);
+    // });
+
+
+    // document.getElementById('customAction').addEventListener('click', function () {
+
+   
+    // });
+
+
+    // window.addEventListener('beforeunload', function (e) {
+    //     alert('Custom action performed.');
+    //     e.preventDefault(); 
+    //     e.returnValue = ''; 
+    // });
+
+
+
+
+
     function ConfirmClose() { }
     function HandleOnClose() { }
     // function stateChanged() {

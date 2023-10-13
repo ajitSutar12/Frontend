@@ -78,7 +78,7 @@ obj: any;
       
       // FROM_AC_NO: ['', [Validators.pattern, Validators.required]],
       // TO_AC_NO: ['', [Validators.pattern, Validators.required]],
-      radio: new FormControl('none'),
+      radio: new FormControl('Detail'),
       // radio_sort: new FormControl('account number'),
 
     });
@@ -162,6 +162,7 @@ obj: any;
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
+    
 
   }
   close(){
