@@ -86,6 +86,29 @@
 </body>
 <script>
 
+// history.pushState(null, null, location.href);
+
+// window.addEventListener("popstate", function (e) {
+    // if (window.location.href == 'http://localhost:4200/auth/login/simple') {
+            // console.log('logout')
+        // debugger
+        // history.pushState(null, null, 'no-back-button');
+        // history.go(-1);
+        // history.back();
+        // alert('working');
+        //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
+        // if (e.target.URL == 'http://139.59.86.29/CBS/auth/login/simple') {
+        //     return true;
+        // } else {
+        var user = JSON.parse(localStorage.getItem('user'));
+        console.log({ id: user.id })
+        // alert('working');    //    
+        return
+        // }
+
+    // });
+
+
     // window.addEventListener("beforeunload", function (e) {
     //     debugger
     //     alert('working');

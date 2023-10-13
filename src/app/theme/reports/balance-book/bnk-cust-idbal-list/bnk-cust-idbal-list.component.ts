@@ -133,7 +133,11 @@ export class BnkCustIDBalListComponent implements OnInit {
       pritns =1;
     }
 
+<<<<<<< Updated upstream
     this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&edate='"+edate+"'&branch="+branch+"&custid="+custid+"'&pritns='"+pritns+"&bankName=" + bankName + " ";
+=======
+    this.iframeurl = this.report_url+ "examples/CustomerIdWiseList.php?stdate='" + stdate +"'&edate='"+edate+"'&branch="+branch+"&custid="+custid+"&pritns="+pritns+"&bankName=" + bankName + " ";
+>>>>>>> Stashed changes
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
    
    }
