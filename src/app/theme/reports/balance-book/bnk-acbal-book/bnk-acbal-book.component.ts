@@ -292,16 +292,6 @@ export class BnkACBalBookComponent implements OnInit {
       else {
         year = moment(this.defaultDate, 'DD/MM/YYYY').format('YYYY-MM-DD')
 
-<<<<<<< Updated upstream
-      let year: any;
-      if (this.defaultDate == userData.branch.syspara.CURRENT_DATE) {
-        year = moment(userData.branch.syspara.CURRENT_DATE, 'DD/MM/YYYY').format('YYYY-MM-DD')
-      }
-      else {
-        year = moment(this.defaultDate, 'DD/MM/YYYY').format('YYYY-MM-DD')
-
-=======
->>>>>>> Stashed changes
       };
       let scheme = obj.Scheme_code
       let Rstartingacc = obj.FROM_AC_NO
