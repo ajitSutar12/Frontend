@@ -300,7 +300,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
-        AC_NO: data.AC_NO,
+        // AC_NO: data.AC_NO,
         AC_SODAMT: data.AC_SODAMT,
         AC_ODAMT: data.AC_ODAMT,
         AC_ODDAYS: data.AC_ODDAYS,
@@ -391,6 +391,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_ODDAYS: data[0]?.AC_ODDAYS,
           AC_ODDATE: data[0]?.AC_ODDATE,
         })
+        debugger
         if (data[0].AC_SODAMT != 0 && data[0].AC_SODAMT != null && data[0].AC_ODDAYS != 0) {
           this.angForm.patchValue({
             radioOverdraft: 'PeriodicallyOverDraft'
@@ -402,7 +403,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           })
         }
 
-        if (data[0].AC_SODAMT != '' && data[0].AC_SODAMT != null && data[0].AC_ODDAYS != 0) {
+        if (data[0].AC_SODAMT != 0 && data[0].AC_SODAMT != null && data[0].AC_ODDAYS != 0) {
           this.PeriodicallyOverDraftTrue = true
           this.TemporaryOverDraftTrue = false
         }
