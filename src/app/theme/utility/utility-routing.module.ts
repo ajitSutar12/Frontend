@@ -107,7 +107,7 @@ const routes: Routes = [
       },
       {
         path: 'dataBackup',
-        loadChildren: () => import('./data-backup/data-backup.module').then(m => m.DataBackupModule)
+        loadChildren: () => import('./backup-data/backup-data.module').then(m => m.BackupDataModule)
       },
       {
         path: 'pataSevaSupportR',

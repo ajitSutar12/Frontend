@@ -14,7 +14,7 @@
                         <div class="col-sm-12 col-md-2">
                             <label for="BRANCH">Branch</label>
                         </div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
@@ -38,7 +38,7 @@
                         <div class="col-sm-12 col-md-2"> <label for="Scheme Code">Scheme Code<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -110,27 +110,13 @@
                         </div> -->
 
 
-                        <div class="col-md-4">
-                            <div class="form-radio">
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="TEMP"
-                                            [checked]="true">
-                                        <i class="helper"></i>Temporary OD</label>
-                                </div>
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="PERIODICAL">
-                                        <i class="helper"></i>Periodically OD</label>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <div class="row">
-                        <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
@@ -150,16 +136,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
                                         class="form-control" [(ngModel)]="todate" appButton minlength="8" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" formControlName="END_DATE" 
+                                        [maxDate]="maxDate" formControlName="END_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -175,7 +161,23 @@
                         </div>
                     </div>
 
-
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="Temporary"
+                                            [checked]="true">
+                                        <i class="helper"></i>Temporary OD</label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="Periodically">
+                                        <i class="helper"></i>Periodically OD</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-2">

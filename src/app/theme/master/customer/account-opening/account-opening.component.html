@@ -8,7 +8,7 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm"> 
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-3">
@@ -173,7 +173,8 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_MONTHS"
                                         class="form-control" placeholder=" " id="AC_MONTHS" required pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9" (change)="setMaturityDate()"
+                                        title="Input allowed only 0-9"  (change)="CheckmonthDays()"
+                                        (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_MONTHS">
                                     <label for="AC_MONTHS">Months<sub class="required">*</sub></label> 
@@ -193,7 +194,8 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_DAYS"
                                         class="form-control" placeholder=" " id="AC_DAYS" required pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9" (change)="setMaturityDate()"
+                                        title="Input allowed only 0-9"  (change)="CheckmonthDays()"
+                                        (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_DAYS">
                                     <label for="AC_DAYS">Days <sub class="required">*</sub></label>
@@ -216,7 +218,7 @@
                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPDT"
-                                        #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()"
+                                        #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()" (bsValueChange)="monthDays()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker disabled>
                                     <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label>
