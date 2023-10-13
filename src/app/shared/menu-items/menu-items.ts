@@ -997,11 +997,17 @@ const MENUITEMS1 = [
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
-              // {
-              //   state: 'SubsidiarySummaryComponent',
-              //   name: 'Subsidiary Summary',
-              //   id: 161
-              // },
+              {
+                state: 'SubsidiarySummaryComponent',
+                name: 'Subsidiary Summary',
+                id: 161
+              },
+
+                  {
+                state: 'OtherSubsidiaryComponent',
+                name: 'Other Subsidiary',
+                id: 341
+              },
               {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
@@ -1452,7 +1458,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'penalinterestlist',
-                name: 'Received Penal Interest List',
+                name: 'Received and Penal Interest List',
                 type: 'sub',
                 id: 238,
               },
@@ -3719,6 +3725,11 @@ const MENUITEMS = [
               //   id: 161
               // },
               {
+                state: 'OtherSubsidiaryComponent',
+                name: 'Other Subsidiary',
+                id: 341
+              },
+              {
                 state: 'VouchersPrintingComponent',
                 name: 'Voucher Printing',
                 id: 162
@@ -4167,7 +4178,7 @@ const MENUITEMS = [
               },
               {
                 state: 'penalinterestlist',
-                name: 'Received Penal Interest List',
+                name: 'Received and Penal Interest List',
                 type: 'sub',
                 id: 238,
               },

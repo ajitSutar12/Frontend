@@ -81,7 +81,7 @@ export class BnkODRegisterComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ['', [Validators.required]],
-      OD_TEMP: new FormControl('TEMP'),
+      OD_TEMP: new FormControl('Temporary'),
       // Starting_Account: ['', [Validators.required]],
       // Ending_Account: ['', [Validators.required]],
       START_DATE: ["", [Validators.required]],
@@ -254,9 +254,9 @@ export class BnkODRegisterComponent implements OnInit {
         let tDate = moment(date, 'DD/MM/YYYY')
         obj['END_DATE'] = date
       }
-
-
-      this.iframe3url = this.report_url + "examples/ODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&flag='" + tem_perOD + "'&bankName='" + bankName + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'&NAME=''";
+let sample
+sample=tem_perOD == 'Temporary' ? 1 : 0
+      this.iframe3url = this.report_url + "examples/ODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&flag=" +sample  + "&bankName='" + bankName + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'&NAME='' &type='" + obj.OD_TEMP + "' &branchCode='" + obj.BRANCH_CODE + "'";
 
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }

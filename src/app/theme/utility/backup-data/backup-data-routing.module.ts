@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import { DataBackupComponent } from './data-backup.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { BackupDataComponent } from './backup-data.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DataBackupComponent,
+    component: BackupDataComponent,
     data: {
       title: 'Data Backup',
       icon: 'icon-home',
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DataBackupRoutingModule { }
+export class BackupDataRoutingModule { }
