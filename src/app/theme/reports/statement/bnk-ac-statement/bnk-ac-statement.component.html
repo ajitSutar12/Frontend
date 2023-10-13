@@ -61,7 +61,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" [virtualScroll]="true"
                                         formControlName="AC_NOFrom" bindLabel="label" placeholder="Range Starting Code"
-                                        (change)="getIntTrans($event)" >
+                                        (change)="getIntTranscus($event)" >
                                         <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                             {{ values.value }} {{ values.name }}</ng-option>
                                     </ng-select>
@@ -186,8 +186,8 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                         (click)="View($event); clicked = true  ">View</button>
+                            <a [href]="fileUrl" download> <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                         (click)="View($event); clicked = true  " >View</button></a>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>

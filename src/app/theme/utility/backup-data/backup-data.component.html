@@ -10,12 +10,12 @@
                         <div class="col-sm-12">
                             <button type="button" class="btn btn-outline-primary btn-sm" style="float: left;" *ngIf="showButton"
                                 (click)="download()">Prepare File to
-                                download</button>
+                                Download</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <a [href]="fileUrl" download *ngIf="!showButton"> <button type="button"
+                            <a [href]="fileUrl" download *ngIf="showDButton"> <button type="button"
                                     class="btn btn-outline-primary btn-sm" style="float: left;">
                                     Download File
                                 </button></a>
