@@ -1458,7 +1458,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'penalinterestlist',
-                name: 'Received Penal Interest List',
+                name: 'Received and Penal Interest List',
                 type: 'sub',
                 id: 238,
               },
@@ -4178,7 +4178,7 @@ const MENUITEMS = [
               },
               {
                 state: 'penalinterestlist',
-                name: 'Received Penal Interest List',
+                name: 'Received and Penal Interest List',
                 type: 'sub',
                 id: 238,
               },

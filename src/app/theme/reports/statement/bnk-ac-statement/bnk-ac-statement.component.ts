@@ -71,7 +71,8 @@ export class BnkAcStatementComponent implements OnInit {
   branchName: any;
   introducerACNo
 
- 
+  fileUrl = this.url + 'examples/AccountStatement1.php'
+
 
   constructor(
     private  fb: FormBuilder,
@@ -175,12 +176,12 @@ export class BnkAcStatementComponent implements OnInit {
   //get acnotype from selected scheme
   getIntTrans(event) { 
     this.getschemename = event.name
-    // this.getbankAcNo =  event.bankacno
     this.getInterestTransfer()
   }
   getIntTranscus(event) { 
     this.getbankAcNo =  event.bankacno
   }
+
   getIntTrans1(event) {
     this.getbankAcNo2 =  event.bankacno
     this.getInterestTransfer()
@@ -221,6 +222,82 @@ export class BnkAcStatementComponent implements OnInit {
           this.ngAcnoTo = null
         })
         break;
+        case 'SH':
+          this.schemeAccountNoService.getShareSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+            this.ngAcnoFrom = null
+            this.introducerACNo = data;
+            this.ngAcnoTo = null
+          })
+          break;
+          case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+            this.ngAcnoFrom = null
+            this.introducerACNo = data;
+            this.ngAcnoTo = null
+        })
+        break;
+        case 'LN':
+        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+            this.ngAcnoFrom = null
+            this.introducerACNo = data;
+            this.ngAcnoTo = null
+        })
+        break;
+        case 'DS':
+          this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+            this.ngAcnoFrom = null
+            this.introducerACNo = data;
+            this.ngAcnoTo = null
+          })
+          break;
+          case 'CC':
+            this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+              this.ngAcnoFrom = null
+              this.introducerACNo = data;
+              this.ngAcnoTo = null
+            })
+            break;
+    
+          case 'GS':
+            this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+          this.ngAcnoFrom = null
+          this.introducerACNo = data;
+          this.ngAcnoTo = null
+            })
+            break;
+    
+          case 'PG':
+            this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+              this.ngAcnoFrom = null
+              this.introducerACNo = data;
+              this.ngAcnoTo = null
+            })
+            break;
+    
+          case 'AG':
+            this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+          this.ngAcnoFrom = null
+          this.introducerACNo = data;
+          this.ngAcnoTo = null
+            })
+            break;
+    
+          case 'IV':
+            this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+              this.introducerACNo = data;
+              this.ngAcnoFrom = null
+              this.introducerACNo = data;
+              this.ngAcnoTo = null
+            })
+            break;
 
     }
   }
@@ -329,7 +406,7 @@ View(event) {
     // let print = obj.PRINT_ACCOUNT;
     // let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+branch+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + " ";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+branch+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + "'&AC_ACNOTYPE='" +this.getschemename + "'";
     
     
 

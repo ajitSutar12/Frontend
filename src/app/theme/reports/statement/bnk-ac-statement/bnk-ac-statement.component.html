@@ -186,8 +186,8 @@
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                         (click)="View($event); clicked = true  ">View</button>
+                            <a [href]="fileUrl" download> <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                         (click)="View($event); clicked = true  " >View</button></a>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
