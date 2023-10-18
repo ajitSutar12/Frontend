@@ -93,7 +93,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   childArray: any;
   posArray
   sortArray: any;
-  
+
 
 
   //constructor
@@ -236,7 +236,7 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
         let parentCodeArray = this.sort_by_key(newArray, 'position')
         this.parentCodeArray[index]['child'] = parentCodeArray;
         // console.log(parentCodeArray);
-        
+
 
       })
     })
@@ -562,7 +562,9 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
     this.glStatementCodeService.updatePosition(this.childArray).subscribe(data => {
       this.treeview();
       // this.triggerhide.nativeElement.click();
-      Swal.fire('Success!', 'Position Shuffled', 'success');
+      if (data == 0) {
+        Swal.fire('Success!', 'Position Shuffled', 'success');
+      }
       this.closeBtnClick()
     })
 
@@ -593,11 +595,13 @@ export class GlStatementCodeComponent implements OnInit, AfterViewInit, OnDestro
   closeBtnClick() {
     this.newCode1 = null;
     this.treeview();
-    this.newCode= null;
-    this.posArray =null;
-    this.childArray =null;
-    this.shuffleCode();
-   
+    this.newCode = null;
+    this.posArray = null;
+    this.childArray = null;
+    this.parentCode = null;
+    this.parentId = null;
+    // this.shuffleCode();
+
     this.modalService.dismissAll();
   }
   selectAllContent($event) {

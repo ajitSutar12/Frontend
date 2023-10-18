@@ -343,13 +343,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
             if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "S") {
               this.simpleInterestCalculation()
             } else if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "C") {
-              if (data.COMPOUND_INT_BASIS == "M" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+              if (data.COMPOUND_INT_BASIS == "M" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
                 var Quarters = Math.floor(this.angForm.controls['new_month'].value) / 1;
-              } else if (data.COMPOUND_INT_BASIS == "Q" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+              } else if (data.COMPOUND_INT_BASIS == "Q" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
                 var Quarters = Math.floor(this.angForm.controls['new_month'].value) / 3;
-              } else if (data.COMPOUND_INT_BASIS == "H" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+              } else if (data.COMPOUND_INT_BASIS == "H" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
                 var Quarters = Math.floor(this.angForm.controls['new_month'].value) / 6;
-              } else if (data.COMPOUND_INT_BASIS == "Y" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+              } else if (data.COMPOUND_INT_BASIS == "Y" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
                 var Quarters = Math.floor(this.angForm.controls['new_month'].value) / 12;
               }
               var date1 = this.angForm.controls['new_ason_date'].value;
@@ -365,7 +365,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
                 var sample = parseFloat(amount);
                 var totalInt = (parseFloat(amount) * (this.angForm.controls['new_rate'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
                 totalInterest = Number(totalInt)
-                amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
+                amount = (parseFloat(amount) + (totalInterest)).toFixed(2)
                 totalInterest = 0
               }
               maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * (this.angForm.controls['new_rate'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)

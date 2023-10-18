@@ -223,17 +223,29 @@ export class UserProfileComponent implements OnInit {
   }
 
   selectedImage(ele: any) {
-    let data;
-    if (ele.target.files && ele.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.showImage = true;
-        this.selectedImagePreview = event.target.result;
-        this.imgBase64 = reader.result;
-        console.log(data);
-        console.log(this.selectedImagePreview);
+    let selectedFile = ele.target.files[0];
+    if (selectedFile) {
+      const fileSize = selectedFile.size; // in bytes
+      const maxSize = 2 * 1024 * 1024; // 2MB (adjust as needed)
+      if (fileSize > maxSize) {
+        Swal.fire('Info', 'File size exceeds the maximum allowed size(2 MB).', 'info');
+        // Clear the file input to prevent submission
+        ele.target.value = null;
       }
-      reader.readAsDataURL(ele.target.files[0]);
+      else {
+        let data;
+        if (ele.target.files && ele.target.files[0]) {
+          var reader = new FileReader();
+          reader.onload = (event: any) => {
+            this.showImage = true;
+            this.selectedImagePreview = event.target.result;
+            this.imgBase64 = reader.result;
+            // console.log(data);
+            // console.log(this.selectedImagePreview);
+          }
+          reader.readAsDataURL(ele.target.files[0]);
+        }
+      }
     }
   }
 

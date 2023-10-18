@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 import Swal from 'sweetalert2';
 import { DayBeginService } from './day-begin.service';
-
+import { AuthService } from '../../../theme/auth/auth.service';
 
 @Component({
   selector: 'app-day-begin',
@@ -32,7 +32,8 @@ export class DayBeginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private systemParameter: SystemMasterParametersService,
-    private _service: DayBeginService
+    private _service: DayBeginService,
+    private _authService: AuthService
 
   ) { }
 
@@ -85,7 +86,7 @@ export class DayBeginComponent implements OnInit {
             title: 'Need To Re-Login',
             text: "Please re-login in Application",
             icon: 'warning',
-            showCancelButton: true,
+            showCancelButton: false,
             confirmButtonColor: '#229954',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, Re-Login!'
@@ -129,7 +130,7 @@ export class DayBeginComponent implements OnInit {
 
   logout() {
     let user = JSON.parse(localStorage.getItem('user'));
-    this._service.logout(user.id).subscribe(data => { })
+    this._authService.logout(user.id).subscribe(data => { })
     let userData: any = localStorage.getItem('user');
     let result = JSON.parse(userData);
     let obj = {
@@ -137,7 +138,7 @@ export class DayBeginComponent implements OnInit {
       BRANCH_CODE: result.branchId,
       REMARK: null
     }
-    this._service.LOGOFFHISTORY(obj).subscribe(data => { })
+    this._authService.LOGOFFHISTORY(obj).subscribe(data => { })
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.router.navigate(['/auth/login/simple/'])
