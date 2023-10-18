@@ -17,7 +17,7 @@ export class ThemeDirective {
   // @HostListener("mousedown", ['$event'])
   // @HostListener('keydown.tab', ['$event'])
   // @HostListener('keydown.shift.Tab', ['$event'])
-  // @HostListener("click", ['$event'])
+  @HostListener("click", ['$event'])
   @HostListener("focusout")
   onFormSubmit(event) {
 

@@ -36,7 +36,7 @@
                                         <ul>
                                             <li *ngFor="let data of i.child" class="last">{{data.head_name}}
                                                 <button class="btn btn-success"
-                                                    (click)="addModalWindow(modalEdit);AddnewHead(i.id,i.head_name)"><i
+                                                    (click)="addModalWindow(modalEdit);AddnewHead(data.id,data.head_name)"><i
                                                         class="fa fa-pencil" aria-hidden="true"></i></button>
 
                                             </li>

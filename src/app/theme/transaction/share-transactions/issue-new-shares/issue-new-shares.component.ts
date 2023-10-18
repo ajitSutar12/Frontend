@@ -428,7 +428,7 @@ export class IssueNewSharesComponent implements OnInit {
           USER_CODE: result.id,
           MembershipData: this.multigrid
         }
-        console.log(object);
+        // console.log(object);
         this.http.post(this.url + "/issue-new-share/insert", object).subscribe(data => {
           Swal.fire(
             'Success',
@@ -489,7 +489,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.http.get(this.url + '/issue-new-share/' + id).subscribe((data: any) => {
       this.ngForm.disable()
       let dailyshrtran = data.dailyshrtran
-      let dailytran = data.dailytran
+      // let dailytran = data.dailytran
       this.updateID = dailyshrtran.id
       if (dailyshrtran.TRAN_STATUS != '0') {
         this.approveShow = false;
@@ -538,7 +538,22 @@ export class IssueNewSharesComponent implements OnInit {
         CERTIFICATE_NO: dailyshrtran.CERTIFICATE_NO
       })
       dailyshrtran.TRAN_TYPE == 'CS' ? this.isTransfer = false : this.isTransfer = true
-      this.multigrid = dailytran
+      if (this.isTransfer == true) {
+        this.transferTotalAmount = dailyshrtran.TRAN_AMOUNT
+        this.totalCredit = dailyshrtran.TRAN_AMOUNT
+        this.totalDebit = dailyshrtran.TRAN_AMOUNT
+        let dailytran = []
+        for (let ele of data.dailytran) {
+          if (ele.TRAN_DRCR != 'C') {
+            ele['TRANSFER_ACNO'] = ele.TRAN_ACNO
+            ele['amount'] = ele.TRAN_AMOUNT
+            ele['PERTICULARS'] = ele.NARRATION
+            ele['DEBIT_CREDIT'] = ele.TRAN_DRCR == 'C' ? 'CREDIT' : 'DEBIT'
+            dailytran.push(ele)
+          }
+        }
+        this.multigrid = dailytran
+      }
     })
   }
 
