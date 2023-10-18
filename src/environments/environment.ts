@@ -34,6 +34,9 @@ export const environment = {
   // report_url: 'http://103.174.87.104/VADGAON/REPORTS/', //server VADGAON report folder path
   // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
+  // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
+
+
    report_url: 'http://localhost/phpjasper/', //report folder local path
   //  report_url: 'http://localhost/Phpnew/', //report folder local path
 

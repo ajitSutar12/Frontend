@@ -71,12 +71,13 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
+      AC_OPEN:['', [Validators.required]],
       scheme_code: ['',],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       // AC_OPEN:  new FormControl('AC_OPEN'),
-      AC_OPEN: ['AC_OPEN',],
-      PRINT_CLOSEAC: ['',],
+      // AC_OPEN: ['AC_OPEN',],
+      // PRINT_CLOSEAC: ['',],
     })
   }
   ngOnInit(): void {
@@ -165,7 +166,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
       }
 
       // this.iframeurl = this.report_url+"examples/InvestmentRegister.php?startDate_='"+startDate+"'&endDate_='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
-      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName + "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branchcode=" + Branch + "&AC_DATA=" + obj.AC_OPEN + "&acclose=" + acclose
+      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName + "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branchcode=" + Branch + "&acclose=" + acclose
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
