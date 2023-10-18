@@ -64,6 +64,7 @@ clicked:boolean=false;
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
     
     if (this.angForm.valid) {
       this.showRepo = true;
@@ -72,7 +73,7 @@ clicked:boolean=false;
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched1 = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+branched1+"'&bankName='" + bankName + "'";
+      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+branched1+"'&bankName='" + bankName + "'&branchName='" + branchName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

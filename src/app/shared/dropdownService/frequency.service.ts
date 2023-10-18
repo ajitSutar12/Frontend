@@ -7,7 +7,7 @@ export class FrequencyService {
     public static readonly PLAYER_ONE: Array<IOption> = [
         { value: 'M', label: 'Monthly' },
         { value: 'Q', label: 'Quarterly' },
-        { value: 'Fixed Quarterly', label: 'Fixed Quarterly' },
+        { value: 'F', label: 'Fixed Quarterly' },
         { value: 'H', label: 'Half Yearly' },
     ];
 

@@ -531,7 +531,7 @@ export class VoucherEntryComponent implements OnInit {
     if (this.angForm.status == "INVALID") {
       this.angForm.markAllAsTouched();
     }
-    else if (this.submitTranMode.tran_drcr == 'D' && (this.angForm.controls['token'].value == 0 || this.angForm.controls['token'].value == null || this.angForm.controls['token'].value == '')) {
+    else if (this.submitTranMode.tran_drcr == 'D' && this.angForm.controls['type'].value == 'cash' && (this.angForm.controls['token'].value == 0 || this.angForm.controls['token'].value == null || this.angForm.controls['token'].value == '')) {
       Swal.fire('warning', 'Please enter token number', 'warning')
     }
     // else if (Number(this.angForm.controls['amt'].value) == 0) {
@@ -889,6 +889,12 @@ export class VoucherEntryComponent implements OnInit {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
           }
           if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
@@ -1024,7 +1030,8 @@ export class VoucherEntryComponent implements OnInit {
       if (this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) {
         let count = 0
         this.headData.forEach(element => {
-          count = Number(element.Amount) + Number(count)
+          let amount = Number.isNaN(element.Amount) ? 0 : Number(element.Amount)
+          count = amount + Number(count)
         });
         this.totalAmt = count + Number(this.ClearBalance)
         this.totalAmt = Number(this.totalAmt).toFixed(2)

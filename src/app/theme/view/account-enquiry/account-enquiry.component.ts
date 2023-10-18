@@ -619,7 +619,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.coborrowerView = false
         this.http.get<any>(this.url + '/gl-account-master').subscribe(data => {
           this.schemeACNo = data
-          console.log(data);
+          console.log(this.schemeACNo);
         })
         this.GLRecordShow = true
         this.ShareRecordShow = false
@@ -1656,7 +1656,7 @@ export class AccountEnquiryComponent implements OnInit {
     }
     const endpoint = this.url + '/term-deposits-master/balUpdate/'; // Replace with your actual endpoint URL
     this.http.post(endpoint, obj).subscribe((data) => {
-      console.log(data,'td rec')
+      console.log(data, 'td rec')
       this.schemeACNo = this.schemeACNo.concat(data);
       this.currentPage++;
     });

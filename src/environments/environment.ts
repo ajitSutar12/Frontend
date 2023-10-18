@@ -11,15 +11,15 @@ export const environment = {
   // base_url: 'http://139.59.63.215:7276',   //CBS test server
 
   // base_url: 'http://139.59.63.215:7276',  //CBS  test server
-  base_url: 'http://139.59.63.215:4771',  //CBS sidhanerli test server
-  // base_url: 'http://139.59.63.215:4713',  //CBS sidhanerli server
+  // base_url: 'http://139.59.63.215:4771',  //CBS sidhanerli test server
+  // base_url: 'http://103.174.87.104:4713',  //CBS sidhanerli server
   // base_url: 'http://103.174.87.104:7276',  //CBS venkatesh server
   // base_url: 'http://103.174.87.104:7796',  //CBS VADGAON server
 
 
   // base_url: 'http://139.59.63.215:9152',  //CBS  BHAIRAVNATH site server
 
-  // base_url: 'http://localhost:7276',
+  base_url: 'http://localhost:7276',
   // base_url: 'http://localhost:3000',
   // base_url: 'http://localhost:4000',
 
@@ -32,18 +32,20 @@ export const environment = {
   // report_url: 'http://139.59.63.215/TESTSIDHANERLI/REPORTS/', //server sidhanerli report folder path
   // report_url: 'http://103.174.87.104/VENKATESH/REPORTS/', //server VENKATESH report folder path
   // report_url: 'http://103.174.87.104/VADGAON/REPORTS/', //server VADGAON report folder path
+  report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
+
   // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
-   report_url: 'http://localhost/phpjasper/', //report folder local path
+
+  //  report_url: 'http://localhost/phpjasper/', //report folder local path
   //  report_url: 'http://localhost/Phpnew/', //report folder local path
 
   // sitename: 'http://139.59.63.215/bhn_cbs'  //server bhairavnath hotkey
 
 
   // sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
-  sitename: 'http://139.59.63.215/TESTSIDHANERLI/CBS' //server sidhanerli site hotkey
+  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' //server sidhanerli site hotkey
   // sitename: 'http://103.174.87.104/VENKATESH/CBS' //server VENKATESH site hotkey
-  // sitename: 'http://103.174.87.104/VADGAON/CBS' //server VADGAON site hotkey
 
 };
 
