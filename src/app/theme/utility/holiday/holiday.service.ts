@@ -25,6 +25,6 @@ export class HolidayService {
 
     //Deletion Operation
     deleteData(date: any): Observable<any> {
-        return this.http.delete(this.url + '/holiday/delete/' + date).pipe(catchError(this.handleError));
+        return this.http.post(this.url + '/holiday/delete' , date).pipe(catchError(this.handleError));
     }
 }

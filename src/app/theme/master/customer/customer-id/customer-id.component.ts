@@ -1082,7 +1082,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       const fileSize = selectedFile.size; // in bytes
       const maxSize = 2 * 1024 * 1024; // 2MB (adjust as needed)
       if (fileSize > maxSize) {
-        Swal.fire('File size exceeds the maximum allowed size(2 MB).');
+        Swal.fire('Info', 'File size exceeds the maximum allowed size(2 MB).', 'info');
         // Clear the file input to prevent submission
         event.target.value = null;
       }
