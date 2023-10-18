@@ -2605,13 +2605,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "S") {
             this.simpleInterestCalculation()
           } else if (data.S_INTCALTP == "D" && data.S_INTCALC_METHOD == "C") {
-            if (data.COMPOUND_INT_BASIS == "M" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+            if (data.COMPOUND_INT_BASIS == "M" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 1;
-            } else if (data.COMPOUND_INT_BASIS == "Q" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+            } else if (data.COMPOUND_INT_BASIS == "Q" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 3;
-            } else if (data.COMPOUND_INT_BASIS == "H" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+            } else if (data.COMPOUND_INT_BASIS == "H" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 6;
-            } else if (data.COMPOUND_INT_BASIS == "Y" || data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
+            } else if (data.COMPOUND_INT_BASIS == "Y" && data.COMPOUND_INT_DAYS != '' || data.IS_DISCOUNTED_INT_RATE == '1') {
               var Quarters = Math.floor(this.angForm.controls['AC_MONTHS'].value) / 12;
             }
 
@@ -2630,7 +2630,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             for (this.i = 1; this.i <= Quarters; this.i++) {
               let totalInterest: number
               var sample = parseFloat(amount);
-              var totalInt = (parseFloat(amount) * Number(this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
+              var totalInt = (parseFloat(amount) * Number(this.angForm.controls['AC_INTRATE'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(2)
               totalInterest = Number(totalInt)
               amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
 
