@@ -42,7 +42,6 @@ export class BasicLoginComponent implements OnInit {
     }
     this._authService.login(dataObject).subscribe(data => {
       let userid = data.user.id
-     
       if (data.user.LOG_STATUS == '1') {
         Swal.fire({
           title: '',

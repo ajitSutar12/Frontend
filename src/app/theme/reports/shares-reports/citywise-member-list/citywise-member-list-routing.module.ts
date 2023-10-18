@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  CitywiseMemberListComponent,
     data: {
-      title: 'Investment Register(Open/Closed)',
+      title: 'Citywise Member List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
