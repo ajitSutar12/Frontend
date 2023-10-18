@@ -202,7 +202,7 @@ newcustid: any = null;
   this.memFrom = this.ngForm.controls['Starting_Account'].value
   this.memTo = this.ngForm.controls['Ending_Account'].value
   this.branch = this.ngForm.controls['BRANCH_CODE'].value
-  if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
+  if (this.ngForm.controls['Starting_Account'].value <= this.ngForm.controls['Ending_Account'].value) {
     this.mem = [this.memFrom, this.memTo, this.branch]
     if (this.getschemename ) {
       this.http.get(this.url + '/dead-stock-master' + this.mem).subscribe((data) => {
