@@ -120,7 +120,7 @@ export class MultiVoucherComponent implements OnInit {
     { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
     { key: 'SH', data: { cash: [1, 4, 5, 7, 14], transfer: [1, 4, 5, 7, 14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
-    { key: 'PG', data: { cash: [1, 4, 10], transfer: [1, 4, 10] } },
+    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
     { key: 'TD', data: { cash: [1, 4, 6, 10], transfer: [1, 4, 6, 9, 10] } },
   ]
 
@@ -2265,137 +2265,137 @@ export class MultiVoucherComponent implements OnInit {
           element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
         } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER3_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER4_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER5_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER6_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER7_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER8_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER9_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER11_AMOUNT') {
           element['Amount'] = 0
           if (element?.GL_CODE != null) {
-            this._vservice.getledgerbalance(newobj).subscribe(data2 => {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
               element['Balance'] = Math.round(Math.abs(data2))
               element['tempBalance'] = data2
               element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
             })
-          }
-          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
-            element['Amount'] = Math.round(Number(element['Balance']))
-          }
-          else {
-            element['Amount'] = 0
           }
         } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
           element['Amount'] = 0

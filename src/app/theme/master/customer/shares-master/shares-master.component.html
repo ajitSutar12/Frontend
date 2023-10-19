@@ -736,7 +736,7 @@
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_EXPDT"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                                            minlength="8" maxlength="10" bsDatepicker
+                                                                            minlength="10" maxlength="10" bsDatepicker
                                                                             #_EXPDT="bsDatepicker"
                                                                             (keydown.Tab)="_EXPDT.hide()">
                                                                         <label for="AC_EXPDT">Expiry Date</label>
@@ -941,7 +941,7 @@
                                                                             formControlName="AC_RESDT"
                                                                             [maxDate]="maxDate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                                            minlength="8" maxlength="10" bsDatepicker
+                                                                            minlength="10" maxlength="10" bsDatepicker
                                                                             #AC_RESDT="bsDatepicker"
                                                                             (keydown.Tab)="AC_RESDT.hide()">
                                                                         <label for="AC_RESDT">Resolution Date<sub
@@ -1272,7 +1272,7 @@
                                                                                             placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
-                                                                                            minlength="8" maxlength="10"
+                                                                                            minlength="10" maxlength="10"
                                                                                             [(ngModel)]="ngnomineedate"
                                                                                             [minDate]="maxDate"
                                                                                             class="form-control"
