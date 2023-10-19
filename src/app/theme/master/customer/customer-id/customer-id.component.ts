@@ -1416,6 +1416,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
+    
   }
 
   onOpen(select: NgSelectComponent) {

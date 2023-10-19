@@ -570,6 +570,7 @@ const MENUITEMS1 = [
             name: 'Share Transaction',
             id: 87
           },
+          
           {
             state: 'locker',
             name: 'Locker Transaction',
@@ -997,22 +998,7 @@ const MENUITEMS1 = [
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
-              {
-                state: 'SubsidiarySummaryComponent',
-                name: 'Subsidiary Summary',
-                id: 161
-              },
-
-                  {
-                state: 'OtherSubsidiaryComponent',
-                name: 'Other Subsidiary',
-                id: 341
-              },
-              {
-                state: 'VouchersPrintingComponent',
-                name: 'Voucher Printing',
-                id: 162
-              },
+                        
               {
                 state: 'otherSubsidiary',
                 name: 'Other Subsidiary ',
@@ -1492,7 +1478,8 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 343,
               },
-              
+             
+             
             ],
 
           },
@@ -3292,6 +3279,8 @@ const MENUITEMS = [
             name: 'Share Transaction',
             id: 87
           },
+         
+          
           {
             state: 'locker',
             name: 'Locker Transaction',
@@ -3719,21 +3708,7 @@ const MENUITEMS = [
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
-              // {
-              //   state: 'SubsidiarySummaryComponent',
-              //   name: 'Subsidiary Summary Report',
-              //   id: 161
-              // },
-              {
-                state: 'OtherSubsidiaryComponent',
-                name: 'Other Subsidiary',
-                id: 341
-              },
-              {
-                state: 'VouchersPrintingComponent',
-                name: 'Voucher Printing',
-                id: 162
-              },
+          
               {
                 state: 'otherSubsidiary',
                 name: 'Other Subsidiary ',
@@ -4212,6 +4187,7 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 343,
               },
+              
             ],
 
           },

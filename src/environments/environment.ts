@@ -30,9 +30,9 @@ export const environment = {
   // report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
   // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/' //server bhairavnath report test folder path
   // report_url: 'http://139.59.63.215/TESTSIDHANERLI/REPORTS/', //server sidhanerli report folder path
-  // report_url: 'http://103.174.87.104/VENKATESH/REPORTS/', //server VENKATESH report folder path
+  report_url: 'http://103.174.87.104/VENKATESH/REPORTS/', //server VENKATESH report folder path
   // report_url: 'http://103.174.87.104/VADGAON/REPORTS/', //server VADGAON report folder path
-  report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
+  // report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
   // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
@@ -44,8 +44,8 @@ export const environment = {
 
 
   // sitename: 'http://139.59.63.215/bhairavnath' //server bhairavnath site hotkey
-  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' //server sidhanerli site hotkey
-  // sitename: 'http://103.174.87.104/VENKATESH/CBS' //server VENKATESH site hotkey
+  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' //server sidhanerli site hotkey
+  sitename: 'http://103.174.87.104/VENKATESH/CBS' //server VENKATESH site hotkey
 
 };
 

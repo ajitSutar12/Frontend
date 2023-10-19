@@ -25,7 +25,8 @@
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code"
                                                     (focus)="onFocus(branchcode)" appTheme [virtualScroll]="true"
-                                                    (change)="getBranch()" [selectOnTab]='true' #branchcode autofocus>
+                                                    (change)="getBranch($event)" [selectOnTab]='true' #branchcode
+                                                    autofocus>
                                                     <ng-option *ngFor="let item of branch_code" [value]="item.value">
                                                         {{item.label}}</ng-option>
                                                 </ng-select>
@@ -236,7 +237,7 @@
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
                                                     <input type="text" placeholder="dd/mm/yyyy" class="form-control"
-                                                        appButton minlength="8" maxlength="10"
+                                                        appButton minlength="10" maxlength="10"
                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
                                                         [maxDate]="maxDate" [minDate]="minDate"
                                                         formControlName="chequeDate">
@@ -298,7 +299,7 @@
                                                     required formControlName="amt" #swiper
                                                     (keyup)="getDecimal($event);getAmt(amt.value)"
                                                     (focusout)="focusSubmit();getDecimalPoint($event);">
-                                                    <!-- (keydown.Tab)="focusSubmit();getDecimalPoint($event);"> -->
+                                                <!-- (keydown.Tab)="focusSubmit();getDecimalPoint($event);"> -->
                                             </span>
                                         </div>
                                     </div>
@@ -341,7 +342,7 @@
                                                                     class="form-control"
                                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                     bsDatepicker [(ngModel)]="IntersetHeadDate"
-                                                                    appButton minlength="8" maxlength="10"
+                                                                    appButton minlength="10" maxlength="10"
                                                                     formControlName="Intdate"
                                                                     [minDate]="interestMinDate"
                                                                     [maxDate]="interestMaxDate"
