@@ -40,7 +40,7 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme appButton minlength="8" maxlength="10" id="WARRENT_DATE"
+                                    <ng-select appTheme appButton minlength="10" maxlength="10" id="WARRENT_DATE"
                                         bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
                                         formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
                                         title="Compulsory Selection" #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)"
@@ -50,7 +50,7 @@
                                             <span> {{values.WARRENT_DATE}}</span><span class="boarder">
                                                 ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}} </span>)
                                         </ng-option>
-                                    </ng-select> <!-- <ng-select appTheme appButton minlength="8" maxlength="10"
+                                    </ng-select> <!-- <ng-select appTheme appButton minlength="10" maxlength="10"
                                          id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
                                         formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE" title="Compulsory Selection"
                                         #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)" [selectOnTab]='true' [virtualScroll]="true"
@@ -59,7 +59,7 @@
                                             {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
                                         </ng-option>
                                     </ng-select> -->
-                                    <!-- <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                    <!-- <input appTheme appButton minlength="10" maxlength="10" type="text"
                                         placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
                                         class="form-control" required #date class="form-control"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #date
@@ -73,7 +73,7 @@
                                     <!-- <input type="text" placeholder="dd/mm/yyyy" name="WARRENT_DATE" id="WARRENT_DATE"
                                                 class="form-control" [(ngModel)]="ngwarrentDate"
                                                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="WARRENT_DATE" (change)="getWarrentDetails($event)"
-                                                [maxDate]="maxDate" appButton minlength="8" maxlength="10"
+                                                [maxDate]="maxDate" appButton minlength="10" maxlength="10"
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                 bsDatepicker> -->
                                 </span>

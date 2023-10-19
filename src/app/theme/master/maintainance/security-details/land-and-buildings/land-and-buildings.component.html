@@ -14,7 +14,7 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required=""
                     max="{{datemax | date:'yyyy-MM-dd'}}" [ngClass]="{'form-submitted': formSubmitted}"
                     formControlName="SUBMISSION_DATE" #autofocus /> -->
-                  <input appTheme appButton minlength="8" maxlength="10"
+                  <input appTheme appButton minlength="10" maxlength="10"
                    type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date"
                     class="form-control" [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
@@ -191,7 +191,7 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="CitySurveyDate" required=""
                     [ngClass]="{'form-submitted': formSubmitted}" max="{{datemax | date:'yyyy-MM-dd'}}"
                     name="CitySurveyDate" formControlName="CITY_SURVEY_DATE" /> -->
-                  <input appTheme appButton minlength="8" maxlength="10"
+                  <input appTheme appButton minlength="10" maxlength="10"
                    type="text" placeholder="dd/mm/yyyy" name="CITY_SURVEY_DATE" id="CitySurveyDate"
                     class="form-control" [(ngModel)]="citysurveydate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                     #CITY_SURVEY_DATE="bsDatepicker" (keydown.Tab)="CITY_SURVEY_DATE.hide()" [maxDate]="maxDate"

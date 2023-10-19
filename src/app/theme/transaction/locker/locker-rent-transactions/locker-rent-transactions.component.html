@@ -342,7 +342,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="RENT_F_DATE"
-                                                    [(ngModel)]="rentfromDate" id="RENT_F_DATE" appButton minlength="8" maxlength="10"
+                                                    [(ngModel)]="rentfromDate" id="RENT_F_DATE" appButton minlength="10" maxlength="10"
                                                     formControlName="RENT_F_DATE" class="form-control"
                                                     [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     bsDatepicker>
@@ -366,7 +366,7 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="uptodate"
-                                                appButton minlength="8" maxlength="10"
+                                                appButton minlength="10" maxlength="10"
                                                     [minDate]="rentfromDate" [maxDate]="maxDate" id="uptodate"
                                                     class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                     formControlName="UP_TO_DATE" bsDatepicker>

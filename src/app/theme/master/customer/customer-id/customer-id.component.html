@@ -342,7 +342,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="AC_BIRTH_DT"
-                                        id="AC_BIRTH_DT" class="form-control " minlength="8" maxlength="10"
+                                        id="AC_BIRTH_DT" class="form-control " minlength="10" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" #AC_BIRTH_DT="bsDatepicker"
                                         (keydown.Tab)="AC_BIRTH_DT.hide()" placement="left" #AC_BIRTH
@@ -650,7 +650,7 @@
                                     <input appButton type="text" placeholder="dd/mm/yyyy" name="SUBMIT_DATE"
                                         id="SUBMIT_DATE" class="form-control"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" minlength="8" maxlength="10"
+                                        [ngClass]="{'form-submitted': formSubmitted}" minlength="10" maxlength="10"
                                         [(ngModel)]="ngSubmitDate" placement="top"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="SUBMIT_DATE" [bsValue]="bsValue" #SUBMIT_DATE="bsDatepicker"
