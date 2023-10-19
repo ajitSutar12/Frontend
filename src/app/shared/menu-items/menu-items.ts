@@ -570,6 +570,7 @@ const MENUITEMS1 = [
             name: 'Share Transaction',
             id: 87
           },
+          
           {
             state: 'locker',
             name: 'Locker Transaction',
@@ -1492,7 +1493,8 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 343,
               },
-              
+             
+             
             ],
 
           },
@@ -3292,6 +3294,8 @@ const MENUITEMS = [
             name: 'Share Transaction',
             id: 87
           },
+         
+          
           {
             state: 'locker',
             name: 'Locker Transaction',
@@ -4212,6 +4216,7 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 343,
               },
+              
             ],
 
           },
