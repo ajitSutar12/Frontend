@@ -65,6 +65,7 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
   defaultDate: any;
   ngbranch: any;
   branchName: any;
+  getbankAcNo: any;
 
   constructor(  
     private fb: FormBuilder,
@@ -151,7 +152,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
       BRANCH_CODE: ['', [Validators.required]],
       AC_TYPE: ['', [Validators.required]],
       FIRST_NO: ['', [Validators.required]],
-      LAST_NO: ['', [Validators.required]],
+      // LAST_NO: ['', [Validators.required]],
       FROM_DATE : ['',],
       TO_DATE: ['', ],
       
@@ -166,6 +167,9 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     //       this.lastno = null
     this.getIntroducer()
     
+  }
+  getIntTranscus(event) { 
+    this.getbankAcNo =  event.bankacno
   }
 
   //get account no according scheme for introducer
@@ -235,7 +239,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     let lastno = this.lastno 
 
          
-   this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ lastno +"'"
+   this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ firstno +"'"
    console.log(this.iframe5url);
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    

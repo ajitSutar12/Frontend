@@ -1,4 +1,4 @@
-import { AfterViewInit, ContentChild, ContentChildren, Directive, ElementRef, HostListener, QueryList } from '@angular/core';
+import { AfterViewInit, ContentChild, ContentChildren, Directive, ElementRef, HostListener, QueryList, ViewChild } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { event } from 'jquery';
@@ -10,6 +10,11 @@ import { InvoiceListComponent } from './extension/invoice/invoice-list/invoice-l
 export class ThemeDirective {
   @ContentChild(NgSelectComponent) select: NgSelectComponent;
   @ContentChildren(NgSelectComponent) ngselect: QueryList<NgSelectComponent>;
+
+  @ViewChild('myNgSelect') myNgSelect: ElementRef;
+  @ViewChild('myInput') myInput: ElementRef;
+  @ViewChild('myTextarea') myTextarea: ElementRef;
+
 
   constructor(private el: ElementRef) { }
   //  @HostListener("click", ['$event'])
@@ -23,10 +28,11 @@ export class ThemeDirective {
 
     // debugger
     const invalidControl = this.el.nativeElement;
-
     // if (event.type == 'mousedown' || invalidControl.id == 'editbutton') {
     //   invalidControl.focusout()
     // }
+
+
     if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == '') {
         // alert("Hello Theme");
@@ -46,6 +52,7 @@ export class ThemeDirective {
 
         return;
       }
+
       if (event.type != 'mousedown' || invalidControl.id != 'editbutton') {
       } else if (invalidControl.tagName == 'SPAN') {
 

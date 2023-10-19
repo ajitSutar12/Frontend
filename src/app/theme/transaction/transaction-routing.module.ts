@@ -121,6 +121,10 @@ const routes: Routes = [
         path: 'inwardRegister',
         loadChildren: () => import('./inward-register/inward-register.module').then(m => m.InwardRegisterModule)
       },
+      
+   
+
+            
     ]
   }
 ];
