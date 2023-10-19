@@ -28,7 +28,7 @@ formSubmitted = false;
 
 scheme: any[];
 
-
+transferSchemeDetails:any;
 branchOption: any;
 branch_code
 iframeurl: any = ' ';
@@ -40,7 +40,7 @@ obj: any;
  edate: any = null
  maxDate: Date;
  minDate: Date;
- 
+ tScheme
  bsValue = new Date();
  // for dropdown ng module
  schemeCode: any = null;
@@ -125,6 +125,11 @@ obj: any;
   }
   getschemename: any
 
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.name
+
+  }
   
   view(event){
    
@@ -151,17 +156,36 @@ obj: any;
     
       this.showRepo = true;
  
-     let scheme = obj.Scheme_code
+      let scheme = obj.Scheme_code
+     let schemeName = this.tScheme
  
      let branch = obj.BRANCH_CODE
      let Rdio = obj.radio
-          
-    this.iframeurl= this.report_url+ "examples/CategoryWiseDetailBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&scheme='" + scheme + "'&branch="+ branch +"&bankName=" + bankName + "";
+     let amount
+    
+      if(this.tScheme =="LN" ||this.tScheme =="CC"||this.tScheme =="DS")
+     {
+         amount = 'INTRATE';
+     }
+     else
+     {
+         amount = 'AMOUNT';
+     }
+     if(Rdio=='Detail')
+     {
+    this.iframeurl= this.report_url+ "examples/CategoryWiseDetailBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&acno='" + scheme + "'&actype='" + schemeName + "'&branch="+ branch +"&bankName=" + bankName + "&amount='" + amount + "'";
     this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
+    else if(Rdio=='Summary')
+    {
+      this.iframeurl= this.report_url+ "examples/CategorywiseSummaryBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&acno='" + scheme + "'&actype='" + schemeName + "'&branch="+ branch +"&bankName=" + bankName + "&amount='" + amount + "'";
+    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+   
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
+  }
     
 
   }
@@ -174,7 +198,7 @@ obj: any;
   }
   resetForm() {
     this.ngForm.controls.Scheme_code.reset();
-    this.ngForm.controls.radio.reset();
+    // this.ngForm.controls.radio.reset();
     this.showRepo = false;
     this.clicked=false;
   }
