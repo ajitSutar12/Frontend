@@ -104,7 +104,7 @@
                                         <input appTheme type="text" placeholder="dd/mm/yyyy" name="FROM_DATE"
                                             id="FROM_DATE" class="form-control" [(ngModel)]="fromdate"
                                             [bsValue]="bsValue" [minDate]="accountOpenDate" [maxDate]="maxDate"
-                                            appButton minlength="8" maxlength="10"
+                                            appButton minlength="10" maxlength="10"
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #FROM_DATE="bsDatepicker"
                                             (keydown.Tab)="FROM_DATE.hide()"
                                             [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
@@ -153,7 +153,7 @@
                                         <input type="text" placeholder="dd/mm/yyyy" name="AC_OPDATE" id="AC_OPDATE"
                                             class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                             [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="AC_OPDATE" appButton minlength="8" maxlength="10"
+                                            formControlName="AC_OPDATE" appButton minlength="10" maxlength="10"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker disabled>
                                     </span>

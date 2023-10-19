@@ -117,7 +117,7 @@
                                         max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="SUBMISSION_DATE"
                                          [ngClass]="{'form-submitted': formSubmitted}"
                                         onfocus="(this.type='date')" /> -->
-                                    <input appTheme appButton minlength="8" maxlength="10" type="text"
+                                    <input appTheme appButton minlength="10" maxlength="10" type="text"
                                         placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date"
                                         class="form-control" [(ngModel)]="submissiondate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
