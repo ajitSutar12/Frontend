@@ -35,28 +35,42 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-2">
-                            <label for=""> Cashier Code</label>
+                            <label for=""> Scroll Type<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt" autofocus>
+                            <div class="form-radio">
 
-                                    <ng-select bindValue="id" [(ngModel)]="cashiar" formControlName="Cashier_Code"
-                                        bindLabel="label" placeholder="" required>
-                                        <ng-option *ngFor="let values of cashier_list" [value]="values">{{values.id}}
-                                            {{values.F_NAME}} {{values.L_NAME}}</ng-option>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="Scroll_Type" value="cash"
+                                            formControlName="Scroll_Type" [checked]="true"  [(ngModel)]="selectedScrollType">
+                                        <i class="helper"></i>Cash </label>
+                                </div>
 
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['Cashier_Code'].invalid && (angForm.controls['Cashier_Code'].dirty || angForm.controls['Cashier_Code'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['Cashier_Code'].errors?.required">
-                                    This field is required
+
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="Scroll_Type" value="transfer"
+                                            formControlName="Scroll_Type"  [(ngModel)]="selectedScrollType" (change)="onScrollTypeChange()">
+                                        <i class="helper"></i>Transfer</label>
+                                </div>
+
+
+
+
+                                <div class="form-group form-primary form-static-label" *ngIf="
+                                angForm.controls['Scroll_Type'].invalid &&
+                                        (angForm.controls['Scroll_Type'].dirty ||
+                                        angForm.controls['Scroll_Type'].touched)
+                                      " class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['Scroll_Type'].errors?.required">
+                                        This field is required
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+                       
                         <div class="col-sm-12 col-md-1">
                             <label for="">Date <sub class="required">*</sub></label>
                         </div>
@@ -84,43 +98,30 @@
 
                     </div>
                     <div class="row">
-
-                        <div class="col-sm-12 col-md-2">
-                            <label for=""> Scroll Type<sub class="required">*</sub></label>
+ <div class="col-sm-12 col-md-2" *ngIf="selectedScrollType === 'cash'">
+                            <label for=""> Cashier Code</label>
                         </div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-radio">
+                        <div class="col-sm-12 col-md-2" *ngIf="selectedScrollType === 'cash'">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
 
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="Scroll_Type" value="cash"
-                                            formControlName="Scroll_Type" [checked]="true">
-                                        <i class="helper"></i>Cash </label>
-                                </div>
+                                    <ng-select bindValue="id" [(ngModel)]="cashiar" formControlName="Cashier_Code"
+                                        bindLabel="label" placeholder="" required>
+                                        <ng-option *ngFor="let values of cashier_list" [value]="values">{{values.id}}
+                                            {{values.F_NAME}} {{values.L_NAME}}</ng-option>
 
-
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="Scroll_Type" value="transfer"
-                                            formControlName="Scroll_Type">
-                                        <i class="helper"></i>Transfer</label>
-                                </div>
-
-
-
-
-                                <div class="form-group form-primary form-static-label" *ngIf="
-                                angForm.controls['Scroll_Type'].invalid &&
-                                        (angForm.controls['Scroll_Type'].dirty ||
-                                        angForm.controls['Scroll_Type'].touched)
-                                      " class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['Scroll_Type'].errors?.required">
-                                        This field is required
-                                    </div>
-
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Cashier_Code'].invalid && (angForm.controls['Cashier_Code'].dirty || angForm.controls['Cashier_Code'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Cashier_Code'].errors?.required">
+                                    This field is required
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-sm-12 col-md-2">
                             <label for="">Print Side<sub class="required">*</sub></label>
                         </div>

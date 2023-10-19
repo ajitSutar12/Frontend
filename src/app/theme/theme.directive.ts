@@ -22,8 +22,11 @@ export class ThemeDirective {
   // @HostListener("mousedown", ['$event'])
   // @HostListener('keydown.tab', ['$event'])
   // @HostListener('keydown.shift.Tab', ['$event'])
-  @HostListener("click", ['$event'])
-  @HostListener("focusout")
+  // @HostListener("click", ['$event'])
+  // @HostListener('keydown.tab', ['$event'])
+  // @HostListener("focusout")
+  //  @HostListener("focusout", ['$event'])
+ 
   onFormSubmit(event) {
 
     // debugger
@@ -31,8 +34,7 @@ export class ThemeDirective {
     // if (event.type == 'mousedown' || invalidControl.id == 'editbutton') {
     //   invalidControl.focusout()
     // }
-
-
+    
     if (invalidControl.tagName == 'INPUT') {
       if (invalidControl.value == '') {
         // alert("Hello Theme");
@@ -57,7 +59,7 @@ export class ThemeDirective {
       } else if (invalidControl.tagName == 'SPAN') {
 
         if (invalidControl.id == 'editbutton') {
-          invalidControl.focusout();
+          invalidControl.focus();
         }
       }
       else if (invalidControl.tagName == 'TEXTAREA') {
@@ -65,6 +67,9 @@ export class ThemeDirective {
           invalidControl.focus();
         }
       }
+      if (this.el.nativeElement.contains(document.activeElement)) {
+        return;
+      } invalidControl.focus();
     }
     else {
 
