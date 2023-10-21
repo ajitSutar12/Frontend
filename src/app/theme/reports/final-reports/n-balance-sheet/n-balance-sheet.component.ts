@@ -30,7 +30,8 @@ export class NBalanceSheetComponent implements OnInit {
   ngbranch
   branchOption: any;
   report_url = environment.report_url;
-
+  // showErrorMessage: boolean = false;
+  // errorMessage: string = '';
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,) {
@@ -53,6 +54,21 @@ export class NBalanceSheetComponent implements OnInit {
     })
 
   }
+
+  // updateEndDate() {
+  //     const currentDate = new Date();
+  //     const enteredDate = new Date(this.angForm.controls['END_DATE'].value);
+    
+  //     const updatedDate = this.getValidDate(enteredDate, currentDate);
+    
+  //     this.angForm.controls['END_DATE'].setValue(updatedDate);
+  //     this.showErrorMessage = false;
+  //     this.errorMessage = (enteredDate > currentDate) ? 'Only the current date is allowed.' : '';
+  //   }
+    
+  //   getValidDate(enteredDate: Date, currentDate: Date): Date {
+  //     return (enteredDate > currentDate) ? currentDate : enteredDate;
+  //   }
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.required]],
