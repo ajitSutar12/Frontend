@@ -30,6 +30,7 @@ class DataTableResponse {
 export class PigmyAppProcessComponent implements OnInit {
   //api 
   url = environment.base_url;
+  showprocessbutton: boolean = true
   angForm: FormGroup;
   sysDate
   ngBranchCode: any = null
@@ -139,6 +140,7 @@ export class PigmyAppProcessComponent implements OnInit {
     this.http.post(this.url + '/pigmy-chart/sendapp/', obj).subscribe(data => {
       this.accountsList = data
       this.showloader = false
+      this.showprocessbutton = false
       Swal.fire('success', 'Data processed successfully.Now you can submit data', 'success')
     })
   }
@@ -161,6 +163,7 @@ export class PigmyAppProcessComponent implements OnInit {
         // ele['completed'] = true
         this.http.post('http://68.183.93.209/pigmy_test/inserData.php', obj).subscribe(res => {
           // console.log('resp', res)
+          this.showprocessbutton = true
           Swal.fire('Success', 'Data processed successfully', 'success')
         })
       }
@@ -172,6 +175,7 @@ export class PigmyAppProcessComponent implements OnInit {
         "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
       }
       this.http.post(this.url + '/pigmy-chart/receivefromapp/', obj).subscribe(data => {
+        this.showprocessbutton = true
         Swal.fire('Success', 'Data processed successfully', 'success')
       })
     }
@@ -238,6 +242,7 @@ export class PigmyAppProcessComponent implements OnInit {
       // console.log(data, 'receive')
       this.receivedAccount = data
       this.showloader = false
+      this.showprocessbutton = false
       Swal.fire('Success', 'Data processed successfully', 'success')
     })
   }
