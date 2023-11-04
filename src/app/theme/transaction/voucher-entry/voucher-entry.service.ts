@@ -51,6 +51,10 @@ export class VoucherEntryService {
       .pipe(catchError(this.handleError));
   }
 
+  getTokenlist(id: any): Observable<any> {
+    return this.http.get(this.url + "/voucher/getTokenlist/" + id).pipe(catchError(this.handleError));
+  }
+
   //check customer account close or not
   checkAccountCloseOrNot(data): Observable<any> {
     return this.http.post(this.url + '/voucher/checkAccountCloseDetails', data);

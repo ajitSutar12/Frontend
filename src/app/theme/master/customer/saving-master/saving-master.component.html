@@ -133,8 +133,8 @@
                                       dateInputFormat: 'DD/MM/YYYY'
                                     }" [maxDate]="maxDate" [ngClass]="{
                                       'form-submitted': formSubmitted
-                                    }" formControlName="AC_OPDATE" required disabled bsDatepicker
-                                    #OPDATE="bsDatepicker" placement="right" (keydown.Tab)="OPDATE.hide()">
+                                    }" formControlName="AC_OPDATE" required bsDatepicker #OPDATE="bsDatepicker"
+                                    placement="right" (keydown.Tab)="OPDATE.hide()">
                                   <label for="AC_OPDATE">Opening Date<sub class="required">*
                                     </sub></label>
                                 </span>

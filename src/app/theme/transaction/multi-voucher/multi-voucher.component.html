@@ -175,7 +175,8 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <textarea class="form-control" formControlName="particulars"
-                                                    [(ngModel)]="particular" #narrationField></textarea>
+                                                    [(ngModel)]="particular" #myDiv (keyup)="adjustsize()"
+                                                    #narrationField></textarea>
                                                 <i class="fa fa-info-circle errspan" (click)="modalLarge.show()"></i>
                                             </span>
                                         </div>
@@ -466,9 +467,9 @@
                                                     *ngIf="newbtnShow">
                                                     Cancel
                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                                                <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                                     *ngIf="updateShow">
-                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                                 <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                                     (click)="reject()">
                                                     Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;

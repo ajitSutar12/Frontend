@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { environment } from '../environments/environment'
+import { AuthService } from './theme/auth/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,9 +14,7 @@ export class AppComponent implements OnInit {
 
   siteUrl: string;
 
-
-  //sample comment
-  constructor(private router: Router, private _hotkeysService: HotkeysService) { }
+  constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService,) { }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
@@ -67,6 +66,7 @@ export class AppComponent implements OnInit {
   }
 
   // local environment
+
   // addHotKeys() {
   //   this._hotkeysService.add(new Hotkey(['f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
   //     'ctrl+fn+f2', 'ctrl+fn+f3', 'ctrl+fn+f4', 'ctrl+fn+f5', 'ctrl+fn+f6', 'ctrl+fn+f7', 'shift+fn+f8', 'ctrl+fn+f8', 'ctrl+f3', 'ctrl+fn+f9', 'ctrl+fn+f10', 'ctrl+fn+f11', 'ctrl+fn+f12', 'ctrl+a', 'ctrl+shift+a', 'shift+f5', 'ctrl+fn+f5', 'ctrl+shift+d', 'ctrl+e'],
@@ -104,4 +104,36 @@ export class AppComponent implements OnInit {
   //       return false;
   //     }, ['INPUT', 'TEXTAREA', 'SELECT']));
   // }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeunloadHandler(event) {
+    let val = localStorage.getItem('countoftabs');
+    let value = Number(val) - 1
+    localStorage.setItem('countoftabs', value.toString());
+    if (value == 0)
+      this.logout()
+  }
+
+  @HostListener('window:load', ['$event'])
+  loadHandler(event) {
+    let val = localStorage.getItem('countoftabs');
+    let value = Number(val) + 1
+    localStorage.setItem('countoftabs', value.toString());
+  }
+
+  logout() {
+    window.close();
+    let user = JSON.parse(localStorage.getItem('user'));
+    this._authService.logout(user.id).subscribe(data => { })
+    let userData: any = localStorage.getItem('user');
+    let result = JSON.parse(userData);
+    let obj = {
+      USERID: result.id,
+      BRANCH_CODE: result.branchId,
+      REMARK: null
+    }
+    this._authService.LOGOFFHISTORY(obj).subscribe(data => { })
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
 }

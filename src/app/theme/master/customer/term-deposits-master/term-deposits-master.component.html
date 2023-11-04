@@ -145,8 +145,7 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input appTheme appButton minlength="8"
-                                                                        maxlength="10" type="text"
+                                                                    <input appTheme appButton type="text"
                                                                         placeholder="dd/mm/yyyy" name="AC_OPDATE"
                                                                         id="AC_OPDATE" class="form-control datepick"
                                                                         required #opendate
@@ -397,10 +396,9 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
-                                                                        maxlength="10" placeholder="dd/mm/yyyy"
-                                                                        name="AC_ASON_DATE" id="AC_ASON_DATE"
-                                                                        class="form-control"
+                                                                    <input type="text" appButton
+                                                                        placeholder="dd/mm/yyyy" name="AC_ASON_DATE"
+                                                                        id="AC_ASON_DATE" class="form-control"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -471,17 +469,16 @@
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
-                                                                        maxlength="10" placeholder="dd/mm/yyyy"
-                                                                        name="AC_EXPDT" id="AC_EXPDT"
-                                                                        class="form-control"
+                                                                    <input type="text" appButton
+                                                                        placeholder="dd/mm/yyyy" name="AC_EXPDT"
+                                                                        id="AC_EXPDT" class="form-control"
                                                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         formControlName="AC_EXPDT" placement="up"
                                                                         #AC_EXPDT="bsDatepicker"
                                                                         (keydown.Tab)="AC_EXPDT.hide()"
-                                                                        (bsValueChange)="monthDays()"
+                                                                        (change)="monthDays()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         minlength="10" maxlength="10"
                                                                         [minDate]="maxDate" [bsValue]="bsValue"
@@ -1048,8 +1045,7 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
-                                                                    <input type="text" appButton minlength="8"
-                                                                        maxlength="10" name="AC_MBDATE"
+                                                                    <input type="text" appButton name="AC_MBDATE"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_MBDATE"
                                                                         (focusout)="disabledate(date.value)"
@@ -1989,7 +1985,7 @@
                                                                     <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
-                                                                                <input appTheme appButton minlength="8"
+                                                                                <input appTheme appButton minlength="10"
                                                                                     maxlength="10" type="text"
                                                                                     placeholder="DD/MM/YYYY"
                                                                                     name="DATE_APPOINTED"
@@ -2030,7 +2026,7 @@
                                                                     <div class="col-sm-2">
                                                                         <div class="form-group input-group">
                                                                             <span class="border-lable-flt">
-                                                                                <input appTheme appButton minlength="8"
+                                                                                <input appTheme appButton minlength="10"
                                                                                     maxlength="10" type="text"
                                                                                     placeholder="DD/MM/YYYY"
                                                                                     name="DATE_EXPIRY"

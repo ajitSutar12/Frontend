@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <title>Welcome || Your Bank Name</title>
     <base href="/">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -85,10 +88,10 @@
     </app-root>
 </body>
 <script>
-////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
+    ////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
     window.addEventListener('popstate', function (event) {
-        // if (window.location.href == 'http://103.174.87.104/VENKATESH/CBS/auth/login/simple') {
-        if (window.location.href == 'http://139.59.63.215/TESTSIDHANERLI/CBS/auth/login/simples') {
+        if (window.location.href == 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple') {
+            // if (window.location.href == 'http://139.59.63.215/TESTSIDHANERLI/CBS/auth/login/simples') {
             let data = localStorage.getItem('user');
             let result = JSON.parse(data);
             let obj = {
@@ -98,17 +101,17 @@
                 id: result.id,
             }
             $.ajax({
-                url: 'http://localhost:7276/user-defination/logout',
+                // url: 'http://localhost:7276/user-defination/logout',
                 //  url: 'http://139.59.63.215:9152/user-defination/logout',
-                // url: 'http://103.174.87.104:7276/user-defination/logout',
+                url: 'http://103.174.87.104:7275/user-defination/logout',
                 method: 'POST',
                 data: obj,
                 success: function (result) { }
             })
             $.ajax({
-                url: 'http://localhost:7276/user-defination/logoffhistory',
+                // url: 'http://localhost:7276/user-defination/logoffhistory',
                 //  url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
-                // url: 'http://103.174.87.104:7276/user-defination/logoffhistory',
+                url: 'http://103.174.87.104:7275/user-defination/logoffhistory',
                 method: 'POST',
                 data: obj,
                 success: function (result) { }
@@ -118,125 +121,15 @@
         }
     });
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // window.addEventListener("beforeunload", function (e) 
-    // {
-    //     // debugger
-
-
-
-
-// history.pushState(null, null, location.href);
-
-// window.addEventListener("popstate", function (e) {
-//         var user = JSON.parse(localStorage.getItem('user'));
-//         console.log({ id: user.id })
-//         return
-
-//     });
-
-
-
-// history.pushState(null, null, location.href);
-
-// window.addEventListener("popstate", function (e) {
-    // if (window.location.href == 'http://localhost:4200/auth/login/simple') {
-            // console.log('logout')
-        // debugger
-        // history.pushState(null, null, 'no-back-button');
-        // history.go(-1);
-        // history.back();
-        // alert('working');
-        //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
-        // if (e.target.URL == 'http://139.59.86.29/CBS/auth/login/simple') {
-        //     return true;
-        // } else {
-        // var user = JSON.parse(localStorage.getItem('user'));
-        // console.log({ id: user.id })
-        // alert('working');    //    
-        // return
-        // }
-
-    // });
-
-
-    // window.addEventListener("beforeunload", function (e) {
-    //     debugger
-
-    //     alert('working');
-    //     //   if(e.target.URL == 'http://localhost:4200/auth/login/simple'){
-    //     // if (e.target.URL == 'http://139.59.86.29/CBS/auth/login/simple') {
-    //     //     return true;
-    //     // } else 
-    //     // {
-    //     var user = JSON.parse(localStorage.getItem('user'));
-    //     console.log({ id: user.id })
-    //     alert('working');    
-    //     return
-    //     // }
-
-    // });
-
-    // window.addEventListener('popstate', function (event) {
-
-    //     if (window.location.href == 'http://localhost:4200/auth/login/simple') {
-    //         console.log('logout')
-           
-    //         let data = localStorage.getItem('user');
-    //                 let result = JSON.parse(data);
-    //                 let obj = {
-    //                     USERID: result.id,
-    //                     BRANCH_CODE: result.branchId,
-    //                     REMARK: 'SESSION LOGOUT',
-    //                     id: result.id,
-    //                 }
-    //                 $.ajax({
-    //                     // url: 'http://localhost:7276/user-defination/logout',
-    //                     //  url: 'http://139.59.63.215:9152/user-defination/logout',
-    //                     url: 'http://139.59.63.215:4771/user-defination/logout',
-    //                     method: 'POST',
-    //                     data: obj,
-    //                     success: function (result) { }
-    //                 })
-    //                 $.ajax({
-    //                     // url: 'http://localhost:7276/user-defination/logoffhistory',
-    //                     //  url: 'http://139.59.63.215:9152/user-defination/logoffhistory',
-    //                     url: 'http://139.59.63.215:4771/user-defination/logoffhistory',
-    //                     method: 'POST',
-    //                     data: obj,
-    //                     success: function (result) { }
-    //                 })
-    //                 localStorage.removeItem('token');
-    //                 localStorage.removeItem('user');
-                          
-    //     }
-        
-        
-    //     // console.log('backbutton', window.location.href)
-    //     // history.pushState(null, null, window.location.href);
-    // });
-
-
-    // document.getElementById('customAction').addEventListener('click', function () {
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    
-    // });
-
-
-    // window.addEventListener('beforeunload', function (e) {
-    //     alert('Custom action performed.');
-    //     e.preventDefault(); 
-    //     e.returnValue = ''; 
-    // });
-
-
-
-
+  
+    ///////////////////////////////SCREEN INACTIVE/////////////////////////////////////////////////////////////////////
 
     function ConfirmClose() { }
     function HandleOnClose() { }
-    
+
     function idleLogout() {
         var t;
         window.onload = resetTimer;
@@ -258,7 +151,7 @@
             }
         }
 
-        function yourFunction() {        
+        function yourFunction() {
             try {
                 const decodedToken = decodeJwtToken(localStorage.getItem('token'));
                 const currentTime = Math.floor(Date.now() / 1000);
@@ -274,10 +167,8 @@
                         id: result.id,
                     }
                     $.ajax({
-                        url: 'http://localhost:7276/user-defination/logout',
-                        // url: 'http://103.174.87.104:7276/user-defination/logout',
-                        // url: 'http://103.174.87.104:7276/user-defination/logout',
-                        // url: 'http://103.174.87.104:7796/user-defination/logout',
+                        // url: 'http://localhost:7276/user-defination/logout',
+                        url: 'http://103.174.87.104:7275/user-defination/logout',
                         // url: 'http://139.59.63.215:4713/user-defination/logout',
                         // url: 'http://139.59.63.215:4771/user-defination/logout',
 
@@ -286,9 +177,9 @@
                         success: function (result) { }
                     })
                     $.ajax({
-                        url: 'http://localhost:7276/user-defination/logoffhistory',
+                        // url: 'http://localhost:7276/user-defination/logoffhistory',
                         // url: 'http://103.174.87.104:4713/user-defination/logoffhistory',
-                        // url: 'http://103.174.87.104:7276/user-defination/logoffhistory',
+                        url: 'http://103.174.87.104:7275/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -302,10 +193,10 @@
                 // console.error('Error decoding token:', error);
             }
             // your function for too long inactivity goes here
-            window.location.href = 'http://localhost:4200/auth/login/simple';
+            // window.location.href = 'http://localhost:4200/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/TESTSIDHANERLI/CBS/auth/login/simple';
             // window.location.href = 'http://139.59.63.215/bhairavnath/auth/login/simple';
-            window.location.href = 'http://103.174.87.104/VENKATESH/CBS/auth/login/simple';
+            window.location.href = 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple';
             // window.location.href = 'http://103.174.87.104/VADGAON/CBS/auth/login/simple';
             // window.location.href = 'http://103.174.87.104/SIDHANERLI/CBS/auth/login/simple';
             // window.location.href = 'http://103.174.87.104/VENKATESH/CBS/auth/login/simple';
@@ -326,8 +217,8 @@
                     let refreshToken = localStorage.getItem('token')
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
-                        url: 'http://localhost:7276/refresh-token',
-                        // url: 'http://103.174.87.104:7276/refresh-token',
+                        // url: 'http://localhost:7276/refresh-token',
+                        url: 'http://103.174.87.104:7275/refresh-token',
                         // url: 'http://103.174.87.104:4713/refresh-token',
                         // url: 'http://103.174.87.104:7796/refresh-token',
                         method: 'POST',
@@ -346,6 +237,7 @@
         }
     }
     idleLogout();
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 </script>
 
 </html>

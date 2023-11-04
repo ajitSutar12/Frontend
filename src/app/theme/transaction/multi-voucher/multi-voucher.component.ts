@@ -47,6 +47,7 @@ export class MultiVoucherComponent implements OnInit {
   @ViewChild('bankNameField') bankNameField: ElementRef;
   @ViewChild('narrationField') narrationField: ElementRef;
   branchCode: any = null
+  @ViewChild('myDiv') myDiv: ElementRef;
 
   selectedBranch: number;
   selectedScheme: any;
@@ -121,7 +122,7 @@ export class MultiVoucherComponent implements OnInit {
     { key: 'SH', data: { cash: [1, 4, 5, 7, 14], transfer: [1, 4, 5, 7, 14] } },
     { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
     { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
-    { key: 'TD', data: { cash: [1, 4, 6, 10], transfer: [1, 4, 6, 9, 10] } },
+    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
   ]
 
   bankName
@@ -2528,5 +2529,10 @@ export class MultiVoucherComponent implements OnInit {
     this.selectedCode = null
     this.customer = null
     this.introducerACNo = []
+  }
+
+  adjustsize() {
+    this.myDiv.nativeElement.style.height = 'auto';
+    this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
   }
 }
