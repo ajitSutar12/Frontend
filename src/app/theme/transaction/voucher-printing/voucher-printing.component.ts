@@ -296,6 +296,7 @@ export class VoucherPrintingComponent implements OnInit {
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
+    let branch = userData.branch.CODE;
 this.voucherNo
     if (this.ngForm.valid) {
       let obj = this.ngForm.value
@@ -313,12 +314,12 @@ this.voucherNo
       // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
 
       let scheme = obj.Scheme_code
-      let branch = obj.BRANCH_CODE
+      // let branch = obj.BRANCH_CODE
       let voucherNo = obj.VOUCHER_NO
       let voucherType = obj.VOUCHER_TYPE
       let tranType = obj.TRAN_TYPE 
 
-      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&Vouchar_No='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branch_code=" + branch + "";
+      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode=" + branch + "";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 

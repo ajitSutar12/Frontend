@@ -486,8 +486,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
         else {
           this.afterMaturedInt = true
           // var b1 = moment(this.maturityDate, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY');
-          var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
-          var b1 = moment(this.maturityDate, "DD/MM/YYYY")
+          // var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
+          var a1 = moment(this.maturityDate, "DD/MM/YYYY")
+          var b1
+          this.lastIntDate == null ? b1 = moment(this.opDate,'DD/MM/YYYY') : b1 = moment(this.lastIntDate, "DD/MM/YYYY")
+
           var b = moment(b1, 'DD/MM/YYYY')
           var a = moment(this.date, "DD/MM/YYYY");
           let Days = a1.diff(b1, 'days');

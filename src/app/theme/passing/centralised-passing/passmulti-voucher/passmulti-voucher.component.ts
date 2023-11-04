@@ -141,6 +141,7 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;
+    this.child.showButton = false;
   }
 
   reloadTable() {

@@ -1,12 +1,11 @@
-
-.card-img{
+.card-img {
     height: 80px;
     width: 100px;
     margin-left: 50px;
     text-align: right;
 }
 
-.com-logo{
+.com-logo {
 
     margin-top: 0%;
     margin-left: 3%;
@@ -14,7 +13,7 @@
     height: 40px;
 }
 
-.prod-logo{
+.prod-logo {
     float: right;
     /* margin-right: 90%; */
     left: 85%;
@@ -25,7 +24,7 @@
 
 }
 
-.bank-name{
+.bank-name {
     text-align: center;
     margin-top: -23px;
     position: absolute;
@@ -33,6 +32,19 @@
     top: 65%;
 }
 
+@media only screen and (max-width: 480px) {
+    .card-img {
+        height: 80px;
+        width: 100px;
+        margin-left: 0px;
+        text-align: right;
+    }
 
-
-
+    .bank-name {
+        text-align: left;
+        margin-top: -26px;
+        position: absolute;
+        left: 29%;
+        top: 65%;
+    }
+}

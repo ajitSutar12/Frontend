@@ -241,9 +241,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input appTheme type="text" name="To" class="form-control" placeholder=" "
-                                                id="DR_PARTICULARS" pattern="^[A-Za-z ]+$" maxlength="50"
-                                                title="Input allowed only A-Za-z" formControlName="DR_PARTICULARS"
-                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
+                                                id="DR_PARTICULARS" maxlength="50" formControlName="DR_PARTICULARS"
                                                 [required]="cashoption">
                                             <label for="DR_PARTICULARS">Particulars<sub class="required">*</sub></label>
                                         </span>
@@ -252,8 +250,8 @@
                                         *ngIf="angForm.controls['DR_PARTICULARS'].invalid && (angForm.controls['DR_PARTICULARS'].dirty || angForm.controls['DR_PARTICULARS'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['DR_PARTICULARS'].errors?.pattern || angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
-                                            This field is required and Input allowed only A-Za-z
+                                            *ngIf=" angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
+                                            This field is required
                                         </div>
                                     </div>
                                 </div>
@@ -313,9 +311,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input appTheme type="text" name="To" class="form-control" placeholder=" "
-                                            id="CR_PARTICULARS" pattern="^[A-Za-z ]+$" maxlength="50"
-                                            title="Input allowed only A-Za-z" formControlName="CR_PARTICULARS"
-                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
+                                            id="CR_PARTICULARS" maxlength="50" formControlName="CR_PARTICULARS"
                                             [required]="transferoption">
                                         <label for="CR_PARTICULARS">Particulars<sub class="required">*</sub></label>
                                     </span>
@@ -324,8 +320,8 @@
                                     *ngIf="angForm.controls['CR_PARTICULARS'].invalid && (angForm.controls['CR_PARTICULARS'].dirty || angForm.controls['CR_PARTICULARS'].touched)"
                                     class="alert alert-danger">
                                     <div
-                                        *ngIf="angForm.controls['CR_PARTICULARS'].errors?.pattern || angForm.controls['CR_PARTICULARS'].errors?.required || angForm.controls['CR_PARTICULARS'].errors?.maxlength">
-                                        This field is required and Input allowed only A-Za-z
+                                        *ngIf="angForm.controls['CR_PARTICULARS'].errors?.required || angForm.controls['CR_PARTICULARS'].errors?.maxlength">
+                                        This field is required
                                     </div>
                                 </div>
                             </div>
@@ -383,10 +379,9 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input appTheme type="text" name="To" class="form-control" placeholder=" "
-                                                id="DR_PARTICULARS" pattern="^[A-Za-z ]+$" maxlength="50"
-                                                title="Input allowed only A-Za-z" formControlName="DR_PARTICULARS"
-                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
-                                                [required]="cashoption">
+                                                id="DR_PARTICULARS"  maxlength="50"
+                                                formControlName="DR_PARTICULARS"
+                                                                                               [required]="cashoption">
                                             <label for="DR_PARTICULARS">Particulars<sub class="required">*</sub></label>
                                         </span>
                                     </div>
@@ -394,7 +389,7 @@
                                         *ngIf="angForm.controls['DR_PARTICULARS'].invalid && (angForm.controls['DR_PARTICULARS'].dirty || angForm.controls['DR_PARTICULARS'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['DR_PARTICULARS'].errors?.pattern || angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
+                                            *ngIf="angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
                                             This field is required and Input allowed only A-Za-z
                                         </div>
                                     </div>
