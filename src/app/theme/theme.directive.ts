@@ -1,4 +1,4 @@
-import { AfterViewInit, ContentChild, ContentChildren, Directive, ElementRef, HostListener, QueryList, ViewChild } from '@angular/core';
+import { AfterViewInit,EventEmitter ,Output, ContentChild, ContentChildren, Directive, ElementRef, HostListener, QueryList, ViewChild } from '@angular/core';
 import { ControlContainer } from '@angular/forms';
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { event } from 'jquery';
@@ -15,7 +15,8 @@ export class ThemeDirective {
   @ViewChild('myInput') myInput: ElementRef;
   @ViewChild('myTextarea') myTextarea: ElementRef;
 
-
+  @Output() appFocusout = new EventEmitter<void>();
+  @Output() appClick = new EventEmitter<void>();
   constructor(private el: ElementRef) { }
   //  @HostListener("click", ['$event'])
   //   @HostListener("keydown", ['$event'])
@@ -24,11 +25,17 @@ export class ThemeDirective {
   // @HostListener('keydown.shift.Tab', ['$event'])
   // @HostListener("click", ['$event'])
   // @HostListener('keydown.tab', ['$event'])
-  // @HostListener("focusout")
+  @HostListener("focusout")
   //  @HostListener("focusout", ['$event'])
- 
+  // @HostListener('document:keypress', ['$event'])
+  // onFocusOut() {
+  //   this.appFocusout.emit();
+  // }
+  // onclick() {
+  //   this.appClick.emit();
+  // }
   onFormSubmit(event) {
-
+    
     // debugger
     const invalidControl = this.el.nativeElement;
     // if (event.type == 'mousedown' || invalidControl.id == 'editbutton') {

@@ -52,6 +52,7 @@ export class BasicLoginComponent implements OnInit {
         })
       }
       else if (moment(data.user.EXP_DATE, 'DD/MM/YYYY') >= moment(this.currentDate, 'DD/MM/YYYY')) {
+        localStorage.setItem('countoftabs', '1');
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('system_master', JSON.stringify(data.system_master))

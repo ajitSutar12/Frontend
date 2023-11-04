@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class BackupDataComponent implements OnInit {
   url = environment.base_url;
-
+  modalClass: string = 'modalHide';
   constructor(private http: HttpClient) { }
 
   showButton = true
@@ -20,15 +20,20 @@ export class BackupDataComponent implements OnInit {
   fileUrl = this.url + '/upload/backup.sql'
 
   download() {
+    this.modalClass = 'modalShow';
     this.http.post(this.url + '/voucher/backupdb', '').subscribe(data => {
       if (data == 0) {
+        this.modalClass = 'modalHide';
         Swal.fire('Opps', 'Failed', 'error');
         this.showButton = false
       } else {
-                this.showButton = false 
-              
-        Swal.fire('success', 'File is ready to download', 'success');
-        this.showDButton= true 
+        setTimeout(() => {
+          this.showButton = false
+          this.modalClass = 'modalHide';
+          Swal.fire('success', 'File is ready to download', 'success');
+          this.showDButton = true
+        }, 60000); // Hiding loader after 1 minute
+
       }
     });
 

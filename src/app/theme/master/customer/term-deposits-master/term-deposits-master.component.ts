@@ -1294,7 +1294,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var amount = this.angForm.controls['AC_SCHMAMT'].value
     var rate = this.angForm.controls['AC_INTRATE'].value
     var Interest = (noOfInstallment * noOfInstallment + noOfInstallment) / 2 * Number(amount) * Number(rate) / 1200
-    var maturity = (Number(amount) * Number(noOfInstallment)) + Number(Interest)
+    var maturity = Math.round((Number(amount) * Number(noOfInstallment)) + Number(Interest))
     this.angForm.patchValue({
       AC_MATUAMT: maturity
     })
