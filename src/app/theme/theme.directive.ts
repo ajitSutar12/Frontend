@@ -5,7 +5,7 @@ import { event } from 'jquery';
 import { InvoiceListComponent } from './extension/invoice/invoice-list/invoice-list.component';
 
 @Directive({
-  selector: '[appTheme]'
+  selector: '[appTheme]' 
 })
 export class ThemeDirective {
   @ContentChild(NgSelectComponent) select: NgSelectComponent;

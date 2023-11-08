@@ -108,10 +108,13 @@ export class AppComponent implements OnInit {
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event) {
     let val = localStorage.getItem('countoftabs');
+    // if (Number(val) != 1){
+    
     let value = Number(val) - 1
     localStorage.setItem('countoftabs', value.toString());
     if (value == 0)
       this.logout()
+    // }
   }
 
   @HostListener('window:load', ['$event'])

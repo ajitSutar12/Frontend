@@ -700,8 +700,13 @@ const MENUITEMS1 = [
           {
             state: 'voucherPrint',
             name: 'Voucher Printing',
-            id: 110,
+            id: 110, 
 
+          },
+          {
+            state: 'goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
+            id: 344
           },
           {
             state: 'goldsilverreturnentry',
@@ -3412,6 +3417,11 @@ const MENUITEMS = [
             name: 'Voucher Printing',
             id: 110,
 
+          },
+          {
+            state: 'goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
+            id: 344
           },
           {
             state: 'goldsilverreturnentry',

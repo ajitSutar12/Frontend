@@ -2081,77 +2081,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
   }
 
-  // editNominee(id) {
-  //   let nodate
-  //   this.nomineeIndex = id
-  //   this.nomineeID = this.multiNominee[id].id;
-  //   this.nomineeTrue = true
-  //   this.nomineeShowButton = false;
-  //   this.nomineeUpdateShow = true;
-  //   this.angForm.patchValue({
-  //     AC_NNAME: this.multiNominee[id].AC_NNAME,
-  //     AC_NRELA: this.multiNominee[id].AC_NRELA,
-  //     // AC_NDATE: this.multiNominee[id].AC_NDATE,
-  //     AC_NDATE: (this.multiNominee[id].AC_NDATE == 'Invalid date' || this.multiNominee[id].AC_NDATE == '' || this.multiNominee[id].AC_NDATE == null) ? nodate = '' : nodate = this.multiNominee[id].AC_NDATE,
-  //     AGE: this.multiNominee[id].AGE,
-  //     AC_NHONO: this.multiNominee[id].AC_NHONO,
-  //     AC_NWARD: this.multiNominee[id].AC_NWARD,
-  //     AC_NADDR: this.multiNominee[id].AC_NADDR,
-  //     AC_NGALLI: this.multiNominee[id].AC_NGALLI,
-  //     AC_NAREA: this.multiNominee[id].AC_NAREA,
-  //     AC_NCTCODE: this.multiNominee[id].AC_NCTCODE,
-  //     AC_NPIN: this.multiNominee[id].AC_NPIN,
-  //   })
-  // }
-
-  // updateNominee() {
-  //   let index = this.nomineeIndex;
-  //   this.nomineeShowButton = true;
-  //   this.nomineeUpdateShow = false;
-  //   const formVal = this.angForm.value;
-  //   let nodate
-  //   var object = {
-  //     AC_NNAME: formVal.AC_NNAME,
-  //     AC_NRELA: formVal.AC_NRELA,
-  //     AC_NDATE: (formVal.AC_NDATE == '' || formVal.AC_NDATE == 'Invalid date' || formVal.AC_NDATE == null) ? nodate = '' : nodate = moment(formVal.AC_NDATE).format('DD/MM/YYYY'),
-  //     AGE: formVal.AGE,
-  //     AC_NHONO: formVal.AC_NHONO,
-  //     AC_NWARD: formVal.AC_NWARD,
-  //     AC_NADDR: formVal.AC_NADDR,
-  //     AC_NGALLI: formVal.AC_NGALLI,
-  //     AC_NAREA: formVal.AC_NAREA,
-  //     AC_NCTCODE: formVal.AC_NCTCODE,
-  //     AC_NPIN: formVal.AC_NPIN,
-  //     id: this.nomineeID
-  //   }
-
-  //   if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-  //     Swal.fire("Please Insert Mandatory Record For Nominee");
-  //   }
-  //   else if (formVal.AC_NNAME != "") {
-  //     if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-  //       Swal.fire("Please Insert Mandatory Record For Nominee");
-  //     } else if (formVal.AC_NRELA != "") {
-  //       if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-  //         Swal.fire("Please Insert Mandatory Record For Nominee");
-  //       }
-  //       else {
-  //         if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
-  //           Swal.fire("This Nominee is Already Exists", "error");
-  //         } else {
-  //           this.multiNominee[index] = object;
-  //         }
-  //       }
-  //     }
-  //     else {
-  //       this.multiNominee[index] = object;
-  //     }
-  //   }
-  //   else {
-  //     this.multiNominee[index] = object;
-  //   }
-  //   this.resetNominee()
-  // }
+  
 
   updateNominee() {
     let index = this.nomineeIndex;

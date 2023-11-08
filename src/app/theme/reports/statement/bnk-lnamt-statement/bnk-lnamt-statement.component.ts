@@ -258,7 +258,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   
     resetForm() {
       // this.createForm()
-      this.ngForm.controls.BRANCH_CODE.reset();
+      // this.ngForm.controls.BRANCH_CODE.reset();
       this.ngForm.controls.Scheme_code.reset();
       this.ngForm.controls.Starting_Account.reset();
       // this.ngForm.controls.Ending_Account.reset();
