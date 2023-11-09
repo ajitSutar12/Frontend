@@ -14,6 +14,7 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
 @NgModule({
   imports: [
     CommonModule,
+    BnkTDStatementRoutingModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
@@ -21,7 +22,6 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    BnkTDStatementRoutingModule,
     Iframe5Module
 
   ],

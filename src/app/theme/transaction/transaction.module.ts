@@ -24,7 +24,8 @@ import { TransactionRoutingModule } from './transaction-routing.module';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { VoucherPrintingComponent } from './voucher-printing/voucher-printing.component';
+// import { VoucherPrintingComponent } from './voucher-printing/voucher-printing.component';
+// import { GoldSilverReceiptPrintComponent } from './gold-silver-receipt-print/gold-silver-receipt-print.component';
 
 
 // import { CashierComponent } from './cashier/cashier.component';

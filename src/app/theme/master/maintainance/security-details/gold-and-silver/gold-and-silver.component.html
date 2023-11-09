@@ -141,11 +141,10 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="article_name" class="form-control" placeholder=" " id="article_name"
-                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    pattern="^[A-Za-z\./ -]+$" maxlength="102" title="Input allowed only  A-Z a-z - / . (Space)"
+                  <input appTheme type="text"  name="article_name" class="form-control" placeholder=" " id="article_name"
+                  maxlength="102" 
                     formControlName="ARTICLE_NAME" />
-                  <label for="article_name">Name of Articles</label>
+                  <label for="article_name">Name of Articles<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -153,7 +152,7 @@
                   (angForm.controls['ARTICLE_NAME'].dirty ||
                     angForm.controls['ARTICLE_NAME'].touched)
                 " class="alert alert-danger">
-                <div *ngIf="angForm.controls['ARTICLE_NAME'].errors?.pattern">
+                <div *ngIf="angForm.controls['ARTICLE_NAME'].errors?.required">
                   Input allowed only A-Z a-z - / . (Space)
                 </div>
               </div>
@@ -259,10 +258,9 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme type="text" name="article_make" class="form-control" placeholder=" " id="article_make"
-                    required="" pattern="^[A-Za-z\./ -]+$" maxlength="4000"
+                    required=""  maxlength="4000"
                     [ngClass]="{'form-submitted': formSubmitted}"
-                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                    title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="REMARK" />
+                    formControlName="REMARK" />
                   <label for="article_make">Details of Articles<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -272,7 +270,7 @@
                     angForm.controls['REMARK'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="
-                    angForm.controls['REMARK'].errors?.pattern ||
+                  
                     angForm.controls['REMARK'].errors?.required
                   ">
                   Input allowed only A-Z a-z - / . (Space)

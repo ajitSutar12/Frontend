@@ -43,16 +43,16 @@ export class BnkReceiveIntListComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   dropdowndata = [{
-    label : 'LN',
+    label : 'Loan',
     value : 'LN'
   },{
-    label : 'CC',
+    label : 'Cash Credit',
     value : 'CC'
   },{
-    label : 'DS',
+    label : 'Dispute Loan',
     value : 'DS'
   },{
-    label : 'IV',
+    label : 'Investment',
     value : 'IV'
   }]
  
