@@ -13,17 +13,27 @@ export const environment = {
   // base_url: 'http://103.174.87.104:7275',  //CBS  natepute server
   // base_url: 'http://103.174.87.104:4771',  //CBS sidhanerli test server
   // base_url: 'http://103.174.87.104:4713',  //CBS sidhanerli server
-  base_url: 'http://103.174.87.104:7276',  //C3BS venkatesh server
-  // base_url: 'http://103.174.87.104:7796',  //CBS VADGAON server
+  // base_url: 'http://103.174.87.104:7796',  //CBS venkatesh server
+  // base_url: 'http://103.174.87.104:7276',  //CBS VADGAON server
 
 
   // base_url: 'http://139.59.63.215:9152',  //CBS  BHAIRAVNATH site server
 
-  // base_url: 'http://localhost:7276',
+  base_url: 'http://localhost:7276',
   // base_url: 'http://localhost:3000',
   // base_url: 'http://localhost:4000',
   // base_url: 'http://192.168.1.154:4000'  //sudam sir PC
 
+  // report_url: 'http://139.59.63.215/bhairavnath_phpjasperxml-master/', //server bhairavnath site report folder path
+  // report_url: 'http://139.59.63.215/bh_phpjasperxml-master/', //server bhairavnath report folder path
+  report_url: 'http://localhost/bh_phpjasperxml-master/', //server bhairavnath report folder path
+  // report_url: 'http://139.59.63.215/bh_test_phpjasperxml-master/', //server bhairavnath report test folder path
+  // report_url: 'http://139.59.63.215/TESTSIDHANERLI/REPORTS/', //server sidhanerli report folder path
+  // report_url: 'http://103.174.87.104/SHIVPRASADNATEPUTE/REPORTS/', //server VENKATESH report folder path
+  // report_url: 'http://103.174.87.104/VADGAON/REPORTS/', //server VADGAON report folder path
+  // report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
+
+  // report_url: 'http://139.59.63.215/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
   // report_url: 'http://103.174.87.104/VENKATESH/', //server VENKATESH report test folder path
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', //server testsidhanerli report folder path
@@ -32,7 +42,7 @@ export const environment = {
   // report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', //server sidhanerli report folder path
 
   //  report_url: 'http://localhost/phpjasper1/', //report folder local path
-   report_url: 'http://localhost/phpjasper/', //report folder local path
+  //  report_url: 'http://localhost/phpjasper/', //report folder local path
 
 
 

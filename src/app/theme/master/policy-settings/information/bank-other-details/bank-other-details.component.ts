@@ -105,11 +105,12 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
   newbtnShow: boolean = false;
   //variable to get Id to update
   updateID: number = 0;
-
+  ATMGLACNO
   // Filter Variable
   filterData = {};
   GlACNo: any;
   headGl
+  ngATM
   constructor(
     private http: HttpClient,
     private bankDetails: BankDetails,
@@ -134,6 +135,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     this.schemeAccountNoService.getGeneralLedgerListForClosing().pipe(first()).subscribe(data => {
       this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data1 => {
         this.GlACNo = data.filter(ele => ele.label !== Number(data1['CASH_IN_HAND_ACNO']))
+        this.ATMGLACNO = this.GlACNo
       })
     })
 
@@ -266,8 +268,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       GST_NO: ['', [Validators.pattern]],
       IFSC_CODE: ['', [Validators.pattern]],
       IBT_TRAN: [false],
-
-
+      ATM_GLACNO: [null]
     });
   }
 
@@ -300,7 +301,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           'GST_NO': formVal.GST_NO,
           'IFSC_CODE': formVal.IFSC_CODE,
           'IBT_TRAN': (formVal.IBT_TRAN == true ? '1' : '0'),
-
+          ATM_GLACNO: formVal.ATM_GLACNO,
         }
         this.bankDetails.postData(dataToSend).subscribe(data1 => {
           Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -357,7 +358,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         'GST_NO': data.GST_NO,
         'IFSC_CODE': data.IFSC_CODE,
         'IBT_TRAN': (data.IBT_TRAN == '1' ? true : false),
-
+        ATM_GLACNO: data.ATM_GLACNO,
       })
     })
   }

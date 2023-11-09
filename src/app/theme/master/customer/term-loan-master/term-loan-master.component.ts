@@ -500,6 +500,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.code = this.scheme[0].value
+      if (this.scheme[0].IS_WEEKLY_REPAY == '1') {
+        this.angForm.controls['AC_MONTHS'].disable()
+        this.repayModeOption.push({ value: 'W', label: 'Weekly' })
+      }
     })
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
@@ -614,7 +618,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_SANCTION_AMOUNT: ['', [Validators.required, Validators.pattern]],
       AC_SANCTION_DATE: ['', [Validators.required]],
       AC_DRAWPOWER_AMT: ['', [Validators.required, Validators.pattern]],
-      AC_MONTHS: ['', [Validators.required, Validators.pattern]],
+      AC_MONTHS: [0, [Validators.required, Validators.pattern]],
+      AC_DAYS: [0],
       AC_EXPIRE_DATE: ['', [Validators.required]],
       AC_INTRATE: ['', [Validators.required]],
       AC_REPAYMODE: ['', [Validators.required]],
@@ -656,6 +661,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       GAC_MEMBNO: [''],
       GAC_MEMBTYPE: [''],
     });
+    this.angForm.enable()
   }
 
   getSchemeCode(value) {
@@ -665,7 +671,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // Method to insert data into database through NestJS
   submit(event) {
     this.formSubmitted = true;
-    const formVal = this.angForm.value;
+    let formVal = this.angForm.value;
     if (this.angForm.valid) {
       let temdate
       let opdate
@@ -736,6 +742,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_SANCTION_DATE': (formVal.AC_SANCTION_DATE == '' || formVal.AC_SANCTION_DATE == 'Invalid date') ? sanctiondate = '' : sanctiondate = moment(formVal.AC_SANCTION_DATE).format('DD/MM/YYYY'),
         'AC_DRAWPOWER_AMT': formVal.AC_DRAWPOWER_AMT,
         'AC_MONTHS': formVal.AC_MONTHS,
+        'AC_DAYS': formVal.AC_DAYS,
         'AC_EXPIRE_DATE': expiry,
         'AC_INTRATE': formVal.AC_INTRATE,
         'AC_REPAYMODE': formVal.AC_REPAYMODE,
@@ -978,6 +985,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           IS_AGGRI_LOAN: (data.IS_AGGRI_LOAN == '1' ? true : false),
           REF_ACNO: data.REF_ACNO,
           AC_MONTHS: data.AC_MONTHS,
+          AC_DAYS: data.AC_DAYS,
           AC_INSTALLMENT: data.AC_INSTALLMENT,
           AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
           AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
@@ -1353,132 +1361,143 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
   // Method for Calculate Instllment
   calculation() {
+    if (this.repay != undefined && this.repay != null) {
+      if (this.repay == 'W') {
+        this.installmentType = 'E'
+        this.angForm.controls['INSTALLMENT_METHOD'].disable()
+        let days = Number(this.angForm.controls['AC_DAYS'].value);
+        let calweek = Math.round(days / 7)
+        let intrate = Number(this.angForm.controls['AC_INTRATE'].value) / 52 / 100
+        this.result = (Number(this.drawingPower) * intrate * Math.pow(1 + intrate, calweek) / (Math.pow(1 + intrate, calweek) - 1)).toFixed(2)
+        this.angForm.patchValue({
+          AC_INSTALLMENT: this.result
+        })
+      }
+      else {
+        this.months = this.angForm.controls['AC_MONTHS'].value
+        if (this.repay == 'M' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+          this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 1));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'Q' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-    this.months = this.angForm.controls['AC_MONTHS'].value
-    if (this.repay == 'M' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+          this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 3));
 
-      this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 1));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'H' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
+          this.result = Math.round(((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) * 6));
 
-    }
-    else if (this.repay == 'Q' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'Y' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round(((Number(this.drawingPower) / Number(this.months)) * 3));
+          this.result = Math.round(((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) * 12));
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'H' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'O' && (this.installmentType == 'I' || this.installmentType == 'R')) {
 
-      this.result = Math.round(((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) * 6));
+          this.result = Math.round(((Math.floor(Number(this.drawingPower)))));
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'Y' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
 
-      this.result = Math.round(((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) * 12));
+        else if (this.repay == 'M' && (this.installmentType == 'E')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'O' && (this.installmentType == 'I' || this.installmentType == 'R')) {
+          this.month = Math.floor(this.months) / 1;
+          this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1)))));
 
-      this.result = Math.round(((Math.floor(Number(this.drawingPower)))));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'Q' && (this.installmentType == 'E')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
+          this.month = Math.floor(this.months) / 3;
 
-    else if (this.repay == 'M' && (this.installmentType == 'E')) {
+          this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 3)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 3)))) ** (Math.floor(this.month) * (-1)))));
 
-      this.month = Math.floor(this.months) / 1;
-      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 1)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 1)))) ** (Math.floor(this.month) * (-1)))));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'H' && (this.installmentType == 'E')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'Q' && (this.installmentType == 'E')) {
+          this.month = Math.floor(this.months) / 6;
+          this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1)))));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'Y' && (this.installmentType == 'E')) {
 
-      this.month = Math.floor(this.months) / 3;
+          this.month = Math.floor(this.months) / 12;
+          this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1)))));
 
-      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 3)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 3)))) ** (Math.floor(this.month) * (-1)))));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'O' && (this.installmentType == 'E')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'H' && (this.installmentType == 'E')) {
+          this.angForm.patchValue({
+            AC_INSTALLMENT: 0
+          })
+        }
+        // else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
+        else if (this.repay == 'M' && (this.installmentType == 'Null')) {
 
-      this.month = Math.floor(this.months) / 6;
-      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 6)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 6)))) ** ((this.month) * (-1)))));
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'Y' && (this.installmentType == 'E')) {
+          this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
+          this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
 
-      this.month = Math.floor(this.months) / 12;
-      this.result = Math.round(Math.floor(Number(this.drawingPower)) * ((Math.floor(this.intRate) / (1200 / 12)) / (1 - ((1 + (Math.floor(this.intRate) / (1200 / 12)))) ** (Math.floor(this.month) * (-1)))));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'Q' && (this.installmentType == 'Null')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'O' && (this.installmentType == 'E')) {
+          this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
+          this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'H' && (this.installmentType == 'Null')) {
 
-      this.angForm.patchValue({
-        AC_INSTALLMENT: 0
-      })
-    }
-    // else if (this.repay == 'M' && (this.installmentType == 'WithInterest')) {
-    else if (this.repay == 'M' && (this.installmentType == 'Null')) {
+          this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
+          this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 6));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'Y' && (this.installmentType == 'Null')) {
 
-      this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
-      this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 1));
-
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'Q' && (this.installmentType == 'Null')) {
-
-      this.intResult = (Math.floor(Number(this.drawingPower)) * Math.floor(this.intRate) / 1200).toFixed(2);
-      this.result = Math.round((((Math.floor(Number(this.drawingPower)) / Math.floor(this.months)) + Math.floor(this.intResult)) * 3));
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'H' && (this.installmentType == 'Null')) {
-
-      this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
-      this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 6));
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'Y' && (this.installmentType == 'Null')) {
-
-      this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
-      this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 12));
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
-    }
-    else if (this.repay == 'O' && (this.installmentType == 'Null')) {
-      this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
-      this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 0));
-      this.angForm.patchValue({
-        AC_INSTALLMENT: this.result
-      })
+          this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
+          this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 12));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+        else if (this.repay == 'O' && (this.installmentType == 'Null')) {
+          this.intResult = (Number(this.drawingPower) * this.intRate / 1200);
+          this.result = Math.round((((Number(this.drawingPower) / this.months) + this.intResult) * 0));
+          this.angForm.patchValue({
+            AC_INSTALLMENT: this.result
+          })
+        }
+      }
     }
   }
 
@@ -1601,6 +1620,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   scode
   getscode(event) {
     this.scode = event.name
+    if (event.IS_WEEKLY_REPAY == '1') {
+      this.angForm.controls['AC_MONTHS'].disable()
+      this.repayModeOption.push({ value: 'W', label: 'Weekly' })
+    }
   }
   // Show security Detals Components
   showSecurity(code) {
@@ -2060,33 +2083,66 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   getExpiryDate() {
-    let months = this.angForm.controls['AC_MONTHS'].value
-    if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != undefined && this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
-      var expiryDate = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(months, 'M').format('DD/MM/YYYY');
-      this.tempexpiryDate = expiryDate
-      this.angForm.patchValue({
-        AC_EXPIRE_DATE: expiryDate
-      })
+    if (Number(this.angForm.controls['AC_DAYS'].value) != 0 && this.angForm.controls['AC_DAYS'].value != '' && this.angForm.controls['AC_DAYS'].value != null) {
+      let days = this.angForm.controls['AC_DAYS'].value
+      if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != undefined && this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
+        var expiryDate = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(days, 'd').format('DD/MM/YYYY');
+        this.tempexpiryDate = expiryDate
+        this.angForm.patchValue({
+          AC_EXPIRE_DATE: expiryDate
+        })
+      }
+      else {
+        if (this.tempopendate != this.openingDate) {
+          var expiryDate = moment(this.openingDate).add(days, 'd').format('DD/MM/YYYY');
+          this.tempexpiryDate = expiryDate
+          this.angForm.patchValue({
+            AC_EXPIRE_DATE: expiryDate
+          })
+        } else if (this.openingDate != undefined) {
+          var full = []
+          var fullDate = this.openingDate;
+          full = fullDate.split(' ');
+          var date = full[0].split(/\//);
+          var newDate = date[1] + '/' + date[0] + '/' + date[2]
+          var k = new Date(newDate);
+          var expiryDate = moment(k).add(days, 'd').format('DD/MM/YYYY');
+          this.tempexpiryDate = expiryDate
+          this.angForm.patchValue({
+            AC_EXPIRE_DATE: expiryDate
+          })
+        }
+      }
     }
     else {
-      if (this.tempopendate != this.openingDate) {
-        var expiryDate = moment(this.openingDate).add(months, 'M').format('DD/MM/YYYY');
+      let months = this.angForm.controls['AC_MONTHS'].value
+      if (this.angForm.controls['AC_OPEN_OLD_DATE'].value != undefined && this.angForm.controls['AC_OPEN_OLD_DATE'].value != '') {
+        var expiryDate = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(months, 'M').format('DD/MM/YYYY');
         this.tempexpiryDate = expiryDate
         this.angForm.patchValue({
           AC_EXPIRE_DATE: expiryDate
         })
-      } else if (this.openingDate != undefined) {
-        var full = []
-        var fullDate = this.openingDate;
-        full = fullDate.split(' ');
-        var date = full[0].split(/\//);
-        var newDate = date[1] + '/' + date[0] + '/' + date[2]
-        var k = new Date(newDate);
-        var expiryDate = moment(k).add(months, 'M').format('DD/MM/YYYY');
-        this.tempexpiryDate = expiryDate
-        this.angForm.patchValue({
-          AC_EXPIRE_DATE: expiryDate
-        })
+      }
+      else {
+        if (this.tempopendate != this.openingDate) {
+          var expiryDate = moment(this.openingDate).add(months, 'M').format('DD/MM/YYYY');
+          this.tempexpiryDate = expiryDate
+          this.angForm.patchValue({
+            AC_EXPIRE_DATE: expiryDate
+          })
+        } else if (this.openingDate != undefined) {
+          var full = []
+          var fullDate = this.openingDate;
+          full = fullDate.split(' ');
+          var date = full[0].split(/\//);
+          var newDate = date[1] + '/' + date[0] + '/' + date[2]
+          var k = new Date(newDate);
+          var expiryDate = moment(k).add(months, 'M').format('DD/MM/YYYY');
+          this.tempexpiryDate = expiryDate
+          this.angForm.patchValue({
+            AC_EXPIRE_DATE: expiryDate
+          })
+        }
       }
     }
   }

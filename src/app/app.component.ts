@@ -105,7 +105,7 @@ export class AppComponent implements OnInit {
   //     }, ['INPUT', 'TEXTAREA', 'SELECT']));
   // }
 
-  @HostListener('window:beforeunload', ['$event'])
+  // @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event) {
     let val = localStorage.getItem('countoftabs');
     // if (Number(val) != 1){
@@ -117,7 +117,7 @@ export class AppComponent implements OnInit {
     // }
   }
 
-  @HostListener('window:load', ['$event'])
+  // @HostListener('window:load', ['$event'])
   loadHandler(event) {
     let val = localStorage.getItem('countoftabs');
     let value = Number(val) + 1
