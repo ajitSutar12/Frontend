@@ -121,10 +121,10 @@ const routes: Routes = [
         path: 'inwardRegister',
         loadChildren: () => import('./inward-register/inward-register.module').then(m => m.InwardRegisterModule)
       },
-      
-   
-
-            
+      {
+        path: 'goldSilverReceipt',
+        loadChildren: () => import('./gold-silver-receipt-print/gold-silver-receipt-print.module').then(m => m.GoldSilverReceiptPrintModule)
+      },
     ]
   }
 ];

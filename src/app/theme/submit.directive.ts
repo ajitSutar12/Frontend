@@ -1,13 +1,13 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appSubmit]'
+  selector: '[appSubmit]' 
 })
 export class SubmitDirective {
 
   constructor(private el: ElementRef) { }
 
-  @HostListener('click')
+  // @HostListener('click')
   // @HostListener('keydown.Tab')
   // @HostListener('keydown.shift.Tab')
   onFormSubmit() {

@@ -221,7 +221,7 @@ close(){
 // Reset Function
 resetForm() {
   // this.createForm()
-  this.ngForm.controls.Scheme_code.reset();
+  this.ngForm.controls.FROM_DATE.reset();
   this.ngForm.controls.Scheme_acc.reset();
   this.ngForm.controls.chart_no.reset();
   this.showRepo = false;
