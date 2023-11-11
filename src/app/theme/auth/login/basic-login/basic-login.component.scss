@@ -1,5 +1,5 @@
 .card-img {
-    height: 80px;
+    height: 90px;
     width: 100px;
     margin-left: 50px;
     text-align: right;
@@ -30,11 +30,13 @@
     position: absolute;
     left: 30%;
     top: 65%;
+    color: brown;
+    font-weight: 700;
 }
 
 @media only screen and (max-width: 480px) {
     .card-img {
-        height: 80px;
+        height: 90px;
         width: 100px;
         margin-left: 0px;
         text-align: right;

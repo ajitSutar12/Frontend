@@ -17,8 +17,8 @@
                                         bindLabel="label" formControlName="AC_TYPE" [disabled]="AC_TYPE"
                                         [virtualScroll]="true" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" #ACTYPE (focus)="onFocus(ACTYPE)"
-                                        [selectOnTab]='true' required placeholder="Scheme" (change)="getReceiptNumber()"
-                                        autofocus>
+                                        [selectOnTab]='true' required placeholder="Scheme"
+                                        (change)="getReceiptNumber();  getrdagent($event)" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -595,6 +595,76 @@
                                                         <div class="col-sm-1" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('addressTab')">Next
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" *ngIf="showRDagent">
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select id="AGENT_BRANCH" bindValue="value"
+                                                                        [(ngModel)]="AGENTBRANCH" [virtualScroll]="true"
+                                                                        formControlName="AGENT_BRANCH" bindLabel="label"
+                                                                        title="Compulsory Selection" #AGENTBRANCHCODE
+                                                                        (focus)="onFocus(AGENTBRANCHCODE)"
+                                                                        [selectOnTab]='true'
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        (change)="getAgentBranch()"
+                                                                        placeholder="Branch">
+                                                                        <ng-option
+                                                                            *ngFor="let values of OwnbranchMasterDropdown"
+                                                                            [value]="values">
+                                                                            {{values.label}}</ng-option>
+                                                                    </ng-select>
+                                                                    <label for="AGENT_BRANCH">Agent Branch</label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt" autofocus>
+                                                                    <ng-select appTheme id="AGENT_ACTYPE"
+                                                                        bindValue="value" [(ngModel)]="agentno"
+                                                                        formControlName="AGENT_ACTYPE" bindLabel="label"
+                                                                        [virtualScroll]="true" (change)="getAgentAC()"
+                                                                        title="Compulsory Selection" #AGENT_ACTYPE
+                                                                        (focus)="onFocus(AGENT_ACTYPE)"
+                                                                        [selectOnTab]='true'
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        placeholder="Agent Scheme">
+                                                                        <ng-option *ngFor="let values of AgentScheme"
+                                                                            [value]="values">
+                                                                            {{values.label}}</ng-option>
+                                                                    </ng-select>
+                                                                    <label for="AGENT_ACTYPE">Agent Scheme<sub
+                                                                            class="required"> * </sub></label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select appTheme id="AGENT_ACNO"
+                                                                        bindValue="bankacno" [(ngModel)]="ngAgentCode"
+                                                                        formControlName="AGENT_ACNO" bindLabel="label"
+                                                                        [virtualScroll]="true"
+                                                                        title="Compulsory Selection"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        #AGENT_ACNO (focus)="onFocus(AGENT_ACNO)"
+                                                                        [selectOnTab]='true' placeholder="Agent Code">
+                                                                        <ng-option *ngFor="let values of agentCode"
+                                                                            [value]="values">
+                                                                            {{values.label}}
+                                                                            {{values.name}}</ng-option>
+                                                                    </ng-select>
+                                                                    <label for="AGENT_ACNO">Agent Code <sub
+                                                                            class="required"> * </sub></label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm" style="float: right; margin-top: 6px;">
+                                                            <button class="btn btn-outline-primary btn-sm"
+                                                                (click)="switchNgBTab('address')">Next
                                                             </button>
                                                         </div>
                                                     </div>

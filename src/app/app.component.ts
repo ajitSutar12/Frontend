@@ -105,11 +105,12 @@ export class AppComponent implements OnInit {
   //     }, ['INPUT', 'TEXTAREA', 'SELECT']));
   // }
 
-  @HostListener('window:beforeunload', ['$event'])
+  // @HostListener('window:beforeunload', ['$event'])
+  @HostListener('window:unload', ['$event'])
   beforeunloadHandler(event) {
     let val = localStorage.getItem('countoftabs');
     // if (Number(val) != 1){
-    
+
     let value = Number(val) - 1
     localStorage.setItem('countoftabs', value.toString());
     if (value == 0)
@@ -138,5 +139,17 @@ export class AppComponent implements OnInit {
     this._authService.LOGOFFHISTORY(obj).subscribe(data => { })
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+  }
+
+  @HostListener('window:unload', ['$event'])
+  unloadHandler(event) {
+    console.log("Leaving site, window:unload")
+
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  beforeUnloadHander(event) {
+    console.log("Leaving site, beforeunload!")
+    return false;
   }
 }

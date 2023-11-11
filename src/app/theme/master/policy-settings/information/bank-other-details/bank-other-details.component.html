@@ -436,6 +436,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="ATM_GLACNO" bindValue="value" [(ngModel)]="ngATM"
+                                        formControlName="ATM_GLACNO" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true" placeholder="ATM GL account" #ATM_GLACNO
+                                        (focus)="onFocus(ATM_GLACNO)" [selectOnTab]='true'>
+                                        <ng-option *ngFor="let values of ATMGLACNO" [value]="values">
+                                            {{values.label}} {{values.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
