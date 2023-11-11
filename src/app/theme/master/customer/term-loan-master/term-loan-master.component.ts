@@ -1366,7 +1366,17 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.installmentType = 'E'
         this.angForm.controls['INSTALLMENT_METHOD'].disable()
         let days = Number(this.angForm.controls['AC_DAYS'].value);
-        let calweek = Math.round(days / 7)
+        // let calweek = Math.round(days / 7)
+
+        let calweek: any = Number(days / 7).toFixed(2);
+        let pricision = calweek.toString().split('.');
+        if (Number(40) <= 0) {
+          calweek = Math.round(Number(calweek))
+        } else if (Number(pricision[1]) >= Number(40)) {
+          calweek = Number(pricision[0]) + 1;
+        } else {
+          calweek = Number(pricision[0])
+        }
         let intrate = Number(this.angForm.controls['AC_INTRATE'].value) / 52 / 100
         this.result = (Number(this.drawingPower) * intrate * Math.pow(1 + intrate, calweek) / (Math.pow(1 + intrate, calweek) - 1)).toFixed(2)
         this.angForm.patchValue({
