@@ -403,7 +403,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
     });
     this.acMasterDropdownService.getACMasterList().pipe(first()).subscribe(data => {
       this.acMaster = data;
-      console.log(this.acMaster);
+      // console.log(this.acMaster);
 
     })
   }
@@ -524,6 +524,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       IS_SHOW_INT_AS_RECINT_IFDUEBAL: [],
       MIN_DUE_INSTALLMENTS: ['', [Validators.pattern, Validators.maxLength]],
       IS_DEPO_LOAN: [''],
+      IS_WEEKLY_REPAY: ['0']
     });
   }
 
@@ -559,6 +560,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
       'S_OUTSTANDING_INT_ACNO': formVal.S_OUTSTANDING_INT_ACNO,
       // 'IS_DEPO_LOAN': formVal.IS_DEPO_LOAN,
       'IS_DEPO_LOAN': depo,
+      'IS_WEEKLY_REPAY': formVal.IS_WEEKLY_REPAY,
       'IS_GOLD_LOAN': Gold,
       'S_INT_APPLICABLE': (formVal.S_INT_APPLICABLE == true ? '1' : '0'),
       'POST_TO_INDIVIDUAL_AC': (formVal.POST_TO_INDIVIDUAL_AC == true ? '1' : '0'),
@@ -601,7 +603,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
 
       'MIN_DUE_INSTALLMENTS': formVal.MIN_DUE_INSTALLMENTS,
     }
-    console.log(dataToSend)
+    // console.log(dataToSend)
     this.termLoanSchemeService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
@@ -666,6 +668,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
         'IS_REC_PENAL_APPL': (data.IS_REC_PENAL_APPL == '1' ? true : false),
         'IS_CAL_PENAL_AFTER_EXPIRY': (data.IS_CAL_PENAL_AFTER_EXPIRY == '1' ? true : false),
         'S_PENAL_INT_RATE': data.S_PENAL_INT_RATE,
+        'IS_WEEKLY_REPAY': data.IS_WEEKLY_REPAY,
         'PENAL_METHOD': data.PENAL_METHOD,
         'S_DUE_LIST_ALLOW': (data.S_DUE_LIST_ALLOW == '1' ? true : false),
         'GRACE_PERIOD_APPLICABLE': (data.GRACE_PERIOD_APPLICABLE == '1' ? true : false),

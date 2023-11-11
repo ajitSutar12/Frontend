@@ -398,6 +398,32 @@
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
+                                                                    <input appTheme type="text" name="AC_DAYS"
+                                                                        class="form-control" placeholder=" "
+                                                                        id="AC_DAYS" required="" pattern="^[0-9]+$"
+                                                                        title="Input allowed only  0-9"
+                                                                        formControlName="AC_DAYS" maxlength="3"
+                                                                        style="text-align: right;"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                                        (ngModelChange)="getExpiryDate();calculation()"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}">
+                                                                    <label for="AC_DAYS">Period(Days)<sub
+                                                                            class="required">*
+                                                                        </sub></label>
+                                                                </span>
+                                                            </div>
+                                                            <div class="form-group form-primary form-static-label"
+                                                                *ngIf="angForm.controls['AC_DAYS'].invalid && (angForm.controls['AC_DAYS'].dirty || angForm.controls['AC_DAYS'].touched)"
+                                                                class="alert alert-danger">
+                                                                <div
+                                                                    *ngIf="angForm.controls['AC_DAYS'].errors?.pattern || angForm.controls['AC_DAYS'].errors?.required || angForm.controls['AC_DAYS'].errors?.maxlength">
+                                                                    This field is required and Input allowed only 0-9
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm">
+                                                            <div class="form-group input-group">
+                                                                <span class="border-lable-flt">
                                                                     <input type="text" appButton minlength="10"
                                                                         maxlength="10" name="AC_EXPIRE_DATE"
                                                                         id="AC_EXPIRE_DATE" class="form-control"
@@ -420,6 +446,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-sm">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
@@ -447,8 +475,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
+
                                                         <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt">
@@ -518,7 +545,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_INSTALLMENT"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_INSTALLMENT" pattern="^[0-9]+$"
+                                                                        id="AC_INSTALLMENT"
                                                                         style="text-align: right;"
                                                                         (focusout)="getDecimalPoint($event)"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -529,6 +556,8 @@
                                                                 </span>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">
@@ -553,8 +582,7 @@
                                                             </div>
                                                         </div>
 
-                                                    </div>
-                                                    <div class="row">
+
                                                         <div class="col-sm-3">
                                                             <div class="form-group input-group">
                                                                 <span class="border-lable-flt">

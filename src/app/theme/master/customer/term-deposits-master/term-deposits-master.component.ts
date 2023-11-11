@@ -168,7 +168,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   IntrestCategoryMasterDropdown: any[];
   Recommended: any[]
   // isDisabled = true;
-
+  agentCode: any[];
   imageObject = new Array();
   selectedImgArrayDetails = [];
   //temp address flag variable
@@ -212,7 +212,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //array of document of customer
   customerDoc = []
   schemeCode
-
+  agentno: any = null
+  ngAgentCode: any = null
+  AGENTBRANCH: any = null
   selectedValue: any = null
   id: any = null
   ngCategory: any = null
@@ -232,7 +234,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   rejectShow: boolean = false;
   approveShow: boolean = false;
   unapproveShow: boolean = false;
-
+  showRDagent: boolean = false
+  AgentScheme: any[];
+  agentSchemeCode: string = 'AG'
   asonDateRange
   @ViewChild('ctdTabset') ctdTabset;
   selectedImagePreview: any;
@@ -447,6 +451,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data;
       this.selectedValue = this.scheme[0].value
+      this.scheme[0].IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
       this.getReceiptNumber()
 
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
@@ -464,7 +469,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       })
     })
-
 
   }
 
@@ -559,6 +563,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       ATTERONEY_NAME: ['', []],
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
+
+      AGENT_BRANCH: [],
+      AGENT_ACTYPE: [],
+      AGENT_ACNO: [],
     });
 
     let data: any = localStorage.getItem('user');
@@ -1621,7 +1629,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         //Attorney
         'PowerOfAttorneyData': this.multiAttorney,
         'Document': this.imageObject,
-        intInstructionObject: this.intInstructionObject
+        intInstructionObject: this.intInstructionObject,
+        'AGENT_BRANCH': formVal.AGENT_BRANCH,
+        'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
+        'AGENT_ACNO': formVal.AGENT_ACNO,
       }
       // console.log(dataToSend)
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
@@ -1722,6 +1733,20 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngIntCategory = data.AC_INTCATA
       this.selectedValue = data.AC_TYPE
       this.recomBy = Number(data.AC_RECOMMEND_BY)
+      this.AGENTBRANCH = data.AGENT_BRANCH
+      if ((data.AGENT_ACTYPE != null && data.AGENT_ACNO != null) || (data.AGENT_ACTYPE != "" && data.AGENT_ACNO != "")) {
+        this.agentno = Number(data.AGENT_ACTYPE)
+        this.obj = [this.agentno, this.AGENTBRANCH]
+        switch ('AG') {
+          case 'AG':
+            this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data1 => {
+              this.agentCode = data1;
+              // this.ngAgentCode = null
+            })
+            break;
+        }
+        this.ngAgentCode = Number(data.AGENT_ACNO)
+      }
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
@@ -2081,7 +2106,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
   }
 
-  
+
 
   updateNominee() {
     let index = this.nomineeIndex;
@@ -2845,7 +2870,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
   receiptNo
+  getrdagent(event) {
+    this.SchemeCodeDropdownService.getSchemeCodeList(this.agentSchemeCode).pipe(first()).subscribe(data1 => {
+      var filtered = data1.filter(function (AGscheme) {
 
+        return (AGscheme.id == 'AG');
+      });
+      this.AgentScheme = filtered;
+
+    })
+    event.IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
+  }
   getReceiptNumber() {
     let obj = {
       scheme: this.selectedValue
@@ -2918,4 +2953,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       console.log('something is wrong');
     })
   }
+
+  getAgentBranch() {
+    this.getAgentAC()
+  }
+
+  //get account no according scheme for  pigmy agent
+  getAgentAC() {
+    this.obj = [this.agentno, this.AGENTBRANCH]
+    switch ('AG') {
+      case 'AG':
+        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.agentCode = data;
+          this.ngAgentCode = null
+        })
+        break;
+    }
+  }
+
 }
