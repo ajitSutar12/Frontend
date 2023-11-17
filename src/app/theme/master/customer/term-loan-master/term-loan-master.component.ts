@@ -1380,7 +1380,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         let intrate = Number(this.angForm.controls['AC_INTRATE'].value) / 52 / 100
         this.result = (Number(this.drawingPower) * intrate * Math.pow(1 + intrate, calweek) / (Math.pow(1 + intrate, calweek) - 1)).toFixed(2)
         this.angForm.patchValue({
-          AC_INSTALLMENT: this.result
+          AC_INSTALLMENT: Math.round(this.result)
         })
       }
       else {

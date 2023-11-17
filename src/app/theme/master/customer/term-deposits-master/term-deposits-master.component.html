@@ -592,7 +592,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-1" style="float: right; margin-top: 6px;">
+                                                        <div class="col-sm-1" style="float: right; margin-top: 6px;"
+                                                            *ngIf="!showRDagent">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('addressTab')">Next
                                                             </button>
@@ -662,9 +663,9 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm" style="float: right; margin-top: 6px;">
+                                                        <div class="col-sm-1" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('address')">Next
+                                                                (click)="switchNgBTab('addressTab')">Next
                                                             </button>
                                                         </div>
                                                     </div>
