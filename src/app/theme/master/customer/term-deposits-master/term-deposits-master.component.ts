@@ -1732,6 +1732,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngOperation = data.AC_OPR_CODE
       this.ngIntCategory = data.AC_INTCATA
       this.selectedValue = data.AC_TYPE
+      this.SchemeCodeDropdownService.getSchemeCodeList(this.agentSchemeCode).pipe(first()).subscribe(data1 => {
+        var filtered = data1.filter(function (AGscheme) {
+
+          return (AGscheme.id == 'AG');
+        });
+        this.AgentScheme = filtered;
+      })
+      var filtered = this.scheme.filter(function (AGscheme) {
+        return (AGscheme.value == data.AC_TYPE);
+      });
+      filtered[0].IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
       this.recomBy = Number(data.AC_RECOMMEND_BY)
       this.AGENTBRANCH = data.AGENT_BRANCH
       if ((data.AGENT_ACTYPE != null && data.AGENT_ACNO != null) || (data.AGENT_ACTYPE != "" && data.AGENT_ACNO != "")) {
@@ -1742,10 +1753,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data1 => {
               this.agentCode = data1;
               // this.ngAgentCode = null
+              this.ngAgentCode = (data.AGENT_ACNO)
             })
             break;
         }
-        this.ngAgentCode = Number(data.AGENT_ACNO)
       }
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
