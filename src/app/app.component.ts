@@ -11,7 +11,6 @@ import { AuthService } from './theme/auth/auth.service';
 export class AppComponent implements OnInit {
   title = 'Welcome || Your Bank Name';
   site = environment.sitename
-
   siteUrl: string;
 
   constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService,) { }

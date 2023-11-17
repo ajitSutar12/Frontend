@@ -134,7 +134,8 @@ fromdate: any;
 
   // For Starting account and Ending Account dropdown
    getschemename: any
-
+   getbranchName
+   getcode
    getBranch() {
      this.getIntroducer()
    }
@@ -142,135 +143,18 @@ fromdate: any;
      this.getschemename = event.name
      this.getIntroducer()
    }
- 
+   getBranchName(event) {
+    this.getbranchName = event.branchName
+    this.getcode = event.value
+  }
  
    getIntroducer() {
  
      let data: any = localStorage.getItem('user');
      let result = JSON.parse(data);
-     let branchCode = result.branch.id;
+     let branchCode = this.ngForm.value.BRANCH_CODE;
      this.obj = [this.scode, branchCode]
-    //  switch (this.getschemename) {
- 
- 
-    //   case 'SB':
-    //       this._schemeService.getSavingSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-
-  
-    //       })
-    //       break;
-  
-    //     case 'SH':
-    //       this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-  
-    //       })
-    //       break;
-  
-    //     case 'CA':
-    //       this._schemeService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-    //       })
-    //       break;
-  
-    //     case 'LN':
-    //       this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-    //       })
-    //       break;
-  
-    //     case 'TD':
-    //       this._schemeService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-    //       })
-    //       break;
-  
-    //     case 'DS':
-    //       this._schemeService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //         this.startingAccount = null
-    //         this.endingacc = data;
-    //       this.EndingAccount = null
- 
-  
-    //       })
-    //       break;
-  
-    //     case 'CC':
-    //       this._schemeService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //         this.startingAccount = null
-    //         this.endingacc = data;
-    //       this.EndingAccount = null
- 
-    //       })
-    //       break;
-  
-    //     case 'GS':
-    //       this._schemeService.getAnamatSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //         this.startingAccount = null
-    //         this.endingacc = data;
-    //       this.EndingAccount = null
- 
-  
-    //       })
-    //       break;
-  
-    //     case 'PG':
-    //       this._schemeService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //         this.startingAccount = null
-    //         this.endingacc = data;
-    //         this.EndingAccount = null
    
-  
-    //       })
-    //       break;
-  
-    //     case 'AG':
-    //       this._schemeService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-  
-    //       })
-    //       break;
-  
-    //     case 'IV':
-    //       this._schemeService.getInvestmentSchemeList1(this.obj).subscribe(data => {
-    //         this.startingacc = data;
-    //       this.startingAccount = null
-    //       this.endingacc = data;
-    //       this.EndingAccount = null
- 
-  
-    //       })
-    //       break;
-    //  }
     switch (this.getschemename) {
       case 'SB':
         this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
@@ -386,14 +270,14 @@ fromdate: any;
    
   src: any;
   view(event) {
-debugger
+
     event.preventDefault();
     this.formSubmitted = true;
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
-    let branchName = userData.branch.NAME;
-    
+    let branchName = this.getbranchName;
+    let code = this.getcode
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
@@ -418,12 +302,10 @@ debugger
     let checkbox3 = obj.PRINT_ANA_REASON  
 
          
-   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"&bankName=" + bankName + "";
+   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme='" + scheme + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='" + Rdiosort +"'&checkbox1='" + checkbox1 +"'&checkbox2='" + checkbox2 +"'&checkbox3='" + checkbox3 +"&bankName=" + bankName + "&branchName='" + branchName + "'&code='" + code + "'";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
-    // const url = "http://localhost/NewReport/phpjasperxml-master/examples/BalanceBook.php?startDate='"+startDate+"'&endDate='"+endDate+ "'&scheme='" + scheme + "'&schemeAccountNo" + schemeAccountNo +"'&";
-    // console.log(url);
-    // this.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    console.log(this.iframeurl);
    
   }
   else {
