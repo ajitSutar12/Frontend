@@ -14,12 +14,12 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import *  as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
-  @Component({
-    selector: 'app-gold-silver-receipt-print',
-    templateUrl: './gold-silver-receipt-print.component.html',
-    styleUrls: ['./gold-silver-receipt-print.component.scss']
-  })
-  export class GoldSilverReceiptPrintComponent implements OnInit {
+@Component({
+  selector: 'app-gold-silver-receipt-print',
+  templateUrl: './gold-silver-receipt-print.component.html',
+  styleUrls: ['./gold-silver-receipt-print.component.scss']
+})
+export class GoldSilverReceiptPrintComponent implements OnInit {
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
   @Output() reloadTablePassing = new EventEmitter<string>();
@@ -27,7 +27,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   formSubmitted = false;
   //api
   url = environment.base_url;
-  iframe5url:any='';
+  iframe5url: any = '';
   report_url = environment.report_url;
 
   // Formgroup variable
@@ -56,9 +56,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   approveShow: boolean = false;
   unapproveShow: boolean = false;
   logDate
-    showRepo: boolean;
-    getbankAcNo1: any;
-    clicked:boolean=false;
+  showRepo: boolean;
+  getbankAcNo1: any;
+  clicked: boolean = false;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -66,7 +66,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private systemParameter: SystemMasterParametersService,    private sanitizer: DomSanitizer,
+    private systemParameter: SystemMasterParametersService, private sanitizer: DomSanitizer,
 
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -76,7 +76,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       this.ngreturndate = data.CURRENT_DATE
       this.logDate = data.CURRENT_DATE
     })
- 
+
   }
 
 
@@ -100,7 +100,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       AC_TYPE: ['', [Validators.required]],
       AC_NO: ['', [Validators.required]],
       RETURN_DATE: ['', [Validators.required]],
-     
+
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -121,7 +121,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
   }
   getAcno1(event) {
-    this.getbankAcNo1 =  event.bankacno
+    this.getbankAcNo1 = event.bankacno
   }
   //get account no according scheme
   getAccountList() {
@@ -134,7 +134,8 @@ import { DomSanitizer } from '@angular/platform-browser';
         TYPE: 1,
         RETURN_DATE: null
       }
-      this.http.post(this.url + '/gold-silver-return-entry/getAccountList', object).subscribe((data: any) => {
+      this.schemeACNo = []
+      this.http.post(this.url + '/gold-silver-return-entry/receiptAccountList', object).subscribe((data: any) => {
         this.schemeACNo = data
       })
     }
@@ -169,61 +170,61 @@ import { DomSanitizer } from '@angular/platform-browser';
   }
   src: any;
   View(event) {
-     debugger
-     event.preventDefault();
-     this.formSubmitted = true;
+    debugger
+    event.preventDefault();
+    this.formSubmitted = true;
 
-     let userData = JSON.parse(localStorage.getItem('user'));
-     let bankName = userData.branch.syspara.BANK_NAME;
-     let branchName = userData.branch.NAME
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
-     if(this.angForm.valid){
- 
+    if (this.angForm.valid) {
+
       this.showRepo = true;
-     let obj = this.angForm.value
-     let startDate = obj.RETURN_DATE;
-    //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
-
-    
-
-    //  var sdate = (obj.RETURN_DATE).subtract(1, "day"); 
-     let branch = obj.BRANCH;
-     let scheme=this.getschemename;
-     
-    let accountno = obj.AC_NO;;
-    let schemeCode = obj.AC_TYPE;
-
-    
-
-  
- 
-    this.iframe5url=this.report_url+"examples/goldsilverreceiptprint.php?startDate='" + startDate +"'&branchName='"+branchName+"'&branch='"+branch+"'&accountno='"+accountno +"'&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
-    " &bankName=" + bankName + "";
-    console.log( this.iframe5url);
+      let obj = this.angForm.value
+      let startDate = obj.RETURN_DATE;
+      //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
 
 
-    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
-    
-   }
-   else {
-         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-        }
-   
- }
 
-  close(){
+      //  var sdate = (obj.RETURN_DATE).subtract(1, "day"); 
+      let branch = obj.BRANCH;
+      let scheme = this.getschemename;
+
+      let accountno = obj.AC_NO;;
+      let schemeCode = obj.AC_TYPE;
+
+
+
+
+
+      this.iframe5url = this.report_url + "examples/goldsilverreceiptprint.php?startDate='" + startDate + "'&branchName='" + branchName + "'&branch='" + branch + "'&accountno='" + accountno + "'&scheme= '" + scheme + "'&schemeCode= " + schemeCode +
+        " &bankName=" + bankName + "";
+      console.log(this.iframe5url);
+
+
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+
+  }
+
+  close() {
     this.resetForm()
-    }
-  
-    resetForm() {
-      // this.createForm()
-      // this.ngForm.controls.BRANCH_CODE.reset();
-      this.angForm.controls.AC_TYPE.reset();
-      this.angForm.controls.AC_NO.reset();
-      // this.ngForm.controls.Ending_Account.reset();
-      this.showRepo = false;
-      this.clicked=false;
-    }
+  }
+
+  resetForm() {
+    // this.createForm()
+    // this.ngForm.controls.BRANCH_CODE.reset();
+    this.angForm.controls.AC_TYPE.reset();
+    this.angForm.controls.AC_NO.reset();
+    // this.ngForm.controls.Ending_Account.reset();
+    this.showRepo = false;
+    this.clicked = false;
+  }
 }
 
 

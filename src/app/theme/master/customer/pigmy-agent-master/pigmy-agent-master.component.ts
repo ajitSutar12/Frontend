@@ -307,15 +307,25 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
       this.code = this.scheme[0].value
     })
-    this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data => {
+    this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data1 => {
 
-      var filtered = data.filter(function (scheme) {
+      var filtered = data1.filter(function (scheme) {
 
         return (scheme.id == 'PG');
       });
       this.PGSchemeCode = filtered;
       // this.PGSchemeCode = data;
     })
+    this.schemeCodeDropdownService.getSchemeCodeList('TD').pipe(first()).subscribe(data2 => {
+
+      var filtered = data2.filter(function (scheme) {
+
+        return (scheme.IS_RECURRING_TYPE == '1');
+      });
+      this.PGSchemeCode=this.PGSchemeCode.concat(filtered);
+      // this.PGSchemeCode = data;
+    })
+
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
       this.cityMasterServiceDropdown = data;
     })
@@ -413,7 +423,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   createForm() {
-    debugger
+    // debugger
     this.angForm = this.fb.group({
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['AG'],
