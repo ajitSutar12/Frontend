@@ -167,7 +167,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
 
       case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
           this.ToAC = data
           this.fromAC = data
         })
@@ -180,7 +180,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
   src: any;
   View(event) {
-    debugger
+    
     event.preventDefault();
     this.formSubmitted = true;
 

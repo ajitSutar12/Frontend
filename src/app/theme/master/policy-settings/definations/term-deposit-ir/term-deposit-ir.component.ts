@@ -348,23 +348,23 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //compare from and to Month
   compareMonths() {
-    if (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value)) {
-      Swal.fire('Info', 'To Months Must Greater Than From Months', 'info')
-      this.angForm.patchValue({
-        TO_MONTHS: ''
-      })
-    }
+    // if (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value)) {
+    //   Swal.fire('Info', 'To Months Must Greater Than From Months', 'info')
+    //   this.angForm.patchValue({
+    //     TO_MONTHS: ''
+    //   })
+    // }
   }
 
   //compare from and to Days
   compareDays() {
-    if (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value)) {
-      Swal.fire('Info', 'To Days Must Greater Than From Days', 'info')
-      this.angForm.patchValue({
-        TO_DAYS: ''
-      })
+    // if (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value)) {
+    //   Swal.fire('Info', 'To Days Must Greater Than From Days', 'info')
+    //   this.angForm.patchValue({
+    //     TO_DAYS: ''
+    //   })
 
-    }
+    // }
   }
 
   compareamountdays() {
@@ -674,22 +674,22 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   isDisableDay: boolean = false
   //enable/disable from Days and to Days
   disableDays() {
-    if (this.angForm.controls['FROM_MONTHS'].value != '') {
-      this.angForm.controls['FROM_DAYS'].disable()
-      this.angForm.controls['TO_DAYS'].disable()
-      this.isDisableDay = true
-    }
-    else {
-      this.angForm.controls['FROM_DAYS'].enable()
-      this.angForm.controls['TO_DAYS'].enable()
-      this.angForm.controls['FROM_MONTHS'].disable()
-      this.angForm.controls['TO_MONTHS'].disable()
-      this.angForm.patchValue({
-        FROM_MONTHS: 0,
-        TO_MONTHS: 0
-      })
-      this.isDisableDay = false
-    }
+    // if (this.angForm.controls['FROM_MONTHS'].value != '') {
+    //   this.angForm.controls['FROM_DAYS'].disable()
+    //   this.angForm.controls['TO_DAYS'].disable() 
+    //   this.isDisableDay = true
+    // }
+    // else {
+    //   this.angForm.controls['FROM_DAYS'].enable()
+    //   this.angForm.controls['TO_DAYS'].enable()
+    //   this.angForm.controls['FROM_MONTHS'].disable()
+    //   this.angForm.controls['TO_MONTHS'].disable()
+    //   this.angForm.patchValue({
+    //     FROM_MONTHS: 0,
+    //     TO_MONTHS: 0
+    //   })
+    //   this.isDisableDay = false
+    // }
   }
 
   //select content of field
@@ -699,22 +699,22 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //enable/disable from month and to month
   disableMonth() {
-    if (this.angForm.controls['FROM_DAYS'].value != '') {
-      this.angForm.controls['FROM_MONTHS'].disable()
-      this.angForm.controls['TO_MONTHS'].disable()
-      this.isDisableMonth = true
-    }
-    else {
-      this.angForm.controls['FROM_MONTHS'].enable()
-      this.angForm.controls['TO_MONTHS'].enable()
-      this.angForm.controls['FROM_DAYS'].disable()
-      this.angForm.controls['TO_DAYS'].disable()
-      this.angForm.patchValue({
-        FROM_DAYS: 0,
-        TO_DAYS: 0
-      })
-      this.isDisableMonth = false
-    }
+    // if (this.angForm.controls['FROM_DAYS'].value != '') {
+    //   this.angForm.controls['FROM_MONTHS'].disable()
+    //   this.angForm.controls['TO_MONTHS'].disable()
+    //   this.isDisableMonth = true
+    // }
+    // else {
+    //   this.angForm.controls['FROM_MONTHS'].enable()
+    //   this.angForm.controls['TO_MONTHS'].enable()
+    //   this.angForm.controls['FROM_DAYS'].disable()
+    //   this.angForm.controls['TO_DAYS'].disable()
+    //   this.angForm.patchValue({
+    //     FROM_DAYS: 0,
+    //     TO_DAYS: 0
+    //   })
+    //   this.isDisableMonth = false
+    // }
   }
 
   onFocus(ele: NgSelectComponent) {
