@@ -282,6 +282,7 @@ export class UserDefinationComponent implements OnInit {
       USER_NAME: ['', [Validators.required, Validators.pattern]],
       // PASSWORD: ['', [Validators.required, Validators.pattern]],
       STATUS: new FormControl('active'),
+      LOG_STATUS: new FormControl('inactive'),
       branchId: ['', [Validators.required]]
       // USER_CREATED_AT: ['', [ Validators.pattern]],
     });
@@ -304,6 +305,7 @@ export class UserDefinationComponent implements OnInit {
       'USER_NAME': formVal.USER_NAME,
       'PASSWORD': 'Admin@21',
       'STATUS': formVal.STATUS,
+      LOG_STATUS:0,
       'branchId': formVal.branchId
      
       // 'USER_CREATED_AT': formVal.USER_CREATED_AT,
@@ -349,13 +351,12 @@ export class UserDefinationComponent implements OnInit {
         'DOB': data.DOB,
         'MOB_NO': data.MOB_NO,
         'EMAIL': data.EMAIL,
-       'roleId': data.RoleDefine[0].RoleId,
-       'ROLE': data.RoleDefine[0].RoleId,
-            'branchId':data.branchId,
-            'USER_NAME': data.USER_NAME,
-            // 'PASSWORD': data.PASSWORD,
-            'STATUS': data.STATUS,
-            // 'USER_CREATED_AT': data.USER_CREATED_AT,
+        'roleId': data.RoleDefine[0].RoleId,
+        'ROLE': data.RoleDefine[0].RoleId,
+        'branchId':data.branchId,
+        'USER_NAME': data.USER_NAME,
+        'STATUS': data.STATUS,
+         LOG_STATUS:data.LOG_STATUS==0 ? 'inactive' :'active'
           })
           this.angForm.controls['USER_NAME'].disable()
     })
@@ -370,6 +371,7 @@ export class UserDefinationComponent implements OnInit {
     data['id'] = this.updateID;
     data['roleId'] = this.angForm.controls['ROLE'].value;
     data['USER_NAME']=this.username
+    data['LOG_STATUS']=data.LOG_STATUS=='inactive' ? '0' : '1'
     data['DOB']= this.editData.DOB==data.DOB ? data.DOB: moment(data.DOB).format('DD/MM/YYYY')
     this.userdefinationservice.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');

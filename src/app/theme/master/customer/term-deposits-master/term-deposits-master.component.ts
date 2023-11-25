@@ -1867,6 +1867,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngCategory = null
       this.ngOperation = null
       this.ngIntCategory = null
+      this.AGENTBRANCH = null
+      this.agentno = null
+      this.ngAgentCode = null
       this.resetForm();
       this.ngOnInit()
     })
@@ -2893,8 +2896,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     event.IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
   }
   getReceiptNumber() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
     let obj = {
-      scheme: this.selectedValue
+      scheme: this.selectedValue,
+      BRANCH_CODE: branchCode
     }
     this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
       this.angForm.patchValue({
