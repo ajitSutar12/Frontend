@@ -32,7 +32,7 @@ export class VoucherPrintingComponent implements OnInit {
   ngForm: FormGroup
 
   bsValue = new Date();
-
+  branchC
   //ngModel
   BranchCode
   schemeCode
@@ -161,12 +161,15 @@ export class VoucherPrintingComponent implements OnInit {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
       this.branchName = result.branch.NAME
+      this.branchC = result.branch.id
 
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
       this.branchName = result.branch.NAME
+      this.branchC = result.branch.id
+
 
     }
 
@@ -314,12 +317,12 @@ this.voucherNo
       // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
 
       let scheme = obj.Scheme_code
-      let branch = obj.BRANCH_CODE
+      // let branch = obj.BRANCH_CODE
       let voucherNo = obj.VOUCHER_NO
       let voucherType = obj.VOUCHER_TYPE
       let tranType = obj.TRAN_TYPE 
 
-      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode=" + branch + "";
+      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
@@ -358,13 +361,24 @@ this.voucherNo
   }
   getType1(event){
     this.tranType = event.value
+    let userData = JSON.parse(localStorage.getItem('user'));
+
+   let  sdate 
+    if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+      sdate = userData.branch.syspara.CURRENT_DATE
+    }
+    else {
+      let date = moment(this.dates).format('DD/MM/YYYY');
+      let tDate = moment(date, 'DD/MM/YYYY')
+      sdate = date
+    }
 
     //for voucher Number
     let obj1 = {
       type: this.vtype,
       branch: this.ngbranch,
-      tran_type: this.tranType
-
+      tran_type: this.tranType,
+      date : sdate
     
 
     }

@@ -211,7 +211,7 @@ export class NpaRegisterComponent implements OnInit {
       // this.iframe5url = this.report_url + "examples/transactionless.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&ACNOTYPE='" + schemeName + "' &BRANCH_CODE='" + branch + "'";
 
 
-      this.iframe5url = this.report_url + "examples/Npa_register.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&BranchName='"+ this.branchName +"'&schemeCode='" +scheme+ "'&bankName='"+bankName+"'";
+      this.iframe5url = this.report_url + "examples/Npa_register.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BranchName='"+ this.branchName +"'&schemeCode='" +scheme+ "'&bankName='"+bankName+"'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

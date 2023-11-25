@@ -171,7 +171,7 @@ export class SharesReturnRegisterComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;branchName
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/sharesreturnregister.php/?&BankName='" + bankName + "'&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&ACNO_TYPE='" + schemeName + "'&branchcode='"+branch+"'";
+      this.iframe5url = this.report_url + "examples/sharesreturnregister.php/?&BankName='" + bankName + "'&Branch='" + branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&ACNO_TYPE='" + schemeName + "'&branchcode='"+this.ngbranch+"'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

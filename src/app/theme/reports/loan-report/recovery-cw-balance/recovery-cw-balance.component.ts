@@ -164,7 +164,7 @@ export class RecoveryCwBalanceComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/CLERKWISE.php/?&branchname='"+ this.branchName +"'&sdate='"+ obj.date +"'&AC_TYPE='"+ bankName +"'&AC_RECOVERY_CLERK='"+ bankName +"'";
+      this.iframe5url = this.report_url + "examples/CLERKWISE.php/?&branchname='"+ this.branchName +"'&sdate='"+ obj.date +"'&AC_TYPE='"+ bankName +"'&AC_RECOVERY_CLERK='"+ bankName +"'&branch='"+ this.ngbranch +"'";
       // this.iframe5url = this.report_url + "examples/CLERKWISE.php/?&branchname='kotoli'&sdate='01/04/2022'&AC_TYPE='50100'&AC_RECOVERY_CLERK='2'";
 
       console.log(this.iframe5url);

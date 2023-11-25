@@ -176,7 +176,7 @@ export class DividendPaidListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/dividend.php/?&Branchname='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&TRAN_ACTYPE='99010'";
+      this.iframe5url = this.report_url + "examples/dividend.php/?&Branchname='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&TRAN_ACTYPE='99010'"+"'&branch='" +  this.ngbranch + "'";
       // this.iframe5url = this.report_url + "examples/dividend.php/?&Branchname='kotoli'&sdate='01/04/2022'&edate='30/11/2022'&TRAN_ACTYPE='99010'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

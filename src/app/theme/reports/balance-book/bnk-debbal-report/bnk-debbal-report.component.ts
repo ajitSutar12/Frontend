@@ -292,7 +292,7 @@ maxDate: Date;
   let schemeName = this.tScheme
 
           
- this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName="+ branchName +"&stdate='"+ obj.date +"'&etdate='"+ obj.date +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'";
+ this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName="+ branchName +"&stdate='"+ obj.date +"'&etdate='"+ obj.date +"'&AC_TYPE='"+ scheme +"'&AC_ACNOTYPE='"+ schemeName +"'&branch='"+ this.ngbranch +"'";
 //  this.iframeurl= this.report_url+ "examples/Debit_Balance_Report.php?branchName='KOTOLI'&stdate='01/04/2016'&etdate='12/08/2022'&AC_TYPE='9'&AC_ACNOTYPE='PG'";
 
  console.log(this.iframeurl); 

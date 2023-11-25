@@ -230,7 +230,7 @@ export class BnkTDStatementComponent implements OnInit{
 
   
  
-    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&branch='"+branch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
+    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&branch='"+this.ngbranch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
     "&PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     console.log( this.iframe5url);
 

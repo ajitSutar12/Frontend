@@ -186,7 +186,7 @@ let ctcode = obj.AC_CTCODE
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
     
-this.iframe5url=this.report_url+ "examples/citywise_loan_balance_report.php?branchName='"+branchName+"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&AC_TYPE='"+scheme +"'&AC_ACNOTYPE='"+schemeName +"'&AC_CTCODE='"+ ctcode +"'&bankName='"+bankName+"'&branch_code='"+branch+"'"
+this.iframe5url=this.report_url+ "examples/citywise_loan_balance_report.php?branchName='"+branchName+"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&AC_TYPE='"+scheme +"'&AC_ACNOTYPE='"+schemeName +"'&AC_CTCODE='"+ ctcode +"'&bankName='"+bankName+"'&branch_code='"+ this.ngbranch+"'"
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

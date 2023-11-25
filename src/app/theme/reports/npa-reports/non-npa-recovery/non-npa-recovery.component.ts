@@ -214,7 +214,7 @@ export class NonNpaRecoveryComponent implements OnInit {
     //   this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
     // console.log(this.iframe5url); 
 
-    this.iframe5url=this.report_url+ "examples/ToBeRecoveryforNonNPAReport.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&BranchName='"+this.branchName+"'&dt='"+Dates+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'";
+    this.iframe5url=this.report_url+ "examples/ToBeRecoveryforNonNPAReport.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BranchName='"+this.branchName+"'&dt='"+Dates+"'&schemeCode='"+scheme+"'&bankName='"+bankName+"'";
 
 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 

@@ -175,7 +175,7 @@ newcustid: any = null;
       let endingcode =obj.Ending_Account;
       
 
-     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+this.branch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&bankName=" + bankName + "&branchName="+branchName;
+     this.iframeurl=this.report_url+ "examples/DeadstockBalanceList.php?Date='" + Date + "'&branch="+this.ngbranch+"&startingcode="+startingcode +"&endingcode="+ endingcode +"&bankName=" + bankName + "&branchName="+branchName;
      this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

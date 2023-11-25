@@ -193,7 +193,7 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
 
       let BRANCH_CODE = obj.BRANCH_CODE
 
-      this.iframeurl = this.report_url + "examples/goldsilver.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE="+ scheme +"&FLAG1="+flag+"&STATUS='S'&branchName="+ this.branchName +"&branch_code='"+ BRANCH_CODE +"'";
+      this.iframeurl = this.report_url + "examples/goldsilver.php?stdate='" + obj.START_DATE + "'&etdate='" + obj.END_DATE + "'&bankName='" + bankName + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE="+ scheme +"&FLAG1="+flag+"&STATUS='S'&branchName="+ this.branchName +"&branch_code='"+ this.ngBranchCode +"'";
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
       // console.log(this.iframeurl);
