@@ -106,7 +106,11 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
             }
           }
         });
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
         dataTableParameters['filterData'] = this.filterData;
+        dataTableParameters['branchCode'] = branchCode;
         this.http
           .post<DataTableResponse>(
             this.url + '/td-receipt-type',
@@ -166,13 +170,17 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     this.formSubmitted = true;
     if (this.angForm.valid) {
       const formVal = this.angForm.value;
-      console.log(this.receipt)
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      let branchCode = result.branch.id;
+      // console.log(this.receipt)
       const dataToSend = {
         'LAST_RECEIPT_NO': formVal.LAST_RECEIPT_NO,
-        'RECEIPT_TYPE': formVal.RECEIPT_TYPE
+        'RECEIPT_TYPE': formVal.RECEIPT_TYPE,
+        BRANCH_CODE: branchCode
       };
-      console.log(this.angForm.value);
-      console.log(dataToSend, "dataToSend");
+      // console.log(this.angForm.value);
+      // console.log(dataToSend, "dataToSend");
       this._receipt.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Added Successfully !", "success");
@@ -194,6 +202,10 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
+    let branchCode = result.branch.id;
+    data['BRANCH_CODE'] = branchCode
     this._receipt.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -298,8 +310,11 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
 
 
   getValue(event) {
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
+    let branchCode = result.branch.id;
     this.http.get<any>(
-      this.url + '/td-receipt-type',
+      this.url + '/td-receipt-type/getTDReceiptTypeMasterList/' + branchCode,
     ).subscribe(resp => {
       if (resp.length != 0) {
         for (let element of resp) {

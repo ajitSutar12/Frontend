@@ -112,7 +112,7 @@
                         <div class="col-12">
                             <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                                 <!-- Start of Details Tab forms -->
-                                <ngb-tab title="Details">
+                                <ngb-tab title="Details" id="Details">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="card border-primary">
@@ -157,7 +157,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-3">
+                                                        <div class="col-sm-4">
                                                             <div class="form-group form-primary form-static-label">
                                                                 <span class="border-lable-flt" autofocus>
 
@@ -167,14 +167,14 @@
                                                                         [virtualScroll]="true"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Pimgy Scheme"
-                                                                        #PIGMY_ACTYPE (focus)="onFocus(PIGMY_ACTYPE)"
+                                                                        required placeholder="Scheme" #PIGMY_ACTYPE
+                                                                        (focus)="onFocus(PIGMY_ACTYPE)"
                                                                         [selectOnTab]='true'>
                                                                         <ng-option *ngFor="let values of PGSchemeCode"
                                                                             [value]="values">
                                                                             {{values.label}} </ng-option>
                                                                     </ng-select>
-                                                                    <label for="PIGMY_ACTYPE">Pimgy Scheme <sub
+                                                                    <label for="PIGMY_ACTYPE">Scheme <sub
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
