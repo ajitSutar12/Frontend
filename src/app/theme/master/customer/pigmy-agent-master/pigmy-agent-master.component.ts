@@ -148,7 +148,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   intrestCategoryMaster: any[];
   cityMasterServiceDropdown: any[];
   SchemeCodeDropdownDropdown: any[];
-  PGSchemeCode: any[];
+  PGSchemeCode: any[] = [];
   //for modal
   showModalStatus: boolean = false;
   showDialog = false;
@@ -307,24 +307,26 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
 
       this.code = this.scheme[0].value
     })
-    this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data1 => {
-
-      var filtered = data1.filter(function (scheme) {
-
-        return (scheme.id == 'PG');
-      });
-      this.PGSchemeCode = filtered;
-      // this.PGSchemeCode = data;
-    })
     this.schemeCodeDropdownService.getSchemeCodeList('TD').pipe(first()).subscribe(data2 => {
-
       var filtered = data2.filter(function (scheme) {
-
         return (scheme.IS_RECURRING_TYPE == '1');
       });
-      this.PGSchemeCode=this.PGSchemeCode.concat(filtered);
-      // this.PGSchemeCode = data;
+      this.PGSchemeCode = this.PGSchemeCode?.concat(filtered);
     })
+    this.schemeCodeDropdownService.getSchemeCodeList(this.pgScheme).pipe(first()).subscribe(data1 => {
+      var filtered = data1.filter(function (scheme) {
+        return (scheme.id == 'PG');
+      });
+      this.PGSchemeCode = this.PGSchemeCode?.concat(filtered);
+    })
+    // this.schemeCodeDropdownService.getSchemeCodeList('TD').pipe(first()).subscribe(data2 => {
+
+    //   var filtered = data2.filter(function (scheme) {
+
+    //     return (scheme.IS_RECURRING_TYPE == '1');
+    //   });
+    //   this.PGSchemeCode = this.PGSchemeCode.concat(filtered);
+    // })
 
     this.cityMasterService.getcityList().pipe(first()).subscribe(data => {
       this.cityMasterServiceDropdown = data;

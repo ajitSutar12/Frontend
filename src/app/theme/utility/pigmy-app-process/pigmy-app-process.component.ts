@@ -140,8 +140,8 @@ export class PigmyAppProcessComponent implements OnInit {
     this.http.post(this.url + '/pigmy-chart/sendapp/', obj).subscribe(data => {
       this.accountsList = data
       this.showloader = false
-      this.showprocessbutton = false
-      Swal.fire('success', 'Data processed successfully.Now you can submit data', 'success')
+      // this.showprocessbutton = false
+      Swal.fire('success', 'Data processed successfully.Now you can proceed with app', 'success')
     })
   }
 
@@ -193,6 +193,7 @@ export class PigmyAppProcessComponent implements OnInit {
   }
 
   resetForm() {
+    this.showloader = false
     this.createForm()
     this.ngBranchCode = null
     let data: any = localStorage.getItem('user');
@@ -230,19 +231,25 @@ export class PigmyAppProcessComponent implements OnInit {
   receiveData() {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
+    // let obj = {
+    //   "u_flag": "getData",
+    //   // "bank_code": 1,
+    //   "bank_code": result.branch.syspara.BANK_CODE,
+    //   "branch_code": this.ngBranchCode,
+    //   "start_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
+    //   "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
+    // }
     let obj = {
-      "u_flag": "getData",
-      // "bank_code": 1,
-      "bank_code": result.branch.syspara.BANK_CODE,
       "branch_code": this.ngBranchCode,
       "start_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
       "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
     }
-    this.http.post('http://68.183.93.209/pigmy_test/getDataModified.php', obj).subscribe(data => {
+    // this.http.post('http://68.183.93.209/pigmy_test/getDataModified.php', obj).subscribe(data => {
+    this.http.post(this.url + '/pigmy-chart/receivefromapp/', obj).subscribe(data => {
       // console.log(data, 'receive')
       this.receivedAccount = data
       this.showloader = false
-      this.showprocessbutton = false
+      // this.showprocessbutton = false
       Swal.fire('Success', 'Data processed successfully', 'success')
     })
   }
