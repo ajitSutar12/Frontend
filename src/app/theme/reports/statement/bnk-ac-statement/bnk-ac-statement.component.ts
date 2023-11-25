@@ -406,7 +406,7 @@ View(event) {
     // let print = obj.PRINT_ACCOUNT;
     // let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+branch+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + "'&AC_ACNOTYPE='" +this.getschemename + "'";
+    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+this.ngBranchCode+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + "'&AC_ACNOTYPE='" +this.getschemename + "'";
     
     
 

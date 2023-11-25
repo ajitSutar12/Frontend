@@ -57,7 +57,21 @@ clicked:boolean=false;
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
     })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
+  
   }
+
+  
 
   view(event) {
 
@@ -73,7 +87,7 @@ clicked:boolean=false;
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched1 = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+branched1+"'&bankName='" + bankName + "'&branchName='" + branchName + "'";
+      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+this.ngbranch+"'&bankName='" + bankName + "'&branchName='" + branchName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

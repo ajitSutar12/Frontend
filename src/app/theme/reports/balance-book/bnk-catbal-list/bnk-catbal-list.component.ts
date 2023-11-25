@@ -173,12 +173,12 @@ obj: any;
      }
      if(Rdio=='Detail')
      {
-    this.iframeurl= this.report_url+ "examples/CategoryWiseDetailBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&acno='" + scheme + "'&actype='" + schemeName + "'&branch="+ branch +"&bankName=" + bankName + "&amount='" + amount + "'";
+    this.iframeurl= this.report_url+ "examples/CategoryWiseDetailBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&acno='" + scheme + "'&actype='" + schemeName + "'&branch="+ this.ngbranch  +"&bankName=" + bankName + "&amount='" + amount + "'";
     this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else if(Rdio=='Summary')
     {
-      this.iframeurl= this.report_url+ "examples/CategorywiseSummaryBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&acno='" + scheme + "'&actype='" + schemeName + "'&branch="+ branch +"&bankName=" + bankName + "&amount='" + amount + "'";
+      this.iframeurl= this.report_url+ "examples/CategorywiseSummaryBalList.php?startdate='" + startdate + "'&enddate='" + enddate +"'&sdate='"+sdate+"'&Rdio='"+Rdio+"&acno='" + scheme + "'&actype='" + schemeName + "'&branch="+ this.ngbranch  +"&bankName=" + bankName + "&amount='" + amount + "'";
     this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
    

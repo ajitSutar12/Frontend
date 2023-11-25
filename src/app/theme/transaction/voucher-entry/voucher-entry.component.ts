@@ -18,6 +18,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { environment } from '../../../../environments/environment';
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -40,6 +41,10 @@ export class VoucherEntryComponent implements OnInit {
   // @ViewChild('tran_mode') tran_mode: ElementRef;
   @ViewChild('tran_mode') tran_mode: NgSelectComponent;
   @ViewChild('myDiv') myDiv: ElementRef;
+
+  iframe5url: any = '';
+  report_url = environment.report_url;
+  showRepo: boolean = true;
 
   branchCode: any = null
 
@@ -165,7 +170,7 @@ export class VoucherEntryComponent implements OnInit {
   loginUser: any;
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
-  constructor(
+  constructor( private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -240,6 +245,33 @@ export class VoucherEntryComponent implements OnInit {
 
 
   }
+
+  isShow: boolean = false
+  submitbtnshow : boolean = true
+  printData(data: any) {
+    this.isShow = true
+    this.submitbtnshow = false
+    let obj =data
+    let branch = obj.BRANCH_CODE
+    let voucherNo = obj.TRAN_NO
+    let voucherType = obj.TRAN_SOURCE_TYPE
+    let tran_type = obj.TRAN_TYPE
+
+    // let userData = JSON.parse(localStorage.getItem('user'));
+    // let branchName = userData.branch.syspara.Branchname;
+    // let tran_type = userData.branch.syspara.tran_type;
+
+    this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
+    console.log(this.iframe5url);
+    this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  }
+
+  close()
+  {
+    this.isShow = false
+    this.submitbtnshow = true
+  }
+
 
   dynamicSort(property) {
     var sortOrder = 1;
@@ -572,8 +604,17 @@ export class VoucherEntryComponent implements OnInit {
             icon: 'success',
             title: 'Voucher update Successfully!',
             html:
-              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
-          })
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
+              showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Print',
+            cancelButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed == true) {
+              this.printData(data);
+            }
+          });
           this.angForm.controls['temp_over_draft'].reset()
           this.angForm.controls['over_draft'].reset()
           this.angForm.controls['token'].reset()
@@ -2143,7 +2184,7 @@ export class VoucherEntryComponent implements OnInit {
     let newobj = {
       accountNo: editdata.TRAN_ACNO,
       scheme: editdata.scheme.S_APPL,
-      currentDate: editdata.TRAN_DATE,
+      currentDate: editdata.INTEREST_DATE,
       schemeType: editdata.TRAN_ACNOTYPE,
     }
 
@@ -2305,6 +2346,7 @@ export class VoucherEntryComponent implements OnInit {
 
       this.headFlag = true;
       this.headData = data.InputHead;
+      this.IntersetHeadDate = data.INTEREST_DATE
       this.checkbalanceforpassing(data)
       this.headShow = true;
       this.selectedScheme = data.scheme.id

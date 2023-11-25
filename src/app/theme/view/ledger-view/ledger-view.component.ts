@@ -251,20 +251,10 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.createForm()
-    // this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    //   var allscheme = data.filter(function (scheme) {
-    //     return (
-    //       scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'AG' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
-    //   });
-    //   this.allScheme = allscheme;
-    // })
-    // //branch List
-    // this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-    //   this.branch_code = data;
-    // })
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL'|| scheme.name == 'CA')
       });
       this.scheme = allscheme;
     })
@@ -272,9 +262,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-    // this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
-    //   this.allScheme.push(data)
-    // })
+  
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()

@@ -167,7 +167,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
 
       case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
           this.ToAC = data
           this.fromAC = data
         })
@@ -180,7 +180,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
   src: any;
   View(event) {
-    debugger
+    
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -211,7 +211,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       let MonthwiseSummary = obj.Month_wise_Summary
       let AC_NO = obj.FROM_AC;
 
-      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + branch + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "&AC_NO='" + AC_NO +  "'";
+      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + this.ngBranchCode + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "&AC_NO='" + AC_NO +  "'";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {

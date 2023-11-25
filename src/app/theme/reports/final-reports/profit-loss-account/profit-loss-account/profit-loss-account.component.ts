@@ -101,7 +101,7 @@ export class ProfitLossAccountComponent implements OnInit {
 
       let branch_code = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch_code + "&bankName=" + bankName + "" + "&branchName=" + this.branchName;
+      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch_code + "&bankName=" + bankName + "" + "'&branchCode="+this.ngbranch+ "&branchName=" + this.branchName;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

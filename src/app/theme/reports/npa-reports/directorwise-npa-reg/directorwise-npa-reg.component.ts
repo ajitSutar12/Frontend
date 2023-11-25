@@ -236,7 +236,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
    
 
 
-    this.iframe5url=this.report_url+ "examples/RecommandedByDirectowiseNPARegisterReport.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&FLAG=0&BranchName='"+this. branchName+"'&date='31/03/2024'&SDate='31/03/2021'&EDate='31/03/2022'&SSDate='31/03/2023'&EEDate='31/03/2024'&schemeCode='1'&bankName='Bhairavnat'";
+    this.iframe5url=this.report_url+ "examples/RecommandedByDirectowiseNPARegisterReport.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG=0&BranchName='"+this. branchName+"'&date='31/03/2024'&SDate='31/03/2021'&EDate='31/03/2022'&SSDate='31/03/2023'&EEDate='31/03/2024'&schemeCode='1'&bankName='Bhairavnat'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

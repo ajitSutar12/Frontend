@@ -193,7 +193,7 @@ export class LcdRenewalListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/LoanCashCreditRenewalList.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'&BRANCH_CODE='" + branch + "'"
+      this.iframe5url = this.report_url + "examples/LoanCashCreditRenewalList.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'&BRANCH_CODE='" + this.ngbranch + "'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

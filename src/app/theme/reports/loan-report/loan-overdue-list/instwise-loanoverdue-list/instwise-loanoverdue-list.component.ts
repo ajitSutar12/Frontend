@@ -33,7 +33,9 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
   tab: any;
   tscheme: any;
 
-
+  ngForm: FormGroup
+  ngbranch: any = null;
+  branchName: any;
 
   constructor(
     private fb: FormBuilder,
@@ -71,6 +73,21 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
       //console.log(this.scheme);
 
     })
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
+    }
+
   }
   getscheme(event){
     this.tscheme = event.value
@@ -157,7 +174,7 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
 
 
       
-      this.iframe5url = this.report_url + "examples/InstallmentWiseOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branchs+"&FLAG="+flag+"&BranchName='"+branchName+"'&schemeCode='"+scheme+"&bankName='"+bankName+"'";
+      this.iframe5url = this.report_url + "examples/InstallmentWiseOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+  this.ngbranch+"&FLAG="+flag+"&BranchName='"+branchName+"'&schemeCode='"+scheme+"&bankName='"+bankName+"'";
 
     
 

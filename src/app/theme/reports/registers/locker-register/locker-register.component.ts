@@ -181,7 +181,7 @@ export class LockerRegisterComponent implements OnInit {
     
   
     // this.iframe5url=this.report_url+"examples/LockerRegister.php?PRINT_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'";
-    this.iframe5url=this.report_url+"examples/LockerRegister.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&BRANCH_CODE='"+branch+"'&PRINT_DATE='" + obj.END_DATE + "'&scheme='" + obj.Scheme_code + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'";
+    this.iframe5url=this.report_url+"examples/LockerRegister.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&BRANCH_CODE='"+this.ngbranch+"'&PRINT_DATE='" + obj.END_DATE + "'&scheme='" + obj.Scheme_code + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'";
     // console.log(this.iframe5url) 
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     

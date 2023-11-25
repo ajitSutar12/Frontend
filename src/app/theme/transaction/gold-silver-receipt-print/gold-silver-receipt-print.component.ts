@@ -170,7 +170,6 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
   }
   src: any;
   View(event) {
-    debugger
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -191,14 +190,11 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
       let branch = obj.BRANCH;
       let scheme = this.getschemename;
 
-      let accountno = obj.AC_NO;;
+      let accountno = obj.AC_NO;
       let schemeCode = obj.AC_TYPE;
 
 
-
-
-
-      this.iframe5url = this.report_url + "examples/goldsilverreceiptprint.php?startDate='" + startDate + "'&branchName='" + branchName + "'&branch='" + branch + "'&accountno='" + accountno + "'&scheme= '" + scheme + "'&schemeCode= " + schemeCode +
+      this.iframe5url = this.report_url + "examples/goldsilverreceiptprint.php?startDate='" + startDate + "'&branchName='" + branchName + "'&branch='" +  this.ngBranchCode + "'&accountno='" + accountno + "'&scheme= '" + scheme + "'&schemeCode= " + schemeCode +
         " &bankName=" + bankName + "";
       console.log(this.iframe5url);
 
