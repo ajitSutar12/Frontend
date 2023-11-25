@@ -271,7 +271,7 @@ export class BnkDptambalListComponent implements OnInit {
   
 
          
-   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='"  +"'&checkbox1='" +"&bankName=" + bankName + "";
+   this.iframeurl= this.report_url+"examples/BalanceList.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+  this.ngbranch +"'&Rstartingacc='" + Rstartingacc +"'&Rendingacc='" + Rendingacc +"'&Rdiosort='"  +"'&checkbox1='" +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
 

@@ -129,7 +129,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
       let branched = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
       let preViousStartdate = moment(obj.START_DATE).subtract(1, "days").format('DD/MM/YYYY');
-      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + branched + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + this.branchCode + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
+      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + this.ngbranch + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + this.branchCode + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

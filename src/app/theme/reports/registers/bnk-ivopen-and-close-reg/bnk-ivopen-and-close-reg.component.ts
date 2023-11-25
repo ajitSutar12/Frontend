@@ -131,7 +131,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
   }
   src: any;
   View(event) {
-    debugger
+    // debugger
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -166,7 +166,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
       }
 
       // this.iframeurl = this.report_url+"examples/InvestmentRegister.php?startDate_='"+startDate+"'&endDate_='"+enddate+"'&Branch="+Branch+"&bankName=" + bankName + "&scheme="+scheme+"" ;
-      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName + "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branchcode=" + Branch + "&acclose=" + acclose
+      this.iframeurl = this.report_url + "examples/investmentReg.php?bankName='" + bankName + "'&NAME='" + branchName + "'&startDate_='" + startDate + "'&enddate_='" + enddate + "'&AC_ACNOTYPE='" + type[0].name + "'&ACNOTYPE='" + schemeName + "' &AC_TYPE=" + scheme + "&trandrcr='C'&ac_op_cd='D'&tran_status='1'&branchcode=" + this.ngBranchCode + "&acclose=" + acclose
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

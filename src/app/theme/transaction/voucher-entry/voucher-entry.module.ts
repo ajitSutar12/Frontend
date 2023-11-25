@@ -24,6 +24,7 @@ import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-maste
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { ThemeModule } from '../../theme.module'
+import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -40,7 +41,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     NgbModule,
     ReactiveFormsModule,
-    ThemeModule
+    ThemeModule,
+    Iframe5Module
   ],
   declarations: [VoucherEntryComponent],
   exports: [VoucherEntryComponent],

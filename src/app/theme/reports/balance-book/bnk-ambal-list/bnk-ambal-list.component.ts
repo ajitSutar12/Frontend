@@ -280,7 +280,7 @@ export class BnkAmbalListComponent implements OnInit {
   
 
          
-   this.iframeurl= this.report_url+"examples/AmountwiseBalanceReport.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ branch +"'&startingacc='" + startingacc +"'&endingacc='" + endingacc +"'&Rdiosort='"  +"'&checkbox1='" +"&bankName=" + bankName + "";
+   this.iframeurl= this.report_url+"examples/AmountwiseBalanceReport.php?startDate='"+startDate+"'&scheme='" + scheme + "'&sdate='" + sdate + "'&branch='"+ this.ngbranch +"'&startingacc='" + startingacc +"'&endingacc='" + endingacc +"'&Rdiosort='"  +"'&checkbox1='" +"&bankName=" + bankName + "";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
    
 

@@ -134,7 +134,7 @@ debugger
 
 
 
-      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branch=" + branch + "&startingcode=" + startingcode + "&endingcode=" + endingcode + "&bankName=" + bankName + "";
+      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branch=" +  this.ngbranch  + "&startingcode=" + startingcode + "&endingcode=" + endingcode + "&bankName=" + bankName + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

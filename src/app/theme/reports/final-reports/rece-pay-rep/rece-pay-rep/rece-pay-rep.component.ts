@@ -118,7 +118,7 @@ export class RecePayRepComponent implements OnInit {
       let print = obj.PRINT;
       let penal = obj.PENAL;
 
-      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
+      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+this.ngbranch+"&tran="+tran+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

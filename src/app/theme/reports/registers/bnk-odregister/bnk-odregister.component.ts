@@ -256,7 +256,7 @@ export class BnkODRegisterComponent implements OnInit {
       }
 let sample
 sample=tem_perOD == 'Temporary' ? 1 : 0
-      this.iframe3url = this.report_url + "examples/ODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + branch + "'&schemecode='" + schemecode + "'&flag=" +sample  + "&bankName='" + bankName + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'&NAME='' &type='" + obj.OD_TEMP + "' &branchCode='" + obj.BRANCH_CODE + "'";
+      this.iframe3url = this.report_url + "examples/ODRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branch='" + this.ngBranchCode + "'&schemecode='" + schemecode + "'&flag=" +sample  + "&bankName='" + bankName + "'&startDate='" + obj.START_DATE + "'&endDate='" + obj.END_DATE + "'&NAME='' &type='" + obj.OD_TEMP + "' &branchCode='" + obj.BRANCH_CODE + "'";
 
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }

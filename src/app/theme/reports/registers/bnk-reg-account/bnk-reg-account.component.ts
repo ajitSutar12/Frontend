@@ -160,9 +160,9 @@ export class BnkRegAccountComponent implements OnInit {
         ACCLOSE = 0;
       }
       if(ACCLOSE == 1){
-        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE=" +ACCLOSE+ "&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +this.ngBranchCode+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE=" +ACCLOSE+ "&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
       }else{
-        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +Branch+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE=" +ACCLOSE+ "&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
+        this.iframeurl = this.report_url+"examples/OpenDepositReport.php?&stdate='" + stdate+ "'&etdate='" +etdate+ "'&scheme=" +scheme+ "&Branch=" +this.ngBranchCode+  "&ACOPEN=" +ACOPEN+ "&ACCLOSE=" +ACCLOSE+ "&GROUP_BY='" +GROUP_BY+ "&bankName=" + bankName + " ";
 
       }
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);

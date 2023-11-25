@@ -151,7 +151,7 @@ export class BnkRegInsurenceComponent implements OnInit {
       let AC_TYPE = obj.AC_TYPE;
       let ACOPEN = obj.ACOPEN;
 
-      this.iframe3url = this.report_url+"examples/InsuranceRegister.php?startDate='" + startDate + "'&enddate='" + enddate + "'&BRANCH_CODE='" + BRANCH_CODE + "'&AC_TYPE='" + AC_TYPE + "'&ACOPEN='" + ACOPEN + "'&bankName='" + bankName + "'&branchName="+branchName;
+      this.iframe3url = this.report_url+"examples/InsuranceRegister.php?startDate='" + startDate + "'&enddate='" + enddate + "'&BRANCH_CODE='" + this.ngBranchCode + "'&AC_TYPE='" + AC_TYPE + "'&ACOPEN='" + ACOPEN + "'&bankName='" + bankName + "'&branchName="+branchName;
       console.log(this.iframe3url);
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
 

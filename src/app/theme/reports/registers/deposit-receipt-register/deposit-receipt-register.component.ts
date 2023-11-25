@@ -58,6 +58,20 @@ export class DepositReceiptRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+    }
+
     //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
      this.branchOption = data;
@@ -97,7 +111,6 @@ export class DepositReceiptRegisterComponent implements OnInit {
       this.ngbranch = result.branch.id
       this.ngForm.controls['BRANCH_CODE'].enable()
       this.branchName = result.branch.NAME
-
     }
     else {
       this.ngForm.controls['BRANCH_CODE'].disable()
@@ -152,7 +165,7 @@ export class DepositReceiptRegisterComponent implements OnInit {
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/deposit.php?sdate=' " + obj.START_DATE + " '&edate='" + obj.END_DATE + "'&ac_acnotype='" + schemeName + "'&ac_type=" + scheme + "&print_date='" + obj.END_DATE + "'&bank_name='" + bankName + "'&branch='" + this.branchName + "'&BRANCH_CODE='" + branch + "'" ;
+    this.iframe5url=this.report_url+"examples/deposit.php?sdate=' " + obj.START_DATE + " '&edate='" + obj.END_DATE + "'&ac_acnotype='" + schemeName + "'&ac_type=" + scheme + "&print_date='" + obj.END_DATE + "'&bank_name='" + bankName + "'&branch='" + this.branchName + "'&BRANCH_CODE='" + this.ngbranch + "'" ;
     console.log(this.iframe5url)
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     

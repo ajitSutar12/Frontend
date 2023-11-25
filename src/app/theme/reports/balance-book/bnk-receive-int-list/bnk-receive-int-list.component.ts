@@ -145,9 +145,9 @@ export class BnkReceiveIntListComponent implements OnInit {
   let PrintOverdueInterest =obj.Print_Overdue_Interest;
   
 this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Date + "'&scheme=" 
-                + scheme + "&branch="+branch+"&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
+                + scheme + "&branch="+this.ngbranch+"&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
                 +"'&PrintClosedAcPrintReceivablePenalInterestDetailscounts='"+PrintClosedAcPrintReceivablePenalInterestDetailscounts+"'&PrintOverdueInterest='"
-                +PrintOverdueInterest+"&bankName=" + bankName + "&branchName="+branchName+"&branchCode='" + obj.BRANCH_CODE + "'";
+                +PrintOverdueInterest+"&bankName=" + bankName + "&branchName="+branchName+"'";
    this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
   }
   else {

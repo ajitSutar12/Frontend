@@ -59,6 +59,20 @@ export class LockerRentRegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+    }
+
     //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
      this.branchOption = data;
@@ -161,7 +175,7 @@ export class LockerRentRegisterComponent implements OnInit {
     let scheme = obj.Scheme_code
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/LockerRentRegister.php?sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&bank_name='" + bankName + "'&ac_type='" + scheme + "'&ac_acnotype='" + schemeName + "'&branch_name='" + this.branchName + "'&branch_code='"+branch+"'&FLAG='"+ flag +"'";
+    this.iframe5url=this.report_url+"examples/LockerRentRegister.php?sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&bank_name='" + bankName + "'&ac_type='" + scheme + "'&ac_acnotype='" + schemeName + "'&branch_name='" + this.branchName + "'&branch_code='"+this.ngbranch+"'&FLAG='"+ flag +"'";
     console.log(this.iframe5url) 
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     

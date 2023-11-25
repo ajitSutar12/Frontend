@@ -158,7 +158,7 @@ maxDate: Date;
   
     
 
- this.iframe5url=this.report_url+ "examples/ABtypemdepositelist.php?&Branch='"+this.branchName+"'&BankName='" + bankName + "'&sdate='" + obj.DATE + "'&edate='" + obj.DATE + "'&branch_code='"+ branch +"'&AC_ACNOTYPE='"+ schemeName +"'&AC_TYPE="+ scheme +""; 
+ this.iframe5url=this.report_url+ "examples/ABtypemdepositelist.php?&Branch='"+this.branchName+"'&BankName='" + bankName + "'&sdate='" + obj.DATE + "'&edate='" + obj.DATE + "'&branch_code='"+ this.ngbranch +"'&AC_ACNOTYPE='"+ schemeName +"'&AC_TYPE="+ scheme +""; 
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

@@ -146,7 +146,7 @@ view(event) {
   }
 
 
- this.iframeurl=this.report_url+ "examples/PayableIntBal.php?Date='" + Date + "'&scheme=" + scheme + "&branch="+branch+"&PrintClosedAccounts="+PrintClosedAccounts +"&bankName=" + bankName + " ";
+ this.iframeurl=this.report_url+ "examples/PayableIntBal.php?Date='" + Date + "'&scheme=" + scheme + "&branch="+this.ngbranch+"&PrintClosedAccounts="+PrintClosedAccounts +"&bankName=" + bankName + " ";
  console.log(this.iframeurl);
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 }

@@ -394,10 +394,16 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm" style="float: right;">
-                                    <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
-                                        *ngIf="showButton" (keydown.Tab)="focus()" appTheme #submitbtn
-                                        (click)="submit();branchcode.focus()" [disabled]="disableSubmit">
-                                        Submit
+                                    <div *ngIf="submitbtnshow">
+                                        <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
+                                            *ngIf="showButton" (keydown.Tab)="focus()" appTheme #submitbtn
+                                            (click)="submit();branchcode.focus()" [disabled]="disableSubmit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                    <button *ngIf="isShow" class="btn btn-outline-primary btn-sm btn-submit"
+                                        (click)="close()">
+                                        Close
                                     </button>
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
@@ -422,13 +428,20 @@
                                         #focusbutton>focus</button>
                                 </div>
                             </div>
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="solid">
-                                       
+
+                            <div class="row" *ngIf="isShow">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Report Frame</h5>
+                                        </div>
+                                        <div *ngIf="showRepo">
+                                            <app-iframe5 [url]='iframe5url'></app-iframe5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+                          
                         </form>
                     </div>
                 </div>
@@ -768,46 +781,7 @@
                                         <div class="user-info text-center" *ngIf="Customer_Name">
                                             <h6>{{Customer_Name}}</h6>
                                         </div>
-                                        <!-- <div class="user-avatar-section">
-                                            <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="customerImg"
-                                                    height="110" width="110" (mouseover)="showImage(customerImg)"
-                                                    (mouseout)="hideImage()" alt="User avatar" />
-                                                <div class="user-info text-center">
-                                                    <h4>{{Customer_Name}}</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="user-avatar-section">
-                                            <div class="d-flex align-items-center flex-column">
-                                                <img class="img-fluid rounded mt-3 mb-2" [src]="signture"
-                                                    (mouseover)="showImage(signture)" (mouseout)="hideImage()"
-                                                    height="50" width="110" alt="User avatar" />
-
-                                            </div>
-                                        </div> -->
-
-                                        <!-- <div class="d-flex justify-content-around my-2 pt-75">
-                                            <div class="d-flex align-items-start me-2">
-                                              <span class="badge bg-light-primary p-75 rounded">
-                                                <i data-feather="check" class="font-medium-2"></i>
-                                              </span>
-                                              <div class="ms-75">
-                                                <h4 class="mb-0">1.23k</h4>
-                                                <small>Tasks Done</small>
-                                              </div>
-                                            </div>
-                                            <div class="d-flex align-items-start">
-                                              <span class="badge bg-light-primary p-75 rounded">
-                                                <i data-feather="briefcase" class="font-medium-2"></i>
-                                              </span>
-                                              <div class="ms-75">
-                                                <h4 class="mb-0">568</h4>
-                                                <small>Projects Done</small>
-                                              </div>
-                                            </div>
-                                          </div> -->
-                                        <!-- <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4> -->
+                                       
                                         <div class="info-container">
                                             <ul class="list-unstyled">
                                                 <li class="mb-75">
@@ -899,9 +873,7 @@
             </div>
         </perfect-scrollbar>
     </div>
-    <!-- <div class="app-modal-footer">
-          
-        </div> -->
+   
 </app-modal-basic>
 
 <div [class]="modalClass"><!-- Place at bottom of page --> </div>

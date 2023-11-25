@@ -168,7 +168,7 @@ export class BnkRegDeadStockComponent implements OnInit {
       let checkbox = obj.PRINT_NEW_PAGE;
 
 
-      this.iframe3url = this.report_url + "examples/DeadStockRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branchName='" + branchName + "'&startingdate='" + startingdate + "'&endingdate='" + endingdate + "'&groupby='" + groupby + "'&checkbox='" + checkbox + "'&bankName='" + bankName + "' ";
+      this.iframe3url = this.report_url + "examples/DeadStockRegister.php?startingcode='" + startingcode + "'&endingcode='" + endingcode + "'&branchName='" + branchName +"'&branch='" + this.ngBranchCode + "'&startingdate='" + startingdate + "'&endingdate='" + endingdate + "'&groupby='" + groupby + "'&checkbox='" + checkbox + "'&bankName='" + bankName + "' ";
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
