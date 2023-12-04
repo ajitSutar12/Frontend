@@ -388,7 +388,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     var month = new Date(date).getMonth();
     var day = new Date(date).getDate();
     var startDay = day + Number(days)
-    var startDate = new Date(year, month, startDay);
+    var startDate = new Date(year, month, days);
     var fromDate = this.datePipe.transform(startDate, "yyyy-MM-dd")
     var full = []
     var fullDate = fromDate;
