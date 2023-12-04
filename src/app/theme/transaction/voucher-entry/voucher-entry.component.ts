@@ -44,7 +44,7 @@ export class VoucherEntryComponent implements OnInit {
 
   iframe5url: any = '';
   report_url = environment.report_url;
-  showRepo: boolean = true;
+  showRepo: boolean = false;
 
   branchCode: any = null
 
@@ -170,7 +170,7 @@ export class VoucherEntryComponent implements OnInit {
   loginUser: any;
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
-  constructor( private sanitizer: DomSanitizer,
+  constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -247,27 +247,22 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   isShow: boolean = false
-  submitbtnshow : boolean = true
+  submitbtnshow: boolean = true
   printData(data: any) {
     this.isShow = true
     this.submitbtnshow = false
-    let obj =data
+    let obj = data
     let branch = obj.BRANCH_CODE
     let voucherNo = obj.TRAN_NO
     let voucherType = obj.TRAN_SOURCE_TYPE
     let tran_type = obj.TRAN_TYPE
-
-    // let userData = JSON.parse(localStorage.getItem('user'));
-    // let branchName = userData.branch.syspara.Branchname;
-    // let tran_type = userData.branch.syspara.tran_type;
-
     this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
-    console.log(this.iframe5url);
+    // console.log(this.iframe5url);
     this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    this.showRepo = true
   }
 
-  close()
-  {
+  close() {
     this.isShow = false
     this.submitbtnshow = true
   }
@@ -605,7 +600,7 @@ export class VoucherEntryComponent implements OnInit {
             title: 'Voucher update Successfully!',
             html:
               '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
-              showCancelButton: true,
+            showCancelButton: true, //true
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#3085d6',
             confirmButtonText: 'Print',
@@ -753,10 +748,16 @@ export class VoucherEntryComponent implements OnInit {
       { FieldAmount: 'OTHER10_AMOUNT' }
     ]
     let date = this.date;
-    var rowData = date.split('/');
-    let lastdate = Number(rowData[0]) - 1;
-    // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
-    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+    // var rowData = date.split('/');
+    // let lastdate = Number(rowData[0]) - 1;
+    // // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
+    // let firstdate
+    // if (lastdate < 10) {
+    //   firstdate = '0' + lastdate
+    // }
+    // this.IntersetHeadDate = firstdate.toString() + '/' + rowData[1] + '/' + rowData[2];
+    this.IntersetHeadDate = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
+
     this._service.getHeadDetails(obj).subscribe(data => {
       // debugger
       console.log(this.Submitscheme);
@@ -2741,4 +2742,6 @@ export class VoucherEntryComponent implements OnInit {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
   }
+
+
 }
