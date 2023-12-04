@@ -539,7 +539,7 @@ const MENUITEMS1 = [
             name: 'Dead Stock Transaction',
             id: 81
           },
-         
+
           {
             state: 'reconciliationEntry',
             name: 'Reconciliation Entry',
@@ -570,7 +570,7 @@ const MENUITEMS1 = [
             name: 'Share Transaction',
             id: 87
           },
-          
+
           {
             state: 'locker',
             name: 'Locker Transaction',
@@ -700,7 +700,7 @@ const MENUITEMS1 = [
           {
             state: 'voucherPrint',
             name: 'Voucher Printing',
-            id: 110, 
+            id: 110,
 
           },
           {
@@ -856,7 +856,7 @@ const MENUITEMS1 = [
           //   name: 'Shares Transaction Passing',
           //   id: 134
           // },
-              
+
           {
             state: 'unapprove',
             name: 'Unapprove',
@@ -1003,7 +1003,7 @@ const MENUITEMS1 = [
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
-                        
+
               {
                 state: 'otherSubsidiary',
                 name: 'Other Subsidiary ',
@@ -1014,7 +1014,7 @@ const MENUITEMS1 = [
                 name: ' Subsidary Summery ',
                 id: 342
               },
-              
+
             ]
           },
           //
@@ -1483,8 +1483,8 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 343,
               },
-             
-             
+
+
             ],
 
           },
@@ -1788,7 +1788,7 @@ const MENUITEMS1 = [
                 id: 292
               },
 
-             
+
             ]
           },
         ]
@@ -1884,6 +1884,11 @@ const MENUITEMS1 = [
             state: 'pigmyAppProcess',
             name: 'Pigmy App Process',
             id: 308
+          },
+          {
+            state: 'whatsappmessages',
+            name: 'Whatsapp Messages',
+            id: 345
           },
           {
             state: 'deadStockP',
@@ -2012,7 +2017,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'amtTransferTransaction',
-            name: 'Amount Transfer Transaction', 
+            name: 'Amount Transfer Transaction',
             id: 333
           },
           {
@@ -3253,7 +3258,7 @@ const MENUITEMS = [
             name: 'Dead Stock Transaction',
             id: 81
           },
-         
+
           {
             state: 'reconciliationEntry',
             name: 'Reconciliation Entry',
@@ -3284,8 +3289,8 @@ const MENUITEMS = [
             name: 'Share Transaction',
             id: 87
           },
-         
-          
+
+
           {
             state: 'locker',
             name: 'Locker Transaction',
@@ -3571,7 +3576,7 @@ const MENUITEMS = [
           //   name: 'Shares Transaction Passing',
           //   id: 134
           // },
-              
+
           {
             state: 'unapprove',
             name: 'Unapprove',
@@ -3718,7 +3723,7 @@ const MENUITEMS = [
                 name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
-          
+
               {
                 state: 'otherSubsidiary',
                 name: 'Other Subsidiary ',
@@ -4197,7 +4202,7 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 343,
               },
-              
+
             ],
 
           },
@@ -4501,7 +4506,7 @@ const MENUITEMS = [
                 id: 292
               },
 
-             
+
             ]
           },
         ]
@@ -4597,6 +4602,11 @@ const MENUITEMS = [
             state: 'pigmyAppProcess',
             name: 'Pigmy App Process',
             id: 308
+          },
+          {
+            state: 'whatsappmessages',
+            name: 'Whatsapp Messages',
+            id: 345
           },
           {
             state: 'deadStockP',
@@ -4725,7 +4735,7 @@ const MENUITEMS = [
           },
           {
             state: 'amtTransferTransaction',
-            name: 'Amount Transfer Transaction', 
+            name: 'Amount Transfer Transaction',
             id: 333
           },
           {
