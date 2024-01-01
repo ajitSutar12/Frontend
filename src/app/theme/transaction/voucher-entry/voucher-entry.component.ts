@@ -594,22 +594,22 @@ export class VoucherEntryComponent implements OnInit {
         this._service.insertVoucher(obj).subscribe(data => {
           this.disableSubmit = false
           // this.getVoucherData();
-          // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
-          Swal.fire({
-            icon: 'success',
-            title: 'Voucher update Successfully!',
-            html:
-              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
-            showCancelButton: true, //true
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Print',
-            cancelButtonText: 'OK'
-          }).then((result) => {
-            if (result.isConfirmed == true) {
-              this.printData(data);
-            }
-          });
+          Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+          // Swal.fire({
+          //   icon: 'success',
+          //   title: 'Voucher update Successfully!',
+          //   html:
+          //     '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
+          //   showCancelButton: true, //true
+          //   confirmButtonColor: '#3085d6',
+          //   cancelButtonColor: '#3085d6',
+          //   confirmButtonText: 'Print',
+          //   cancelButtonText: 'OK'
+          // }).then((result) => {
+          //   if (result.isConfirmed == true) {
+          //     this.printData(data);
+          //   }
+          // });
           this.angForm.controls['temp_over_draft'].reset()
           this.angForm.controls['over_draft'].reset()
           this.angForm.controls['token'].reset()
