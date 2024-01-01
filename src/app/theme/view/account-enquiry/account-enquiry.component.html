@@ -83,7 +83,8 @@
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
                                                         <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
-                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                        "-"
                                                         :
                                                         values?.idmaster?.custAddress[0]?.city?.CITY_NAME }}
                                                         <!-- <div *ngFor="let val of values.idmaster" > 
@@ -857,7 +858,11 @@
                                         <span><label>+ Interest : </label></span>
                                     </div>
                                     <div class="col-sm-1"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.currentInt}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
+                                                == 'E'? 0 :(accountEvent?.INSTALLMENT_METHOD == 'Null'? 0 :
+                                                loantransactionData?.currentInt)}}
+                                                <!-- {{loantransactionData?.currentInt}} -->
+                                            </label></span>
                                         <!-- </div>
                                     <div class="col-sm-2"> -->
                                         = <span
