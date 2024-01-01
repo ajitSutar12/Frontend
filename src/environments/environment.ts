@@ -8,10 +8,10 @@ export const environment = {
   //Localhost
   base_url: 'http://localhost:7276',
   //  report_url: 'http://localhost/phpjasper1/', //report folder local path
-  report_url: 'http://localhost/phpjasper/', //report folder local path
-  sitename: 'http://localhost:4200'
+   report_url: 'http://localhost/phpjasper/', //report folder local path
+  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
-  // //Jijamata Arjunwada
+ //Jijamata Arjunwada
   // base_url: 'http://103.174.87.104:7274',
   // report_url: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/REPORTS/', 
   // sitename: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/CBS'
@@ -19,7 +19,7 @@ export const environment = {
   // //SHIVPRASAD NATEPUTE
   // base_url: 'http://103.174.87.104:7275',  //CBS  natepute server
   // report_url: 'http://103.174.87.104/SHIVPRASADNATEPUTE/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
+  sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
 
   //VADGAON_SARAF 
   // base_url: 'http://103.174.87.104:7796',  //CBS  natepute server

@@ -133,7 +133,7 @@
                                                     (change)="getVoucherData($event); checkAccountCondition();showlgindetails();SideDetails()"
                                                     (focus)="onFocus(select)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                                        {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                                        {{item.AC_NO}} {{item.AC_NAME}}</ng-option> 
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -429,7 +429,11 @@
                                 </div>
                             </div>
 
-                            <div class="row" *ngIf="isShow">
+
+
+
+
+                            <!-- <div class="row" *ngIf="isShow">
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
@@ -440,7 +444,11 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+
+
+
+                            
 
                         </form>
                     </div>

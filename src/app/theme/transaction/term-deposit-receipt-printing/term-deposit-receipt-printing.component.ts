@@ -134,16 +134,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
       }
 }
 
-// getIntroducer() {
-// this.obj = [this.schemeCode,this.BranchCode]
 
-
-// this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
-  
-//   this.introducerACNo = data;
-// })
-
-// }
 
   createForm()
   {
@@ -163,8 +154,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
 
   getIntro(event) {
     this.getschemename = event.name
-    //  this.firstno = null
-    //       this.lastno = null
+    
     this.getIntroducer()
     
   }
@@ -179,8 +169,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
       case 'TD':
         this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
-          // this.firstno = null
-          // this.lastno = null
+         
         })
         break;
     
@@ -238,7 +227,23 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     let firstno = this.firstno 
     let lastno = this.lastno 
 
-         
+      //     //for tdreceipt Number
+      // let obj1 = {
+      //   type: this.vtype,
+      //   branch: this.ngbranch,
+      //   tran_type: this.tranType,
+      //   date : sdate
+      
+  
+      // }
+      // this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
+      //   this.glDetails = data
+      //   console.log(this.glDetails)
+      // }) 
+
+
+
+
    this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ firstno +"'"
    console.log(this.iframe5url);
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
@@ -266,6 +271,8 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     this.ngbranch = event.value
     this.branchName = event.branchName 
   }
+
+     
 }
 
 
