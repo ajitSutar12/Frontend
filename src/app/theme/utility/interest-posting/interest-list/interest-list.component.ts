@@ -10,9 +10,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Router } from "@angular/router";
 import * as moment from 'moment';
-import { environment } from "src/environments/environment"; 
+import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
-import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service"; 
+import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
 import { first } from "rxjs/operators";
@@ -26,30 +26,30 @@ import { ReportFrameComponent } from "../../../reports/report-frame/report-frame
   templateUrl: './interest-list.component.html',
   styleUrls: ['./interest-list.component.scss']
 })
-export class InterestListComponent implements OnInit { 
-  iframe5url:any='';
-  @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
-formSubmitted = false;
-//fromgroup
-ngForm:FormGroup
- // for dropdown ng module
- ngbranch: any = null; 
- scode: any = null;
- //ngfor
- scheme: any[];
-branchOption: any[];
-clicked:boolean=false;
-showRepo: boolean = false;
-showLoading:boolean = false; 
-isDeposit: boolean = false;
-isLoan: boolean = false;
-isPigmy: boolean = false;
+export class InterestListComponent implements OnInit {
+  iframe5url: any = '';
+  @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
+  formSubmitted = false;
+  //fromgroup
+  ngForm: FormGroup
+  // for dropdown ng module
+  ngbranch: any = null;
+  scode: any = null;
+  //ngfor
+  scheme: any[];
+  branchOption: any[];
+  clicked: boolean = false;
+  showRepo: boolean = false;
+  showLoading: boolean = false;
+  isDeposit: boolean = false;
+  isLoan: boolean = false;
+  isPigmy: boolean = false;
 
-transferSchemeDetails
-tScheme
- //date
-dates: any = null
-maxDate: Date; 
+  transferSchemeDetails
+  tScheme
+  //date
+  dates: any = null
+  maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
@@ -57,7 +57,7 @@ maxDate: Date;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
   ) {
@@ -69,49 +69,49 @@ maxDate: Date;
   }
 
   ngOnInit(): void {
-   
+
     this.createForm()
     //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-     this.branchOption = data;
-   })
- 
-  // Scheme Code
-  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-     
-   var filtered = data.filter(function (scheme) {
-     return (scheme.name == 'SB'|| scheme.name == 'AG'|| scheme.name == 'PG' ||  scheme.name == 'CA'  || scheme.name == 'TD'|| scheme.name == 'IV'|| scheme.name == 'LN' || scheme.name == 'CC'      );
-   });
-   this.scheme = filtered; 
-  
-   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-     this.dates = data.CURRENT_DATE;
-   });
-   this.systemParameter.getFormData(1).subscribe(data => {
-    let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-    // this.fromdate = `01/04/${year - 1}`      
-    this.dates = data.CURRENT_DATE
-    
-    // this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
-    // this.fromdate = this.fromdate._d
-  })
- 
- })
-   
-   let data: any = localStorage.getItem('user');
-     let result = JSON.parse(data);
-     if (result.RoleDefine[0].Role.id == 1) {
-       this.ngbranch = result.branch.id
-       this.ngForm.controls['BRANCH_CODE'].enable()
-       this.branchName = result.branch.NAME
+      this.branchOption = data;
+    })
 
-     }
-     else {
-       this.ngForm.controls['BRANCH_CODE'].disable()
-       this.ngbranch = result.branch.id
-       this.branchName = result.branch.NAME
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
-     }
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'SB' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'CA' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'LN' || scheme.name == 'CC');
+      });
+      this.scheme = filtered;
+
+      this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+        this.dates = data.CURRENT_DATE;
+      });
+      this.systemParameter.getFormData(1).subscribe(data => {
+        let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+        // this.fromdate = `01/04/${year - 1}`      
+        this.dates = data.CURRENT_DATE
+
+        // this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
+        // this.fromdate = this.fromdate._d
+      })
+
+    })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
+    }
   }
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
@@ -122,7 +122,7 @@ maxDate: Date;
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      Scheme_code: ["",[ Validators.required]],
+      Scheme_code: ["", [Validators.required]],
       date: ['', [Validators.required]],
       R_TYPE: ['deposit',],
       T_TYPE: ['detail',],
@@ -132,12 +132,12 @@ maxDate: Date;
       PAGEWISETOTAL1: [],
       PRRECEIVEINT1: [],
     });
-   
+
   }
- 
+
   isrtype(value) {
     if (value == 1) {
-      this.isDeposit = true; 
+      this.isDeposit = true;
       this.isLoan = false;
 
     }
@@ -149,11 +149,11 @@ maxDate: Date;
       this.isDeposit = false;
       this.isLoan = false;
     }
-   
+
   }
 
   view(event) {
-    
+
     this.showLoading = true;
 
     event.preventDefault();
@@ -163,73 +163,72 @@ maxDate: Date;
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
-    if(this.ngForm.valid){
+    if (this.ngForm.valid) {
 
-   this.showRepo = true;
-    let obj = this.ngForm.value
+      this.showRepo = true;
+      let obj = this.ngForm.value
 
-    if(this.dates == userData.branch.syspara.CURRENT_DATE)
-    {
-      obj['date'] =userData.branch.syspara.CURRENT_DATE
+      if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+        obj['date'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.dates).format('DD/MM/YYYY');
+        let tDate = moment(date, 'DD/MM/YYYY')
+        obj['date'] = date
+      }
+
+      // let Date = moment(obj.date).format('DD/MM/YYYY');
+      // let toDate = moment(Date, 'DD/MM/YYYY')
+      // let Date = obj.date       
+      let scheme = obj.Scheme_code
+
+      let branch = obj.BRANCH_CODE;
+      let schemeName = this.tScheme
+
+      if (obj.R_TYPE == 'deposit') {
+
+        this.iframe5url = this.report_url + "examples/TermDepositInterestList1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&branchName='" + this.branchName + "'&schemecode='" + this.scode + "'&branch_code='" + branch + "'";
+
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      }
+      else if (obj.R_TYPE == 'loan') {
+
+        this.iframe5url = this.report_url + "examples/LoanInterestList1.php?Branchname='" + this.branchName + "'&date='" + obj.date + "'&Branch='" + bankName + "'&schemecode='" + this.scode + "'&branch_code=" + branch + "";
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+      }
+      else if (obj.R_TYPE == 'pigmy') {
+        this.iframe5url = this.report_url + "examples/pigmy1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&Branch='" + this.branchName + "'&schemecode='" + this.scode + "'&branch_code='" + branch + "'";
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+      }
+
     }
-    else{
-    let date = moment(this.dates).format('DD/MM/YYYY');
-    let tDate = moment(date, 'DD/MM/YYYY')
-    obj['date']=date  
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
   }
 
-    // let Date = moment(obj.date).format('DD/MM/YYYY');
-    // let toDate = moment(Date, 'DD/MM/YYYY')
-    // let Date = obj.date       
-    let scheme = obj.Scheme_code
-    
-    let branch = obj.BRANCH_CODE;
-    let schemeName = this.tScheme
-    
-    if (obj.R_TYPE == 'deposit') { 
-
-      this.iframe5url=this.report_url+ "examples/TermDepositInterestList1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&branchName='" + this.branchName + "'&branch_code='" + branch + "'";
-     
-      console.log(this.iframe5url); 
-      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    }
-    else if (obj.R_TYPE == 'loan') {
-
-      this.iframe5url=this.report_url+ "examples/LoanInterestList1.php?Branchname='" + this.branchName + "'&date='" + obj.date + "'&Branch='" + bankName + "'&branch_code=" + branch + "";
-      console.log(this.iframe5url); 
-      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
-
-    }
-    else if (obj.R_TYPE == 'pigmy') {
-      this.iframe5url=this.report_url+ "examples/pigmy1.php?date='" + obj.date + "'&bankName='" + bankName + "'&revoke='1'&Branch='" + this.branchName + "'&branch_code='" + branch + "'";
-      console.log(this.iframe5url); 
-      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-
-    }
-
-  }
-  else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-  }
-  }
-
-  close(){
+  close() {
     this.resetForm()
 
   }
-  onLoad(){
+  onLoad() {
     this.showLoading = false;
 
   }
   resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Scheme_code.reset();
 
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
   getBranch(event) {
     this.ngbranch = event.value
     this.branchName = event.branchName
   }
-  
+
 }

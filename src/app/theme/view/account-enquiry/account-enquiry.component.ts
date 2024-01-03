@@ -908,6 +908,8 @@ export class AccountEnquiryComponent implements OnInit {
   customerIDArr = []
   goldsilverArr = []
   productViewArr = []
+  productTotal = 0
+  loanreceivedInterest = 0
   accountInfoArr = []
   IsJointView: boolean = false
   IsNomineeView: boolean = false
@@ -1421,6 +1423,8 @@ export class AccountEnquiryComponent implements OnInit {
       })
     }
     else if (view == 'productview') {
+      this.productTotal = 0
+      this.loanreceivedInterest = 0
       this.IsJointView = false
       this.IsNomineeView = false
       this.IsAttorneyView = false
@@ -1466,6 +1470,12 @@ export class AccountEnquiryComponent implements OnInit {
         this.productName = ''
       }
       this.productViewArr = (this.getschemename == 'LN' || this.getschemename == 'CC') ? this.loantransactionData.productView : this.transactionData.productView
+      for (let ele of this.productViewArr) {
+        this.productTotal = Number(this.productTotal) + Number(ele['amount'])
+      }
+      this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+        this.loanreceivedInterest = data
+      })
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
