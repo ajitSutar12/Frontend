@@ -2327,19 +2327,45 @@
                                     <tbody>
                                         <tr *ngFor="let data of productViewArr; let indexOfelement=index;">
                                             <td *ngFor="let ele of data | keyvalue;">{{ele.value}}</td>
-                                            <!-- <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{productTotal}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                        </tr>
+                                        <tr *ngIf="isloanDetails">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>- Interest Received</td>
+                                            <td>{{loanreceivedInterest}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                        </tr>
+                                        <tr *ngIf="isloanDetails">
                                             <td></td>
-                                            <td></td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total Interest</td>
+                                            <td>{{productTotal-loanreceivedInterest}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
