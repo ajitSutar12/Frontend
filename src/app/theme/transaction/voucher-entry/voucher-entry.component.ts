@@ -605,7 +605,7 @@ export class VoucherEntryComponent implements OnInit {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#3085d6',
 
-            // confirmButtonText: 'Print'
+            confirmButtonText: 'Print',
 
             cancelButtonText: 'OK'
           }).then((result) => {

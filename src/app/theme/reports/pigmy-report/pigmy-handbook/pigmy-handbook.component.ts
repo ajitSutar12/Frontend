@@ -143,13 +143,20 @@ defaultDate: any
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    let startdate=moment(obj.FROM_DATE,'DD/MM/YYYY')
+    let enddate=moment(obj.FROM_DATE,'DD/MM/YYYY')
+
+    let sdate =  moment(startdate).startOf('month').format('DD/MM/YYYY');
+    let date =  moment(enddate).startOf('month').format('DD/MM/YYYY');
+
+    // let date=obj.FROM_DATE
+    
     
     let scheme = obj.Scheme_code
     let schemeAccountNo = obj.Scheme_acc
     let branch = obj.BRANCH_CODE
   
-    this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo='" + schemeAccountNo +"'&bankName=" + bankName + "" ;
+    this.iframe5url=this.report_url+"examples/PigmyHandbook.php?date='" + date + "'&sdate='" + sdate + "'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo='" + schemeAccountNo +"'&bankName=" + bankName + "" ;
     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     
    
