@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "Insurancecode":1456,
+            "Description":"categogy A"
+        },
+        {
+            "Insurancecode":3456,
+            "Description":"categogy B"
+        },
+        {
+            "Insurancecode":5456,
+            "Description":"categogy C"
+        },
+        {
+            "Insurancecode":7456,
+            "Description":"categogy D"
+        },
+        {
+            "Insurancecode":9456,
+            "Description":"categogy E"
+        }
+
+    ]
+}

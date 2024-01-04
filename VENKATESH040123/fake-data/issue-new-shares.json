@@ -1,0 +1,48 @@
+{
+    "data": [
+        {
+            
+            "Scheme": 346,
+            "Member_no": 10100,
+            "Transaction_no": "456",
+            "membershipDate": "2/02/2020",
+            "TotalNoOfShares": "69",
+            "TotalSharesAmount": "13549",
+            "issueDate": "6/02/2020",
+            "CertificateNumber": "23",
+            "From": "5487",
+            "To": "5496",
+            "NoOfShares": "20",
+            "Cash":"Yes",
+            "Transfer":"No",
+            "FaceValue": 418800,
+            "resolutionDate": "2/2/2021",
+            "sharesAmount":"5681",
+            "ResolutionNo": "56",
+            "Particulars":"No"
+          
+        },
+        {
+            
+            "Scheme": 799,
+            "Member_no": 20100,
+            "Transaction_no": "658",
+            "membershipDate": "5/6/2020",
+            "TotalNoOfShares": "20",
+            "TotalSharesAmount": "45795",
+            "issueDate": "6/02/2020",
+            "CertificateNumber": "59",
+            "From": "5463",
+            "To": "5489",
+            "NoOfShares": "26",
+            "Cash":"No",
+            "Transfer":"Yes",
+            "FaceValue": "APQ",
+            "resolutionDate": "2/2/2020",
+            "sharesAmount":"123485",
+            "ResolutionNo": "326",
+            "Particulars":"yes"
+        }
+       
+    ]
+}
