@@ -488,7 +488,8 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom
+      date: addInFrom , 
+      branch : this.branchCODE
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -594,22 +595,24 @@ export class VoucherEntryComponent implements OnInit {
         this._service.insertVoucher(obj).subscribe(data => {
           this.disableSubmit = false
           // this.getVoucherData();
-          Swal.fire('Success!', 'Voucher update Successfully !', 'success');
-          // Swal.fire({
-          //   icon: 'success',
-          //   title: 'Voucher update Successfully!',
-          //   html:
-          //     '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
-          //   showCancelButton: true, //true
-          //   confirmButtonColor: '#3085d6',
-          //   cancelButtonColor: '#3085d6',
-          //   confirmButtonText: 'Print',
-          //   cancelButtonText: 'OK'
-          // }).then((result) => {
-          //   if (result.isConfirmed == true) {
-          //     this.printData(data);
-          //   }
-          // });
+          // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
+          Swal.fire({
+            icon: 'success',
+            title: 'Voucher update Successfully!',
+            html:
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
+            showCancelButton: true, //true
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#3085d6',
+
+            confirmButtonText: 'Print',
+
+            cancelButtonText: 'OK'
+          }).then((result) => {
+            if (result.isConfirmed == true) {
+              this.printData(data);
+            }
+          });
           this.angForm.controls['temp_over_draft'].reset()
           this.angForm.controls['over_draft'].reset()
           this.angForm.controls['token'].reset()
@@ -748,15 +751,11 @@ export class VoucherEntryComponent implements OnInit {
       { FieldAmount: 'OTHER10_AMOUNT' }
     ]
     let date = this.date;
-    // var rowData = date.split('/');
+    var rowData = date.split('/');
     // let lastdate = Number(rowData[0]) - 1;
     // // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
-    // let firstdate
-    // if (lastdate < 10) {
-    //   firstdate = '0' + lastdate
-    // }
-    // this.IntersetHeadDate = firstdate.toString() + '/' + rowData[1] + '/' + rowData[2];
-    this.IntersetHeadDate = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
+    // this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+    this.IntersetHeadDate  = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
 
     this._service.getHeadDetails(obj).subscribe(data => {
       // debugger
@@ -1142,7 +1141,9 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch : this.branchCODE
+
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -2609,7 +2610,9 @@ export class VoucherEntryComponent implements OnInit {
       let obj = {
         scheme: this.Submitscheme.S_APPL,
         acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-        date: addInFrom
+        date: addInFrom,
+        branch : this.branchCODE
+
       }
       this._service.getpigmychartBalance(obj).subscribe(data2 => {
         console.log(data2, 'pigmy');
@@ -2634,7 +2637,9 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch : this.branchCODE
+
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -2732,7 +2737,7 @@ export class VoucherEntryComponent implements OnInit {
   }
   branchCODE
   getBranch(ele) {
-    this.branchCODE = ele.name
+    this.branchCODE = ele
     this.selectedScheme = null
     this.selectedAccountno = null
     this.introducerACNo = []

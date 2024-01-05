@@ -180,7 +180,7 @@ export class PassbookEntryPrintComponent implements OnInit {
   end() { }
   src: any;
   view(event) {
-    debugger
+    
 
     event.preventDefault();
     this.formSubmitted = true;

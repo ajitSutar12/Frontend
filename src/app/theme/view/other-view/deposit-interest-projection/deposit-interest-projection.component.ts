@@ -167,10 +167,6 @@ export class DepositInterestProjectionComponent implements OnInit {
       var date1: any = moment(this.ngForm.controls['DEPO_DATE'].value).format('DD/MM/YYYY');
       // let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.ngForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
       // let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.ngForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
-      // this.expiryDate = expiryDate
-      // this.ngForm.patchValue({
-      //   MATUR_DATE: expiryDate
-      // })
 
       let expiryDate =  moment(date1, 'DD/MM/YYYY').add(Number(this.ngForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
       let expiryT = moment(expiryDate, 'DD/MM/YYYY').add(Number(this.ngForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')

@@ -1920,11 +1920,7 @@ const MENUITEMS1 = [
             id: 313
           },
 
-          // {
-          //   state: 'changePassword',
-          //   name: 'Change Password',
-          //   id: 314
-          // },
+          
           {
             state: 'roleDefination',
             name: 'Role Defination',
