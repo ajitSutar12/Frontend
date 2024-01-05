@@ -1288,7 +1288,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['MEMBERSHIP_BY'] = this.selectmembershipType
     data['AC_DIRECT'] = this.directorList
     data['AC_BRANCH'] = this.branch_codeList
-    // data['AC_SALARYDIVISION_CODE'] = this.salary_divList
+    data['AC_RESNO'] = data.AC_RESNO
     // data['SUB_SALARYDIVISION_CODE'] = this.sub_salary_divList
     data['DIV_TRANSFER_BRANCH'] = this.ngBranchCode
     data['DIV_TRANSFER_ACTYPE'] = this.ngDivACType

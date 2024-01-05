@@ -70,7 +70,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Starting_Account" bindValue="value"
-                                            bindLabel="label" [(ngModel)]="startingAccount" placeholder="Starting Account">
+                                            bindLabel="label"  (change)="getacdetails($event)" [(ngModel)]="startingAccount" placeholder="Starting Account">
                                             <ng-option *ngFor="let values of startingacc" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>

@@ -17,7 +17,6 @@ import { ReportFrameComponent } from "../../reports/report-frame/report-frame.co
 import { HttpClient } from '@angular/common/http';
 
 
-
 @Component({
   selector: 'app-voucher-printing',
   templateUrl: './voucher-printing.component.html',
@@ -226,7 +225,7 @@ export class VoucherPrintingComponent implements OnInit {
         break;
 
       case 'LN':
-        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => { 
           this.introducerACNo = data;
           this.firstno = null
           this.lastno = null

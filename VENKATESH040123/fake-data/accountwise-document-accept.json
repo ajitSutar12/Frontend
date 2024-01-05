@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "code":4,
+            "description":"Photograph, POI, POA PAN of Individual",
+            "isaccepted":"No",
+            "scheme":1,
+            "accno":"23"
+        },
+        {
+            "code":12,
+            "description":"PAN of Partners",
+            "isaccepted":"No",
+            "scheme":2,
+            "accno":"23"
+        },
+        {
+            "code":17,
+            "description":"PAN of HUF",
+            "isaccepted":"No",
+            "scheme":3,
+            "accno":"23"
+        },
+        {
+            "code":4,
+            "description":"PAN Card",
+            "isaccepted":"Yes",
+            "scheme":1,
+            "accno":"23"
+        }
+        
+        
+    ]
+}
