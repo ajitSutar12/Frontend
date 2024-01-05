@@ -764,6 +764,9 @@
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_MONTHS==''||
                                                 accountEvent?.AC_MONTHS==null? 0:
                                                 accountEvent?.AC_MONTHS}}</label></span> Months
+                                        <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_DAYS==''||
+                                                accountEvent?.AC_DAYS==null ? 0:accountEvent?.AC_DAYS}}</label></span>
+                                        Days
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Overdue Date : </label></span>
@@ -835,7 +838,8 @@
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
                                                 == 'E'? 'EMI' : (accountEvent?.INSTALLMENT_METHOD == 'R'? 'Reducing' :
                                                 (accountEvent?.INSTALLMENT_METHOD == 'I'? 'Plain' :
-                                                (accountEvent?.INSTALLMENT_METHOD == 'Null'? 'With Interest' :
+                                                (accountEvent?.INSTALLMENT_METHOD == 'Null' ||
+                                                accountEvent?.INSTALLMENT_METHOD == null? 'With Interest' :
                                                 '---')))}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
@@ -859,7 +863,8 @@
                                     </div>
                                     <div class="col-sm-1"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
-                                                == 'E'? 0 :(accountEvent?.INSTALLMENT_METHOD == 'Null'? 0 :
+                                                == 'E'? 0 :(accountEvent?.INSTALLMENT_METHOD == 'Null' ||
+                                                accountEvent?.INSTALLMENT_METHOD == null? 0 :
                                                 loantransactionData?.currentInt)}}
                                                 <!-- {{loantransactionData?.currentInt}} -->
                                             </label></span>
@@ -2334,7 +2339,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>{{productTotal}}</td>
+                                            <td>{{productTotal | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -2347,7 +2352,7 @@
                                             <td></td>
                                             <td></td>
                                             <td>- Interest Received</td>
-                                            <td>{{loanreceivedInterest}}</td>
+                                            <td>{{loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -2360,7 +2365,7 @@
                                             <td></td>
                                             <td></td>
                                             <td>Total Interest</td>
-                                            <td>{{productTotal-loanreceivedInterest}}</td>
+                                            <td>{{productTotal-loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

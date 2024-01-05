@@ -1,0 +1,82 @@
+{
+    "data": [{
+            "id": 1,
+            "PGScheme": "22",
+            "AccountNo": 10100,
+            "CustomerID": "125",
+            "Name": "SAVINGS",
+            "LastTranDate":"25/02/2012",
+            "LastInterestDate":"02/12/2014",
+            "AccountLienMarked":"234",
+            "FreezeStatus":"Freez",
+            "AcStatus":"Joint",
+            "LedgerBalance":35000
+        },
+        {
+            "id": 2,
+            "PGScheme": "36",
+            "AccountNo": 20100,
+            "CustomerID": "369",
+            "Name": "MEMBERDEP",
+            "LastTranDate":"25/02/2012",
+            "LastInterestDate":"02/12/2014",
+            "AccountLienMarked":"234",
+            "FreezeStatus":"Freez",
+            "AcStatus":"Joint",
+            "LedgerBalance":35000
+        },
+        {
+            "id": 3,
+            "PGScheme": "25",
+            "AccountNo": 20200,
+            "CustomerID": "125",
+            "Name": "RECURRING",
+            "LastTranDate":"25/02/2012",
+            "LastInterestDate":"02/12/2014",
+            "AccountLienMarked":"234",
+            "FreezeStatus":"Freez",
+            "AcStatus":"Joint",
+            "LedgerBalance":35000
+        },
+        {
+            "id": 4,
+            "PGScheme": "12",
+            "AccountNo": 20300,
+            "CustomerID": "789",
+            "Name": "1 YEAR",
+            "LastTranDate":"25/02/2012",
+            "LastInterestDate":"02/12/2014",
+            "AccountLienMarked":"234",
+            "FreezeStatus":"Freez",
+            "AcStatus":"Joint",
+            "LedgerBalance":35000
+        },
+        {
+            "id": 5,
+            "PGScheme": "36",
+            "AccountNo": 20400,
+            "CustomerID": "458",
+            "Name": "3 YEAR",
+            "LastTranDate":"25/02/2012",
+            "LastInterestDate":"02/12/2014",
+            "AccountLienMarked":"234",
+            "FreezeStatus":"Freez",
+            "AcStatus":"Joint",
+            "LedgerBalance":35000
+        },
+        {
+            "id": 6,
+            "PGScheme": "53",
+            "AccountNo": 20500,
+            "CustomerID": "369",
+            "Name": "CONTIBUTI",
+            "LastTranDate":"25/02/2012",
+            "LastInterestDate":"02/12/2014",
+            "AccountLienMarked":"234",
+            "FreezeStatus":"Freez",
+            "AcStatus":"Joint",
+            "LedgerBalance":35000
+        }
+
+    ]
+}
