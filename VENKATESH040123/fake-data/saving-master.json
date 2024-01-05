@@ -1,0 +1,64 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "Scheme": 7356,
+            "CustomerID": 10100,
+            "Account": "SAVINGS",
+            "Title": "Mr.",
+            "Name": "ABC PQR",
+            "LastIntDate": "22/2/2000",
+            "UnclearBalance": 7357,
+            "FreezeStatus": "null",
+            "LedgerBalance": 675692
+        },
+        {
+            "id": 2,
+            "Scheme": 7543,
+            "CustomerID": 20100,
+            "Account": "MEMBERDEP",
+            "Title": "Mr.",
+            "Name": "ABC PQR",
+            "LastIntDate": "22/2/2000",
+            "UnclearBalance": 7357,
+            "FreezeStatus": "null",
+            "LedgerBalance": 675692
+        },
+        {
+            "id": 3,
+            "Scheme":3556,
+            "CustomerID": 20200,
+            "Account": "RECURRING",
+            "Title": "Mr.",
+            "Name": "ABC PQR",
+            "LastIntDate": "22/2/2000",
+            "UnclearBalance": 7357,
+            "FreezeStatus": "null",
+            "LedgerBalance": 675692
+        },
+        {
+            "id": 4,
+            "Scheme": 234,
+            "CustomerID": 20300,
+            "Account": "1 YEAR",
+            "Title": "Mr.",
+            "Name": "ABC PQR",
+            "LastIntDate": "22/2/2000",
+            "UnclearBalance": 7357,
+            "FreezeStatus": "null",
+            "LedgerBalance": 675692
+        },
+        {
+            "id": 5,
+            "Scheme": 47684,
+            "CustomerID": 20400,
+            "Account": "3 YEAR",
+            "Title": "Mr.",
+            "Name": "ABC PQR",
+            "LastIntDate": "22/2/2000",
+            "UnclearBalance": 7357,
+            "FreezeStatus": "null",
+            "LedgerBalance": 675692
+        }
+    ]
+}

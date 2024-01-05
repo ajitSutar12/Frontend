@@ -1,0 +1,42 @@
+{
+    "data": [
+        {
+            "schemecode":21,
+            "effectdate":"2/2/1977",
+            "startingaccno":"234",
+            "endingaccno":"345",
+            "increase":"Yes",
+            "decrease":"No",
+            "sameintrateaddition":"No",
+            "accno":1,
+            "accountname":"categogy A",
+            "interestrate":32
+        },
+        {
+            "schemecode":22,
+            "effectdate":"2/12/1977",
+            "startingaccno":"24",
+            "endingaccno":"34",
+            "increase":"No",
+            "decrease":"No",
+            "sameintrateaddition":"Yes",
+            "accno":2,
+            "accountname":"categogy b",
+            "interestrate":32
+        },
+        {
+            "schemecode":23,
+            "effectdate":"2/12/1577",
+            "startingaccno":"234",
+            "endingaccno":"345",
+            "increase":"Yes",
+            "decrease":"No",
+            "sameintrateaddition":"No",
+            "accno":1,
+            "accountname":"categogy A",
+            "interestrate":32
+       }
+        
+        
+    ]
+}

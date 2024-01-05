@@ -674,9 +674,10 @@ export class AccountEnquiryComponent implements OnInit {
   getAccountDetails(event) {
     this.accountEvent = event
     this.customerIDArr = null
-    console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)
+    // console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)
     this.accountData = event
     this.IsLedgerView = false
+    this.loanreceivedInterest = 0
     if (this.getschemename == 'GL') {
       this.accountData = null
       this.transactionData = null
@@ -716,6 +717,10 @@ export class AccountEnquiryComponent implements OnInit {
           else {
             this.accountEvent['totalInstallment'] = sysparaCurrentDate.diff(date, 'months');
           }
+        })
+
+        this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+          this.loanreceivedInterest = Number(data)
         })
       }
       else {
@@ -853,7 +858,7 @@ export class AccountEnquiryComponent implements OnInit {
           this.SHtransactionData = null
           this.loantransactionData = data
           this.GLtransactionData = null
-          let interest = this.accountEvent?.INSTALLMENT_METHOD == 'E' ? 0 : (this.accountEvent?.INSTALLMENT_METHOD == 'Null' ? 0 : this.loantransactionData?.currentInt)
+          let interest = this.accountEvent?.INSTALLMENT_METHOD == 'E' ? 0 : (this.accountEvent?.INSTALLMENT_METHOD == 'Null' || this.accountEvent?.INSTALLMENT_METHOD == null ? 0 : this.loantransactionData?.currentInt)
           // this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(this.loantransactionData.currentInt)
           this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(interest)
           this.loanTotalInterest = Number(this.loantransactionData.penalInt) + Number(this.loantransactionData.receiveablePenal) + Number(this.loantransactionData.overdueInt) + Number(this.loantransactionData.payableInt) + Number(this.loantransactionData.currentInt)
@@ -1424,7 +1429,6 @@ export class AccountEnquiryComponent implements OnInit {
     }
     else if (view == 'productview') {
       this.productTotal = 0
-      this.loanreceivedInterest = 0
       this.IsJointView = false
       this.IsNomineeView = false
       this.IsAttorneyView = false
@@ -1473,9 +1477,9 @@ export class AccountEnquiryComponent implements OnInit {
       for (let ele of this.productViewArr) {
         this.productTotal = Number(this.productTotal) + Number(ele['amount'])
       }
-      this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
-        this.loanreceivedInterest = data
-      })
+      // this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+      //   this.loanreceivedInterest = data
+      // })
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
