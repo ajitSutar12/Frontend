@@ -131,7 +131,6 @@ export class InterestCalculationComponent implements OnInit {
     this.selectedSchemeData = this.schemeDataList.filter(c => c.S_ACNOTYPE == code)
   }
   submit() {
-    debugger
     var FormValue = this.angForm.value;
     if (FormValue.INT_CAL == "") {
       Swal.fire("Oops...", "Please choose any option for Interest Calculation", "error");
