@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "id":1,
+            "BankCode": "189009777431",
+            "BankName": "ABC",
+            "BankShortName": "ABC",
+            "LedgerCode": "1890675432",
+            "Bcode1": "189009777431",
+            "DDDetails": "Some-details-1",
+            "DDApplicable": "Yes",
+            "GLCode": "98765123451",
+            "SubGLCode": "8765412345",
+            "BankersCommissionApplicable": "Yes",
+            "AllowToPrepareDDByourBank": "No",
+            "ParticipationinClearing": "Yes"
+        },
+        {
+            "id":2,
+            "BankCode": "189009777431",
+            "BankName": "ABC",
+            "BankShortName": "ABC",
+            "LedgerCode": "1890675432",
+            "Bcode1": "189009777431",
+            "DDDetails": "Some-details-1",
+            "DDApplicable": "Yes",
+            "GLCode": "98765123451",
+            "SubGLCode": "8765412345",
+            "BankersCommissionApplicable": "Yes",
+            "AllowToPrepareDDByourBank": "No",
+            "ParticipationinClearing": "Yes"
+        }
+    ]
+}

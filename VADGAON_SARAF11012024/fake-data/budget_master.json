@@ -1,0 +1,24 @@
+{
+    "data": [{
+            "id": 1,
+            "AccountNumber": 31,
+            "AccountName": "STATIONARY EXPENSES",
+            "AllocatedBudgetAmount": 12000,
+            "BudgetYear": 2222,
+            "Expenditure": "Yes",
+            "Income": "No"
+           
+        },
+        {
+            "id": 2,
+            "AccountNumber": 32,
+            "AccountName": "AUDIT FEE",
+            "AllocatedBudgetAmount": 55000,
+            "BudgetYear": 2222,
+            "Expenditure": "NO",
+            "Income": "Yes"
+        }
+        
+       
+    ]
+}
