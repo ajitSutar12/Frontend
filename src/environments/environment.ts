@@ -8,7 +8,6 @@ export const environment = {
   //Localhost
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  // //  report_url: 'http://localhost/phpjasper1/', //report folder local path
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
  //Jijamata Arjunwada
@@ -41,6 +40,10 @@ export const environment = {
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
+// //VITTHALDHARASHIV 
+  // base_url: 'http://103.174.87.104:7277',  
+  // report_url: 'http://103.174.87.104/VITTHALDHARASHIV/REPORTS/', 
+  // sitename: 'http://103.174.87.104/VITTHALDHARASHIV/CBS' 
 
 };
 

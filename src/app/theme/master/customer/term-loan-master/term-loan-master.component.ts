@@ -2135,10 +2135,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }
       else {
         if (this.tempopendate != this.openingDate) {
-          var expiryDate = moment(this.openingDate).add(months, 'M').format('DD/MM/YYYY');
+          // var expiryDate = moment(this.openingDate).add(months, 'M').format('DD/MM/YYYY');
           this.tempexpiryDate = expiryDate
           this.angForm.patchValue({
-            AC_EXPIRE_DATE: expiryDate
+            AC_EXPIRE_DATE: this.ngexpiry
           })
         } else if (this.openingDate != undefined) {
           var full = []

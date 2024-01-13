@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "SerialNumber":1,
+            "ItemType":"categogy A",
+            "BagReceiptNumber":1212,
+            "TotalWeight":111,
+            "ClearWeight":123,
+            "value":123456,
+            "SubmissionDate":"12/2/2200",
+            "margin":"categogyA",
+            "IsReturn":"categogyB"
+        },
+        {
+            "SerialNumber":2,
+            "ItemType":"categogy A",
+            "BagReceiptNumber":1212,
+            "TotalWeight":111,
+            "ClearWeight":123,
+            "value":123456,
+            "SubmissionDate":"12/2/2200",
+            "margin":"categogyA",
+            "IsReturn":"categogyB"
+        },
+        {
+            "SerialNumber":3,
+            "ItemType":"categogy A",
+            "BagReceiptNumber":1212,
+            "TotalWeight":111,
+            "ClearWeight":123,
+            "value":123456,
+            "SubmissionDate":"12/2/2200",
+            "margin":"categogyA",
+            "IsReturn":"categogyB"
+        }
+    ]
+}

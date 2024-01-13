@@ -1,0 +1,15 @@
+{
+    "data": [{
+        "srno": 1,
+        "Effected_Date": 1,
+        "Interest_Rate": 100000
+    }, {
+        "srno": 2,
+        "Effected_Date": 100000,
+        "Interest_Rate": 500000
+    }, {
+        "srno": 3,
+        "Effected_Date": 500000,
+        "Interest_Rate": 1000000
+    }]
+}

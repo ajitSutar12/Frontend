@@ -1,0 +1,33 @@
+{
+    "data": [
+        {
+            "SrNo":1,
+            "GeneralLedgerAccountNo":1,
+            "GeneralLedgerAccountName":"Cash In Hand",
+            "EffectFromDate":"4/1/2001",
+            "EffectToDate":"3/31/2050",
+            "HeadCode":10000000,
+            "HeadName":"Share Capital",
+            "DefaultBalanceType":"NA",
+            "ReverseCode":123,
+            "SubColumn":12
+
+        },
+        {
+            "SrNo":2,
+            "GeneralLedgerAccountNo":2,
+            "GeneralLedgerAccountName":"Cash In Hand",
+            "EffectFromDate":"4/1/2001",
+            "EffectToDate":"3/31/2050",
+            "HeadCode":10000000,
+            "HeadName":"Share Capital",
+            "DefaultBalanceType":"NA",
+            "ReverseCode":123,
+            "SubColumn":12
+        }
+
+       
+
+
+    ]
+}
