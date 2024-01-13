@@ -1,0 +1,69 @@
+{
+    "data": [{
+            "srno": 1,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 2,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 4,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 5,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 6,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 7,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 8,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 9,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 10,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 11,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 12,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 13,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        },{
+            "srno": 14,
+            "From": 2,
+            "To": 67800,
+            "Charges Amount":10
+        }
+    ]
+}

@@ -144,7 +144,7 @@ export class BnkGLConsistRepoComponent implements OnInit {
       let print = obj.Print;
       let penal = obj.Penal;
 
-      this.iframeurl = this.report_url + "examples/GeneralLedgerConsistancy.php?sdate='" + sdate + "'&branch='" + this.ngbranch + "'&schemed='" + schemed + "'&schemewise='" + schemewise + "'&print='" + print + "'&bankName='" + bankName + "'&penal='" + penal + "'";
+      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branch='"+this.ngbranch +"'&schemed='"+schemed+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

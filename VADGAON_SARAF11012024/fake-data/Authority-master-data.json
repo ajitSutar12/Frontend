@@ -1,0 +1,25 @@
+{
+    "data": [
+        {
+            "AuthorityCode":1456,
+            "Description":"categogy A"
+        },
+        {
+            "AuthorityCode":3456,
+            "Description":"categogy B"
+        },
+        {
+            "AuthorityCode":5456,
+            "Description":"categogy C"
+        },
+        {
+            "AuthorityCode":7456,
+            "Description":"categogy D"
+        },
+        {
+            "AuthorityCode":9456,
+            "Description":"categogy E"
+        }
+
+    ]
+}
