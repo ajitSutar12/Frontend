@@ -1,7 +1,8 @@
-import { NgModule} from '@angular/core';
-import { RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { DayEndComponent } from './day-end.component';
 import { DayEndFinalComponent } from './day-end-final/day-end-final.component'
+import { YearEndComponent } from './year-end/year-end.component'
 
 const routes: Routes = [
   {
@@ -14,20 +15,24 @@ const routes: Routes = [
       status: true
     },
     children: [
-    {
-      path: 'counterWorkDayEnd',
-      loadChildren: () => import('./counter-work-day-end/counter-work-day-end.module').then(m => m.CounterWorkDayEndModule)
-    },
+      {
+        path: 'counterWorkDayEnd',
+        loadChildren: () => import('./counter-work-day-end/counter-work-day-end.module').then(m => m.CounterWorkDayEndModule)
+      },
 
-    {
-      path: 'pigmyDayEnd',
-      loadChildren: () => import('./pigmy-day-end/pigmy-day-end.module').then(m => m.PigmyDayEndModule)
-    },
-    {
-      path:'FinalDayEnd',
-      component: DayEndFinalComponent
-    }
-  ]
+      {
+        path: 'pigmyDayEnd',
+        loadChildren: () => import('./pigmy-day-end/pigmy-day-end.module').then(m => m.PigmyDayEndModule)
+      },
+      {
+        path: 'FinalDayEnd',
+        component: DayEndFinalComponent
+      },
+      {
+        path: 'yearEnd',
+        component: YearEndComponent
+      }
+    ]
   },
 ];
 
