@@ -1828,6 +1828,11 @@ const MENUITEMS1 = [
                 name: 'pigmy Day End',
                 id: 298
               },
+              {
+                state: 'yearEnd',
+                name: 'Year End',
+                id: 299
+              },
             ]
           },
           // {
@@ -4541,6 +4546,11 @@ const MENUITEMS = [
                 state: 'pigmyDayEnd',
                 name: 'pigmy Day End',
                 id: 298
+              },
+              {
+                state: 'yearEnd',
+                name: 'Year End',
+                id: 299
               },
             ]
           },
