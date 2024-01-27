@@ -3,7 +3,8 @@ import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../theme/auth/auth.service';
-import { DayEndService } from '../../theme/utility/day-end/day-end.service';
+import { DayEndService } from '../../theme/process/day-end/day-end.service';
+
 import { interval } from 'rxjs';
 
 @Component({
