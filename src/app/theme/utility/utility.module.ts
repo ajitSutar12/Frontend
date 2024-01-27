@@ -6,7 +6,9 @@ import { SharesDataEIComponent } from './shares-data-ei/shares-data-ei.component
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { BackupDataComponent } from './backup-data/backup-data.component';
+// import { BackupDataComponent } from './backup-data/backup-data.component';
+import { BackupDataComponent } from './../process/backup-data/backup-data.component';
+
 @NgModule({
   declarations: [],
   imports: [

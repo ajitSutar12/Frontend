@@ -39,6 +39,7 @@ export class BatchVoucherComponent implements OnInit {
   selectedBranch: any;
   selectCompanyCode: any;
   totalAmt: number = 0;
+  totalAmount 
   filterArray: any;
   narrationList: any;
   particulars: any;
@@ -189,7 +190,8 @@ export class BatchVoucherComponent implements OnInit {
         this.filterArray = data[0].comapnylink;
         console.log(this.filterArray);
         this.filterArray.forEach(element => {
-          this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+          this.totalAmt = this.totalAmt + parseFloat(element.DEFAULT_AMOUNT);
+          this.totalAmount = this.totalAmt.toFixed(2)
         });
       }
     }, err => {
@@ -241,7 +243,9 @@ export class BatchVoucherComponent implements OnInit {
     this.totalAmt = 0;
     this.filterArray.forEach(element => {
       //debugger
-      this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+      this.totalAmt = this.totalAmt + parseFloat(element.DEFAULT_AMOUNT);
+      this.totalAmount = this.totalAmt.toFixed(2)
+
     });
   }
   //get Narration Details 
@@ -254,7 +258,7 @@ export class BatchVoucherComponent implements OnInit {
   Submit() {
     // debugger
     var obj = this.angForm.value;
-    if (Number(obj.voucherAmount) != Number(this.totalAmt)) {
+    if (Number(obj.voucherAmount) != Number(this.totalAmount)) {
       Swal.fire('Oops!', 'Voucher amount not equal to Total Amount', 'error');
     } else {
       let cheqDate
@@ -344,6 +348,9 @@ export class BatchVoucherComponent implements OnInit {
         particulars: data.result.NARRATION
       })
       this.totalAmt = data.result.TRAN_AMOUNT
+      this.totalAmount = this.totalAmt.toFixed(2)
+
+
     })
   }
 
@@ -492,7 +499,9 @@ export class BatchVoucherComponent implements OnInit {
         this.totalAmt = 0;
         this.filterArray.forEach(element => {
           //debugger
-          this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+          this.totalAmt = this.totalAmt + parseFloat(element.DEFAULT_AMOUNT);
+          this.totalAmount = this.totalAmt.toFixed(2)
+
         });
       }
     })
