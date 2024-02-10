@@ -424,7 +424,7 @@ export class DeadStockTransactionComponent implements OnInit {
       this.angForm.patchValue({
         amount: data['totalAmt'],
         Quantity: event.PURCHASE_QUANTITY,
-        Rate: rate
+        Rate: rate.toFixed(2)
       })
       this.itemQuan = event.PURCHASE_QUANTITY
     })
@@ -435,7 +435,7 @@ export class DeadStockTransactionComponent implements OnInit {
     let Quantity = this.angForm.controls['Quantity'].value
     let rate = (this.angForm.controls['amount'].value / Quantity)
     this.angForm.patchValue({
-      Rate: rate
+      Rate: rate.toFixed(2)
     })
   }
 

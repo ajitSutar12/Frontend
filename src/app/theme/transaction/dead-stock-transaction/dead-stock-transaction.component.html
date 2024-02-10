@@ -266,7 +266,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                            id="Rate" formControlName="Rate" disabled
+                                            id="Rate" formControlName="Rate" (focusout)="getDecimalPoint($event);" (keyup)="getDecimal($event)" disabled
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     </span>
                                 </div>

@@ -147,7 +147,7 @@ defaultDate: any
     let enddate=moment(obj.FROM_DATE,'DD/MM/YYYY')
 
     let sdate =  moment(startdate).startOf('month').format('DD/MM/YYYY');
-    let date =  moment(enddate).startOf('month').format('DD/MM/YYYY');
+    let date =  moment(enddate).format('DD/MM/YYYY');
 
     // let date=obj.FROM_DATE
     

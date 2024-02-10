@@ -19,6 +19,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { NgSelectComponent } from '@ng-select/ng-select'
 // import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { event } from 'jquery';
 @Component({
   selector: 'app-term-deposit-account-closing',
   templateUrl: './term-deposit-account-closing.component.html',
@@ -883,7 +884,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         break;
 
       case 'GL':
-        this.schemeAccountNoService.getGeneralLedgerList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
           this.schemeACNo = data;
         })
         break;
@@ -1392,6 +1393,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.selectedBranch = data1.BRANCH_CODE
       this.customerId = data1.customerID
       this.dormant = data1.dormant
+      this.monthDays = data1.SCHEME.S_INTCALTP
+
       data1.IS_PREMATURE_CLOSE == '1' ? this.preMature = true : this.preMature = false
       this.getIntroducer()
       this.customer = data1.TRAN_ACNO

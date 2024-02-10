@@ -58,3 +58,42 @@
     visibility: visible;
   }
   
+  
+  
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.search-input {
+    padding-left: 30px; 
+}
+
+.fa-search {
+    position: absolute;
+    left: 5px; 
+    color: #000; 
+}
+
+.searchinput li {
+    margin-bottom: 5px; 
+    background-color: #fff;
+    color: rgb(151, 151, 228);
+  }
+  
+  .searchinput a {
+    // color: #333; 
+    text-decoration: none;
+    display: block;
+  }
+  
+//   .searchinput a:hover {
+//     background-color: #f0f0f0; 
+//   }
+ 
+  .searchinput ul {
+    padding-left: 20px; 
+  }
+

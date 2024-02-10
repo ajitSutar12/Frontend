@@ -134,7 +134,15 @@ const routes: Routes = [
       {
         path: 'shortcut-key',
         loadChildren: () => import('./theme/shortcut-key/shortcut-key.module').then(m => m.ShortcutKeyModule)
-      }
+      },
+      {
+        path: 'process',
+        loadChildren: () => import('./theme/process/process.module').then(m => m.ProcessModule)
+      },
+      {
+        path: 'printing',
+        loadChildren: () => import('./theme/printing/printing.module').then(m =>m.PrintingModule)
+      },
     ]
   },
   {
@@ -160,7 +168,8 @@ const routes: Routes = [
       {
         path: 'maintenance/offline-ui',
         loadChildren: () => import('./theme/maintenance/offline-ui/offline-ui.module').then(m => m.OfflineUiModule)
-      }
+      },
+     
     ]
   },
   {

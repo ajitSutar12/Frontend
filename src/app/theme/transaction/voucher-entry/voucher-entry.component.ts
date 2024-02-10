@@ -248,19 +248,19 @@ export class VoucherEntryComponent implements OnInit {
 
   isShow: boolean = false
   submitbtnshow: boolean = true
-  printData(data: any) {
-    this.isShow = true
-    this.submitbtnshow = false
-    let obj = data
-    let branch = obj.BRANCH_CODE
-    let voucherNo = obj.TRAN_NO
-    let voucherType = obj.TRAN_SOURCE_TYPE
-    let tran_type = obj.TRAN_TYPE
-    this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
-    // console.log(this.iframe5url);
-    this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    this.showRepo = true
-  }
+  // printData(data: any) {
+  //   this.isShow = true
+  //   this.submitbtnshow = false
+  //   let obj = data
+  //   let branch = obj.BRANCH_CODE
+  //   let voucherNo = obj.TRAN_NO
+  //   let voucherType = obj.TRAN_SOURCE_TYPE
+  //   let tran_type = obj.TRAN_TYPE
+  //   this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
+  //   // console.log(this.iframe5url);
+  //   this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  //   this.showRepo = true
+  // }
 
   close() {
     this.isShow = false
@@ -610,7 +610,7 @@ export class VoucherEntryComponent implements OnInit {
             cancelButtonText: 'OK'
           }).then((result) => {
             if (result.isConfirmed == true) {
-              this.printData(data);
+              // this.printData(data);
             }
           });
           this.angForm.controls['temp_over_draft'].reset()
@@ -1360,7 +1360,7 @@ export class VoucherEntryComponent implements OnInit {
   checkSanctionAmountWithAmount() {
     // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
     let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
-    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && this.Submitscheme.IS_GOLD_LOAN != '1' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({

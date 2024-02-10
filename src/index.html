@@ -91,9 +91,8 @@
     ////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
     window.addEventListener('popstate', function (event) {
 
-        // if (window.location.href == 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple') {
-            if (window.location.href == 'http://103.174.87.104/VADGAON_SARAF/CBS/auth/login/simples') {
-           //     if (window.location.href == 'http://103.174.87.104/JIJAMATA_ARJUNWADA/CBS/auth/login/simples') {
+        if (window.location.href == 'http://103.174.87.104/TESTSIDHANERLI/CBS/auth/login/simple') {
+           
 
             let data = localStorage.getItem('user');
             let result = JSON.parse(data);
@@ -105,20 +104,14 @@
             }
             $.ajax({
 
-                url: 'http://localhost:7796/user-defination/logout',
-                //  url: 'http://139.59.63.215:7275/user-defination/logout',
-                // url: 'http://103.174.87.104:7274/user-defination/logout',
-                // url: 'http://103.174.87.104:7796/user-defination/logout',
+                 url: 'http://103.174.87.104:4771/user-defination/logout',
                 method: 'POST',
                 data: obj,
                 success: function (result) { }
             })
             $.ajax({
 
-                url: 'http://localhost:7796/user-defination/logoffhistory',
-                //  url: 'http://139.59.63.215:7275/user-defination/logoffhistory',
-                // url: 'http://103.174.87.104:7274/user-defination/logoffhistory',
-                // url: 'http://103.174.87.104:7796/user-defination/logoffhistory',
+                 url: 'http://103.174.87.104:4771/user-defination/logoffhistory',
 
               method: 'POST',
                 data: obj,
@@ -176,14 +169,14 @@
                     }
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7796/user-defination/logout',
+                        url: 'http://103.174.87.104:4771/user-defination/logout',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
                     })
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7796/user-defination/logoffhistory',
+                        url: 'http://103.174.87.104:4771/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -198,7 +191,7 @@
             }
             // your function for too long inactivity goes here
 
-            window.location.href = 'http://103.174.87.104/VADGAON_SARAF/CBS/auth/login/simple';
+            window.location.href = 'http://103.174.87.104/TESTSIDHANERLI/CBS/auth/login/simple';
             window.close()
         }
 
@@ -217,7 +210,7 @@
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7796/refresh-token',
+                        url: 'http://103.174.87.104:4771/refresh-token',
                         method: 'POST',
                         data: payload,
                         success: function (result) {
