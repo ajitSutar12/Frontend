@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  //Localhost
+  // // Localhost
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
   sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
@@ -45,6 +45,10 @@ export const environment = {
   // report_url: 'http://103.174.87.104/VITTHALDHARASHIV/REPORTS/', 
   // sitename: 'http://103.174.87.104/VITTHALDHARASHIV/CBS' 
 
+   // //DEMO COMPSERV 
+  // base_url: 'http://103.174.87.104:7278',  
+  // report_url: 'http://103.174.87.104/COMPSERV/REPORTS/', 
+  // sitename: 'http://103.174.87.104/COMPSERV/CBS'
 };
 
 /*

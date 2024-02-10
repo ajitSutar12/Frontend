@@ -296,6 +296,7 @@
           [attr.pcoded-navbar-position]="pcodedSidebarPosition" [style.top]="headerFixedTop"
           [style.height]="sidebarFixedNavHeight" (mouseleave)="hoverOutsideSidebar()">
 
+
           <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config"
             [ngClass]="perfectDisable">
             <div class="pcoded-inner-navbar main-menu" appAccordion>
@@ -309,15 +310,50 @@
                   </div>
                 </div>
               </div>
+              <div class="top-search-bar" (click)="onSearchBarClick()">
+                <div class="search-container">
+                  <input #searchInput type="text" [(ngModel)]="searchTerm"
+                  (keyup)="performSearch()"
+                  (blur)="onSearchBlur()"
+                  (focusout)="onSearchBlur()"
+                  placeholder="Search"
+                  class="search-input" />
+                  <i class="fa fa-search"></i>
+                </div>
+              </div>
+
+              <ul class="searchinput" *ngIf="showMenu">
+                <li *ngFor="let menuItem of filteredMenuListData">
+                  <a [routerLink]="['/', menuItem.state]" class="ripple" (click)="resetSearchInput(searchInput)">
+                    <span class="pcoded-mtext" [innerHTML]="menuItem.name | highlighter: searchTerm"></span>
+                  </a>
+                  <ul *ngIf="menuItem.filteredChildren && menuItem.filteredChildren.length > 0">
+                    <li *ngFor="let submenu of menuItem.filteredChildren">
+                      <a [routerLink]="['/', menuItem.state, submenu.state]" (click)="resetSearchInput(searchInput)">
+                        <span class="pcoded-mtext" [innerHTML]="submenu.name | highlighter: searchTerm"></span>
+                      </a>
+                      <ul *ngIf="submenu.filteredChildren && submenu.filteredChildren.length > 0">
+                        <li *ngFor="let subsubmenu of submenu.filteredChildren">
+                          <a [routerLink]="['/', menuItem.state, submenu.state, subsubmenu.state]"
+                            (click)="resetSearchInput(searchInput)">
+                            <span class="pcoded-mtext" [innerHTML]="subsubmenu.name | highlighter: searchTerm"></span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+
 
               <perfect-scrollbar style="max-width: 600px; max-height: 600px;">
                 <div *ngFor="let asideItems of menuItems.getAll();let i = index" class="d-color">
                   <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}
                   </div>
-                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title=""
-                    [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle"
-                    [attr.subitem-border]="subItemBorder" *ngFor="let asideItem of menuListData" appAccordionLink
-                    group="{{asideItem.state}}">
+                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="" [attr.item-border]="itemBorder"
+                    [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
+                    *ngFor="let asideItem of menuListData" appAccordionLink group="{{asideItem.state}}">
 
                     <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
                       group="{{asideItem.state}}">
@@ -498,13 +534,15 @@
   <div>
     <span class="text-muted">
       <div class="row">
-        <div class="col-md-7">
-          <!-- <marquee behavior="scroll" direction="left" scrollamount="5">
-            <label class="text"><b>Tomorrow there will be holiday to bank.........</b>
+        <div class="col-md-9">
+          <marquee behavior="scroll" direction="left" scrollamount="5">
+            <label class="text"><b>
+                {{newsContent}}
+              </b>
             </label>
-          </marquee> -->
+          </marquee>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           <h6 style="color:black; font-size: 13px; float: right;">Branch: {{barnchName}} Today Date: {{currentDate}}
           </h6>
         </div>
