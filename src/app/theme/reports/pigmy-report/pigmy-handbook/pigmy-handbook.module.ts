@@ -11,10 +11,12 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { Iframe5Module } from '../iframe5/iframe5.module';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [PigmyHandbookComponent],
@@ -28,6 +30,13 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
     Iframe5Module,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   exports:[PigmyHandbookComponent],
   providers:[OwnbranchMasterService,
@@ -48,3 +57,6 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
     }]
 })
 export class PigmyHandbookModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

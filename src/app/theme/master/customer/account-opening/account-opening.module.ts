@@ -13,7 +13,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { BankService } from '../../policy-settings/information/bank-master/bank-master.service';
 import { InvestmentService } from './account-opening.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -21,6 +21,8 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { ClearingbranchMasterService } from 'src/app/shared/dropdownService/clearing-branch-master-dropdown.service';
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
@@ -33,7 +35,14 @@ import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameter
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [AccountOpeningComponent],
   exports: [AccountOpeningComponent],
@@ -52,3 +61,6 @@ import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameter
   ]
 })
 export class AccountOpeningModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

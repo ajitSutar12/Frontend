@@ -10,6 +10,7 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer} from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pigmy-handbook',
@@ -53,8 +54,10 @@ defaultDate: any
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public SchemeTypes: SchemeTypeDropdownService,
-
-    ) {  this.defaultDate = moment().format('DD/MM/YYYY');
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang)
+    this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

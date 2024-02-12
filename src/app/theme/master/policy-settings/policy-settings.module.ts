@@ -5,9 +5,10 @@ import { PolicySettingsComponent } from './policy-settings.component';
 import { PolicySettingsRoutingModule } from './policy-settings-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { ThemeModule } from '../../theme.module';
+
 
 @NgModule({
   imports: [
@@ -15,7 +16,9 @@ import { ThemeModule } from '../../theme.module';
     PolicySettingsRoutingModule,
     SharedModule,
     DataTablesModule,
-    ThemeModule
+    ThemeModule,
+
+
   ],
   declarations: [PolicySettingsComponent],
   providers:[{

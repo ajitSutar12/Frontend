@@ -47,6 +47,7 @@ import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -353,7 +354,11 @@ export class CashCreditMasterComponent implements OnInit {
     private el: ElementRef,
     public router: Router,
     public sanitizer: DomSanitizer,
+    private translate:TranslateService
   ) {
+
+    this.translate.setDefaultLang(environment.setLang);
+
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
     }
@@ -424,78 +429,78 @@ export class CashCreditMasterComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Customer.Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Renewal Date',
+          title: this.translate.instant('master.Cash_Credit_Master.Renewal'),
           data: 'AC_OPEN_OLD_DATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail',
+          title: this.translate.instant('master.Customer.Detail'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Sanction Date',
+          title: this.translate.instant('master.Cash_Credit_Master.Sanction_Date'),
           data: 'AC_SANCTION_DATE'
         },
         {
-          title: 'Period',
+          title: this.translate.instant('master.Cash_Credit_Master.Period'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Expiry Date',
+          title: this.translate.instant('master.Customer.Expiry_Date'),
           data: 'AC_EXPIRE_DATE'
         },
         {
-          title: 'Sanction Limit',
+          title: this.translate.instant('master.Cash_Credit_Master.Sanction_Limit'),
           data: 'AC_SANCTION_AMOUNT'
         },
         {
-          title: 'Drawing Power',
+          title: this.translate.instant('master.Cash_Credit_Master.Drawing_Power'),
           data: 'AC_DRAWPOWER_AMT'
         },
         {
-          title: 'Interest Rate',
+          title: this.translate.instant('master.Cash_Credit_Master.Interest'),
           data: 'AC_INTRATE'
         },
         {
-          title: 'Installment',
+          title: this.translate.instant('master.Customer.Installment'),
           data: 'AC_INSTALLMENT'
         },
         {
-          title: 'Sanction Authority',
+          title: this.translate.instant('master.Cash_Credit_Master.Sanction_Authority'),
           data: 'AC_AUTHORITY'
         },
         {
-          title: 'Purpose',
+          title: this.translate.instant('master.Cash_Credit_Master.Purpose'),
           data: 'AC_PURPOSE'
         },
 

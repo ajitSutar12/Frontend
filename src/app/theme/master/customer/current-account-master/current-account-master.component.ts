@@ -34,6 +34,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { data } from 'jquery';
 import { title } from 'process';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -267,7 +268,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     public sanitizer: DomSanitizer,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translate:TranslateService
+
+    ) {
+
+      this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -341,42 +347,42 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: ' BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Proprietor Name',
+          title: this.translate.instant('master.Customer.Proprietor_Name'),
           data: 'AC_PROPRITOR_NAME'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
       ],

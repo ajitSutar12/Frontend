@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Health Master</h5>
+                <h5>{{'master.Health_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Health_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Health_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +16,7 @@
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
                                         id="CODE" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="CODE" disabled>
-                                    <label for="CODE">Health Master Code</label>
+                                    <label for="CODE">{{'master.Health_Master.code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                         #autofocus required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="NAME">Description<sub class="required">* </sub></label>
+                                    <label for="NAME">{{'master.Health_Master.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -41,11 +41,11 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()" 
-                            [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                            [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Health_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                            (click)="addNewData()">Cancel</button>
+                            (click)="addNewData()">{{'master.Health_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()" 
-                            [disabled]="angForm.invalid">Update</button>&nbsp;
+                            [disabled]="angForm.invalid">{{'master.Health_Master.Update' | translate}}</button>&nbsp;
                             
                         </div>
                     </div>

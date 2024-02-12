@@ -194,6 +194,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   };
   newsContent: string;
 
+
   constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,
     private http: HttpClient) {
     this.animateSidebar = '';

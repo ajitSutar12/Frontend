@@ -20,6 +20,7 @@ import { environment } from '../../../../../../environments/environment';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { AllAccountDropdownService } from '../../../../../shared/dropdownService/all-account-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -102,7 +103,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     private _allAcc: AllAccountDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
 
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig, private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -157,22 +158,22 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Company Code',
+          title: this.translate.instant('master.Company_Group_Link_Master.Company_Code'),
           data: 'COMP_CODE'
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('master.Company_Group_Link_Master.Schema_Code'),
           data: 'CODE'
         },
         {
-          title: 'From Account',
+          title: this.translate.instant('master.Company_Group_Link_Master.From_Account'),
           data: 'FROM_AC'
         },
         {
-          title: 'To Account',
+          title: this.translate.instant('master.Company_Group_Link_Master.To_Account'),
           data: 'TO_AC'
         },
 

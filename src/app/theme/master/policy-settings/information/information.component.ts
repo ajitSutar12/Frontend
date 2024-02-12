@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+ 
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-information',
@@ -47,10 +49,11 @@ export class InformationComponent implements OnInit {
   riskCategoryTrue: boolean = false;
   bankotherdetailsTrue:boolean=false;
 
-  constructor(private_router: Router,private translate:TranslateService) {
-    
-     this.translate.setDefaultLang('ma')
+
+  constructor(private_router: Router,private translate:TranslateService){
+    this.translate.setDefaultLang(environment.setLang);
   }
+  
   ngOnInit(): void {
   }
 

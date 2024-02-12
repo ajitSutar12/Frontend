@@ -25,6 +25,7 @@ import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -186,7 +187,11 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translate:TranslateService
+    ) {
+  
+      this.translate.setDefaultLang(environment.setLang);
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -255,30 +260,30 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Agent Number',
+          title: this.translate.instant('master.Pigmy_Agent.Agent_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Pimgy Scheme',
+          title: this.translate.instant('master.Pigmy_Agent.Pigmi_Scheme'),
           data: 'PIGMY_ACTYPE'
         },
         {
-          title: 'Appontied On',
+          title: this.translate.instant('master.Customer.Appointed'),
           data: 'AC_OPDATE'
         },
       ],

@@ -3,9 +3,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Pigmy Agent Master</h5>
+                <h5>{{'master.Pigmy_Agent.T1'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}}
                 </h6>
             </div>
             <div class="card-block">
@@ -22,7 +22,7 @@
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">{{'master.Customer.SchemeF1'|translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -39,12 +39,12 @@
                                     <ng-select appTheme [(ngModel)]="id" id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         (change)="getCustomer($event.value)" style="width: 85%;" [virtualScroll]="true"
-                                        title="Compulsory Selection" required placeholder="Customer Id" #AC_CUSTID
+                                        title="Compulsory Selection" required placeholder="{{'master.Customer.Cust_Id'|translate}}" #AC_CUSTID
                                         (focus)="onFocus(AC_CUSTID   )" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_CUSTID">Customer ID<sub class="required"> * </sub></label>
+                                    <label for="AC_CUSTID">{{'master.Customer.Cust_Id'|translate}}<sub class="required"> * </sub></label>
                                     <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                         (click)="modalLarge.show()" placement="bottom"
                                         ngbTooltip="Add New Customer"></span>
@@ -60,7 +60,7 @@
                         </div>
                         <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
-                                <h4 class="modal-title">Customer ID </h4>
+                                <h4 class="modal-title">{{'master.Customer.Cust_Id'|translate}} </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="app-modal-footer">
                                 <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-                                    (click)="modalLarge.hide();onCloseModal();">Close</button>
+                                    (click)="modalLarge.hide();onCloseModal();">{{'master.Action.Close'|translate}}</button>
                             </div>
                         </app-modal-basic>
                         <div class="col-sm-1">
@@ -81,7 +81,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TITLE" class="form-control" placeholder=" "
                                         id="AC_TITLE" pattern="^[A-Za-z\./ -]+$" formControlName="AC_TITLE" disabled>
-                                    <label for="AC_TITLE">Title</label>
+                                    <label for="AC_TITLE">{{'master.Customer.Title'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                                         pattern="^[A-Za-z\./ -]+$" disabled formControlName="AC_NAME">
-                                    <label for="AC_NAME">Name</label>
+                                    <label for="AC_NAME">{{'master.Customer.Name'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANKACNO" class="form-control" placeholder=" "
                                         id="BANKACNO" formControlName="BANKACNO" disabled>
-                                    <label for="BANKACNO">Agent Number</label>
+                                    <label for="BANKACNO">{{'master.Pigmy_Agent.Agent_No'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                         <div class="col-12">
                             <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                                 <!-- Start of Details Tab forms -->
-                                <ngb-tab title="Details" id="Details">
+                                <ngb-tab title="{{'master.Pigmy_Agent.Detail'|translate}}" id="Details">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="card border-primary">
@@ -133,7 +133,7 @@
                                                                         (keydown.Tab)="AC_OPDATE.hide()"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         bsDatepicker>
-                                                                    <label for="AC_OPDATE">Appontied On<sub
+                                                                    <label for="AC_OPDATE">{{'master.Customer.Appointed'|translate}}<sub
                                                                             class="required">*
                                                                         </sub></label>
                                                                 </span>
@@ -153,7 +153,7 @@
                                                                     <input type="text" name="AC_CAST"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_CAST" formControlName="AC_CAST" disabled>
-                                                                    <label for="AC_CAST">Cast</label>
+                                                                    <label for="AC_CAST">{{'master.Customer.Cast'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -167,14 +167,14 @@
                                                                         [virtualScroll]="true"
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Scheme" #PIGMY_ACTYPE
+                                                                        required placeholder="{{'master.Customer.Scheme'|translate}}" #PIGMY_ACTYPE
                                                                         (focus)="onFocus(PIGMY_ACTYPE)"
                                                                         [selectOnTab]='true'>
                                                                         <ng-option *ngFor="let values of PGSchemeCode"
                                                                             [value]="values">
                                                                             {{values.label}} </ng-option>
                                                                     </ng-select>
-                                                                    <label for="PIGMY_ACTYPE">Scheme <sub
+                                                                    <label for="PIGMY_ACTYPE">{{'master.Customer.Scheme'|translate}} <sub
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
@@ -192,7 +192,7 @@
                                                     <div class="row">
                                                         <div class="col-sm">
                                                             <h6 style="text-align: center;font-size: 16px;">---------
-                                                                Permanent Address ---------</h6>
+                                                                {{'master.Customer.Per_Add'|translate}} ---------</h6>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -207,7 +207,7 @@
                                                                         id="AC_HONO" pattern="^[A-Za-z0-9\./ -]+$"
                                                                         maxlength="25" formControlName="AC_HONO"
                                                                         disabled />
-                                                                    <label for="AC_HONO">House</label>
+                                                                    <label for="AC_HONO">{{'master.Customer.House'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -218,7 +218,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_WARD" pattern="^[A-Za-z\./ -]+$"
                                                                         formControlName="AC_WARD" disabled>
-                                                                    <label for="AC_WARD">Ward</label>
+                                                                    <label for="AC_WARD">{{'master.Customer.Ward'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -229,7 +229,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_GALLI" pattern="^[A-Za-z0-9\./ -]+$"
                                                                         formControlName="AC_GALLI" disabled>
-                                                                    <label for="AC_GALLI">Galli</label>
+                                                                    <label for="AC_GALLI">{{'master.Customer.Galli'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -240,7 +240,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_AREA" pattern="^[A-Za-z\./ -]+$"
                                                                         formControlName="AC_AREA" disabled>
-                                                                    <label for="AC_AREA">Area</label>
+                                                                    <label for="AC_AREA">{{'master.Customer.Area'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -251,7 +251,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         pattern="^[A-Za-z0-9\./ -]+$" id="AC_ADDR"
                                                                         formControlName="AC_ADDR" disabled>
-                                                                    <label for="AC_ADDR">Detail</label>
+                                                                    <label for="AC_ADDR">{{'master.Customer.Detail'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -264,7 +264,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_CTCODE" pattern="^[A-Za-z\./ -]+$"
                                                                         formControlName="AC_CTCODE" disabled>
-                                                                    <label for="AC_CTCODE">City</label>
+                                                                    <label for="AC_CTCODE">{{'master.Customer.City'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -275,7 +275,7 @@
                                                                         class="form-control" placeholder=" " id="AC_PIN"
                                                                         pattern="^[0-9]+$" disabled
                                                                         formControlName="AC_PIN">
-                                                                    <label for="AC_PIN">Pin</label>
+                                                                    <label for="AC_PIN">{{'master.Customer.Pin_Code'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -293,8 +293,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_PHONE_RES" pattern="^[0-9]+$" disabled
                                                                         formControlName="AC_PHONE_RES">
-                                                                    <label for="AC_PHONE_RES">Residental
-                                                                        Number</label>
+                                                                    <label for="AC_PHONE_RES">{{'master.Customer.Residential'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -305,7 +304,7 @@
                                                                         placeholder=" " id="AC_PHONE_OFFICE"
                                                                         pattern="^[0-9]+$" disabled
                                                                         formControlName="AC_PHONE_OFFICE">
-                                                                    <label for="AC_PHONE_OFFICE">Office</label>
+                                                                    <label for="AC_PHONE_OFFICE">{{'master.Pigmy_Agent.Office'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -316,13 +315,13 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_MOBILENO" pattern="^[0-9]+$" disabled
                                                                         formControlName="AC_MOBILENO">
-                                                                    <label for="AC_MOBILENO">Mobile</label>
+                                                                    <label for="AC_MOBILENO">{{'master.Customer.Mobile'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2" style="float: right;margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('nominee')">Next
+                                                                (click)="switchNgBTab('nominee')">{{'master.Action.Next'|translate}}
                                                             </button>
                                                         </div>
                                                     </div>
@@ -333,7 +332,7 @@
                                 </ngb-tab>
                                 <!-- End of Details Tab forms -->
                                 <!-- Start of Introducer / Nominee Tab forms -->
-                                <ngb-tab title="Introducer / Nominee" id="nominee">
+                                <ngb-tab title="{{'master.Pigmy_Agent.Introducer_Nominee'|translate}}" id="nominee">
                                     <ng-template ngbTabContent>
                                         <div [@fadeInOutTranslate] class="m-t-15">
                                             <div class="card border-primary">
@@ -341,7 +340,7 @@
 
                                                     <div class="row">
                                                         <div class="col-sm">
-                                                            <h6><b style="color: dodgerblue;">INTRODUCER</b></h6>
+                                                            <h6><b style="color: dodgerblue;">{{'master.Customer.Int'|translate}}</b></h6>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -349,7 +348,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-2">
-                                                            <h6>Introducer</h6>
+                                                            <h6>{{'master.Pigmy_Agent.Int'|translate}}</h6>
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <div class="form-group form-primary form-static-label">
@@ -367,7 +366,7 @@
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="AC_INTROBRANCH">Branch</label>
+                                                                    <label for="AC_INTROBRANCH">{{'master.Customer.Branch'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -380,14 +379,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         (change)="getIntro($event)"
                                                                         [virtualScroll]="true"
-                                                                        placeholder="Account Type" #INTROID
+                                                                        placeholder="{{'master.Customer.Ac_Type'|translate}}" #INTROID
                                                                         (focus)="onFocus(INTROID)" [selectOnTab]='true'>
                                                                         <ng-option
                                                                             *ngFor="let values of SchemeCodeDropdownDropdown"
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="AC_INTROID">Account Type</label>
+                                                                    <label for="AC_INTROID">{{'master.Customer.Ac_Type'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -402,12 +401,12 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         (focus)="getIntroducer();onFocus(AC_INTRACNO)"
                                                                         [selectOnTab]='true'
-                                                                        placeholder="Account Number" #AC_INTRACNO>
+                                                                        placeholder="{{'master.Customer.Ac_No'|translate}}" #AC_INTRACNO>
                                                                         <ng-option *ngFor="let values of introducerACNo"
                                                                             [value]="values">
                                                                             {{values.label}} {{values.name}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="AC_INTRACNO">Account Number</label>
+                                                                    <label for="AC_INTRACNO">{{'master.Customer.Ac_No'|translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -421,7 +420,7 @@
                                                                         id="nomineeId" (click)="nominee($event)" />
                                                                     <label class="border-checkbox-label" for="nomineeId"
                                                                         [ngClass]="{ isActive: nomineeTrue }"><b
-                                                                            style="color: dodgerblue;">NOMINEE</b></label>
+                                                                            style="color: dodgerblue;">{{'master.Master_Shares_Holders.Nomi'|translate}}</b></label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -446,7 +445,7 @@
                                                                                         formControlName="AC_NNAME"
                                                                                         maxlength="100"
                                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)" />
-                                                                                    <label for="AC_NNAME">Name<sub
+                                                                                    <label for="AC_NNAME">{{'master.Customer.Name'|translate}}<sub
                                                                                             class="required">*
                                                                                         </sub></label>
                                                                                 </span>
@@ -483,7 +482,7 @@
                                                                                         maxlength="25"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         formControlName="AC_NRELA" />
-                                                                                    <label for="AC_NRELA">Relation<sub
+                                                                                    <label for="AC_NRELA">{{'master.Master_Shares_Holders.Relation'|translate}}<sub
                                                                                             class="required">*
                                                                                         </sub></label>
                                                                                 </span>
@@ -525,8 +524,7 @@
                                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                                         formControlName="AC_NDATE"
                                                                                         bsDatepicker>
-                                                                                    <label for="AC_NDATE">Nomination
-                                                                                        Date<sub class="required">*
+                                                                                    <label for="AC_NDATE">{{'master.Master_Shares_Holders.Nomination_Date'|translate}}<sub class="required">*
                                                                                         </sub></label>
                                                                                 </span>
                                                                             </div>
@@ -561,7 +559,7 @@
                                                                                         title="Input allowed only 0-9"
                                                                                         id="AGE"
                                                                                         formControlName="AGE" />
-                                                                                    <label for="AGE">Age</label>
+                                                                                    <label for="AGE">{{'master.Customer.Age'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -596,7 +594,7 @@
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                         formControlName="AC_NHONO" />
-                                                                                    <label for="AC_NHONO">House</label>
+                                                                                    <label for="AC_NHONO">{{'master.Customer.House'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -628,7 +626,7 @@
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         formControlName="AC_NWARD" />
-                                                                                    <label for="AC_NWARD">Ward</label>
+                                                                                    <label for="AC_NWARD">{{'master.Customer.Ward'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -662,7 +660,7 @@
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                         formControlName="AC_NGALLI" />
-                                                                                    <label for="AC_NGALLI">Galli</label>
+                                                                                    <label for="AC_NGALLI">{{'master.Customer.Galli'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -694,7 +692,7 @@
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         style="text-transform: capitalize;"
                                                                                         formControlName="AC_NAREA" />
-                                                                                    <label for="AC_NAREA">Area</label>
+                                                                                    <label for="AC_NAREA">{{'master.Customer.Area'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -726,7 +724,7 @@
                                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                         id="AC_NADDR"
                                                                                         formControlName="AC_NADDR" />
-                                                                                    <label for="AC_NADDR">Detail</label>
+                                                                                    <label for="AC_NADDR">{{'master.Customer.Detail'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -761,11 +759,11 @@
                                                                                         bindLabel="CITY_NAME"
                                                                                         formControlName="AC_NCTCODE"
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                                        placeholder="City" #CITY_NAME
+                                                                                        placeholder="{{'master.Customer.City'|translate}}" #CITY_NAME
                                                                                         (focus)="onFocus(CITY_NAME)"
                                                                                         [selectOnTab]='true'>
                                                                                     </ng-select>
-                                                                                    <label for="AC_NCTCODE">City<sub
+                                                                                    <label for="AC_NCTCODE">{{'master.Customer.City'|translate}}<sub
                                                                                             class="required"> *
                                                                                         </sub></label>
                                                                                 </span>
@@ -782,8 +780,7 @@
                                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                         title="Input allowed only  0-9"
                                                                                         formControlName="AC_NPIN" />
-                                                                                    <label for="AC_NPIN">Pin
-                                                                                        Code</label>
+                                                                                    <label for="AC_NPIN">{{'master.Customer.Pin_Code'|translate}}</label>
                                                                                 </span>
                                                                             </div>
                                                                             <div class="
@@ -813,12 +810,12 @@
                                                                             class="btn btn-outline-primary btn-sm  "
                                                                             *ngIf="nomineeShowButton"
                                                                             (click)="addNominee()">
-                                                                            Add Nominee
+                                                                            {{'master.Action.Add_nomi'|translate}}
                                                                         </button>
                                                                         <button class="btn btn-outline-primary btn-sm"
                                                                             (click)="updateNominee()"
                                                                             *ngIf="nomineeUpdateShow">
-                                                                            Update Nominee
+                                                                            {{'master.Action.Update_nomi'|translate}}
                                                                         </button>
 
                                                                     </div>
@@ -834,18 +831,18 @@
                     table table-striped table-bordered table-hover compact
                   ">
                                                                     <thead>
-                                                                        <td>Action</td>
-                                                                        <td>Name</td>
-                                                                        <td>Relation</td>
-                                                                        <td>Age</td>
-                                                                        <td>Nomination Date</td>
-                                                                        <td>House</td>
-                                                                        <td>Ward</td>
-                                                                        <td>Details</td>
-                                                                        <td>Galli</td>
-                                                                        <td>Area</td>
-                                                                        <td>City</td>
-                                                                        <td>Pin code</td>
+                                                                        <td>{{'master.Action.Action'|translate}}</td>
+                                                                        <td>{{'master.Customer.Name'|translate}}</td>
+                                                                        <td>{{'master.Customer.Relation'|translate}}</td>
+                                                                        <td>{{'master.Customer.Age'|translate}}</td>
+                                                                        <td>{{'master.Master_Shares_Holders.Nomination_Date'|translate}}</td>
+                                                                        <td>{{'master.Customer.House'|translate}}</td>
+                                                                        <td>{{'master.Customer.Ward'|translate}}</td>
+                                                                        <td>{{'master.Customer.Detail'|translate}}</td>
+                                                                        <td>{{'master.Customer.Galli'|translate}}</td>
+                                                                        <td>{{'master.Customer.Area'|translate}}</td>
+                                                                        <td>{{'master.Customer.City'|translate}}</td>
+                                                                        <td>{{'master.Customer.Pin_Code'|translate}}</td>
                                                                     </thead>
                                                                     <tbody *ngIf="multiNominee?.length != 0">
                                                                         <tr *ngFor="let data of multiNominee;
@@ -922,7 +919,7 @@
                                                                         <tr>
                                                                             <td colspan="12" class="no-data-available"
                                                                                 style="text-align: center;">
-                                                                                No data!
+                                                                                {{'master.Customer.No_Data'|translate}}
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -937,27 +934,27 @@
                                                                 class="btn btn-outline-primary btn-sm btn-submit"
                                                                 *ngIf="showButton" (click)="submit($event)"
                                                                 (keydown.Tab)="focus()" appTheme>
-                                                                Submit
+                                                                {{'master.Action.Submit'|translate}}
                                                             </button>
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="approveShow" (click)="closeModal()">
-                                                                Close</button>
+                                                                {{'master.Action.Close'|translate}}</button>
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="addNewData()" *ngIf="newbtnShow">
-                                                                Cancel
+                                                                {{'master.Action.Cancel'|translate}}
                                                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="updateData()" *ngIf="updateShow">
-                                                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                {{'master.Action.Update'|translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="rejectShow" (click)="reject()">
-                                                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                {{'master.Action.Reject'|translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="approveShow" (click)="Approve()">
-                                                                Approve</button>
+                                                                {{'master.Action.Approve'|translate}}</button>
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="unapproveShow" (click)="unApprove()">
-                                                                Unapprove</button>
+                                                                {{'master.Action.Unapprove'|translate}}</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1017,7 +1014,7 @@
                                 </tbody>
                                 <tbody *ngIf="pigmyAgentMaster?.length == 0">
                                     <tr>
-                                        <td colspan="7" class="no-data-available">No data!</td>
+                                        <td colspan="7" class="no-data-available">{{'master.Customer.No_Data'|translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

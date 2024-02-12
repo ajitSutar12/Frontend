@@ -31,6 +31,9 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
@@ -45,7 +48,14 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
 
   ],
   declarations: [PigmyAgentMasterComponent],
@@ -69,3 +79,6 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     DatePipe]
 })
 export class PigmyAgentMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

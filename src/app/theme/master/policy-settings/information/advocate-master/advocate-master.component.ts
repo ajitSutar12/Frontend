@@ -11,6 +11,7 @@ import { AdvocateService } from './advocate-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,7 @@ export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private http: HttpClient,
     private advocateService: AdvocateService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -125,14 +126,14 @@ export class AdvocateMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Advocate_Master.Action')
         },
         {
-          title: 'Advocate Code',
+          title: this.translate.instant('master.Advocate_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Advocate_Master.Description'),
           data: 'NAME'
         },
       ],

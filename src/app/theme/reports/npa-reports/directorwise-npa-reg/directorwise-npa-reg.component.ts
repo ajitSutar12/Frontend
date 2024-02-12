@@ -19,6 +19,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -74,7 +75,10 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       private directorMasterDropdown: DirectorMasterDropdownService,
       private sanitizer: DomSanitizer,
      
-    ) {
+      private translate:TranslateService
+      ) {
+      this.translate.setDefaultLang(environment.setLang)
+      
       this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();

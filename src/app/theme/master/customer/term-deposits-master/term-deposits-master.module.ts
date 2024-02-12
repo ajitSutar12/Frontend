@@ -32,6 +32,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -50,7 +53,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
 
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
 
   ],
   declarations: [TermDepositsMasterComponent],
@@ -79,3 +89,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ]
 })
 export class TermDepositsMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

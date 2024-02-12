@@ -39,6 +39,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
 import { data } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -276,7 +277,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     private _termDepositScheme: TermDepositSchemeService,
     private _InterestInstruction: InterestInstructionService,
     public sanitizer: DomSanitizer,
-  ) {
+    private translate:TranslateService
+
+    ) {
+
+      this.translate.setDefaultLang(environment.setLang);
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -344,74 +349,74 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         // {
         //   title: 'Scheme Type',
         //   data: 'AC_ACNOTYPE'
         // },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Deposite_Account_Master.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Deposite_Account_Master.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Deposite_Account_Master.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Deposite_Account_Master.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Deposite_Account_Master.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Deposite_Account_Master.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Deposite_Account_Master.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Birth Date',
+          title: this.translate.instant('master.Deposite_Account_Master.Birth_Date'),
           data: 'AC_MBDATE'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Deposite_Account_Master.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'As On Date',
+          title: this.translate.instant('master.Deposite_Account_Master.As_On_Date'),
           data: 'AC_ASON_DATE'
         },
         {
-          title: 'Maturity Date',
+          title: this.translate.instant('master.Deposite_Account_Master.Maturity_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt No.',
+          title: this.translate.instant('master.Deposite_Account_Master.Receipt_No'),
           data: 'AC_REF_RECEIPTNO'
         },
         {
-          title: 'Deposit Amount',
+          title: this.translate.instant('master.Deposite_Account_Master.Dep_Amount'),
           data: 'AC_SCHMAMT'
         },
         {
-          title: 'Maturity Amount',
+          title: this.translate.instant('master.Deposite_Account_Master.Maturity_Amount'),
           data: 'AC_MATUAMT'
         },
         {
-          title: 'Minor Details',
+          title: this.translate.instant('master.Deposite_Account_Master.Minor'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Signature Authority',
+          title: this.translate.instant('master.Deposite_Account_Master.Sign'),
           data: 'SIGNATURE_AUTHORITY'
         },
 

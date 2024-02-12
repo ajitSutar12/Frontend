@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -80,7 +81,9 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
     private lockerRackMasterService: LockerRackMasterService,
     private ownbranchMasterService: OwnbranchMasterService,
 
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private translate: TranslateService) { }
+
 
   ngOnInit(): void {
     this.createForm();
@@ -139,21 +142,21 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Rack Number',
+          title: this.translate.instant('master.Locker_Rack_Master.Rack_Number'),
           data: 'RACK_NO'
         }, {
-          title: 'Rack Description',
+          title: this.translate.instant('master.Locker_Rack_Master.Rack_Description'),
           data: 'RACK_DESC'
         },
         {
-          title: 'Lockers From',
+          title: this.translate.instant('master.Locker_Rack_Master.Lockers_From'),
           data: 'LOCKER_FROMNO'
         },
         {
-          title: 'Lockers to',
+          title: this.translate.instant('master.Locker_Rack_Master.Lockers_To'),
           data: 'LOCKER_TONO'
         }
       ],
