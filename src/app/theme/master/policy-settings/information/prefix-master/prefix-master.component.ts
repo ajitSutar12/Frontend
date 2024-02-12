@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 import { IOption } from 'ng-select';
 import { Subscription } from 'rxjs/Subscription';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -77,7 +78,8 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private prefixMasterService: PrefixMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -125,21 +127,21 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Prefix_Master.Action')
         },
         {
-          title: 'Serial No',
+          title: this.translate.instant('master.Prefix_Master.SNo'),
           data: 'SR_NO'
         }, {
-          title: 'Prefix',  
+          title:  this.translate.instant('master.Prefix_Master.Prefix'),
           data: 'PREFIX'
         },
         {
-          title: 'Prefix Regional',  
+          title:  this.translate.instant('master.Prefix_Master.Prefix_Regional'),  
           data: 'PREFIX_REG'
         },
         {
-          title: 'Sex',
+          title: this.translate.instant('master.Prefix_Master.sex'),
           data: 'SEX'
         }
       ],

@@ -4,11 +4,13 @@
 
 export const environment = {
   production: false,
-
+  // setLang : 'en',
+  setLang : 'ma',
   //Localhost
-  base_url: 'http://localhost:7276',
+  // base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
+  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
+  sitename : 'http://localhost:4200',
 
  //Jijamata Arjunwada
   // base_url: 'http://103.174.87.104:7274',
@@ -36,7 +38,7 @@ export const environment = {
   // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
 
   // //TESTSIDHANERLI 
-  // base_url: 'http://103.174.87.104:4771',  
+  base_url: 'http://103.174.87.104:4771',  
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 

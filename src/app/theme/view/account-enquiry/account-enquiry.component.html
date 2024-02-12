@@ -8,16 +8,16 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Account Enquiry</h5>
+                        <h5>{{'master.View_Ac_Enquiry.T1'|translate}}</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                            Fields marked with (<sub class="required"> * </sub>) are mandatory
+                            {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}} 
                         </h6>
                     </div>
                     <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                         <div class="card-block">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'master.View_Ac_Enquiry.Branch'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
@@ -27,7 +27,7 @@
                                                     bindLabel="label" [virtualScroll]="true"
                                                     title="Compulsory Selection" (change)="getBranch()" #BRANCH_CODE
                                                     (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
-                                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'master.View_Ac_Enquiry.Branch'|translate}}"
                                                     autofocus>
                                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                                         {{values.label}}</ng-option>
@@ -38,12 +38,12 @@
                                             *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-1"></div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'master.View_Ac_Enquiry.Scheme'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
@@ -53,7 +53,7 @@
                                                     [virtualScroll]="true" title="Compulsory Selection"
                                                     (change)="schemechange($event)" #AC_TYPE (focus)="onFocus(AC_TYPE)"
                                                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
-                                                    required placeholder="Scheme">
+                                                    required placeholder="{{'master.View_Ac_Enquiry.Scheme'|translate}}">
                                                     <ng-option *ngFor="let values of allScheme" [value]="values">
                                                         {{values.id}} {{values.label}} </ng-option>
                                                 </ng-select>
@@ -63,13 +63,13 @@
                                             *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">{{'master.View_Ac_Enquiry.Ac_No'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-10">
                                         <div class="form-group form-primary form-static-label">
@@ -79,7 +79,7 @@
                                                     [virtualScroll]="true"
                                                     (change)="getAccountDetails($event);getTransactionDetails()" #AC_NO
                                                     (focus)="onFocus(AC_NO)" [selectOnTab]='true'
-                                                    title="Compulsory Selection" required placeholder="Account No.">
+                                                    title="Compulsory Selection" required placeholder="{{'master.View_Ac_Enquiry.Ac_No'|translate}}">
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
                                                         <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
@@ -98,11 +98,11 @@
                                             *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="DATE">Date<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="DATE">{{'master.View_Ac_Enquiry.Date'|translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
@@ -124,38 +124,36 @@
                                             *ngIf="angForm.controls['DATE'].invalid && (angForm.controls['DATE'].dirty || angForm.controls['DATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['DATE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm col-md">
                                         <button class="btn btn-outline-primary btn-sm" (click)="getTransactionDetails()"
-                                            [disabled]="angForm.invalid">Refresh</button>
+                                            [disabled]="angForm.invalid">{{'master.View_Ac_Enquiry.Refresh'|translate}}</button>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3 col-md-3" *ngIf="freezeac">
-                                        <div><label style="color: #4374ca">Freeze
-                                                Status:{{freezStataus}}</label></div>
+                                        <div><label style="color: #4374ca">{{'master.View_Ac_Enquiry.Freeze_Status'|translate}}:{{freezStataus}}</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!freezeac"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!REBATE_INTRATE"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="REBATE_INTRATE">
-                                        <div><label style="color: #f378a3">Rebate Interest
-                                                Rate:
+                                        <div><label style="color: #f378a3">{{'master.View_Ac_Enquiry.Rebet_Interest'|translate}}:
                                                 {{REBATE_INTRATE}}</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length ==0"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length !=0">
-                                        <div><label style="color: #1e5bc5">Lien Account</label></div>
+                                        <div><label style="color: #1e5bc5">{{'master.View_Ac_Enquiry.Lien_Ac'|translate}}</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!dormantac"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="dormantac">
-                                        <div><label style="color: #1e5bc5">Dormant Account</label></div>
+                                        <div><label style="color: #1e5bc5">{{'master.View_Ac_Enquiry.Dormant_Ac'|translate}}</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="!acCloseDate"></div>
                                     <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="acCloseDate">
-                                        <div><label style="color: red; font-size: 13px;">Account Closed On:
+                                        <div><label style="color: red; font-size: 13px;">{{'master.View_Ac_Enquiry.Ac_Closed_On'|translate}}:
                                                 {{acCloseDate}}</label></div>
                                     </div>
                                 </div>
@@ -165,34 +163,34 @@
                                     <div class="col-sm" *ngIf="isOpeningDetails">
                                         <h5
                                             style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
-                                            Deposit Details</h5>
+                                            {{'master.View_Ac_Enquiry.Deposit_Detail'|translate}}</h5>
                                     </div>
                                     <div class="col-sm" *ngIf="isMemberDetails">
                                         <h5
                                             style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
-                                            Member Details</h5>
+                                            {{'master.View_Ac_Enquiry.Member_Detail'|translate}}</h5>
                                     </div>
                                     <div class="col-sm" *ngIf="isPigmyDetails">
                                         <h5
                                             style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
-                                            Pigmy Details</h5>
+                                            {{'master.View_Ac_Enquiry.Pigmy_Detail'|translate}}</h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Opening Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Open_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{opendate}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_BALDATE">
-                                        <span><label>Opening Balance Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Open_Bal_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_BALDATE"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountData?.AC_BALDATE}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_ASON_DATE">
-                                        <span><label>Ason Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.As_On_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_ASON_DATE"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountData?.AC_ASON_DATE}}</label></span>
@@ -200,8 +198,7 @@
                                     <div class="col-sm-2" *ngIf="!accountData?.AC_BALDATE"></div>
                                     <div class="col-sm-2" *ngIf="!accountData?.AC_ASON_DATE"></div>
                                     <div class="col-sm-2" *ngIf="overdraftAmt">
-                                        <span><label>Overdraft
-                                                Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Scheme'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="overdraftAmt"><span
                                             style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{overdraftAmt

@@ -11,6 +11,7 @@ import { LoanStageService } from './loan-stage-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,7 +74,7 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private loanstageService: LoanStageService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -120,14 +121,14 @@ export class LoanStageMasterComponent implements OnInit, AfterViewInit, OnDestro
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Loan_Stage_Master.Action')
         },
         {
-          title: 'Weaker Section Code',
+          title: this.translate.instant('master.Loan_Stage_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Loan_Stage_Master.Description'),
           data: 'NAME'
         },
       ],

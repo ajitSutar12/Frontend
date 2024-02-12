@@ -11,6 +11,7 @@ import { MinimumBalanceMasterService } from './minimum-balance-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -69,11 +70,10 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
   updateID: number = 0;
   //filter variable
   filterData = {};
-
   constructor(
     private http: HttpClient,
     private minimumBalanceMasterService: MinimumBalanceMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate:TranslateService) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -121,17 +121,17 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Minimum_Balance_Master.Action')
         },
         {
-          title: 'Balance Categary Code',
+          title: this.translate.instant('master.Minimum_Balance_Master.Balance_Categary_Code'),
           data: 'BC_CODE'
         }, {
-          title: 'Balance Categary Name',
+          title: this.translate.instant('master.Minimum_Balance_Master.Balance_Categaray_Name'),
           data: 'BC_NAME'
         },
         {
-          title: 'Minimum Balance',
+          title: this.translate.instant('master.Minimum_Balance_Master.Minimum_Balance'),
           data: 'BC_MINBAL'
         },
       ],

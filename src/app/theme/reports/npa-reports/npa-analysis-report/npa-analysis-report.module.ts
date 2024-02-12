@@ -7,7 +7,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
@@ -19,6 +19,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 import { NpaAnalysisReportComponent } from './npa-analysis-report.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 @NgModule({
@@ -35,10 +37,16 @@ import { NpaAnalysisReportComponent } from './npa-analysis-report.component';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
  
-    Iframe5Module
-  ],
-   
-  exports:[],
+    Iframe5Module,
+  
+  TranslateModule.forRoot({
+    loader:{
+      provide: TranslateLoader,
+      useFactory: HttpLoaderFactory,
+      deps:[HttpClient]
+    }
+  })
+],
   providers: [OwnbranchMasterService, 
     SchemeCodeDropdownService, 
     SchemeAccountNoService,TermDepositSchemeService,SystemMasterParametersService, SchemeCodeDropdownService, OwnbranchMasterService,RepayModeService,InstallmentMethodService,
@@ -52,3 +60,6 @@ import { NpaAnalysisReportComponent } from './npa-analysis-report.component';
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class NpaAnalysisReportModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

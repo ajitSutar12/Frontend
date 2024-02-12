@@ -29,6 +29,7 @@ import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -250,7 +251,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private systemParameter: SystemMasterParametersService,
     private directorMasterDropdown: DirectorMasterDropdownService,
     public sanitizer: DomSanitizer,
-    private datePipe: DatePipe,) {
+    private datePipe: DatePipe,
+    private translate:TranslateService
+    ) {
+      this.translate.setDefaultLang(environment.setLang)
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -320,61 +324,61 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Expiry Date',
+          title: this.translate.instant('master.Customer.Expiry_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Period',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Period'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Default Deposite Amount',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Default_Dep_Amount'),
           data: 'AC_SCHMAMT'
         },
         {
-          title: 'Agent Code',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Agent_Code'),
           data: 'AGENT_ACNO'
         }, {
-          title: 'Minor Details',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Minor_Details'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Loan_Against_Collection'),
           data: 'PG_COMM_TYPE'
         },
 

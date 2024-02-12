@@ -21,6 +21,7 @@ import { ReportFrameComponent } from "../../report-frame/report-frame.component"
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -79,7 +80,10 @@ export class NpaRegPercentageComponent implements OnInit {
       private sanitizer: DomSanitizer,
       private http: HttpClient,
      
-    ) {
+      private translate:TranslateService
+      ) {
+      this.translate.setDefaultLang(environment.setLang)
+      
       this.todate = moment().format('31/03/2024');
       this.fordate = new Date('31/03/2024');
       this.maxDate = new Date();

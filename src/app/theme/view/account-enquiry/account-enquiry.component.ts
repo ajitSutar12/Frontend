@@ -14,6 +14,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-enquiry',
@@ -129,7 +130,10 @@ export class AccountEnquiryComponent implements OnInit {
     private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private ownbranchMasterService: OwnbranchMasterService,) {
+    private ownbranchMasterService: OwnbranchMasterService,
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang)
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       // this.maxDate = this.maxDate.subtract(1, "days");

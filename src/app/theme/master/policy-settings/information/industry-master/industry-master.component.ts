@@ -11,6 +11,7 @@ import { IndustryService } from './industry-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,7 @@ export class IndustryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private http: HttpClient,
     private industryService: IndustryService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -123,14 +124,14 @@ export class IndustryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Industry_Master.Action')
         },
         {
-          title: 'Industry Code',
+          title: this.translate.instant('master.Industry_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Industry_Master.Description'),
           data: 'NAME'
         },
       ],

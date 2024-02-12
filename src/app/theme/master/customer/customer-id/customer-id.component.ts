@@ -36,6 +36,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from "@ngx-translate/core";
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -220,8 +221,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public router: Router,
     public sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
+    // private language:LanguageService
+    private translate:TranslateService
 
   ) {
+    this.translate.setDefaultLang(environment.setLang);
+
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -300,55 +305,55 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: " Customer ID",
+          title: this.translate.instant('master.Customer_Id.Customer_id'),
           data: "AC_NO",
         },
         {
-          title: "Member Number",
+          title: this.translate.instant('master.Customer_Id.Member_Number'),
           data: "AC_MEMBNO",
         },
         {
-          title: "Member Scheme",
+          title: this.translate.instant('master.Customer_Id.Member_Scheme'),
           data: "AC_MEMBTYPE",
         },
 
         {
-          title: "Full Name",
+          title: this.translate.instant('master.Customer_Id.Full_Name'),
           data: "AC_NAME",
         },
         {
-          title: "Cast",
+          title: this.translate.instant('master.Customer_Id.cast'),
           data: "AC_CAST",
         },
         {
-          title: "Occupation",
+          title: this.translate.instant('master.Customer_Id.Occupation'),
           data: "AC_OCODE",
         },
         {
-          title: "Risk Category",
+          title: this.translate.instant('master.Customer_Id.Risk_Category'),
           data: "AC_RISKCATG",
         },
         {
-          title: "Adhar Card Number",
+          title: this.translate.instant('master.Customer_Id.Ad_No'),
           data: "AC_ADHARNO",
         },
         {
-          title: "PAN Number",
+          title: this.translate.instant('master.Customer_Id.Pan_No'),
           data: "AC_PANNO",
         },
         {
-          title: "Birth Date",
+          title: this.translate.instant('master.Customer_Id.Birth_Date'),
           data: "AC_BIRTH_DT",
         },
         {
-          title: "Mobile Number",
+          title: this.translate.instant('master.Customer_Id.Mobile_Number'),
           data: "AC_MOBILENO",
         },
         {
-          title: "Email ID",
+          title: this.translate.instant('master.Customer_Id.Eml'),
           data: "AC_EMAILID",
         },
       ],

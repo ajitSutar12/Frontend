@@ -18,6 +18,7 @@ import { first } from "rxjs/operators";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-pigmy-balance-book',
@@ -82,7 +83,10 @@ export class BnkPigmyBalanceBookComponent implements OnInit {
     public SchemeTypes: SchemeTypeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) { 
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private translate:TranslateService
+      ) {
+      this.translate.setDefaultLang(environment.setLang)
       this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
