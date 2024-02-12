@@ -6,7 +6,7 @@ import { InterestCalculationComponent } from './interest-calculation.component';
 import { InterestCalculationRoutingModule } from './interest-calculation-routing.module';
 import {DataTablesModule} from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -15,6 +15,8 @@ import { InterestPostingFlagUpdationService } from 'src/app/theme/master/maintai
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { CurrentSchemeService } from './interest-calculation.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -25,7 +27,15 @@ import { CurrentSchemeService } from './interest-calculation.service';
     ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [InterestCalculationComponent],
   providers:[SystemMasterParametersService,OwnbranchMasterService,SchemeCodeDropdownService,CurrentSchemeService,InterestPostingFlagUpdationService,SchemeAccountNoService,{
@@ -35,3 +45,6 @@ import { CurrentSchemeService } from './interest-calculation.service';
   },]
 })
 export class InterestCalculationModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

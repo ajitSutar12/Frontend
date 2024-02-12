@@ -15,6 +15,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -123,7 +124,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     private pigmyAcSchemeService: PigmyAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -175,28 +176,28 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
         },
         {
-          title: 'Type'
+          title: this.translate.instant('Utility.Utility1.Type'),
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Utility1.Description'),
         },
         {
-          title: 'Short Name',
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
         },
         {
-          title: 'GL Account Number',
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
         },
         {
-          title: 'Interest GL Account',
+          title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
         },
         {
-          title: 'Payable Interest Account',
+          title: this.translate.instant('Utility.Utility1.Payable'),
         },
         // {
         //   title: 'Is Interest Applicable? ',

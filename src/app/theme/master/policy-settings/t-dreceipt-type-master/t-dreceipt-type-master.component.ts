@@ -15,6 +15,7 @@ import { TdReceiptService } from '../../../../shared/dropdownService/tdReceipt-t
 import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -74,7 +75,9 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
 
   constructor(private fb: FormBuilder, private _receipt: TDReceiptService,
     private http: HttpClient,
-    private _tdReceiptService: TdReceiptService,) { }
+    private _tdReceiptService: TdReceiptService,private translate:TranslateService) {
+      this.translate.setDefaultLang('ma')
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -129,15 +132,15 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
         defaultContent: ""
       }],
       columns: [
-        // {
-        //   title: 'Action',
-        // },
         {
-          title: 'Receipt Type',
+          title: this.translate.instant('master.Action.Action'),
+        },
+        {
+          title: this.translate.instant('master.TD_Receipt_Type_Master.Receipt_Type'),
           data: 'RECEIPT_TYPE'
         },
         {
-          title: 'Last Receipt No',
+          title: this.translate.instant('master.TD_Receipt_Type_Master.last_Receipt_No'),
           data: 'LAST_RECEIPT_NO'
         }
       ],
@@ -342,4 +345,8 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   onFocus(ele: NgSelectComponent) {
     ele.open()
   }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
+  }
+
 }

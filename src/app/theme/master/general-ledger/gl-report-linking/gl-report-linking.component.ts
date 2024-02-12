@@ -10,6 +10,7 @@ import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-maste
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 // import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 class DataTableResponse {
   data: any[];
@@ -89,9 +90,9 @@ export class GlReportLinkingComponent implements OnInit {
     private reportTypeDropdown: ReportTMasterDropdownService,
     // private schemeAccountNoService: SchemeAccountNoService,
     private glLinkingMasterService: GlAccountsMasterService,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService
 
-  ) {
+  ) {this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -149,14 +150,14 @@ export class GlReportLinkingComponent implements OnInit {
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Sr No',
+          title: this.translate.instant('master.GL_Report_Linking.sr_no'),
           data: 'SR_NO'
         },
         {
-          title: 'General Ledger Account No',
+         title: this.translate.instant('master.GL_Report_Linking.GL_Account'),
           data: 'AC_NO'
         },
         // {
@@ -164,15 +165,15 @@ export class GlReportLinkingComponent implements OnInit {
         //   data: 'AC_NAME'
         // },
         {
-          title: 'Effect From Date',
+          title: this.translate.instant('master.GL_Report_Linking.Effect_From_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Effect To Date',
+          title: this.translate.instant('master.GL_Report_Linking.Effect_To_Date'),
           data: 'EFFECT_TO_DATE'
         },
         {
-          title: 'Head Code',
+          title: this.translate.instant('master.GL_Report_Linking.Code_Type'),
           data: 'CODE_TYPE'
         },
         // {
@@ -289,5 +290,8 @@ export class GlReportLinkingComponent implements OnInit {
   //reset form
   resetForm() {
     this.createForm()
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

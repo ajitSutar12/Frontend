@@ -63,11 +63,13 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { WeeklyHolidayService } from '../../../shared/dropdownService/weekly-holiday.service';
 import { IntrestCalculationMethodService } from '../../../shared/dropdownService/intrest-calculation-method-dropdown.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TransactionInputGlHeadSettingModule } from './transaction-input-gl-head-setting/transaction-input-gl-head-setting.module'
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from '../../theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -82,7 +84,15 @@ import { ThemeModule } from '../../theme.module';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   providers: [SelectOptionService,
     OwnbranchMasterService,
@@ -126,3 +136,6 @@ import { ThemeModule } from '../../theme.module';
     SchemeParametersComponent, SystemMasterParametersComponent, RecoverySequenceComponent, SchemeTypeSettingComponent, ChequeCollectionInputHeadComponent, OtherBanksDepositSchemeComponent, LockersSchemeComponent, GeneralLedgerSchemeComponent, GeneralSubAcSchemeComponent, SharesSchemeComponent, SavingSchemeComponent, CurrentSchemeComponent, TermDepositSchemeComponent, CashCreditSchemeComponent, TermLoanSchemeComponent, DisputLoanSchemeComponent, PigmyAcSchemeComponent, PigmyAgentSchemeComponent, PayrollSettingsComponent, SmsSettingsComponent]
 })
 export class SchemeParametersModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

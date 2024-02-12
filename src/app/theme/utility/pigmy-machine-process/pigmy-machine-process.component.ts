@@ -13,6 +13,7 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -77,7 +78,7 @@ export class PigmyMachineProcessComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private http: HttpClient,) { }
+    private http: HttpClient,private translate:TranslateService) { this.translate.setDefaultLang(environment.setLang);}
 
   ngOnInit(): void {
     this.createForm()
@@ -262,4 +263,7 @@ export class PigmyMachineProcessComponent implements OnInit {
     var xurl = "http://localhost:5000/receive?" + 'data=' + JSON.stringify(obj);
     window.open(xurl)  
   } 
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
+  }
 }

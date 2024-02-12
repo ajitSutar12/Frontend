@@ -1,3 +1,5 @@
+
+
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { MenuItems } from '../../shared/menu-items/menu-items';
@@ -20,6 +22,8 @@ import { HttpClient } from '@angular/common/http';
         })
       ),
       state('an-animate',
+
+      
         style({
           overflow: 'visible',
           height: AUTO_STYLE,

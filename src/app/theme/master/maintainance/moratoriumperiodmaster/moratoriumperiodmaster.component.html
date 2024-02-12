@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Moratorium Period Master</h5>
+                <h5>{{'master.Moratorium_Period_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'master.Moratorium_Period_Master.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
-                                        placeholder="Branch">
+                                        placeholder="{{'master.Moratorium_Period_Master.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Transaction Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">{{'master.Moratorium_Period_Master.Transaction_Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -43,14 +43,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'master.Moratorium_Period_Master.Schema' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="id" [(ngModel)]="schemeedit"
                                         (change)="schemechange($event)" formControlName="AC_TYPE" bindLabel="label"
-                                        title="Compulsory Selection" required placeholder="Scheme">
+                                        title="Compulsory Selection" required placeholder="{{'master.Moratorium_Period_Master.Schema' | translate}}">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                                     </ng-select>
@@ -65,14 +65,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">{{'master.Moratorium_Period_Master.Account_Number' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
                                         (change)="Accountnochange($event)" formControlName="AC_NO" bindLabel="label"
-                                        title="Compulsory Selection" required placeholder="Account No.">
+                                        title="Compulsory Selection" required placeholder="{{'master.Moratorium_Period_Master.Account_Number' | translate}}">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Installment Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">{{'master.Moratorium_Period_Master.Installment_Number' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="PERIOD">Moratorium Period(in months)</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="PERIOD">{{'master.Moratorium_Period_Master.Moratorium_Period' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_RESO_DATE">Resolution Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_RESO_DATE">{{'master.Moratorium_Period_Master.Resolution_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_RESO_NO">Resolution Number</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_RESO_NO">{{'master.Moratorium_Period_Master.Resolution_Number' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -182,11 +182,11 @@
                         <div class="col-sm">
 
                             <button class="btn btn-outline-primary btn-sm" style="float: right;"
-                                (click)="submit($event)" *ngIf="showButton">Submit</button>
+                                (click)="submit($event)" *ngIf="showButton">{{'master.Action.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow">Update</button> &nbsp;
+                                *ngIf="updateShow">{{'master.Action.Update' | translate}}</button> &nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">{{'master.Action.Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
                                 </tbody>
                                 <tbody *ngIf="moratoriumperiodmaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">
