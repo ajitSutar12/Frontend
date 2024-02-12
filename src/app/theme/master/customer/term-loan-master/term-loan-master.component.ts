@@ -881,6 +881,129 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   //Method for append data into fields  
   tempbankacno
+  // editClickHandler(id, status) {
+  //   this.switchNgBTab('Basic')
+  //   this.angForm.controls['AC_TYPE'].disable()
+  //   let date
+  //   let opdate
+  //   let redate
+  //   let sanctiondate
+  //   let expirydate
+  //   let resodate
+  //   // let ngexpiry
+  //   this.columnShowButton = true
+
+  //   this.termLoanService.getFormData(id).subscribe(data => {
+  //     this.tempbankacno = data.BANKACNO
+  //     this.accountedit = data.BANKACNO
+  //     this.updatecheckdata = data
+  //     if (data.SYSCHNG_LOGIN != null && data.status == 0) {
+  //       this.unapproveShow = true
+  //       this.showButton = false;
+  //       this.updateShow = false;
+  //       this.newbtnShow = true;
+  //       this.approveShow = false;
+  //       this.rejectShow = false;
+  //     }
+  //     else if (data.SYSCHNG_LOGIN == null && data.status == 0) {
+  //       this.unapproveShow = false
+  //       this.showButton = false;
+  //       this.updateShow = true;
+  //       this.newbtnShow = true;
+  //       this.approveShow = false;
+  //       this.rejectShow = false
+  //     }
+  //     else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
+  //       this.unapproveShow = false
+  //       this.showButton = false;
+  //       this.updateShow = false;//temporary change vasim 01022024
+  //       this.newbtnShow = true;
+  //       this.approveShow = true; 
+  //       this.rejectShow = true;
+  //     }
+  //     else {
+  //       this.approveShow = false;
+  //       this.rejectShow = false;
+  //       this.unapproveShow = false 
+  //       this.showButton = false; 
+  //       this.updateShow = false; 
+  //       this.newbtnShow = true; 
+  //     }
+  //     this.updateID = data.id;
+  //     this.getCustomer(data.AC_CUSTID)
+  //     this.multiSecurity = data.securityMaster
+  //     this.multiSecurity.forEach(ele => {
+  //       let findSecurity = this.security.find(ob => ob['value'] === Number(ele.SECURITY_CODE))
+  //       ele['SECU_NAME'] = findSecurity.name
+  //     })
+  //     this.multiCoBorrower = data.CoborrowerMaster
+  //     this.multiGuarantor = data.guaranterMaster
+  //     this.int_category = Number(data.AC_INTCATA)
+  //     this.sanctionAutho = Number(data.AC_AUTHORITY)
+  //     this.recomBy = Number(data.AC_RECOMMEND_BY)
+  //     this.recovery = Number(data.AC_RECOVERY_CLERK)
+  //     this.idp = Number(data.AC_PRIORITY)
+  //     this.weakerSec = Number(data.AC_WEAKER)
+  //     this.ngpurpose = Number(data.AC_PURPOSE)
+  //     this.ngindustry = Number(data.AC_INDUSTRY)
+  //     this.nghealth = Number(data.AC_HEALTH)
+  //     this.ngAccountType = data.AC_RELATION_TYPE
+  //     if (this.ngAccountType == 'Director') {
+  //       this.angForm.controls['AC_DIRECTOR'].enable()
+  //       this.ngdirectorType = Number(data.AC_DIRECTOR)
+  //       this.angForm.controls['AC_DIRECTOR_RELATION'].disable()
+  //       this.angForm.controls['AC_DIRECTOR_RELATION'].reset()
+  //     }
+  //     else if (this.ngAccountType == 'DirectorsRelative') {
+  //       this.angForm.controls['AC_DIRECTOR'].enable()
+  //       this.ngdirectorType = Number(data.AC_DIRECTOR)
+  //       this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
+  //     }
+  //     else {
+  //       this.angForm.controls['AC_DIRECTOR'].disable()
+  //       this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
+  //       this.angForm.controls['AC_DIRECTOR'].reset()
+  //       this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
+  //     }
+  //     this.sanctionAmt = Number(data.AC_SANCTION_AMOUNT).toFixed(2)
+  //     this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
+  //       this.drawingPower = Number(data.AC_DRAWPOWER_AMT).toFixed(2)
+  //     // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
+  //     this.intRate = data.AC_INTRATE
+  //     this.repay = data.AC_REPAYMODE
+  //     this.installmentType = data.INSTALLMENT_METHOD
+  //     this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
+  //       this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
+  //       this.renewDate = (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE,
+  //       this.angForm.patchValue({
+  //         AC_TYPE: data.AC_TYPE,
+  //         'BANKACNO': data.BANKACNO,
+  //         AC_NO: data.AC_NO,
+  //         AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+  //         AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
+  //         AC_IS_RECOVERY: data.AC_IS_RECOVERY,
+  //         IS_AGGRI_LOAN: (data.IS_AGGRI_LOAN == '1' ? true : false),
+  //         REF_ACNO: data.REF_ACNO,
+  //         AC_MONTHS: data.AC_MONTHS,
+  //         AC_DAYS: data.AC_DAYS,
+  //         AC_INSTALLMENT: data.AC_INSTALLMENT,
+  //         AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
+  //         AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
+  //         IS_WEAKER: data.IS_WEAKER,
+  //         AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
+  //         AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
+  //         AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
+  //         AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
+  //         AC_COREG_NO: data.AC_COREG_NO,
+  //         AC_REMARK: data.AC_REMARK,
+  //         AC_COREG_AMT: data.AC_COREG_AMT,
+  //         AC_RESO_NO: data.AC_RESO_NO,
+  //       })
+  //   })
+  // }
+
+  // Method For New Button
+  
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
@@ -894,6 +1017,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.columnShowButton = true
 
     this.termLoanService.getFormData(id).subscribe(data => {
+      this.createForm()
       this.tempbankacno = data.BANKACNO
       this.accountedit = data.BANKACNO
       this.updatecheckdata = data
@@ -905,13 +1029,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null && data.status == 0) {
+      else if (data.SYSCHNG_LOGIN == null && status == 0) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = false;
-        this.rejectShow = false
+        this.rejectShow = false;
       }
       else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
@@ -971,6 +1095,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
       this.intRate = data.AC_INTRATE
       this.repay = data.AC_REPAYMODE
+      // expirydate= data.AC_EXPIRE_DATE
       this.installmentType = data.INSTALLMENT_METHOD
       this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
         this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
@@ -1001,8 +1126,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         })
     })
   }
-
-  // Method For New Button
+  
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
