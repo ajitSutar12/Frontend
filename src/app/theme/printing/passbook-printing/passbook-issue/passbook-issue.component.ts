@@ -16,6 +16,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-passbook-issue',
@@ -61,12 +62,14 @@ export class PassbookIssueComponent implements OnInit {
   obj: any[];
   startAcNo: any[];
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService, private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private sanitizer: DomSanitizer) {
+      this.translate.setDefaultLang(environment.setLang);
       this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

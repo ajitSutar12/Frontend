@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { DividendTransferPostingService } from './dividend-transfer-posting.service'
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-dividend-transfer-posting',
   templateUrl: './dividend-transfer-posting.component.html',
@@ -62,8 +63,10 @@ export class DividendTransferPostingComponent implements OnInit {
   };
   warrentDate: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private config: NgSelectConfig, private _service: DividendTransferPostingService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) { }
+  constructor( private translate:TranslateService,private fb: FormBuilder, private http: HttpClient, private config: NgSelectConfig, private _service: DividendTransferPostingService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
+      this.translate.setDefaultLang(environment.setLang);
+     }
 
   ngOnInit(): void {
     this.createForm();

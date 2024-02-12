@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { DomSanitizer } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -56,13 +57,15 @@ export class BnkPayIntListComponent implements OnInit {
       value : 'PG'
     }]
 
-  constructor(    private fb: FormBuilder,
+  constructor(  
+    private translate:TranslateService,  private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
     private sanitizer: DomSanitizer,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
     ) { 
+      this.translate.setDefaultLang(environment.setLang);
       this.date = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
     this.minDate = new Date();

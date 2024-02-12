@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { TermLoanMasterComponent } from '../../../master/customer/term-loan-master/term-loan-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -87,7 +88,9 @@ export class MasterLoanComponent implements OnInit,AfterViewInit {
   // Store data from backend
   termLoanMaster: TermLoanMaster[];
   loanData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
 
   ngOnInit(): void {
@@ -147,78 +150,78 @@ export class MasterLoanComponent implements OnInit,AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('Passing.Action.Customer_ID'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('Passing.Action.Name'), 
           data: 'AC_NAME'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Renewal Date',
+          title: this.translate.instant('Passing.Action.Renewal_Date'),
           data: 'AC_OPEN_OLD_DATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('Passing.Action.Manual_Reference_Number'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail',
+          title:  this.translate.instant('Passing.Action.Detail'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('Passing.Action.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Sanction Date',
+          title: this.translate.instant('Passing.Action.Sanction_Date'),
           data: 'AC_SANCTION_DATE'
         },
         {
-          title: 'Period',
+          title: this.translate.instant('Passing.Action.Period'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Expiry Date',
+          title: this.translate.instant('Passing.Action.Expiry_Date'),
           data: 'AC_EXPIRE_DATE'
         },
         {
-          title: 'Sanction Limit',
+          title: this.translate.instant('Passing.Action.Sanction_Limit'),
           data: 'AC_SANCTION_AMOUNT'
         },
         {
-          title: 'Drawing Power',
+          title: this.translate.instant('Passing.Action.Drawing_Power'),
           data: 'AC_DRAWPOWER_AMT'
         },
         {
-          title: 'Interest Rate',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_INTRATE'
         },
         {
-          title: 'Installment',
+          title: this.translate.instant('Passing.Action.Installment'),
           data: 'AC_INSTALLMENT'
         },
         {
-          title: 'Sanction Authority',
+          title: this.translate.instant('Passing.Action.Sanction_Authority'),
           data: 'AC_AUTHORITY'
         },
         {
-          title: 'Purpose',
+          title: this.translate.instant('Passing.Action.Purpose'),
           data: 'AC_PURPOSE'
         }
       ],

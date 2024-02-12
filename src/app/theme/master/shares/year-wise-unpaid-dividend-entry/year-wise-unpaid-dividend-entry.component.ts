@@ -19,6 +19,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import * as moment from 'moment';
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { Console } from "console";
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -131,15 +132,18 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   multiDividend = []
   mem: any
   totalAmt : Number = 0
-
+ 
   constructor(
+    private translate:TranslateService,
     private http: HttpClient,
     private YearwiseunpaidService: YearwiseunpaidService,
     private fb: FormBuilder,
     private SalaryDMasterdropdownService: SalaryDMasterdropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-  ) { }
+  ) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   ngOnInit(): void {
     this.createForm();

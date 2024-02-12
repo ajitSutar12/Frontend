@@ -22,6 +22,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { data } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data 
 class DataTableResponse {
@@ -107,6 +108,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
   StatementCodeDropdown: any;
   intrestCategoryMaster: any;
   constructor(
+    private translate:TranslateService,
     // for dropdown
     public SchemeTypes: SchemeTypeDropdownService,
     public displayToViewService: DisplayToViewService,
@@ -164,24 +166,24 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         }, {
-          title: 'Sr. No',
+          title: this.translate.instant('master.Manager_View_GL_Postion.Sr_No'),
           data: 'SR_NO'
         }, {
-          title: '  Type  ',
+          title: this.translate.instant('master.Manager_View_GL_Postion.Type'),
           data: 'TYPE'
         }, {
-          title: 'Statement Code',
+          title: this.translate.instant('master.Manager_View_GL_Postion.Statement_Code'),
           data: 'STATEMENT_CODE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Manager_View_GL_Postion.Description'),
           data: 'DESCRIPTION'
         }, {
-          title: '% to W capital',
+          title: this.translate.instant('master.Manager_View_GL_Postion.%_to_w_capital'),
           data: 'PERCENTAGE_TO_WORKING_CAPITAL'
         }, {
-          title: 'Display To View',
+          title: this.translate.instant('master.Manager_View_GL_Postion.Display_t_view'),
           data: 'IS_DISPLAY'
         },
 

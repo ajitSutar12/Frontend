@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DeadStockMasterComponent } from '../../../master/customer/dead-stock-master/dead-stock-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -54,7 +55,9 @@ export class MasterDeadStockComponent implements OnInit ,AfterViewInit{
   // Store data from backend
   customerMaster: deadstockinterface[];
   deadstockData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
@@ -145,47 +148,47 @@ export class MasterDeadStockComponent implements OnInit ,AfterViewInit{
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: "Item Code",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Item_Code'),
           data: "ITEM_CODE",
         },
         {
-          title: "Item Name",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Item_Name'),
           data: "ITEM_NAME",
         },
         {
-          title: "SupplierName",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Supplier_Name'),
           data: "SUPPLIER_NAME",
         },
         {
-          title: "Purchase Date",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Purchase_Date'),
           data: "PURCHASE_DATE",
         },
         {
-          title: "Depreciation Category",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Depreciation_Category'),
           data: "DEPR_CATEGORY",
         },
         {
-          title: "Purchase Quantity",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Purchase_Quantity'),
           data: "PURCHASE_QUANTITY",
         },
         {
-          title: "Purchase Rate",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Purchase_Rate'),
           data: "PURCHASE_RATE",
         },
 
         {
-          title: "Purchase Value",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Purchase_Value'),
           data: "PURCHASE_VALUE",
         },
         {
-          title: "Last Depreciation Date",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Last_Depreciation_Date'),
           data: "LAST_DEPR_DATE",
         },
         {
-          title: "GL Account Number",
+          title: this.translate.instant('Passing.Master_Dead_Stock.Gl_Acc_Num'),
           data: "GL_ACNO",
         },
       ],

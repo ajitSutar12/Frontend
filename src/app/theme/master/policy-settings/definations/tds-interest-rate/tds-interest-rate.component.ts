@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -81,6 +82,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   minDate: Date;
 
   constructor(
+    private translate:TranslateService,
     private http: HttpClient,
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
@@ -145,21 +147,21 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         }, {
-          title: 'Financial Year',
+          title: this.translate.instant('master.TDS_Interest_Rate.Financial_Year'),
           data: 'FIN_YEAR'
         }, {
-          title: 'Effect Date',
+          title: this.translate.instant('master.TDS_Interest_Rate.Effective_Date'),
           data: 'EFFECT_DATE'
         }, {
-          title: 'Interest Amount',
+          title: this.translate.instant('master.TDS_Interest_Rate.Interest_Amount'),
           data: 'INTEREST_AMOUNT'
         }, {
-          title: 'TDS Rate',
+          title: this.translate.instant('master.TDS_Interest_Rate.TDS_Rate'),
           data: 'TDS_RATE'
         }, {
-          title: 'Surchrge Rate',
+          title: this.translate.instant('master.TDS_Interest_Rate.Surcharge_Rate'),
           data: 'SURCHARGE_RATE'
         },
       ],

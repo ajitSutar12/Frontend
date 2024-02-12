@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { PigmyAgentMasterComponent } from '../../../master/customer/pigmy-agent-master/pigmy-agent-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -60,7 +61,9 @@ export class MasterPigmyAgentComponent implements OnInit, AfterViewInit {
   // Store data from backend
   pigmyAgentMaster: PigmyAgentMaster[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) { 
+    this.translate.setDefaultLang(environment.setLang);
+  }
   pigmyAgentData: any = {};
 
   ngOnInit(): void {
@@ -119,30 +122,30 @@ export class MasterPigmyAgentComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Agent Number',
+          title: this.translate.instant('Passing.Pigmy_Agent.Agent_Number'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('Passing.Action.Customer_ID'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('Passing.Action.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Pimgy Scheme',
+          title: this.translate.instant('Passing.Pigmy_Agent.Pigmy_Scheme'),
           data: 'PIGMY_ACTYPE'
         },
         {
-          title: 'Appontied On',
+          title: this.translate.instant('Passing.Pigmy_Agent.Appontied_On'),
           data: 'AC_OPDATE'
         },
       ],

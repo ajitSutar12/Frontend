@@ -16,6 +16,7 @@ import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import{DeadstockmasterService} from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
 import { first } from 'rxjs/operators';
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -70,6 +71,7 @@ newcustid: any = null;
   branchName: any;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
@@ -79,6 +81,7 @@ newcustid: any = null;
     private deadstockmasterService:DeadstockmasterService,
     private systemParameter:SystemMasterParametersService,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

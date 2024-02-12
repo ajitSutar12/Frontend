@@ -29,6 +29,7 @@ import { catchError, map } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateService } from "@ngx-translate/core";
 
 // Handling datatable data
 class DataTableResponse {
@@ -118,6 +119,7 @@ export class DividendCalculationComponent implements OnInit {
   ngBranch
   tablelist
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     public SchemeCodeService: SchemeCodeService,
     public BranchService: BranchService,
@@ -132,6 +134,7 @@ export class DividendCalculationComponent implements OnInit {
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
 
+      this.translate.setDefaultLang(environment.setLang);
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate, this.minDate = this.maxDate._d
 

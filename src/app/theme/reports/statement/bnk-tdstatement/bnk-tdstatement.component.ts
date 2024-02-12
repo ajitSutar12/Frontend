@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { HttpClient } from "@angular/common/http";
+import { TranslateService } from "@ngx-translate/core";
 
 
 
@@ -62,6 +63,7 @@ export class BnkTDStatementComponent implements OnInit{
   fromdate: moment.Moment;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
@@ -71,6 +73,7 @@ export class BnkTDStatementComponent implements OnInit{
     private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.endingdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

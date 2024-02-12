@@ -15,6 +15,7 @@ import { DividendPostingService } from './dividend-posting.service'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { date } from 'ngx-custom-validators/src/app/date/validator';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -85,11 +86,13 @@ export class DividendPostingComponent implements OnInit {
   private dataSub: Subscription = null;
 
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private http: HttpClient,
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
     private _service: DividendPostingService,
     private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
+      this.translate.setDefaultLang(environment.setLang);
   }
 
   ngOnInit(): void {

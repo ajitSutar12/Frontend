@@ -9,6 +9,9 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import{IframeModule} from '../iframe/iframe.module'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 @NgModule({
@@ -21,7 +24,15 @@ import{IframeModule} from '../iframe/iframe.module'
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    IframeModule
+    IframeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
+  
 
   ],
   providers:[OwnbranchMasterService,
@@ -29,3 +40,8 @@ import{IframeModule} from '../iframe/iframe.module'
     SystemMasterParametersService]
 })
 export class ShortBalListModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+
+

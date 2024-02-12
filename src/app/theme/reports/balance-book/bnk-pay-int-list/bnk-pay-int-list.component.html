@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Payable Interest List</h5>
+                <h5>{{'Reports.Payable_I_rate.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Reports.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Reports.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card">
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch <sub
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">{{'Reports.Action.Branch' | translate}} <sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
@@ -34,14 +34,14 @@
                             </div>
 
 
-                            <div class="col-sm-12 col-md-2"> <label for="Scheme Code">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="Scheme Code">{{'Reports.Action.Scheme_Code' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="schemeCode" placeholder="Scheme Code">
+                                            [(ngModel)]="schemeCode" placeholder="{{'Reports.Action.Scheme_Code' | translate}}">
                                             <ng-option *ngFor="let values of dropdowndata" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -58,7 +58,7 @@
 
                             </div>
 
-                            <div class="col-sm-12 col-md-1"> <label for="Form Date">Date<sub
+                            <div class="col-sm-12 col-md-1"> <label for="Form Date">{{'Reports.Action.Date' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -104,10 +104,10 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">{{'Reports.Action.View' | translate}}</button>
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'Reports.Action.Close' | translate}}</button>
                             </div>
                         </div>
 
@@ -115,7 +115,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>{{'Reports.Action.Report_Frame' | translate}}</h5>
                                     </div>
                                     <div *ngIf="showRepo">
                                         <app-iframe [url]='iframeurl'></app-iframe>

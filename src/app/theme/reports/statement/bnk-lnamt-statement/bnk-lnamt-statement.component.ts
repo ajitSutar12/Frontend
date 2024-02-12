@@ -14,6 +14,7 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-lnamt-statement',
@@ -59,6 +60,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   bankacno: any;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
@@ -73,6 +75,7 @@ export class BnkLNamtStatementComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.translate.setDefaultLang(environment.setLang);
   }
 
   ngOnInit(): void {

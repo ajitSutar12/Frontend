@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { deepValueGetter } from '@swimlane/ngx-datatable';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -65,6 +66,7 @@ export class BnkGlAcStatementComponent implements OnInit {
   bsValue = new Date();
   branchName: any;
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
@@ -74,6 +76,7 @@ export class BnkGlAcStatementComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

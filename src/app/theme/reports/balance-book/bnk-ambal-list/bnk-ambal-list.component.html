@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Amountwise Balance List</h5>
+                <h5>{{'Reports.Amount_Wise_B_L.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Reports.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'Reports.Action.F2' | translate}}
                 </h6>
             </div>
             <form [formGroup]="angForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"><label for="BRANCH_CODE">{{'Reports.Action.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -33,7 +33,7 @@
                         </div>
 
 
-                        <div class="col-md-2"> <label for="SCHEME_CODE">Scheme Code<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="SCHEME_CODE">{{'Reports.Action.Scheme_Code' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"><label for="AC_TYPE">Range Starting Code<sub class="required"> *
+                        <div class="col-md-2"><label for="AC_TYPE">{{'Reports.Action.Range_Starting_Code' | translate}}<sub class="required"> *
                                 </sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC_NO">Range Ending Code<sub class="required">
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC_NO">{{'Reports.Action.Range_Ending_Code' | translate}}<sub class="required">
                                     *
                                 </sub></label></div>
                         <div class="col-sm-2">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">{{'Reports.Action.Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
@@ -129,21 +129,21 @@
                                     <label>
                                         <input type="radio" name="radio" value="none" formControlName="radio"
                                             [checked]="true">
-                                        <i class="helper"></i>Within Range</label>
+                                        <i class="helper"></i>{{'Reports.Amount_Wise_B_L.Within_range' | translate}}</label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio" value="blank line" formControlName="radio">
-                                        <i class="helper"></i>Less than</label>
+                                        <i class="helper"></i>{{'Reports.Amount_Wise_B_L.Less_than' | translate}}</label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio" value="dash line" formControlName="radio">
-                                        <i class="helper"></i>Greater than</label>
+                                        <i class="helper"></i>{{'Reports.Amount_Wise_B_L.Greter_than' | translate}}</label>
                                 </div>
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -164,8 +164,8 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="Print Closed Accounts"
                                         formControlName="Print_Closed_Accounts">
-                                    <label class="border-checkbox-label" for="Print Closed Accounts">Print City Name
-                                        ?</label>
+                                    <label class="border-checkbox-label" for="Print Closed Accounts">{{'Reports.Amount_Wise_B_L.Print_City_Name' | translate}}
+                                        </label>
                                 </div>
                             </div>
                         </div>
@@ -175,11 +175,11 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">{{'Reports.Action.View' | translate}}</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"
-                                (click)="close()">Close</button>
+                                (click)="close()">{{'Reports.Action.Close' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -187,7 +187,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>{{'Reports.Action.Report_Frame' | translate}}</h5>
                                         <div *ngIf="showRepo">
 
                                             <app-iframe [url]='iframeurl' (load)="onLoad()"></app-iframe>

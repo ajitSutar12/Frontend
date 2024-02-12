@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Dead Stock Transaction</h5>
+                <h5>{{'Passing.Dead_Stock_Transaction.Title' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="row">
@@ -50,7 +50,7 @@
                                                 </tbody>
                                                 <tbody *ngIf="deadStockTransactionData?.length == 0">
                                                     <tr>
-                                                        <td colspan="7" class="no-data-available">No data!</td>
+                                                        <td colspan="7" class="no-data-available">{{'Passing.Action.No_Data' | translate}}</td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot #filters class="filters">
@@ -83,7 +83,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Dead Stock Transaction</h4>
+        <h4 class="modal-title">{{'Passing.Dead_Stock_Transaction.Title' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -96,6 +96,6 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide" (click)="modalLarge.hide();"
-            hidden>Close</button>
+            hidden>{{'Passing.Action.Close' | translate}}</button>
     </div>
 </app-modal-basic>

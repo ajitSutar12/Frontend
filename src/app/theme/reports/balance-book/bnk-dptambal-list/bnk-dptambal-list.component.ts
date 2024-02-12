@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { DeadstockmasterService } from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-dptambal-list',
@@ -44,6 +45,7 @@ export class BnkDptambalListComponent implements OnInit {
   formSubmitted = false;
 
   constructor( private fb: FormBuilder,
+    private translate:TranslateService,
      private config: NgSelectConfig,
      private systemParameter:SystemMasterParametersService,
      private _ownbranchmasterservice: OwnbranchMasterService,
@@ -54,6 +56,7 @@ export class BnkDptambalListComponent implements OnInit {
 
      private sanitizer: DomSanitizer,
      ) {
+      this.translate.setDefaultLang(environment.setLang);
       this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();

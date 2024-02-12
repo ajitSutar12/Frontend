@@ -3,16 +3,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Dividend Posting</h5>
+                <h5>{{'master.Dividend_Posting.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()"
                 #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'master.Dividend_Posting.Scheme_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -20,7 +20,7 @@
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
-                                        required placeholder="Scheme Code" (change)="changes()">
+                                        required placeholder="{{'master.Dividend_Posting.Scheme_Code' | translate}}" (change)="changes()">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-3"> <label for="WARRENT_DATE">Dividend Warrent Date<sub
+                        <div class="col-sm-12 col-md-3"> <label for="WARRENT_DATE">{{'master.Dividend_Posting.Dividend_Warrant_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -44,7 +44,7 @@
                                         bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
                                         formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
                                         title="Compulsory Selection" #WARRENT_DATE (focus)="onFocus(WARRENT_DATE)"
-                                        [selectOnTab]='true' [virtualScroll]="true" required placeholder="Warrent Date"
+                                        [selectOnTab]='true' [virtualScroll]="true" required placeholder="{{'master.Dividend_Posting.Dividend_Warrant_Date' | translate}}"
                                         (change)="getWarrentDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
                                             <span> {{values.WARRENT_DATE}}</span><span class="boarder">
@@ -89,9 +89,9 @@
                         <div class="col-sm-1">
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
                                 *ngIf="showButton" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                appTheme>Post</button>
+                                appTheme>{{'master.Dividend_Posting.Post' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                                *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>
                         </div>
                     </div>
                 </div>

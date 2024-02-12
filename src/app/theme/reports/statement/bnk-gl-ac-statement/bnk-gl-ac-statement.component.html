@@ -2,23 +2,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>General Account Statement</h5>
+                <h5>{{'Reports.General_Acc_Statement.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Reports.Action.F1' | translate}} (<sub class="required"> * </sub>){{'Reports.Action.F2' | translate}}
                 </h6>
             </div>
 
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="BRANCH">Branch<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="BRANCH">{{'Reports.Action.Branch' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH" bindLabel="label"
-                                        (change)="getBranch($event);getBranch1()" placeholder="Branch">
+                                        (change)="getBranch($event);getBranch1()" placeholder="{{'Reports.Action.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -32,14 +32,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub class="required">*
+                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">{{'Reports.Action.Scheme_Code' | translate}}<sub class="required">*
                                 </sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        (change)="getIntro($event)" placeholder="Scheme Code" required>
+                                        (change)="getIntro($event)" placeholder="{{'Reports.Action.Scheme_Code' | translate}}" required>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -61,14 +61,14 @@
 
                     <div class="row">
 
-                        <div class="col-sm-12 col-md-1"><label for="Starting Account">Account No.<sub class="required">*
+                        <div class="col-sm-12 col-md-1"><label for="Starting Account">{{'Reports.Action.Account_No' | translate}}<sub class="required">*
                                 </sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        required placeholder="Starting Account">
+                                        required placeholder="   {{'Reports.Action.Starting_Account' | translate}}">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -84,7 +84,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="START_DATE">Start Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for="START_DATE">{{'Reports.Action.Starting_Date' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
@@ -108,7 +108,7 @@
 
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">{{'Reports.Action.Ending_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -152,11 +152,11 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                [disabled]="clicked" (click)="View($event); clicked = true  ">View</button>
+                                [disabled]="clicked" (click)="View($event); clicked = true  ">{{'Reports.Action.View' | translate}}</button>
 
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'Reports.Action.Close' | translate}}</button>
                         </div>
                     </div>
 
@@ -164,7 +164,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'Reports.Action.Report_Frame' | translate}}</h5>
                                 </div>
 
                                 <div *ngIf="showRepo">

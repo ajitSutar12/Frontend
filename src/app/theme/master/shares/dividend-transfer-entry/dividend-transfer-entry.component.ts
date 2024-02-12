@@ -12,6 +12,8 @@ import { first } from 'rxjs/operators';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/shares-master.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dividend-transfer-entry',
@@ -59,7 +61,9 @@ export class DividendTransferEntryComponent implements OnInit {
     private _schemeAccountNoService: SchemeAccountNoService,
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private _ownbranchMasterService: OwnbranchMasterService,
-    private _shareMasterService: ShareMasterService) {
+    private _shareMasterService: ShareMasterService,
+    private translate:TranslateService,) {
+      this.translate.setDefaultLang(environment.setLang);
 
 
   }

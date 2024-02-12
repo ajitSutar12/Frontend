@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { TermDepositsMasterComponent } from '../../../master/customer/term-deposits-master/term-deposits-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -80,7 +81,9 @@ export class MasterDepositsComponent implements OnInit, AfterViewInit {
   // Store data from backend
   termDepositMaster: TermDepositMaster[];
   termDepositData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient, private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
 
   ngOnInit(): void {
@@ -173,74 +176,74 @@ export class MasterDepositsComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         // {
         //   title: 'Scheme Type',
         //   data: 'AC_ACNOTYPE'
         // },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('Passing.Action.Customer_ID'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('Passing.Action.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('Passing.Action.Detail_Address'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('Passing.Action.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('Passing.Action.Manual_Reference_Number'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Birth Date',
+          title: this.translate.instant('Passing.Action.Birth_Date'),
           data: 'AC_MBDATE'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'As On Date',
+          title: this.translate.instant('Passing.Master_Deposits.As_On_Date'),
           data: 'AC_ASON_DATE'
         },
         {
-          title: 'Maturity Date',
+          title: this.translate.instant('Passing.Master_Deposits.Maturity_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt No.',
+          title: this.translate.instant('Passing.Master_Deposits.Receipt_No'),
           data: 'AC_REF_RECEIPTNO'
         },
         {
-          title: 'Deposit Amount',
+          title: this.translate.instant('Passing.Master_Deposits.Deposit_Amount'),
           data: 'AC_SCHMAMT'
         },
         {
-          title: 'Maturity Amount',
+          title: this.translate.instant('Passing.Master_Deposits.Maturity_Amount'),
           data: 'AC_MATUAMT'
         },
         {
-          title: 'Minor Details',
+          title: this.translate.instant('Passing.Master_Deposits.Minor_Details'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Signature Authority',
+          title: this.translate.instant('Passing.Master_Deposits.Signature_Authority'),
           data: 'SIGNATURE_AUTHORITY'
         },
 

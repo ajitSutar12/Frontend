@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
 import { DeadstockmasterService } from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-ambal-list',
@@ -45,6 +46,7 @@ export class BnkAmbalListComponent implements OnInit {
   formSubmitted = false;
 
   constructor( private fb: FormBuilder,
+    private translate:TranslateService,
      private config: NgSelectConfig,
      private systemParameter:SystemMasterParametersService,
      private _ownbranchmasterservice: OwnbranchMasterService,
@@ -55,6 +57,7 @@ export class BnkAmbalListComponent implements OnInit {
 
      private sanitizer: DomSanitizer,
      ) {
+      this.translate.setDefaultLang(environment.setLang);
       this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();

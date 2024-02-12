@@ -4,8 +4,10 @@ import { CommonModule } from '@angular/common';
 import { SharesComponent } from './shares.component';
 import { SharesRoutingModule } from './shares-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 
@@ -14,7 +16,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   imports: [
     CommonModule,
     SharesRoutingModule,
-    SharedModule
+    SharedModule,
+
   ],
   declarations: [SharesComponent],
   providers:[{
@@ -24,3 +27,4 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   },]
 })
 export class SharesModule { }
+

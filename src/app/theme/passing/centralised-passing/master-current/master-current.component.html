@@ -21,7 +21,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Master Current</h5>
+                <h5>{{'Passing.Master_Current.Title' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="row">
@@ -82,7 +82,7 @@
                                                 <tbody *ngIf="currentAccountMaster?.length == 0">
                                                     <tr>
                                                         <td colspan="9" class="no-data-available"
-                                                            style="text-align: center;">No data!
+                                                            style="text-align: center;">{{'Passing.Action.No_Data' | translate}}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -119,7 +119,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Current Master</h4>
+        <h4 class="modal-title">{{'Passing.Master_Current.Title' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -132,6 +132,6 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
-            (click)="modalLarge.hide();" hidden>Close</button>
+            (click)="modalLarge.hide();" hidden>{{'Passing.Action.Close' | translate}}</button>
     </div>
 </app-modal-basic>
