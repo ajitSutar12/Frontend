@@ -11,8 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { GlAccountsMasterService } from './gl-accounts-master.service'
 import { StatementCodeDropdownService } from '../../../../shared/dropdownService/statement-code-dropdown.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +25,15 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     NgbModule,
     NgSelectModule,
 
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [GlAccountsMasterComponent],
   providers: [GlAccountsMasterService, StatementCodeDropdownService,
@@ -34,3 +44,6 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     },]
 })
 export class GlAccountsMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

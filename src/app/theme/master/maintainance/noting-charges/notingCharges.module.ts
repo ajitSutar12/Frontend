@@ -6,7 +6,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
@@ -14,6 +14,8 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
 import { NotingChargesService } from './noting-charges.service'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +27,15 @@ import { NotingChargesService } from './noting-charges.service'
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [NotingChargesComponent],
   providers: [SystemMasterParametersService, OwnbranchMasterService, SchemeAccountNoService, ACMasterDropdownService, NotingChargesService, {
@@ -35,3 +45,6 @@ import { NotingChargesService } from './noting-charges.service'
   },]
 })
 export class NotingChargesModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

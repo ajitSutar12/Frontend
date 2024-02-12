@@ -11,6 +11,7 @@ import { InsuranceMasterService } from './insurance-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,7 +74,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private insuranceMasterService: InsuranceMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -126,13 +127,13 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Insurance_Master.Action')
         },
         {
-          title: 'Insurance code',
+          title: this.translate.instant('master.Insurance_Master.Insurance Code'),
           data: 'CODE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Insurance_Master.Description'),
           data: 'NAME'
         },
       ],

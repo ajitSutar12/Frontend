@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dividend-post',
@@ -8,37 +10,37 @@ import { Component, OnInit } from '@angular/core';
 export class DividendPostComponent implements OnInit {
   dtExportButtonOptions : any = {};
 
-  constructor() { }
+  constructor(private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
       ajax: 'fake-data/datatable-data.json',
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-        title: 'Name',
-        data: 'name'
-      }, {
-        title: 'Position',
-        data: 'position'
-      }, {
-        title: 'Office',
-        data: 'office'
-      }, {
-        title: 'Age',
-        data: 'age'
-      }, {
-        title: 'Start Date',
-        data: 'date'
-      }, {
-        title: 'Salary',
-        data: 'salary'
-      }],
+          title: this.translate.instant('Utility.Dividend_List_print_posting.Name'),
+          data: 'name'
+        }, {
+          title: this.translate.instant('Utility.Dividend_List_print_posting.position'),
+          data: 'position'
+        }, {
+          title: this.translate.instant('Utility.Dividend_List_print_posting.Office'),
+          data: 'office'
+        }, {
+          title: this.translate.instant('Utility.Dividend_List_print_posting.Age'),
+          data: 'age'
+        }, {
+          title: this.translate.instant('Utility.Dividend_List_print_posting.Start_Date'),
+          data: 'date'
+        }, {
+          title: this.translate.instant('Utility.Dividend_List_print_posting.Salary'),
+          data: 'salary'
+        }],
       dom: "Blrtip",
       buttons: [
         'copy',
@@ -47,6 +49,9 @@ export class DividendPostComponent implements OnInit {
         'csv'
       ]
     };
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

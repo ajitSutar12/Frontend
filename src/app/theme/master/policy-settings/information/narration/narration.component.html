@@ -3,8 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h5>{{'master.Naration_Master.Narration' | translate}} </h5>
+
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Naration_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Naration_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,7 +18,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" #autofocus placeholder=" "
                                         id="label-name" required="" 
                                         formControlName="NARRATION">
-                                    <label for="label-name">Narration<sub class="required">* </sub></label>
+                                    <label for="label-name">{{'master.Naration_Master.Narration' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -33,14 +34,14 @@
 
                         <div class="col-sm" *ngIf="showButton">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Naration_Master.Submit' | translate}}</button>
 
                         </div>
                         <div class="col-sm" style="float: left;" *ngIf="updateShow">
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                [disabled]="angForm.invalid" [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid" [disabled]="angForm.invalid">{{'master.Naration_Master.Update' | translate}}</button>&nbsp;
 
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()">{{'master.Naration_Master.Cancel' | translate}}</button>
                         </div>
 
                     </div> 

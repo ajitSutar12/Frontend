@@ -664,8 +664,8 @@ const MENUITEMS1 = [
           //   name: 'Cashier',
           //   id: 104
           // },
-         
-          
+
+
           {
             state: 'goldsilverreturnentry',
             name: 'Gold/Silver Return Entry',
@@ -902,7 +902,32 @@ const MENUITEMS1 = [
         type: 'sub',
         icon: 'icon-home',
         id: 347,
-        children: [ 
+        children: [
+          {
+            state: 'voucherPrint',
+            name: 'Voucher Printing',
+            id: 110,
+
+          },
+          {
+            state: 'termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
+            // short_label: 'D',
+            // type: 'sub',
+            id: 108,
+            // children: [
+            //   {
+            //     state: 'depositReceiptPrint',
+            //     name: 'Deposit Receipt Print',
+            //     id: 109
+            //   },
+            // ]
+          },
+          {
+            state: 'goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
+            id: 344
+          },
           {
             state: 'passbookPrinting',
             name: 'Passbook Printing',
@@ -921,32 +946,7 @@ const MENUITEMS1 = [
                 id: 107
               }
             ]
-          },
-          {
-            state: 'termDepositReceiptPrinting',
-            name: 'Term Deposit Receipt Printing',
-            // short_label: 'D',
-            // type: 'sub',
-            id: 108,
-            // children: [
-            //   {
-            //     state: 'depositReceiptPrint',
-            //     name: 'Deposit Receipt Print',
-            //     id: 109
-            //   },
-            // ]
-          },
-          {
-            state: 'voucherPrint',
-            name: 'Voucher Printing',
-            id: 110,
-
-          },
-          {
-            state: 'goldSilverReceipt',
-            name: 'Gold/Silver Receipt Print',
-            id: 344
-          },
+          }
         ]
       },
       {
@@ -1819,7 +1819,7 @@ const MENUITEMS1 = [
         icon: 'icon-home',
         id: 293,
         children: [
-        
+
           // {
           //   state: 'backDatedDO',
           //   name: 'Back Dated Day Open',
@@ -1830,7 +1830,7 @@ const MENUITEMS1 = [
           //   name: 'Receipt Printing Designing',
           //   id: 300
           // },
-          
+
           {
             state: 'interestPosting',
             name: 'Interest Posting',
@@ -1856,7 +1856,7 @@ const MENUITEMS1 = [
               },
             ]
           },
-          
+
           {
             state: 'pigmyMachineProcess',
             name: 'Pigmy Machine Process',
@@ -1902,7 +1902,7 @@ const MENUITEMS1 = [
             id: 313
           },
 
-          
+
           {
             state: 'roleDefination',
             name: 'Role Defination',
@@ -1963,7 +1963,7 @@ const MENUITEMS1 = [
           //   name: 'Remind Me',
           //   id: 326
           // },
-         
+
           {
             state: 'pataSevaSupportR',
             name: 'PataSeva Support Register',
@@ -2039,26 +2039,26 @@ const MENUITEMS1 = [
               },
             ]
           },
-         
+
           {
             state: 'holiday',
             name: 'Holiday',
             id: 301
           },
-         
-        
+
+
           {
             state: 'processACM',
             name: 'Process And Calculation Menu',
             id: 306
           },
-         
+
           {
             state: 'deadStockP',
             name: 'Dead Stock Process',
             id: 309
           },
-                {
+          {
             state: 'dataBackup',
             name: 'Data Backup',
             id: 327
@@ -3420,8 +3420,8 @@ const MENUITEMS = [
           //   name: 'Cashier',
           //   id: 104
           // },
-         
-          
+
+
           {
             state: 'goldsilverreturnentry',
             name: 'Gold/Silver Return Entry',
@@ -3658,7 +3658,32 @@ const MENUITEMS = [
         type: 'sub',
         icon: 'icon-home',
         id: 347,
-        children: [ 
+        children: [
+          {
+            state: 'voucherPrint',
+            name: 'Voucher Printing',
+            id: 110,
+
+          },
+          {
+            state: 'termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
+            // short_label: 'D',
+            // type: 'sub',
+            id: 108,
+            // children: [
+            //   {
+            //     state: 'depositReceiptPrint',
+            //     name: 'Deposit Receipt Print',
+            //     id: 109
+            //   },
+            // ]
+          },
+          {
+            state: 'goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
+            id: 344
+          },
           {
             state: 'passbookPrinting',
             name: 'Passbook Printing',
@@ -3677,32 +3702,7 @@ const MENUITEMS = [
                 id: 107
               }
             ]
-          },
-          {
-            state: 'termDepositReceiptPrinting',
-            name: 'Term Deposit Receipt Printing',
-            // short_label: 'D',
-            // type: 'sub',
-            id: 108,
-            // children: [
-            //   {
-            //     state: 'depositReceiptPrint',
-            //     name: 'Deposit Receipt Print',
-            //     id: 109
-            //   },
-            // ]
-          },
-          {
-            state: 'voucherPrint',
-            name: 'Voucher Printing',
-            id: 110,
-
-          },
-          {
-            state: 'goldSilverReceipt',
-            name: 'Gold/Silver Receipt Print',
-            id: 344
-          },
+          }
         ]
       },
       {
@@ -4575,7 +4575,7 @@ const MENUITEMS = [
         icon: 'icon-home',
         id: 293,
         children: [
-        
+
           // {
           //   state: 'backDatedDO',
           //   name: 'Back Dated Day Open',
@@ -4586,7 +4586,7 @@ const MENUITEMS = [
           //   name: 'Receipt Printing Designing',
           //   id: 300
           // },
-          
+
           {
             state: 'interestPosting',
             name: 'Interest Posting',
@@ -4612,7 +4612,7 @@ const MENUITEMS = [
               },
             ]
           },
-          
+
           {
             state: 'pigmyMachineProcess',
             name: 'Pigmy Machine Process',
@@ -4658,7 +4658,7 @@ const MENUITEMS = [
             id: 313
           },
 
-          
+
           {
             state: 'roleDefination',
             name: 'Role Defination',
@@ -4719,7 +4719,7 @@ const MENUITEMS = [
           //   name: 'Remind Me',
           //   id: 326
           // },
-         
+
           {
             state: 'pataSevaSupportR',
             name: 'PataSeva Support Register',
@@ -4795,26 +4795,26 @@ const MENUITEMS = [
               },
             ]
           },
-         
+
           {
             state: 'holiday',
             name: 'Holiday',
             id: 301
           },
-         
-        
+
+
           {
             state: 'processACM',
             name: 'Process And Calculation Menu',
             id: 306
           },
-         
+
           {
             state: 'deadStockP',
             name: 'Dead Stock Process',
             id: 309
           },
-                {
+          {
             state: 'dataBackup',
             name: 'Data Backup',
             id: 327

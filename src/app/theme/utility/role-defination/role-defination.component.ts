@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MenuItems } from '../../../shared/menu-items/menu-items'
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-role-defination',
   templateUrl: './role-defination.component.html',
@@ -57,7 +59,7 @@ export class RoleDefinationComponent implements OnInit {
   ROLE: any;
   RoleResult: any;
   public checkedItems: any[] = [];
-  constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,) {
+  constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -294,5 +296,8 @@ export class RoleDefinationComponent implements OnInit {
     this.angForm = this.fb.group({
       ROLE: ['', [Validators.required]]
     });
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

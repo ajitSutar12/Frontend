@@ -242,7 +242,7 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
     this.ngForm.controls.Scheme_acc.reset();
     this.ngForm.controls.START_DATE.reset();
     this.ngForm.controls.END_DATE.reset();
-    this.ngForm.controls.radio.reset();
+    // this.ngForm.controls.radio.reset();
     this.showRepo = false;
     this.clicked = false;
   }

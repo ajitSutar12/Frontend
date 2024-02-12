@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+ 
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -47,6 +48,7 @@ export class InformationComponent implements OnInit {
   subsalarydivisionTrue: boolean = false;
   riskCategoryTrue: boolean = false;
   bankotherdetailsTrue:boolean=false;
+
 
   constructor(private_router: Router,private translate:TranslateService){
     this.translate.setDefaultLang(environment.setLang);
@@ -1536,6 +1538,9 @@ export class InformationComponent implements OnInit {
       this.riskCategoryTrue = false;
       this.bankotherdetailsTrue=true;
     }
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

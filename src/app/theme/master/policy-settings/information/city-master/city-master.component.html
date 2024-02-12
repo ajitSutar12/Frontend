@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>City Master</h5>
+                <h5>{{'master.City_Master.City_Master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.City_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.City_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="CITY_CODE" class="form-control" placeholder=" " maxlength="4"
                                         id="label-name" disabled  pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="CITY_CODE">
-                                    <label for="label-name">City Code</label>
+                                    <label for="label-name">{{'master.City_Master.City_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
-                                    <label for="CityName">City Name<sub class="required">* </sub></label>
+                                    <label for="CityName">{{'master.City_Master.City_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CITY_NAME'].invalid && (angForm.controls['CITY_NAME'].dirty || angForm.controls['CITY_NAME'].touched)" class="alert alert-danger">
@@ -42,7 +42,7 @@
                                     <input style="text-align: right;" type="text" name="DISTANCE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         id="Distance" pattern="^[0-9.]+$" title="Input allowed only  0-9" formControlName="DISTANCE">
-                                    <label for="Distance">Distance from Branch(in km)</label>
+                                    <label for="Distance">{{'master.City_Master.Distance_from_Branch(in Km)' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DISTANCE'].invalid && (angForm.controls['DISTANCE'].dirty || angForm.controls['DISTANCE'].touched)" class="alert alert-danger">
@@ -60,7 +60,7 @@
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="TalukaCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         [ngClass]="{'form-submitted': formSubmitted}"  formControlName="TALUKA_CODE">
-                                    <label for="TalukaCode">Taluka Code<sub class="required">* </sub></label>
+                                    <label for="TalukaCode">{{'master.City_Master.Taluka_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TALUKA_CODE'].invalid && (angForm.controls['TALUKA_CODE'].dirty || angForm.controls['TALUKA_CODE'].touched)" class="alert alert-danger">
@@ -76,7 +76,7 @@
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="DistrictCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
-                                    <label for="DistrictCode">District Code<sub class="required">* </sub></label>
+                                    <label for="DistrictCode">{{'master.City_Master.District_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DISTRICT_CODE'].invalid && (angForm.controls['DISTRICT_CODE'].dirty || angForm.controls['DISTRICT_CODE'].touched)" class="alert alert-danger">
@@ -92,7 +92,7 @@
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         id="StateCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="STATE_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
-                                    <label for="StateCode">State Code<sub class="required">* </sub></label>
+                                    <label for="StateCode">{{'master.City_Master.State_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['STATE_CODE'].invalid && (angForm.controls['STATE_CODE'].dirty || angForm.controls['STATE_CODE'].touched)" class="alert alert-danger">
@@ -111,7 +111,7 @@
                                         id="Region" required=""  pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="REGION_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
-                                    <label for="Region">Region<sub class="required">* </sub></label>
+                                    <label for="Region">{{'master.City_Master.Region' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REGION_CODE'].invalid && (angForm.controls['REGION_CODE'].dirty || angForm.controls['REGION_CODE'].touched)" class="alert alert-danger">
@@ -121,9 +121,9 @@
                             </div>
                         </div>
                         <div class="col-sm-3">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()" >Cancel</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">Update</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.City_Master.Submit' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()" >{{'master.City_Master.Cancel' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">{{'master.City_Master.Update' | translate}}</button>
                             
                         </div>
                         

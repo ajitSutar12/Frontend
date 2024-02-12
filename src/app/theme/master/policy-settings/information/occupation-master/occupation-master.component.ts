@@ -11,6 +11,7 @@ import { OccupationMasterService } from './occupation-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -69,7 +70,7 @@ export class OccupationMasterComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private occupationMasterService: OccupationMasterService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
 
   }
 
@@ -124,14 +125,14 @@ export class OccupationMasterComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Occupation_Master.Action'),
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Occupation_Master.Code'),
           data: 'CODE',
         },
         {
-          title: 'Name',
+          title:this.translate.instant('master.Occupation_Master.name'),
           data: 'NAME',
         },
 

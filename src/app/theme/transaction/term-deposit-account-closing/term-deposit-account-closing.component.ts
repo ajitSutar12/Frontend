@@ -883,7 +883,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
         break;
 
-        case 'GL':
+      case 'GL':
         this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
           this.schemeACNo = data;
         })

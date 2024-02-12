@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Anamat Scheme</h5>
+                <h5>{{'Utility.Anamat_Scheme.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -18,7 +18,7 @@
                                         (keypress)=" ($event.charCode>= 48 && $event.charCode < 58)" required=""
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" min="801" max="899"
                                         formControlName="S_APPL" #autofocus>
-                                        <label for="S_APPL">Scheme Code<sub class="required">*
+                                        <label for="S_APPL">{{'Utility.Anamat_Scheme.Scheme_Code' | translate}}<sub class="required">*
                                             </sub></label>
                                 </span>
                             </div>
@@ -42,7 +42,7 @@
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
-                                    <label for="S_NAME">Description<sub class="required">*
+                                    <label for="S_NAME">{{'Utility.Anamat_Scheme.Description' | translate}}<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
@@ -62,7 +62,7 @@
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
-                                    <label for="S_SHNAME">Short Name<sub class="required">*
+                                    <label for="S_SHNAME">{{'Utility.Anamat_Scheme.Short_Name' | translate}}<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
@@ -95,7 +95,7 @@
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
+                                    <label for="S_GLACNO">{{'Utility.Anamat_Scheme.GL_Account' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -118,8 +118,7 @@
                                                     [ngClass]="{'isActive': otherTrue}"
                                                     routerLink="/utility/schemeParameters" class="text-right f-w-600"
                                                     id="pointer">
-                                                    Other
-                                                    Settings</a>
+                                                    {{'Utility.Anamat_Scheme.Other_Settings' | translate}}</a>
                                             </h6>
                                         </li>
                                     </ul>
@@ -129,7 +128,7 @@
                         <div class="col-sm-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5> Other Settings</h5>
+                                    <h5> {{'Utility.Anamat_Scheme.Other_Settings' | translate}}</h5>
                                 </div>
                                 <div class="card-block">
                                     <div *ngIf="otherTrue">
@@ -141,9 +140,7 @@
                                                             id="BALANCE_ADD_APPLICABLE"
                                                             formControlName="BALANCE_ADD_APPLICABLE">
                                                         <label class="border-checkbox-label"
-                                                            for="BALANCE_ADD_APPLICABLE">Is Balance
-                                                            Entry
-                                                            Applicable?</label>
+                                                            for="BALANCE_ADD_APPLICABLE">{{'Utility.Anamat_Scheme.Is_Balance' | translate}}</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,14 +159,14 @@
                                 <div class="col-sm m-b-20">
                                     <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
                                         (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
-                                        Submit
+                                        {{'Utility.Action.Submit' | translate}}
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
-                                        Update</button>&nbsp;
+                                        {{'Utility.Action.Update' | translate}}</button>&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
-                                        Cancel
+                                        {{'Utility.Action.Cancel' | translate}}
                                     </button>
                                 </div>
                             </div>
@@ -212,7 +209,7 @@
                                 </tbody>
                                 <tbody *ngIf="generalMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

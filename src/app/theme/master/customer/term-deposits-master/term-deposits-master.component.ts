@@ -1826,9 +1826,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         'AC_INTRATE': data.AC_INTRATE,
-        // RENEW_TYPE: (data.RENEW_TYPE).toString(),
-        // RENEW_TYPE_SCHEME: data.RENEW_TYPE_SCHEME,
-        // RENEW_TYPE_ACCOUNTNO: data.RENEW_TYPE_ACCOUNTNO
+        RENEW_TYPE: (data?.RENEW_TYPE).toString()
       })
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })

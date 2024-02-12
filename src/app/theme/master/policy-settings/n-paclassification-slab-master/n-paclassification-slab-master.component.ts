@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
 import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -87,9 +88,10 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   isDisableMonth: boolean = false
   isDisableDay: boolean = false
 
-  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,) {
+  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,private translate:TranslateService) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.translate.setDefaultLang('ma')
   }
 
   ngOnInit(): void {
@@ -142,15 +144,13 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          data: 'EFFECT_DATE',
-          title: 'Effect Date'
+          title: this.translate.instant('master.NPA_Classification_Master.Effictive_Date'),
         },
         {
-          data: 'NPA_BASE_DAYS',
-          title: 'Base Days'
+          title: this.translate.instant('master.NPA_Classification_Master.Base_days'),
         }
       ],
       dom: "Blrtip",
@@ -637,6 +637,9 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
+
 
 }

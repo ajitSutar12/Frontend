@@ -39,6 +39,7 @@ export const environment = {
 
   // //TESTSIDHANERLI 
   base_url: 'http://103.174.87.104:4771',  
+
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
@@ -47,6 +48,10 @@ export const environment = {
   // report_url: 'http://103.174.87.104/VITTHALDHARASHIV/REPORTS/', 
   // sitename: 'http://103.174.87.104/VITTHALDHARASHIV/CBS' 
 
+   // //DEMO COMPSERV 
+  // base_url: 'http://103.174.87.104:7278',  
+  // report_url: 'http://103.174.87.104/COMPSERV/REPORTS/', 
+  // sitename: 'http://103.174.87.104/COMPSERV/CBS'
 };
 
 /*

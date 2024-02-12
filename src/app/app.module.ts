@@ -14,7 +14,8 @@ import { BreadcrumbsComponent } from './layout/admin/breadcrumbs/breadcrumbs.com
 import { HotkeyModule } from 'angular2-hotkeys';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HotKeysComponent } from './theme/hot-keys/hot-keys.component';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient} from '@angular/common/http';
+
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 // import { AuthInterceptorServices } from '../app/theme/auth/auth.interceptor.service';
 import { UserAuthInterceptor } from './user-auth.interceptor';
 import { ConnectionServiceModule } from 'ng-connection-service';
@@ -30,7 +31,10 @@ import { MinusPipe } from './minus.pipe';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
+import { HighlighterPipe } from './layout/admin/highlighter.pipe';
 // import { ShortcutKeyComponent } from './theme/shortcut-key/shortcut-key.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 export function HttpLoaderFactory(http:HttpClient){
@@ -46,6 +50,7 @@ export function HttpLoaderFactory(http:HttpClient){
     StrictNumberOnlyDirective,
     DatatablekitComponent,
     MinusPipe,
+    HighlighterPipe,
     // ShortcutKeyComponent
 
   ],
@@ -75,6 +80,14 @@ export function HttpLoaderFactory(http:HttpClient){
 
     
 
+    // TranslateModule.forRoot({
+    //   loader:{
+    //     provide:TranslateLoader,
+    //     useFactory:HttpLoaderFactory,
+    //     deps:[HttpClient]
+    //   }
+    // })
+
   ],
   providers: [MenuItems,
     {
@@ -86,4 +99,6 @@ export function HttpLoaderFactory(http:HttpClient){
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
+// export function HttpLoaderFactory(http:HttpClient){
+//   return new TranslateHttpLoader(http);
+// }

@@ -3,9 +3,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>System Master Parameters</h5>
+                <h5>{{'Utility.System_Master_Parameters.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
                 </h6>
             </div> 
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm"> 
@@ -31,7 +31,7 @@
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="BANK_CODE" #autofocus>
-                                                                    <label for="BANK_CODE">Bank Code<sub
+                                                                    <label for="BANK_CODE">{{'Utility.System_Master_Parameters.Bank_Code' | translate}}<sub
                                                                             class="required">*
                                                                         </sub> </label>
                                                                 </span>
@@ -55,7 +55,7 @@
                                                                         formControlName="BANK_NAME" maxlength="90"
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || $event.charCode == 44"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="BANK_NAME">Bank Name<sub
+                                                                    <label for="BANK_NAME">{{'Utility.System_Master_Parameters.Bank_Name' | translate}}<sub
                                                                             class="required">*
                                                                         </sub></label>
                                                                 </span>
@@ -86,14 +86,14 @@
                                                                         title="Compulsory Selection"
                                                                         #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Branch Code"
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Branch_Code' | translate}}"
                                                                         [disabled]="BRANCH_CODE">
                                                                         <ng-option
                                                                             *ngFor="let values of OwnbranchMasterDropdown"
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="BRANCH_CODE">Branch Code</label>
+                                                                    <label for="BRANCH_CODE">{{'Utility.System_Master_Parameters.Branch_Code' | translate}}</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -108,7 +108,7 @@
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         id="ADDRESS" maxlength="100"
                                                                         formControlName="ADDRESS"></textarea>
-                                                                    <label for="ADDRESS">Bank Address<sub
+                                                                    <label for="ADDRESS">{{'Utility.System_Master_Parameters.Bank_Add' | translate}}<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -135,8 +135,8 @@
                                                                         formControlName="COMPANY_START_DATE"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         bsDatepicker>
-                                                                    <label for="COMPANY_START_DATE">Bank Start
-                                                                        Date<sub class="required">* </sub></label>
+                                                                    <label for="COMPANY_START_DATE">{{'Utility.System_Master_Parameters.Bank_Start_date' | translate}}
+                                                                        <sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -159,8 +159,8 @@
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="NO_OF_EMPLOYEES">
-                                                                    <label for="NO_OF_EMPLOYEES">Number Of
-                                                                        Employees</label>
+                                                                    <label for="NO_OF_EMPLOYEES">{{'Utility.System_Master_Parameters.Number_Of_Employees' | translate}}
+                                                                        </label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -185,7 +185,7 @@
                                                                         pattern="^[A-Za-z\./ -]+$"
                                                                         formControlName="ACCOUNTANT" maxlength="50"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="ACCOUNTANT">Accountant(Print-First)<sub
+                                                                    <label for="ACCOUNTANT">{{'Utility.System_Master_Parameters.Accountant' | translate}}<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -209,8 +209,8 @@
                                                                         formControlName="GENERAL_MANAGER" maxlength="50"
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="GENERAL_MANAGER">General
-                                                                        Manager(Print-Middle)<sub class="required">*
+                                                                    <label for="GENERAL_MANAGER">{{'Utility.System_Master_Parameters.General_Manager' | translate}}
+                                                                        <sub class="required">*
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -235,7 +235,7 @@
                                                                         formControlName="CHAIRMAN" maxlength="50"
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="CHAIRMAN">Chairman (Print-Last)<sub
+                                                                    <label for="CHAIRMAN">{{'Utility.System_Master_Parameters.Chairman' | translate}}<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -262,7 +262,7 @@
                                                                         formControlName="OFFICER_NAME" maxlength="50"
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="OFFICER_NAME">Officer Name<sub
+                                                                    <label for="OFFICER_NAME">{{'Utility.System_Master_Parameters.Officer_Name' | translate}}<sub
                                                                             class="required">*
                                                                         </sub></label>
                                                                 </span>
@@ -288,8 +288,8 @@
                                                                         formControlName="OFFICER_DESIGNATION"
                                                                         maxlength="20"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="OFFICER_DESIGNATION">Officer
-                                                                        Designation<sub class="required">*
+                                                                    <label for="OFFICER_DESIGNATION">{{'Utility.System_Master_Parameters.Officer_Designation' | translate}}
+                                                                       <sub class="required">*
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -314,7 +314,7 @@
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                         formControlName="RBI_LICENCE_NO" maxlength="100"
                                                                         title="Input allowed 0-9 and A-Z a-z  - / . (Space) ">
-                                                                    <label for="RBI_LICENCE_NO">RBI Licence Number<sub
+                                                                    <label for="RBI_LICENCE_NO">{{'Utility.System_Master_Parameters.RBI_Licence_Number' | translate}}<sub
                                                                             class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -342,7 +342,7 @@
                                                                         formControlName="MANAGER_NAME" maxlength="50"
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                                                    <label for="MANAGER_NAME">Manager Name<sub
+                                                                    <label for="MANAGER_NAME">{{'Utility.System_Master_Parameters.Manager_Name' | translate}}<sub
                                                                             class="required">*
                                                                         </sub></label>
                                                                 </span>
@@ -359,7 +359,7 @@
                                                         </div>
                                                         <div class="col-sm-6" style="float: right;margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('glaccount1')">Next
+                                                                (click)="switchNgBTab('glaccount1')">{{'Utility.System_Master_Parameters.Next' | translate}}
                                                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px;"></span> -->
                                                             </button>
                                                         </div>
@@ -399,13 +399,13 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #DD_COMMISSION_ACNO (focus)="onFocus(DD_COMMISSION_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="DD Commission">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.DD_Commission' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="DD_COMMISSION_ACNO">DD Commission<sub
+                                                                    <label for="DD_COMMISSION_ACNO">{{'Utility.System_Master_Parameters.DD_Commission' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -435,13 +435,13 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #DIVIDEND_ACNO (focus)="onFocus(DIVIDEND_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Dividend GL">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Dividend_GL' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="DIVIDEND_ACNO">Dividend GL<sub
+                                                                    <label for="DIVIDEND_ACNO">{{'Utility.System_Master_Parameters.Dividend_GL' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -472,13 +472,13 @@
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BONUS_GLACNO (focus)="onFocus(BONUS_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Bonus GL">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Bonus_GL' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="BONUS_GLACNO">Bonus GL<sub
+                                                                    <label for="BONUS_GLACNO">{{'Utility.System_Master_Parameters.Bonus_GL' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -507,14 +507,14 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BILL_FOR_COLLECTION_ACNO (focus)="onFocus(BILL_FOR_COLLECTION_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Bills For Collection">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Bills_For_Collection' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="BILL_FOR_COLLECTION_ACNO">Bills For
-                                                                        Collection<sub class="required"> *
+                                                                    <label for="BILL_FOR_COLLECTION_ACNO">{{'Utility.System_Master_Parameters.Bills_For_Collection' | translate}}
+                                                                        <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -546,14 +546,14 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BILL_RECEIVABLE_ACNO (focus)="onFocus(BILL_RECEIVABLE_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Bills For Collection">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Bills_For_Collection' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="BILL_RECEIVABLE_ACNO">Bills For
-                                                                        Collection<sub class="required"> *
+                                                                    <label for="BILL_RECEIVABLE_ACNO">{{'Utility.System_Master_Parameters.Bills_For_Collection' | translate}}
+                                                                      <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -582,13 +582,13 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BCBR_DR_GLACNO (focus)="onFocus(BCBR_DR_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="BC BR Clearing Dr.">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.BC_BR_Clearing_Dr' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="BCBR_DR_GLACNO">BC BR Clearing Dr.<sub
+                                                                    <label for="BCBR_DR_GLACNO">{{'Utility.System_Master_Parameters.BC_BR_Clearing_Dr' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -622,14 +622,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #CLG_SUSPENCE_ACNO (focus)="onFocus(CLG_SUSPENCE_ACNO)" [selectOnTab]='true'
                                                                         required
-                                                                        placeholder="Clearing Suspence GL Account">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Clearing_Suspence_GL' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="CLG_SUSPENCE_ACNO">Clearing Suspence GL
-                                                                        A/c<sub class="required"> * </sub></label>
+                                                                    <label for="CLG_SUSPENCE_ACNO">{{'Utility.System_Master_Parameters.Clearing_Suspence_GL' | translate}}
+                                                                    <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -659,14 +659,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #INWARD_BILL_COLLECTION_ACNO (focus)="onFocus(INWARD_BILL_COLLECTION_ACNO)" [selectOnTab]='true'
                                                                         required
-                                                                        placeholder="Inward Bill Collection GL A/c">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Inward_Bill_Collection_GL_A/c' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="INWARD_BILL_COLLECTION_ACNO">Inward Bill
-                                                                        Collection GL A/c<sub class="required"> *
+                                                                    <label for="INWARD_BILL_COLLECTION_ACNO">{{'Utility.System_Master_Parameters.Inward_Bill_Collection_GL_A/c' | translate}}
+                                                                       <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -699,14 +699,14 @@
                                                                         #INWARD_BILL_RECEIVABLE_ACNO (focus)="onFocus(INWARD_BILL_RECEIVABLE_ACNO)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         required
-                                                                        placeholder="Inward Bill Receivable GL A/c">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Inward_Bill_Receivable_GL_A/c' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="INWARD_BILL_RECEIVABLE_ACNO">Inward Bill
-                                                                        Receivable GL A/c<sub class="required"> *
+                                                                    <label for="INWARD_BILL_RECEIVABLE_ACNO">{{'Utility.System_Master_Parameters.Inward_Bill_Receivable_GL_A/c' | translate}}
+                                                                       <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -728,13 +728,13 @@
                                                                         title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #CGST_GLACNO (focus)="onFocus(CGST_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="CGST GL Account">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.CGST_GL_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="CGST_GLACNO">CGST GL Account<sub
+                                                                    <label for="CGST_GLACNO">{{'Utility.System_Master_Parameters.CGST_GL_Account' | translate}}<sub
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
@@ -760,13 +760,13 @@
                                                                         title="Compulsory Selection" [virtualScroll]="true"
                                                                         #SGST_GLACNO (focus)="onFocus(SGST_GLACNO)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="SGST GL Account">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.SGST_GL_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="SGST_GLACNO">SGST GL Account<sub
+                                                                    <label for="SGST_GLACNO">{{'Utility.System_Master_Parameters.SGST_GL_Account' | translate}}<sub
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
@@ -790,13 +790,13 @@
                                                                         title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #IGST_GLACNO (focus)="onFocus(IGST_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="IGST GL Account">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.IGST_GL_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="IGST_GLACNO">IGST GL Account<sub
+                                                                    <label for="IGST_GLACNO">{{'Utility.System_Master_Parameters.IGST_GL_Account' | translate}}<sub
                                                                             class="required"> *
                                                                         </sub></label>
                                                                 </span>
@@ -823,7 +823,7 @@
                                                                         formControlName="IS_ALLOW_RECOVERY_DIFF"
                                                                         (click)="Allow_Recovery($event)">
                                                                     <label class="border-checkbox-label"
-                                                                        for="IS_ALLOW_RECOVERY_DIFF">Allow Recovery
+                                                                        for="IS_ALLOW_RECOVERY_DIFF">{{'Utility.System_Master_Parameters.Allow_Recovery' | translate}}
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -841,8 +841,8 @@
                                                                                     value="MemberNoWiseRecovery"
                                                                                     name="RECOVERY_METHOD"
                                                                                     formControlName="RECOVERY_METHOD">
-                                                                                <i class="helper"></i>Member No Wise
-                                                                                Recovery<span class="required"> </span>
+                                                                                <i class="helper"></i>{{'Utility.System_Master_Parameters.Member_No_Wise_Recovery' | translate}}
+                                                                                <span class="required"> </span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -855,8 +855,8 @@
                                                                                     value="CustomeIDWiseRecovery"
                                                                                     name="RECOVERY_METHOD"
                                                                                     formControlName="RECOVERY_METHOD">
-                                                                                <i class="helper"></i>CustomerID Wise
-                                                                                Recovery<span class="required"> </span>
+                                                                                <i class="helper"></i>{{'Utility.System_Master_Parameters.CustomerID_Wise_Recovery' | translate}}
+                                                                                <span class="required"> </span>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -872,10 +872,7 @@
                                                                                 id="IS_PROCESS_FOR_MONTH"
                                                                                 formControlName="IS_PROCESS_FOR_MONTH">
                                                                             <label class="border-checkbox-label"
-                                                                                for="IS_PROCESS_FOR_MONTH">Is Process
-                                                                                For
-                                                                                Process
-                                                                                Month/Year
+                                                                                for="IS_PROCESS_FOR_MONTH">{{'Utility.System_Master_Parameters.Is_Process_Fo_Process_Month_Year' | translate}}
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -890,10 +887,8 @@
                                                                                 id="IS_PROCESS_UPTO_TRANDATE"
                                                                                 formControlName="IS_PROCESS_UPTO_TRANDATE">
                                                                             <label class="border-checkbox-label"
-                                                                                for="IS_PROCESS_UPTO_TRANDATE">Is
-                                                                                Process
-                                                                                Upto
-                                                                                Current Date
+                                                                                for="IS_PROCESS_UPTO_TRANDATE">
+                                                                                {{'Utility.System_Master_Parameters.Is_Process_Upto_Current_Date' | translate}}
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -922,14 +917,14 @@
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 #RECOVERY_DR_ACNO (focus)="onFocus(RECOVERY_DR_ACNO)" [selectOnTab]='true'
                                                                                 required
-                                                                                placeholder="Recovery GL A/c No.">
+                                                                                placeholder="{{'Utility.System_Master_Parameters.Recovery_GL_Account' | translate}}">
                                                                                 <ng-option
                                                                                     *ngFor="let values of ACMasterDropdown"
                                                                                     [value]="values">{{values.label}}
                                                                                 </ng-option>
                                                                             </ng-select>
-                                                                            <label for="RECOVERY_DR_ACNO">Recovery GL
-                                                                                A/c No.<sub class="required"> *
+                                                                            <label for="RECOVERY_DR_ACNO">{{'Utility.System_Master_Parameters.Recovery_GL_Account' | translate}}
+                                                                                <sub class="required"> *
                                                                                 </sub></label>
                                                                         </span>
                                                                     </div>
@@ -952,7 +947,7 @@
                                                     <div class="row">
                                                         <div class="col-sm" style="float:right;margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('glaccount2')">Next
+                                                                (click)="switchNgBTab('glaccount2')">{{'Utility.System_Master_Parameters.Next' | translate}}
                                                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px;"></span> -->
                                                             </button>
                                                         </div>
@@ -992,13 +987,13 @@
                                                                         title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #HO_GLACNO (focus)="onFocus(HO_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Head Office Ac Number">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Head_Office_Ac_Number' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="HO_GLACNO">Head Office Ac Number<sub
+                                                                    <label for="HO_GLACNO">{{'Utility.System_Master_Parameters.Head_Office_Ac_Number' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -1027,14 +1022,14 @@
                                                                         title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BG_DR_ACNO (focus)="onFocus(BG_DR_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Bank Gaurantee Dr.A/c">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Bank_Gaurantee_Dr_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="BG_DR_ACNO">Bank Gaurantee Dr.
-                                                                        Account<sub class="required"> * </sub></label>
+                                                                    <label for="BG_DR_ACNO">{{'Utility.System_Master_Parameters.Bank_Gaurantee_Dr_Account' | translate}}
+                                                                       <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1057,14 +1052,14 @@
                                                                         title="Compulsory Selection" [virtualScroll]="true"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #BG_CR_ACNO (focus)="onFocus(BG_CR_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Bank Gaurantee Cr.A/c">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Bank_Gaurantee_Cr_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="BG_CR_ACNO">Bank Gaurantee Cr.
-                                                                        Account<sub class="required"> * </sub></label>
+                                                                    <label for="BG_CR_ACNO">{{'Utility.System_Master_Parameters.Bank_Gaurantee_Cr_Account' | translate}}
+                                                                        <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1084,13 +1079,13 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         #PAY_ORDER_ACNO (focus)="onFocus(PAY_ORDER_ACNO)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Pay Order A/c">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Pay_Order_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="PAY_ORDER_ACNO">Pay Order Account<sub
+                                                                    <label for="PAY_ORDER_ACNO">{{'Utility.System_Master_Parameters.Pay_Order_Account' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -1114,14 +1109,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #INWARD_BILLS_PURCHASE_ACNO (focus)="onFocus(INWARD_BILLS_PURCHASE_ACNO)" [selectOnTab]='true'
                                                                         required
-                                                                        placeholder="Inward Bills Purchase A/c">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Inward_Bills_Purchase_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="INWARD_BILLS_PURCHASE_ACNO">Inward Bills
-                                                                        Purchase Account<sub class="required"> *
+                                                                    <label for="INWARD_BILLS_PURCHASE_ACNO">{{'Utility.System_Master_Parameters.Inward_Bills_Purchase_Account' | translate}}
+                                                                        <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -1142,14 +1137,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #YEAR_CLOSING_TRANSFER_ACNO (focus)="onFocus(YEAR_CLOSING_TRANSFER_ACNO)" [selectOnTab]='true'
                                                                         required
-                                                                        placeholder="Year End Profit Loss Transfer">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Year_End_Profit_Loss_Transfer' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="YEAR_CLOSING_TRANSFER_ACNO">Year End
-                                                                        Profit Loss Transfer<sub class="required"> *
+                                                                    <label for="YEAR_CLOSING_TRANSFER_ACNO">{{'Utility.System_Master_Parameters.Year_End_Profit_Loss_Transfer' | translate}}
+                                                                        <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -1180,14 +1175,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #PL_TRANSFER_ACNO (focus)="onFocus(PL_TRANSFER_ACNO)" [selectOnTab]='true'
                                                                         required
-                                                                        placeholder="Profit / Loss Print in B/S GL">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Profit_Loss_Print_in_B/S_GL' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="PL_TRANSFER_ACNO">Profit / Loss Print in
-                                                                        B/S GL<sub class="required"> * </sub></label>
+                                                                    <label for="PL_TRANSFER_ACNO">{{'Utility.System_Master_Parameters.Profit_Loss_Print_in_B/S_GL' | translate}}
+                                                                        <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1207,14 +1202,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #AUTHORIZED_SHARE_CAPITAL_CODE (focus)="onFocus(AUTHORIZED_SHARE_CAPITAL_CODE)" [selectOnTab]='true'
                                                                         required (change)="addsharepart()"
-                                                                        placeholder="Share Capital Statement No">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Share_Capital_Statement_Number' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="AUTHORIZED_SHARE_CAPITAL_CODE">Share
-                                                                        Capital Statement Number<sub class="required"> *
+                                                                    <label for="AUTHORIZED_SHARE_CAPITAL_CODE">{{'Utility.System_Master_Parameters.Share_Capital_Statement_Number' | translate}}
+                                                                        <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -1257,7 +1252,7 @@
                                                                         formControlName="FROM_DATE" appButton minlength="10" maxlength="10"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         bsDatepicker>
-                                                                    <label for="FROM_DATE">From Date
+                                                                    <label for="FROM_DATE">{{'Utility.System_Master_Parameters.From_date' | translate}}
                                                                         <sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -1283,7 +1278,7 @@
                                                                         formControlName="TO_DATE" appButton minlength="10" maxlength="10"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                         bsDatepicker>
-                                                                    <label for="TO_DATE">To Date
+                                                                    <label for="TO_DATE">{{'Utility.System_Master_Parameters.To_date' | translate}}
                                                                         <sub class="required">* </sub></label>
                                                                 </span>
                                                             </div>
@@ -1306,7 +1301,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                          title="Input allowed only  0-9"
                                                                         formControlName="AMOUNT">
-                                                                    <label for="AMOUNT">Amount
+                                                                    <label for="AMOUNT">{{'Utility.System_Master_Parameters.Amount' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1323,10 +1318,10 @@
                                                         <div class="col-sm">
                                                             <button type="button" class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="addShowButton"
-                                                                (click)="addField()">Add</button>&nbsp;
+                                                                (click)="addField()">{{'Utility.Action.Add' | translate}}</button>&nbsp;
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 *ngIf="UpdateShowButton"
-                                                                (click)="updateField()">Update</button>
+                                                                (click)="updateField()">{{'Utility.Action.Update' | translate}}</button>
                                                         </div>
                                                     </div>
                                                     <div class="row" *ngIf="share">
@@ -1337,10 +1332,10 @@
 
                                                                     <thead>
 
-                                                                        <td>Action</td>
-                                                                        <td>From Date</td>
-                                                                        <td>To Date</td>
-                                                                        <td>Amount</td>
+                                                                        <td>{{'Utility.Action.Action' | translate}}</td>
+                                                                        <td>{{'Utility.System_Master_Parameters.From_date' | translate}}</td>
+                                                                        <td>{{'Utility.System_Master_Parameters.To_date' | translate}}</td>
+                                                                        <td>{{'Utility.System_Master_Parameters.Amount' | translate}}</td>
 
                                                                     </thead>
                                                                     <tbody *ngIf="multiField?.length != 0">
@@ -1375,7 +1370,7 @@
                                                                     <tbody *ngIf="multiField?.length == 0">
                                                                         <tr>
                                                                             <td colspan="12" class="no-data-available"
-                                                                                style="text-align: center;">No data!
+                                                                                style="text-align: center;">{{'Utility.Action.No_Data' | translate}}
                                                                             </td>
 
 
@@ -1401,14 +1396,14 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #TDS_PAYABLE_GLACNO (focus)="onFocus(TDS_PAYABLE_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="TDS Payable GL A/c">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.TDS_Payable_GL_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="TDS_PAYABLE_GLACNO">TDS Payable GL
-                                                                        Account<sub class="required"> * </sub></label>
+                                                                    <label for="TDS_PAYABLE_GLACNO">{{'Utility.System_Master_Parameters.TDS_Payable_GL_Account' | translate}}
+                                                                        <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -1435,13 +1430,13 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #SURCHARGE_GLACNO (focus)="onFocus(SURCHARGE_GLACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Surcharge GL A/c ">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Surcharge_GL_Account' | translate}} ">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="SURCHARGE_GLACNO">Surcharge GL Account
+                                                                    <label for="SURCHARGE_GLACNO">{{'Utility.System_Master_Parameters.Surcharge_GL_Account' | translate}}
                                                                         <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -1471,13 +1466,13 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #CHEQUE_CHARGES_ACNO (focus)="onFocus(CHEQUE_CHARGES_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Cheque Book Charges GL">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Cheque_Book_Charges_GL' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="CHEQUE_CHARGES_ACNO">Cheque Book Charges
+                                                                    <label for="CHEQUE_CHARGES_ACNO">{{'Utility.System_Master_Parameters.Cheque_Book_Charges_GL' | translate}}
                                                                         GL<sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -1497,14 +1492,14 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #CHEQUE_BOUNCE_ACNO (focus)="onFocus(CHEQUE_BOUNCE_ACNO)" [selectOnTab]='true'
-                                                                        required placeholder="Cheque Bounce Charges GL">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Cheque_Bounce_Charges_GL' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="CHEQUE_BOUNCE_ACNO">Cheque Bounce
-                                                                        Charges GL<sub class="required"> *
+                                                                    <label for="CHEQUE_BOUNCE_ACNO">{{'Utility.System_Master_Parameters.Cheque_Bounce_Charges_GL' | translate}}
+                                                                        <sub class="required"> *
                                                                         </sub></label>
                                                                 </span>
                                                             </div>
@@ -1524,8 +1519,8 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
                                                                         maxlength="20" title="Input allowed only  0-9"
                                                                         formControlName="CHEQUE_BOUNCE_CHARGES">
-                                                                    <label for="CHEQUE_BOUNCE_CHARGES">Cheque Bounce
-                                                                        Charges
+                                                                    <label for="CHEQUE_BOUNCE_CHARGES">{{'Utility.System_Master_Parameters.Cheque_Bounce_Charges' | translate}}
+                                                                        
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1553,14 +1548,14 @@
                                                                         bindLabel="label" title="Compulsory Selection"
                                                                         #MICR_CHARGES_ACNO (focus)="onFocus(MICR_CHARGES_ACNO)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="MICR Charges GL A/c">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.MICR_Charges_GL_Account' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of ACMasterDropdown"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="MICR_CHARGES_ACNO">MICR Charges GL
-                                                                        Account<sub class="required"> * </sub></label>
+                                                                    <label for="MICR_CHARGES_ACNO">{{'Utility.System_Master_Parameters.MICR_Charges_GL_Account' | translate}}
+                                                                        <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1580,7 +1575,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
                                                                         maxlength="20" title="Input allowed only  0-9"
                                                                         formControlName="MICR_CHARGES_AMOUNT">
-                                                                    <label for="MICR_CHARGES_AMOUNT">O/W Charges
+                                                                    <label for="MICR_CHARGES_AMOUNT">{{'Utility.System_Master_Parameters.O/W_Charges' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1605,7 +1600,7 @@
                                                                         id="MICR_CHARGES_INWORD_CLG" maxlength="20"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="MICR_CHARGES_INWORD_CLG">
-                                                                    <label for="MICR_CHARGES_INWORD_CLG">I/W Charges
+                                                                    <label for="MICR_CHARGES_INWORD_CLG">{{'Utility.System_Master_Parameters.I/W_Charges' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1620,7 +1615,7 @@
                                                         </div>
                                                         <div class="col-sm-6" style="float: right;margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('flag')">Next
+                                                                (click)="switchNgBTab('flag')">{{'Utility.System_Master_Parameters.Next' | translate}}
                                                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px;"></span> -->
                                                             </button>
                                                         </div>
@@ -1652,7 +1647,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         title="Input allowed only  0-9" maxlength="2"
                                                                         formControlName="GRACE_PERIOD">
-                                                                    <label for="GRACE_PERIOD">Grace Period (Days)
+                                                                    <label for="GRACE_PERIOD">{{'Utility.System_Master_Parameters.Grace_Period' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1687,7 +1682,7 @@
                                                                         [(ngModel)]="ngweeklyholiday"
                                                                         #WEEKLY_HOLIDAY (focus)="onFocus(WEEKLY_HOLIDAY)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        placeholder="Weekly Holiday" required>
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Weekly_Holiday' | translate}}" required>
                                                                     </ng-select>
 
                                                                     <!-- <ng-select id="WEEKLY_HOLIDAY" bindValue="value"
@@ -1701,7 +1696,7 @@
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select> -->
-                                                                    <label for="WEEKLY_HOLIDAY">Weekly Holiday<sub
+                                                                    <label for="WEEKLY_HOLIDAY">{{'Utility.System_Master_Parameters.Weekly_Holiday' | translate}}<sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -1730,13 +1725,13 @@
                                                                         title="Compulsory Selection"
                                                                         #HALF_DAY (focus)="onFocus(HALF_DAY)" [selectOnTab]='true'
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Half Day ">
+                                                                        required placeholder="{{'Utility.System_Master_Parameters.Half_Day' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of WeeklyandHalfHoliday"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="HALF_DAY">Half Day <sub
+                                                                    <label for="HALF_DAY">{{'Utility.System_Master_Parameters.Half_Day' | translate}} <sub
                                                                             class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
@@ -1767,14 +1762,14 @@
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #INT_CALC_METHOD (focus)="onFocus(INT_CALC_METHOD)" [selectOnTab]='true'
                                                                         required
-                                                                        placeholder="Interest Calculation Method">
+                                                                        placeholder="{{'Utility.System_Master_Parameters.Interest_Calculation_Method' | translate}}">
                                                                         <ng-option
                                                                             *ngFor="let values of IntrestCalculationMethod"
                                                                             [value]="values">{{values.label}}
                                                                         </ng-option>
                                                                     </ng-select>
-                                                                    <label for="INT_CALC_METHOD">Interest Calculation
-                                                                        Method<sub class="required"> * </sub></label>
+                                                                    <label for="INT_CALC_METHOD">{{'Utility.System_Master_Parameters.Interest_Calculation_Method' | translate}}
+                                                                       <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                             <div class="form-group form-primary form-static-label"
@@ -1800,7 +1795,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         title="Input allowed only  0-9" maxlength="2"
                                                                         formControlName="MORATORIUM_PERIOD">
-                                                                    <label for="MORATORIUM_PERIOD">Moratorium Period
+                                                                    <label for="MORATORIUM_PERIOD">{{'Utility.System_Master_Parameters.Moratorium_Period' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1824,8 +1819,8 @@
                                                                         title="Input allowed only  0-9"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                                                         formControlName="SANCTIONED_CASH_LIMIT">
-                                                                    <label for="SANCTIONED_CASH_LIMIT">Sanctioned Cash
-                                                                        Limit for<sub class="required">* </sub>
+                                                                    <label for="SANCTIONED_CASH_LIMIT">{{'Utility.System_Master_Parameters.Sanctioned_Cash_Limit_for' | translate}}
+                                                                        <sub class="required">* </sub>
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1849,8 +1844,7 @@
                                                                         pattern="^[0-9]+$" maxlength="1"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="IS_PGCOMMISSION_PERCALCULATION">
-                                                                    <label for="IS_PGCOMMISSION_PERCALCULATION">Pigmy
-                                                                        Commission Method/Rule
+                                                                    <label for="IS_PGCOMMISSION_PERCALCULATION">{{'Utility.System_Master_Parameters.Pigmy_Commission_Method/Rule' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1881,9 +1875,7 @@
                                                                         title="Input allowed only  0-9" maxlength="2"
                                                                         formControlName="DIV_CALCU_MONTH">
                                                                     <label for="DIV_CALCU_MONTH">
-                                                                        Dividend Calculation
-                                                                        Month
-                                                                        Number<sub class="required">* </sub>
+                                                                        {{'Utility.System_Master_Parameters.Dividend_Calculation_Month_Number' | translate}}<sub class="required">* </sub>
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1907,9 +1899,7 @@
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="HIGH_VALUE_CLEARING_AMT">
-                                                                    <label for="HIGH_VALUE_CLEARING_AMT">High Value
-                                                                        Clearing
-                                                                        Amount
+                                                                    <label for="HIGH_VALUE_CLEARING_AMT">{{'Utility.System_Master_Parameters.High_Value_Clearing_Amount' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1932,7 +1922,7 @@
                                                                         pattern="^[0-9]+$" maxlength="1"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="NPA_METHOD">
-                                                                    <label for="NPA_METHOD">NPA Method Number
+                                                                    <label for="NPA_METHOD">{{'Utility.System_Master_Parameters.NPA_Method_Number' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1959,7 +1949,7 @@
                                                                         pattern="^[0-9]+$" maxlength="2"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="NPA_SUBMETHOD">
-                                                                    <label for="NPA_SUBMETHOD">Sub Method Number
+                                                                    <label for="NPA_SUBMETHOD">{{'Utility.System_Master_Parameters.Sub_Method_Number' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -1983,8 +1973,8 @@
                                                                         pattern="^[0-9]+$" maxlength="2"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="DIV_PAYABLE_FOR_LAST_YEARS">
-                                                                    <label for="DIV_PAYABLE_FOR_LAST_YEARS">Dividend
-                                                                        Payable for the last Year<sub class="required">* </sub>
+                                                                    <label for="DIV_PAYABLE_FOR_LAST_YEARS">{{'Utility.System_Master_Parameters.Dividend_Payable_for_the_last_Year' | translate}}
+                                                                        <sub class="required">* </sub>
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -2011,9 +2001,7 @@
                                                                         id="MEMBER_FOR_GUR" pattern="^[0-9]+$"
                                                                         maxlength="3" title="Input allowed only  0-9"
                                                                         formControlName="MEMBER_FOR_GUR">
-                                                                    <label for="MEMBER_FOR_GUR">Member Can Be Guarantor
-                                                                        for
-                                                                        Number of Accounts
+                                                                    <label for="MEMBER_FOR_GUR">{{'Utility.System_Master_Parameters.Member_Can_Be_Guarantor_for_Number_of_Accounts' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -2037,7 +2025,7 @@
                                                                         pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9"
                                                                         formControlName="AUTO_LOCK_TIME">
-                                                                    <label for="AUTO_LOCK_TIME">S/W Lock Time/m
+                                                                    <label for="AUTO_LOCK_TIME">{{'Utility.System_Master_Parameters.S/W_Lock_Time/m' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -2060,8 +2048,7 @@
                                                                         id="PASSWORD_EXPIRE_DAYS" pattern="^[0-9]+$"
                                                                         title="Input allowed only  0-9" maxlength="3"
                                                                         formControlName="PASSWORD_EXPIRE_DAYS">
-                                                                    <label for="PASSWORD_EXPIRE_DAYS">Password Expiry
-                                                                        Days
+                                                                    <label for="PASSWORD_EXPIRE_DAYS">{{'Utility.System_Master_Parameters.Password_Expiry_Days' | translate}}
                                                                     </label>
                                                                 </span>
                                                             </div>
@@ -2091,8 +2078,7 @@
                                                                                         formControlName="IS_ALLOW_CLG_TALLY_VOUCHER">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_ALLOW_CLG_TALLY_VOUCHER">
-                                                                                        Is Voucher Require in Clg.
-                                                                                        Tally
+                                                                                        {{'Utility.System_Master_Parameters.Is_Voucher_Require_in_Clg_Tally' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2108,8 +2094,7 @@
                                                                                         formControlName="DENOMINATION_REQUIRE">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="DENOMINATION_REQUIRE">
-                                                                                        Denomination
-                                                                                        Require
+                                                                                        {{'Utility.System_Master_Parameters.Denomination_Require' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2142,8 +2127,7 @@
                                                                                         formControlName="IS_CLG_DATE_ADD">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_CLG_DATE_ADD">
-                                                                                        Is Clearing Date
-                                                                                        Add by 1 Day
+                                                                                        {{'Utility.System_Master_Parameters.Is_Clearing_Date_Add_by_Day' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2162,7 +2146,7 @@
                                                                                         formControlName="TELLER_MODE">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="TELLER_MODE">
-                                                                                        Teller Mode
+                                                                                        {{'Utility.System_Master_Parameters.Teller_Mode' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2178,8 +2162,7 @@
                                                                                         formControlName="IS_TDS_CALCULATE">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_TDS_CALCULATE">
-                                                                                        TDS Calculate
-                                                                                        required
+                                                                                        {{'Utility.System_Master_Parameters.TDS_Calculate_required' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2195,8 +2178,7 @@
                                                                                         formControlName="IS_AUTO_CLEARING_EFFECT">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_AUTO_CLEARING_EFFECT">
-                                                                                        Is Auto Clearing
-                                                                                        Effect
+                                                                                        {{'Utility.System_Master_Parameters.Is_Auto_Clearing_Effect' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2216,8 +2198,7 @@
                                                                                         formControlName="IS_ALLOW_SCHEME_GL_ENTRY">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_ALLOW_SCHEME_GL_ENTRY">
-                                                                                        Allow Direct Entry to Scheme
-                                                                                        GL
+                                                                                        {{'Utility.System_Master_Parameters.Allow_Direct_Entry_to_Scheme_GL' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2233,7 +2214,7 @@
                                                                                         formControlName="IS_AUTO_VOUCHER_NPA_OIR">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_AUTO_VOUCHER_NPA_OIR">
-                                                                                        Is NPA Auto Voucher Create
+                                                                                        {{'Utility.System_Master_Parameters.Is_NPA_Auto_Voucher_Create' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2248,7 +2229,7 @@
                                                                                         formControlName="AUTO_NO">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="AUTO_NO">
-                                                                                        Auto Account Numbering
+                                                                                        {{'Utility.System_Master_Parameters.Auto_Account_Numbering' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2268,7 +2249,7 @@
                                                                                         formControlName="TOKEN_NO_APPLICABLE">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="TOKEN_NO_APPLICABLE">
-                                                                                        Token Not Applicable
+                                                                                        {{'Utility.System_Master_Parameters.Token_Not_Applicable' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2284,8 +2265,7 @@
                                                                                         formControlName="IS_HO_SUB_GLACNO_REQUIRED">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_HO_SUB_GLACNO_REQUIRED">
-                                                                                        Is HO Sub GL Account Input
-                                                                                        Required
+                                                                                        {{'Utility.System_Master_Parameters.Is_HO_Sub_GL_Account_Input_Required' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2301,7 +2281,7 @@
                                                                                         formControlName="MASTER_APPROVAL_REQUIRED">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="MASTER_APPROVAL_REQUIRED">
-                                                                                        Master Approve Required
+                                                                                        {{'Utility.System_Master_Parameters.Master_Approve_Required' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2322,9 +2302,7 @@
                                                                                         formControlName="MASTER_ATTACH_JOINT_NAMES">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="MASTER_ATTACH_JOINT_NAMES">
-                                                                                        Auto Attach Deposit Account
-                                                                                        Joint
-                                                                                        Names to Primary Name
+                                                                                        {{'Utility.System_Master_Parameters.Auto_Attach_Deposit_Account_Joint_Names_to_Primary_Name' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2340,7 +2318,7 @@
                                                                                         formControlName="IS_REQUIRE_CLEARING_OPTION">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_REQUIRE_CLEARING_OPTION">
-                                                                                        Is Clearing option Required
+                                                                                        {{'Utility.System_Master_Parameters.Is_Clearing_option_Required' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2356,7 +2334,7 @@
                                                                                         formControlName="IS_POSTING_DD_PREPARATION">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_POSTING_DD_PREPARATION">
-                                                                                        Is Posting DD Preparation
+                                                                                        {{'Utility.System_Master_Parameters.Is_Posting_DD_Preparation' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2377,8 +2355,7 @@
                                                                                         formControlName="MASTER_ATTACH_GUARDIAN_NAMES">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="MASTER_ATTACH_GUARDIAN_NAMES">
-                                                                                        Auto Attach Guardian Name to
-                                                                                        Primary Name
+                                                                                        {{'Utility.System_Master_Parameters.Auto_Attach_Guardian_Name_to_Primary_Name' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2394,8 +2371,7 @@
                                                                                         formControlName="IS_ALLOW_USER_MULTI_LOGIN">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_ALLOW_USER_MULTI_LOGIN">
-                                                                                        Is Allowed Multiple time
-                                                                                        User Login?
+                                                                                        {{'Utility.System_Master_Parameters.Is_Allowed_Multiple_time_User_Login' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2411,7 +2387,7 @@
                                                                                         formControlName="IS_AUTO_INSTRUCTION_PASS">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_AUTO_INSTRUCTION_PASS">
-                                                                                        Auto Instruction Passing
+                                                                                        {{'Utility.System_Master_Parameters.Auto_Instruction_Passing' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2431,7 +2407,7 @@
                                                                                         formControlName="PIGMY_AC_RENEW_APPLY">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="PIGMY_AC_RENEW_APPLY">
-                                                                                        Allow Pigmy Accounts Renewal
+                                                                                        {{'Utility.System_Master_Parameters.Allow_Pigmy_Accounts_Renewal' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2447,7 +2423,7 @@
                                                                                         formControlName="MAINTAIN_CHEQUE_SERIES">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="MAINTAIN_CHEQUE_SERIES">
-                                                                                        Maintain Cheque Series
+                                                                                        {{'Utility.System_Master_Parameters.Maintain_Cheque_Series' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2463,8 +2439,7 @@
                                                                                         formControlName="IS_RECEIPTNO_IN_PIGMYCHART">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_RECEIPTNO_IN_PIGMYCHART">
-                                                                                        Account Wise Receipt No Input In
-                                                                                        Pigmy Chart
+                                                                                        {{'Utility.System_Master_Parameters.Account_Wise_Receipt_No_Input_In_Pigmy_Chart' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2485,8 +2460,7 @@
                                                                                         formControlName="IS_BANKERS_COMM_TRAN_REQD">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_BANKERS_COMM_TRAN_REQD">
-                                                                                        Is Bankers Commission
-                                                                                        Voucher Required
+                                                                                        {{'Utility.System_Master_Parameters.Is_Bankers_Commission_Voucher_Required' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2502,8 +2476,7 @@
                                                                                         formControlName="PIGMY_IS_AUTO_VOUCHER">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="PIGMY_IS_AUTO_VOUCHER">
-                                                                                        Pigmy Auto Voucher
-                                                                                        Generation
+                                                                                        {{'Utility.System_Master_Parameters.Pigmy_Auto_Voucher_Generation' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2520,8 +2493,7 @@
                                                                                         formControlName="IS_REBIT_INTRATE_CAL">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_REBIT_INTRATE_CAL">
-                                                                                        Is Rebit Interest Rate Wise
-                                                                                        Calculation (Loan)
+                                                                                        {{'Utility.System_Master_Parameters.Is_Rebit_Interest_Rate_Wise_Calculation' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2540,7 +2512,7 @@
                                                                                         formControlName="IS_IBCIBR_VOUCH_REQD">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_IBCIBR_VOUCH_REQD">
-                                                                                        Is Required IBC/IBR Vouchers
+                                                                                        {{'Utility.System_Master_Parameters.Is_Required' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2556,7 +2528,7 @@
                                                                                         formControlName="IS_MICR_CHARGES_APPL">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_MICR_CHARGES_APPL">
-                                                                                        MICR Charges Applicable
+                                                                                        {{'Utility.System_Master_Parameters.MICR_Charges' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2572,8 +2544,7 @@
                                                                                         formControlName="IS_ALLOW_LOANINT_CHANGE">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_ALLOW_LOANINT_CHANGE">
-                                                                                        Allow to Change Loan
-                                                                                        Interest Amount
+                                                                                        {{'Utility.System_Master_Parameters.Allow_to' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2594,8 +2565,7 @@
                                                                                         formControlName="DEPRECIATION_WITH_HALFFULLRATE">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="DEPRECIATION_WITH_HALFFULLRATE">
-                                                                                        Depreciation With Half/Full
-                                                                                        Rate
+                                                                                        {{'Utility.System_Master_Parameters.Depreciation_With' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2611,8 +2581,7 @@
                                                                                         formControlName="IS_GURR_FROM_MEMBERS">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_GURR_FROM_MEMBERS">
-                                                                                        Guarantors From Only A Type
-                                                                                        Members
+                                                                                        {{'Utility.System_Master_Parameters.Guarantors_From' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2629,8 +2598,7 @@
                                                                                         formControlName="IS_CONSIDER_CCRENEWAL_AS_OPEN">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_CONSIDER_CCRENEWAL_AS_OPEN">
-                                                                                        Consider Renewal As Open For
-                                                                                        CC
+                                                                                        {{'Utility.System_Master_Parameters.Consider_Renewal' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2650,8 +2618,7 @@
                                                                                         formControlName="IS_AUTO_UPDATE_SHARES_NO">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_AUTO_UPDATE_SHARES_NO">
-                                                                                        Auto Certificate and Shares
-                                                                                        Number Update
+                                                                                        {{'Utility.System_Master_Parameters.Auto_Certificate' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2667,8 +2634,7 @@
                                                                                         formControlName="IS_AUTOPOSTDAILY_OVERDRAFT_INT">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_AUTOPOSTDAILY_OVERDRAFT_INT">
-                                                                                        Auto Post Daily Overdraft
-                                                                                        Interest
+                                                                                        {{'Utility.System_Master_Parameters.Auto_Post' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2684,8 +2650,7 @@
                                                                                         formControlName="IS_ALLOW_RECOVERY_DIFF">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="IS_ALLOW_RECOVERY_DIFF">
-                                                                                        Allow To Maintain Recovery
-                                                                                        Differnce
+                                                                                        {{'Utility.System_Master_Parameters.Allow_To_Maintain_Recovery_Differnce' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2706,8 +2671,7 @@
                                                                                         formControlName="WITHDRW_CLOSING_FOR_GURMEMBERS">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="WITHDRW_CLOSING_FOR_GURMEMBERS">
-                                                                                        Check Member Loan/Gauranter
-                                                                                        forwithdraw/closing
+                                                                                        {{'Utility.System_Master_Parameters.Check_Member_Loan' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2723,8 +2687,7 @@
                                                                                         formControlName="SCHMWISE_REC_IMPEXP">
                                                                                     <label class="border-checkbox-label"
                                                                                         for="SCHMWISE_REC_IMPEXP">
-                                                                                        Scheme Wise Recovery
-                                                                                        Import/Export
+                                                                                        {{'Utility.System_Master_Parameters.Scheme_Wise_Recovery_Import' | translate}}
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
@@ -2740,7 +2703,7 @@
                                                     <div class="row">
                                                         <div class="col-sm" style="float: right;margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('admin')">Next
+                                                                (click)="switchNgBTab('admin')">{{'Utility.System_Master_Parameters.Next' | translate}}
                                                                 <!-- <span class="fa fa-arrow-right" style="font-size:15px;"></span> -->
                                                             </button>
                                                         </div>
@@ -2792,7 +2755,7 @@
                                                                                 formControlName="PREVIOUS_DATE"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                                 bsDatepicker> -->
-                                                                            <label for="PREVIOUS_DATE">Previous Date
+                                                                            <label for="PREVIOUS_DATE">{{'Utility.System_Master_Parameters.Previous_Date' | translate}}
                                                                                 <sub class="required">* </sub></label>
                                                                         </span>
                                                                     </div>
@@ -2820,7 +2783,7 @@
                                                                                 formControlName="CURRENT_DATE"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                                 bsDatepicker>
-                                                                            <label for="CURRENT_DATE"> Current Date<sub
+                                                                            <label for="CURRENT_DATE">{{'Utility.System_Master_Parameters.Current_Date' | translate}}<sub
                                                                                     class="required">* </sub></label>
                                                                         </span>
                                                                     </div>
@@ -2843,8 +2806,8 @@
                                                                                     value="DayBeginExecuted"
                                                                                     name="DAY_BEGIN_EXECUTED"
                                                                                     formControlName="DAY_BEGIN_EXECUTED">
-                                                                                <i class="helper"></i>Day Begin
-                                                                                Executed<sub class="required">* </sub>
+                                                                                <i class="helper"></i>{{'Utility.System_Master_Parameters.Day_Begin' | translate}}
+                                                                               <sub class="required">* </sub>
                                                                             </label>
                                                                         </div>
                                                                         <div class="radio radio-inline">
@@ -2854,8 +2817,8 @@
                                                                                     value="DayEndExecuted"
                                                                                     name="DAY_BEGIN_EXECUTED"
                                                                                     formControlName="DAY_BEGIN_EXECUTED">
-                                                                                <i class="helper"></i>Day End
-                                                                                Executed<sub class="required">* </sub>
+                                                                                <i class="helper"></i>{{'Utility.System_Master_Parameters.Day_End' | translate}}
+                                                                               <sub class="required">* </sub>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -2883,9 +2846,8 @@
                                                                                 formControlName="PIGMY_PREVIOUS_DATE"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                                 bsDatepicker>
-                                                                            <label for="PIGMY_PREVIOUS_DATE"> Pigmy
-                                                                                Previous
-                                                                                Date<sub class="required">*
+                                                                            <label for="PIGMY_PREVIOUS_DATE"> {{'Utility.System_Master_Parameters.Pigmy_Previous_Date' | translate}}
+                                                                                <sub class="required">*
                                                                                 </sub></label>
                                                                         </span>
                                                                     </div>
@@ -2918,9 +2880,8 @@
                                                                                 formControlName="PIGMY_CURRENT_DATE"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                                 bsDatepicker>
-                                                                            <label for="PIGMY_CURRENT_DATE">Pigmy
-                                                                                Current
-                                                                                Date <sub class="required">*
+                                                                            <label for="PIGMY_CURRENT_DATE">{{'Utility.System_Master_Parameters.Pigmy_Current_Date' | translate}}
+                                                                                <sub class="required">*
                                                                                 </sub></label>
                                                                         </span>
                                                                     </div>
@@ -2943,8 +2904,8 @@
                                                                                     value="DayBeginExecuted"
                                                                                     name="PIGMY_DAY_BEGIN_EXECUTED"
                                                                                     formControlName="PIGMY_DAY_BEGIN_EXECUTED">
-                                                                                <i class="helper"></i>Day Begin
-                                                                                Executed<sub class="required">* </sub>
+                                                                                <i class="helper"></i>{{'Utility.System_Master_Parameters.Day_Begin' | translate}}
+                                                                               <sub class="required">* </sub>
                                                                             </label>
                                                                         </div>
                                                                         <div class="radio radio-inline">
@@ -2954,8 +2915,8 @@
                                                                                     value="DayEndExecuted"
                                                                                     name="PIGMY_DAY_BEGIN_EXECUTED"
                                                                                     formControlName="PIGMY_DAY_BEGIN_EXECUTED">
-                                                                                <i class="helper"></i>Day End
-                                                                                Executed<sub class="required">* </sub>
+                                                                                <i class="helper"></i>{{'Utility.System_Master_Parameters.Day_End' | translate}}
+                                                                               <sub class="required">* </sub>
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -2983,14 +2944,14 @@
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 #BACK_DAY_OPTION (focus)="onFocus(BACK_DAY_OPTION)" [selectOnTab]='true'
                                                                                 required
-                                                                                placeholder="Back Day Open Options">
+                                                                                placeholder="{{'Utility.System_Master_Parameters.Back_Day' | translate}}">
                                                                                 <ng-option
                                                                                     *ngFor="let values of ACMasterDropdown"
                                                                                     [value]="values">{{values.label}}
                                                                                 </ng-option>
                                                                             </ng-select>
-                                                                            <label for="BACK_DAY_OPTION">Back Day Open
-                                                                                Options</label>
+                                                                            <label for="BACK_DAY_OPTION">{{'Utility.System_Master_Parameters.Back_Day' | translate}}
+                                                                               </label>
                                                                         </span>
                                                                     </div>
 
@@ -3005,7 +2966,7 @@
                                                                                 (click)="ON_LINE($event)">
                                                                             <label class="border-checkbox-label"
                                                                                 for="ON_LINE">
-                                                                                Is Online Transactions?
+                                                                                {{'Utility.System_Master_Parameters.Is_Online' | translate}}
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -3021,8 +2982,7 @@
                                                                                 formControlName="IS_RECEIPT_PRINT_DESIGNMETHOD">
                                                                             <label class="border-checkbox-label"
                                                                                 for="IS_RECEIPT_PRINT_DESIGNMETHOD">
-                                                                                Is Receipt Printing by Designing Method
-                                                                                ?
+                                                                                {{'Utility.System_Master_Parameters.Is_Receipt' | translate}}
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -3051,14 +3011,14 @@
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 #CASH_IN_HAND_ACNO (focus)="onFocus(CASH_IN_HAND_ACNO)" [selectOnTab]='true'
                                                                                 required
-                                                                                placeholder="Cash In Hand GL A/c">
+                                                                                placeholder="{{'Utility.System_Master_Parameters.Cash_In' | translate}}">
                                                                                 <ng-option
                                                                                     *ngFor="let values of ACMasterDropdown"
                                                                                     [value]="values">{{values.label}}
                                                                                 </ng-option>
                                                                             </ng-select>
-                                                                            <label for="CASH_IN_HAND_ACNO">Cash In Hand
-                                                                                GL Account<sub class="required"> *
+                                                                            <label for="CASH_IN_HAND_ACNO">{{'Utility.System_Master_Parameters.Cash_In' | translate}}
+                                                                               <sub class="required"> *
                                                                                 </sub></label>
                                                                         </span>
                                                                     </div>
@@ -3094,14 +3054,14 @@
                                                                                 [ngClass]="{'form-submitted': formSubmitted}"
                                                                                 #CLG_HOUSE_METHOD (focus)="onFocus(CLG_HOUSE_METHOD)" [selectOnTab]='true'
                                                                                 required
-                                                                                placeholder="Clearing House Member">
+                                                                                placeholder="{{'Utility.System_Master_Parameters.Clearing_House' | translate}}">
                                                                                 <ng-option
                                                                                     *ngFor="let values of ACMasterDropdown"
                                                                                     [value]="values">{{values.label}}
                                                                                 </ng-option>
                                                                             </ng-select>
-                                                                            <label for="CLG_HOUSE_METHOD">Clearing House
-                                                                                Member<sub class="required"> *
+                                                                            <label for="CLG_HOUSE_METHOD">{{'Utility.System_Master_Parameters.Clearing_House' | translate}}
+                                                                              <sub class="required"> *
                                                                                 </sub></label>
                                                                         </span>
                                                                     </div>
@@ -3131,10 +3091,7 @@
                                                                                 id="LINES_PER_PASSBOOKPAGE"
                                                                                 title="Input allowed only  0-9"
                                                                                 formControlName="LINES_PER_PASSBOOKPAGE">
-                                                                            <label for="LINES_PER_PASSBOOKPAGE">Number
-                                                                                of
-                                                                                Lines
-                                                                                Per Passbook
+                                                                            <label for="LINES_PER_PASSBOOKPAGE">{{'Utility.System_Master_Parameters.Number_of_Lines' | translate}}
                                                                             </label>
                                                                         </span>
                                                                     </div>
@@ -3154,15 +3111,15 @@
                                                                         <button class="btn btn-outline-primary btn-sm"
                                                                             [disabled]="angForm.invalid"
                                                                             (click)="submit()"  (keydown.Tab)="focus()" appTheme *ngIf="showButton">
-                                                                            Submit
+                                                                            {{'Utility.Action.submit' | translate}}
                                                                         </button>
                                                                         <button class="btn btn-outline-primary btn-sm"
                                                                             [disabled]="angForm.invalid"
                                                                             (click)="updateData()" *ngIf="updateShow">
-                                                                            Update</button>&nbsp;
+                                                                            {{'Utility.Action.Update' | translate}}</button>&nbsp;
                                                                         <button class="btn btn-outline-primary btn-sm"
                                                                             (click)="addNewData()" *ngIf="newbtnShow">
-                                                                            Cancel
+                                                                            {{'Utility.Action.Cancel' | translate}}
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -3223,7 +3180,7 @@
                                 </tbody>
                                 <tbody *ngIf="systemParameters?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">
