@@ -2,9 +2,9 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Shares Scheme Settings</h5>
+        <h5>{{'Utility.Utility1.T9' | translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>)  {{'Utility.Action.F2' | translate}}
         </h6>
       </div>
       <form action="javascript:"  [formGroup]="angForm" novalidate #myform="ngForm">
@@ -18,7 +18,7 @@
                     maxlength="3" minlength="3" #autofocus (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     min="901" max="999" (focusout)="checkDuplicate($event)" formControlName="S_APPL" />
 
-                  <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
+                  <label for="S_APPL">{{'Utility.Utility1.Scheme_Code' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -42,7 +42,7 @@
                     required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME" maxlength="10"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" />
-                  <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
+                  <label for="S_SHNAME">{{'Utility.Utility1.Short_Name' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -67,7 +67,7 @@
                     pattern="^[A-Za-z\./ -]+$"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     formControlName="S_NAME" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)" />
-                  <label for="S_NAME">Description<sub class="required">* </sub></label>
+                  <label for="S_NAME">{{'Utility.Utility1.Description' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -94,11 +94,11 @@
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
-                    placeholder="GL Account Number">
+                    placeholder="{{'Utility.Utility1.Interest_GL_Acc' | translate}}">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
+                  <label for="S_GLACNO">{{'Utility.Utility1.Interest_GL_Acc' | translate}}<sub class="required"> * </sub></label>
                 </span>
               </div>
 
@@ -111,7 +111,7 @@
                     required="" pattern="^[A-Za-z\./ -]+$"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     formControlName="MEMBER_TYPE" maxlength="1" title="Input allowed only  A-Z a-z  - / . (Space)" />
-                  <label for="MEMBER_TYPE">Member Type<sub class="required">* </sub></label>
+                  <label for="MEMBER_TYPE">{{'Utility.Utility1.Member_type' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -137,7 +137,7 @@
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input class="border-checkbox" type="checkbox" name="IS_AUTO_NO" id="IS_AUTO_NO"
                     formControlName="IS_AUTO_NO" />
-                  <label class="border-checkbox-label" for="IS_AUTO_NO">Is Auto Account Number Show ?
+                  <label class="border-checkbox-label" for="IS_AUTO_NO">{{'Utility.Utility1.Auto_account' | translate}}
                   </label>
                 </div>
               </div>
@@ -152,7 +152,7 @@
                       <a (click)="OpenLink(101)" routerLinkActive="active" class="text-right f-w-600"
                         routerLink="/utility/schemeParameters" [ngClass]="{ isActive: FaceValueDividendTrue }"
                         id="pointer">
-                        Face Value/Dividend %</a>
+                        {{'Utility.Utility1.Face_val_div' | translate}}</a>
                     </h6>
                   </li>
                   <li>
@@ -160,7 +160,7 @@
                       <a (click)="OpenLink(102)" routerLinkActive="active" class="text-right f-w-600"
                         routerLink="/utility/schemeParameters" [ngClass]="{ isActive: OtherSettings_True }"
                         id="pointer">
-                        Other Settings</a>
+                        {{'Utility.Utility1.Other_Sett' | translate}}</a>
                     </h6>
                   </li>
                 </ul>
@@ -170,7 +170,7 @@
               <div *ngIf="FaceValueDividendTrue">
                 <div class="card">
                   <div class="card-header">
-                    <h5>Face Value/Dividend%</h5>
+                    <h5> {{'Utility.Utility1.Face_val_div' | translate}}</h5>
                   </div>
                   <div class="card-block">
                     <div class="row">
@@ -182,7 +182,7 @@
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                               id="SHARES_FACE_VALUE" title="Input allowed only . 0-9 "
                               formControlName="SHARES_FACE_VALUE" />
-                            <label for="SHARES_FACE_VALUE">Share Face Value</label>
+                            <label for="SHARES_FACE_VALUE"> {{'Utility.Utility1.Share_face' | translate}}</label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -206,7 +206,7 @@
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                               pattern="\d{1,9}(\.\d{1,2})?" title="Input allowed only . 0-9"
                               formControlName="MAX_SHARES_LIMIT" />
-                            <label for="MAX_SHARES_LIMIT">Maximum Number of Shares Limit</label>
+                            <label for="MAX_SHARES_LIMIT">{{'Utility.Utility1.Maximum_num_of_Shares' | translate}}</label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -231,7 +231,7 @@
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                               (keyup)="checkmargin($event)" title="Input allowed only  0-9"
                               formControlName="DIVIDEND_PERCENTAGE" />
-                            <label for="DIVIDEND_PERCENTAGE">Dividend Percentage %</label>
+                            <label for="DIVIDEND_PERCENTAGE">{{'Utility.Utility1.Divi_Per' | translate}}</label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -249,12 +249,12 @@
                       </div>
                     </div>
                     <div class="form-radio">
-                      <h6>Dividen Methods</h6>
+                      <h6>{{'Utility.Utility1.Di_Method' | translate}}</h6>
                       <div class="row">
                         <div class="radio radio-inline">
                           <label class="inputRadio">
                             <input type="radio" value="0" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
-                            <i class="helper"></i>0. Compounding<span class="required">
+                            <i class="helper"></i>{{'Utility.Utility1.Com' | translate}}<span class="required">
                             </span>
                           </label>
                         </div>
@@ -263,8 +263,7 @@
                         <div class="radio radio-inline">
                           <label class="inputRadio">
                             <input type="radio" value="1" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
-                            <i class="helper"></i>1. Simple as per Shares Closing
-                            Balance<span class="required"> </span>
+                            <i class="helper"></i>{{'Utility.Utility1.Shares_clo_Bal' | translate}}<span class="required"> </span>
                           </label>
                         </div>
                       </div>
@@ -272,8 +271,7 @@
                         <div class="radio radio-inline">
                           <label class="inputRadio">
                             <input type="radio" value="2" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
-                            <i class="helper"></i>2. Simple Days Basis +
-                            Transaction wise<span class="required"> </span>
+                            <i class="helper"></i>{{'Utility.Utility1.Days_basis' | translate}}<span class="required"> </span>
                           </label>
                         </div>
                       </div>
@@ -281,7 +279,7 @@
                         <div class="radio radio-inline">
                           <label class="inputRadio">
                             <input type="radio" value="3" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
-                            <i class="helper"></i>3. Transaction Wise<span class="required">
+                            <i class="helper"></i>{{'Utility.Utility1.Transaction_Wise' | translate}}<span class="required">
                             </span>
                           </label>
                         </div>
@@ -290,8 +288,7 @@
                         <div class="radio radio-inline">
                           <label class="inputRadio">
                             <input type="radio" value="4" name="INTEREST_RULE" formControlName="INTEREST_RULE" />
-                            <i class="helper"></i>4. Month Basis + Transaction
-                            wise<span class="required"> </span>
+                            <i class="helper"></i>{{'Utility.Utility1.Month_Basis' | translate}}<span class="required"> </span>
                           </label>
                         </div>
                       </div>
@@ -302,8 +299,7 @@
                           ">
                             <input class="border-checkbox" type="checkbox" name="IS_ADD_BONUS_IN_DIVIDEND"
                               id="IS_ADD_BONUS_IN_DIVIDEND" formControlName="IS_ADD_BONUS_IN_DIVIDEND" />
-                            <label class="border-checkbox-label" for="IS_ADD_BONUS_IN_DIVIDEND">Is Add Bonus Amount in
-                              Dividend Amount?
+                            <label class="border-checkbox-label" for="IS_ADD_BONUS_IN_DIVIDEND">{{'Utility.Utility1.Add_Bouns_Am' | translate}}
                             </label>
                           </div>
                         </div>
@@ -317,7 +313,7 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-header">
-                        <h5>Other Setting</h5>
+                        <h5>{{'Utility.Utility1.Other_Sett' | translate}}</h5>
                       </div>
                       <div class="card-block">
                         <div class="row">
@@ -329,8 +325,7 @@
                               ">
                                 <input class="border-checkbox" type="checkbox" name="BALANCE_ADD_APPLICABLE"
                                   id="BALANCE_ADD_APPLICABLE" formControlName="BALANCE_ADD_APPLICABLE" />
-                                <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allow
-                                  ?
+                                <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">{{'Utility.Utility1.Bal_Entry' | translate}}
                                 </label>
                               </div>
                             </div>
@@ -345,8 +340,7 @@
                               ">
                                 <input class="border-checkbox" type="checkbox" name="INT_ROUND_OFF" id="INT_ROUND_OFF"
                                   formControlName="INT_ROUND_OFF" />
-                                <label class="border-checkbox-label" for="INT_ROUND_OFF">Is Dividend Round off
-                                  Required..?
+                                <label class="border-checkbox-label" for="INT_ROUND_OFF">{{'Utility.Utility1.Div_Round' | translate}}
                                 </label>
                               </div>
                             </div>
@@ -361,7 +355,7 @@
                                 placeholder=" " id="ROUNDOFF_FACTOR" maxlength="2"
                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                 title="Input allowed only  0-9" pattern="^[0-9]+$" formControlName="ROUNDOFF_FACTOR" />
-                              <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise</label>
+                              <label for="ROUNDOFF_FACTOR">{{'Utility.Utility1.In_Round_Factor' | translate}}</label>
                             </span>
                           </div>
                           <div class="form-group form-primary form-static-label" *ngIf="
@@ -387,7 +381,7 @@
                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                 id="SANCT_LIMIT_PERCENTAGE" (keyup)="checkmargin($event)"
                                 title="Input allowed only  0-9" formControlName="SANCT_LIMIT_PERCENTAGE" />
-                              <label for="SANCT_LIMIT_PERCENTAGE">Percentage for Calculate Sanction Limit</label>
+                              <label for="SANCT_LIMIT_PERCENTAGE">{{'Utility.Utility1.Per_Cal_Sanction' | translate}}</label>
                             </span>
                           </div>
                           <div class="form-group form-primary form-static-label" *ngIf="
@@ -414,7 +408,7 @@
                                 placeholder=" " (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                 id="RETIREMENT_YEARS" title="Input allowed only  0-9" pattern="^[0-9]+$"
                                 formControlName="RETIREMENT_YEARS" />
-                              <label for="RETIREMENT_YEARS">Years for Retirement Date</label>
+                              <label for="RETIREMENT_YEARS">{{'Utility.Utility1.Years_For_Retri' | translate}}</label>
                             </span>
                           </div>
                           <div class="form-group form-primary form-static-label" *ngIf="
@@ -433,13 +427,13 @@
                       </div>
                       <div class="card-block">
                         <div class="form-radio">
-                          <h6>Shares Certificate On</h6>
+                          <h6>{{'Utility.Utility1.Shares_cer_on' | translate}}</h6>
                           <div class="row">
                             <div class="radio radio-inline">
                               <label>
                                 <input type="radio" value="1" name="SH_CERTIFICATE_METHOD"
                                   formControlName="SH_CERTIFICATE_METHOD" />
-                                <i class="helper"></i>Credit Amount On Date<span class="required">
+                                <i class="helper"></i>{{'Utility.Utility1.Credit_Amou' | translate}}<span class="required">
                                 </span>
                               </label>
                             </div>
@@ -450,7 +444,7 @@
                               <label>
                                 <input type="radio" value="2" name="SH_CERTIFICATE_METHOD"
                                   formControlName="SH_CERTIFICATE_METHOD" />
-                                <i class="helper"></i>Closing Balance<span class="required">
+                                <i class="helper"></i>{{'Utility.Utility1.Clo_Bal' | translate}}<span class="required">
                                 </span>
                               </label>
                             </div>
@@ -460,8 +454,7 @@
                               <label>
                                 <input type="radio" value="3" name="SH_CERTIFICATE_METHOD"
                                   formControlName="SH_CERTIFICATE_METHOD" />
-                                <i class="helper"></i>Credit Amount Between
-                                Dates<span class="required"> </span>
+                                <i class="helper"></i>{{'Utility.Utility1.Credit_A_Between_Dates' | translate}}<span class="required"> </span>
                               </label>
                             </div>
                           </div>
@@ -482,12 +475,12 @@
                 <div class="col-sm m-b-20">
                   <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
                     (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
-                    Submit
+                    {{'Utility.Action.Submit' | translate}}
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                    Update</button>&nbsp;
+                    {{'Utility.Action.Update' | translate}}</button>&nbsp;
                   <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                    Cancel
+                    {{'Utility.Action.Cancel' | translate}}
                   </button>
                 </div>
               </div>
@@ -552,7 +545,7 @@
                 </tbody>
                 <tbody *ngIf="shareScheme?.length == 0">
                   <tr>
-                    <td colspan="6" class="no-data-available">No data!</td>
+                    <td colspan="6" class="no-data-available"> {{'Utility.Action.No_Data' | translate}}</td>
                   </tr>
                 </tbody>
                 <tfoot #filters class="filters">

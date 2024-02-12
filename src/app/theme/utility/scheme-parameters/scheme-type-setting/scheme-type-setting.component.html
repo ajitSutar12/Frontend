@@ -2,9 +2,9 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Scheme types Settings</h5>
+        <h5>{{'Utility.Scheme_types_Settings.Title' | translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>){{'Utility.Action.F2' | translate}}
         </h6>
       </div>
       <div class="card-block">
@@ -24,7 +24,7 @@
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type" autofocus>
                     <ng-option *ngFor="let values of schemetype" [value]="values">{{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                  <label for="S_ACNOTYPE">{{'Utility.Scheme_types_Settings.Scheme_Type' | translate}}<sub class="required"> * </sub></label>
                 </span>
               </div>
             </div>
@@ -35,7 +35,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="50"
                     formControlName="S_NAME" />
-                  <label for="S_NAME">Description<sub class="required">* </sub></label>
+                  <label for="S_NAME">{{'Utility.Scheme_types_Settings.Descaption' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -60,26 +60,26 @@
                   <h6>
                     <a (click)="OpenLink(21)" routerLinkActive="active" routerLink="/utility/schemeParameters"
                       [ngClass]="{ isActive: transactionsTrue }" class="text-right f-w-600"
-                      id="pointer">Transactions</a>
+                      id="pointer">{{'Utility.Scheme_types_Settings.Transactions' | translate}}</a>
                   </h6>
                 </li>
 
                 <li>
                   <h6>
                     <a (click)="OpenLink(22)" routerLinkActive="active" routerLink="/utility/schemeParameters"
-                      [ngClass]="{ isActive: clearingTrue }" class="text-right f-w-600" id="pointer">Clearing</a>
+                      [ngClass]="{ isActive: clearingTrue }" class="text-right f-w-600" id="pointer">{{'Utility.Scheme_types_Settings.Clearing' | translate}}</a>
                   </h6>
                 </li>
                 <li>
                   <h6>
                     <a (click)="OpenLink(23)" routerLinkActive="active" routerLink="/utility/schemeParameters"
-                      [ngClass]="{ isActive: overdraftTrue }" class="text-right f-w-600" id="pointer">Overdraft</a>
+                      [ngClass]="{ isActive: overdraftTrue }" class="text-right f-w-600" id="pointer">{{'Utility.Scheme_types_Settings.Overdraft' | translate}}</a>
                   </h6>
                 </li>
                 <li>
                   <h6>
                     <a (click)="OpenLink(24)" routerLinkActive="active" routerLink="/utility/schemeParameters"
-                      [ngClass]="{ isActive: otherTrue }" class="text-right f-w-600" id="pointer">Other Settings</a>
+                      [ngClass]="{ isActive: otherTrue }" class="text-right f-w-600" id="pointer">{{'Utility.Scheme_types_Settings.Other_Settings' | translate}}</a>
                   </h6>
                 </li>
               </ul>
@@ -90,7 +90,7 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-header">
-                        <h5>Transactions</h5>
+                        <h5>{{'Utility.Scheme_types_Settings.Transactions' | translate}}</h5>
                       </div>
                       <div class="card-block">
                         <div class="col-sm">
@@ -101,8 +101,7 @@
                               ">
                               <input class="border-checkbox" type="checkbox" id="S_SINGLE_VOUCHER"
                                 formControlName="S_SINGLE_VOUCHER" />
-                              <label class="border-checkbox-label" for="S_SINGLE_VOUCHER">Is Single Voucher
-                                Required?</label>
+                              <label class="border-checkbox-label" for="S_SINGLE_VOUCHER">{{'Utility.Scheme_types_Settings.Is_Single' | translate}}</label>
                             </div>
                           </div>
                         </div>
@@ -115,8 +114,7 @@
                               ">
                               <input class="border-checkbox" type="checkbox" id="S_MULTY_VOUCHER"
                                 formControlName="S_MULTY_VOUCHER" />
-                              <label class="border-checkbox-label" for="S_MULTY_VOUCHER">Is Multi Voucher
-                                Required?</label>
+                              <label class="border-checkbox-label" for="S_MULTY_VOUCHER">{{'Utility.Scheme_types_Settings.Is_Multi' | translate}}</label>
                             </div>
                           </div>
                         </div>
@@ -128,8 +126,7 @@
                               ">
                               <input class="border-checkbox" type="checkbox" id="S_CASH_PAID_LOCK"
                                 formControlName="S_CASH_PAID_LOCK" (click)="cashpaymentlock($event)" />
-                              <label class="border-checkbox-label" for="S_CASH_PAID_LOCK">Is Required Cash Payment
-                                Lock?
+                              <label class="border-checkbox-label" for="S_CASH_PAID_LOCK">{{'Utility.Scheme_types_Settings.Is_Required' | translate}}
 
                               </label>
                             </div>
@@ -145,7 +142,7 @@
                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                 title="Input allowed only  0-9/ . (Space)" maxlength="20,2"
                                 formControlName="S_CASH_PAID_MIN_AMT" disabled />
-                              <label for="S_CASH_PAID_MIN_AMT">Show Message when cash Payment Min Rs.
+                              <label for="S_CASH_PAID_MIN_AMT">{{'Utility.Scheme_types_Settings.Show_Message' | translate}}
                               </label>
                             </span>
                           </div>
@@ -173,7 +170,7 @@
                   <div class="col-12">
                     <div class="card">
                       <div class="card-header">
-                        <h5>Clearing</h5>
+                        <h5>{{'Utility.Scheme_types_Settings.Clearing' | translate}}</h5>
                       </div>
 
                       <div class="card-block">
@@ -186,8 +183,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_LOCAL_CLEARING"
                                   formControlName="S_LOCAL_CLEARING" />
-                                <label class="border-checkbox-label" for="S_LOCAL_CLEARING">Is Local Clearing
-                                  Applicable?
+                                <label class="border-checkbox-label" for="S_LOCAL_CLEARING">{{'Utility.Scheme_types_Settings.Is_Local' | translate}}
 
                                 </label>
                               </div>
@@ -202,7 +198,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_CHEQUE_BOOK"
                                   formControlName="S_CHEQUE_BOOK" />
-                                <label class="border-checkbox-label" for="S_CHEQUE_BOOK">Is Cheue Book Required?
+                                <label class="border-checkbox-label" for="S_CHEQUE_BOOK">{{'Utility.Scheme_types_Settings.Is_Cheue' | translate}}
 
                                 </label>
                               </div>
@@ -219,8 +215,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_DEMAND_DRAFT"
                                   formControlName="S_DEMAND_DRAFT" />
-                                <label class="border-checkbox-label" for="S_DEMAND_DRAFT">Is Demand Draft
-                                  Applicable?
+                                <label class="border-checkbox-label" for="S_DEMAND_DRAFT">{{'Utility.Scheme_types_Settings.Is_Demand' | translate}}
 
 
                                 </label>
@@ -235,7 +230,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="IS_PO_APPL"
                                   formControlName="IS_PO_APPL" />
-                                <label class="border-checkbox-label" for="IS_PO_APPL">Is Pay Order Applicable?
+                                <label class="border-checkbox-label" for="IS_PO_APPL">{{'Utility.Scheme_types_Settings.Is_Pay_Order' | translate}}
 
                                 </label>
                               </div>
@@ -251,7 +246,7 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="card-header">
-                      <h5>Overdraft</h5>
+                      <h5>{{'Utility.Scheme_types_Settings.Overdraf' | translate}}</h5>
                     </div>
                     <div class="card">
                       <div class="card-block">
@@ -264,8 +259,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_TEMP_OVERDRFT"
                                   formControlName="S_TEMP_OVERDRFT" />
-                                <label class="border-checkbox-label" for="S_TEMP_OVERDRFT">Is Temporary Overdraft
-                                  Applicable
+                                <label class="border-checkbox-label" for="S_TEMP_OVERDRFT">{{'Utility.Scheme_types_Settings.Is_Temporary' | translate}}
 
                                   ?</label>
                               </div>
@@ -280,8 +274,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_PERIODCL_OVERDRFT"
                                   formControlName="S_PERIODCL_OVERDRFT" />
-                                <label class="border-checkbox-label" for="S_PERIODCL_OVERDRFT">Is Periodically Overdraft
-                                  Applicable?
+                                <label class="border-checkbox-label" for="S_PERIODCL_OVERDRFT">{{'Utility.Scheme_types_Settings.Is_Periodically' | translate}}
 
                                 </label>
                               </div>
@@ -297,7 +290,7 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="card-header">
-                      <h5>Other Settings</h5>
+                      <h5>{{'Utility.Scheme_types_Settings.Other_Settings' | translate}}</h5>
                     </div>
                     <div class="card">
                       <div class="card-block">
@@ -310,8 +303,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_SPECIAL_INSTRUCTION"
                                   formControlName="S_SPECIAL_INSTRUCTION" />
-                                <label class="border-checkbox-label" for="S_SPECIAL_INSTRUCTION">Is Special Instruction
-                                  Applicable?
+                                <label class="border-checkbox-label" for="S_SPECIAL_INSTRUCTION">{{'Utility.Scheme_types_Settings.Is_Special' | translate}}
 
                                 </label>
                               </div>
@@ -326,9 +318,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_SUB_PRINT"
                                   formControlName="S_SUB_PRINT" />
-                                <label class="border-checkbox-label" for="S_SUB_PRINT">Is Subsidiary Print
-                                  Required?
-
+                                <label class="border-checkbox-label" for="S_SUB_PRINT">{{'Utility.Scheme_types_Settings.Is_Subsidiary' | translate}}
                                 </label>
                               </div>
                             </div>
@@ -343,8 +333,7 @@
                                 ">
                                 <input class="border-checkbox" type="checkbox" id="S_FREEZE_APPLICABLE"
                                   formControlName="S_FREEZE_APPLICABLE" />
-                                <label class="border-checkbox-label" for="S_FREEZE_APPLICABLE">Is Freeze Account
-                                  Applicable?
+                                <label class="border-checkbox-label" for="S_FREEZE_APPLICABLE">{{'Utility.Scheme_types_Settings.Is_Freeze' | translate}}
 
                                 </label>
                               </div>
@@ -362,10 +351,10 @@
 
             <div class="col-sm">
               <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" [disabled]="angForm.invalid"
-                (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'Utility.Action.submit' | translate}}</button>
               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                [disabled]="angForm.invalid">Update</button> &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+                [disabled]="angForm.invalid">{{'Utility.Action.Update' | translate}}</button> &nbsp;
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">{{'Utility.Action.Cancel' | translate}}</button>
             </div>
           </div>
         </form>
@@ -412,7 +401,7 @@
                 </tbody>
                 <tbody *ngIf="schemetypes?.length == 0">
                   <tr>
-                    <td colspan="6" class="no-data-available">No data!</td>
+                    <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
                   </tr>
                 </tbody>
                 <tfoot #filters class="filters">

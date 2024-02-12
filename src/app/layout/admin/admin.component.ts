@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { MenuItems } from '../../shared/menu-items/menu-items';
@@ -20,6 +21,8 @@ import { interval } from 'rxjs';
         })
       ),
       state('an-animate',
+
+      
         style({
           overflow: 'visible',
           height: AUTO_STYLE,

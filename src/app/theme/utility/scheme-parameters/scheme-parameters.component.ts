@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-scheme-parameters',
   templateUrl: './scheme-parameters.component.html',
@@ -29,7 +31,7 @@ export class SchemeParametersComponent implements OnInit {
   payrollsettings = false;
 
 
-  constructor(private_router: Router) {
+  constructor(private_router: Router,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
   }
   ngOnInit(): void {
   }
@@ -489,5 +491,7 @@ export class SchemeParametersComponent implements OnInit {
       this.payrollsettings = true;
     }
   }
-
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
+  }
 }

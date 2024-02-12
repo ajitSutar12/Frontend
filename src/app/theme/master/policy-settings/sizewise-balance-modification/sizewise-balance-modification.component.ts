@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-sizewise-balance-modification',
   templateUrl: './sizewise-balance-modification.component.html',
@@ -24,7 +25,8 @@ export class SizewiseBalanceModificationComponent implements OnInit {
   depositSizewiseBalanceTrue: boolean = true;
   loanSizewiseBalanceTrue: boolean = false;
   commissionSlabMasterTrue: boolean =false;
-  constructor() { }
+  constructor(private translate:TranslateService) {
+    this.translate.setDefaultLang('ma') }
 
   ngOnInit(): void {
 
@@ -48,6 +50,9 @@ export class SizewiseBalanceModificationComponent implements OnInit {
       this.commissionSlabMasterTrue = true;
 
     }
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

@@ -14,6 +14,7 @@ import { GlAccountsMasterService } from './gl-accounts-master.service';
 import { HttpClient } from '@angular/common/http'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -108,7 +109,7 @@ export class GlAccountsMasterComponent implements OnInit {
     private http: HttpClient,
     private glAccountsMasterService: GlAccountsMasterService,
     private statement: StatementCodeDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
 
     // 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {
@@ -258,18 +259,18 @@ export class GlAccountsMasterComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'General Ledger Code',
+          title: this.translate.instant('master.Account_Master.General_Ledger_Code'),
           data: 'AC_NO'
         },
         {
-          title: 'General Ledger Name',
+          title: this.translate.instant('master.Account_Master.General_Ledger_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Statement Code',
+          title: this.translate.instant('master.Account_Master.Statement_code'),
           data: 'head_name'
         },
         {
@@ -469,5 +470,8 @@ export class GlAccountsMasterComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }
