@@ -12,7 +12,7 @@
                 <div class="card-block">
                     <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                         <!--Bank Details  -->
-                        <ngb-tab title="Bank Details">
+                        <ngb-tab title="{{'Utility.Action.Bank_Details' | translate}}">
                             <ng-template ngbTabContent>  
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="card border-primary">
@@ -41,7 +41,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['BANK_CODE'].errors?.required || angForm.controls['BANK_CODE'].errors?.pattern || angForm.controls['BANK_CODE'].errors?.maxlength">
-                                                                    This field is required and Input allowed only 0-9
+                                                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -65,8 +65,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['BANK_NAME'].errors?.pattern || angForm.controls['BANK_NAME'].errors?.required || angForm.controls['BANK_NAME'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . , (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . , (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -117,7 +117,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['ADDRESS'].errors?.pattern || angForm.controls['ADDRESS'].errors?.required || angForm.controls['ADDRESS'].errors?.maxlength">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -144,7 +144,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['COMPANY_START_DATE'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -168,7 +168,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['NO_OF_EMPLOYEES'].errors?.pattern || angForm.controls['NO_OF_EMPLOYEES'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -194,8 +194,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['ACCOUNTANT'].errors?.pattern || angForm.controls['ACCOUNTANT'].errors?.required || angForm.controls['ACCOUNTANT'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -219,8 +219,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['GENERAL_MANAGER'].errors?.pattern || angForm.controls['GENERAL_MANAGER'].errors?.required || angForm.controls['GENERAL_MANAGER'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
 
@@ -244,8 +244,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['CHAIRMAN'].errors?.pattern || angForm.controls['CHAIRMAN'].errors?.required || angForm.controls['CHAIRMAN'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -272,8 +272,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['OFFICER_NAME'].errors?.pattern || angForm.controls['OFFICER_NAME'].errors?.required || angForm.controls['OFFICER_NAME'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -298,8 +298,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['OFFICER_DESIGNATION'].errors?.pattern || angForm.controls['OFFICER_DESIGNATION'].errors?.required || angForm.controls['OFFICER_DESIGNATION'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -323,9 +323,9 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['RBI_LICENCE_NO'].errors?.pattern || angForm.controls['RBI_LICENCE_NO'].errors?.required || angForm.controls['RBI_LICENCE_NO'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
+                                                                    <!-- This field is required and Input allowed only A-Z
                                                                     and 0-9
-                                                                    a-z - / . (Space)
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_ward' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -352,8 +352,8 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['MANAGER_NAME'].errors?.pattern || angForm.controls['MANAGER_NAME'].errors?.required || angForm.controls['MANAGER_NAME'].errors?.maxlength">
-                                                                    This field is required and Input allowed only A-Z
-                                                                    a-z - / . (Space)
+                                                                    <!-- This field is required and Input allowed only A-Z
+                                                                    a-z - / . (Space) -->{{'Utility.Validation.Val_Repre' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -374,7 +374,7 @@
                         </ngb-tab>
                         <!--End of Bank Details -->
                         <!--GL Account 1 -->
-                        <ngb-tab title="GL Account" role="tab" data-toggle="tab" id="glaccount1">
+                        <ngb-tab title="{{'Utility.Action.GL_Account' | translate}}" role="tab" data-toggle="tab" id="glaccount1">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="card border-primary">
@@ -414,7 +414,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['DD_COMMISSION_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
 
@@ -450,7 +450,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['DIVIDEND_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -487,7 +487,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['BONUS_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -523,7 +523,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['BILL_FOR_COLLECTION_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -562,7 +562,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['BILL_RECEIVABLE_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -597,7 +597,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['BCBR_DR_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -637,7 +637,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['CLG_SUSPENCE_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -675,7 +675,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['INWARD_BILL_COLLECTION_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -715,7 +715,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['INWARD_BILL_COLLECTION_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -744,7 +744,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['CGST_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -776,7 +776,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['SGST_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -806,7 +806,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['IGST_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -933,7 +933,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['RECOVERY_DR_ACNO'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -963,7 +963,7 @@
                         </ngb-tab>
                         <!--End of  GL Account 1 -->
                         <!--GL Account 2 -->
-                        <ngb-tab title="GL Account" role="tab" data-toggle="tab" id="glaccount2">
+                        <ngb-tab title="{{'Utility.Action.GL_Account' | translate}}" role="tab" data-toggle="tab" id="glaccount2">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="card border-primary">
@@ -1002,7 +1002,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['HO_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1153,7 +1153,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['YEAR_CLOSING_TRANSFER_ACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1218,7 +1218,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['AUTHORIZED_SHARE_CAPITAL_CODE'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1261,7 +1261,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['FROM_DATE'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1287,7 +1287,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['TO_DATE'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1310,7 +1310,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['AMOUNT'].errors?.pattern || angForm.controls['AMOUNT'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1411,7 +1411,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['TDS_PAYABLE_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1445,7 +1445,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['SURCHARGE_GLACNO'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1473,7 +1473,7 @@
                                                                         </ng-option>
                                                                     </ng-select>
                                                                     <label for="CHEQUE_CHARGES_ACNO">{{'Utility.System_Master_Parameters.Cheque_Book_Charges_GL' | translate}}
-                                                                        GL<sub class="required"> * </sub></label>
+                                                                    <sub class="required"> * </sub></label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -1529,7 +1529,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['CHEQUE_BOUNCE_CHARGES'].errors?.pattern || angForm.controls['CHEQUE_BOUNCE_CHARGES'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1584,7 +1584,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['MICR_CHARGES_AMOUNT'].errors?.pattern || angForm.controls['MICR_CHARGES_AMOUNT'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1609,7 +1609,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['MICR_CHARGES_INWORD_CLG'].errors?.pattern || angForm.controls['MICR_CHARGES_INWORD_CLG'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1629,7 +1629,7 @@
                         </ngb-tab>
                         <!--End of  GL Account 2 -->
                         <!--Flag Setting-->
-                        <ngb-tab title="Flag Setting" role="tab" data-toggle="tab" id="flag">
+                        <ngb-tab title="{{'Utility.Action.Flag_Setting' | translate}}" role="tab" data-toggle="tab" id="flag">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="card border-primary">
@@ -1656,7 +1656,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['GRACE_PERIOD'].errors?.pattern || angForm.controls['GRACE_PERIOD'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1740,7 +1740,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['HALF_DAY'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1777,7 +1777,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf=" angForm.controls['INT_CALC_METHOD'].errors?.required ">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1804,7 +1804,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['MORATORIUM_PERIOD'].errors?.pattern || angForm.controls['MORATORIUM_PERIOD'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1829,7 +1829,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['SANCTIONED_CASH_LIMIT'].errors?.pattern || angForm.controls['SANCTIONED_CASH_LIMIT'].errors?.required || angForm.controls['SANCTIONED_CASH_LIMIT'].errors?.maxlength">
-                                                                    This field is required and Input allowed only 0-9
+                                                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1853,7 +1853,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['IS_PGCOMMISSION_PERCALCULATION'].errors?.pattern || angForm.controls['IS_PGCOMMISSION_PERCALCULATION'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1884,7 +1884,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['DIV_CALCU_MONTH'].errors?.pattern || angForm.controls['DIV_CALCU_MONTH'].errors?.required || angForm.controls['DIV_CALCU_MONTH'].errors?.maxlength">
-                                                                    This field is required and Input allowed only 0-9
+                                                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1908,7 +1908,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['HIGH_VALUE_CLEARING_AMT'].errors?.pattern || angForm.controls['HIGH_VALUE_CLEARING_AMT'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1931,7 +1931,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['NPA_METHOD'].errors?.pattern || angForm.controls['NPA_METHOD'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1958,7 +1958,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['NPA_SUBMETHOD'].errors?.pattern || angForm.controls['NPA_SUBMETHOD'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2010,7 +2010,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['MEMBER_FOR_GUR'].errors?.pattern || angForm.controls['MEMBER_FOR_GUR'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2034,7 +2034,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['AUTO_LOCK_TIME'].errors?.pattern || angForm.controls['AUTO_LOCK_TIME'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2057,7 +2057,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['PASSWORD_EXPIRE_DAYS'].errors?.pattern || angForm.controls['PASSWORD_EXPIRE_DAYS'].errors?.maxlength">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2719,7 +2719,7 @@
                         </ngb-tab>
                         <!--End Flag Setting-->
                         <!--Admin Options-->
-                        <ngb-tab title="Admin Options" role="tab" data-toggle="tab" id="admin">
+                        <ngb-tab title="{{'Utility.Action.Admin_Options' | translate}}" role="tab" data-toggle="tab" id="admin">
                             <ng-template ngbTabContent>
                                 <div [@fadeInOutTranslate] class="m-t-15">
                                     <div class="card border-primary">
@@ -2764,7 +2764,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['PREVIOUS_DATE'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2792,7 +2792,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['CURRENT_DATE'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2856,7 +2856,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['PIGMY_PREVIOUS_DATE'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2890,7 +2890,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['PIGMY_CURRENT_DATE'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -3027,7 +3027,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['CASH_IN_HAND_ACNO'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
 
@@ -3070,7 +3070,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf=" angForm.controls['CLG_HOUSE_METHOD'].errors?.required ">
-                                                                            This field is required
+                                                                            <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                                                         </div>
                                                                     </div>
 
@@ -3100,7 +3100,7 @@
                                                                         class="alert alert-danger">
                                                                         <div
                                                                             *ngIf="angForm.controls['LINES_PER_PASSBOOKPAGE'].errors?.pattern || angForm.controls['LINES_PER_PASSBOOKPAGE'].errors?.maxlength">
-                                                                            Input allowed only 0-9
+                                                                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>

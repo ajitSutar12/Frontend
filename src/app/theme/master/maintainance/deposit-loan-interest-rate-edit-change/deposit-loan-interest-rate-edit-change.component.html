@@ -28,7 +28,7 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['EFFECT_DATE'].errors?.required || angForm.controls['EFFECT_DATE'].errors?.maxlength || angForm.controls['EFFECT_DATE'].errors?.minlength">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                 *ngIf="angForm.controls['AC_NOFrom'].invalid && (angForm.controls['AC_NOFrom'].dirty || angForm.controls['AC_NOFrom'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NOFrom'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                                 *ngIf="angForm.controls['AC_NOTo'].invalid && (angForm.controls['AC_NOTo'].dirty || angForm.controls['AC_NOTo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NOTo'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.max || angForm.controls['INT_RATE'].errors?.required || angForm.controls['INT_RATE'].errors?.minlength || angForm.controls['INT_RATE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>

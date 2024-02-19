@@ -229,7 +229,7 @@ export class PigmyAgentSchemeComponent
     console.log(formVal);
     this.pigmyagentService.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload();
@@ -273,7 +273,7 @@ export class PigmyAgentSchemeComponent
     data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     data['S_INT_APPLICABLE'] = (data.S_INT_APPLICABLE == true ? '1' : '0')
     this.pigmyagentService.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -301,8 +301,8 @@ export class PigmyAgentSchemeComponent
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete narration data.",
+      title:`${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -312,7 +312,7 @@ export class PigmyAgentSchemeComponent
       if (result.isConfirmed) {
         this.pigmyagentService.deleteData(id).subscribe((data1) => {
           this.pigmyagentscheme = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -320,7 +320,7 @@ export class PigmyAgentSchemeComponent
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -382,12 +382,12 @@ export class PigmyAgentSchemeComponent
         this.pigmyagentService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 301 to 399 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.301_to_399_this_range')}`, 'error')
       }
     }
   } 

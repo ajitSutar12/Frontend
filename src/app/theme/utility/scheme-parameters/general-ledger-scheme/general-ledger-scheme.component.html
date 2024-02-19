@@ -29,7 +29,7 @@
                     angForm.controls['S_APPL'].errors?.required ||
                     angForm.controls['S_APPL'].errors?.pattern
                   ">
-                  This field is required and Scheme allowed only 980
+                  <!-- This field is required and Scheme allowed only 980 -->
                 </div>
               </div>
             </div>
@@ -53,8 +53,8 @@
                     angForm.controls['S_NAME'].errors?.required ||
                     angForm.controls['S_NAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -78,8 +78,8 @@
                     angForm.controls['S_SHNAME'].errors?.required ||
                     angForm.controls['S_SHNAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@
                           <div *ngIf="
                               angForm.controls['MIN_INT_LIMIT'].errors?.pattern
                             ">
-                            Input allowed only 0-9 .
+                            <!-- Input allowed only 0-9 . -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>

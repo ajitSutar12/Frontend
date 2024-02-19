@@ -31,7 +31,7 @@
               angForm.controls['S_APPL'].errors?.pattern ||
               angForm.controls['S_APPL'].errors?.min || 
               angForm.controls['S_APPL'].errors?.max">
-                  This field is required and valid range 901 to 999
+                  <!-- This field is required and valid range 901 to 999 -->
                 </div>
               </div>
             </div>
@@ -55,8 +55,8 @@
                     angForm.controls['S_SHNAME'].errors?.required ||
                     angForm.controls['S_SHNAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -80,8 +80,8 @@
                     angForm.controls['S_NAME'].errors?.required ||
                     angForm.controls['S_NAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -124,8 +124,8 @@
                     angForm.controls['MEMBER_TYPE'].errors?.required ||
                     angForm.controls['MEMBER_TYPE'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -194,7 +194,7 @@
                             angForm.controls['SHARES_FACE_VALUE'].errors
                               ?.pattern
                           ">
-                            Input allowed only . 0-9(After decimal only 2 digits allowed)
+                            <!-- Input allowed only . 0-9(After decimal only 2 digits allowed) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
                           </div>
                         </div>
                       </div>
@@ -217,7 +217,7 @@
                           <div *ngIf="
                             angForm.controls['MAX_SHARES_LIMIT'].errors?.pattern
                           ">
-                            Input allowed only . 0-9
+                            <!-- Input allowed only . 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -243,7 +243,7 @@
                             angForm.controls['DIVIDEND_PERCENTAGE'].errors
                               ?.pattern
                           ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -369,7 +369,7 @@
                               angForm.controls['SHARES_FACE_VALUE'].errors
                                 ?.maxlength
                             ">
-                              Input allowed only 0-9
+                              <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Pin_Code' | translate}}
                             </div>
                           </div>
                         </div>
@@ -395,7 +395,7 @@
                               angForm.controls['SANCT_LIMIT_PERCENTAGE'].errors
                                 ?.pattern
                             ">
-                              Input allowed only 0-9
+                              <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                             </div>
                           </div>
                         </div>
@@ -420,7 +420,7 @@
                               angForm.controls['RETIREMENT_YEARS'].errors
                                 ?.pattern
                             ">
-                              Input allowed only 0-9
+                              <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                             </div>
                           </div>
                         </div>

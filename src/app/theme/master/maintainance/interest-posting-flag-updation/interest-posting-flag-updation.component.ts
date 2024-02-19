@@ -197,7 +197,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
       });
     }
     else if (this.angForm.controls['TO_AC'].value != '' && this.angForm.controls['TO_AC'].value != null) {
-      Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Account_Number')}`);
       this.InterestArr = []
       this.angForm.patchValue({
         TO_AC: ''
@@ -279,7 +279,7 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
 
       this._service.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
         },
         (error) => {
           console.log(error);
@@ -323,16 +323,14 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

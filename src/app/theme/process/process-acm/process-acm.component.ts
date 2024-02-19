@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-process-acm',
@@ -20,7 +22,7 @@ export class ProcessACMComponent implements OnInit {
 
   dtExportButtonOptions : any = {};
 
-  constructor() { }
+  constructor(private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -193,5 +195,8 @@ export class ProcessACMComponent implements OnInit {
       this.ChargesPosting=true;
   
     }
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

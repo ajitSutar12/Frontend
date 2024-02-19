@@ -27,7 +27,7 @@
                                 class="alert alert-danger">
                                 <div *ngIf=" angForm.controls['S_APPL'].errors?.required || angForm.controls['S_APPL'].errors?.pattern ||  angForm.controls['S_APPL'].errors?.min || 
                                     angForm.controls['S_APPL'].errors?.max">
-                                    This field is required and valid range 351 to 400
+                                    <!-- This field is required and valid range 351 to 400 -->
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['S_SHNAME'].errors?.pattern || angForm.controls['S_SHNAME'].errors?.required|| angForm.controls['S_SHNAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required || angForm.controls['S_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@
                                 *ngIf="angForm.controls['LOCKER_RENT_ACNO'].invalid && (angForm.controls['LOCKER_RENT_ACNO'].dirty || angForm.controls['LOCKER_RENT_ACNO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf=" angForm.controls['LOCKER_RENT_ACNO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@
                                 *ngIf="angForm.controls['LOCKER_RECBL_RENT_ACNO'].invalid && (angForm.controls['LOCKER_RECBL_RENT_ACNO'].dirty || angForm.controls['LOCKER_RECBL_RENT_ACNO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf=" angForm.controls['LOCKER_RECBL_RENT_ACNO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

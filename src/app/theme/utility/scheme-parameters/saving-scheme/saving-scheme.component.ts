@@ -178,35 +178,33 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       columns: [
         {
           title: this.translate.instant('Utility.Action.Action'),
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          },
+
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          data: "S_ACNOTYPE",
+          title: this.translate.instant('Utility.Utility1.Type'),
+          data: 'S_ACNOTYPE',
+
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          
-          data: "S_APPL",
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
+          data: 'S_APPL',
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          data: "S_NAME",
+          title: this.translate.instant('Utility.Utility1.Description'),
+          data: 'S_NAME',
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          data: "S_SHNAME",
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
+          data: 'S_SHNAME',
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          data: "S_GLACNO",
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
+          data: 'S_GLACNO',
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          data: "S_INT_ACNO",
-        },
+          title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
+          data: 'S_INT_ACNO',
+        }
         // {
         //   title: "Is Interest Applicable ?",
         //   data: "S_INT_APPLICABLE",
@@ -468,7 +466,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     };
     this.savingschemeservice.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
         this.formSubmitted = false;
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -565,7 +563,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     data['DORMANT_FLAG_APPLICABLE'] = (data.DORMANT_FLAG_APPLICABLE == true ? '1' : '0')
     data['OVERDRAFT_INTEREST_APPLICABLE'] = (data.OVERDRAFT_INTEREST_APPLICABLE == true ? '1' : '0')
     this.savingschemeservice.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -598,8 +596,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.narration_data')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -609,7 +607,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       if (result.isConfirmed) {
         this.savingschemeservice.deleteData(id).subscribe((data1) => {
           this.savingscheme = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -617,7 +615,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -706,12 +704,12 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.savingschemeservice.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 101 to 150 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.101_to_150_this_range')}`, 'error')
       }
     }
   }

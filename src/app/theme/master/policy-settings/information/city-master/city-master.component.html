@@ -23,7 +23,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="CITY_NAME" class="form-control" placeholder=" "
-                                    #autofocus  id="CityName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                    #autofocus  id="CityName" required=""maxlength="100"
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
@@ -31,8 +31,8 @@
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CITY_NAME'].invalid && (angForm.controls['CITY_NAME'].dirty || angForm.controls['CITY_NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['CITY_NAME'].errors?.pattern || angForm.controls['CITY_NAME'].errors?.required|| angForm.controls['CITY_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                <div *ngIf="angForm.controls['CITY_NAME'].errors?.required|| angForm.controls['CITY_NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -41,13 +41,13 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="DISTANCE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                        id="Distance" pattern="^[0-9.]+$" title="Input allowed only  0-9" formControlName="DISTANCE">
+                                        id="Distance" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9" formControlName="DISTANCE">
                                     <label for="Distance">{{'master.City_Master.Distance_from_Branch(in Km)' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DISTANCE'].invalid && (angForm.controls['DISTANCE'].dirty || angForm.controls['DISTANCE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DISTANCE'].errors?.pattern ||angForm.controls['DISTANCE'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -58,14 +58,14 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="TALUKA_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="TalukaCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        id="TalukaCode" required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         [ngClass]="{'form-submitted': formSubmitted}"  formControlName="TALUKA_CODE">
                                     <label for="TalukaCode">{{'master.City_Master.Taluka_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TALUKA_CODE'].invalid && (angForm.controls['TALUKA_CODE'].dirty || angForm.controls['TALUKA_CODE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TALUKA_CODE'].errors?.pattern || angForm.controls['TALUKA_CODE'].errors?.required|| angForm.controls['TALUKA_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -74,14 +74,14 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="DISTRICT_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="DistrictCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE"
+                                        id="DistrictCode" required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9" formControlName="DISTRICT_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="DistrictCode">{{'master.City_Master.District_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DISTRICT_CODE'].invalid && (angForm.controls['DISTRICT_CODE'].dirty || angForm.controls['DISTRICT_CODE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DISTRICT_CODE'].errors?.pattern || angForm.controls['DISTRICT_CODE'].errors?.required|| angForm.controls['DISTRICT_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -90,14 +90,14 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="STATE_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="StateCode" required="" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="STATE_CODE"
+                                        id="StateCode" required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9" formControlName="STATE_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="StateCode">{{'master.City_Master.State_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['STATE_CODE'].invalid && (angForm.controls['STATE_CODE'].dirty || angForm.controls['STATE_CODE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['STATE_CODE'].errors?.pattern || angForm.controls['STATE_CODE'].errors?.required|| angForm.controls['STATE_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="REGION_CODE" class="form-control" placeholder=" " maxlength="4"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="Region" required=""  pattern="^[0-9]+$"
+                                        id="Region" required=""  pattern="^[0-9\u0966-\u096F]*$"
                                         title="Input allowed only  0-9" formControlName="REGION_CODE"
                                         [ngClass]="{'form-submitted': formSubmitted}" >
                                     <label for="Region">{{'master.City_Master.Region' | translate}}<sub class="required">* </sub></label>
@@ -116,7 +116,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['REGION_CODE'].invalid && (angForm.controls['REGION_CODE'].dirty || angForm.controls['REGION_CODE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['REGION_CODE'].errors?.pattern || angForm.controls['REGION_CODE'].errors?.required || angForm.controls['REGION_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>

@@ -132,7 +132,7 @@ export class SendMessageComponent implements OnInit {
           if (data == 1) {
             this.isLoading = true
             this.isDisabled = true
-            Swal.fire("success", "Message Send Successfully", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Message_Send')}`);
             this.angForm.reset()
             this.isLoading = false
             this.isDisabled = false
@@ -141,7 +141,7 @@ export class SendMessageComponent implements OnInit {
           else {
             this.isLoading = false
             this.isDisabled = false
-            Swal.fire("warning", "Please contact to Compserv to allow Whatsapp messages", "warning");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Whatsapp_messages')}`), "warning";
           }
         },
         (err) => {
@@ -149,14 +149,14 @@ export class SendMessageComponent implements OnInit {
           this.isDisabled = false
 
           if (err.error.statusCode == 400) {
-            Swal.fire("error", err.error.message, "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, err.error.message, "error");
           } else {
-            Swal.fire("Error", 'Something Wents Wrong', "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Wents_Wrong')}`, "error");
           }
         }
       );
     } else {
-      Swal.fire('Error', "Please Fill All Fields", 'error')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Fill_All_Fields')}`, 'error')
     }
   }
   selectedType() {

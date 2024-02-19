@@ -147,6 +147,7 @@
             "Action":"कृती"
         },
         "Recovery_Cleark_Master": {
+            "Title":"वसूली क्लार्क मास्टर",
             "Recovery_Cleark_Code": "वसूली क्लार्क कोड ",
             "Branch_Code": "शाखा कोड ",
             "Description": "तपशील ",
@@ -154,6 +155,7 @@
             "Action":"कृती"
         },
         "Insurance_Master": {
+            "Title":"विमा मास्टर",
             "Insurance Code": "विमा कोड ",
             "Description": "तपशील",
             "Submit":"जमा करा ",
@@ -166,6 +168,7 @@
             "Action":"कृती"
         },
         "Purpose_Master": {
+            "Title":"उद्देश मास्टर",
             "Purpose_Code": "उद्देश कोड ",
             "Description": "तपशील",
             "Submit":"जमा करा ",
@@ -183,43 +186,51 @@
 
         },
         "Court_Master": {
+            "Title": "कोर्ट मास्टर ",
             "Court_Code": "कोर्ट कोड ",
             "Description": "तपशील",
             "Submit":"जमा करा "
         },
         "Advocate_Master": {
+            "Title": "वकील मास्टर ",
             "Advocate_Code": "वकील कोड ",
             "Description": "तपशील",
             "Submit":"जमा करा "
         },
         "Industry_Master": {
+            "Title": "उद्योग मास्टर ",
             "Industry_Code": "उद्योग कोड ",
             "Description": "तपशील",
             "Submit":"जमा करा "
         },
         "Weaker_Section_Master": {
+            "Title": "दुर्बल घटक मास्टर ",
             "Weaker_Section_Code": "दुर्बल घटक कोड ",
             "Description": "तपशील",
             "Submit":"जमा करा "
         },
         "Loan_Stage_Master": {
+            "Title": "दावा स्थिती मास्टर ",
             "Loan_tage_Code": "दावा  स्थिती  कोड  ",
             "Description": "तपशील",
             "Submit":"जमा करा "
         },
         "Interest_Category_Master": {
+            "Title":"व्याज प्रवर्ग मास्टर",
             "Interest_Category_Code": "व्याज प्रवर्ग कोड ",
             "Scheme_Type": "योजना प्रकार ",
             "Description": "तपशील",
             "Submit":"जमा करा "
         },
         "Health_Master": {
+            "Title":"हेल्थ विभाग मास्टर",
             "code": "हेल्थ विभाग कोड ",
             "Description": "तपशील ",
             "Submit": "जमा करा "
             
         },
         "Prefix_Master": {
+            "Title":"हेल्थ विभाग मास्टर",
             "SNo": "अ. नंबर ",
             "Prefix": "शीर्षक ",
             "Prefix_Regional": "शीर्षक Regional",
@@ -231,12 +242,14 @@
             "Submit":"जमा करा "
         },
         "Minimum_Balance_Master": {
+            "Title":"शिल्लक प्रवर्ग मास्टर",
             "Balance_Categary_Code": "शिल्लक प्रवर्ग कोड ",
             "Balance_Categaray_Name": "शिल्लक प्रवर्ग नाव ",
             "Minimum_Balance": "शिल्लक",
             "Submit":"जमा करा "
         },
         "Document_Master": {
+            "Title":"कागदपत्रे प्रकार मास्टर",
             "Document_Master_Code": "कागदपत्रे प्रकार कोड ",
             "Description": "तपशील ",
             "Submit":"जमा करा "
@@ -281,7 +294,7 @@
             "F2":"अनिवार्य आहेत "
         },
         "Company_Group_Master": {
-        "Company_Group_Master": "कंपनी ग्रुप मास्टर ",
+        "Company_Group_Master":"कंपनी ग्रुप मास्टर ",
             "Code": "कोड नंबर",
             "Branch": "शाखा",
             "Name": "नाव ",
@@ -296,7 +309,7 @@
             "F2":"अनिवार्य आहेत "
         },
         "Company_Group_Link_Master":{
-            "Company_Group_Link_Master":"Company Group Link Master",
+            "Company_Group_Link_Master":"कंपनी लिंक ग्रुप मास्टर",
             "Branch":"शाखा ",
             "Company_Code":"कंपनी कोड ",
             "Schema_Code":"स्कीमा कोड ",
@@ -310,6 +323,7 @@
     
         },
         "Report_type_Master":{
+            "Title": "पत्रके प्रकार मास्टर",
             "Report_type_Master":"पत्रके प्रकार मास्टर",
             "Report_type_Code":"पत्रके प्रकार कोड ",
             "Descaption":"तपशील",
@@ -317,12 +331,14 @@
         },
 
         "Item_Category_Master": {
+            "Title": "आयटम प्रवर्ग मास्टर ",
             "code": "आयटम प्रवर्ग कोड  ",
             "Description": "तपशील ",
             "Submit":"जमा करा ",
             "Action":"कृती"
         },
         "Description_Category_Code": {
+            "Title": "घसारा / झीज  प्रवर्ग मास्टर   ",
             "code": "कोड ",
             "Branch": "शाखा ",
             "Description": "तपशील ",
@@ -330,6 +346,7 @@
             "Submit":"जमा करा "
         },
         "Risk_Category": {
+            "Title": "जोखीम प्रवर्ग",
             "code": "Risk Category Code",
             "Description": "तपशील ",
             "Submit":"जमा करा ",
@@ -337,6 +354,7 @@
 
         },
         "Bank_Other_Details": {
+            "Title":"",
             "Bank_Code": "बँक कोड ",
             "Branch_Code": "शाखा कोड ",
             "Branch": "शाखा ",
@@ -362,7 +380,7 @@
             "ATM_GL_account": "एटीम जनरल लेजर खाते ",
             "Submit":"जमा करा "
         },
-        "Deposite size Wise Balance":{
+        "Deposite_size_Wise_Balance":{
             "Title":"साइज बॅलेन्स टेबल मेंटेनस ",
             "Slab_Name":"स्लॅब नाव ",
             "Amount":"रक्कम",
@@ -374,7 +392,7 @@
             "To Amount":"रक्कम पर्यंत",
             "Serial_Number":"अ नंबर"
         },
-        "Loan size Wise Balance":{
+        "Loan_size_Wise_Balance":{
             "Title":"कर्ज बॅलेन्स टेबल मेंटेनस ",
             "Slab_Name":"स्लॅब नाव ",
             "Amount":"रक्कम",
@@ -386,7 +404,7 @@
             "To_Amount":"रक्कम पर्यंत",
             "Serial_Number":"अ नंबर"
         },
-        "Pigmy Agent Commission Slab Master":{
+        "Pigmy_Agent_Commission_Slab_Master":{
             "Title":"पिग्मी एजंट कमिशन स्लॅब मास्टर",
             "Effictive_Date":"प्रभावी तारीख",
             "From_Amount":"रक्कम पासून",
@@ -412,7 +430,7 @@
              "To_Days":"पर्यंत दिवस",
              "To_Months":" पर्यंत महिने",
              "Secured_Percent":"सुरक्षित टक्केवारी",
-             "Unsecured_Percent":"असुरक्षित_टक्केवारी",
+             "Unsecured_Percent":"असुरक्षित टक्केवारी",
              "sr_no":"अ.नंबर"
         },
         "Security_Detalis":{
@@ -954,7 +972,7 @@
         "Is_Ass_Ins_Is_Paid":"गृहीत धरले आहे की हप्ता भरला आहे",
         "I_Com_in_Multiple_Am":"हप्ता भरणे अनिवार्य आहे का?",
         "Penal_In_App":"दंड व्याज लागू",
-        "Penal_In_Applicable":"Penal Interest AppliCable ?",
+        "Penal_In_Applicable":"दंड व्याज लागू ?",
         "Penal_Pro_Base_Day":"दंड उत्पादन बेस दिवस",
         "Month_Begin":"महिना सुरू",
         "Month_End":"महिन्याचा शेवट",
@@ -974,7 +992,12 @@
         "Multipal":"एकाधिक xxx",
         "introduction":"परिचय",
         "Other_Settings":"इतर सेटिंग्ज",
-        "Type":"प्रकार"
+        "Type":"प्रकार",
+        "Interest_Calculation_Method":"व्याज गणना पद्धत",
+        "Standard_Interest":"मानक व्याज गणना",
+        "nterest_Calculation":"अर्ध्या आणि पूर्ण महिन्यासाठी व्याज गणना",
+        "Interest_Calculation":"पुढील महिन्याचे व्याज गणना"
+        
     },
     "Utility1":{
         "T9":"शेअर्स योजना सेटिंग्ज",
@@ -1006,6 +1029,11 @@
         "Credit_A_Between_Dates":"तारखांच्या दरम्यान क्रेडिट रक्कम",
         "Type":"प्रकार",
         "Penal_Interest_Acc":"दंड व्याज खाते",
+        "Rece_Interest_Acc":"प्राप्त करण्यायोग्य व्याज खाते",
+        "R_Penal_Interest_Acc":"प्राप्त करण्यायोग्य दंड व्याज खाते",
+        "Recble_Overdue":"प्राप्त थकीत व्याज",
+        "Outstanding_Interest_Account":"थकबाकी व्याज खाते",
+        "Installment_Settings":"हप्ता सेटिंग्ज",
 
         "T10":"सेव्हिंग स्कीम सेटिंग्ज",
         "Short_Name":"संक्षिप्त नाव",
@@ -1033,6 +1061,7 @@
         "Overdraft_Applicable":"ओव्हरड्राफ्ट व्याज लागू आहे",
         "Overdraft_Rate":"ओव्हरड्राफ्ट व्याज दर",
         "Cash_Credit_type":"रोख क्रेडिट प्रकार",
+        "Grace_Moratorium":"ग्रेस/मोरेटोरियम कालावधी",
 
         "T11":"चालू योजना",
         "Interest_Cal_Type":"व्याज गणना प्रकार",
@@ -1150,7 +1179,82 @@
         "Add_Penal":"व्याजाच्या रकमेत दंडात्मक व्याज जोडा",
         "Calculate_Extra":"CC ओव्हरड्राफसाठी अतिरिक्त दंडाची गणना करा",
         "Is_OD_Interest":"खात्याच्या कालबाह्य तारखेनंतरच OD व्याज मोजले जाते का?",
-        "Is_Standing":"स्थायी सूचना लागू आहे" 
+        "T4":"मुदत कर्ज योजना सेटिंग्ज",
+        "Loan_Type":"कर्जाचा प्रकार",
+        "Is_Interest":"इतर प्राप्य रकमेवर व्याज आहे",
+        "Is_Don1":"कालबाह्य तारखेनंतर व्याज पोस्ट करू नका?",
+        "Penal_Interest_Method":"दंड व्याज पद्धत",
+        "Or_After":"किंवा कालबाह्यता तारखेनंतर",
+        "Minimum_Overdue":"किमान थकीत हप्ते",
+        "Overdue_Rule":"ओव्हरड्यू नियम कोड",
+        "Is_allow":"साप्ताहिक परतफेड मोडला अनुमती आहे",
+        "Installment_Method":"हप्ता पद्धत",
+        "Is_Installment":"हप्ता लागू आहे",
+        "Minimum_Loan":"महिन्यांत किमान कर्ज कालावधी",
+        "Is_Loan":"कर्ज कालावधी लॉकला परवानगी आहे का?",
+        "Default_Loan":"डीफॉल्ट कर्जाचा कालावधी महिन्यांत......",
+        "Maximum_Loan":"कमाल कर्ज मर्यादा",
+        "As_per":"व्यवहारानुसार (LID)",
+        "As_per_Due":"देय हप्त्यानुसार",
+        "As_per_Last":"शेवटच्या व्यवहारानुसार",
+        "As_per_Ledger":"लेजर शिल्लक नुसार",
+        "Calculate_Overdue":"खाते कालबाह्य झाल्यानंतरच ओव्हरड्यूची गणना करा",
+        "Grace_Moratorium_Period":"ग्रेस / मोरेटोरियम कालावधी",
+        "Is_Grace":"ग्रेस कालावधी लागू आहे",
+        "Is_Moratorium":"मोरेटोरियम कालावधी लागू आहे",
+        "Is_Standing":"स्थायी सूचना लागू आहे",
+        "Is_Balance_Entry":"शिल्लक प्रवेश परवानगी आहे",
+        "Is_Unsecured":"असुरक्षित कर्जाचा प्रकार आहे",
+        "Is_Auto_Post":"दिवसाच्या सुरूवातीस ऑटो पोस्ट ओव्हरड्यू शुल्क आहे",
+        "Interest_Calculation":"पुढील महिन्याचे व्याज गणना",
+        "Interest1_Calculation":"पुढील महिन्याचे व्याज गणना",
+        "T14":"मुदत कर्ज योजना",
+        "Day_Begin_work":"दिवस सुरू काम चालू आहे",
+        "Please_Don":"कृपया पृष्ठ रीफ्रेश करू नका",
+        "Day_Begin":"दिवसाची सुरुवात",
+        "Day_End":"दिवसचा शेवट",
+        "HandOver_Status":"हँडओव्हर स्थिती",
+        "Day_End_Status":"दिवस समाप्ती स्थिती",
+        "Day_Successfully_HandOvered":"दिवस यशस्वीरित्या हस्तांतरित झाला",
+        "Not_Day_End":"डे एंड नाही",
+        "Processing":"प्रक्रिया करत आहे",
+        "Day_Ended":"दिवस समाप्त",
+        "Day_End_Revert":"दिवस समाप्ती परत",
+        "Day_End_Brach_Wise":"डे एंड ब्रॅच वाईज",
+        "sr_no":"अ.नंबर",
+        "branch_name":"शाखा नाव",
+        "name":"नाव",
+        "Office":"ऑफिस",
+        "Position":"स्थिती",
+        "Age":"वय",
+        "Start_Date":"प्रारंभ तारीख",
+        "Salary":"पगार",
+        "Data_Backup":"डेटा बॅकअप",
+        "Prepare_File":"डाउनलोड करण्यासाठी फाइल तयार करा",
+        "Download_File":"फाइल डाउनलोड करा",
+
+
+
+        
+        "System_Master_Parameters":"सिस्टम मास्टर पॅरामीटर्स",
+        "SMS_Settings":"एसएमएस सेटिंग्ज",
+        "Scheme_Type":"योजना प्रकार सेटिंग",
+        "Transcation_Input":"ट्रान्सकेशन इनपुट GL हेड सेटिंग",
+        "Other_banks":"इतर बँका ठेव योजना",
+        "Lockers_Scheme":"लॉकर्स योजना",
+        "General_ledger":"सामान्य खातेवही योजना",
+        "Anamat_General":"अनामत/सामान्य उप खाते योजना",
+        "Shares_Scheme":"शेअर्स योजना",
+        "Saving_Scheme":"बचत योजना",
+        "Current_Scheme":"चालू योजना",
+        "Term_Deposit":"मुदत ठेव योजना",
+        "Cash_Credit":"कॅश क्रेडिट योजना",
+        "Term_Loan":"मुदत कर्ज योजना",
+        "Dispute_Loan":"विवाद कर्ज (दावा अयशस्वी) योजना",
+        "Pigmy_A/c":"पिग्मी खाते योजना",
+        "pigmy_Agent":"पिग्मी एजंट योजना"
+        
+
 
     },
 
@@ -1168,11 +1272,242 @@
             "close":"बंद",
             "Process":"प्रक्रिया",
             "Print":"छापा",
-            "Calculate":"गणना"
-
-
-
-
+            "Calculate":"गणना",
+            "Date":"तारीख",
+            "Day_Begin_work":"दिवस सुरू काम चालू आहे",
+            "Please_Don":"कृपया पृष्ठ रीफ्रेश करू नका",
+            "Day_Begin":"दिवसाची सुरुवात",
+            "Day_End":"दिवसचा शेवट",
+           "Day_Handover":"डे हँडओव्हर",
+           "Holiday":"सुट्टी",
+          "Depreciation_Calculation":"घसारा गणना प्रक्रिया",
+           "Calculation_Date":"गणना तारीख",
+          "Bank_Details":"बँक तपशील",
+          "GL_Account":"जी एल खाते",
+          "Flag_Setting":"ध्वज सेटिंग",
+          "Admin_Options":"प्रशासन पर्याय"
+    
+        },
+        "Validation": {
+            "Val": "ही फील्ड आवश्यक आहे आणि इनपुटला 0-9 नंबरला परवानगी नाही .",
+            "Val1": "ही फील्ड आवश्यक आहे",
+            "Adhar_Val": "इनपुटला फक्त ०-९ अनुमती आहे (त्यात १२ अंक असावेत आणि ते ० आणि ने सुरू होऊ नये १)",
+            "Val_Date": "वैध तारीख प्रविष्ट करा",
+            "Val_Pan": "फक्त अप्परकेस अक्षरे आणि अंक प्रविष्ट करा (त्यात 10 अक्षरे आणि अंक असावेत)",
+            "Val_ward": "इनपुटला परवानगी आहे फक्त A-Z a-z 0-9 - /. (स्पेस)",
+            "Val_Pin_Code": "इनपुटला फक्त ०-९ अनुमती आहे",
+            "Val_Mobile": "इनपुटला फक्त 0-9 परवानगी आहे आणि ते 7 किंवा 8 किंवा 9 ने सुरू होते",
+            "Val_Res": "इनपुटला फक्त ०-९ परवानगी आहे आणि ते ० ने सुरू होते",
+            "Val_Email": "वैध ईमेल प्रविष्ट करा",
+            "Val_Receipt": "ही फील्ड आवश्यक आहे आणि इनपुटला फक्त 0-9 परवानगी आहे",
+            "Val_Repre": "इनपुटला परवानगी आहे फक्त A-Z a-z -/ . (स्पेस)",
+            "Val_Reason": "इनपुटला 0-9 परवानगी नाही ",
+            "Validate_Date": "ही आवश्यक फील्ड आहे .DD/MM/YYYY फॉरमॅटमध्ये तारीख इनपुट करा"
         }    
+    },
+    "Transaction":{
+        "Term_Deposit_Account_Renewal":{
+            "Title":"मुदत ठेव खाते रीन्यूअल",
+            "Branch_Code":"शाखा कोड ",
+            "Schema_Code":"स्कीमा कोड",
+            "date":"तारीख",
+            "schema":"स्कीमा",
+            "Scheme_Type":"स्कीम प्रकार ",
+            "Account_Number":"खाते नंबर ",
+            "Account_Renewal_Numbers":"वेळेचे खाते नूतनीकरण क्रमांक",
+            "Previous_Details":" खात्यांचे जुना तपशील",
+            "Deposit_Amount":"ठेव रक्कम",
+            "A/c_Open_Date":"खाते आरभ तारीख",
+            "Maturity_Date":"मुदतअखेर दिनांक  ",
+            "Maturity_Amount":"मुदतअखेर  रक्कम ",
+            "As_On_Date":"तारखेनुसार",
+            "Receipt_Number":"पावती क्रमांक",
+            "Months":"महिने",
+            "Days":"दिवस",
+            "Interest_Rate":"व्याज दर(%)",
+            "Total_Interest_Paid_Amount":"एकूण व्याज दिलेली रक्कम",
+            "Last_Interest":"अंतिम व्याज तारीख",
+            "Interest_Category":"स्वारस्य श्रेणी",
+            "Last_Transaction_Date":"अंतिम व्यवहाराची तारीख",
+            "Interest_Status":"व्याज स्थिती",
+            "Normal_Interest":"सामान्य व्याज",
+            "Interest_Upto_Date":"तारखेपर्यंत व्याज",
+            "Interest_Amount":"व्याजाची रक्कम",
+            "Cash":"कॅश ",
+            "Add_In_Deposit":"ठेव जमा करा",
+            "Transfer":"ट्रान्सफर ",
+            "Keep_As_Payable":"देय म्हणून ठेवा",
+            "Payable_Interest":"देय व्याज",
+            "Payable_Interest_Amount":"देय व्याजाची रक्कम",
+            "Renewal_Details":"रीन्यूअल तपशील",
+            "Renewal_Tran_Number":"रीन्यूअल ट्रॅन क्रमांक",
+            "Total_Days":"एकूण दिवस",
+            "Rate":"दर(%)",
+            "New_Last_Interest":"नवीन अंतिम व्याज तारीख"   
+        },
+        "Cash_In_Denomination":{
+            "Title":"कॅश इन डिनोमिनेशन",
+            "Branch":"शाखा",
+            "Cashier":"रोखपाल",
+            "Denomination_Amount":"डिनोमिनेशन रक्कम",
+            "Denomination_Transaction":"डिनोमिनेशन व्यवहाराची तारीख",
+            "Transaction_No":"व्यवहार क्र",
+            "Cash_in":"डिनोमिनेशन कॅश",
+            "Total_Cash":"एकूण कॅश"
+        
+        },
+        "Accept_Denomination":{
+            "Title":"रोक जमा तपशील",
+            "Payment_cash":"रोक नावे तपशील",
+            "Transaction_No":"व्यवहार क्र",
+            "Token_No":"टोकन क्र",
+            "Scheme":"स्कीम",
+            "Account_No":"खाते नंबर ",
+            "Particulars":"विशेष",
+            "Transaction_Amount":"व्यवहार रक्कम",
+            "Ledger_Balance":"खातेवही शिल्लक",
+            "Transaction_Type":"व्यवहार प्रकार ",
+            "Denomination_Amount":"डिनोमिनेशन रक्कम",
+            "Cashier":"रोखपाल",
+            "Cash_Denomination":"डिनोमिनेशन कॅश",
+            "Coins":"नाणी",
+            "Total_Cash":"एकूण कॅश"
+        },
+        "Action":{
+            "Action":"कृती ",
+            "F1":"चिन्हांकित फील्ड ",
+            "F2":"अनिवार्य आहेत ",
+            "Submit":"जमा करा ",
+            "Cancel":"रद्द करा",
+            "close":"बंद ",
+            "Update":"अपडेट ",
+            "Reject": "नकार द्या",
+            "Approve": "मंजूर",
+            "Unapprove": "मान्यता/रद्द करा"
+        }
+    
+    },
+    "Swal_Msg":{
+        "Success":"सक्सेस !",
+        "S_Msg":"डेटा यशस्वीपणे ॲड झाला आहे !",
+        "Warning":"वॉर्निंग",
+        "Msg":"Please insert Correct Amount!",
+        "Msg1":"Good job!",
+        "Msg2":"Your Form is Submitted Successfully..!",
+        "Invalid_Input":"अवैध इनपुट",
+        "W_Msg":"कृपया व्याजदर प्रविष्ट करा",
+        "S_Msg1":"रेकॉर्ड यशस्वीरित्या अद्यतनित केले !",
+        "Error":"Error",
+        "W_Msg1":"From Amount Should Be Less Than Upto Amount",
+        "I_Msg1":"कृपया व्याजदर प्रविष्ट करा",
+        "Input_Limit_100":"कृपया १०० च्या खाली मूल्ये घाला",
+        "Info":"सुचना",
+        "Input_Limit_50":"कृपया 50 च्या खाली मूल्ये घाला",
+        "Title":"Are you sure?",
+        "Text":"Do You Want To Delete Interest Rate For loan And CC Data.",
+        "I_Msg":"Please Add Panel Interest",
+        "branch":"शाखा",
+        "Account_Number":"खाते नंबर",
+        "Input_Limit_20":"Please Input व्याज upto 20",
+        "Fill":"कृपया सर्व अनिवार्य फील्ड भरा!",
+        "Overwrite":"आजचे शुल्क पोस्ट करणे आधीच पूर्ण झाले आहे. तुम्हाला अधिलिखित करायचे आहे का?",
+        "Overwritten":"अधिलिखित",
+        "Are_you_sure":"तुला खात्री आहे",
+        " A/c_no_data":"तुम्हाला खाते कोणताही डेटा हटवायचा आहे का",
+        "valid_Year":"please enter valid वर्ष",
+        "Already_Submitted":"डेटा आधीच सबमिट केला आहे",
+        "Updated_Successfully":"रेकॉर्ड यशस्वीरित्या अद्यतनित केले !",
+        "NPA_Classification":"कृपया NPA वर्गीकरण तपशील जोडा",
+        "From_Months":"To Months Must Greater Than From Months",
+        "From_Days":"To Days Must Greater Than From Days",
+        "narration_data":"तुम्हाला नरेशन डेटा हटवायचा आहे.",
+        "Narration_Successfully":"नरेशन तपशील यशस्वीरित्या जोडले!",
+        "Bank_Master_Successfully":"बँक मास्टर यशस्वीरित्या जोडले!",
+        "bank_master_data":"तुम्हाला बँक मास्टर डेटा हटवायचा आहे का?",
+        "Update":"आपला डेटा यशस्वीपणे अपडेट झाला आहे !",
+        "Sure":"डिलीट करण्याची खात्री आहे का ?",
+        "Court_Master":"तुम्हाला कोर्ट मास्टर मधील डेटा डिलीट करण्याची खात्री आहे का ?",
+        "Advocate_Master":"तुम्हाला अ‍ॅडवॉकेट मास्टर मधील डेटा करण्याची खात्री आहे का ?",
+        "Industry_Master":"तुम्हाला उद्योग मास्टर मधील डेटा करण्याची खात्री आहे का ?",
+        "Delete":"डिलीटेड ",
+        "D_Msg":"आपला डेटा डिलीट झाला आहे ",
+        "Cancel":"कॅन्सल झाला आहे",
+        "C_Msg":"आपला डेटा सुरक्षित आहे ",
+        "clearing_branch_master":"तुम्हाला क्लिअरिंग शाखा मास्टर डेटा हटवायचा आहे का?",
+        "delete_own_branch":"तुम्हाला स्वतःचा शाखा डेटा हटवायचा आहे",
+        "delete_Category":"तुम्हाला कॅटेगरी मास्टर डेटा हटवायचा आहे.",
+        "city_master":"तुम्हाला सिटी मास्टर डेटा हटवायचा आहे का",
+        "Cast_Master":"तुम्हाला कास्ट मास्टर डेटा हटवायचा आहे.",
+        "occupation_master":"तुम्हाला व्यवसाय मास्टर डेटा हटवायचा आहे का.",
+        "delete_director":"तुम्हाला डायरेक्टर मास्टर डेटा हटवायचा आहे.",
+        "Authority_master":"तुम्हाला प्राधिकरण मास्टर डेटा हटवायचा आहे.",
+        "Recovery_cleark":"तुम्हाला रिकव्हरी क्लिअरक मास्टर डेटा हटवायचा आहे.",
+        "delete_Insurance":"तुम्हाला इन्शुरन्स मास्टर डेटा हटवायचा आहे का?",
+        "delete_operation":"तुम्हाला ऑपरेशन मास्टर डेटा हटवायचा आहे.",
+        "delete_purpose":"तुम्हाला उद्देश मास्टर डेटा हटवायचा आहे का.",
+        "delete_narration":"तुम्हाला नरेशन डेटा हटवायचा आहे",
+        "Item_Category":"तुम्हाला आयटम श्रेणी मास्टर डेटा हटवायचा आहे.",
+        "Category_Master":"तुम्हाला कॅटेगरी मास्टर डेटा हटवायचा आहे",
+        "Oops":"Oops",
+        "Interest_Calculation":"कृपया व्याज मोजण्यासाठी कोणताही पर्याय निवडा",
+        "select_required_field":"कृपया आवश्यक फील्ड मूल्य निवडा",
+        "Calculation_Successfully":"व्याजाची गणना यशस्वीरित्या पूर्ण झाली",
+        "Account_Already_Exists":"तुमचे निवडलेले खाते टेबलमध्ये आधीच अस्तित्वात आहे",
+        "Pigmy_Successfully":"पिग्मी एजंटवर यशस्वीपणे प्रक्रिया केली",
+        "Pigmy_Agent":"पिग्मी एजंटकडे खाते नाही",
+        "processed_successfully":"डेटावर यशस्वीपणे प्रक्रिया केली",
+        "Data_processed_successfully":"डेटावर यशस्वीपणे प्रक्रिया केली. आता तुम्ही ॲपसह पुढे जाऊ शकता",
+        "Fill_All_Fields":"कृपया सर्व फील्ड भरा",
+        "Wents_Wrong":"काहीतरी चूक झाली",
+        "Whatsapp_messages":"Whatsapp संदेशांना अनुमती देण्यासाठी कृपया Compserv शी संपर्क साधा",
+        "Message_Send":"संदेश यशस्वीरीत्या पाठवला",
+        "This_Role":"ही भूमिका आधीच अस्तित्वात आहे",
+        "All_requied":"कृपया सर्व आवश्यक डेटा निवडा",
+        "Username_already":"Username आधीपासून अस्तित्वात आहे",
+        "Role_Update_Successfully":"भूमिका आणि शाखा अपडेट यशस्वीरित्या!",
+        "This_scheme":"ही योजना आधीच अस्तित्वात आहे",
+        "You_won":"तुम्ही हे परत करू शकणार नाही!",
+        "record_already":"हा रेकॉर्ड आधीच अस्तित्वात आहे",
+        "701_to_799_this_range":"कृपया योजनेचा कोड 701 ते 799 या श्रेणीमध्ये प्रविष्ट करा",
+        "scheme_Code":"ही योजना कोड आधीच अस्तित्वात आहे",
+        "351_to_400_this_range":"कृपया योजनेचा कोड 351 ते 400 या श्रेणीमध्ये प्रविष्ट करा",
+        "scheme_code_980":"कृपया स्कीम कोड 980 प्रविष्ट करा",
+        "801_to_899_this_range":"कृपया योजनेचा कोड 801 ते 899 या श्रेणीमध्ये प्रविष्ट करा",
+        "901_to_999_this_range":"कृपया योजनेचा कोड 901 ते 999 या श्रेणीमध्ये प्रविष्ट करा",
+        "101_to_150_this_range":"कृपया योजनेचा कोड 101 ते 150 या श्रेणीमध्ये प्रविष्ट करा",
+        "151_to_200_this_range":"कृपया योजनेचा कोड 151 ते 200 या श्रेणीमध्ये प्रविष्ट करा",
+        "201_to_299_this_range":"कृपया योजनेचा कोड 201 ते 299 या श्रेणीमध्ये प्रविष्ट करा",
+        "601_to_699_this_range":"कृपया योजनेचा कोड 601 ते 699 या श्रेणीमध्ये प्रविष्ट करा",
+        "501_to_599_this_range":"कृपया योजनेचा कोड 501 ते 599 या श्रेणीमध्ये प्रविष्ट करा",
+        "301_to_399_this_range":"कृपया योजनेचा कोड 301 ते 399 या श्रेणीमध्ये प्रविष्ट करा",
+        "Scheme_code":"योजना कोड मूल्य आधीपासून अस्तित्वात आहे",
+        "Renewaled_Successfully":"खाते यशस्वीरित्या नूतनीकरण केले",
+        "select_proper_option":"तुम्ही चुकीचा पर्याय निवडा, कृपया योग्य पर्याय निवडा",
+        "unapproved_successfully":"खाते यशस्वीरित्या मंजूर नाही",
+        "Unapprove":"Unapprove",
+        "Rejected":"Rejecte",
+        "rejected_successfully":"मुदत ठेव खात्याचे नूतनीकरण यशस्वीरित्या नाकारले",
+        "Approved":"Approved",
+        "Software_Engineer":"योजनेसाठी तुम्ही वैध कंपाऊंड बेस दिवस नियुक्त केले पाहिजेत कृपया सॉफ्टवेअर अभियंत्याशी संपर्क साधा",
+        "passing_pending":"खात्याचे आधीच नूतनीकरण केले आहे परंतु पासिंग प्रलंबित आहे",
+        "insert_Correct_Amount":"कृपया योग्य रक्कम घाला!",
+        "Submitted_Successfully":"तुमचा फॉर्म यशस्वीरित्या सबमिट झाला..",
+        "Great":"Great",
+        "Denomination_Amount":"कृपया व्यवहाराची रक्कम आणि मूल्याची रक्कम तपासा",
+        "Successfully_Done":"रोख पेमेंट डिनोमिनेशन यशस्वीरित्या पूर्ण झाले",
+        "Failed":"अयशस्वी",
+        "ready_to_download":"फाइल डाउनलोड करण्यासाठी तयार आहे",
+        "Begin_Successfully":"दिवसाची यशस्वी सुरुवात",
+        "Need_To":"पुन्हा लॉगिन करणे आवश्यक आहे",
+        "Please_relogin":"कृपया अर्जात पुन्हा लॉगिन करा",
+        "Pigmy_Day_End_Successfuly!":"पिग्मी डे यशस्वीरित्या संपला!",
+        "You won't be able to revert this":"तुम्ही हे परत करू शकणार नाही",
+        "End_Reverted":"दिवसाचा शेवट परत केला",
+        "same_date":"तारखेपासूनच्या तारखेप्रमाणे असू नये",
+        "Holiday_successfully":"सुट्टी यशस्वीरित्या जोडली!",
+        "Holiday_Description":"सुट्टीचे वर्णन येथे लिहा",
+        "Delete_Holiday":"तुम्हाला सुट्टी हटवायची आहे का"
+
+        
     }
-}
+    }

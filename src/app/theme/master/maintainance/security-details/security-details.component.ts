@@ -171,7 +171,7 @@ export class SecurityDetailsComponent implements OnInit {
     this.accountedit1 = null
     this.ngsecurityCode = null
     if (this.ngBranchCode == null)
-      Swal.fire('Please select branch')
+      Swal.fire(`${this.translate.instant('Swal_Msg.branch')}`)
     // else if (this.schemeedit == null)
     //   Swal.fire('Please select Scheme')
     else {

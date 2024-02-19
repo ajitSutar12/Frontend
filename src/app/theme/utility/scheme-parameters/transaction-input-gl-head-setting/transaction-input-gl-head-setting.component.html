@@ -26,7 +26,7 @@
                                 *ngIf="angForm.controls['SCHEME_TYPE'].invalid && (angForm.controls['SCHEME_TYPE'].dirty || angForm.controls['SCHEME_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SCHEME_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 *ngIf="angForm.controls['FIELD_AMOUNT'].invalid && (angForm.controls['FIELD_AMOUNT'].dirty || angForm.controls['FIELD_AMOUNT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIELD_AMOUNT'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                                 *ngIf="angForm.controls['DRCR_APPLICABLE'].invalid && (angForm.controls['DRCR_APPLICABLE'].dirty || angForm.controls['DRCR_APPLICABLE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DRCR_APPLICABLE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -195,8 +195,8 @@
                                 *ngIf="angForm.controls['SHORT_NAME'].invalid && (angForm.controls['SHORT_NAME'].dirty || angForm.controls['SHORT_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['SHORT_NAME'].errors?.pattern || angForm.controls['SHORT_NAME'].errors?.required || angForm.controls['SHORT_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z (Space)
+                                    *ngIf=" angForm.controls['SHORT_NAME'].errors?.required || angForm.controls['SHORT_NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

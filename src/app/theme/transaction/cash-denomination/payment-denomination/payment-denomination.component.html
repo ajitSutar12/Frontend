@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Payment cash Denomination</h5>
+                <h5>{{'Transaction.Accept_Denomination.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Transaction.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block"> 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Transaction No<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">{{'Transaction.Accept_Denomination.Transaction_No' | translate}}<sub
                             class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                        
-                        <div class="col-sm-12 col-md-1"> <label for="TOKEN_NO">Token No</label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="TOKEN_NO">{{'Transaction.Accept_Denomination.Token_No' | translate}}</label></div>
                         <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="SCHEME">Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="SCHEME">{{'Transaction.Accept_Denomination.Scheme' | translate}}<sub
                             class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -74,7 +74,7 @@
                                 </div>
                             </div> -->
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="ACCOUNT_NO">Account No<sub
+                        <div class="col-sm-12 col-md-2"> <label for="ACCOUNT_NO">{{'Transaction.Accept_Denomination.Account_No' | translate}}<sub
                             class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -113,7 +113,7 @@
                     </div>
                   
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_AMT">Transaction Amount<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_AMT">{{'Transaction.Accept_Denomination.Particulars' | translate}}<sub
                             class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -139,7 +139,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="LEDGER_BAL">Ledger Balance</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="LEDGER_BAL">{{'Transaction.Accept_Denomination.Transaction_Amount' | translate}}</label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">Transaction Type</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">{{'Transaction.Accept_Denomination.Ledger_Balance' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -177,7 +177,7 @@
                         
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination Amount</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">{{'Transaction.Accept_Denomination.Transaction_Type' | translate}}</label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -189,16 +189,16 @@
                                 </span>
                             </div>
                         </div> 
-                        <div class="col-sm-12 col-md-2"> <label>Cashier:</label></div>
+                        <div class="col-sm-12 col-md-2"> <label>{{'Transaction.Accept_Denomination.Cashier' | translate}}:</label></div>
                         <div class="col-sm-12 col-md-2"> <label>{{cashierName}}</label></div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" (click)="showCashModule()">
-                                Update
+                                {{'Transaction.Action.Update' | translate}}
                             </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="refreshdata()">
-                                Cancel
+                                {{'Transaction.Action.cancel' | translate}}
                             </button>
                         </div>
                         
@@ -219,7 +219,7 @@
                 <table>
                     <tr *ngFor="let data of currencyData; let indexOfelement = index">
 
-                        <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
+                        <td class="td_center" *ngIf="data.currency === 'Coin'">{{'Transaction.Accept_Denomination.Coins' | translate}}</td>
                         <td class="td_center" *ngIf="data.currency !== 'Coin'">{{data.currency}} X</td>
 
                         <td><input type="text" (keyup)="calculation(data,indexOfelement,$event)"
@@ -233,7 +233,7 @@
                     <div></div>
                     <tr>
                         <td align="right">
-                            Total Cash :
+                            {{'Transaction.Accept_Denomination.Total_Cash' | translate}} :
                         </td>
                         <td></td>
                         <td >
@@ -247,10 +247,10 @@
             <div class="row">
                 <div class="col-sm">
                     <button class="btn btn-outline-primary btn-sm" (click)="submit()">
-                        Submit
+                        {{'Transaction.Action.Submit' | translate}}
                     </button>
                     <button class="btn btn-outline-primary btn-sm" (click)="cancel()">
-                        Cancel
+                        {{'Transaction.Action.cancel' | translate}}
                     </button>
                 </div>
             </div>

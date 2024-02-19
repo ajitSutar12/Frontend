@@ -299,7 +299,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
         'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date' || formVal.AC_RESO_DATE == undefined || formVal.AC_RESO_DATE == null) ? resolutiondate = '' : resolutiondate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
       }
       this.moratoriumPeriod.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -311,7 +311,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
       this.resetForm();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`, 'warning');
     }
   }
 

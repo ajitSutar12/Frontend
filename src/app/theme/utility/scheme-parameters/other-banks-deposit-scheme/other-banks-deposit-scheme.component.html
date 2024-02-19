@@ -30,7 +30,7 @@
                     angForm.controls['S_APPL'].errors?.pattern ||  angForm.controls['S_APPL'].errors?.min || 
                     angForm.controls['S_APPL'].errors?.max
                   ">
-                  This field is required and valid range 701 to 799
+                  <!-- This field is required and valid range 701 to 799 -->
                 </div>
               </div>
             </div>
@@ -54,8 +54,8 @@
                     angForm.controls['S_NAME'].errors?.required ||
                     angForm.controls['S_NAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -79,8 +79,8 @@
                     angForm.controls['S_SHNAME'].errors?.required ||
                     angForm.controls['S_SHNAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -110,7 +110,7 @@
                     angForm.controls['S_GLACNO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['S_GLACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -138,7 +138,7 @@
                     angForm.controls['S_INT_ACNO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['S_INT_ACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@
                     angForm.controls['S_RECBL_PYBL_INT_ACNO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['S_RECBL_PYBL_INT_ACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@
                     angForm.controls['S_PENAL_ACNO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['S_PENAL_ACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -230,7 +230,7 @@
                     angForm.controls['S_RECBL_PENAL_ACNO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['S_RECBL_PENAL_ACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -258,7 +258,7 @@
                     angForm.controls['S_CASH_INT_ACNO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['S_CASH_INT_ACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -466,7 +466,7 @@
                           <div *ngIf="
                               angForm.controls['MIN_INT_LIMIT'].errors?.pattern
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -644,7 +644,7 @@
                               ?.pattern ||
                             angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max
                           ">
-                          This field is required and Input allowed only 0-9
+                          <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                         </div>
                       </div>
                     </div>
@@ -697,7 +697,7 @@
                             angForm.controls['S_PRODUCT_DAY_BASE_END'].errors
                               ?.max
                           ">
-                          This field is required and Input allowed only 0-9
+                          <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                         </div>
                       </div>
                     </div>
@@ -871,7 +871,7 @@
                               angForm.controls['DEPOSIT_PENAL_INT_CALC_DAY']
                                 .errors?.max
                             ">
-                            This field is required and Input allowed only 0-9 and it should be till 31 count
+                            <!-- This field is required and Input allowed only 0-9 and it should be till 31 count -->
                           </div>
                         </div>
                       </div>
@@ -936,7 +936,7 @@
                           <div *ngIf="
                               angForm.controls['S_MATUCALC'].errors?.pattern
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -1062,7 +1062,7 @@
                               angForm.controls['MIN_DAYS'].errors?.pattern ||
                               angForm.controls['MIN_DAYS'].errors?.maxlength
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -1087,7 +1087,7 @@
                               angForm.controls['MIN_MONTH'].errors?.pattern ||
                               angForm.controls['MIN_MONTH'].errors?.maxlength
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -1122,7 +1122,7 @@
                               angForm.controls['MULTIPLE_OF_AMT'].errors
                                 ?.pattern
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -1149,7 +1149,7 @@
                               angForm.controls['MULTIPLE_OF_DAYS'].errors
                                 ?.maxlength
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -1176,7 +1176,7 @@
                               angForm.controls['MULTIPLE_OF_MONTH'].errors
                                 ?.maxlength
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -1330,7 +1330,7 @@
                               angForm.controls['LESS_PREMATURE_INT_RATE'].errors
                                 ?.pattern
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>

@@ -28,7 +28,7 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['INSTALLMENT_NO'].errors?.pattern || angForm.controls['INSTALLMENT_NO'].errors?.required || angForm.controls['INSTALLMENT_NO'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['PERIOD'].errors?.pattern || angForm.controls['PERIOD'].errors?.required || angForm.controls['PERIOD'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -151,7 +151,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_RESO_DATE'].errors?.pattern || angForm.controls['AC_RESO_DATE'].errors?.required || angForm.controls['AC_RESO_DATE'].errors?.maxlength">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_RESO_NO'].errors?.pattern || angForm.controls['AC_RESO_NO'].errors?.required || angForm.controls['AC_RESO_NO'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                                 </div>
                             </div>
                         </div>

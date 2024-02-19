@@ -28,7 +28,7 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['Scheme'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                                 class="alert alert-danger">
 Charges Type                                <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                 *ngIf="angForm.controls['AMOUNT_TYPE'].invalid && (angForm.controls['AMOUNT_TYPE'].dirty || angForm.controls['AMOUNT_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AMOUNT_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -177,7 +177,7 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                 *ngIf="angForm.controls['TRAN_AMOUNT'].invalid && (angForm.controls['TRAN_AMOUNT'].dirty || angForm.controls['TRAN_AMOUNT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TRAN_AMOUNT'].errors?.pattern">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>

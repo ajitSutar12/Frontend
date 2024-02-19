@@ -304,7 +304,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       console.log(ele);
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
     }
   }
   // Method to insert data into database through NestJS
@@ -332,7 +332,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       'OVERDRAFT_INTEREST_RATE': formVal.OVERDRAFT_INTEREST_RATE
     }
     this.currentSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       // to reload after insertion of data
@@ -406,7 +406,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     data['DORMANT_FLAG_APPLICABLE'] = (data.DORMANT_FLAG_APPLICABLE == true ? '1' : '0')
     this.currentSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -608,12 +608,12 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         this.currentSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 151 to 200 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.151_to_200_this_range')}`, 'error')
       }
     }
   }
@@ -635,7 +635,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
       ele.target.value = 0
 
     }

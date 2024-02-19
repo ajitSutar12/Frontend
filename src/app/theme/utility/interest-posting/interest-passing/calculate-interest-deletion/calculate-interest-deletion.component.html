@@ -35,7 +35,7 @@
                                 *ngIf="angForm.controls['INT_DATE'].invalid && (angForm.controls['INT_DATE'].dirty || angForm.controls['INT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INT_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

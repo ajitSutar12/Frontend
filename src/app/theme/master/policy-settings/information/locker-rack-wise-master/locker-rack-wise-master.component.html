@@ -36,7 +36,7 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     <input appTheme style="text-align: right;" type="text" name="footer-email"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" #autofocus
-                                        id="LOCKER_NO" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        id="LOCKER_NO" required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         formControlName="LOCKER_NO" maxlength="5">
                                     <label for="LOCKER_NO">{{'master.Locker_Rackwise_Master.Locker_Number' | translate}}<sub class="required">* </sub></label>
                                 </span>
@@ -56,7 +56,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['LOCKER_NO'].errors?.pattern || angForm.controls['LOCKER_NO'].errors?.required || angForm.controls['LOCKER_NO'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                                     <input appTheme style="text-align: right;" type="text" name="footer-email"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="KEY_NO"
-                                        required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         formControlName="KEY_NO" maxlength="10">
                                     <label for="KEY_NO">{{'master.Locker_Rackwise_Master.Locker_Key Number' | translate}}<sub class="required">* </sub></label>
                                 </span>
@@ -76,7 +76,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['KEY_NO'].errors?.pattern || angForm.controls['KEY_NO'].errors?.required || angForm.controls['KEY_NO'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                 *ngIf="angForm.controls['SIZE_SR_NO'].invalid && (angForm.controls['SIZE_SR_NO'].dirty || angForm.controls['SIZE_SR_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SIZE_SR_NO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

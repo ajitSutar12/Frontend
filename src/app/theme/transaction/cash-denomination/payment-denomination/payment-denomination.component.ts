@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { userInfo } from 'os';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-payment-denomination',
   templateUrl: './payment-denomination.component.html',
@@ -55,8 +56,9 @@ export class PaymentDenominationComponent implements OnInit {
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: CashDenominationService
-  ) { }
+    private _service: CashDenominationService,private translate:TranslateService
+  ) {this.translate.setDefaultLang(environment.setLang);
+   }
 
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem('user'))
@@ -165,16 +167,16 @@ submit() {
         user : JSON.parse(localStorage.getItem('user'))
     }
     if (formVal.DENOMINATION_AMT != this.sum) {
-      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.insert_Correct_Amount')}`, 'warning')
     }
     else if( Number(this.transactionAmt) != Number(this.denomination))
         {
-          Swal.fire('Oops...','Please Check Transaction Amount and Denomination Amount','warning');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Denomination_Amount')}`,'warning');
   
         } 
     else{
       this._service.paymentDinominationInsert(object).subscribe(data=>{
-        Swal.fire('Success','Cash Payment Denomincation Successfully Done','success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Successfully_Done')}`,'success');
           this.angForm.reset();
           this.ngOnInit()
           this.showCash = false;

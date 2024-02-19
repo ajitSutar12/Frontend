@@ -169,8 +169,8 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
 
       CITY_CODE: [''],
-      DISTANCE: ['', [Validators.pattern]],
-      CITY_NAME: ['', [Validators.required, Validators.pattern]],
+      DISTANCE: ['', [Validators.required]],
+      CITY_NAME: ['', [Validators.required,]],
       TALUKA_CODE: ['', [Validators.required, Validators.pattern]],
       STATE_CODE: ['', [Validators.required, Validators.pattern]],
       DISTRICT_CODE: ['', [Validators.required, Validators.pattern]],
@@ -192,7 +192,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'REGION_CODE': formVal.REGION_CODE
     }
     this.citytMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -234,7 +234,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['id'] = this.updateID;
 
     this.citytMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -254,8 +254,8 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete city master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.city_master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -266,8 +266,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.citytMasterService.deleteData(id).subscribe(data1 => {
           this.cityMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -279,8 +278,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

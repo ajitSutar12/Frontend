@@ -30,7 +30,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" maxlength="2000" class="form-control"
-                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
+                                        placeholder=" " id="label-name" required=""
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="L_NAME">
                                     <label for="label-name">{{'Utility.User_Defination.Last_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
@@ -39,8 +39,8 @@
                                 *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required || angForm.controls['L_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf="angForm.controls['L_NAME'].errors?.required || angForm.controls['L_NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                                 *ngIf="angForm.controls['DOB'].invalid && (angForm.controls['DOB'].dirty || angForm.controls['DOB'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DOB'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.required || angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.minlength  || angForm.controls['MOB_NO'].errors?.maxlength">
-                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9
+                                    <!-- Input allowed only 0-9 and It starts by either for 7 or 8 or 9 -->{{'Utility.Validation.Val_Mobile' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                 <!-- *ngIf="angForm.controls['EMAIL'].errors?.pattern" -->
                                 <div
                                     *ngIf="angForm.controls['EMAIL'].errors?.pattern || angForm.controls['EMAIL'].errors?.required || angForm.controls['EMAIL'].errors?.pattern">
-                                    Enter valid Email
+                                    <!-- Enter valid Email -->{{'Utility.Validation.Val_Email' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                                 *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ROLE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required || angForm.controls['USER_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'Utility.Validation.Val_ward' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                 *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['branchId'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

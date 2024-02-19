@@ -4,6 +4,7 @@ import { environment } from '../../../../environments/environment'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-dead-stock-p',
   templateUrl: './dead-stock-p.component.html',
@@ -15,35 +16,35 @@ export class DeadStockPComponent implements OnInit {
   url = environment.base_url;
   angForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
       ajax: 'fake-data/datatable-data.json',
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: 'Name',
+          title:this.translate.instant('Utility.Utility1.name'),
           data: 'name'
         }, {
-          title: 'Position',
+          title: this.translate.instant('Utility.Utility1.Office'),
           data: 'position'
         }, {
-          title: 'Office',
+          title: this.translate.instant('Utility.Utility1.Position'),
           data: 'office'
         }, {
-          title: 'Age',
+          title: this.translate.instant('Utility.Utility1.Age'),
           data: 'age'
         }, {
-          title: 'Start Date',
+          title: this.translate.instant('Utility.Utility1.Start_Date'),
           data: 'date'
         }, {
-          title: 'Salary',
+          title: this.translate.instant('Utility.Utility1.Salary'),
           data: 'salary'
         }],
       dom: "Blrtip",
@@ -65,5 +66,7 @@ export class DeadStockPComponent implements OnInit {
   // Method to insert data into database through NestJS
   submit() {
   }
-
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
+  }
 }

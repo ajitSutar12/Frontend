@@ -161,7 +161,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]] ,
+      NAME: ['', [Validators.required]] ,
       ACNOTYPE: ['', [Validators.required]] 
     });
   }
@@ -176,7 +176,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
       "ACNOTYPE":formVal.ACNOTYPE,
     }
     this.categoryMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -209,7 +209,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.categoryMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -232,8 +232,8 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Category Master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text:`${this.translate.instant('Swal_Msg.,delete_Category')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -242,8 +242,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
         this.categoryMasterService.deleteData(id).subscribe(data1 => {
@@ -255,8 +254,7 @@ export class CategoryMasterComponent implements OnInit, AfterViewInit, OnDestroy
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

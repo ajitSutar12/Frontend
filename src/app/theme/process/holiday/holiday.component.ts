@@ -7,6 +7,7 @@ import { interval, Subscription } from 'rxjs';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
 import { HolidayService } from './holiday.service'
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-holiday',
   templateUrl: './holiday.component.html',
@@ -22,14 +23,14 @@ export class HolidayComponent implements OnInit, OnDestroy {
   mySubscription: Subscription
   getDataSubscription: Subscription
 
-  constructor(private http: HttpClient, private _holiday: HolidayService) { }
+  constructor(private http: HttpClient, private _holiday: HolidayService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   onDateClick(res) {
     if (this.datesArr.find(ob => ob['start'] === res.dateStr)) {
       let date = moment(res.dateStr).format('DD/MM/YYYY')
       Swal.fire({
-        title: "Are you sure?",
-        text: "Do You Want To Delete Holiday Of " + date,
+        title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+        text: `${this.translate.instant('Swal_Msg.Delete_Holiday')}` + date,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#229954",
@@ -44,19 +45,19 @@ export class HolidayComponent implements OnInit, OnDestroy {
             BRANCH_CODE: result1.branchId
           }
           this._holiday.deleteData(obj).subscribe((data) => {
-            Swal.fire("Deleted!", "Holiday has been deleted.", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
           }),
             (error) => {
               console.log(error);
             };
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire("Cancelled", "Your data is safe.", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
         }
       });
     }
     else {
       Swal.fire({
-        text: 'Write Holiday Description Here:',
+        text: `${this.translate.instant('Swal_Msg.Holiday_Description')}`,
         input: 'text',
         showCancelButton: true,
       }).then((result) => {
@@ -71,7 +72,7 @@ export class HolidayComponent implements OnInit, OnDestroy {
           this._holiday.postData(dataToSend).subscribe(data => {
             Swal.fire({
               icon: 'success',
-              title: 'Added Holiday successfully!',
+              title: `${this.translate.instant('Swal_Msg.Holiday_successfully')}`,
             })
           }, (error) => {
             console.log(error)
@@ -123,5 +124,8 @@ export class HolidayComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.getDataSubscription.unsubscribe();
     this.mySubscription.unsubscribe();
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

@@ -274,7 +274,7 @@ export class GlReportMasterComponent implements OnInit {
     data['INPUT_ALLOWED'] = data['INPUT_ALLOWED'] == true ? 1 : 0
     data['IS_PRINT_IN_REPORT'] = data['IS_PRINT_IN_REPORT'] == true ? 1 : 0
     this.glReportMasterService.updateToData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.addButton = true;
       this.updateButton = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -289,7 +289,7 @@ export class GlReportMasterComponent implements OnInit {
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
       ele.target.value = 0
     }
   }

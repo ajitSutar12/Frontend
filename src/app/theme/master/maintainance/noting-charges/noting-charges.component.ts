@@ -320,7 +320,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       });
     }
     else {
-      Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Account_Number')}`);
       this.angForm.patchValue({
         TO_AC: ''
       })
@@ -464,13 +464,13 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
           dataToSend['DailyFlag'] = 'Insert'
           this._service.dailyTableInsert(dataToSend).subscribe(data => {
             this.modalClass = 'modalHide';
-            Swal.fire('Success!', 'Data Added Successfully !', 'success');
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           })
         }
         else {
           this.modalClass = 'modalHide';
           Swal.fire({
-            text: "Today's Charges Posting Already Done.Do You Want To Overwrite?",
+            text: "`${this.translate.instant('Swal_Msg.Overwrite')}`",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#229954",
@@ -537,17 +537,13 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,'error'
         )
       }
     })

@@ -4,13 +4,15 @@ import { HolidayComponent } from './holiday.component';
 import { HolidayRoutingModule } from './holiday-routing.module'
 import { SharedModule } from '../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { HolidayService } from './holiday.service'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin
@@ -24,7 +26,15 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CommonModule,
     SharedModule,
     FullCalendarModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [HolidayComponent],
   providers: [{
@@ -34,3 +44,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   }, HolidayService]
 })
 export class HolidayModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

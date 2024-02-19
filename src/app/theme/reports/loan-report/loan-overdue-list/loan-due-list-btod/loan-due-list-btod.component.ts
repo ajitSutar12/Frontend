@@ -148,7 +148,7 @@ let scheme = obj.scheme;
 
 
 
-this.iframe5url=this.report_url+ "examples/LoanOverdueBetweenTwoOpenDates.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&BRANCH='"+branchName+"'&DATE1='"+sdate+"'&DATE2='"+edate+"'&NUMBER1='"+mininstal+"'&NUMBER2='"+maxinstall+"'&schemeCode='"+scheme+"'&BANK='"+bankName+"'";
+this.iframe5url=this.report_url+ "examples/LoanOverdueBetweenTwoOpenDates.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&BRANCH='"+branchName+"'&DATE1='"+sdate+"'&DATE2='"+edate+"'&NUMBER1='"+mininstal+"'&NUMBER2='"+maxinstall+"&schemeCode='"+scheme+"'&BANK='"+bankName+"'";
 console.log(this.iframe5url); 
  this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 }
@@ -157,22 +157,4 @@ else {
 }
 }
 
-close() {
-  this.resetForm()
-  // this.selectedItems =null;
-
-}
-resetForm() {
-  this.angForm.controls.Scheme_code.reset();
-  this.angForm.controls.BRANCH_CODE.reset();
-  this.angForm.controls.Max_save.reset();
-  this.angForm.controls.Min_save.reset();
-  this.angForm.controls.END_DATE.reset();
-  // this.fromAc = null;
-  // this.toAc = null;
-  // this.selectedItems=null;
-
-  this.showRepo = false;
-  this.clicked = false;
-}
 }
