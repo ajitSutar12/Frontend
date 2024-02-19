@@ -351,7 +351,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
           this.transferAcno = data;
         })
         break;
-      case 'GL':
+
+        case 'GL':
         this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
           this.transferAcno = data;
         })

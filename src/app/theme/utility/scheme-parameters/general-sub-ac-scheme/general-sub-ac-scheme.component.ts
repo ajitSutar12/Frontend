@@ -15,7 +15,6 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -88,7 +87,7 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
     private http: HttpClient,
-    private config: NgSelectConfig,private translate:TranslateService) { }
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -136,26 +135,26 @@ export class GeneralSubAcSchemeComponent implements OnInit, AfterViewInit, OnDes
       },
       columns: [
         {
-          title: this.translate.instant('Utility.Anamat_Scheme.Action'),
+          title: 'Action'
         },
         {
-          title: this.translate.instant('Utility.Anamat_Scheme.Type'),
+          title: 'Type',
           data: 'S_ACNOTYPE'
         },
         {
-          title: this.translate.instant('Utility.Anamat_Scheme.Scheme_Code'),
+          title: 'Scheme Code',
           data: 'S_APPL'
         },
         {
-          title:this.translate.instant('Utility.Anamat_Scheme.Description'),
+          title: 'Description',
           data: 'S_NAME'
         },
         {
-          title: this.translate.instant('Utility.Anamat_Scheme.Short_Name'),
+          title: 'Short Name',
           data: 'S_SHNAME'
         },
         {
-          title: this.translate.instant('Utility.Anamat_Scheme.GL_Account'),
+          title: 'GL Account Number',
           data: 'S_GLACNO'
         },
         // {

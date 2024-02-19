@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.Company_Group_Master.Company_Group_Master' | translate}}</h5>
+                <h5>Company Group Master</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Company_Group_Master.F1' | translate}} (<sub class="required"> * </sub>){{'master.Company_Group_Master.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +16,7 @@
                                     <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="5"
                                         disabled id="label-name" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="COMP_CODE">
-                                    <label for="label-name">{{'master.Company_Group_Master.Code' | translate}}</label>
+                                    <label for="label-name">Code</label>
                                 </span>
                             </div>
                         </div>
@@ -24,12 +24,12 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        bindLabel="label" title="Compulsory Selection" placeholder="{{'master.Company_Group_Master.Branch' | translate}}"
+                                        bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
                                         formControlName="BRANCH_CODE" (change)="getData()">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH_CODE">{{'master.Company_Group_Master.Branch' | translate}}</label>
+                                    <label for="BRANCH_CODE">Branch</label>
                                 </span>
                             </div>
                             <!-- 
@@ -49,7 +49,7 @@
                                         maxlength="200" #autofocus required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="Name">{{'master.Company_Group_Master.Name' | translate}}<sub class="required">* </sub></label>
+                                    <label for="Name">Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -68,7 +68,7 @@
                                         maxlength="2000" pattern="^[A-Za-z0-9\./ -]+$"
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)" id="Address"
                                         formControlName="ADDRESS"></textarea>
-                                    <label for="Address">{{'master.Company_Group_Master.Address' | translate}}</label>
+                                    <label for="Address">Address</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -98,11 +98,11 @@
                                     <ng-select appTheme [(ngModel)]="selectedCode" formControlName="AC_ACNOTYPE" bindValue="id"
                                         bindLabel="S_ACNOTYPE" [ngClass]="{'form-submitted': formSubmitted}" required
                                         #AC_ACNOTYPE (focus)="onFocus(AC_ACNOTYPE)" [selectOnTab]='true'
-                                        placeholder="{{'master.Company_Group_Master.Scheme_Type' | translate}}" (change)="selectedSchemeCode()">
+                                        placeholder="Scheme Type" (change)="selectedSchemeCode()">
                                         <ng-option *ngFor="let item of schemeType" [value]="item.S_ACNOTYPE">
                                             {{item.S_ACNOTYPE}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_ACNOTYPE">{{'master.Company_Group_Master.Scheme_Type' | translate}}<sub class="required">*</sub></label>
+                                    <label for="AC_ACNOTYPE">Scheme Type<sub class="required">*</sub></label>
                                 </span>
                                 <!-- <ng-select id="AC_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
@@ -137,11 +137,11 @@
                                         title="Compulsory Selection" bindValue="value" bindLabel="label"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntroducer()"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
-                                        required placeholder="{{'master.Company_Group_Master.Scheme_Code' | translate}}">
+                                        required placeholder="Scheme Code">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">{{'master.Company_Group_Master.Scheme_Code' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -160,11 +160,11 @@
                                         title="Compulsory Selection" bindLabel="label"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
-                                        placeholder="{{'master.Company_Group_Master.Account_Number' | translate}}">
+                                        placeholder="Account Number">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_NO">{{'master.Company_Group_Master.Account_Number' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="AC_NO">Account Number<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <!-- <div class="form-group input-group">
@@ -190,12 +190,12 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Company_Group_Master.Submit' | translate}}</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                *ngIf="newbtnShow">{{'master.Company_Group_Master.Cancel' | translate}}
+                                *ngIf="newbtnShow">Cancel
                             </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                [disabled]="angForm.invalid" *ngIf="updateShow">{{'master.Company_Group_Master.Update' | translate}}</button>
+                                [disabled]="angForm.invalid" *ngIf="updateShow">Update</button>
                         </div>
 
                     </div>

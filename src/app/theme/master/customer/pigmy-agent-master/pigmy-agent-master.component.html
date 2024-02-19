@@ -29,7 +29,7 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                 *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TITLE" class="form-control" placeholder=" "
-                                        id="AC_TITLE" pattern="^[A-Za-z\./ -]+$" formControlName="AC_TITLE" disabled>
+                                        id="AC_TITLE" formControlName="AC_TITLE" disabled>
                                     <label for="AC_TITLE">{{'master.Customer.Title'|translate}}</label>
                                 </span>
                             </div>
@@ -89,7 +89,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="^[A-Za-z\./ -]+$" disabled formControlName="AC_NAME">
+                                        disabled formControlName="AC_NAME">
                                     <label for="AC_NAME">{{'master.Customer.Name'|translate}}</label>
                                 </span>
                             </div>
@@ -143,7 +143,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -184,7 +184,7 @@
                                                                 class="alert alert-danger">
                                                                 <div
                                                                     *ngIf="angForm.controls['PIGMY_ACTYPE'].errors?.required">
-                                                                    This field is required
+                                                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -204,7 +204,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_HONO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_HONO" pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        id="AC_HONO" 
                                                                         maxlength="25" formControlName="AC_HONO"
                                                                         disabled />
                                                                     <label for="AC_HONO">{{'master.Customer.House'|translate}}</label>
@@ -216,7 +216,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_WARD"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_WARD" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_WARD" 
                                                                         formControlName="AC_WARD" disabled>
                                                                     <label for="AC_WARD">{{'master.Customer.Ward'|translate}}</label>
                                                                 </span>
@@ -227,7 +227,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_GALLI"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_GALLI" pattern="^[A-Za-z0-9\./ -]+$"
+                                                                        id="AC_GALLI" 
                                                                         formControlName="AC_GALLI" disabled>
                                                                     <label for="AC_GALLI">{{'master.Customer.Galli'|translate}}</label>
                                                                 </span>
@@ -238,7 +238,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_AREA"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_AREA" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_AREA" 
                                                                         formControlName="AC_AREA" disabled>
                                                                     <label for="AC_AREA">{{'master.Customer.Area'|translate}}</label>
                                                                 </span>
@@ -249,7 +249,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_ADDR"
                                                                         class="form-control" placeholder=" "
-                                                                        pattern="^[A-Za-z0-9\./ -]+$" id="AC_ADDR"
+                                                                        id="AC_ADDR"
                                                                         formControlName="AC_ADDR" disabled>
                                                                     <label for="AC_ADDR">{{'master.Customer.Detail'|translate}}</label>
                                                                 </span>
@@ -262,7 +262,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_CTCODE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_CTCODE" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_CTCODE" 
                                                                         formControlName="AC_CTCODE" disabled>
                                                                     <label for="AC_CTCODE">{{'master.Customer.City'|translate}}</label>
                                                                 </span>
@@ -273,7 +273,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PIN"
                                                                         class="form-control" placeholder=" " id="AC_PIN"
-                                                                        pattern="^[0-9]+$" disabled
+                                                                        pattern="^[0-9\u0966-\u096F]*$" disabled
                                                                         formControlName="AC_PIN">
                                                                     <label for="AC_PIN">{{'master.Customer.Pin_Code'|translate}}</label>
                                                                 </span>
@@ -282,7 +282,7 @@
                                                                 *ngIf="angForm.controls['AC_PIN'].invalid && (angForm.controls['AC_PIN'].dirty || angForm.controls['AC_PIN'].touched)"
                                                                 class="alert alert-danger">
                                                                 <div *ngIf="angForm.controls['AC_PIN'].errors?.pattern">
-                                                                    Input allowed only 0-9
+                                                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -291,7 +291,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_PHONE_RES"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_PHONE_RES" pattern="^[0-9]+$" disabled
+                                                                        id="AC_PHONE_RES" pattern="^[0-9\u0966-\u096F]*$" disabled
                                                                         formControlName="AC_PHONE_RES">
                                                                     <label for="AC_PHONE_RES">{{'master.Customer.Residential'|translate}}</label>
                                                                 </span>
@@ -302,7 +302,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="Pin" class="form-control"
                                                                         placeholder=" " id="AC_PHONE_OFFICE"
-                                                                        pattern="^[0-9]+$" disabled
+                                                                        pattern="^[0-9\u0966-\u096F]*$" disabled
                                                                         formControlName="AC_PHONE_OFFICE">
                                                                     <label for="AC_PHONE_OFFICE">{{'master.Pigmy_Agent.Office'|translate}}</label>
                                                                 </span>
@@ -313,7 +313,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_MOBILENO"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_MOBILENO" pattern="^[0-9]+$" disabled
+                                                                        id="AC_MOBILENO" pattern="^[0-9\u0966-\u096F]*$" disabled
                                                                         formControlName="AC_MOBILENO">
                                                                     <label for="AC_MOBILENO">{{'master.Customer.Mobile'|translate}}</label>
                                                                 </span>
@@ -439,7 +439,7 @@
                                                                                         placeholder=" "
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                                         id="AC_NNAME"
-                                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                                        
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         formControlName="AC_NNAME"
@@ -460,11 +460,10 @@
                         angForm.controls['AC_NNAME'].touched)
                     " class="alert alert-danger">
                                                                                 <div *ngIf="
-                        angForm.controls['AC_NNAME'].errors
-                          ?.pattern || angForm.controls['AC_NNAME'].errors?.maxlength
+                        angForm.controls['AC_NNAME'].errors?.maxlength
                       ">
-                                                                                    Input allowed only A-Z a-z - / .
-                                                                                    (Space)
+                                                                                    <!-- Input allowed only A-Z a-z - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -475,7 +474,7 @@
                                                                                         name="AC_NRELA"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NRELA"
-                                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                                       
                                                                                         style="text-transform: capitalize;"
                                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -497,12 +496,11 @@
                         angForm.controls['AC_NRELA'].touched)
                     " class="alert alert-danger">
                                                                                 <div *ngIf="
-                        angForm.controls['AC_NRELA'].errors
-                          ?.pattern || angForm.controls['AC_NRELA'].errors
+                         angForm.controls['AC_NRELA'].errors
                           ?.maxlength
                       ">
-                                                                                    Input allowed only A-Z a-z - / .
-                                                                                    (Space)
+                                                                                    <!-- Input allowed only A-Z a-z - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -541,7 +539,7 @@
                         angForm.controls['AC_NDATE'].errors
                           ?.required
                       ">
-                                                                                    This fiels is required
+                                                                                    <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -554,7 +552,7 @@
                                                                                         style="text-align: right;"
                                                                                         (focusout)="age()"
                                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                        pattern="^[0-9]+$" min="1"
+                                                                                        pattern="^[0-9\u0966-\u096F]*$" min="1"
                                                                                         max="100"
                                                                                         title="Input allowed only 0-9"
                                                                                         id="AGE"
@@ -579,7 +577,7 @@
                         angForm.controls['AGE'].errors
                           ?.max
                       ">
-                                                                                    This fiels is required
+                                                                                    <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -589,7 +587,7 @@
                                                                                     <input type="text" name="AC_NHONO"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NHONO"
-                                                                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                        
                                                                                         maxlength="25"
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
@@ -606,12 +604,13 @@
                       (angForm.controls['AC_NHONO'].dirty ||
                         angForm.controls['AC_NHONO'].touched)
                     " class="alert alert-danger">
-                                                                                <div *ngIf="
+                                                                                <!-- <div *ngIf="
                         angForm.controls['AC_NHONO'].errors
                           ?.pattern
-                      ">
-                                                                                    Input allowed only A-Z a-z 0-9 - / .
-                                                                                    (Space)
+                      "> -->
+                      <div>
+                                                                                    <!-- Input allowed only A-Z a-z 0-9 - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -621,7 +620,7 @@
                                                                                     <input type="text" name="AC_NWARD"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NWARD"
-                                                                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                       
                                                                                         maxlength="10"
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -638,12 +637,12 @@
                       (angForm.controls['AC_NWARD'].dirty ||
                         angForm.controls['AC_NWARD'].touched)
                     " class="alert alert-danger">
-                                                                                <div *ngIf="
+                                                                                <!-- <div *ngIf="
                         angForm.controls['AC_NWARD'].errors
                           ?.pattern
-                      ">
-                                                                                    Input allowed only A-Z a-z 0-9 - / .
-                                                                                    (Space)
+                      "> --><div>
+                                                                                    <!-- Input allowed only A-Z a-z 0-9 - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -655,7 +654,7 @@
                                                                                     <input type="text" name="AC_NGALLI"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NGALLI"
-                                                                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                       
                                                                                         maxlength="40"
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
@@ -672,12 +671,13 @@
                       (angForm.controls['AC_NGALLI'].dirty ||
                         angForm.controls['AC_NGALLI'].touched)
                     " class="alert alert-danger">
-                                                                                <div *ngIf="
+                                                                                <!-- <div *ngIf="
                         angForm.controls['AC_NGALLI'].errors
                           ?.pattern
-                      ">
-                                                                                    Input allowed only A-Z a-z 0-9 - / .
-                                                                                    (Space)
+                      "> -->
+                      <div>
+                                                                                    <!-- Input allowed only A-Z a-z 0-9 - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -687,7 +687,7 @@
                                                                                     <input type="text" name="AC_NAREA"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NAREA"
-                                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                                        
                                                                                         maxlength="60"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         style="text-transform: capitalize;"
@@ -704,12 +704,12 @@
                       (angForm.controls['AC_NAREA'].dirty ||
                         angForm.controls['AC_NAREA'].touched)
                     " class="alert alert-danger">
-                                                                                <div *ngIf="
+                                                                                <!-- <div *ngIf="
                         angForm.controls['AC_NAREA'].errors
                           ?.pattern
-                      ">
-                                                                                    Input allowed only A-Z a-z - / .
-                                                                                    (Space)
+                      "> --><div>
+                                                                                    <!-- Input allowed only A-Z a-z - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -719,7 +719,7 @@
                                                                                     <input type="text" name="AC_NADDR"
                                                                                         class="form-control"
                                                                                         placeholder=" "
-                                                                                        pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                        
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                         id="AC_NADDR"
@@ -736,12 +736,9 @@
                       (angForm.controls['AC_NADDR'].dirty ||
                         angForm.controls['AC_NADDR'].touched)
                     " class="alert alert-danger">
-                                                                                <div *ngIf="
-                        angForm.controls['AC_NADDR'].errors
-                          ?.pattern
-                      ">
-                                                                                    Input allowed only A-Z a-z 0-9 - / .
-                                                                                    (Space)
+                                                                                <div>
+                                                                                    <!-- Input allowed only A-Z a-z 0-9 - / .
+                                                                                    (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -775,7 +772,7 @@
                                                                                     <input type="text" name="AC_NPIN"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NPIN"
-                                                                                        pattern="^[0-9]+$" minlength="6"
+                                                                                        pattern="^[0-9\u0966-\u096F]*$" minlength="6"
                                                                                         maxlength="6"
                                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                         title="Input allowed only  0-9"
@@ -800,7 +797,7 @@
                         angForm.controls['AC_NPIN'].errors
                           ?.maxlength
                       ">
-                                                                                    Input allowed only 0-9
+                                                                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                                                                 </div>
                                                                             </div>
                                                                         </div>

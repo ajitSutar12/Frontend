@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 // import {SelectModule} from 'ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
@@ -18,6 +18,8 @@ import { DeadStockTransactionService } from './dead-stock-transaction.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { ThemeModule } from '../../theme.module'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -30,7 +32,14 @@ import { ThemeModule } from '../../theme.module'
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   providers: [ACMasterDropdownService, DeadStockTransactionService, SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService, SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
@@ -41,3 +50,6 @@ import { ThemeModule } from '../../theme.module'
   exports: [DeadStockTransactionComponent],
 })
 export class DeadStockTransactionModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

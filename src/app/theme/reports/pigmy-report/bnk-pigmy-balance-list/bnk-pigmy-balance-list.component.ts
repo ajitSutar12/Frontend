@@ -206,7 +206,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
 }

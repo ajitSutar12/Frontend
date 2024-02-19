@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Utility1.T16' | translate}} </h5>
+                <h5>Pigmy Deposit Scheme Settings </h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -19,7 +19,7 @@
                                         pattern="^[0-9]+$" maxlength="3" minlength="3" min="401" max="499"
                                         title="Input allowed only 0-9" #autofocus (focusout)="checkDuplicate($event)"
                                         formControlName="S_APPL">
-                                    <label for="S_APPL">{{'Utility.Utility1.Scheme_Code' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -42,7 +42,7 @@
                                         id="Description" required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
-                                    <label for="Description">{{'Utility.Utility1.Description' | translate}}<sub class="required">* </sub></label>
+                                    <label for="Description">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -64,7 +64,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
-                                    <label for="S_SHNAME">{{'Utility.Utility1.Short_Name' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -89,11 +89,11 @@
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" #S_GLACNO [virtualScroll]="true"
                                         (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
-                                        placeholder="{{'Utility.Utility1.GL_Acc_Num' | translate}}">
+                                        placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_GLACNO">{{'Utility.Utility1.GL_Acc_Num' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -120,11 +120,11 @@
                                         formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                                         #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
-                                        placeholder="{{'Utility.Utility1.Interest_GL_Acc' | translate}}">
+                                        placeholder="Interest GL Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_INT_ACNO">{{'Utility.Utility1.Interest_GL_Acc' | translate}} <sub class="required"> * </sub></label>
+                                    <label for="S_INT_ACNO">Interest GL Account <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -149,11 +149,11 @@
                                         bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" #S_RECBL_PYBL_INT_ACNO
                                         (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true' required
-                                        placeholder="{{'Utility.Utility1.Payable' | translate}}">
+                                        placeholder="Payable Interest Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_RECBL_PYBL_INT_ACNO">{{'Utility.Utility1.Payable' | translate}}<sub class="required"> *
+                                    <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -175,31 +175,31 @@
                                         <h6> <a (click)="OpenLink(4)" routerLink="/utility/schemeParameters"
                                                 routerLinkActive="active" [ngClass]="{'isActive': intrestTrue}"
                                                 class="text-right f-w-600" id="pointer">
-                                                {{'Utility.Utility1.Interest_AppliCable' | translate}}</a></h6>
+                                                Interest Applicable</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(5)" routerLink="/utility/schemeParameters"
                                                 routerLinkActive="active" [ngClass]="{'isActive': StandingTrue}"
                                                 class="text-right f-w-600" id="pointer">
-                                                {{'Utility.Utility1.Standing_Instru_Applicable' | translate}}</a></h6>
+                                                Standing Instruction</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(6)" routerLink="/utility/schemeParameters"
                                                 routerLinkActive="active" [ngClass]="{'isActive': BalanceTrue}"
                                                 class="text-right f-w-600" id="pointer">
-                                                {{'Utility.Utility1.Balance' | translate}}</a></h6>
+                                                Balance Entry/Premature</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(7)" routerLink="/utility/schemeParameters"
                                                 routerLinkActive="active" [ngClass]="{'isActive': OverDraftTrue}"
                                                 class="text-right f-w-600" id="pointer">
-                                                {{'Utility.Utility1.Overdraft_Applicable' | translate}}</a></h6>
+                                                OverDraft Interest Applicable</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(8)" routerLink="/utility/schemeParameters"
                                                 routerLinkActive="active" [ngClass]="{'isActive': ServiceTrue}"
                                                 class="text-right f-w-600" id="pointer">
-                                                {{'Utility.Utility1.Service_Charges_Details' | translate}}</a></h6>
+                                                Service Charges Details</a></h6>
                                     </li>
                                 </ul>
                             </div>
@@ -208,7 +208,7 @@
                             <div *ngIf="intrestTrue">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Interest_AppliCable' | translate}}</h5>
+                                        <h5>Interest Applicable</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -219,7 +219,8 @@
                                                             name="IS_INT_APPLICABLE" id="S_INT_APPLICABLE"
                                                             formControlName="S_INT_APPLICABLE"
                                                             (click)="isIntrestApplicable($event)">
-                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">{{'Utility.Utility1.Interest_AppliCable' | translate}}</label>
+                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is
+                                                            Interest Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,7 +231,8 @@
                                                             id="POST_TO_INDIVIDUAL_AC"
                                                             formControlName="POST_TO_INDIVIDUAL_AC" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="POST_TO_INDIVIDUAL_AC">{{'Utility.Utility1.Interest_AppliCable' | translate}}</label>
+                                                            for="POST_TO_INDIVIDUAL_AC">Is Post Interest to Account
+                                                            ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -244,7 +246,8 @@
                                                             formControlName="S_PAYABLE_INT_ALLOW"
                                                             (click)="isPaybaleInterestAllow($event)" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="S_PAYABLE_INT_ALLOW">{{'Utility.Utility1.Payable' | translate}}</label>
+                                                            for="S_PAYABLE_INT_ALLOW">Is Payable Interest Allow
+                                                            ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -260,7 +263,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                             pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                                                             (change)="isProductDayBase(S_PRODUCT_DAY_BASE)" disabled>
-                                                        <label for="S_PRODUCT_DAY_BASE">{{'Utility.Utility1.Pro_Base_Start' | translate}}<sub
+                                                        <label for="S_PRODUCT_DAY_BASE">Product Base Start Day<sub
                                                                 class="required">* </sub></label>
                                                     </span>
                                                 </div>
@@ -282,7 +285,7 @@
                                                                 name="S_PRODUCT_DAY_BASE"
                                                                 formControlName="S_PRODUCT_DAY_BASE"
                                                                 [checked]="S_PRODUCT_DAY_BASE==0" disabled>
-                                                            <i class="helper"></i>{{'Utility.Utility1.Month_Begin' | translate}}<span class="required">
+                                                            <i class="helper"></i>Month Begin<span class="required">
                                                             </span>
                                                         </label>
                                                     </div>
@@ -293,7 +296,7 @@
                                                                 name="S_PRODUCT_DAY_BASE"
                                                                 formControlName="S_PRODUCT_DAY_BASE"
                                                                 [checked]="S_PRODUCT_DAY_BASE==0" disabled>
-                                                            <i class="helper"></i>{{'Utility.Utility1.Month_End' | translate}}<span class="required">
+                                                            <i class="helper"></i>Month End<span class="required">
                                                             </span>
                                                         </label>
                                                     </div>
@@ -314,7 +317,7 @@
                                                             title="Input allowed only  0-9" max="31"
                                                             (change)="isProductDayBaseEndDay(S_PRODUCT_DAY_BASE_END)"
                                                             disabled>
-                                                        <label for="S_PRODUCT_DAY_BASE_END">{{'Utility.Utility1.Pro_Base_End' | translate}}<sub
+                                                        <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day<sub
                                                                 class="required">* </sub></label>
                                                     </span>
                                                 </div>
@@ -335,7 +338,7 @@
                                                                 value="MB" name="S_PRODUCT_DAY_BASE_END"
                                                                 formControlName="S_PRODUCT_DAY_BASE_END"
                                                                 [checked]="S_PRODUCT_DAY_BASE_END==0" disabled>
-                                                            <i class="helper"></i>{{'Utility.Utility1.Month_Begin' | translate}}<span class="required">
+                                                            <i class="helper"></i>Month Begin<span class="required">
                                                             </span>
                                                         </label>
                                                     </div>
@@ -345,7 +348,7 @@
                                                                 value="ME" name="S_PRODUCT_DAY_BASE_END"
                                                                 formControlName="S_PRODUCT_DAY_BASE_END"
                                                                 [checked]="S_PRODUCT_DAY_BASE_END==0" disabled>
-                                                            <i class="helper"></i>{{'Utility.Utility1.Month_End' | translate}}<span class="required">
+                                                            <i class="helper"></i>Month End<span class="required">
                                                             </span>
                                                         </label>
                                                     </div>
@@ -363,7 +366,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                             title="Input allowed only  0-9"
                                                             formControlName="MIN_INT_LIMIT" disabled>
-                                                        <label for="MIN_INT_LIMIT">{{'Utility.Utility1.Minimum_Interest_Amount' | translate}}</label>
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -381,7 +384,7 @@
                             <div *ngIf="StandingTrue">
                                 <div class="card" id="standInstru">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Standing_Instru' | translate}}</h5>
+                                        <h5> Standing Instruction</h5>
                                     </div>
                                     <div class="card-block">
 
@@ -391,7 +394,8 @@
                                                     <input class="border-checkbox" type="checkbox"
                                                         id="STAND_INSTRUCTION_ALLOW">
                                                     <label class="border-checkbox-label"
-                                                        for="STAND_INSTRUCTION_ALLOW">{{'Utility.Utility1.Standing_Instru_Applicable' | translate}}</label>
+                                                        for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
+                                                        Applicable?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -401,8 +405,8 @@
                                                     <input class="border-checkbox" type="checkbox"
                                                         id="IS_AUTO_CUT_INSTRUCTION">
                                                     <label class="border-checkbox-label"
-                                                        for="IS_AUTO_CUT_INSTRUCTION">{{'Utility.Utility1.Instruction_though' | translate}}
-                                                       </label>
+                                                        for="IS_AUTO_CUT_INSTRUCTION">Is
+                                                        Instruction though Auto Cutting LN/CC?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -411,8 +415,8 @@
                                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                                     <input class="border-checkbox" type="checkbox"
                                                         id="IS_ALLOW_SI_MINBAL">
-                                                    <label class="border-checkbox-label" for="IS_ALLOW_SI_MINBAL">{{'Utility.Utility1.Allow_Standing' | translate}}
-                                                        </label>
+                                                    <label class="border-checkbox-label" for="IS_ALLOW_SI_MINBAL">Is
+                                                        Allow Standing Instruction Minimum Balance?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -421,7 +425,8 @@
                                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                                     <input class="border-checkbox" type="checkbox"
                                                         id="WITHDRAWAL_APPLICABLE">
-                                                    <label class="border-checkbox-label" for="WITHDRAWAL_APPLICABLE">{{'Utility.Utility1.Is_Withdrawal' | translate}}</label>
+                                                    <label class="border-checkbox-label" for="WITHDRAWAL_APPLICABLE">Is
+                                                        Withdrawal Applicable ?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -430,7 +435,9 @@
                                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                                     <input class="border-checkbox" type="checkbox"
                                                         id="S_INTPAID_ON_CLOSING">
-                                                    <label class="border-checkbox-label" for="S_INTPAID_ON_CLOSING">{{'Utility.Utility1.Interest_Paid' | translate}}</label>
+                                                    <label class="border-checkbox-label" for="S_INTPAID_ON_CLOSING">Is
+                                                        Interest
+                                                        Paid on Account Closing ?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -444,7 +451,8 @@
                                                             placeholder=" " id="ROUNDOFF_FACTOR" pattern="^[0-9]+$"
                                                             title="Input allowed only  0-9" maxlength="2" 
                                                             formControlName="ROUNDOFF_FACTOR">
-                                                        <label for="ROUNDOFF_FACTOR">{{'Utility.Utility1.Interest_Round' | translate}}</label>
+                                                        <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
+                                                            Paise</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -463,7 +471,7 @@
                             <div *ngIf="BalanceTrue">
                                 <div class="card" id="balanceEntr">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Balance' | translate}}</h5>
+                                        <h5> Balance Entry/Premature</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -473,7 +481,8 @@
                                                         <input class="border-checkbox" type="checkbox"
                                                             id="BALANCE_ADD_APPLICABLE">
                                                         <label class="border-checkbox-label"
-                                                            for="BALANCE_ADD_APPLICABLE">{{'Utility.Utility1.Balance_Entry_All' | translate}}</label>
+                                                            for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allow
+                                                            ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -486,7 +495,8 @@
                                                         <input class="border-checkbox" type="checkbox"
                                                             id="PREMATURE_COMPOUND_INT">
                                                         <label class="border-checkbox-label"
-                                                            for="PREMATURE_COMPOUND_INT">{{'Utility.Utility1.Is_Prematured' | translate}}</label>
+                                                            for="PREMATURE_COMPOUND_INT">Is
+                                                            Prematured Compound Interest ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -502,7 +512,8 @@
                                                             id="PIGMY_MACHINE_SCHEME" pattern="^[0-9]+$"
                                                             title="Input allowed only  0-9" maxlength="6"
                                                             formControlName="PIGMY_MACHINE_SCHEME">
-                                                        <label for="PIGMY_MACHINE_SCHEME">{{'Utility.Utility1.Pigmy_Machine_Scheme' | translate}}</label>
+                                                        <label for="PIGMY_MACHINE_SCHEME">Pigmy Machine Scheme
+                                                            Number</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -521,7 +532,7 @@
                             <div *ngIf="OverDraftTrue">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Overdraft' | translate}}</h5>
+                                        <h5> OverDraft Interest Applicable</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -534,7 +545,8 @@
                                                             formControlName="OVERDRAFT_INTEREST_APPLICABLE"
                                                             (click)="isOverdraftInterestApplicable($event)">
                                                         <label class="border-checkbox-label"
-                                                            for="OVERDRAFT_INTEREST_APPLICABLE">{{'Utility.Utility1.Overdraft_Applicable' | translate}}</label>
+                                                            for="OVERDRAFT_INTEREST_APPLICABLE">Is
+                                                            OverDraft Interest Applicable?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -554,7 +566,8 @@
                                                             title="Input allowed only  0-9"
                                                             formControlName="OVERDRAFT_INTEREST_RATE" disabled
                                                             [required]="IS_OVERDRAFT_INTEREST_RATE">
-                                                        <label for="OVERDRAFT_INTEREST_RATE">{{'Utility.Utility1.Overdraft_Rate' | translate}}</label>
+                                                        <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate
+                                                            %</label>
                                                     </span>
                                                 </div>
                                                 <!-- <div class="form-group form-primary form-static-label"
@@ -573,7 +586,7 @@
                             <div *ngIf="ServiceTrue">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5> {{'Utility.Utility1.Service_Charges_Details' | translate}}</h5>
+                                        <h5> Service Charges Details</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -592,11 +605,11 @@
                                                             title="Compulsory Selection"
                                                             #SVR_CHARGE_GLCODE (focus)="onFocus(SVR_CHARGE_GLCODE)" [selectOnTab]='true'
                                                             [ngClass]="{'form-submitted': formSubmitted}" required
-                                                            placeholder="{{'Utility.Utility1.Service_Charges' | translate}}">
+                                                            placeholder="Service Charges GL Code">
                                                             <ng-option *ngFor="let values of acMaster" [value]="values">
                                                                 {{values.label}}</ng-option>
                                                         </ng-select>
-                                                        <label for="SVR_CHARGE_GLCODE">{{'Utility.Utility1.Service_Charges' | translate}}<sub
+                                                        <label for="SVR_CHARGE_GLCODE">Service Charges GL Code<sub
                                                                 class="required"> * </sub></label>
                                                     </span>
                                                 </div>
@@ -612,7 +625,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                             title="Input allowed only  0-9"
                                                             formControlName="SVR_CHARGE_RATE">
-                                                        <label for="SVR_CHARGE_RATE">{{'Utility.Utility1.Service_Charges_Rate' | translate}}</label>
+                                                        <label for="SVR_CHARGE_RATE">Service Charges Rate</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -638,14 +651,14 @@
                                 <div class="col-sm m-b-20">
                                     <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
                                         (click)="submit()" *ngIf="showButton"  (keydown.Tab)="focus()" appTheme>
-                                        {{'Utility.Action.Submit' | translate}}
+                                        Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
-                                        {{'Utility.Action.Update' | translate}}</button>&nbsp;
+                                        Update</button>&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
-                                        {{'Utility.Action.Cancel' | translate}}
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
@@ -712,7 +725,7 @@
                                 </tbody>
                                 <tbody *ngIf="pigmyACScheme?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
+                                        <td colspan="6" class="no-data-available">No data!</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd} from '@angular/router';
-import {Title} from '@angular/platform-browser';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -19,7 +21,7 @@ export class BreadcrumbsComponent {
         this.breadcrumbs = [];
         this.tempState = [];
         let currentRoute = this.route.root,
-            url = '';
+          url = '';
         do {
           const childrenRoutes = currentRoute.children;
           currentRoute = null;
@@ -64,4 +66,22 @@ export class BreadcrumbsComponent {
         } while (currentRoute);
       });
   }
+
+
+  // value=environment.setLang;
+// setValue: string;
+
+// selectLanguage(event: Event) {
+//   // Access the selected value from the event
+//   this.setValue = (event.target as HTMLSelectElement).value;
+
+//   // Update environment.setLang based on the selected value
+//   if (this.setValue === 'en') {
+//     environment.setLang = 'en';
+//   } else {
+//     environment.setLang = 'ma'; // or whatever value you want for 'ma'
+//   }
+// }
+
+
 }

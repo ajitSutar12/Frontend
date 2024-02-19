@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Utility1.T17' | translate}}</h5>
+                <h5>Pigmy Agent Scheme</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>){{'Utility.Action.F1' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <div class="card-block">
@@ -20,7 +20,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" required=""
                                         pattern="^[0-9]+$" maxlength="3" minlength="3" min="301" max="399"
                                         title="Input allowed 0-9. (Space)" formControlName="S_APPL" #autofocus>
-                                    <label for="S_APPL">{{'Utility.Utility1.Scheme_Code' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -42,7 +42,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
-                                    <label for="S_NAME">{{'Utility.Utility1.Description' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_NAME">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -64,7 +64,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
-                                    <label for="S_SHNAME">{{'Utility.Utility1.Short_Name' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -87,7 +87,7 @@
                                             routerLink="/utility/schemeParameters"
                                             [ngClass]="{'isActive': CommissionApplicableTrue}"
                                             class="text-right f-w-600" id="pointer">
-                                            {{'Utility.Utility1.Commission_Applicable' | translate}}</a></h6>
+                                            Commission Applicable</a></h6>
                                 </li>
 
                                 <li>
@@ -95,7 +95,7 @@
                                             routerLink="/utility/schemeParameters"
                                             [ngClass]="{'isActive': OtherSettings1True}" class="text-right f-w-600"
                                             id="pointer">
-                                            {{'Utility.Utility1.Other_Sett' | translate}}</a></h6>
+                                            Other Settings</a></h6>
                                 </li>
 
                             </ul>
@@ -104,7 +104,7 @@
                             <div class="card">
                                 <div *ngIf="CommissionApplicableTrue">
                                     <div class="card-header">
-                                        <h5> {{'Utility.Utility1.Commission_Applicable' | translate}}</h5>
+                                        <h5> Commission Applicable</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -113,8 +113,9 @@
                                                     <input class="border-checkbox" type="checkbox" id="checkbox1"
                                                         formControlName="S_INT_APPLICABLE"
                                                         (click)="Pigmy_commission($event)">
-                                                    <label class="border-checkbox-label" for="checkbox1">
-                                                        {{'Utility.Utility1.Pigmy_Commission_Applicable' | translate}}</label>
+                                                    <label class="border-checkbox-label" for="checkbox1">Is
+                                                        Pigmy
+                                                        Commission Applicable ?</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -133,7 +134,7 @@
                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                             (keydown.Tab)="openTab(otset)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
-                                                        <label for="MIN_INT_LIMIT">{{'Utility.Utility1.Minimum_Interest_Amount' | translate}}<sub
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount<sub
                                                                 class="required">* </sub></label>
                                                     </span>
                                                 </div>
@@ -154,7 +155,7 @@
                             <div class="card" #tabSel id="otset">
                                 <div *ngIf=" OtherSettings1True">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Other_Sett' | translate}}</h5>
+                                        <h5>Other Settings</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="checkbox checkbox-primary">
@@ -163,24 +164,28 @@
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox" id="checkbox1"
                                                             formControlName="STAND_INSTRUCTION_ALLOW">
-                                                        <label class="border-checkbox-label" for="checkbox1">
-                                                            {{'Utility.Utility1.Standing_Instru_Applicable' | translate}}</label>
+                                                        <label class="border-checkbox-label" for="checkbox1">Is
+                                                            Standing
+                                                            Instruction Applicable ?</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox" id="checkbox2"
                                                             formControlName="WITHDRAWAL_APPLICABLE">
-                                                        <label class="border-checkbox-label" for="checkbox2">
-                                                            {{'Utility.Utility1.Balance_Entry_All' | translate}}</label>
+                                                        <label class="border-checkbox-label" for="checkbox2">Is
+                                                            Balance
+                                                            Entry Allow ?</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                                         <input class="border-checkbox" type="checkbox" id="checkbox3"
                                                             formControlName="BALANCE_ADD_APPLICABLE">
-                                                        <label class="border-checkbox-label" for="checkbox3">
-                                                            {{'Utility.Utility1.Is_Allow_Dormat_Flag_Updation' | translate}}</label>
+                                                        <label class="border-checkbox-label" for="checkbox3">Is
+                                                            Allow
+                                                            Dormat
+                                                            Flag Updation ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -200,14 +205,14 @@
                                     <button class="btn btn-outline-primary btn-sm btn-submit"
                                         [disabled]="angForm.invalid" (click)="submit()" *ngIf="showButton"
                                         (keydown.Tab)="focus()" appTheme>
-                                        {{'Utility.Action.Submit' | translate}}
+                                        Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
-                                        {{'Utility.Action.Update' | translate}}</button>&nbsp;
+                                        Update</button>&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
-                                        {{'Utility.Action.Cancel' | translate}}
+                                        Cancel
                                     </button>
                                 </div>
                             </div>

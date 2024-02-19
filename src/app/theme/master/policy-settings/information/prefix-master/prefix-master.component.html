@@ -14,7 +14,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="SR_NO" class="form-control" placeholder=" " id="SR_NO"
-                                        pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="SR_NO"
+                                        pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9" formControlName="SR_NO"
                                         disabled>
                                     <label for="SR_NO">{{'master.Prefix_Master.SNo' | translate}}</label>
                                 </span>
@@ -24,7 +24,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="PREFIX" class="form-control" placeholder=" "
-                                        id="PREFIX" #autofocus pattern="^[A-Za-z\./ -]+$"
+                                        id="PREFIX" #autofocus
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="PREFIX">
                                     <label for="PREFIX">{{'master.Prefix_Master.Prefix' | translate}}<sub class="required">* </sub></label>
@@ -34,8 +34,8 @@
                                 *ngIf="angForm.controls['PREFIX'].invalid && (angForm.controls['PREFIX'].dirty || angForm.controls['PREFIX'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['PREFIX'].errors?.required ||angForm.controls['PREFIX'].errors?.pattern">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf="angForm.controls['PREFIX'].errors?.required ">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,8 @@
                                 *ngIf="angForm.controls['PREFIX_REG'].invalid && (angForm.controls['PREFIX_REG'].dirty || angForm.controls['PREFIX_REG'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['PREFIX_REG'].errors?.required ">
-                                    This field is required
+                                    <!-- This field is required -->
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -132,7 +133,7 @@
                                 </tbody>
                                 <tbody *ngIf="prefixMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Minimum_Balance_Master.No_Data'}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

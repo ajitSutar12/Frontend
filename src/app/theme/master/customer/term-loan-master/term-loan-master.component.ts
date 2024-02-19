@@ -591,7 +591,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       SECURITY_CODE: [''],
       SECURITY_VALUE: [''],
       IS_WEAKER: [''],
-      AC_REMARK: ['', [Validators.pattern]],
+      AC_REMARK: [''],
       AC_ACNOTYPE: ['LN'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
@@ -607,16 +607,16 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       IS_AGGRI_LOAN: [false],
       AC_MEMBTYPE: [''],
       AC_MEMBNO: [''],
-      REF_ACNO: [''],
+      REF_ACNO: ['',[Validators.required]],
       AC_CAST: [''],
       AC_OCODE: [''],
       AC_ADDFLAG: [true],
       AC_ADDTYPE: ['P'],
-      AC_THONO: ['', [Validators.pattern]],
+      AC_THONO: [''],
       AC_TWARD: ['', [Validators.pattern]],
-      AC_TADDR: ['', [Validators.pattern]],
-      AC_TGALLI: ['', [Validators.pattern]],
-      AC_TAREA: ['', [Validators.pattern]],
+      AC_TADDR: [''],
+      AC_TGALLI: [''],
+      AC_TAREA: [''],
       AC_TCTCODE: ['', [Validators.pattern]],
       AC_INTCATA: ['', [Validators.required]],
       AC_SANCTION_AMOUNT: ['', [Validators.required, Validators.pattern]],
@@ -807,7 +807,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
         Swal.fire({
           icon: 'success',
-          title: 'Account Created successfully!',
+          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -843,7 +843,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.vehicleid = []
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
 
   }
@@ -885,129 +885,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
   //Method for append data into fields  
   tempbankacno
-  // editClickHandler(id, status) {
-  //   this.switchNgBTab('Basic')
-  //   this.angForm.controls['AC_TYPE'].disable()
-  //   let date
-  //   let opdate
-  //   let redate
-  //   let sanctiondate
-  //   let expirydate
-  //   let resodate
-  //   // let ngexpiry
-  //   this.columnShowButton = true
-
-  //   this.termLoanService.getFormData(id).subscribe(data => {
-  //     this.tempbankacno = data.BANKACNO
-  //     this.accountedit = data.BANKACNO
-  //     this.updatecheckdata = data
-  //     if (data.SYSCHNG_LOGIN != null && data.status == 0) {
-  //       this.unapproveShow = true
-  //       this.showButton = false;
-  //       this.updateShow = false;
-  //       this.newbtnShow = true;
-  //       this.approveShow = false;
-  //       this.rejectShow = false;
-  //     }
-  //     else if (data.SYSCHNG_LOGIN == null && data.status == 0) {
-  //       this.unapproveShow = false
-  //       this.showButton = false;
-  //       this.updateShow = true;
-  //       this.newbtnShow = true;
-  //       this.approveShow = false;
-  //       this.rejectShow = false
-  //     }
-  //     else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
-  //       this.unapproveShow = false
-  //       this.showButton = false;
-  //       this.updateShow = false;//temporary change vasim 01022024
-  //       this.newbtnShow = true;
-  //       this.approveShow = true; 
-  //       this.rejectShow = true;
-  //     }
-  //     else {
-  //       this.approveShow = false;
-  //       this.rejectShow = false;
-  //       this.unapproveShow = false 
-  //       this.showButton = false; 
-  //       this.updateShow = false; 
-  //       this.newbtnShow = true; 
-  //     }
-  //     this.updateID = data.id;
-  //     this.getCustomer(data.AC_CUSTID)
-  //     this.multiSecurity = data.securityMaster
-  //     this.multiSecurity.forEach(ele => {
-  //       let findSecurity = this.security.find(ob => ob['value'] === Number(ele.SECURITY_CODE))
-  //       ele['SECU_NAME'] = findSecurity.name
-  //     })
-  //     this.multiCoBorrower = data.CoborrowerMaster
-  //     this.multiGuarantor = data.guaranterMaster
-  //     this.int_category = Number(data.AC_INTCATA)
-  //     this.sanctionAutho = Number(data.AC_AUTHORITY)
-  //     this.recomBy = Number(data.AC_RECOMMEND_BY)
-  //     this.recovery = Number(data.AC_RECOVERY_CLERK)
-  //     this.idp = Number(data.AC_PRIORITY)
-  //     this.weakerSec = Number(data.AC_WEAKER)
-  //     this.ngpurpose = Number(data.AC_PURPOSE)
-  //     this.ngindustry = Number(data.AC_INDUSTRY)
-  //     this.nghealth = Number(data.AC_HEALTH)
-  //     this.ngAccountType = data.AC_RELATION_TYPE
-  //     if (this.ngAccountType == 'Director') {
-  //       this.angForm.controls['AC_DIRECTOR'].enable()
-  //       this.ngdirectorType = Number(data.AC_DIRECTOR)
-  //       this.angForm.controls['AC_DIRECTOR_RELATION'].disable()
-  //       this.angForm.controls['AC_DIRECTOR_RELATION'].reset()
-  //     }
-  //     else if (this.ngAccountType == 'DirectorsRelative') {
-  //       this.angForm.controls['AC_DIRECTOR'].enable()
-  //       this.ngdirectorType = Number(data.AC_DIRECTOR)
-  //       this.angForm.controls['AC_DIRECTOR_RELATION'].enable();
-  //     }
-  //     else {
-  //       this.angForm.controls['AC_DIRECTOR'].disable()
-  //       this.angForm.controls['AC_DIRECTOR_RELATION'].disable();
-  //       this.angForm.controls['AC_DIRECTOR'].reset()
-  //       this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
-  //     }
-  //     this.sanctionAmt = Number(data.AC_SANCTION_AMOUNT).toFixed(2)
-  //     this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
-  //       this.drawingPower = Number(data.AC_DRAWPOWER_AMT).toFixed(2)
-  //     // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
-  //     this.intRate = data.AC_INTRATE
-  //     this.repay = data.AC_REPAYMODE
-  //     this.installmentType = data.INSTALLMENT_METHOD
-  //     this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
-  //       this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
-  //       this.renewDate = (data.AC_OPEN_OLD_DATE == 'Invalid date' || data.AC_OPEN_OLD_DATE == '' || data.AC_OPEN_OLD_DATE == null) ? redate = '' : redate = data.AC_OPEN_OLD_DATE,
-  //       this.angForm.patchValue({
-  //         AC_TYPE: data.AC_TYPE,
-  //         'BANKACNO': data.BANKACNO,
-  //         AC_NO: data.AC_NO,
-  //         AC_OPDATE: (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-  //         AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
-  //         AC_IS_RECOVERY: data.AC_IS_RECOVERY,
-  //         IS_AGGRI_LOAN: (data.IS_AGGRI_LOAN == '1' ? true : false),
-  //         REF_ACNO: data.REF_ACNO,
-  //         AC_MONTHS: data.AC_MONTHS,
-  //         AC_DAYS: data.AC_DAYS,
-  //         AC_INSTALLMENT: data.AC_INSTALLMENT,
-  //         AC_MORATORIUM_PERIOD: data.AC_MORATORIUM_PERIOD,
-  //         AC_GRACE_PERIOD: data.AC_GRACE_PERIOD,
-  //         IS_WEAKER: data.IS_WEAKER,
-  //         AC_PRIORITY_SUB1: data.AC_PRIORITY_SUB1,
-  //         AC_PRIORITY_SUB2: data.AC_PRIORITY_SUB2,
-  //         AC_PRIORITY_SUB3: data.AC_PRIORITY_SUB3,
-  //         AC_DIRECTOR_RELATION: data.AC_DIRECTOR_RELATION,
-  //         AC_COREG_NO: data.AC_COREG_NO,
-  //         AC_REMARK: data.AC_REMARK,
-  //         AC_COREG_AMT: data.AC_COREG_AMT,
-  //         AC_RESO_NO: data.AC_RESO_NO,
-  //       })
-  //   })
-  // }
-
-  // Method For New Button
-  
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
@@ -1021,7 +898,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.columnShowButton = true
 
     this.termLoanService.getFormData(id).subscribe(data => {
-      this.createForm()
       this.tempbankacno = data.BANKACNO
       this.accountedit = data.BANKACNO
       this.updatecheckdata = data
@@ -1033,13 +909,13 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.approveShow = false;
         this.rejectShow = false;
       }
-      else if (data.SYSCHNG_LOGIN == null && status == 0) {
+      else if (data.SYSCHNG_LOGIN == null && data.status == 0) {
         this.unapproveShow = false
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = false;
-        this.rejectShow = false;
+        this.rejectShow = false
       }
       else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
         this.unapproveShow = false
@@ -1099,7 +975,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       // this.ngexpiry = (data.AC_EXPIRE_DATE == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
       this.intRate = data.AC_INTRATE
       this.repay = data.AC_REPAYMODE
-      // expirydate= data.AC_EXPIRE_DATE
       this.installmentType = data.INSTALLMENT_METHOD
       this.ngresodate = (data.AC_RESO_DATE == 'Invalid date' || data.AC_RESO_DATE == '' || data.AC_RESO_DATE == null) ? resodate = '' : resodate = data.AC_RESO_DATE,
         this.ngredate = (data.AC_COREG_DATE == 'Invalid date' || data.AC_COREG_DATE == '' || data.AC_COREG_DATE == null) ? date = '' : date = data.AC_COREG_DATE,
@@ -1130,7 +1005,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         })
     })
   }
-  
+
+  // Method For New Button
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
@@ -1207,7 +1083,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       data['AC_RESO_DATE'] = this.ngresodate
     }
     this.termLoanService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1228,8 +1104,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Term loan master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Term_Loan')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1240,8 +1116,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.termLoanService.deleteData(id).subscribe(data1 => {
           this.termLoanMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1253,8 +1129,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -1412,7 +1288,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, "warning");
         (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
       }
     }
@@ -1660,16 +1536,16 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         }
         else {
           if (this.multiSecurity.find(ob => ob['SECURITY_CODE'] === this.SECU_CODE)) {
-            Swal.fire("This Security is Already Added", "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Security')}`, "error");
           } else {
             this.multiSecurity.push(object);
           }
         }
       } else {
-        Swal.fire("Please Select Security Code", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Select_Sec_Code')}`, "error");
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
     this.resetField()
   }
@@ -1913,21 +1789,21 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
           else {
             if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
-              Swal.fire("This Customer is Already Guarantor", "error");
+              Swal.fire(`${this.translate.instant('Swal_Msg.G_Exist')}`, "error");
             } else {
               this.multiGuarantor.push(object);
             }
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select Guarantor Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.G_CustId')}`, "error");
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
     this.resetGuarantor()
   }
@@ -1986,14 +1862,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select Guarantor Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.G_CustId')}`, "error");
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
 
     this.resetGuarantor()
@@ -2052,22 +1928,22 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
           else {
             if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-              Swal.fire("This Customer is Already CoBorrower", "error");
+              Swal.fire(`${this.translate.instant('Swal_Msg.Coborrow')}`, "error");
             } else {
               this.multiCoBorrower.push(object);
             }
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select CoBorrower Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.CoBorrow_Id')}`, "error");
       }
 
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
     this.resetCoBorrower()
   }
@@ -2106,22 +1982,22 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
           else {
             if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-              Swal.fire("This Customer is Already CoBorrower", "error");
+              Swal.fire(`${this.translate.instant('Swal_Msg.Coborrow')}`, "error");
             } else {
               this.multiCoBorrower[index] = object;
             }
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select CoBorrower Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.CoBorrow_Id')}`, "error");
       }
 
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
 
     this.resetCoBorrower()
@@ -2441,8 +2317,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.termLoanService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Term Loan Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Term_Loan_Approve')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -2462,8 +2338,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.termLoanService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Term Loan Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Term_Loan_Reject')}`,
         'success'
       );
 
@@ -2486,7 +2362,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`,`${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -2522,8 +2398,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.termLoanService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -2540,8 +2416,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'Drawing Power Should Be Less Than or Equal to Sanction Limit',
+          `${this.translate.instant('Swal_Msg.Warn')}`,
+          `${this.translate.instant('Swal_Msg.Drawing')}`,
           'warning'
         );
         (document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value = "0"

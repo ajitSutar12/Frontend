@@ -326,7 +326,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
     }
   }
 
@@ -335,7 +335,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.AC_CUSTID1 = '') {
     }
     else {
-      Swal.fire("Invalid Input", "Please insert Customer ID", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.CustId')}`, "error");
     }
   }
 
@@ -427,7 +427,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Valid')}`,`${this.translate.instant('Swal_Msg.Valid Date')}`, "warning");
         (document.getElementById("AC_CTCODE") as HTMLInputElement).value = ""
       }
     }
@@ -454,7 +454,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_OPDATE: ['', [Validators.required]],
       AC_IS_RECOVERY: [],
       DEBIT: new FormControl('DEBIT'),
-      AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],
+      AC_PARTICULAR: ['', [Validators.required, ]],
     });
   }
 
@@ -494,7 +494,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         (data) => {
           Swal.fire({
             icon: 'success',
-            title: 'Account Created successfully!',
+            title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
             html:
               '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
               '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -513,7 +513,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
 
@@ -587,7 +587,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     data["AC_OPDATE"] = opdate;
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0'),
       this.anamatGSMService.updateData(data).subscribe(() => {
-        Swal.fire("Success!", "Record Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
         this.showButton = true;
         this.updateShow = false;
         this.newbtnShow = false;
@@ -619,8 +619,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Narration_Data')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -630,7 +630,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       if (result.isConfirmed) {
         this.anamatGSMService.deleteData(id).subscribe((data1) => {
           this.anamat = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`,`${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -638,7 +638,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -694,8 +694,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.anamatGSMService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Anamat Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Anamat')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -717,8 +717,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.anamatGSMService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Anamat Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Anamat_Reject')}`,
         'success'
       );
 
@@ -760,8 +760,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.anamatGSMService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         'success'
       );
       var button = document.getElementById('trigger');

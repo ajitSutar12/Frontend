@@ -9,7 +9,6 @@ import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-interest-posting-flag-updation',
   templateUrl: './interest-posting-flag-updation.component.html',
@@ -48,7 +47,8 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
     private _service: InterestPostingFlagUpdationService,
-    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {  this.translate.setDefaultLang(environment.setLang);}
+    private ownbranchMasterService: OwnbranchMasterService,) { }
+
   ngOnInit(): void {
     this.createForm();
     this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {

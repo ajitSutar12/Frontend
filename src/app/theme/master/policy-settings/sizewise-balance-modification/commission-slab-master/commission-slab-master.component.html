@@ -3,16 +3,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.Pigmy Agent Commission Slab Master.Title' | translate}}</h5>
+                <h5>Pigmy Agent Commission Slab Master</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
 
-                        <div class="col-md-2"> <label for="Effective Date">{{'master.Pigmy Agent Commission Slab Master.Effictive_Date' | translate}}<sub
+                        <div class="col-md-2"> <label for="Effective Date">Effective Date<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-md-3">
@@ -47,7 +47,7 @@
                                         id="AMOUNT_FROM" #fromAmt
                                         (focusout)="compareamount();getDecimalPoint($event);checkFromAmount()"
                                         maxlength="13" title="Input allowed only 0-9" formControlName="AMOUNT_FROM">
-                                    <label for="AMOUNT_FROM">{{'master.Pigmy Agent Commission Slab Master.From_Amount' | translate}}</label>
+                                    <label for="AMOUNT_FROM">From Amount</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -67,7 +67,7 @@
                                         id="toamt" maxlength="13" #toAmt
                                         (focusout)="compareamount();getDecimalPoint($event);"
                                         title="Input allowed only 0-9" formControlName="AMOUNT_TO">
-                                    <label for="AMOUNT_TO">{{'master.Pigmy Agent Commission Slab Master.Upto_Amount' | translate}}</label>
+                                    <label for="AMOUNT_TO">Upto Amount</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -88,7 +88,7 @@
                                         pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
                                         id="PIGMY_COMMISSION_PERCENTAGE" maxlength="5" title="Input allowed only  0-9"
                                         formControlName="PIGMY_COMMISSION_PERCENTAGE">
-                                    <label for="PIGMY_COMMISSION_PERCENTAGE">{{'master.Pigmy Agent Commission Slab Master.Commission%' | translate}}<sub class="required">*
+                                    <label for="PIGMY_COMMISSION_PERCENTAGE">Commission %<sub class="required">*
                                         </sub>
                                     </label>
                                 </span>
@@ -115,7 +115,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin($event)" id="COMM_AGAINST_LN_PERCENT" maxlength="5"
                                         title="Input allowed only  0-9" formControlName="COMM_AGAINST_LN_PERCENT">
-                                    <label for="COMM_AGAINST_LN_PERCENT">{{'master.Pigmy Agent Commission Slab Master.Collection_On_Loan_Commisson%' | translate}}<sub
+                                    <label for="COMM_AGAINST_LN_PERCENT">Collection on Loan Commission %<sub
                                             class="required">*
                                         </sub>
                                     </label>
@@ -140,7 +140,7 @@
                                         pattern="\d{1,2}(\.\d{0,2})?" #rate (keyup)="checkmargin($event)"
                                         id="PIGMY_SVR_CHARGE_RATE" maxlength="5" title="Input allowed only  0-9"
                                         formControlName="PIGMY_SVR_CHARGE_RATE">
-                                    <label for="PIGMY_SVR_CHARGE_RATE">{{'master.Pigmy Agent Commission Slab Master.Service_Charge%' | translate}}<sub class="required">*
+                                    <label for="PIGMY_SVR_CHARGE_RATE">Service Charge %<sub class="required">*
                                         </sub>
                                     </label>
                                 </span>
@@ -158,9 +158,9 @@
 
                         <div class="col-sm">
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
-                                (click)="addField();fromamt.focus()" appTheme>{{'master.Action.Add' | translate}}</button>
+                                (click)="addField();fromamt.focus()" appTheme>Add </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateField();fromamt.focus()"
-                                *ngIf="UpdateShowButton">{{'master.Action.Update' | translate}}</button>
+                                *ngIf="UpdateShowButton">Update</button>
                         </div>
                     </div>
 
@@ -170,12 +170,12 @@
                                 <table class="table table-striped table-bordered table-hover compact">
 
                                     <thead>
-                                        <td>{{'master.Action.Action' | translate}}</td>
-                                        <td>{{'master.Pigmy Agent Commission Slab Master.From_Amount' | translate}}</td>
-                                        <td>{{'master.Pigmy Agent Commission Slab Master.Upto_Amount' | translate}}</td>
-                                        <td>{{'master.Pigmy Agent Commission Slab Master.Commission%' | translate}}</td>
-                                        <td>{{'master.Pigmy Agent Commission Slab Master.Collection_On_Loan_Commisson%' | translate}}</td>
-                                        <td>{{'master.Pigmy Agent Commission Slab Master.Service_Charge%' | translate}}</td>
+                                        <td>Action</td>
+                                        <td>From Amount</td>
+                                        <td>Upto Amount</td>
+                                        <td>Commission %</td>
+                                        <td>Collection on Loan Commission %</td>
+                                        <td>Service Charge %</td>
                                     </thead>
                                     <tbody *ngIf="multiField?.length != 0">
                                         <tr *ngFor="let data of multiField; let indexOfelement=index;">
@@ -198,8 +198,8 @@
                                     </tbody>
                                     <tbody *ngIf="multiField?.length == 0">
                                         <tr>
-                                            <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.Action.No_Data' | translate}}
-                                            </td>
+                                            <td colspan="12" class="no-data-available" style="text-align: center;">No
+                                                data!</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -208,11 +208,11 @@
                     </div>
                     <div class="col-sm">
                         <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitButton"
-                            (click)="submit()" appTheme>{{'master.Action.Submit' | translate}}</button>
+                            (click)="submit()" appTheme>Submit </button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                            *ngIf="UpdateButton">{{'master.Action.Update' | translate}}</button>
+                            *ngIf="UpdateButton">Update</button>
                         <button class="btn btn-outline-primary btn-sm" (click)="CancelData()"
-                            *ngIf="UpdateButton">{{'master.Action.Cancel' | translate}}</button>
+                            *ngIf="UpdateButton">Cancel</button>
                     </div>
 
                 </div>
@@ -227,9 +227,9 @@
             <table class="table table-striped table-bordered table-hover compact">
 
                 <thead>
-                    <td>{{'master.Action.Action' | translate}}</td>
-                    <td>{{'master.Pigmy Agent Commission Slab Master.sr_no' | translate}}</td>
-                    <td>{{'master.Pigmy Agent Commission Slab Master.Effictive_Date' | translate}}</td>
+                    <td>Action</td>
+                    <td>Sr. No.</td>
+                    <td>Effected Date</td>
 
                 </thead>
                 <tbody *ngIf="multiField1?.length != 0">

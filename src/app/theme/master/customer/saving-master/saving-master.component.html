@@ -57,7 +57,7 @@
                     angForm.controls['AC_CUSTID'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
               </div>
             </div>
@@ -198,7 +198,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt" style="background: transparent">
                                   <input style="text-align: right;" type="text" name="REF_ACNO" class="form-control"
-                                    placeholder=" " id="REF_ACNO" pattern="^[A-Za-z0-9\./ -]+$"
+                                    placeholder=" " id="REF_ACNO" 
                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" maxlength="25"
                                     formControlName="REF_ACNO" />
                                   <label for="REF_ACNO">{{'master.Saving_Acc_Master.Manual_No'| translate}}</label>
@@ -211,11 +211,9 @@
                                 " class="alert alert-danger">
                                 <div *ngIf="
                                     angForm.controls['REF_ACNO'].errors
-                                      ?.pattern ||
-                                    angForm.controls['REF_ACNO'].errors
                                       ?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z 0-9 - / . (Space)
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -448,9 +446,10 @@
                                   (angForm.controls['AC_HONO'].dirty ||
                                     angForm.controls['AC_HONO'].touched)
                                 " class="alert alert-danger">
-                                <div *ngIf="
+                                <div>
+                                <!-- <div *ngIf="
                                     angForm.controls['AC_HONO'].errors?.pattern
-                                  ">
+                                  "> -->
                                   <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
                                 </div>
                               </div>
@@ -468,10 +467,11 @@
                                   (angForm.controls['AC_WARD'].dirty ||
                                     angForm.controls['AC_WARD'].touched)
                                 " class="alert alert-danger">
-                                <div *ngIf="
+                                <!-- <div *ngIf="
                                     angForm.controls['AC_WARD'].errors?.pattern
-                                  ">
-                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                  "> -->
+                                  <div>
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -488,10 +488,11 @@
                                   (angForm.controls['AC_GALLI'].dirty ||
                                     angForm.controls['AC_GALLI'].touched)
                                 " class="alert alert-danger">
-                                <div *ngIf="
+                                <!-- <div *ngIf="
                                     angForm.controls['AC_GALLI'].errors?.pattern
-                                  ">
-                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
+                                  "> -->
+                                  <div>
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -508,10 +509,11 @@
                                   (angForm.controls['AC_AREA'].dirty ||
                                     angForm.controls['AC_AREA'].touched)
                                 " class="alert alert-danger">
-                                <div *ngIf="
+                                <!-- <div *ngIf="
                                     angForm.controls['AC_AREA'].errors?.pattern
-                                  ">
-                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                  "> -->
+                                  <div>
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -528,10 +530,11 @@
                                   (angForm.controls['AC_ADDR'].dirty ||
                                     angForm.controls['AC_ADDR'].touched)
                                 " class="alert alert-danger">
-                                <div *ngIf="
+                                <!-- <div *ngIf="
                                     angForm.controls['AC_ADDR'].errors?.pattern
-                                  ">
-                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
+                                  "> -->
+                                  <div>
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -618,7 +621,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_THONO" class="form-control" placeholder=" "
-                                      id="AC_THONO" pattern="^[A-Za-z0-9\./ -]+$" maxlength="25"
+                                      id="AC_THONO" maxlength="25"
                                       title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                       formControlName="AC_THONO" />
                                     <label for="AC_THONO">{{'master.Saving_Acc_Master.House'| translate}}</label>
@@ -629,11 +632,12 @@
                                     (angForm.controls['AC_THONO'].dirty ||
                                       angForm.controls['AC_THONO'].touched)
                                   " class="alert alert-danger">
-                                  <div *ngIf="
+                                  <!-- <div *ngIf="
                                       angForm.controls['AC_THONO'].errors
                                         ?.pattern
-                                    ">
-                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
+                                    "> -->
+                                    <div>
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -641,7 +645,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TWARD" class="form-control" placeholder=" "
-                                      id="AC_TWARD" pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                      id="AC_TWARD"  maxlength="10"
                                       title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TWARD" />
                                     <label for="AC_TWARD">{{'master.Saving_Acc_Master.Ward'| translate}}</label>
                                   </span>
@@ -651,11 +655,12 @@
                                     (angForm.controls['AC_TWARD'].dirty ||
                                       angForm.controls['AC_TWARD'].touched)
                                   " class="alert alert-danger">
-                                  <div *ngIf="
+                                  <!-- <div *ngIf="
                                       angForm.controls['AC_TWARD'].errors
                                         ?.pattern
-                                    ">
-                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                    "> -->
+                                    <div>
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -663,7 +668,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TGALLI" class="form-control" placeholder=" "
-                                      id="AC_TGALLI" pattern="^[A-Za-z0-9\./ -]+$"
+                                      id="AC_TGALLI" 
                                       title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                       formControlName="AC_TGALLI" />
                                     <label for="AC_TGALLI">{{'master.Saving_Acc_Master.Galli'| translate}}</label>
@@ -674,11 +679,12 @@
                                     (angForm.controls['AC_TGALLI'].dirty ||
                                       angForm.controls['AC_TGALLI'].touched)
                                   " class="alert alert-danger">
-                                  <div *ngIf="
+                                  <!-- <div *ngIf="
                                       angForm.controls['AC_TGALLI'].errors
                                         ?.pattern
-                                    ">
-                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
+                                    "> -->
+                                    <div>
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -686,7 +692,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TAREA" class="form-control" placeholder=" "
-                                      id="AC_TAREA" pattern="^[A-Za-z\./ -]+$" maxlength="60"
+                                      id="AC_TAREA"  maxlength="60"
                                       title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TAREA" />
                                     <label for="AC_TAREA">{{'master.Saving_Acc_Master.Area'| translate}}</label>
                                   </span>
@@ -696,11 +702,12 @@
                                     (angForm.controls['AC_TAREA'].dirty ||
                                       angForm.controls['AC_TAREA'].touched)
                                   " class="alert alert-danger">
-                                  <div *ngIf="
+                                  <!-- <div *ngIf="
                                       angForm.controls['AC_TAREA'].errors
                                         ?.pattern
-                                    ">
-                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                    "> -->
+                                    <div>
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -718,11 +725,12 @@
                                     (angForm.controls['AC_TADDR'].dirty ||
                                       angForm.controls['AC_TADDR'].touched)
                                   " class="alert alert-danger">
-                                  <div *ngIf="
+                                  <!-- <div *ngIf="
                                       angForm.controls['AC_TADDR'].errors
                                         ?.pattern
-                                    ">
-                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
+                                    "> -->
+                                    <div>
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -747,7 +755,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TPIN" class="form-control" placeholder=" " id="AC_TPIN"
-                                      pattern="^[0-9]+$" minlength="6" maxlength="6" title="Input allowed only  0-9"
+                                      pattern="^[0-9\u0966-\u096F]*$" minlength="6" maxlength="6" title="Input allowed only  0-9"
                                       (keypress)="
                                         ($event.charCode >= 48 &&
                                           $event.charCode < 58)
@@ -820,7 +828,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GRDNAME" class="form-control" placeholder=" "
-                                    id="AC_GRDNAME" pattern="[^0-9]*" [ngClass]="
+                                    id="AC_GRDNAME" [ngClass]="
                                       introducerReq === true
                                         ? 'formSubmitted'
                                         : ''
@@ -835,14 +843,13 @@
                                     angForm.controls['AC_GRDNAME'].touched)
                                 " class="alert alert-danger">
                                 <div *ngIf="
-                                    angForm.controls['AC_GRDNAME'].errors
-                                      ?.pattern ||
+                                   
                                     angForm.controls['AC_GRDNAME'].errors
                                       ?.required ||
                                     angForm.controls['AC_GRDNAME'].errors
                                       ?.maxlength
                                   ">
-                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -850,7 +857,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GRDRELE" class="form-control" placeholder=" "
-                                    id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$" [ngClass]="
+                                    id="AC_GRDRELE" [ngClass]="
                                       introducerReq === true
                                         ? 'formSubmitted'
                                         : ''
@@ -865,14 +872,13 @@
                                     angForm.controls['AC_GRDRELE'].touched)
                                 " class="alert alert-danger">
                                 <div *ngIf="
-                                    angForm.controls['AC_GRDRELE'].errors
-                                      ?.pattern ||
+                                    
                                     angForm.controls['AC_GRDRELE'].errors
                                       ?.required ||
                                     angForm.controls['AC_GRDRELE'].errors
                                       ?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -880,7 +886,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="SIGNATURE_AUTHORITY" class="form-control" placeholder=" "
-                                    id="SIGNATURE_AUTHORITY" pattern="^[A-Za-z\./ -]+$" [ngClass]="
+                                    id="SIGNATURE_AUTHORITY" [ngClass]="
                                       introducerReq === true
                                         ? 'formSubmitted'
                                         : ''
@@ -898,12 +904,11 @@
                                       .touched)
                                 " class="alert alert-danger">
                                 <div *ngIf="
-                                    angForm.controls['SIGNATURE_AUTHORITY']
-                                      .errors?.pattern ||
+                                   
                                     angForm.controls['SIGNATURE_AUTHORITY']
                                       .errors?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -1008,7 +1013,7 @@
                                           <input type="text" appTheme name="AC_NNAME" class="form-control"
                                             placeholder=" " [ngClass]="{
                                               'form-submitted': formSubmitted
-                                            }" id="AC_NNAME" pattern="^[A-Za-z\./ -]+$"
+                                            }" id="AC_NNAME" 
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             formControlName="AC_NNAME" maxlength="100" (keypress)="
@@ -1030,13 +1035,12 @@
                                               .touched)
                                         " class="alert alert-danger">
                                         <div *ngIf="
-                                            angForm.controls['AC_NNAME'].errors
-                                              ?.pattern ||
+                                           
                                             angForm.controls['AC_NNAME'].errors
                                               ?.maxlength
                                           ">
-                                          Input allowed only A-Z a-z - / .
-                                          (Space)
+                                          <!-- Input allowed only A-Z a-z - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1044,7 +1048,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" appTheme name="AC_NRELA" class="form-control"
-                                            placeholder=" " id="AC_NRELA" pattern="[^0-9]*"
+                                            placeholder=" " id="AC_NRELA" 
                                             style="text-transform: capitalize" (keypress)="
                                               (($event.charCode >= 65 &&
                                                 $event.charCode <= 90) ||
@@ -1067,13 +1071,12 @@
                                               .touched)
                                         " class="alert alert-danger">
                                         <div *ngIf="
-                                            angForm.controls['AC_NRELA'].errors
-                                              ?.pattern ||
+                                            
                                             angForm.controls['AC_NRELA'].errors
                                               ?.maxlength
                                           ">
                                           <!-- Input allowed only A-Z a-z - / .
-                                          (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1113,7 +1116,7 @@
                                             style="text-align: right" (focusout)="age()" (keypress)="
                                               ($event.charCode >= 48 &&
                                                 $event.charCode < 58)
-                                            " pattern="^[0-9]+$" min="1" max="100" title="Input allowed only 0-9"
+                                            " pattern="^[0-9\u0966-\u096F]*$" min="1" max="100" title="Input allowed only 0-9"
                                             id="AGE" formControlName="AGE" />
                                           <label for="AGE">{{'master.Saving_Acc_Master.Age'| translate}}</label>
                                         </span>
@@ -1138,7 +1141,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" name="AC_NHONO" class="form-control" placeholder=" "
-                                            id="AC_NHONO" pattern="^[A-Za-z0-9\./ -]+$" maxlength="25"
+                                            id="AC_NHONO"  maxlength="25"
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                             formControlName="AC_NHONO" />
@@ -1152,12 +1155,13 @@
                                             angForm.controls['AC_NHONO']
                                               .touched)
                                         " class="alert alert-danger">
-                                        <div *ngIf="
+                                        <!-- <div *ngIf="
                                             angForm.controls['AC_NHONO'].errors
                                               ?.pattern
-                                          ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                          "> -->
+                                          <div>
+                                          <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1165,7 +1169,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" name="AC_NWARD" class="form-control" placeholder=" "
-                                            id="AC_NWARD" pattern="^[A-Za-z0-9\./ -]+$" maxlength="10"
+                                            id="AC_NWARD"  maxlength="10"
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             formControlName="AC_NWARD" />
@@ -1179,12 +1183,13 @@
                                             angForm.controls['AC_NWARD']
                                               .touched)
                                         " class="alert alert-danger">
-                                        <div *ngIf="
+                                        <!-- <div *ngIf="
                                             angForm.controls['AC_NWARD'].errors
                                               ?.pattern
-                                          ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                          "> -->
+                                          <div>
+                                          <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1194,7 +1199,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" name="AC_NGALLI" class="form-control" placeholder=" "
-                                            id="AC_NGALLI" pattern="^[A-Za-z0-9\./ -]+$" maxlength="40"
+                                            id="AC_NGALLI"  maxlength="40"
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                             formControlName="AC_NGALLI" />
@@ -1209,12 +1214,13 @@
                                             angForm.controls['AC_NGALLI']
                                               .touched)
                                         " class="alert alert-danger">
-                                        <div *ngIf="
+                                        <!-- <div *ngIf="
                                             angForm.controls['AC_NGALLI'].errors
                                               ?.pattern
-                                          ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                          "> -->
+                                          <div>
+                                          <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1222,7 +1228,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" name="AC_NAREA" class="form-control" placeholder=" "
-                                            id="AC_NAREA" pattern="[^0-9]*" maxlength="60"
+                                            id="AC_NAREA"  maxlength="60"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             style="text-transform: capitalize" formControlName="AC_NAREA" />
                                           <label for="AC_NAREA">{{'master.Saving_Acc_Master.Area'| translate}}</label>
@@ -1235,12 +1241,13 @@
                                             angForm.controls['AC_NAREA']
                                               .touched)
                                         " class="alert alert-danger">
-                                        <div *ngIf="
+                                        <!-- <div *ngIf="
                                             angForm.controls['AC_NAREA'].errors
                                               ?.pattern
-                                          ">
+                                          "> -->
+                                          <div>
                                           <!-- Input allowed only A-Z a-z - / .
-                                          (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1248,7 +1255,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" name="AC_NADDR" class="form-control" placeholder=" "
-                                            pattern="^[A-Za-z0-9\./ -]+$" style="text-transform: capitalize"
+                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_NADDR"
                                             formControlName="AC_NADDR" />
                                           <label for="AC_NADDR">{{'master.Saving_Acc_Master.Detail'| translate}}</label>
@@ -1261,12 +1268,13 @@
                                             angForm.controls['AC_NADDR']
                                               .touched)
                                         " class="alert alert-danger">
-                                        <div *ngIf="
+                                        <!-- <div *ngIf="
                                             angForm.controls['AC_NADDR'].errors
                                               ?.pattern
-                                          ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                          "> -->
+                                          <div>
+                                          <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1290,7 +1298,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input style="text-align: right;" type="text" name="AC_NPIN"
-                                            class="form-control" placeholder=" " id="AC_NPIN" pattern="^[0-9]+$"
+                                            class="form-control" placeholder=" " id="AC_NPIN" pattern="^[0-9\u0966-\u096F]*$"
                                             minlength="6" maxlength="6" (keypress)="
                                               ($event.charCode >= 48 &&
                                                 $event.charCode < 58)
@@ -1656,7 +1664,7 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input appTheme type="text" name="ATTERONEY_NAME" class="form-control"
-                                          placeholder=" " id="ATTERONEY_NAME" pattern="[^0-9]*"
+                                          placeholder=" " id="ATTERONEY_NAME" 
                                           title="Input allowed only  A-Z a-z  - / . (Space)"
                                           formControlName="ATTERONEY_NAME" maxlength="100" (keypress)="
                                             (($event.charCode >= 65 &&
@@ -1679,14 +1687,12 @@
                                       " class="alert alert-danger">
                                       <div *ngIf="
                                           angForm.controls['ATTERONEY_NAME']
-                                            .errors?.pattern ||
-                                          angForm.controls['ATTERONEY_NAME']
                                             .errors?.required ||
                                           angForm.controls['ATTERONEY_NAME']
                                             .errors?.maxlength
                                         ">
                                         <!-- This field is required and Input allowed
-                                        only A-Z a-z - / . (Space) -->{{'master.Validation.Val'|translate}}
+                                        only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                       </div>
                                     </div>
                                   </div>
@@ -1716,7 +1722,7 @@
                                           angForm.controls['DATE_APPOINTED']
                                             .errors?.required
                                         ">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                       </div>
                                     </div>
                                   </div>

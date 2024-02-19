@@ -11,7 +11,6 @@ import * as moment from 'moment';
 import { environment } from "../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
-import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-send-message',
   templateUrl: './send-message.component.html',
@@ -40,8 +39,8 @@ export class SendMessageComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,private translate:TranslateService)
-   { this.translate.setDefaultLang(environment.setLang);}
+    private http: HttpClient,
+  ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -229,8 +228,5 @@ export class SendMessageComponent implements OnInit {
         this.convertedData.push(obj);
       }
     }
-  }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
   }
 }

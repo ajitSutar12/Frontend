@@ -7,7 +7,7 @@ import { TransactionInputGlHeadSettingComponent } from './transaction-input-gl-h
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../user-auth.interceptor';
 import { TranscationInputSettingService } from './transaction-input-gl-head-setting.service'
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -15,8 +15,6 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true
 };
@@ -32,15 +30,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         SharedModule, //modal
         NgSelectModule,
         PerfectScrollbarModule,
-        ThemeModule,
-        HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+        ThemeModule
     ],
     providers: [
         {
@@ -52,6 +42,3 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ]
 })
 export class TransactionInputGlHeadSettingModule { }
-export function HttpLoaderFactory(http:HttpClient){
-    return new TranslateHttpLoader(http);
-  }

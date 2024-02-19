@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TDSFormSubmissionComponent } from './tds-form-submission.component';
 import { TDSFormSubmissionRoutingModule } from './tdsformsubmission-routing.module'
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -12,8 +12,6 @@ import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/
 import { TDSFormSubmissionService } from './tds-form-submission.service';
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,15 +22,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     TDSFormSubmissionRoutingModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    ThemeModule
 
   ],
   declarations: [TDSFormSubmissionComponent],
@@ -68,6 +58,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 //     },]
 //   })
 export class TDSFormSubmissionModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

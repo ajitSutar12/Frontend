@@ -94,7 +94,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="[^0-9]*" formControlName="AC_NAME"
+                                        formControlName="AC_NAME"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" disabled>
                                     <label for="AC_NAME">{{'master.Investment_Ac_Opening.Bank_Name'|translate}}</label>
                                 </span>
@@ -105,7 +105,7 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_REF_RECEIPTNO"
                                         class="form-control" placeholder=" " id="AC_REF_RECEIPTNO" required
-                                        pattern="^[A-Za-z0-9]+$" maxlength="20"
+                                         maxlength="20"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
                                         title="Input allowed only 0-9" formControlName="AC_REF_RECEIPTNO">
                                     <label for="AC_REF_RECEIPTNO">{{'master.Investment_Ac_Opening.Receipt_No'|translate}} <sub class="required">*</sub></label>
@@ -115,7 +115,7 @@
                                 *ngIf="angForm.controls['AC_REF_RECEIPTNO'].invalid && (angForm.controls['AC_REF_RECEIPTNO'].dirty || angForm.controls['AC_REF_RECEIPTNO'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_REF_RECEIPTNO'].errors?.required || angForm.controls['AC_REF_RECEIPTNO'].errors?.pattern || angForm.controls['AC_REF_RECEIPTNO'].errors?.maxlength">
+                                    *ngIf="angForm.controls['AC_REF_RECEIPTNO'].errors?.required || angForm.controls['AC_REF_RECEIPTNO'].errors?.maxlength">
                                     {{'master.Validation.Val_Receipt'|translate}}
                                 </div>
                             </div>
@@ -173,7 +173,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_MONTHS"
-                                        class="form-control" placeholder=" " id="AC_MONTHS" required pattern="^[0-9]+$"
+                                        class="form-control" placeholder=" " id="AC_MONTHS" required pattern="^[0-9\u0966-\u096F]*$"
                                         title="Input allowed only 0-9"  (change)="CheckmonthDays()"
                                         (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -186,8 +186,8 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required">
-                                    This field is required and Input allowed only 0-9
-                                    <!-- {{'master.Validation.Val_Receipt'|translate}} -->
+                                    <!-- This field is required and Input allowed only 0-9 -->
+                                    {{'master.Validation.Val_Receipt'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_DAYS"
-                                        class="form-control" placeholder=" " id="AC_DAYS" required pattern="^[0-9]+$"
+                                        class="form-control" placeholder=" " id="AC_DAYS" required pattern="^[0-9\u0966-\u096F]*$"
                                         title="Input allowed only 0-9"  (change)="CheckmonthDays()"
                                         (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -208,8 +208,8 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_DAYS'].errors?.pattern || angForm.controls['AC_DAYS'].errors?.required">
-                                    This field is required and Input allowed only 0-9
-                                    <!-- {{'master.Validation.Val_Receipt'|translate}} -->
+                                    <!-- This field is required and Input allowed only 0-9 -->
+                                    {{'master.Validation.Val_Receipt'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -254,7 +254,7 @@
                                 *ngIf="angForm.controls['AC_SCHMAMT'].invalid && (angForm.controls['AC_SCHMAMT'].dirty || angForm.controls['AC_SCHMAMT'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_SCHMAMT'].errors?.pattern || angForm.controls['AC_SCHMAMT'].errors?.required">
+                                    *ngIf=" angForm.controls['AC_SCHMAMT'].errors?.required">
                                     {{'master.Validation.Val_Receipt'|translate}}
                                 </div>
                             </div>

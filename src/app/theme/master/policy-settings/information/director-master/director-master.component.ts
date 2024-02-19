@@ -15,7 +15,6 @@ import { first } from 'rxjs/operators';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -93,7 +92,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private directorMasterService: DirectorMasterService,
     private _cityMaster: cityMasterService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -151,26 +150,26 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
       columns: [
         {
-          title:this.translate.instant('master.Director_Master.Action')
+          title: 'Action'
         },
         {
-          title: this.translate.instant('master.Director_Master.Director_Code'),
+          title: 'Director Code',
           data: 'CODE'
         }, {
-          title:this.translate.instant('master.Director_Master.Director_Name'),
+          title: 'Director Name',
           data: 'NAME'
         }, {
-          title:this.translate.instant('master.Director_Master.Designation'),
+          title: 'Designation',
           data: 'DESIGNATION'
         }, {
-          title: this.translate.instant('master.Director_Master.Address'),
+          title: 'Address',
           data: 'AC_ADDR1'
         },
         {
-          title: this.translate.instant('master.Director_Master.Mobile_Number'),
+          title: 'Mobile No',
           data: 'AC_MOBILENO'
         }, {
-          title: this.translate.instant('master.Director_Master.Current_Body_Member'),
+          title: 'IS CURRENT BODY MEMBER',
           data: 'IS_CURRENT_BODY_MEMBER'
         },
       ], dom: 'Blrtip',

@@ -29,7 +29,6 @@ import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-m
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
-import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -129,7 +128,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
     private http: HttpClient,
-    private config: NgSelectConfig,private translate:TranslateService) { }
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -177,34 +176,33 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "Action",
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "Type",
           data: "S_ACNOTYPE",
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
-          
+          title: "Scheme Code",
           data: "S_APPL",
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "Description",
           data: "S_NAME",
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "Short Name",
           data: "S_SHNAME",
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "GL Account Number",
           data: "S_GLACNO",
         },
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "Interest GL Account",
           data: "S_INT_ACNO",
         },
         // {

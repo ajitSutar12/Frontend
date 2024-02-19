@@ -15,6 +15,7 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
 import * as moment from 'moment';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-dead-stock-transaction',
   templateUrl: './dead-stock-transaction.component.html',
@@ -98,7 +99,9 @@ export class DeadStockTransactionComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-  ) {
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang)
 
     if (this.childMessage != undefined) {
 
@@ -156,7 +159,7 @@ export class DeadStockTransactionComponent implements OnInit {
       AC_NO: ['', [Validators.required]],
       RESOLUTION_DATE: ['', [Validators.required]],
       RESOLUTION_NUM: ['', [Validators.required, Validators.pattern]],
-      NARRATION: ['', [Validators.required, Validators.pattern]],
+      NARRATION: ['', [Validators.required]],
       amount: [''],
       Rate: [''],
       Quantity: [''],
@@ -329,19 +332,19 @@ export class DeadStockTransactionComponent implements OnInit {
       TRAN_AMOUNT: formVal.amount,
     }
     if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
-      Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Item')}`, "info");
     } else if (formVal.Quantity == "" || formVal.Quantity == null) {
-      Swal.fire("Warning!", "Please Insert Mandatory Record for Quantity!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Qty')}`, "info");
     } else if (formVal.Rate == "" || formVal.Rate == null) {
-      Swal.fire("Warning!", "Please Insert Mandatory Record for Rate!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Rate')}`, "info");
     } else if (formVal.amount == "" || formVal.amount == null) {
-      Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Amount')}`, "info");
     }
     else if (this.itemArr.length != 0) {
       if (this.itemArr.some(item => item.id === object.itemId)) {
         this.itemArr.forEach((element) => {
           if (element.id == object.itemId) {
-            Swal.fire('', 'This Item is Already Exists!', 'info');
+            Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Item_Msg')}`, 'info');
           }
         })
       }
@@ -411,7 +414,7 @@ export class DeadStockTransactionComponent implements OnInit {
           }
         })
       }
-      Swal.fire('', 'This Item Quantity Limit Exceeded !', 'info');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Qty_Limit')}`, 'info');
     }
   }
 
@@ -474,7 +477,7 @@ export class DeadStockTransactionComponent implements OnInit {
       }
       this._service.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Tran_Msg')}`, "success");
           this.formSubmitted = false
         },
         (error) => {
@@ -485,7 +488,7 @@ export class DeadStockTransactionComponent implements OnInit {
       this.itemArr = []
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
   updateData() {
@@ -522,7 +525,7 @@ export class DeadStockTransactionComponent implements OnInit {
       }
       this._service.updateData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Tran_Msg')}`, "success");
           this.formSubmitted = false
         },
         (error) => {
@@ -535,7 +538,7 @@ export class DeadStockTransactionComponent implements OnInit {
       button.click();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
     this.reloadTablePassing.emit();
   }
@@ -680,8 +683,8 @@ export class DeadStockTransactionComponent implements OnInit {
       this._service.approve(dataToSend).subscribe(data => {
         this.angForm.enable()
         Swal.fire(
-          'Success',
-          'Deadstock Transaction approved successfully', 'success'
+          `${this.translate.instant('Swal_Msg.Warn')}`,
+          `${this.translate.instant('Swal_Msg.Dead_Tran')}`, 'success'
         );
         var button = document.getElementById('triggerhide');
         button.click();
@@ -706,8 +709,8 @@ export class DeadStockTransactionComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Success',
-        'Deadstock Transaction rejected successfully', 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`,
+        `${this.translate.instant('Swal_Msg.Dead_Tran_Reject')}`, 'success'
       );
       var button = document.getElementById('triggerhide');
       button.click();
@@ -763,8 +766,8 @@ export class DeadStockTransactionComponent implements OnInit {
     this._service.unapprove(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');

@@ -82,21 +82,21 @@ export class VoucherPrintingComponent implements OnInit {
 
   vtypes = [
 
-    // { label: 'Locker Rent', value: 'LR' },
-    // { label: 'Cancellation', value: 'CN' },
+    { label: 'Locker Rent', value: 'LR' },
+    { label: 'Cancellation', value: 'CN' },
     { label: 'Voucher', value: 'VC' },
     { label: 'Multi-Voucher', value: 'MV' },
-    // { label: 'Deposit Closing', value: 'DC' },
-    // { label: 'Renewal', value: 'RW' },
-    // { label: 'Shares Issue', value: 'SHI' },
-    // { label: 'SharesTransfer', value: 'SHT' },
-    // { label: 'Sell', value: 'SEL' },
-    // { label: 'Purches', value: 'PUR' },
-    // { label: 'Depreciation', value: 'DPR' },
-    // { label: 'Breakage', value: 'BRK' },
-    // { label: 'Gain', value: 'GIN' },
-    // { label: 'Loss', value: 'LOS' },
-    // { label: 'Transfer', value: 'TRE' },
+    { label: 'Deposit Closing', value: 'DC' },
+    { label: 'Renewal', value: 'RW' },
+    { label: 'Shares Issue', value: 'SHI' },
+    { label: 'SharesTransfer', value: 'SHT' },
+    { label: 'Sell', value: 'SEL' },
+    { label: 'Purches', value: 'PUR' },
+    { label: 'Depreciation', value: 'DPR' },
+    { label: 'Breakage', value: 'BRK' },
+    { label: 'Gain', value: 'GIN' },
+    { label: 'Loss', value: 'LOS' },
+    { label: 'Transfer', value: 'TRE' },
   ]
 
   constructor(
@@ -321,21 +321,9 @@ this.voucherNo
       let voucherType = obj.VOUCHER_TYPE
       let tranType = obj.TRAN_TYPE 
 
-      // this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
-      // console.log(this.iframe5url);
-      // this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-
-      if (voucherType == 'VC') {
-        this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tranType + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'";
-        console.log(this.iframe5url);
-        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-      }
-      else if (voucherType == 'MV') {
-        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tranType + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'";
-        console.log(this.iframe5url);
-        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-      }
-
+      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
     }
     else {

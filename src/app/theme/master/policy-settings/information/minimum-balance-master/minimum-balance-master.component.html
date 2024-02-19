@@ -15,7 +15,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input  type="text" name="Account" class="form-control" placeholder=" " id="BC_CODE"
-                                        pattern="^[0-9]+$" formControlName="BC_CODE" disabled>
+                                        pattern="^[0-9\u0966-\u096F]*$" formControlName="BC_CODE" disabled>
                                     <label for="BC_CODE">{{'master.Minimum_Balance_Master.Balance_Categary_Code' | translate}}</label>
                                 </span>
                             </div>
@@ -24,7 +24,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="footer-email" class="form-control" placeholder=" "
-                                        #autofocus id="BC_NAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        #autofocus id="BC_NAME" required=""  maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BC_NAME">
                                     <label for="BC_NAME">{{'master.Minimum_Balance_Master.Balance_Categaray_Name' | translate}}<sub class="required">* </sub></label>
@@ -34,8 +34,9 @@
                                 *ngIf="angForm.controls['BC_NAME'].invalid && (angForm.controls['BC_NAME'].dirty || angForm.controls['BC_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['BC_NAME'].errors?.pattern || angForm.controls['BC_NAME'].errors?.required || angForm.controls['BC_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf=" angForm.controls['BC_NAME'].errors?.required || angForm.controls['BC_NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -102,7 +103,7 @@
                                 </tbody>
                                 <tbody *ngIf="minimumBalanceMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Minimum_Balance_Master.No_Data'}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

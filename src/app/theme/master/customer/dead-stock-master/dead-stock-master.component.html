@@ -38,7 +38,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="ITEM_CODE" class="form-control" placeholder=" "
-                                        id="ITEM_CODE" value="" pattern="^[0-9]+$" formControlName="ITEM_CODE"
+                                        id="ITEM_CODE" value="" pattern="^[0-9\u0966-\u096F]*$" formControlName="ITEM_CODE"
                                         disabled />
                                     <label for="ITEM_CODE">{{'master.Dead_Stock_Master.Item_Code'|translate}}</label>
                                 </span>
@@ -57,7 +57,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="Name" class="form-control" placeholder=" "
-                                        required="" value="" id="ITEM_NAME" pattern="[^0-9]*"
+                                        required="" value="" id="ITEM_NAME"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="ITEM_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
@@ -70,10 +70,10 @@
                     angForm.controls['ITEM_NAME'].touched)
                 " class="alert alert-danger">
                                 <div *ngIf="
-                    angForm.controls['ITEM_NAME'].errors?.pattern ||
+                    
                     angForm.controls['ITEM_NAME'].errors?.required
                   ">
-                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val'|translate}}
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" "
-                                        id="SUPPLIER_NAME" value="" pattern="^[0-9]*"
+                                        id="SUPPLIER_NAME" value="" 
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}"
@@ -175,10 +175,10 @@
                     angForm.controls['SUPPLIER_NAME'].touched)
                 " class="alert alert-danger">
                                 <div *ngIf="
-                    angForm.controls['SUPPLIER_NAME'].errors?.pattern ||
+                    
                     angForm.controls['SUPPLIER_NAME'].errors?.required
                   ">
-                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val'|translate}}
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -211,7 +211,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="OP_QUANTITY" class="form-control" placeholder=" "
                                         id="OP_QUANTITY" style="text-align: right;"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9\u0966-\u096F]*$"
                                         title="Input allowed only  0-9" maxlength="4" formControlName="OP_QUANTITY"
                                         [ngClass]="{'form-submitted': formSubmitted}" [required]="openingReq"
                                         disabled />
@@ -261,7 +261,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" "
-                                        id="PURCHASE_OP_QUANTITY" value="" pattern="^[0-9]+$"
+                                        id="PURCHASE_OP_QUANTITY" value="" pattern="^[0-9\u0966-\u096F]*$"
                                         (change)="getPurchaseValue()" title="Input allowed only  0-9" maxlength="4"
                                         style="text-align: right;"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"

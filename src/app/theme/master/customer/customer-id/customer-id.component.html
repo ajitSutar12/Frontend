@@ -16,7 +16,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
-                                        pattern="^[0-9]+$" maxlength="15" formControlName="AC_NO" disabled>
+                                        pattern="^[0-9\u0966-\u096F]*$" maxlength="15" formControlName="AC_NO" disabled>
                                     <label for="AC_NO">{{'master.Customer_Id.Customer_id' | translate}}</label>
                                 </span>
                             </div>
@@ -71,7 +71,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME" class="form-control " placeholder=" "
-                                        id="L_NAME" required pattern="[^0-9]*" maxlength="15"
+                                        id="L_NAME"  maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -85,7 +85,7 @@
                                 *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
+                                    *ngIf=" angForm.controls['L_NAME'].errors?.required">
                                     {{'master.Validation.Val'|translate}}
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME" class="form-control " placeholder=" "
-                                        id="F_NAME" required pattern="[^0-9]*" maxlength="15"
+                                        id="F_NAME" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="fname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -108,8 +108,8 @@
                                 *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
-                                    {{'master.Validation.Val'|translate}}
+                                    *ngIf=" angForm.controls['F_NAME'].errors?.required">
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME" style="text-transform:uppercase"
-                                        class="form-control " placeholder=" " id="M_NAME" required pattern="[^0-9]*"
+                                        class="form-control " placeholder=" " id="M_NAME" required 
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
                                         title="Input allowed only A-Z" (ngModelChange)="mname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
@@ -131,8 +131,8 @@
                                 *ngIf="angForm.controls['M_NAME'].invalid && (angForm.controls['M_NAME'].dirty || angForm.controls['M_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['M_NAME'].errors?.pattern || angForm.controls['M_NAME'].errors?.required">
-                                    {{'master.Validation.Val'|translate}}
+                                    *ngIf="angForm.controls['M_NAME'].errors?.required">
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -378,8 +378,9 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_HONO'].invalid && (angForm.controls['AC_HONO'].dirty || angForm.controls['AC_HONO'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_HONO'].errors?.pattern">
-                                    {{'master.Validation.Val_ward'|translate}}
+                                <!-- <div *ngIf="angForm.controls['AC_HONO'].errors?.pattern"> -->
+                                    <div>{{'master.Validation.Val1'|translate}}
+                                    <!-- {{'master.Validation.Val_ward'|translate}} -->
                                 </div>
                             </div>
                         </div>
@@ -387,7 +388,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control " placeholder=" "
-                                        pattern="^[a-zA-Z0-9\u0900-\u097F ]+$"
+                                        
                                         title=" Input allowed only A-Z a-z 0-9 - / . (Space)" id="AC_WARD"
                                         formControlName="AC_WARD">
                                     <label for="AC_WARD">{{'master.Customer_Id.Ward' | translate}}</label>
@@ -396,8 +397,9 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_WARD'].invalid && (angForm.controls['AC_WARD'].dirty || angForm.controls['AC_WARD'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_WARD'].errors?.pattern">
-                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
+                                <!-- <div *ngIf="angForm.controls['AC_WARD'].errors?.pattern"> -->
+                                    <div>{{'master.Validation.Val1'|translate}}
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -430,8 +432,9 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_GALLI'].invalid && (angForm.controls['AC_GALLI'].dirty || angForm.controls['AC_GALLI'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_GALLI'].errors?.pattern">
-                                    {{'master.Validation.Val_ward'|translate}}
+                                <!-- <div *ngIf="angForm.controls['AC_GALLI'].errors?.pattern"> -->
+                                    <div>{{'master.Validation.Val1'|translate}}
+                                
                                 </div>
                             </div>
                         </div>
@@ -447,9 +450,9 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_AREA'].invalid && (angForm.controls['AC_AREA'].dirty || angForm.controls['AC_AREA'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_AREA'].errors?.pattern">
-                                    {{'master.Validation.Val_ward'|translate}}
-                                </div>
+                                <!-- <div *ngIf="angForm.controls['AC_AREA'].errors?.pattern"> -->
+                                    <div>
+                                        {{'master.Validation.Val1'|translate}}                                </div>
                             </div>
                         </div>
 
@@ -483,7 +486,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="AC_PIN" class="form-control"
-                                        placeholder=" " pattern="^[1-9][0-9]{5}" title=" Input allowed only  0-9"
+                                        placeholder=" " pattern="[1-9\u0967-\u096F][0-9\u0966-\u096F]{5}" title=" Input allowed only  0-9"
                                         maxlength="6" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         minlength=" 6" id="AC_PIN" formControlName="AC_PIN" NumberOnly>
                                     <label for="AC_PIN">{{'master.Customer_Id.Pin_Code' | translate}}</label>

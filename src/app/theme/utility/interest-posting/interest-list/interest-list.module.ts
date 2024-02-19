@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { InterestListComponent } from './interest-list.component';
 import { InterestListRoutingModule } from './interest-list-routing.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
@@ -18,8 +18,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -37,15 +35,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(), 
     DatepickerModule.forRoot(),
-    Iframe5Module,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    Iframe5Module
   ],
   declarations: [InterestListComponent],
   exports:[InterestListComponent],
@@ -69,6 +59,3 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ]
 })
 export class InterestListModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

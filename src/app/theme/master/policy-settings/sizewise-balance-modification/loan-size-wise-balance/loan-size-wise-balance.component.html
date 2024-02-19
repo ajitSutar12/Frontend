@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.Loan size Wise Balance.Title' | translate}}</h5>
+                <h5>Loan Size Wise Balance</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <div class="card-block">
-                <h6>{{'master.Loan size Wise Balance.Slab_Name' | translate}}</h6>
+                <h6>Slab Name</h6>
                 <ngb-tabset>
-                    <ngb-tab title="{{'master.Loan size Wise Balance.Amount' | translate}}">
+                    <ngb-tab title="1.Amount">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
                                 <div class="card border-primary">
@@ -22,10 +22,10 @@
                                                         class="table table-striped table-bordered table-hover compact">
                                                         <thead>
                                                             <tr>
-                                                                <td>{{'master.Loan size Wise Balance.Serial_Number' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.From_Amount' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.To_Amount' | translate}}</td>
-                                                                <td>{{'master.Action.Action' | translate}}</td>
+                                                                <td>Serial Number</td>
+                                                                <td>From Amount</td>
+                                                                <td>To Amount</td>
+                                                                <td>Action</td>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -65,7 +65,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="{{'master.Loan size Wise Balance.Interest_Rate' | translate}}">
+                    <ngb-tab title="2.Interest Rate">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
                                 <div class="card border-primary">
@@ -77,10 +77,10 @@
                                                         class="table table-striped table-bordered table-hover compact">
                                                         <thead>
                                                             <tr>
-                                                                <td>{{'master.Loan size Wise Balance.Serial_Number' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.From_Amount' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.To_Amount' | translate}}</td>
-                                                                <td>{{'master.Action.Action' | translate}}</td>
+                                                                <td>Serial Number</td>
+                                                                <td>From Interest Rate</td>
+                                                                <td>To Interest Rate</td>
+                                                                <td>Action</td>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -119,7 +119,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="{{'master.Loan size Wise Balance.Period' | translate}}">
+                    <ngb-tab title="3.Period">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
                                 <div class="card border-primary">
@@ -131,10 +131,10 @@
                                                         class="table table-striped table-bordered table-hover compact">
                                                         <thead>
                                                             <tr>
-                                                                <td>{{'master.Loan size Wise Balance.Serial_Number' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.From_Amount' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.To_Amount' | translate}}</td>
-                                                                <td>{{'master.Action.Action' | translate}}</td>
+                                                                <td>Serial Number</td>
+                                                                <td>From Peroid(Months)</td>
+                                                                <td>To Peroid(Months)</td>
+                                                                <td>Action</td>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -173,7 +173,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="{{'master.Loan size Wise Balance.Terms' | translate}}">
+                    <ngb-tab title="4.Terms">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
                                 <div class="row">
@@ -334,7 +334,7 @@
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab title="{{'master.Loan size Wise Balance.Insurance_Amount' | translate}}">
+                    <ngb-tab title="5.Insurance Amount">
                         <ng-template ngbTabContent>
                             <div [@fadeInOutTranslate] class="m-t-15">
                                 <div class="card border-primary">
@@ -346,10 +346,10 @@
                                                         class="table table-striped table-bordered table-hover compact">
                                                         <thead>
                                                             <tr>
-                                                                <td>{{'master.Loan size Wise Balance.Serial_Number' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.From_Amount' | translate}}</td>
-                                                                <td>{{'master.Loan size Wise Balance.To_Amount' | translate}}</td>
-                                                                <td>{{'master.Action.Action' | translate}}</td>
+                                                                <td>Serial Number</td>
+                                                                <td>From Amount</td>
+                                                                <td>To Amount</td>
+                                                                <td>Action</td>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -393,9 +393,9 @@
                 <div class="row">
                     <div class="col-sm">
                         <button class="btn btn-outline-primary btn-sm" *ngIf="showButton"
-                            (click)="submit()"><td>{{'master.Action.Add' | translate}}</td></button>
+                            (click)="submit()">Add</button>
                         <button class="btn btn-primary ripple light" (click)="updateData()"
-                            *ngIf="updateShow"><td>{{'master.Action.Update' | translate}}</td></button>
+                            *ngIf="updateShow">Update</button>
                     </div>
                 </div>
             </div>

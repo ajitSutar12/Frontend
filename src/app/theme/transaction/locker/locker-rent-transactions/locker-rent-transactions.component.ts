@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -64,7 +65,9 @@ export class LockerRentTransactionsComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchmasterservice: OwnbranchMasterService,
-  ) {
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang)
 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.TransactionDate = data.CURRENT_DATE;
@@ -246,8 +249,8 @@ export class LockerRentTransactionsComponent implements OnInit {
       if (data >= 0) {
 
         Swal.fire(
-          'Oops',
-          'Balance is insufficient!',
+          `${this.translate.instant('Swal_Msg.Oops')}`,
+          `${this.translate.instant('Swal_Msg.Bal_Insufficient')}`,
           'warning'
         );
         this.ngForm.patchValue({
@@ -279,7 +282,7 @@ export class LockerRentTransactionsComponent implements OnInit {
       }
       this.http.post(this.url + '/locker-rent-transaction/lockeraccountDetails', obj).subscribe(data => {
         if (data['lockerAcCloseList'].length != 0) {
-          Swal.fire('Oops', 'Already Locker account closed', 'warning')
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Already_Ac_Close')}`, 'warning')
           this.acnumber = null
         }
         else {
@@ -326,15 +329,15 @@ export class LockerRentTransactionsComponent implements OnInit {
     if (formVal.RENT_AMOUNT > formVal.LEDGER_BALANCE) {
       Swal.fire({
         icon: 'error',
-        title: 'Oops...',
-        text: 'Balance is insufficient! for this Account',
+        title: `${this.translate.instant('Swal_Msg.Oops')}`,
+        text: `${this.translate.instant('Swal_Msg.Bal_Ac')}`,
       })
     }
     else {
       this.http.post(this.url + "/locker-rent-transaction/insert", obj).subscribe(data => {
         Swal.fire(
-          'Success',
-          'Data Successfully Added!',
+          `${this.translate.instant('Swal_Msg.Success')}`,
+          `${this.translate.instant('Swal_Msg.S_Msg')}`,
           'success'
         );
         this.createForm()
@@ -440,7 +443,7 @@ export class LockerRentTransactionsComponent implements OnInit {
     this.http.post(this.url + '/locker-rent-transaction/approve', obj).subscribe(data => {
       this.ngForm.enable()
       Swal.fire(
-        'success', "Data Approved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Approve')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -460,7 +463,7 @@ export class LockerRentTransactionsComponent implements OnInit {
     this.http.post(this.url + '/locker-rent-transaction/reject', obj).subscribe(data => {
       this.ngForm.enable()
       Swal.fire(
-        'success', "Data Rejected Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Reject')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -481,7 +484,7 @@ export class LockerRentTransactionsComponent implements OnInit {
     this.http.post(this.url + '/locker-rent-transaction/unapprove ', obj).subscribe(data => {
       this.ngForm.enable()
       Swal.fire(
-        'success', "Data Unapproved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Unapprove')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
