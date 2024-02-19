@@ -31,7 +31,7 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -54,8 +54,8 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['date'].errors?. maxlength || ngForm.controls['date'].errors?. minlength || ngForm.controls['date'].errors?.required">
-                                        This field is required
-                                    </div>
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                                     *ngIf="ngForm.controls['Starting_Account'].invalid && (ngForm.controls['Starting_Account'].dirty || ngForm.controls['Starting_Account'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Starting_Account'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
 
@@ -104,7 +104,7 @@
                                     *ngIf="ngForm.controls['Ending_Account'].invalid && (ngForm.controls['Ending_Account'].dirty || ngForm.controls['Ending_Account'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Ending_Account'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
 

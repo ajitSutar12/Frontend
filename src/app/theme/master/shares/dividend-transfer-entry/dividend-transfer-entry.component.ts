@@ -148,7 +148,7 @@ export class DividendTransferEntryComponent implements OnInit {
     data['AC_NO'] = Number(this.updatememno)
 
     this._shareMasterService.updateDataPyatrans(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
     });
     this.schemeDT = null
     this.updatememno = null

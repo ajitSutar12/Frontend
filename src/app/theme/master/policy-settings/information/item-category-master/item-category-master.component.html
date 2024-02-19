@@ -25,7 +25,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="Description"
-                                        #autofocus required="" pattern="^[A-Za-z0-9\./ -]+$" maxlength="100"
+                                        #autofocus required=""  maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
                                     <label for="Description">{{'master.Item_Category_Master.Description' | translate}}<sub class="required">* </sub></label>
@@ -35,8 +35,8 @@
                                 *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf=" angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                 </tbody>
                                 <tbody *ngIf="itemCategoryMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -322,7 +322,7 @@ export class DividendCalculationComponent implements OnInit {
   //checks percentage of interest rate
   checkInt(event) {
     if (Number(event) > 25) {
-      Swal.fire("Info", "Please Input Dividend Percentage upto 25", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.div_per')}`, "info");
       this.angForm.patchValue({
         Dividend: "",
       });
@@ -332,7 +332,7 @@ export class DividendCalculationComponent implements OnInit {
   //checks percentage of interest rate
   checkBonus(event) {
     if (Number(event) > 99) {
-      Swal.fire("Info", "Please Input Bonus Percentage upto 99", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Bonus_per')}`, "info");
       this.angForm.patchValue({
         Bonus: "",
       });
@@ -428,10 +428,10 @@ export class DividendCalculationComponent implements OnInit {
           // data["divCheck"] = "Already Processed"
           if (data["historyCheck"] == "Already Posted") {
             this.send["Flag"] = "history";
-            Swal.fire("Warning!", "Dividend Already Posted !", "warning");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.div_al')}`, "warning");
           } else if (data["divCheck"] == "Already Processed") {
             Swal.fire({
-              text: "Dividend Already Processed.Do You Want To Overwrite?",
+              text: `${this.translate.instant('Swal_Msg.div_al_overwrite')}`,
               icon: "warning",
               showCancelButton: true,
               confirmButtonColor: "#229954",
@@ -527,14 +527,14 @@ export class DividendCalculationComponent implements OnInit {
     if (this.send != 'history') {
       this._service.postData(dataToSend).subscribe((data) => {
         this.formSubmitted = false;
-        Swal.fire("Success!", "Data Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
       });
       this.arrTable = [];
       this.divArr = [];
       this.resetForm();
     }
     else {
-      Swal.fire("Warning!", "Dividend Already Posted!", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.div_al')}`, "warning");
     }
   }
 
@@ -606,7 +606,7 @@ export class DividendCalculationComponent implements OnInit {
     if (ele.target.value <= 25) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 25", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.val_25')}`, "error");
       ele.target.value = 0
 
     }
@@ -617,7 +617,7 @@ export class DividendCalculationComponent implements OnInit {
     if (ele.target.value <= 99) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 99", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.val_99')}`, "error");
       ele.target.value = 0
 
     }

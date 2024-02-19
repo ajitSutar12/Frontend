@@ -11,7 +11,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 import { NarrationService } from '../../../shared/elements/Narration.service';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
@@ -23,6 +23,8 @@ import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closin
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ThemeModule } from '../../theme.module'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -36,7 +38,14 @@ import { ThemeModule } from '../../theme.module'
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   providers: [OwnbranchMasterService, NarrationService, SystemMasterParametersService, SchemeCodeDropdownService, SchemeAccountNoService, MultiVoucherService, SavingPigmyAccountClosingService, CustomerIdService, {
     provide: HTTP_INTERCEPTORS,
@@ -47,3 +56,6 @@ import { ThemeModule } from '../../theme.module'
   exports: [SavingsPigmyAccountClosingComponent],
 })
 export class SavingsPigmyAccountClosingModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

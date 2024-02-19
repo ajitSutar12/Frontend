@@ -28,7 +28,7 @@
                                 *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="cdropdown" [(ngModel)]="firstno" formControlName="FIRST_NO"
                                         bindValue="AC_NO" bindLabel="AC_NO" (change)="getAcno($event)"
-                                        placeholder=" From A/c No">
+                                        placeholder=" {{'Printing.Action.From_Ac_No' | translate}}">
                                         <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                             {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
                                     </ng-select>
@@ -71,7 +71,7 @@
                                 *ngIf="ngForm.controls['FIRST_NO'].invalid && (ngForm.controls['FIRST_NO'].dirty || ngForm.controls['FIRST_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['FIRST_NO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

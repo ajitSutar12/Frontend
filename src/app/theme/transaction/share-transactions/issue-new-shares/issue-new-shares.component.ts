@@ -12,6 +12,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { data } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-issue-new-shares',
@@ -89,6 +90,7 @@ export class IssueNewSharesComponent implements OnInit {
   closeShow: boolean = false;
   logDate
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private _service: VoucherEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -99,6 +101,8 @@ export class IssueNewSharesComponent implements OnInit {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
+    this.translate.setDefaultLang(environment.setLang);
+
   }
 
   ngOnInit(): void {
@@ -305,28 +309,28 @@ export class IssueNewSharesComponent implements OnInit {
       PERTICULARS: formVal.TPERTICULARS,
     }
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error");
     }
     else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
       );
     }
     else if (this.multigrid.find(ob => ob['TRANSFER_ACNO'] === object.TRANSFER_ACNO)) {
-      Swal.fire('Info', 'This Account is Already Exists!', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Acc_Already_E')}`, 'error');
     }
     else if (formVal.amount == "" || formVal.amount == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_Amount')}`,
         "info"
       );
     }
     else if (formVal.DEBIT_CREDIT == "" || formVal.DEBIT_CREDIT == null) {
       Swal.fire(
-        "Warning!", "Please Select Debit or Credit!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Debit_Credit')}`, "error"
       );
     }
     else {
@@ -397,7 +401,7 @@ export class IssueNewSharesComponent implements OnInit {
     if (this.ngForm.valid) {
       if ((this.totalCredit + Number(this.ngForm.controls['SHARES_AMOUNT'].value)) != this.totalDebit && this.ngForm.controls['T_TYPE'].value == 'TR') {
         Swal.fire(
-          'Oops', 'Total debit amount does not match with total credit amount', 'error'
+          `${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.T_de_cr_am')}`, 'error'
         );
       }
       // else if (this.transferTotalAmount != Number(this.ngForm.controls['SHARES_AMOUNT'].value) && this.ngForm.controls['T_TYPE'].value == 'TR') {
@@ -431,8 +435,8 @@ export class IssueNewSharesComponent implements OnInit {
         // console.log(object);
         this.http.post(this.url + "/issue-new-share/insert", object).subscribe(data => {
           Swal.fire(
-            'Success',
-            'Data Successfully Added!',
+            `${this.translate.instant('Swal_Msg.Success')}`,
+            `${this.translate.instant('Swal_Msg.Data_Added')}`,
             'success'
           );
           this.isTransfer = false
@@ -445,7 +449,7 @@ export class IssueNewSharesComponent implements OnInit {
       }
     }
     else {
-      Swal.fire('Warning!', 'Please fill All Mandatory Fields!', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning')
     }
   }
 
@@ -572,7 +576,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.http.post(this.url + '/issue-new-share/approve', object).subscribe(data => {
       this.ngForm.enable()
       Swal.fire(
-        'success', "Data Approved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_App')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -593,7 +597,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.http.post(this.url + '/issue-new-share/reject', object).subscribe(data => {
       this.ngForm.enable()
       Swal.fire(
-        'success', "Data Rejected Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Rej')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -619,7 +623,7 @@ export class IssueNewSharesComponent implements OnInit {
     this.http.post(this.url + '/issue-new-share/unapprove', object).subscribe(data => {
       this.ngForm.enable()
       Swal.fire(
-        'success', "Data Unapproved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Un_S')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();

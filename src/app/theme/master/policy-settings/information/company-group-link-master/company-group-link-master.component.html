@@ -44,7 +44,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['COMP_CODE'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['CODE'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                                     <tbody *ngIf="multiData?.length == 0">
                                         <tr>
                                             <td colspan="12" class="no-data-available" style="text-align: center;">
-                                                No data!
+                                                {{'master.No_Data' | translate}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -202,7 +202,7 @@
                                 </tbody>
                                 <tbody *ngIf="companyGroupLinkMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -242,7 +242,7 @@ export class BnkTDStatementComponent implements OnInit{
     
    }
    else {
-         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+         Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning');
         }
    
  }

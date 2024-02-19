@@ -26,7 +26,7 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 *ngIf="angForm.controls['AC_NOFrom'].invalid && (angForm.controls['AC_NOFrom'].dirty || angForm.controls['AC_NOFrom'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NOFrom'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FROM_DATE'].invalid &&
                                      (angForm.controls['FROM_DATE'].dirty ||angForm.controls['FROM_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
 
                             </div>
@@ -175,7 +175,7 @@
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TO_DATE'].invalid &&
                                      (angForm.controls['TO_DATE'].dirty ||angForm.controls['TO_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
  
                             </div>

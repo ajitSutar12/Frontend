@@ -141,7 +141,7 @@ export class IndustryMasterComponent implements OnInit, AfterViewInit, OnDestroy
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
     });
   }
   // Method to insert data into database through NestJS

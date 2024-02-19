@@ -22,7 +22,7 @@ import { MasterDisputeLoanComponent } from './master-dispute-loan/master-dispute
 import { MasterLockerDepositComponent } from './master-locker-deposit/master-locker-deposit.component';
 import { MasterDeadStockComponent } from './master-dead-stock/master-dead-stock.component';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { MasterSavingModule } from './master-saving/master-saving.module';
 import { MasterShareModule } from './master-shares/master-shares.module';
@@ -54,6 +54,8 @@ import { ShareTransferModule } from './share-transfer/share-transfer.module';
 import { MemberCancelModule } from './member-cancel/member-cancel.module'
 import { IssueNewShareModule } from './issue-new-share/issue-new-share.module';
 import { RentLockerModule } from './rent-locker/rent-locker.module'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -93,6 +95,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     IssueNewShareModule,
     MemberCancelModule,
     RentLockerModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [CentralisedPassingComponent],
   exports: [CentralisedPassingComponent],
@@ -107,3 +116,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   },]
 })
 export class CentralisedPassingModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

@@ -14,6 +14,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
 import { event } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-membership-cancellation',
   templateUrl: './membership-cancellation.component.html',
@@ -69,6 +70,7 @@ export class MembershipCancellationComponent implements OnInit {
   particularss
   logDate: any;
   constructor(
+    private translate:TranslateService,
     private http: HttpClient,
     private fb: FormBuilder,
     public glMasterService: glMasterService,
@@ -287,10 +289,10 @@ export class MembershipCancellationComponent implements OnInit {
     }
     this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', obj).subscribe(data => {
       if (data['isclosed'] == 1) {
-        Swal.fire("Oops!", "Selected account is closed!", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_closed')}`, "error");
         this.ngIntroducer = null
       } else if (Number(data['shareBal']) == 0) {
-        Swal.fire("Oops!", "Selected account has 0 balance!", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_0_bal')}`, "error");
         this.ngIntroducer = null
       }
       else {
@@ -326,34 +328,34 @@ export class MembershipCancellationComponent implements OnInit {
     }
     this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error");
     }
     else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
       );
     }
     else if ((formVal.amount == "" || formVal.amount == null)) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Proper Transfer Amount!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Pro_Trans_Am')}`,
         "info"
       );
     }
     else if (this.transferTotalAmount > this.shareBal) {
       this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
       Swal.fire(
-        "Warning!",
-        `Transfer amount should be equal or less than ${this.shareBal}`,
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.T_am_equal_less')} ${this.shareBal}`,
         "info"
       );
     }
     else if (Number(formVal.amount) > this.shareBal) {
       Swal.fire(
-        "Warning!",
-        `Transfer amount should be equal or less than ${this.shareBal}`,
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.T_am_equal_less')} ${this.shareBal}`,
         "info"
       );
     }
@@ -392,23 +394,23 @@ export class MembershipCancellationComponent implements OnInit {
     }
     if ((formVal.amount == "" || formVal.amount == null)) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Proper Transfer Amount!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Pro_Trans_Am')}`,
         "info"
       );
     }
     else if (this.transferTotalAmount > this.shareBal) {
       this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
       Swal.fire(
-        "Warning!",
-        `Transfer amount should be equal or less than ${this.shareBal}`,
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.T_am_equal_less')} ${this.shareBal}`,
         "info"
       );
     }
     else if (Number(formVal.amount) > this.shareBal) {
       Swal.fire(
-        "Warning!",
-        `Transfer amount should be equal or less than ${this.shareBal}`,
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.T_am_equal_less')} ${this.shareBal}`,
         "info"
       );
     }
@@ -467,50 +469,50 @@ export class MembershipCancellationComponent implements OnInit {
       MembershipData: this.multigrid
     }
     if (formVal.branchOption == "" || formVal.branchOption == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error");
     }
     else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
       );
     }
     else if (formVal.MEMBER_CODE1 == "" || formVal.MEMBER_CODE1 == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_Amount')}`,
         "info"
       );
     }
     else if (formVal.MCDATE == "" || formVal.MCDATE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
       );
     }
     else if (formVal.RDATE == "" || formVal.RDATE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Resolution Date!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Res_Date')}`,
         "info"
       );
     }
     else if (formVal.RESOLUTIONNO == "" || formVal.RESOLUTIONNO == null) {
       Swal.fire(
-        "Warning!", "Please enter resolution number!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.res_number')}`, "error"
       );
     }
     else if (this.transferTotalAmount != this.shareBal && formVal.type == 'transfer') {
       Swal.fire(
-        "Warning!", "Please check transfer amount!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.t_amount')}`, "error"
       );
     }
     else {
       this.http.post(this.url + '/dailyshrtran/insert', obj).subscribe(data => {
         Swal.fire(
-          'success', "Data Submitted Successfully!!", 'success'
+          `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Sub_S')}`, 'success'
         );
         this.shareBal = 0
         this.transferTotalAmount = 0
@@ -572,7 +574,7 @@ export class MembershipCancellationComponent implements OnInit {
     this.http.post(this.url + '/dailyshrtran/approve', object).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'success', "Data Approved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_App')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -591,7 +593,7 @@ export class MembershipCancellationComponent implements OnInit {
     this.http.post(this.url + '/dailyshrtran/reject', object).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'success', "Data Rejected Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Rej')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -614,7 +616,7 @@ export class MembershipCancellationComponent implements OnInit {
     this.http.post(this.url + '/dailyshrtran/unapprove', object).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'success', "Data Unapproved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Un_S')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();

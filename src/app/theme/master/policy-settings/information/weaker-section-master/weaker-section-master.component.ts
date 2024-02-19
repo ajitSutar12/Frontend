@@ -135,7 +135,7 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
     });
   }
   // Method to insert data into database through NestJS

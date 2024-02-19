@@ -12,17 +12,17 @@
                             <li>
                                 <h6> <a (click)="OpenLink(1)" routerLink="/transaction/shareTransactions"
                                         routerLinkActive="active" [ngClass]="{'isActive': issuenewsharesTrue}"
-                                        class="text-right f-w-600" id="pointer">1. Issue New Shares</a></h6>
+                                        class="text-right f-w-600" id="pointer">1. {{'Transaction.Issue_New_Shares.Title' | translate}}</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(2)" routerLink="/transaction/shareTransactions"
                                         routerLinkActive="active" [ngClass]="{'isActive': sharestransferTrue}"
-                                        class="text-right f-w-600" id="pointer">2. Shares Transfer</a></h6>
+                                        class="text-right f-w-600" id="pointer">2. {{'Transaction.Share_Tarnsfer.Title' | translate}}</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(3)" routerLink="/transaction/shareTransactions"
                                         routerLinkActive="active" [ngClass]="{'isActive': membershipcancellationTrue}"
-                                        class="text-right f-w-600" id="pointer">3. Membership Cancellation</a></h6>
+                                        class="text-right f-w-600" id="pointer">3. {{'Transaction.Membership_Cancellation.Title' | translate}}</a></h6>
                             </li>
                             <!-- <li>
                                 <h6> <a (click)="OpenLink(4)" routerLink="/transaction/shareTransactions"

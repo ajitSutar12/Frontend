@@ -8,8 +8,10 @@ import {DataTablesModule} from 'angular-datatables';
 import {FileUploadModule} from 'ng2-file-upload';
 import {SelectOptionService} from '../../../shared/elements/select-option.service'
 import {SelectModule} from 'ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -18,7 +20,15 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     SharedModule,
     DataTablesModule,
     FileUploadModule,
-    SelectModule
+    SelectModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
+
   ],
   providers:[SelectOptionService,
     {
@@ -29,3 +39,6 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   declarations: [DemandDraftDEIComponent]
 })
 export class DemandDraftDEIModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

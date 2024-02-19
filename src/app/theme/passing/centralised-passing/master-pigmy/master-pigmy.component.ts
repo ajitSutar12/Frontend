@@ -190,7 +190,7 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'BANKACNO'
         },
         {

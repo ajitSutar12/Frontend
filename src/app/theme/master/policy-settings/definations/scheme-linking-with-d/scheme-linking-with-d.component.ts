@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -83,7 +84,9 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
   timeLeft = 5;
   StatementCodeDropdown: any;
 
-  constructor(public documentMasterService: DocumentMasterService,
+  constructor(
+    private translate:TranslateService,
+    public documentMasterService: DocumentMasterService,
     public schemeLinkingWithDService: SchemeLinkingWithDService,
     public SchemeTypes: SchemeTypeDropdownService,
     private http: HttpClient, public Scheme4Service: Scheme4Service,
@@ -214,7 +217,7 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
 
     }
     this.schemeLinkingWithDService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.ngOnInit()
       this.ngscheme = null
       this.formSubmitted = false;
@@ -288,7 +291,7 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.schemeLinkingWithDService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
@@ -300,8 +303,8 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete bank master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.bank_master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -312,8 +315,8 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
         this.schemeLinkingWithDService.deleteData(id).subscribe(data1 => {
           this.schemeLinkingWithD = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -324,8 +327,8 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+            `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

@@ -191,7 +191,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
       AC_NO: ['', [Validators.pattern, Validators.required]],
       BRANCH_CODE: ['']
     });

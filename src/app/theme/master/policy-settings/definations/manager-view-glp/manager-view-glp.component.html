@@ -46,7 +46,7 @@
                                 *ngIf="angForm.controls['TYPE'].invalid && (angForm.controls['TYPE'].dirty || angForm.controls['TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 *ngIf="angForm.controls['STATEMENT_CODE'].invalid && (angForm.controls['STATEMENT_CODE'].dirty || angForm.controls['STATEMENT_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['STATEMENT_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@
                                 </tbody>
                                 <tbody *ngIf="managerView?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

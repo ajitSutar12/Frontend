@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CATEGORY'].invalid && (angForm.controls['CATEGORY'].dirty || angForm.controls['CATEGORY'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CATEGORY'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DEPR_RATE'].invalid && (angForm.controls['DEPR_RATE'].dirty || angForm.controls['DEPR_RATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DEPR_RATE'].errors?.pattern || angForm.controls['DEPR_RATE'].errors?.required">
-                                    This field is required and Input allowed only . 0-9
+                                    <!-- This field is required and Input allowed only . 0-9 --> {{'master.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
 
@@ -114,7 +114,7 @@
                                 </tbody>
                                 <tbody *ngIf="depriciationRate?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div> 
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CHARGES_TYPE'].invalid && (angForm.controls['CHARGES_TYPE'].dirty || angForm.controls['CHARGES_TYPE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CHARGES_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CHARGES_GL_ACNO'].invalid && (angForm.controls['CHARGES_GL_ACNO'].dirty || angForm.controls['CHARGES_GL_ACNO'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CHARGES_GL_ACNO'].errors?.required">
-                                    This field is required 
+                                    <!-- This field is required  --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" name="FROM_RANGE" class="form-control"
-                                                placeholder=" " id="FROM_RANGE" pattern="^[0-9]+$" (focusout)="comparerange()" #frmren
+                                                placeholder=" " id="FROM_RANGE" pattern="^[0-9\u0966-\u096F]*$" (focusout)="comparerange()" #frmren
                                                 title="Input allowed only 0-9" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 formControlName="FROM_RANGE" maxlength="8">
                                             <label for="FROM_RANGE">{{'master.Scheme_Type_Charges_Defination.From_Range' | translate}}</label>
@@ -136,7 +136,7 @@
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FROM_RANGE'].invalid && (angForm.controls['FROM_RANGE'].dirty || angForm.controls['FROM_RANGE'].touched)" class="alert alert-danger">
                                         <div *ngIf="angForm.controls['FROM_RANGE'].errors?.pattern">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +144,7 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" name="TO_RANGE" class="form-control"
-                                                placeholder=" " id="TO_RANGE" pattern="^[0-9]+$" maxlength="8" (focusout)="comparerange()"
+                                                placeholder=" " id="TO_RANGE" pattern="^[0-9\u0966-\u096F]*$" maxlength="8" (focusout)="comparerange()"
                                                 title="Input allowed only 0-9" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 formControlName="TO_RANGE">
                                             <label for="TO_RANGE">{{'master.Scheme_Type_Charges_Defination.To_Range' | translate}}</label>
@@ -152,7 +152,7 @@
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TO_RANGE'].invalid && (angForm.controls['TO_RANGE'].dirty || angForm.controls['TO_RANGE'].touched)" class="alert alert-danger">
                                         <div *ngIf="angForm.controls['TO_RANGE'].errors?.pattern">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div> 
@@ -174,7 +174,7 @@
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CHARGES_AMT'].invalid && (angForm.controls['CHARGES_AMT'].dirty || angForm.controls['CHARGES_AMT'].touched)" class="alert alert-danger">
                                         <div *ngIf="angForm.controls['CHARGES_AMT'].errors?.pattern || angForm.controls['CHARGES_AMT'].errors?.maxlength">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -261,7 +261,7 @@
                                 </tbody>
                                 <tbody *ngIf="schemeTypeChargesRate?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

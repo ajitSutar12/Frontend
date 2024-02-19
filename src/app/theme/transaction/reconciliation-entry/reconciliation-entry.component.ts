@@ -13,6 +13,7 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { ReconciliationEntryService } from './reconciliation-entry.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -83,6 +84,7 @@ export class ReconciliationEntryComponent implements OnInit {
   modalClass: string = 'modalHide';
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder, private http: HttpClient,
     private reconciliation: ReconciliationEntryService,
     public ACMasterDropdownService: ACMasterDropdownService,
@@ -90,6 +92,7 @@ export class ReconciliationEntryComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -287,7 +290,7 @@ export class ReconciliationEntryComponent implements OnInit {
       }
       this.reconciliation.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
           this.formSubmitted = false
         },
         (error) => {
@@ -298,7 +301,7 @@ export class ReconciliationEntryComponent implements OnInit {
       //To clear form
       this.resetForm();
     } else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning');
     }
 
   }

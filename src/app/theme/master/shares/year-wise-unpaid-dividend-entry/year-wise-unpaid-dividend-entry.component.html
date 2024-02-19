@@ -35,7 +35,7 @@
                     angForm.controls['ACTYPE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['ACTYPE'].errors?.required">
-                  This field is required
+                  <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@
                   (angForm.controls['AC_SALARYDIVISION_CODE'].dirty ||
                     angForm.controls['AC_SALARYDIVISION_CODE'].touched)" class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_SALARYDIVISION_CODE'].errors?.required">
-                  This field is required
+                  <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -93,7 +93,7 @@
                   (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['WARRENT_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@
                 class="alert alert-danger">
                 <div
                   *ngIf="angForm.controls['DIV_FROM_YEAR'].errors?.pattern || angForm.controls['DIV_FROM_YEAR'].errors?.required || angForm.controls['DIV_FROM_YEAR'].errors?.minlength || angForm.controls['DIV_FROM_YEAR'].errors?.maxlength">
-                  Input allowed only 0-9
+                  <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                 </div>
               </div>
             </div>

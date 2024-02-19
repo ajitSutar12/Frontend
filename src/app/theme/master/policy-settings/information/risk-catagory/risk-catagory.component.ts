@@ -161,7 +161,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
 
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]]
+      NAME: ['', [ Validators.required]]
     });
   }
 

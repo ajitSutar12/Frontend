@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -45,8 +47,8 @@ export class CashierToSafeVaultComponent implements OnInit {
 
 
   dtExportButtonOptions: any = {};
-  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,private _service: CashDenominationService
-    ) { }
+  constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,private _service: CashDenominationService,private translate:TranslateService,
+    ) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({
@@ -117,8 +119,8 @@ export class CashierToSafeVaultComponent implements OnInit {
     let object = this.angForm.value;
     
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be transfer cash to Safe Vault!",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Safe_Vault')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -128,8 +130,8 @@ export class CashierToSafeVaultComponent implements OnInit {
       if (result.isConfirmed) {
         this._service.cashiertosafevault(object).subscribe(data=>{
           Swal.fire(
-            'Transferd!',
-            'Your cash has been transfered.',
+            `${this.translate.instant('Swal_Msg.Transferd')}`,
+            `${this.translate.instant('Swal_Msg.cash_transfered')}`,
             'success'
           )
           // this.reset();

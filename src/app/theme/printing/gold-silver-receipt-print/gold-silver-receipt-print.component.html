@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Gold/Silver Receipt Print</h5>
+                <h5>{{'Printing.Action.T5' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Printing.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Printing.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH">Branch<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH">{{'Printing.Action.Branch' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode" #branchcode
                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection"
                                         (change)="getAccountList()" [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="Branch">
+                                        placeholder="{{'Printing.Action.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -28,12 +28,12 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'Printing.Action.Scheme_Code' | translate}}<sub
                             class="required">*</sub></label></div>
                 <div class="col-sm-12 col-md-2">
                     <div class="form-group form-primary form-static-label">
@@ -41,7 +41,7 @@
                             <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                 formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                 [ngClass]="{'form-submitted': formSubmitted}" required
-                                (change)="getBranch($event)" placeholder="Scheme Code">
+                                (change)="getBranch($event)" placeholder="{{'Printing.Action.Scheme_Code' | translate}}">
                                 <ng-option *ngFor="let values of scheme" [value]="values">
                                     {{values.id}} {{values.label}}</ng-option>
                             </ng-select>
@@ -51,7 +51,7 @@
                         *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                         class="alert alert-danger">
                         <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                            This field is required
+                            <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                         </div>
                     </div>
 
@@ -62,7 +62,7 @@
                     <div class="row">
                         
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_NO">{{'Printing.Action.Account_Num' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -70,7 +70,7 @@
                                     <ng-select id="AC_NO" bindValue="BANKACNO" [(ngModel)]="accountedit"
                                         formControlName="AC_NO" bindLabel="AC_NAME" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Account Number" (change)="getGoldSilverData();getAcno1($event)"> 
+                                        placeholder="{{'Printing.Action.Account_Num' | translate}}" (change)="getGoldSilverData();getAcno1($event)"> 
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
@@ -80,12 +80,12 @@
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="RETURN_DATE">Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="RETURN_DATE">{{'Printing.Action.Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -100,7 +100,7 @@
                                 *ngIf="angForm.controls['RETURN_DATE'].invalid && (angForm.controls['RETURN_DATE'].dirty || angForm.controls['RETURN_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['RETURN_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -111,10 +111,10 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                [disabled]="clicked" (click)="View($event); clicked = true  ">View</button>
+                                [disabled]="clicked" (click)="View($event); clicked = true  ">{{'Printing.Action.View' | translate}}</button>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'Printing.Action.Close' | translate}}</button>
                         </div>
                     </div>
 
@@ -122,7 +122,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'Printing.Action.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url'></app-iframe5>

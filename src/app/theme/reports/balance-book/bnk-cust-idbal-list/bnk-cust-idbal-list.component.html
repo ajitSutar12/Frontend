@@ -25,7 +25,7 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                   angForm.controls['AC_CUSTID'].touched)
                               " class="alert alert-danger">
                               <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                                This field is required
+                                <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                               </div>
                             </div> 
                         </div>
@@ -63,7 +63,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['OPENINGDATE'].errors?.pattern || angForm.controls['OPENINGDATE'].errors?.required || angForm.controls['OPENINGDATE'].errors?.maxlength">
-                                    This is required Field .Input Date in format DD/MM/YYYY
+                                    <!-- This is required Field .Input Date in format DD/MM/YYYY --> {{'master.Validation.Validate_Date' | translate}}
                                 </div>
                             </div>
                         </div>

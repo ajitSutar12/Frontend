@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 import { ReportFrameComponent } from "../../reports/report-frame/report-frame.component";
+import { TranslateService } from '@ngx-translate/core';
 
  
 
@@ -68,6 +69,7 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
   getbankAcNo: any;
 
   constructor(  
+    private translate:TranslateService,
     private fb: FormBuilder,
     private _service: VoucherEntryService,
 
@@ -78,7 +80,9 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,    private systemParameter:SystemMasterParametersService,
 
-  ) { }
+  ) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   ngOnInit(): void {
     this.createForm()
@@ -252,7 +256,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
   } 

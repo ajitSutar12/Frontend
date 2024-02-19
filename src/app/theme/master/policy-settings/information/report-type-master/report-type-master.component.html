@@ -25,7 +25,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="Description" maxlength="100"
-                                    #autofocus required=""  pattern="^[A-Za-z\./ -]+$"
+                                    #autofocus required=""  
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="NAME">
@@ -33,8 +33,8 @@
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)" class="alert alert-danger">
-                                <div *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                <div *ngIf=" angForm.controls['NAME'].errors?.required">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 </tbody>
                                 <tbody *ngIf="reportTypeMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

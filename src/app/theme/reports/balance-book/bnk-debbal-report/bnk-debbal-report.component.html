@@ -27,7 +27,7 @@
                                   *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                    class="alert alert-danger">
                                <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                            </div>
                         </div>
@@ -47,7 +47,7 @@
                                 *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['date'].errors?. maxlength || ngForm.controls['date'].errors?. minlength || ngForm.controls['date'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['FROM_AC_NO'].errors?.required|| ngForm.controls['FROM_AC_NO'].errors?.maxlength">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -112,7 +112,7 @@
                                 class="alert alert-danger">
                                 <div
                                 *ngIf="ngForm.controls['TO_AC_NO'].errors?.required|| ngForm.controls['TO_AC_NO'].errors?.maxlength">
-                                This field is required
+                                <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -148,7 +148,7 @@
                                         ngForm.controls['radio'].touched)
                                       " class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['radio'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>

@@ -201,7 +201,7 @@ export class DividendTransferPostingComponent implements OnInit {
     // console.log(dataToSend, 'submit')
     this._service.postData(dataToSend).subscribe(data1 => {
       // console.log(data1, 'posting data')
-      data1.length != 0 ? Swal.fire('Success!', 'Data Added Successfully !', 'success') : Swal.fire('Info!', 'No Any Records Found!', 'info');
+      data1.length != 0 ? Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success') : Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.no_re')}`, 'info');
     }, (error) => {
       console.log(error)
     })
@@ -253,8 +253,8 @@ export class DividendTransferPostingComponent implements OnInit {
   delClickHandler(info: any): void {
     this.message.WarrantDate = info.WarrantDate;
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Warrant Date." + this.message.WarrantDate + "  data",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.del_warrant')}` + this.message.WarrantDate + "  `${this.translate.instant('Swal_Msg.data')}`",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -263,16 +263,16 @@ export class DividendTransferPostingComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

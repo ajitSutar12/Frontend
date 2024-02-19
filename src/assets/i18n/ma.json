@@ -1,9 +1,11 @@
 {
     "master": {
+        "No_Data":"माहिती उपलब्ध नाही!",
+
         "Naration_Master": {
             "Narration": "तपशील",
             "Title": "तपशील मास्टर ",
-            "Submit": "जमा करा "
+            "Submit": "सेव करा "
         },
         "Bank_Master": {
             "Bank_code": "बँक कोड ",
@@ -99,7 +101,7 @@
             "Title": "कोर्ट मास्टर ",
             "Court_Code": "कोर्ट कोड ",
             "Description": "तपशील",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -109,7 +111,7 @@
             "Title": "वकील मास्टर ",
             "Advocate_Code": "वकील कोड ",
             "Description": "तपशील",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -119,7 +121,7 @@
             "Title": "उद्योग मास्टर ",
             "Industry_Code": "उद्योग कोड ",
             "Description": "तपशील",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा  ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -129,7 +131,7 @@
             "Title": "दुर्बल घटक मास्टर ",
             "Weaker_Section_Code": "दुर्बल घटक कोड ",
             "Description": "तपशील",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -139,7 +141,7 @@
             "Title": "दावा  स्थिती मास्टर ",
             "Loan_Stage_Code": "दावा  स्थिती  कोड  ",
             "Description": "तपशील",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -153,7 +155,7 @@
         "Health_Master": {
             "code": "हेल्थ विभाग कोड ",
             "Description": "तपशील ",
-            "Submit": "जमा करा "
+            "Submit": "सेव करा  "
         },
         "Prefix_Master": {
             "SNo": "अ. नंबर ",
@@ -204,13 +206,13 @@
             "Account_Number": "खाते नंबर "
         },
         "Company_Group_Link_Master": {
-            "Company_Group_Link_Master": "Company Group Link Master",
+            "Company_Group_Link_Master": "कंपनी लिंक ग्रुप मास्टर",
             "Branch": "शाखा ",
             "Company_Code": "कंपनी कोड ",
             "Schema_Code": "स्कीमा कोड ",
             "From_Account": "कोड पासून ",
             "To_Account": "कोड पर्यंत",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -225,7 +227,7 @@
             "Title": "पत्रके प्रकार मास्टर",
             "Report_type_Code": "पत्रके प्रकार कोड ",
             "Description": "तपशील",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -235,7 +237,7 @@
             "Title": "आयटम प्रवर्ग मास्टर ",
             "code": "आयटम प्रवर्ग कोड  ",
             "Description": "तपशील ",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा  ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -247,7 +249,7 @@
             "Branch": "शाखा ",
             "Description": "तपशील ",
             "Ac_no": "खाते नंबर ",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा  ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -257,7 +259,7 @@
             "Title": "जोखीम प्रवर्ग   ",
             "code": "जोखीम प्रवर्ग  कोड ",
             "Description": "तपशील ",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा  ",
             "Update": "अपडेट ",
             "Cancel": "रद्द करा",
             "F1": "चिन्हांकित फील्ड ",
@@ -292,7 +294,7 @@
             "Action": "कृती ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
             "Add": "जोडने ",
@@ -309,6 +311,7 @@
             "Description": "तपशील "
         },
         "Scheme_Linking_With_Documents": {
+            "Title":"योजना कागदपत्रांसह जोडणे",
             "Schemewise_Document_Applicable": "स्कीम प्रमाणे कागदपत्रे मास्टर",
             "Scheme": "स्कीम",
             "Code": "कोड ",
@@ -353,7 +356,7 @@
             "Surcharge_Rate": "सारचार्ज दर "
         },
         "Year_w_unpaid_div_entry": {
-            "Title": "Year Wise Unpaid Dividend Opening Entry ",
+            "Title": "एअर वाइज अनपेड लाभांश ओपेनिंग एन्ट्री",
             "Scheme": "योजना ",
             "Salary_Division": "पगार  विभाग ",
             "Dividend_Warrant_Date": "लाभांश वारंट  ",
@@ -404,15 +407,49 @@
             "Scheme_Code": "योजना कोड ",
             "Select_Acc": "खाती निवडा ",
             "Process": "प्रक्रिया"
+        },
+        "Validation": {
+            "Val": "ही फील्ड आवश्यक आहे आणि इनपुटला 0-9 नंबरला परवानगी नाही.",
+            "Val1": "ही फील्ड आवश्यक आहे",
+            "Adhar_Val": "इनपुटला फक्त ०-९ अनुमती आहे (त्यात १२ अंक असावेत आणि ते ० आणि ने सुरू होऊ नये १)",
+            "Val_Date": "वैध तारीख प्रविष्ट करा",
+            "Val_Pan": "फक्त अप्परकेस अक्षरे आणि अंक प्रविष्ट करा (त्यात 10 अक्षरे आणि अंक असावेत)",
+            "Val_ward": "इनपुटला परवानगी आहे फक्त A-Z a-z 0-9 - /. (स्पेस)",
+            "Val_Pin_Code": "इनपुटला फक्त ०-९ अनुमती आहे",
+            "Val_Mobile": "इनपुटला फक्त 0-9 परवानगी आहे आणि ते 7 किंवा 8 किंवा 9 ने सुरू होते",
+            "Val_Res": "इनपुटला फक्त ०-९ परवानगी आहे आणि ते ० ने सुरू होते",
+            "Val_Email": "वैध ईमेल प्रविष्ट करा",
+            "Val_Receipt": "ही फील्ड आवश्यक आहे आणि इनपुटला फक्त 0-9 परवानगी आहे",
+            "Val_Repre": "इनपुटला परवानगी आहे फक्त A-Z a-z -/ . (स्पेस)",
+            "Val_Reason": "इनपुटला 0-9 परवानगी नाही ",
+            "Validate_Date": "ही आवश्यक फील्ड आहे .DD/MM/YYYY फॉरमॅटमध्ये तारीख इनपुट करा",
+            "Validate_Year":"हे फील्ड आवश्यक आहे आणि इनपुटला फक्त 0-9 (दोन वर्षापासून ते (म्हणजे 2021-2022) दरम्यान 8 अंकांना परवानगी आहे)"
+        },
+        "Interest_Rate1":{
+            "Title":"मुदत ठेव व्याज दर मास्टर"
+        },
+        "Term_Dep":{
+            "Title":"पत योजनेचे व्याजदर"
+        },
+        "I_Rate_Saving_Pigmy_Deposit":{
+            "Title":"बचत खाते / पिग्मी व्याज दर मास्टर "
+        },
+        "I_Rate_Loan":{
+            "Title":"कर्जाचे व्याजदर"
+        },
+        "Dep_Interest_Rate":{
+            "Title":"पाटीतील ठेव व्याज दर मास्टर "
+        },
+        "S_Code":{
+            "Title":"तारण कोड मेन्टेनन्स"
         }
     },
-  
     "Passing": {
         "Action": {
             "Action": "कृती ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
-            "Submit": "जमा करा ",
+            "Submit": "सेव करा  ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
             "Add": "जोडने ",
@@ -434,25 +471,23 @@
             "Member_Name": "सभासद नाव ",
             "City": "शहर ",
             "Open_Date": "उघडण्याची तारीख",
-            "Opening_date":"उघडण्याची तारीख",
+            "Opening_date": "उघडण्याची तारीख",
             "Detail_Address": "तपशील पत्ता",
             "Manual_Reference_Number": "मॅन्युअल संदर्भ क्रमांक",
             "Birth_Date": "जन्म तारीख ",
-
-            "Name":"नाव",
-            "Renewal_Date":"नूतनीकरण तारीख",
-            "Detail":"तपशील",
-            "Sanction_Date":"मंजुरीची तारीख",
-            "Period":"कालावधी",
-            "Expiry_Date":"कालबाह्यता तारीख",
-            "Sanction_Limit":"मंजुरी मर्यादा",
-            "Drawing_Power":"रेखाचित्र शक्ती",
-            "Interest_Rate":"व्याज दर",
-            "Installment":"हप्ता",
-            "Sanction_Authority":"मंजुरी प्राधिकरण",
-            "Purpose":"उद्देश"
-
-
+            "Name": "नाव",
+            "Renewal_Date": "नूतनीकरण तारीख",
+            "Detail": "तपशील",
+            "Sanction_Date": "मंजुरीची तारीख",
+            "Period": "कालावधी",
+            "Expiry_Date": "कालबाह्यता तारीख",
+            "Sanction_Limit": "मंजुरी मर्यादा",
+            "Drawing_Power": "रेखाचित्र शक्ती",
+            "Interest_Rate": "व्याज दर",
+            "Installment": "हप्ता",
+            "Sanction_Authority": "मंजुरी प्राधिकरण",
+            "Purpose": "उद्देश",
+            "All_Passing":"सर्व पासिंग"
         },
         "Voucher": {
             "Title": "पावती ",
@@ -516,7 +551,7 @@
             "Branch": "शाखा",
             "Transaction_Date": "व्यवहाराची तारीख",
             "Transaction_Year": "व्यवहाराची वर्ष ",
-            "Transaction Type": "व्यवहाराची प्रकार ",
+            "Transaction_Type": "व्यवहाराची प्रकार ",
             "Depreciation": "घसारा",
             "Transfer": "हस्तांतरण",
             "Cash": "रोख",
@@ -550,7 +585,7 @@
             "Title": "लॉकर भाडे हस्तांतरण"
         },
         "Master_Shares": {
-            "Title": "मास्टर_शेअर्स",
+            "Title": "मास्टर शेअर्स",
             "Member_Number": "सभासद नंबर",
             "Employee_Number": "कर्मचारी क्रमांक",
             "Represented_By": "द्वारे प्रतिनिधित्व",
@@ -571,7 +606,7 @@
         },
         "Master_Deposits": {
             "Title": "मास्टर ठेवी",
-            "Term_Deposit_Master":"मुदत ठेव मास्टर",
+            "Term_Deposit_Master": "मुदत ठेव मास्टर",
             "As_On_Date": "तारखेनुसार",
             "Maturity_Date": "परिपक्वता तारीख",
             "Receipt_No": "पावती क्र.",
@@ -580,207 +615,705 @@
             "Signature_Authority": "स्वाक्षरी प्राधिकरण",
             "Maturity_Amount": "परिपक्वता रक्कम"
         },
-        "Master_Investments":{
-            "Title":"मास्टर गुंतवणूक",
-            "Bank_Code":"बँक कोड ",
-            "Branch_code":"शाखा कोड ",
-            "Account_Open_Date":"खाते उघडण्याची तारीख",
-            "As_On_Date":"तारखेनुसार",
-            "Maturity_Date":"परिपक्वता तारीख",
-            "Receipt_Number":"पावती क्रमांक",
-            "Interest_Rate":"व्याज दर",
-            "Deposit_Amount":"ठेव रक्कम",
-            "Maturity_Amount":"परिपक्वता रक्कम"
+        "Master_Investments": {
+            "Title": "मास्टर गुंतवणूक",
+            "Bank_Code": "बँक कोड ",
+            "Branch_code": "शाखा कोड ",
+            "Account_Open_Date": "खाते उघडण्याची तारीख",
+            "As_On_Date": "तारखेनुसार",
+            "Maturity_Date": "परिपक्वता तारीख",
+            "Receipt_Number": "पावती क्रमांक",
+            "Interest_Rate": "व्याज दर",
+            "Deposit_Amount": "ठेव रक्कम",
+            "Maturity_Amount": "परिपक्वता रक्कम"
         },
-        "Pigmy_Agent":{
-            "Title":"पिग्मी एजंट",
-            "Pigmy_Agent_Master":"पिग्मी एजंट मास्टर",
-            "Agent_Number":"एजंट क्रमांक",
-            "Pigmy_Scheme":"पिग्मी योजना",
-            "Appontied_On":"वर नियुक्ती केली"
+        "Pigmy_Agent": {
+            "Title": "पिग्मी एजंट",
+            "Pigmy_Agent_Master": "पिग्मी एजंट मास्टर",
+            "Agent_Number": "एजंट क्रमांक",
+            "Pigmy_Scheme": "पिग्मी योजना",
+            "Appontied_On": "वर नियुक्ती केली"
         },
-        "Master_Pigmy":
-        {
-            "Title":"मास्टर पिग्मी",
-            "Saving_Master":"सेव्हिंग मास्टर",
-            "Expiry_Date":"कालबाह्यता तारीख",
-            "Period":"कालावधी",
-            "Default_Deposite_Amount":"डिफॉल्ट ठेव रक्कम",
-            "Agent_Code":"एजंट कोड",
-            "Minor_Details":"किरकोळ तपशील",
-            "Is_cal_sep_pig_cor":"कलेक्शन अगेन्स्ट लोनसाठी स्वतंत्र पिग्मी कमिशनची गणना करा"
-
-        },
-        "Master_Cash_Credit":{
-            "Title":"मास्टर कॅश क्रेडिट",
-            "Current_Master":"वर्तमान_मास्टर"
-            
-        },
-        "Master_Loan":{
-            "Title":"मास्टर कर्ज",
-            "Term_Loan_Master":"मुदत कर्ज मास्टर"
+        "Master_Pigmy": {
+            "Title": "मास्टर पिग्मी",
+            "Saving_Master": "सेव्हिंग मास्टर",
+            "Expiry_Date": "कालबाह्यता तारीख",
+            "Period": "कालावधी",
+            "Default_Deposite_Amount": "डिफॉल्ट ठेव रक्कम",
+            "Agent_Code": "एजंट कोड",
+            "Minor_Details": "किरकोळ तपशील",
+            "Is_cal_sep_pig_cor": "कलेक्शन अगेन्स्ट लोनसाठी स्वतंत्र पिग्मी कमिशनची गणना करा"
            
-            
         },
-        "Master_Dead_Stock":{
-            "Title":"मास्टर डेड स्टॉक",
-            "Item_Code":"आयटम कोड",
-            "Item_Name":"आयटमचे नाव",
-            "Supplier_Name":"पुरवठादाराचे नाव",
-            "Purchase_Date":"खरेदी दिनांक",
-            "Depreciation_Category":"घसारा श्रेणी",
-            "Purchase_Quantity":"खरेदीचे प्रमाण",
-            "Purchase_Rate":"खरेदी दर",
-            "Purchase_Value":"खरेदी मूल्य",
-            "Last_Depreciation_Date":" अंतिम घसारा तारीख",
-            "Gl_Acc_Num":"जी एल   खाते क्रमांक"
+        "Master_Cash_Credit": {
+            "Title": "मास्टर कॅश क्रेडिट",
+            "Current_Master": "वर्तमान_मास्टर"
         },
-
-        "Master_Locker":{
-            "Title":"मास्टर लॉकर",
-            "Detail_Address":"तपशीलवार पत्ता"
+        "Master_Loan": {
+            "Title": "मास्टर कर्ज",
+            "Term_Loan_Master": "मुदत कर्ज मास्टर"
+        },
+        "Master_Dead_Stock": {
+            "Title": "मास्टर डेड स्टॉक",
+            "Item_Code": "आयटम कोड",
+            "Item_Name": "आयटमचे नाव",
+            "Supplier_Name": "पुरवठादाराचे नाव",
+            "Purchase_Date": "खरेदी दिनांक",
+            "Depreciation_Category": "घसारा श्रेणी",
+            "Purchase_Quantity": "खरेदीचे प्रमाण",
+            "Purchase_Rate": "खरेदी दर",
+            "Purchase_Value": "खरेदी मूल्य",
+            "Last_Depreciation_Date": " अंतिम घसारा तारीख",
+            "Gl_Acc_Num": "जी एल   खाते क्रमांक"
+        },
+        "Master_Locker": {
+            "Title": "मास्टर लॉकर",
+            "Detail_Address": "तपशीलवार पत्ता"
         }
-
     },
-    "Reports":{
-        "Action":{
+    "Reports": {
+        "Action": {
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
-            "Branch":"शाखा ",
-            "Scheme_Code":"योजना कोड ",
-            "Scheme_Type":"योजना प्रकार ",
-            "Account_No":"खाते नंबर",
-            "Starting_Date":"आरंभ दिनांक ",
-            "Ending_Date":"अखेर दिनांक ",
-            "View":"पहा ",
-            "Close":"बंद ",
-            "Report_Frame":"अहवाल फ्रेम",
-            "Range_Starting_Code":"श्रेणी आरंभ कोड ",
-            "Starting_Code":"आरंभ कोड ",
-            "Starting_Account":"आरंभ खाते",
-            "Date":"दिनांक",
-            "Range_Ending_Code":"श्रेणी समाप्त कोड",
-            "Ending_Code":" समाप्त कोड"
+            "Branch": "शाखा ",
+            "Scheme_Code": "योजना कोड ",
+            "Scheme_Type": "योजना प्रकार ",
+            "Account_No": "खाते नंबर",
+            "Starting_Date": "आरंभ दिनांक ",
+            "Ending_Date": "अखेर दिनांक ",
+            "View": "पहा ",
+            "Close": "बंद ",
+            "Report_Frame": "अहवाल फ्रेम",
+            "Range_Starting_Code": "श्रेणी आरंभ कोड ",
+            "Starting_Code": "आरंभ कोड ",
+            "Starting_Account": "आरंभ खाते",
+            "Date": "दिनांक",
+            "Range_Ending_Code": "श्रेणी समाप्त कोड",
+            "Ending_Code": " समाप्त कोड"
         },
-        "General_Acc_Statement":{
-            "Title":"सामान्य खाते विवरण"
+        "General_Acc_Statement": {
+            "Title": "सामान्य खाते विवरण"
         },
-        "Acc_Statement":{
-            "Title":" खात्याचा हिशोब"
+        "Acc_Statement": {
+            "Title": " खात्याचा हिशोब"
         },
-        "Loan_Statement":{
-            "Title":"इतर रकमेसह मुदत कर्ज विवरण"
+        "Loan_Statement": {
+            "Title": "इतर रकमेसह मुदत कर्ज विवरण"
         },
-        "Term_Deposit_Statement":{
-            "Title":"मुदत ठेव विवरण"
+        "Term_Deposit_Statement": {
+            "Title": "मुदत ठेव विवरण"
         },
-        "Dead_Stock_Balance_List":{
-            "Title":"मृत स्टॉक शिल्लक यादी"
+        "Dead_Stock_Balance_List": {
+            "Title": "डेडस्टॉक शिल्लक यादी"
         },
-      
-        "Account_Balance_Book":{
-            "Title":"खाते शिल्लक पुस्तक"
+        "Account_Balance_Book": {
+            "Title": "खाते शिल्लक पुस्तक"
         },
-        "Account_Balance_List":{
-            "Title":"खाते शिल्लक यादी"
+        "Account_Balance_List": {
+            "Title": "खाते शिल्लक यादी"
         },
-        "Customer_ID_Wise_Balance_List":{
-            "Title":"ग्राहक आयडीनुसार शिल्लक यादी",
-            "Customer_ID":"ग्राहक आयडी",
-            "Print_Closed_Acc":"बंद खाते प्रिंट करा?"
+        "Customer_ID_Wise_Balance_List": {
+            "Title": "ग्राहक आयडीनुसार शिल्लक यादी",
+            "Customer_ID": "ग्राहक आयडी",
+            "Print_Closed_Acc": "बंद खाते प्रिंट करा?"
         },
-        "Scheme_General_Ledger_Consistancy_Report":{
-            "Title":"योजना सामान्य लेजर सुसंगतता अहवाल",
-            "Print_Pay_rec_interest_Details":"देय प्राप्त करण्यायोग्य व्याज तपशील मुद्रित करा",
-            "Scheme_Wise":"योजना निहाय",
-            "Print_Penal_I_Details":"दंडात्मक व्याज छापा तपशील"
+        "Scheme_General_Ledger_Consistancy_Report": {
+            "Title": "योजना सामान्य लेजर सुसंगतता अहवाल",
+            "Print_Pay_rec_interest_Details": "देय प्राप्त करण्यायोग्य व्याज तपशील मुद्रित करा",
+            "Scheme_Wise": "योजना निहाय",
+            "Print_Penal_I_Details": "दंडात्मक व्याज छापा तपशील"
         },
-        "Receivable_I_rate":{
-            "Title":"प्राप्य व्याज दर"
+        "Receivable_I_rate": {
+            "Title": "प्राप्य व्याज दर"
         },
-        "Payable_I_rate":{
-            "Title":"देय व्याज दर"
-
+        "Payable_I_rate": {
+            "Title": "देय व्याज दर"
         },
-        "Dead_Stock_Balance_List_Depreciation":{
-            "Title":"मृत स्टॉक शिल्लक यादी घसारा"
+        "Dead_Stock_Balance_List_Depreciation": {
+            "Title": "डेडस्टॉक शिल्लक यादी घसारा"
         },
-        "Deposit_Amount_B_List":{
-            "Title":"ठेव रक्कम शिल्लक यादी",
-            "Within_range":"रेंजमध्ये",
-            "Less_than":"च्या पेक्षा कमी",
-            "Greter_than":"या पेक्षा मोठे",
-            "Print_City_Name":"शहराचे नाव छापा?"
+        "Deposit_Amount_B_List": {
+            "Title": "ठेव रक्कम शिल्लक यादी",
+            "Within_range": "रेंजमध्ये",
+            "Less_than": "च्या पेक्षा कमी",
+            "Greter_than": "या पेक्षा मोठे",
+            "Print_City_Name": "शहराचे नाव छापा?"
         },
-        "Size_Wise_B_L":{
-            "Title":"आकारानुसार शिल्लक यादी",
-            "Detail":"तपशील",
-            "Summary":"सारांश"
-        
+        "Size_Wise_B_L": {
+            "Title": "आकारानुसार शिल्लक यादी",
+            "Detail": "तपशील",
+            "Summary": "सारांश"
         },
-        "Debit_B_Report":{
-            "Title":"डेबिट शिल्लक अहवाल  ",
-            "Ac_no":"खाते नंबर ",
-            "Name":"नाव ",
-            "Open_Date":"उघडण्याची तारीख",
-            "Print_m_ref_mem_num":"Print_m_ref_mem_num",
-            "Print_Opening_Date":"उघडण्याची तारीख प्रिंट करा",
-            "Print_Anamat_Reson":"मुद्रित राखीव कारण",
-            "Within_range":"रेंजमध्ये"
-            
+        "Debit_B_Report": {
+            "Title": "डेबिट शिल्लक अहवाल  ",
+            "Ac_no": "खाते नंबर ",
+            "Name": "नाव ",
+            "Open_Date": "उघडण्याची तारीख",
+            "Print_m_ref_mem_num": "प्रिंट मॅन्युअल संदर्भ सदस्य क्रमांक",
+            "Print_Opening_Date": "उघडण्याची तारीख प्रिंट करा",
+            "Print_Anamat_Reson": "मुद्रित राखीव कारण",
+            "Within_range": "रेंजमध्ये"
         },
-        "Amount_Wise_B_L":{
-            "Title":"रकमेनुसार शिल्लक यादी",
-            "Within_range":"रेंजमध्ये",
-            "Less_than":"च्या पेक्षा कमी",
-            "Greter_than":"या पेक्षा मोठे",
-            "Print_City_Name":"शहराचे नाव छापा?"
-            
-
+        "Amount_Wise_B_L": {
+            "Title": "रकमेनुसार शिल्लक यादी",
+            "Within_range": "रेंजमध्ये",
+            "Less_than": "च्या पेक्षा कमी",
+            "Greter_than": "या पेक्षा मोठे",
+            "Print_City_Name": "शहराचे नाव छापा?"
         },
-        "DeadStock_Depreciation_Category_List":{
-            "Title":"डेडस्टॉक घसारा श्रेणी सूची",
-            "Depreciation_Category":"घसारा श्रेणी",
-            "Detail":"तपशील",
-            "Summary":"सारांश"
+        "DeadStock_Depreciation_Category_List": {
+            "Title": "डेडस्टॉक घसारा श्रेणी सूची",
+            "Depreciation_Category": "घसारा श्रेणी",
+            "Detail": "तपशील",
+            "Summary": "सारांश"
         },
-        "Balance_Confi_Certi":{
-            "Title":"शिल्लक पुष्टीकरण प्रमाणपत्र",
-            "Print_Marathi_Cer":"मराठी प्रमाणपत्र छापा"
-            
+        "Balance_Confi_Certi": {
+            "Title": "शिल्लक पुष्टीकरण प्रमाणपत्र",
+            "Print_Marathi_Cer": "मराठी प्रमाणपत्र छापा"
         },
-        "Short_B_List":{
-            "Title":"लहान शिल्लक यादी"
+        "Short_B_List": {
+            "Title": "लहान शिल्लक यादी"
         }
+    },
+    "Printing": {
+        "Action": {
+            "F1": "चिन्हांकित फील्ड ",
+            "F2": "अनिवार्य आहेत ",
+            "T1": "पासबुक इश्यू",
+            "Branch": "शाखा ",
+            "Branch_Code": "शाखा कोड ",
+            "Scheme_Code": "योजना कोड ",
+            "Account_No": "खाते नंबर",
+            "View": "पहा",
+            "Close": "बंद ",
+            "Report_Frame": "अहवाल फ्रेम",
+            "T2": "पासबुक प्रिंट",
+            "From_Ac_No": "खाते क्रमांकावरून",
+            "Starting_Date": "आरंभ दिनांक ",
+            "Number_of_lines_printed": "छापलेल्या ओळींची संख्या",
+            "Num_Of_Lines_Printed": "एका पृष्ठावरील ओळींची संख्या",
+            "T3": "मुदत ठेव पावती छपाई",
+            "From_Ac_Number": "खाते क्रमांकावरून",
+            "Print": "प्रिंट",
+            "Reasons": "कारणे",
+            "Narration_Master": "कथन मास्टर",
+            "Scheme": "योजना ",
+            "From": "पासून",
+            "T4": "व्हाउचर प्रिंटिंग",
+            "Date": "दिनांक ",
+            "Source_Type": "स्रोत प्रकार",
+            "Transaction_Type": "व्यवहाराचा प्रकार",
+            "Voucher_Num": "पावती क्रमांक",
+            "T5": "सोने/चांदीची पावती प्रिंट",
+            "Account_Num": "खाते नंबर",
+            "T6": "मुदत ठेव पावती प्रिंट",
+            "Required_Fields": "जरूरी फील्ड",
+            "Bond_Receipt": "बाँडची पावती",
+            "From_Date": "या तारखेपासून",
+            "To_Date": "आजपर्यंत",
+            "Drag_and_Drop": "ड्रॅग आणि ड्रॉप करा",
+            "Drag_me_around": "मला आसपास ओढा"
+        }
+    },
+    "utility": {
+        "Action": {
+            "T1": "आवर्ती रक्कम जीएल मध्ये हस्तांतरण",
+            "Branch": "शाखा ",
+            "Scheme": "योजना ",
+            "From_Date": "या तारखेपासून",
+            "To_Date": "आजपर्यंत",
+            "Credit_GL_Scheme": "क्रेडिट जीएल योजना",
+            "Calculate": "गणना करा",
+            "Close": "बंद ",
+            "T2": "रक्कम हस्तांतरण व्यवहार",
+            "Debit_Credit_Transaction": "डेबिट क्रेडिट व्यवहार",
+            "Credit_Debit_Transaction": " क्रेडिट डेबिट व्यवहार",
+            "Debit_Scheme": "डेबिट योजना",
+            "Credit_Scheme": "क्रेडिट योजना",
+            "Balance_Am": "शिल्लक रक्कम",
+            "Pay_Rec_Inter": "देय/प्राप्य व्याज",
+            "Transaction_particulars": "व्यवहार तपशील",
+            "Update": "अपडेट ",
+            "Print": "प्रिंट",
+            "Cancel": "रद्द करा",
+            "Report_Frame": "अहवाल फ्रेम",
+            "T3": "सर्वसाधारण सभेत सदस्य अद्यतन",
+            "Warrent_Date": "वॉरंटची तारीख",
+            "Year": "वर्ष",
+            "Mem_from": "सदस्य फॉर्म",
+            "Mem_To": "सदस्याला",
+            "T4": "डिमांड ड्राफ्ट डेटा निर्यात/आयात उपयुक्तता",
+            "Export": "निर्यात करा",
+            "Import": "आयात करा",
+            "Choose_File": "फाईल निवडा",
+            "Browse": "ब्राउझ करा",
+            "Ok": "ठीक आहे",
+            "Action": "कृती",
+            "Name": "नाव",
+            "Position": "स्थिती",
+            "Office": "कार्यालय",
+            "Age": "वय",
+            "Start_date": "प्रारंभ तारीख",
+            "Salary": "पगार",
+            "Edit": "सुधारणे",
+            "Delete": "हटवा",
+            "Required_Fields": "जरूरी फील्ड",
+            "Upto_Date": "पर्यंत दिनांक",
+            "T5": "डेटा आयात/निर्यात उपयुक्तता शेअर करते",
+            "Branch_Code": "शाखा कोड",
+            "T6": "बँक सर्व सपोर्ट कॉल रजिस्टर",
+            "Register_no": "नोंदणी क्र.",
+            "Call_Reg_Date": "नोंदणी तारखेला कॉल करा",
+            "User_Name": "वापरकर्ता नाव",
+            "Nature_Of_Custo_Pro": "सानुकूलनाच्या समस्येचे स्वरूप",
+            "Requirement": "आवश्यकता",
+            "Requirement_Details": "आवश्यक तपशीलांसह उदा. किंवा स्वरूप",
+            "New_Customisations": "नवीन सानुकूलन",
+            "Existing_Modification": "विद्यमान बदल",
+            "Errors": "चुका",
+            "Other": "इतर",
+            "Scheme_Ac_Details": "योजनेचा तपशील",
+            "Completed_By": "यांनी पूर्ण केले",
+            "Remark": "शेरा",
+            "Completed_Time": "पूर्ण वेळ",
+            "Completed_Date": "पूर्ण तारीख",
+            "Requirement Details_Formats": "आवश्यक तपशीलांसह उदा. किंवा स्वरूप"
+        }
+    },
+    "View": {
+        "Action": {
+            "F1": "चिन्हांकित फील्ड ",
+            "F2": "अनिवार्य आहेत ",
+            "T1": "खतावणी दुर्ष्टीक्षेप",
+            "Branch": "शाखा",
+            "Scheme": "योजना ",
+            "Scheme_Code": "योजना कोड ",
+            "Acc_Num": "खाते नंबर",
+            "Acc_no": "खाते नंबर",
+            "From_Date": "सुरवातीची तारीख",
+            "To_Date": "अखेर तारीख",
+            "Acc_Opening_Date": "खाते आरंभ दिनांक",
+            "Matu_But_Paid_Am": "परिपक्व परंतु अदा केलेली रक्कम नाही",
+            "Un_passed": "पास न केलेली खाती",
+            "Interest_Vouchers": "व्याज व्हाउचर",
+            "View": "पहा",
+            "No_Data": "माहिती उपलब्ध नाही!",
+            "Grand_Total": "ग्रँड टोटल",
+            "Total_Deposit_Amount": "एकूण ठेव रक्कम",
+            "Total": "एकूण",
+            "Balance": "शिल्लक",
+            "Officer_ID": "अधिकारी आयडी",
+            "Voucher_Number": "पावती क्रमांक",
+            "Added_Penal": "दंड जोडला",
+            "Other_Amount": "इतर रक्कम",
+            "Receivable_Penal": "प्राप्त करण्यायोग्य दंड",
+            "Penal_Interest": "दंडात्मक व्याज",
+            "Overdue_Interest": "थकीत व्याज",
+            "Recbl_Payable_Interest": "Recbl/देय व्याज",
+            "Normal_Interest": "सामान्य व्याज",
+            "Closing_Balance": "अंतिम शिल्लक",
+            "Credit_Amount": "क्रेडिट रक्कम",
+            "Debit_Amount": "डेबिट रक्कम",
+            "Tran_Type": "ट्रॅन प्रकार",
+            "Particulars": "विशेष",
+            "Cheque_Number": "क्रमांक तपासा",
+            "Date": "दिनांक",
+            "Account_Closed_On": "खाते बंद केले:",
+            "Freez_Status": "फ्रीझ स्थिती:",
+            "T2": "शेअर्स खतावणी दुर्ष्टीक्षेप",
+            "Dormant_Account": "सुप्त खाते",
+            "Debit_Dividend": "डेबिट लाभांश",
+            "Credit_Dividend": "क्रेडिट लाभांश",
+            "Dividend_Balance": "लाभांश शिल्लक",
+            "Bonus_Amount": "बोनसची रक्कम",
+            "Rebit_Interest": "रिबिट व्याज",
+            "Certificate_Number": "प्रमाणपत्र नंबर",
+            "Number_Of_Shares": "शेअर्सची संख्या",
+            "Shares_From_To": "पासून - पर्यंत शेअर्स",
+            "Face_Value": "दर्शनी मूल्य",
+            "Transaction_Type": "व्यवहाराचा प्रकार",
+            "T3": "व्हाउचर दुर्ष्टीक्षेप",
+            "Tra_Date": "व्यवहाराची तारीख",
+            "Num_Of_Records": "रेकॉर्डची संख्या:",
+            "Record_Number": "रेकॉर्ड नंबर",
+            "Time": "वेळ ",
+            "Account_Number": "खाते नंबर",
+            "Name": "नाव ",
+            "Transaction_Source_Type": "व्यवहार स्रोत प्रकार",
+            "Type": "प्रकार ",
+            "Debit_Credit": "डेबिट/क्रेडिट",
+            "Amount": "रक्कम",
+            "Interest_Amount": "व्याजाची रक्कम",
+            "Receivable_Payable_Interest": "प्राप्य देय व्याज",
+            "Receivable_Overdue_Interest": "प्राप्त करण्यायोग्य ओव्हरड्यू इंटरेस्ट",
+            "Dividend_Amount": "लाभांश रक्कम",
+            "User": "वापरकर्ता",
+            "Close": "बंद ",
+            "Voucher": "व्हाउचर",
+            "T4": "व्यवस्थापक दृश्य",
+            "As_on_Date": "तारखेनुसार",
+            "Transaction_Details": "व्यवहाराचा तपशील",
+            "Credit": "पत",
+            "Debit": "डेबिट",
+            "Cash": "रोख",
+            "Transfer": "हस्तांतरण",
+            "Cash_Opening_Balance": "रोख उघडण्याची शिल्लक",
+            "Cash_CLosing_Balance": "कॅश क्लोजिंग बॅलन्स",
+            "Pending_Details": "प्रलंबित तपशील",
+            "All": "सर्व",
+            "Rejected": "नाकारले",
+            "Day_Scroll": "डे स्क्रोल",
+            "CD_Ratio": " सीडी प्रमाण",
+            "Working_Capital": "खेळते भांडवल ",
+            "User_Work": " वापरकर्त्याचे कार्य",
+            "Users_Login": "वापरकर्ते लॉगिन",
+            "Users_Cash": "वापरकर्त्याची रोख",
+            "Delay_Works": "विलंब कामे",
+            "Scheme_Log": "योजना लॉग",
+            "GL_Pos_Detail": "GL Pos. तपशील",
+            "Nearest_Secu": "सर्वात जवळील Secu",
+            "Incompletion": "अपूर्णता",
+            "Rate_of_Margin": "मार्जिनचा दर",
+            "Loan_Analysis": "कर्ज विश्लेषण",
+            "Ratio_Analysis": "गुणोत्तर विश्लेषण",
+            "NPA_Analysis": " एनपीए विश्लेषण",
+            "Overdue": "ओव्हरड्यू",
+            "Matured_TD_LN": " परिपक्व TD/LN",
+            "Insurance_Due": "विमा देय",
+            "Expenses": "खर्च",
+            "Excess_Cash": "जादा रोख",
+            "FD_Payment": "FD पेमेंट",
+            "Dr_Balances": " शिल्लक राहिलेल्या डॉ",
+            "Cr_Balances": " Cr. शिल्लक",
+            "Zero_Balance": "शून्य शिल्लक",
+            "CC_Overdraft": " सीसी ओव्हरड्राफ्ट",
+            "Overdraft": " ओव्हरड्राफ्ट (OD)",
+            "Consistency": "सुसंगतता",
+            "Hight_Rec_Pay": "उच्च Rec पे",
+            "Report_Frame": "अहवाल फ्रेम",
+            "All_Entries": "सर्व नोंदी",
+            "Daily_Liquidity": " दैनिक तरलता",
+            "Remind_Me": "मला आठवण करून द्या",
+            "Status": "स्थिती",
+            "Issue": "इश्यू",
+            "Cancel": "रद्द करा",
+            "Clearing_Voucher": "क्लिअरिंग व्हाउचर",
+            "Scroll_book": "पुस्तक स्क्रोल करा",
+            "Transfer_Entries": "हस्तांतरण नोंदी",
+            "Rejected_Entries": "नाकारलेल्या नोंदी",
+            "Record_no": "रेकॉर्ड क्र",
+            "Account_no": "खाते क्रमांक",
+            "DR_CR": "डीआर/सीआर  ",
+            "Bank": "बँक",
+            "Narration": "कथन",
+            "Token_no": "प्रीफेक्चर च्या",
+            "Cash Entries": "रोख नोंदी",
+            "CCP": "सीसीपी ",
+            "To_Transfer": "हस्तांतरित करण्यासाठी",
+            "Kale_Ranjit_Digamber": "काळे रणजित दिगंबर",
+            "MBP": "एमबीपी",
+            "By_Cash": "रोखीने"
+        }
+    },
     
-    },
-
-    "Printing":{
-        "Action":{
+    "Transaction": {
+        "Action": {
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
-            "T1":"पासबुक इश्यू",
-            "Branch":"शाखा ",
-            "Scheme_Code":"योजना कोड ",
-            "Account_No":"खाते नंबर",
-            "View":"पहा",
+            "Submit":"सेव करा  ",
+            "Cancel":"रद्द करा",
+            "No_Data": "माहिती उपलब्ध नाही!",
             "Close":"बंद ",
-            "Report_Frame":"अहवाल फ्रेम",
-            "T2":"पासबुक प्रिंट",
-            "From_Ac_No":"खाते क्रमांकावरून",
-            "Starting_Date":"आरंभ दिनांक ",
-            "Number_of_lines_printed":"Number of lines printed",
-            "Num_Of_Lines_Printed":"एका पृष्ठावरील ओळींची संख्या",
-            "T3":"मुदत ठेव पावती छपाई",
-            "From_Ac_Number":"खाते क्रमांकावरून",
-            "T4":"व्हाउचर प्रिंटिंग",
+            "Reject": "नकार द्या",
+            "Approve": "मंजूर",
+            "Unapprove": "मान्यता/रद्द करा",
+            "Add":"जोडने ",
+            "Update":"अपडेट "
+        },
+        "Reconciliation":{
+            "Title":"रिकन्सीलेशन नोंदणी",
+            "Branch":"शाखा ",
+            "General_Acc":"जनरल खाते",
+            "All_Entries":"सर्व व्हौचर",
+            "Pen_Entries":"पेंडिंग व्हौचर",
+            "From_Date":"पासून दिनांक",
+            "To_Date":"पर्यंत दिनांक",
+            "Withdrawls":"नावे रक्कम",
+            "Deposit":"जमा रक्कम",
+            "Amount":"रक्कम",
+            "No_rec":"एकुण रेकॉर्ड्स",
+            "Uncleared_Am":"अनक्लीअर रक्कम",
             "Date":"दिनांक ",
-            "Source_Type":"स्रोत प्रकार",
-            "Transaction_Type":"व्यवहाराचा प्रकार",
-            "Voucher_Num":"पावती क्रमांक",
-            "T5":"सोने/चांदीची पावती प्रिंट",
-            "Account_Num":"खाते नंबर"
+            "Statement_Date":"स्टेटमेंट दिनांक",
+            "Narration":"तपशील",
+            "Cheque_Number":"चेक नंबर",
+            "Voucher_Type":" व्हौचर"
 
-        }
+        },
+        "Saving_Pigmy":{
+            "Title":"सेव्हिंग पिग्मी खाते बंद",
+            "Branch":"शाखा",
+            "Date":"दिनांक",
+            "Scheme":"स्कीम कोड",
+            "Acc_Num":"खाते नंबर",
+            "Interest_Rate":"व्याज दर ",
+            "Months":"महिने",
+            "Interest_Amount":"व्याज रक्कम",
+            "Total_Int_Am":"टोटल इंटरेस्ट रक्कम ",
+            "post_int_Am":" पोस्ट केलेल्या व्याजाची रक्कम",
+            "net_Int_Am":"एकुण व्याजाची रक्कम",
+            "Narration":"तपशील",
+            "Ledger":"खाते शिल्लक रक्कम",
+            "Pay_In_Am":"देणे व्याज",
+            "pen_Int_Am":"दंड व्याजाची रक्कम",
+            "Net_Payable_Amount":"एकुण देय रक्कम",
+            "Payment_de":"पेमेंट तपशील",
+            "Cash":"रोख",
+            "Transfer":"ट्रान्सफर",
+            "Narration_Master":"तपशील मास्टर ",
+            "PAN_ID":"पॅन आयडी:",
+            "Status":"स्टेटस:",
+            "Acc":"खाते नंबर",
+            "Maturity_Date":"मुदतअखेर दिनांक  ",
+            "Last_Interest_Date":"अंतिम व्याज दिनांक",
+            "Renewal_Date":"रेन्युअल दिनांक",
+            "Opening_Date":"आरंभ दिनांक",
+            "Opening_Balance":"ओपेनिंग शिल्लक",
+            "Details":"तपशील",
+            "Maturity_Amount":"मुदतअखेर  रक्कम ",
+             "Premature_Account":"मुदतपूर्व खाते",
+            "Other_Charges_Amount":"इतर शुल्काची रक्कम",
+            "Charges_ledger_Acc":"सामान्य खातेवही खात्यासाठी इतर शुल्क",
+            "Commission_Amount":"कमिशनची रक्कम",
+            "Commission_ledger_Acc":"कमिशन टू जनरल लेजर अकाउंट",
+            "Cheque_Number":"क्रमांक तपासा",
+            "Cheque_date":"तारीख तपासा",
+            "Scheme_Code":"योजना कोड",
+            "Particulars":"विशेष",
+            "Amount":"रक्कम",
+            "Add_Account":"खाते जोडा",
+            "Update_Account":" खाते अपडेट करा",
+            "Contact":"संपर्क:"
+        },
+
+        "Issue_New_Shares":{
+            "Title":"नवीन शेअर्स नोंदणी",
+            "Branch_Code":"शाखा कोड ",
+            "Scheme_Code":"स्कीम कोड",
+            "Member_Number":"सभासद नंबर",
+            "Transaction_Number":"व्यवहार नंबर",
+            "Membership_Date":"सभासदत्व दिनांक",
+            "Total_Shares_Amount":"एकून भाग रक्कम",
+            "Total_Number_of_Shares":"एकून भाग संख्या",
+            "Shares_Details":"भाग तपशील",
+            "Issue_Date":"इश्यू दिनांक",
+            "Certificate_Number":"प्रमाणपत्र नंबर",
+            "From":"पासुन",
+            "To":"पर्यंत",
+            "Number_Of_Shares":"शेअर्सची संख्या",
+            "Cash":"रोख",
+            "Transfer":"ट्रान्सफर",
+            "Face_Value_Amount":"दर्शनी किमंत",
+            "Resolution_Date":"ठराव दिनांक",
+            "Shares_Amount":"भाग रक्कम",
+            "Resolution_Number":"ठराव नंबर",
+            "Particulars":"विशेष",
+            "Scheme":"स्कीम",
+            "Acc_Num":"खाते नंबर",
+            "Amount":"रक्कम",
+            "Debit_Credit":"डेबिट / क्रेडिट",
+            "Total_Debit_Amount":"एकूण डेबिट रक्कम",
+            "Total_Credit_Amount":"एकूण क्रेडिट रक्कम",
+            "Narration_Master":"तपशील मास्टर ",
+            "DR_CR":"डेबिट/क्रेडिट",
+            "Total":"एकूण",
+            "Shares_Number":"भाग क्रमांक"
+            
+        },
+        "Share_Tarnsfer":{
+            "Title":"शेअर्स ट्रान्सफर",
+            "Branch_Code":"शाखा कोड ",
+            "Scheme_Code":"स्कीम कोड",
+            "Member_Number":"सभासद नंबर",
+            "Transaction_Number":"व्यवहार नंबर",
+            "Membership_Date":"सभासदत्व दिनांक",
+            "Transfer_Shares":"एकून भाग संख्या",
+            "Transfer_Shares_Amount":"एकून भाग रक्कम",
+           
+            "Member_Transfer_To":"सदस्य हस्तांतरण",
+            "Scheme":"स्कीम ",
+            "Resolution_Date":"ठराव दिनांक",
+            "Resolution_Number":"ठराव नंबर",
+            "Transfer_Date":"व्यवहार दिनांक",
+            "Actual_Transfer_Amount":"वास्तविक हस्तांतरण रक्कम",
+            "Reason":"कारण"
+
+        },
+        "Membership_Cancellation":{
+            "Title":"सभासद रद्द करणे",
+            "Branch_Code":"शाखा कोड ",
+            "Scheme_Code":"स्कीम कोड",
+            "Member_Number":"सभासद नंबर",
+            "Transaction_Number":"व्यवहार नंबर",
+            "Membership_Date":"सभासदत्व दिनांक",
+            "Transfer_Shares":"एकून भाग संख्या",
+            "Transfer_Shares_Amount":"एकून भाग रक्कम",
+            "Resolution_Date":"ठराव दिनांक",
+            "Resolution_Number":"ठराव नंबर",
+            "Cash":"रोख",
+            "Transfer":"ट्रान्सफर",
+            "Member_Cancel_Date":"सदस्य रद्द दिनांक",
+            "Reason":"कारण",
+            "Scheme":"स्कीम ",
+            "Acc_Num":"खाते नंबर",
+            "Particulars":"विशेष",
+            "Member_Canceled":"सदस्य रद्द",
+            "Amount":"रक्कम",
+            "Narration_Master":"तपशील मास्टर ",
+            "Narration":"तपशील",
+            "Add_Account":"खाते जोडा",
+            "Update_Account":" खाते अपडेट करा"
+            
+        },
+        "Safe_Vault_to_Cashier":{
+            "Title":"सेफ व्हॉल्ट मधून रोख रक्कम कॅशियरला देणे",
+            "Branch":"शाखा ",
+            "Cashier":"कॅशियर",
+           
+            "Denomination_Amount": "रोख रक्कम ",
+            "Denomination_Transaction_Date": "व्यवहार दिनांक ",
+            "Coins": "नाणी",
+            "Total_Cash":"एकूण रोख"
+        },
+
+        "Cashier_to_Safe_Vault_Denomination":{
+            "Title" : "कॅशियर कडून रोख रक्कम सेफ व्हॉल्ट कडे जमा करणे",
+            "Branch":"शाखा ",
+            "Cashier":"कॅशियरला",
+          
+            "Denomination_Transaction_Date": "व्यवहार दिनांक ",
+            "Coins": "नाणी",
+            "Total_Cash":"एकूण रोख"
+            
+         }
+        
+       
+    },
+
+    "Swal_Msg":{
+        "Success":"सक्सेस !",
+        "S_Msg":"डेटा यशस्वीपणे ॲड झाला आहे !",
+        "Warning": "वॉर्निंग ",
+        "W_Msg2":"डेटा आधीच सबमिट केला आहे",
+        "Invalid_Input":"अवैध इनपुट",
+        "Slab_Details":"कृपया व्याजदर प्रविष्ट करा",
+        "S_Msg1":"रेकॉर्ड यशस्वीरित्या अद्यतनित केले!",
+        "Input_Limit_50":"कृपया ५० च्या खाली मूल्ये घाला",
+        "W_Msg1":"रक्कम पासून रक्कम पर्यंत कमी असणे आवश्यक आहे",
+        "Info":"सूचना",
+        "I_Msg2":"कृपया महिन्याला इनपुट करा",
+        "I_Msg":"प्लीज Add Panel Interest",
+        "I_Msg1":"कृपया व्याजदर प्रविष्ट करा",
+        "I_Msg3":"प्लीज Add Interest",
+        "I_Msg4_Am":"कृपया शुल्काची रक्कम प्रविष्ट करा",
+        "I_Msg5_Ran":"कृपया श्रेणीमध्ये इनपुट करा",
+        "Date":"कृपया वैध तारीख घाला",
+        "Input_Limit_100":"कृपया १०० च्या खाली मूल्ये घाला",
+        "Update":"रेकॉर्ड यशस्वीरित्या अद्यतनित केले",
+        "Sure":"तुला खात्री आहे?",
+        "Group_Master":"तुम्हाला कंपनी ग्रुप मास्टर डेटा हटवायचा आहे.",
+        "bank_master":"तुम्हाला बँक मास्टर डेटा हटवायचा आहे का?",
+        "narration":"तुम्हाला कथन डेटा हटवायचा आहे.",
+        "Delete":"डीलीटेड",
+        "D_Msg":"तुमचा डेटा हटवला गेला आहे",
+        "Cancel":"Cancelled",
+        "C_Msg":"तुमचा डेटा सुरक्षित आहे.",
+        "From_Months":"महिन्यापासून ते महिन्यांपेक्षा कमी असावे",
+        "W_Msg3_r":"From रेंज Should Be Less Than To Range",
+        "W_Msg3_Y":"कृपया वैध वर्ष प्रविष्ट करा",
+        "Invalid_Year":"अवैध वर्ष",
+        "Diff_Num":"भिन्न सदस्य निवडा",
+        "div_per":"कृपया २५ पर्यंत लाभांश टक्केवारी प्रविष्ट करा",
+        "Bonus_per":"कृपया 99 पर्यंत बोनस टक्केवारी इनपुट करा",
+        "div_al":"लाभांश आधीच पोस्ट केला आहे",
+        "div_al_overwrite":"लाभांश आधीच प्रक्रिया केलेला आहे. तुम्हाला अधिलिखित करायचे आहे का?",
+        "val_25":"कृपया 25 च्या खाली मूल्ये घाला",
+        "val_99":"कृपया 99 च्या खाली मूल्ये घाला",
+        "del_scheme":"तुम्हाला स्कीम कोड हटवायचा आहे. डेटा",
+        "pro_can":"प्रक्रिया रद्द केली!",
+        "Pro":"प्रक्रिया केली!!",
+        "pass_data":"तुम्हाला डेटावर प्रक्रिया करायची आहे",
+        "del_warrant":"तुम्हाला वॉरंटची तारीख हटवायची आहे.",
+        "data":"डेटा",
+        "no_re":"कोणतेही रेकॉर्ड आढळले नाही!",
+        "Oops":"ओपस!",
+        "No_Update":"अपडेट करण्यासाठी कोणताही डेटा नाही!",
+        "rej_succ":"डेडस्टॉक घसारा यशस्वीरित्या नाकारला",
+        "app_succ":"डेडस्टॉक घसारा यशस्वीरित्या मंजूर झाला",
+        "No_rej":"नाकारण्यासाठी कोणताही डेटा नाही!",
+        "No_App":"मंजूर करण्यासाठी कोणताही डेटा नाही!",
+        "Mandatory_Field":" कृपया सर्व अनिवार्य फील्ड भरा!",
+        "E_S_Date":"समाप्ती तारीख प्रारंभ तारखेपेक्षा मोठी/समतुल्य असणे आवश्यक आहे",
+        "n_records":"कोणतेही रेकॉर्ड आढळले नाही",
+        "Transferd":"हस्तांतरित!",
+        "cash_transfered":"तुमची रोख हस्तांतरित केली गेली आहे.",
+        "Safe_Vault":"तुम्हाला सेफ व्हॉल्टमध्ये रोख हस्तांतरित केले जाणार नाही!",
+        "Correct_Amount":"कृपया योग्य रक्कम घाला",
+        "Correct_Quantity":"प्लीज insert Correct Quantity",
+        "Select_Scheme":"कृपया योजना निवडा!",
+        "Select_Account":"कृपया खाते निवडा!",
+        "Select_Debit_Credit":"कृपया डेबिट किंवा क्रेडिट निवडा!",
+        "Insert_Amount":"कृपया रक्कम घाला!",
+        "T_de_cr_am":"एकूण डेबिट रक्कम एकूण क्रेडिट रकमेशी जुळत नाही",
+        "Data_Added":"डेटा यशस्वीपणे ॲड झाला आहे !",
+        "Data_Un_S":"डेटा यशस्वीरित्या मंजूर नाही!!",
+        "Acc_Already_E":"हे खाते आधीपासून अस्तित्वात आहे!",
+        "Data_App":"डेटा यशस्वीरित्या मंजूर झाला!!",
+        "Data_Rej":"डेटा यशस्वीरित्या नाकारला!!",
+        "acc_closed":"निवडलेले खाते बंद आहे!",
+        "acc_0_bal":"निवडलेल्या खात्यात शून्य शिल्लक आहे!",
+        "T_am_equal_less":" हस्तांतरण रक्कम समान किंवा कमी असावी",
+        "Res_Date":"कृपया ठरावाची तारीख घाला!",
+        "res_number":"कृपया ठराव क्रमांक प्रविष्ट करा!",
+        "t_amount":"कृपया हस्तांतरण रक्कम तपासा!",
+        "Data_Sub_S":"डेटा यशस्वीरित्या सबमिट केला !!",
+        "Pro_Trans_Am":"कृपया योग्य हस्तांतरण रक्कम घाला!",
+        "Data_Up_Suc":"डेटा यशस्वीरीत्या अपडेट झाला!!",
+        "Enter_Reason":"कृपया कारण प्रविष्ट करा!",
+        "Actual_Transfer_Amount":"कृपया वास्तविक हस्तांतरण रक्कम प्रविष्ट करा!",
+        "Insert_RES":" कृपया ठराव क्रमांक घाला!",
+        "Insert_RES_Date":"कृपया ठरावाची तारीख घाला!",
+        "S_Member_No":"कृपया सदस्य क्रमांक निवडा!",
+        "Insert__Member_No":"कृपया सदस्य क्रमांक घाला!",
+        "Scheme_Code":"कृपया योजना कोड निवडा!",
+        "Branch_Code":"कृपया शाखा कोड निवडा!",
+        "amount_less_equal":"वास्तविक हस्तांतरण रक्कम कमी किंवा समान असणे आवश्यक आहे",
+        "acc_cannot_same":"हस्तांतरण खाते समान असू शकत नाही",
+        "Overdraft":"ओव्हरड्राफ्ट दिले त्यामुळे खाते बंद करता येत नाही",
+        "Freezed_account":"Freezed account so खाते cannot close",
+        "account_cannot_close":"खाते आधीच बंद आहे त्यामुळे खाते बंद होऊ शकत नाही",
+        "passing_pending":"खाते आधीच बंद आहे पण पासिंग प्रलंबित आहे",
+        "Balance_is_insufficient":"शिल्लक अपुरी आहे म्हणून खाते बंद करू शकत नाही",
+        "Select_Acoount":"Please Select Acoount!",
+        "Already_Exists":"हे खाते आधीच अस्तित्वात आहे!",
+        "Amount_less_same":"रक्कम पेक्षा कमी किंवा समान असणे आवश्यक आहे",
+        "check_Transfer":"सोबत हस्तांतरण रक्कम तपासा",
+        "Closing_Balance":"रक्कम बंद शिल्लक पेक्षा जास्त आहे",
+        "Clo_Acc_Tra_Acc":"खाते बंद करणे आणि खाते हस्तांतरित करणे समान असू शकत नाही",
+        "Net_Tras_Am":"कृपया निव्वळ देय रक्कम आणि हस्तांतरण रक्कम तपासा!",
+        "Acc_Closing_Up":"खाते बंद करणे यशस्वीरित्या अद्यतनित केले!",
+        "S_P_Acc_rejected":"बचत आणि पिग्मी खाते बंद करणे यशस्वीरित्या नाकारले",
+        "Rejected":"Rejected",
+        "S_P_Acc_approved":"बचत आणि पिग्मी खाते बंद करणे यशस्वीरित्या मंजूर झाले",
+        "Approved":"Approved",
+        "Unapproved":"Unapproved",
+        "Acc_unapproved":"खाते यशस्वीरित्या मंजूर नाही"
+        
+    },
+    "Menu":{
+        "Master":"मास्टर"
     }
+    
+    
+   
 }

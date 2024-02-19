@@ -243,7 +243,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
 
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -264,7 +264,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         'FieldData': this.multiField,
       }
       this.schemeTypeChargesService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -277,8 +277,8 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     }
     else {
       Swal.fire(
-        'Warning',
-        'Please Input Slab Details ',
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Slab_Details')}`,
         'warning'
       )
     }
@@ -324,7 +324,7 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.schemeTypeChargesService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -339,8 +339,8 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Company Group Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Group_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -351,8 +351,8 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         this.schemeTypeChargesService.deleteData(id).subscribe(data1 => {
           this.schemeTypeChargesRate = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -364,8 +364,8 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -423,12 +423,12 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     let camount = (document.getElementById("CHARGES_AMT") as HTMLInputElement).value;
     if (camount == "") {
       Swal.fire(
-        'Info',
-        'Please Input Charges Amount ',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.I_Msg4_Am')}`,
         'info')
     }
     if (trange == "") {
-      Swal.fire('Info', 'Please Input To Range', 'info')
+      Swal.fire( `${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg5_Ran')}`, 'info')
     }
 
 
@@ -500,8 +500,8 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'From Range Should Be Less Than To Range',
+          `${this.translate.instant('Swal_Msg.Warning')}`,
+          `${this.translate.instant('Swal_Msg.W_Msg3_r')}`,
           'warning'
         );
         (document.getElementById("TO_RANGE") as HTMLInputElement).value = ""

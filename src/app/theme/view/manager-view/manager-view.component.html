@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Manager view</h5>
+                <h5>{{'View.Action.T4' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'View.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'View.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'View.Action.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="Branch">
+                                        placeholder="{{'View.Action.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -28,11 +28,11 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="SYSPARADATE">As on Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="SYSPARADATE">{{'View.Action.As_on_Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="row ">
                         <div class="col-sm-12 col-md-12">
-                            <h1><span style="font-size: 18px; color:#1742ef; ">Transaction Details</span></h1>
+                            <h1><span style="font-size: 18px; color:#1742ef; ">{{'View.Action.Transaction_Details' | translate}}</span></h1>
 
                             <div class="row">
 
@@ -59,7 +59,7 @@
                                         <div class="card-footer bg-c-green">
                                             <div class="row align-items-left">
                                                 <div class="col-12">
-                                                    <i class="fa fa-money text-white f-16"> Cash</i>
+                                                    <i class="fa fa-money text-white f-16"> {{'View.Action.Cash' | translate}}</i>
                                                 </div>
 
                                             </div>
@@ -70,14 +70,14 @@
                                                 <div class="col-md-6">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.totalCashCredit}}</p>
-                                                    <h5 class="text-c-purple">Credit <i
+                                                    <h5 class="text-c-purple"> {{'View.Action.Credit' | translate}}<i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <p class="text-c-black">&#8377; {{mangerViewDetails.totalCashDebit}}
                                                     </p>
-                                                    <h5 class="text-c-purple">Debit <i
+                                                    <h5 class="text-c-purple"> {{'View.Action.Debit' | translate}} <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
                                                 </div>
@@ -92,7 +92,7 @@
                                         <div class="card-footer bg-c-red">
                                             <div class="row align-items-left">
                                                 <div class="col-12">
-                                                    <i class="fa fa-exchange text-white f-16"> Transfer</i>
+                                                    <i class="fa fa-exchange text-white f-16">  {{'View.Action.Transfer' | translate}}</i>
 
                                                 </div>
 
@@ -104,14 +104,14 @@
                                                 <div class="col-md-6">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.totalTransferCredit}}</p>
-                                                    <h5 class="text-c-purple">Credit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Credit' | translate}} <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.totalTransferDebit}}</p>
-                                                    <h5 class="text-c-purple">Debit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Debit' | translate}} <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
                                                 </div>
@@ -126,7 +126,7 @@
                                         <div class="card-footer bg-c-blue">
                                             <div class="row align-items-left">
                                                 <div class="col-12">
-                                                    <i class="fa fa-square text-white f-16"> Total</i>
+                                                    <i class="fa fa-square text-white f-16"> {{'View.Action.Total' | translate}}</i>
 
                                                 </div>
 
@@ -138,13 +138,13 @@
                                                 <div class="col-md-6">
                                                     <p class="text-c-black">&#8377; {{mangerViewDetails.totalCredit}}
                                                     </p>
-                                                    <h5 class="text-c-purple">Credit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Credit' | translate}} <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <p class="text-c-black">&#8377; {{mangerViewDetails.totalDebit}}</p>
-                                                    <h5 class="text-c-purple">Debit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Debit' | translate}}<i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
                                                 </div>
@@ -163,8 +163,7 @@
                                         <div class="card-footer bg-c-purple">
                                             <div class="row align-items-left">
                                                 <div class="col-12">
-                                                    <i class="fa fa-folder-open-o text-white f-16"> Cash Opening
-                                                        Balance</i>
+                                                    <i class="fa fa-folder-open-o text-white f-16"> {{'View.Action.Cash_Opening_Balance' | translate}}</i>
                                                     <!-- <p class="text-white m-b-0">Cash</p> -->
                                                 </div>
 
@@ -176,14 +175,14 @@
                                                 <div class="col-md-6">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.OPENING_BALANCECR}}</p>
-                                                    <h5 class="text-c-purple">Credit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Credit' | translate}} <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.OPENING_BALANCEDR}}</p>
-                                                    <h5 class="text-c-purple">Debit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Debit' | translate}}<i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
                                                 </div>
@@ -198,7 +197,7 @@
                                         <div class="card-footer bg-c-red">
                                             <div class="row align-items-left">
                                                 <div class="col-12">
-                                                    <i class="fa fa-folder-o text-white f-16"> Cash CLosing Balance</i>
+                                                    <i class="fa fa-folder-o text-white f-16">  {{'View.Action.Cash_CLosing_Balance' | translate}}</i>
                                                 </div>
                                             </div>
                                         </div>
@@ -207,13 +206,13 @@
                                                 <div class="col-md-6">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.CLOSING_BALANCECR}}</p>
-                                                    <h5 class="text-c-purple">Credit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Credit' | translate}} <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.CLOSING_BALANCECR}}</p>
-                                                    <h5 class="text-c-purple">Debit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Debit' | translate}} <i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
                                                 </div>
@@ -228,7 +227,7 @@
                                         <div class="card-footer bg-c-blue">
                                             <div class="row align-items-left">
                                                 <div class="col-9">
-                                                    <i class="fa fa-square text-white f-16"> Total</i>
+                                                    <i class="fa fa-square text-white f-16"> {{'View.Action.Total' | translate}}</i>
 
                                                 </div>
 
@@ -240,14 +239,14 @@
                                                 <div class="col-md-6">
                                                     <p class="text-c-black">&#8377; {{mangerViewDetails.TOTALLEDGERCR }}
                                                     </p>
-                                                    <h5 class="text-c-purple">Credit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Credit' | translate}} <i
                                                             class="fa fa-caret-up text-c-green m-r-10"></i></h5>
 
                                                 </div>
                                                 <div class="col-md-6 ">
                                                     <p class="text-c-black">&#8377;
                                                         {{mangerViewDetails.OPENING_BALANCEDR}}</p>
-                                                    <h5 class="text-c-purple">Debit <i
+                                                    <h5 class="text-c-purple">{{'View.Action.Debit' | translate}}<i
                                                             class="fa fa-caret-down text-c-red m-r-10"></i></h5>
 
                                                 </div>
@@ -283,7 +282,7 @@
                                                                                 <tr>
                                                                                     <td
                                                                                         *ngFor="let data of retrivedata">
-                                                                                        <pre> Name : {{data.name}} <br> Cashier Code : {{data.CASHIER_CODE}} <br> 2000 X {{data.DENO_2000}} = <br> 1000 X {{data.DENO_1000}} <br> 500 X {{data.DENO_500}} <br> 200 X {{data.DENO_200}} <br> 100 X {{data.DENO_100}} <br> 50 X {{data.DENO_50}} <br> 20 X {{data.DENO_20}} <br> 10 X {{data.DENO_10}} <br> 5 X {{data.DENO_5}} <br> 2 X {{data.DENO_2}} <br> 1 X {{data.DENO_1}} <br> Coins X {{data.DENO_COINS_CASH}} <br> TOTAL = {{data.TOTAL_AMOUNT}} </pre>
+                                                                                        <pre> {{'View.Action.Name' | translate}} : {{data.name}} <br> Cashier Code : {{data.CASHIER_CODE}} <br> 2000 X {{data.DENO_2000}} = <br> 1000 X {{data.DENO_1000}} <br> 500 X {{data.DENO_500}} <br> 200 X {{data.DENO_200}} <br> 100 X {{data.DENO_100}} <br> 50 X {{data.DENO_50}} <br> 20 X {{data.DENO_20}} <br> 10 X {{data.DENO_10}} <br> 5 X {{data.DENO_5}} <br> 2 X {{data.DENO_2}} <br> 1 X {{data.DENO_1}} <br> Coins X {{data.DENO_COINS_CASH}} <br> TOTAL = {{data.TOTAL_AMOUNT}} </pre>
 
                                                                                     </td>
                                                                                 </tr>
@@ -357,7 +356,7 @@
                             <div class="row">
                                 <!-- <div class="sub-title">Default</div> -->
                                 <div class="col-md-12" style="text-align: center;">
-                                    <label style="font-size:20px;color: black;">Pending Details</label>
+                                    <label style="font-size:20px;color: black;">{{'View.Action.Pending_Details' | translate}}</label>
                                 </div>
 
                             </div>
@@ -365,32 +364,32 @@
                                 <button type="button" class="btn btn-primary btn-sm" *ngIf="allpdetails"
                                     (click)="AllPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
                                         class="fa fa-globe" aria-hidden="true"></i>
-                                    All</button>
+                                        {{'View.Action.All' | translate}}</button>
 
                                 <button type="button" class="btn btn-success btn-sm" *ngIf="cashpd"
                                     (click)="CashPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
                                         class="fa fa-money" aria-hidden="true"></i>
-                                    Cash</button>
+                                        {{'View.Action.Cash' | translate}}</button>
 
                                 <button type="button" class="btn btn-info btn-sm" *ngIf="transferpd"
                                     (click)="TransferPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
                                         class="fa fa-exchange" aria-hidden="true"></i>
-                                    Transfer</button>
+                                        {{'View.Action.Transfer' | translate}}</button>
 
                                 <button type="button" class="btn btn-primary btn-sm" *ngIf="rejectpd"
                                     (click)="RejectedPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
                                         class="fa fa-times-circle-o" aria-hidden="true"></i>
-                                    Rejected</button>
+                                        {{'View.Action.Rejected' | translate}}</button>
 
                                 <button type="button" class="btn btn-danger btn-sm" *ngIf="dayscrollpd"
                                     (click)="DayScrollPendingDetails();modalLarge.show()"><i class="fa fa-sun-o"
                                         aria-hidden="true"></i>
-                                    Day Scroll</button>
+                                        {{'View.Action.Day_Scroll' | translate}}</button>
                             </div>
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
-                                    <label>CD Ratio</label>
+                                    <label> {{'View.Action.CD_Ratio' | translate}}</label>
                                 </div>
                                 <div class="col-md-4">
 
@@ -413,7 +412,7 @@
                             <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
-                                    <label>Working Capital </label>
+                                    <label> {{'View.Action.Working_Capital' | translate}} </label>
                                 </div>
                                 <div class="col-md-4">
 
@@ -439,38 +438,38 @@
                                                                         (click)="view('userw')">
                                                                         <i class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        User's Work</button>
+                                                                            {{'View.Action.User_Work' | translate}}</button>
                                                                     <button type="button" id="userL"
                                                                         class="btn btn-success btn-sm"
                                                                         (click)="view('userL')">
                                                                         <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                                                        Users Login</button>
+                                                                        {{'View.Action.Users_Login' | translate}}</button>
                                                                     <button type="button" class="btn btn-info btn-sm"
                                                                         (click)="view('userCash')">
                                                                         <i class="fa fa-money" aria-hidden="true"></i>
-                                                                        User's Cash</button>
+                                                                        {{'View.Action.Users_Cash' | translate}}</button>
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('delayWork')">
                                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                                        Delay Works</button>
+                                                                        {{'View.Action.Delay_Works' | translate}}</button>
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         (click)="view('schemeLog')">
                                                                         <i class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        Scheme Log</button>
+                                                                            {{'View.Action.Scheme_Log' | translate}}</button>
                                                                     <button type="button" class="btn btn-info btn-sm"
                                                                         (click)="view('glPosDetail')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
-                                                                        GL Pos. Detail</button>
+                                                                            {{'View.Action.GL_Pos_Detail' | translate}}</button>
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('Nearest')">
                                                                         <i class="fa fa-lock" aria-hidden="true"></i>
-                                                                        Nearest Secu</button>
+                                                                        {{'View.Action.Nearest_Secu' | translate}}</button>
                                                                     <button type="button" class="btn btn-success btn-sm"
                                                                         (click)="view('Incompletion')">
                                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                                        Incompletion</button>
+                                                                        {{'View.Action.Incompletion' | translate}}</button>
                                                                 </div>
 
                                                             </div>
@@ -487,32 +486,32 @@
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('rateOfMargin')"><i
                                                                             class="fa fa-building-o"
-                                                                            aria-hidden="true"></i>Rate of
-                                                                        Margin</button>
+                                                                            aria-hidden="true"></i>
+                                                                            {{'View.Action.Rate_of_Margin' | translate}}</button>
                                                                     <button type="button" class="btn btn-success btn-sm"
                                                                         (click)="view('loanAnalysis')"><i
                                                                             class="fa fa-sign-in"
-                                                                            aria-hidden="true"></i>Loan
-                                                                        Analysis</button>
+                                                                            aria-hidden="true"></i>{{'View.Action.Loan_Analysis' | translate}}
+                                                                        </button>
                                                                     <button type="button" class="btn btn-info btn-sm"
                                                                         (click)="view('ratioAnalysis')"><i
                                                                             class="fa fa-money"
-                                                                            aria-hidden="true"></i>Ratio
-                                                                        Analysis</button>
+                                                                            aria-hidden="true"></i>{{'View.Action.Ratio_Analysis' | translate}}
+                                                                    </button>
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('dailyLiquidity')"><i
                                                                             class="fa fa-sun-o" aria-hidden="true"></i>
-                                                                        Daily Liquidity</button>
+                                                                            {{'View.Action.Daily_Liquidity' | translate}}</button>
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         (click)="view('remindMe')"><i
                                                                             class="fa fa-clock-o"
-                                                                            aria-hidden="true"></i>Remind Me
+                                                                            aria-hidden="true"></i> {{'View.Action.Remind_Me' | translate}}
                                                                         !</button>
                                                                     <button type="button" class="btn btn-inverse btn-sm"
                                                                         (click)="view('npaAnalysis')"><i
                                                                             class="fa fa-line-chart"
                                                                             aria-hidden="true"></i>
-                                                                        NPA Analysis</button>
+                                                                        {{'View.Action.NPA_Analysis' | translate}}</button>
                                                                 </div>
 
                                                             </div>
@@ -529,29 +528,29 @@
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('overDue')"><i class="fa fa-opera"
                                                                             aria-hidden="true"></i>
-                                                                        Overdue</button>
+                                                                            {{'View.Action.Overdue' | translate}}</button>
                                                                     <button type="button" class="btn btn-success btn-sm"
                                                                         (click)="view('maturedTdLn')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        Matured TD/LN</button>
+                                                                            {{'View.Action.Matured_TD_LN' | translate}}</button>
                                                                     <button type="button" class="btn btn-info btn-sm"
                                                                         (click)="view('insuranceDue')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
-                                                                        Insurance Due</button>
+                                                                            {{'View.Action.Insurance_Due' | translate}}</button>
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         (click)="view('Expenses')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
-                                                                        Expenses</button>
+                                                                            {{'View.Action.Expenses' | translate}}</button>
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('excessCash')"><i
                                                                             class="fa fa-sun-o" aria-hidden="true"></i>
-                                                                        Excess Cash</button>
+                                                                            {{'View.Action.Excess_Cash' | translate}}</button>
                                                                     <button type="button" class="btn btn-inverse btn-sm"
                                                                         (click)="view('fdPayment')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
-                                                                        FD Payment</button>
+                                                                            {{'View.Action.FD_Payment' | translate}}</button>
                                                                 </div>
 
                                                             </div>
@@ -568,38 +567,35 @@
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('drBalance')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
-                                                                        Dr.Balances</button>
+                                                                            {{'View.Action.Dr_Balances' | translate}}</button>
                                                                     <button type="button" class="btn btn-success btn-sm"
                                                                         (click)="view('crBalance')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        Cr.Balances</button>
+                                                                            {{'View.Action.Cr_Balances' | translate}}</button>
                                                                     <button type="button" class="btn btn-info btn-sm"
                                                                         (click)="view('zeroBalance')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
-                                                                        Zero
-                                                                        Balance</button>
+                                                                            {{'View.Action.Zero_Balance' | translate}}</button>
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('ccOverdraft')"><i
                                                                             class="fa fa-opera" aria-hidden="true"></i>
-                                                                        CC
-                                                                        Overdraft</button>
+                                                                            {{'View.Action.CC_Overdraft' | translate}}</button>
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         (click)="view('overDraft')"><i
                                                                             class="fa fa-money" aria-hidden="true"></i>
-                                                                        Overdraft(OD)</button>
+                                                                            {{'View.Action.Overdraft' | translate}}</button>
                                                                     <button type="button" class="btn btn-inverse btn-sm"
                                                                         (click)="view('consistancy')"><i
                                                                             class="fa fa-building-o"
                                                                             aria-hidden="true"></i>
-                                                                        Consistency</button>
+                                                                            {{'View.Action.Consistency' | translate}}</button>
                                                                     <button type="button" class="btn btn-primary btn-sm"
                                                                         (click)="view('highRecPay')"><i
                                                                             class="fa fa-sign-in"
                                                                             aria-hidden="true"></i>
-                                                                        Hight
-                                                                        Rec Pay</button>
+                                                                            {{'View.Action.Hight_Rec_Pay' | translate}}</button>
                                                                 </div>
 
                                                             </div>
@@ -612,7 +608,7 @@
                                             <div class="col-md-10"></div>
                                             <div class="col-md-2">
                                                 <button class="btn btn-outline-primary btn-sm"
-                                                    (click)="close()">Close</button>
+                                                    (click)="close()"> {{'View.Action.Close' | translate}}</button>
                                             </div>
                                         </div>
 
@@ -625,7 +621,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5> {{'View.Action.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe1 [url]='iframe1url'></app-iframe1>
@@ -641,7 +637,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">View</h4>
+        <h4 class="modal-title"> {{'View.Action.View' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -651,7 +647,7 @@
             <div *ngIf="showAllPendingDetails">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h5>All Entries</h5>
+                        <h5>{{'View.Action.All_Entries' | translate}}</h5>
                     </div>
                     <div class="col-sm">
                         <span></span>
@@ -662,25 +658,25 @@
                         <div class="table-responsive fixTableHead">
                             <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
-                                    <td>Record Number</td>
-                                    <td class="td_center">Time</td>
-                                    <td>Scheme</td>
-                                    <td class="td_right">Account Number</td>
-                                    <td>Name</td>
-                                    <td>Transaction Source Type</td>
-                                    <td>Type</td>
-                                    <td>Debit/Credit</td>
-                                    <td>Amount</td>
-                                    <td>Interest Amount</td>
-                                    <td>Receivable /Payable Interest</td>
-                                    <td>Receivable Overdue Interest</td>
-                                    <td>Penal Interest</td>
-                                    <td>Receivable Penal</td>
-                                    <td class="td_right">Other Amount</td>
-                                    <td>Added Penal</td>
-                                    <td>Dividend Amount</td>
-                                    <td>Status</td>
-                                    <td>User</td>
+                                    <td>{{'View.Action.Record_Number' | translate}}</td>
+                                    <td class="td_center">{{'View.Action.Time' | translate}}</td>
+                                    <td>{{'View.Action.Scheme' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Account_Number' | translate}}</td>
+                                    <td>{{'View.Action.Name' | translate}}</td>
+                                    <td>{{'View.Action.Transaction_Source_Type' | translate}}</td>
+                                    <td>{{'View.Action.Type' | translate}}</td>
+                                    <td>{{'View.Action.Debit_Credit' | translate}}</td>
+                                    <td>{{'View.Action.Interest_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Interest_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Payable_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Overdue_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Penal_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Penal' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Other_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Added_Penal' | translate}}</td>
+                                    <td>{{'View.Action.Dividend_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Status' | translate}}</td>
+                                    <td>{{'View.Action.User' | translate}}</td>
                                 </thead>
                                 <tbody *ngIf="mangerViewDetails.allTable?.length != 0">
                                     <tr *ngFor="let data of mangerViewDetails.allTable;
@@ -692,12 +688,12 @@
                                         <td>{{data.AC_NAME}}</td>
                                         <td>{{data.TRAN_SOURCE_TYPE==null?'---':data.TRAN_SOURCE_TYPE}}
                                         </td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CS'">Cash</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'TR'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'JV'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'IS'">Issue</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CN'">Cancel</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CL'">Clearing Voucher
+                                        <td *ngIf="data.TRAN_TYPE== 'CS'">{{'View.Action.Cash' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'TR'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'JV'"> {{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'IS'"> {{'View.Action.Issue' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CN'"> {{'View.Action.Cancel' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CL'"> {{'View.Action.Clearing_Voucher' | translate}}
                                         </td>
                                         <td>{{data.TRAN_DRCR=='C'?'Credit':'Debit'}}</td>
                                         <td>{{data.TRAN_AMOUNT== null
@@ -736,7 +732,7 @@
                                 <tbody *ngIf="mangerViewDetails.allTable?.length == 0">
                                     <tr>
                                         <td colspan="10" class="no-data-available" style="text-align: center;">
-                                            No data!
+                                            {{'View.Action.No_Data' | translate}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -749,7 +745,7 @@
                 <div class="row"
                     *ngIf="mangerViewDetails.allTable?.length != 0 && mangerViewDetails.allTable !=undefined">
                     <div class="col-sm-12">
-                        <h5>Scroll book</h5>
+                        <h5>{{'View.Action.Scroll_book' | translate}}</h5>
                     </div>
                     <div class="col-sm">
                         <span></span>
@@ -760,47 +756,47 @@
                         <div class="table-responsive fixTableHead">
                             <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
-                                    <td class="td_right">Record no</td>
-                                    <td class="td_center">Time</td>
-                                    <td class="td_left">Type</td>
-                                    <td class="td_right">Scheme</td>
-                                    <td class="td_right">Account no</td>
-                                    <td class="td_left">Name</td>
-                                    <td class="td_right">Amount</td>
-                                    <td>DR/CR</td>
-                                    <td>Bank</td>
-                                    <td class="td_left">Narration</td>
-                                    <td class="td_right">Token no</td>
-                                    <td class="td_left">User</td>
+                                    <td class="td_right">{{'View.Action.Record_no' | translate}}</td>
+                                    <td class="td_center">{{'View.Action.Time' | translate}}</td>
+                                    <td class="td_left">{{'View.Action.Type' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Scheme' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Account_no' | translate}}</td>
+                                    <td class="td_left">{{'View.Action.Name' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Amount' | translate}}</td>
+                                    <td>{{'View.Action.DR_CR' | translate}}</td>
+                                    <td>{{'View.Action.Bank' | translate}}</td>
+                                    <td class="td_left">{{'View.Action.Narration' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Token_no' | translate}}</td>
+                                    <td class="td_left">{{'View.Action.User' | translate}}</td>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td class="td_right">1</td>
                                         <td class="td_right">01:00:00</td>
-                                        <td class="td_left">Cash</td>
+                                        <td class="td_left">{{'View.Action.Cash' | translate}}</td>
                                         <td class="td_right">10100</td>
                                         <td class="td_right">587</td>
                                         <td>Shinde Ashok Pandurang</td>
                                         <td class="td_right">1000</td>
-                                        <td class="td_left">Credit</td>
+                                        <td class="td_left">{{'View.Action.Credit' | translate}}</td>
                                         <td></td>
-                                        <td class="td_left">By Cash</td>
+                                        <td class="td_left">{{'View.Action.By_Cash' | translate}}</td>
                                         <td></td>
-                                        <td class="td_left">MBP</td>
+                                        <td class="td_left">{{'View.Action.MBP' | translate}}</td>
                                     </tr>
                                     <tr>
                                         <td class="td_right">2</td>
                                         <td class="td_right">05:18:00</td>
-                                        <td class="td_left">Cash</td>
+                                        <td class="td_left">{{'View.Action.Cash' | translate}}</td>
                                         <td class="td_right">10100</td>
                                         <td class="td_right">541</td>
-                                        <td class="td_left">Kale Ranjit Digamber</td>
+                                        <td class="td_left">{{'View.Action.Kale_Ranjit_Digamber' | translate}}</td>
                                         <td class="td_right">2000</td>
-                                        <td class="td_left">Debit</td>
+                                        <td class="td_left">{{'View.Action.Debit' | translate}}</td>
                                         <td></td>
-                                        <td class="td_left">To Transfer</td>
+                                        <td class="td_left">{{'View.Action.To_Transfer' | translate}}</td>
                                         <td class="td_right">568</td>
-                                        <td class="td_left">CCP</td>
+                                        <td class="td_left">{{'View.Action.CCP' | translate}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -812,7 +808,7 @@
                 <div class="row"
                     *ngIf="mangerViewDetails.rejectTable?.length != 0 && mangerViewDetails.rejectTable !=undefined">
                     <div class="col-sm-12">
-                        <h5>Rejected Entries</h5>
+                        <h5>{{'View.Action.Rejected_Entries' | translate}}</h5>
                     </div>
                     <div class="col-sm">
                         <span></span>
@@ -824,25 +820,25 @@
                             <table class="table table-striped table-bordered table-hover compact"
                                 *ngIf="mangerViewDetails.rejectTable?.length != 0">
                                 <thead>
-                                    <td>Record Number</td>
-                                    <td class="td_center">Time</td>
-                                    <td>Scheme</td>
+                                    <td>{{'View.Action.Record_Number' | translate}}</td>
+                                    <td class="td_center">{{'View.Action.Time' | translate}}</td>
+                                    <td>{{'View.Action.Scheme' | translate}}</td>
                                     <td class="td_right">Account Number</td>
-                                    <td>Name</td>
-                                    <td>Transaction Source Type</td>
-                                    <td>Type</td>
-                                    <td>Debit/Credit</td>
-                                    <td>Amount</td>
-                                    <td>Interest Amount</td>
-                                    <td>Receivable /Payable Interest</td>
-                                    <td>Receivable Overdue Interest</td>
-                                    <td>Penal Interest</td>
-                                    <td>Receivable Penal</td>
-                                    <td class="td_right">Other Amount</td>
-                                    <td>Added Penal</td>
-                                    <td>Dividend Amount</td>
-                                    <td>Status</td>
-                                    <td>User</td>
+                                    <td>{{'View.Action.Name' | translate}}</td>
+                                    <td>{{'View.Action.Transaction_Source_Type' | translate}}</td>
+                                    <td>{{'View.Action.Type' | translate}}</td>
+                                    <td>{{'View.Action.Debit_Credit' | translate}}</td>
+                                    <td>{{'View.Action.Amount' | translate}}</td>
+                                    <td>{{'View.Action.Interest_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Payable_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Overdue_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Penal_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Penal' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Other_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Added_Penal' | translate}}</td>
+                                    <td>{{'View.Action.Dividend_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Status' | translate}}</td>
+                                    <td>{{'View.Action.User' | translate}}</td>
                                 </thead>
                                 <tbody *ngIf="mangerViewDetails.rejectTable?.length != 0">
                                     <tr *ngFor="let data of mangerViewDetails.rejectTable;
@@ -854,12 +850,12 @@
                                         <td>{{data.AC_NAME}}</td>
                                         <td>{{data.TRAN_SOURCE_TYPE==null?'---':data.TRAN_SOURCE_TYPE}}
                                         </td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CS'">Cash</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'TR'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'JV'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'IS'">Issue</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CN'">Cancel</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CL'">Clearing Voucher
+                                        <td *ngIf="data.TRAN_TYPE== 'CS'">{{'View.Action.Cash' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'TR'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'JV'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'IS'"> {{'View.Action.Issue' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CN'">{{'View.Action.Cancel' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CL'">{{'View.Action.Clearing_Voucher' | translate}}
                                         </td>
                                         <td>{{data.TRAN_DRCR=='C'?'Credit':'Debit'}}</td>
                                         <td>{{data.TRAN_AMOUNT == null ?
@@ -898,7 +894,7 @@
                                 <tbody *ngIf="mangerViewDetails.rejectTable?.length == 0">
                                     <tr>
                                         <td colspan="10" class="no-data-available" style="text-align: center;">
-                                            No data!
+                                            {{'View.Action.No_Data' | translate}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -911,7 +907,7 @@
                 <div class="row">
                     <!-- *ngIf="mangerViewDetails.transferTable?.length != 0 && mangerViewDetails.transferTable !=undefined" -->
                     <div class="col-sm-12">
-                        <h5>Transfer Entries</h5>
+                        <h5>{{'View.Action.Transfer_Entries' | translate}}</h5>
                     </div>
                     <div class="col-sm">
                         <span></span>
@@ -922,25 +918,25 @@
                         <div class="table-responsive fixTableHead">
                             <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
-                                    <td>Record Number</td>
-                                    <td class="td_center">Time</td>
-                                    <td>Scheme</td>
-                                    <td class="td_right">Account Number</td>
-                                    <td>Name</td>
-                                    <td>Transaction Source Type</td>
-                                    <td>Type</td>
-                                    <td>Debit/Credit</td>
-                                    <td>Amount</td>
-                                    <td>Interest Amount</td>
-                                    <td>Receivable /Payable Interest</td>
-                                    <td>Receivable Overdue Interest</td>
-                                    <td>Penal Interest</td>
-                                    <td>Receivable Penal</td>
-                                    <td class="td_right">Other Amount</td>
-                                    <td>Added Penal</td>
-                                    <td>Dividend Amount</td>
-                                    <td>Status</td>
-                                    <td>User</td>
+                                    <td>{{'View.Action.Record_Number' | translate}}</td>
+                                    <td class="td_center">{{'View.Action.Time' | translate}}</td>
+                                    <td>{{'View.Action.Scheme' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Account_Number' | translate}}</td>
+                                    <td>{{'View.Action.Name' | translate}}</td>
+                                    <td>{{'View.Action.Transaction_Source_Type' | translate}}</td>
+                                    <td>{{'View.Action.Type' | translate}}</td>
+                                    <td>{{'View.Action.Debit_Credit' | translate}}</td>
+                                    <td>{{'View.Action.Amount' | translate}}</td>
+                                    <td>{{'View.Action.Interest_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Payable_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Overdue_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Penal_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Penal' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Other_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Added_Penal' | translate}}</td>
+                                    <td>{{'View.Action.Dividend_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Status' | translate}}</td>
+                                    <td>{{'View.Action.User' | translate}}</td>
                                 </thead>
                                 <tbody *ngIf="mangerViewDetails.transferTable?.length != 0">
                                     <tr *ngFor="let data of mangerViewDetails.transferTable;
@@ -952,12 +948,12 @@
                                         <td>{{data.AC_NAME}}</td>
                                         <td>{{data.TRAN_SOURCE_TYPE==null?'---':data.TRAN_SOURCE_TYPE}}
                                         </td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CS'">Cash</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'TR'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'JV'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'IS'">Issue</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CN'">Cancel</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CL'">Clearing Voucher
+                                        <td *ngIf="data.TRAN_TYPE== 'CS'">{{'View.Action.Cash' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'TR'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'JV'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'IS'"> {{'View.Action.Issue' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CN'">{{'View.Action.Cancel' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CL'">{{'View.Action.Clearing_Voucher' | translate}}
                                         </td>
                                         <td>{{data.TRAN_DRCR=='C'?'Credit':'Debit'}}</td>
                                         <td>{{data.TRAN_AMOUNT == null ?
@@ -996,7 +992,7 @@
                                 <tbody *ngIf="mangerViewDetails.transferTable?.length == 0">
                                     <tr>
                                         <td colspan="10" class="no-data-available" style="text-align: center;">
-                                            No data!
+                                            {{'View.Action.No_Data' | translate}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1008,7 +1004,7 @@
             <div *ngIf="showCashPendingDetails">
                 <div class="row">
                     <div class="col-sm-12">
-                        <h5>Cash Entries</h5>
+                        <h5>{{'View.Action.Cash_Entries' | translate}}</h5>
                     </div>
                     <div class="col-sm">
                         <span></span>
@@ -1019,25 +1015,25 @@
                         <div class="table-responsive fixTableHead">
                             <table class="table table-striped table-bordered table-hover compact">
                                 <thead>
-                                    <td>Record Number</td>
-                                    <td class="td_center">Time</td>
-                                    <td>Scheme</td>
-                                    <td class="td_right">Account Number</td>
-                                    <td>Name</td>
-                                    <td>Transaction Source Type</td>
-                                    <td>Type</td>
-                                    <td>Debit/Credit</td>
-                                    <td>Amount</td>
-                                    <td>Interest Amount</td>
-                                    <td>Receivable /Payable Interest</td>
-                                    <td>Receivable Overdue Interest</td>
-                                    <td>Penal Interest</td>
-                                    <td>Receivable Penal</td>
-                                    <td class="td_right">Other Amount</td>
-                                    <td>Added Penal</td>
-                                    <td>Dividend Amount</td>
-                                    <td>Status</td>
-                                    <td>User</td>
+                                    <td>{{'View.Action.Record_Number' | translate}}</td>
+                                    <td class="td_center">{{'View.Action.Time' | translate}}</td>
+                                    <td>{{'View.Action.Scheme' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Account_Number' | translate}}</td>
+                                    <td>{{'View.Action.Name' | translate}}</td>
+                                    <td>{{'View.Action.Transaction_Source_Type' | translate}}</td>
+                                    <td>{{'View.Action.Type' | translate}}</td>
+                                    <td>{{'View.Action.Debit_Credit' | translate}}/td>
+                                    <td>{{'View.Action.Amount' | translate}}</td>
+                                    <td>{{'View.Action.Interest_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Payable_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Overdue_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Penal_Interest' | translate}}</td>
+                                    <td>{{'View.Action.Receivable_Penal' | translate}}</td>
+                                    <td class="td_right">{{'View.Action.Other_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Added_Penal' | translate}}</td>
+                                    <td>{{'View.Action.Dividend_Amount' | translate}}</td>
+                                    <td>{{'View.Action.Status' | translate}}</td>
+                                    <td>{{'View.Action.User' | translate}}</td>
                                 </thead>
                                 <tbody *ngIf="mangerViewDetails.cashTable?.length != 0">
                                     <tr *ngFor="let data of mangerViewDetails.cashTable;
@@ -1049,12 +1045,12 @@
                                         <td>{{data.AC_NAME}}</td>
                                         <td>{{data.TRAN_SOURCE_TYPE==null?'---':data.TRAN_SOURCE_TYPE}}
                                         </td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CS'">Cash</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'TR'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'JV'">Transfer</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'IS'">Issue</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CN'">Cancel</td>
-                                        <td *ngIf="data.TRAN_TYPE== 'CL'">Clearing Voucher
+                                        <td *ngIf="data.TRAN_TYPE== 'CS'">{{'View.Action.Cash' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'TR'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'JV'">{{'View.Action.Transfer' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'IS'"> {{'View.Action.Issue' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CN'">{{'View.Action.Cancel' | translate}}</td>
+                                        <td *ngIf="data.TRAN_TYPE== 'CL'">{{'View.Action.Clearing_Voucher' | translate}}
                                         </td>
                                         <td>{{data.TRAN_DRCR=='C'?'Credit':'Debit'}}</td>
                                         <td>{{data.TRAN_AMOUNT == null ?
@@ -1093,7 +1089,7 @@
                                 <tbody *ngIf="mangerViewDetails.cashTable?.length == 0">
                                     <tr>
                                         <td colspan="10" class="no-data-available" style="text-align: center;">
-                                            No data!
+                                            {{'View.Action.No_Data' | translate}}
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1106,7 +1102,7 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide()">Close</button>
+            (click)="modalLarge.hide()"> {{'View.Action.Close' | translate}}</button>
     </div>
 
 </app-modal-basic>

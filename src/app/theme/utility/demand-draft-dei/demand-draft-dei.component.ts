@@ -3,6 +3,8 @@ import {FileUploader} from 'ng2-file-upload';
 import {IOption} from 'ng-select';
 import {Subscription} from 'rxjs/Subscription';
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -72,7 +74,9 @@ export class DemandDraftDEIComponent implements OnInit {
     {value: 'Samon', id: 33},
     {value: 'John Doe', id:  34}
   ];
-  constructor(public selectOptionService: SelectOptionService) { }
+  constructor(public selectOptionService: SelectOptionService ,  private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
  
 
@@ -81,28 +85,28 @@ export class DemandDraftDEIComponent implements OnInit {
       ajax: 'fake-data/datatable-data.json',
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-        title: 'Name',
+        title: this.translate.instant('utility.Action.Name'),
         data: 'name'
       }, {
-        title: 'Position',
+        title: this.translate.instant('utility.Action.Position'),
         data: 'position'
       }, {
-        title: 'Office',
+        title: this.translate.instant('utility.Action.Office'),
         data: 'office'
       }, {
-        title: 'Age',
+        title: this.translate.instant('utility.Action.Age'),
         data: 'age'
       }, {
-        title: 'Start Date',
+        title: this.translate.instant('utility.Action.Start_date'),
         data: 'date'
       }, {
-        title: 'Salary',
+        title: this.translate.instant('utility.Action.Salary'),
         data: 'salary'
       }],
       dom: "Blrtip",

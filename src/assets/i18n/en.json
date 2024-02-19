@@ -1,5 +1,6 @@
 {
     "master": {
+        "No_Data": " No data!",
         "Naration_Master": {
             "Narration": "Naration",
             "Title": "Naration Master",
@@ -96,7 +97,7 @@
             "Description": "Description"
         },
         "Court_Master": {
-            "Title": "Court_Master",
+            "Title": "Court Master",
             "Court_Code": "Court Code",
             "Description": "Description",
             "Submit": "Submit",
@@ -106,7 +107,7 @@
             "F2": "are mandatory"
         },
         "Advocate_Master": {
-            "Title": "Advocate_Master",
+            "Title": "Advocate Master",
             "Advocate_Code": "Advocate Code",
             "Description": "Description",
             "Submit": "Submit",
@@ -116,8 +117,8 @@
             "F2": "are mandatory"
         },
         "Industry_Master": {
-            "Title": "Industry_Master",
-            "Industry_Master": "Industry Code",
+            "Title": "Industry Master",
+            "Industry_Code": "Industry Code",
             "Description": "Description",
             "Submit": "Submit",
             "Update": "Update",
@@ -126,7 +127,7 @@
             "F2": "are mandatory"
         },
         "Weaker_Section_Master": {
-            "Title": "Weaker_Section_Master",
+            "Title": "Weaker Section Master",
             "Weaker_Section_Code": "Weaker Section Code",
             "Description": "Description",
             "Submit": "Submit",
@@ -136,7 +137,7 @@
             "F2": "are mandatory"
         },
         "Loan_Stage_Master": {
-            "Title": "Loan_Stage_Master",
+            "Title": "Loan Stage Master",
             "Loan_Stage_Code": "Loan Stage Code",
             "Description": "Description",
             "Submit": "Submit",
@@ -222,9 +223,9 @@
             "Default_Amount": "Default Amount"
         },
         "Report_type_Master": {
-            "Title": "Report_type_Master",
+            "Title": "Report type Master",
             "Report_type_Code": "Report type Code",
-            "Descaption": "Descaption",
+            "Description": "Description",
             "Submit": "Submit",
             "Update": "Update",
             "Cancel": "Cancel",
@@ -232,7 +233,7 @@
             "F2": "are mandatory"
         },
         "Item_Category_Master": {
-            "Title": "Item_Category_Master",
+            "Title": "Item Category Master",
             "code": "Item Category Code",
             "Description": "Description",
             "Submit": "Submit",
@@ -241,8 +242,8 @@
             "F1": "Field marked with",
             "F2": "are mandatory"
         },
-        "Description_Category_Code": {
-            "Title": "Description_Category_Code",
+        "Description_Category_Master": {
+            "Title": "Description Category Code",
             "code": "Code",
             "Branch": "Branch",
             "Description": "Description",
@@ -254,7 +255,7 @@
             "F2": "are mandatory"
         },
         "Risk_Category": {
-            "Title": "Risk_Category",
+            "Title": "Risk Category",
             "code": "Risk Category Code",
             "Description": "Description",
             "Submit": "Submit",
@@ -288,528 +289,1019 @@
             "IBT_Transaction": "IBT Transaction",
             "ATM_GL_account": "ATM GL account"
         },
-        "Action":{
-            "Action":"Action",
-            "F1":"Field marked with",
-            "F2":"are mandatory",
-            "Cancel":"Cancel",
-            "Update":"Update",
+        "Action": {
+            "Action": "Action",
+            "F1": "Field marked with",
+            "F2": "are mandatory",
+            "Cancel": "Cancel",
+            "Update": "Update",
             "Submit": "Submit",
-            "Add":"Add",
-            "No_Data":"No Data!",
-            "Calculate":"Calculate"
-
+            "Add": "Add",
+            "No_Data": "No Data!",
+            "Calculate": "Calculate"
         },
-
-        "Manager_View_GL_Postion":{
-            "Title":"Manager_View_GL_Postion",
-            "Sr_No":"Sr No",
-            "Type":"Type",
-            "Statement_Code":"Statement Code",
-            "%_to_w_capital":"% to w capital",
-            "Display_t_view":"Display to view",
-            "Description":"Description"
-
+        "Manager_View_GL_Postion": {
+            "Title": "Manager View GL Postion",
+            "Sr_No": "Sr No",
+            "Type": "Type",
+            "Statement_Code": "Statement Code",
+            "%_to_w_capital": "% to w capital",
+            "Display_t_view": "Display to view",
+            "Description": "Description"
         },
-
-        "Scheme_Linking_With_Documents":{
-                
-                "Schemewise_Document_Applicable":"Schemewise Document Applicable",
-                "Scheme":"Scheme",
-                "Code":"Code",
-                "Description":"Description",
-                "Is_Allowed":"Is_Allowed",
-                "Remark":"Remark"  
+        "Scheme_Linking_With_Documents": {
+            "Title":"Scheme Linking With Documents",
+            "Schemewise_Document_Applicable": "Schemewise Document Applicable",
+            "Scheme": "Scheme",
+            "Code": "Code",
+            "Description": "Description",
+            "Is_Allowed": "Is_Allowed",
+            "Remark": "Remark"
         },
-        "Scheme_Type_Charges_Defination":{
-            "Title":"Scheme Type Charges Defination",
-            "Charges_Type_def":"Charges Type Defination",
-            "Scheme_Type":"Scheme Type",
-            "Effective_Date":"Effective Date",
-            "Charges_Type":"Charges Type",
-            "Charges_GL_Acc":"Charges GL Account",
-            "Serial_No":"Serial No",
-            "From_Range":"From Range",
-            "To_Range":"To Range",
-            "Charges_Amount":"Charges Amount"
+        "Scheme_Type_Charges_Defination": {
+            "Title": "Scheme Type Charges Defination",
+            "Charges_Type_def": "Charges Type Defination",
+            "Scheme_Type": "Scheme Type",
+            "Effective_Date": "Effective Date",
+            "Charges_Type": "Charges Type",
+            "Charges_GL_Acc": "Charges GL Account",
+            "Serial_No": "Serial No",
+            "From_Range": "From Range",
+            "To_Range": "To Range",
+            "Charges_Amount": "Charges Amount"
         },
-        "Depreciation_Rate_Master":{
-             "Title":"Description Rate Master",
-            "Categary_Code":"Categary Code",
-            "Last_Depreciation_Date":" Last Depreciation Date",
-            "Depreciation Rate":"Depreciation Rate"
-
+        "Depreciation_Rate_Master": {
+            "Title": "Description Rate Master",
+            "Categary_Code": "Categary Code",
+            "Last_Depreciation_Date": " Last Depreciation Date",
+            "Depreciation Rate": "Depreciation Rate"
         },
-
-        "Premature_Pigmy_Less_Interest_Rate":{
-            "Title":"Premature Pigmy Less Interest Rate",
-            "Schema_Type":"Schema Type",
-            "Effective_Date":"Effective Date",
-            "Serial_No":"Serial No",
-            "From_Months":"From Months",
-            "To_Months":"To Months",
-            "Interest_Rate":"Interest Rate",
-            "Add":"Add"
+        "Premature_Pigmy_Less_Interest_Rate": {
+            "Title": "Premature Pigmy Less Interest Rate",
+            "Schema_Type": "Schema Type",
+            "Effective_Date": "Effective Date",
+            "Serial_No": "Serial No",
+            "From_Months": "From Months",
+            "To_Months": "To Months",
+            "Interest_Rate": "Interest Rate",
+            "Add": "Add"
         },
-        "TDS_Interest_Rate":{
-            "Title":"Master TDS Interest Rate",
-            "Financial_Year":"Financial Year",
-            "Effective_Date":"Effective Date",
-            "Interest_Amount":"Interest Amount",
-            "TDS_Rate":"TDS Rate",
-            "Surcharge_Rate":"Surcharge Rate"
+        "TDS_Interest_Rate": {
+            "Title": "Master TDS Interest Rate",
+            "Financial_Year": "Financial Year",
+            "Effective_Date": "Effective Date",
+            "Interest_Amount": "Interest Amount",
+            "TDS_Rate": "TDS Rate",
+            "Surcharge_Rate": "Surcharge Rate"
         },
-
-       "Year_w_unpaid_div_entry":{
-        "Title":"Year Wise Unpaid Dividend Opening Entry ",
-        "Scheme":"Scheme",
-        "Salary_Division":"Salary Division",
-        "Dividend_Warrant_Date":"Dividend Warrant Date",
-        "Dividend_Year_From":"Dividend Year From",
-        "Dividend_Year_To":"Dividend Year To",
-        "Member_form": "Member form",
-        "Member_To":"Member To",
-        "Total_Amount":"Total Amount"
-       },
-       "Dividend_Transfer_entry":{
-        "Title":"Payable Dividend Transfer Instruction",
-        "Scheme":"Scheme",
-        "Member_Number": "Member Number",
-        "Branch":"Branch",
-        "Account_Type":"Account Type",
-        "Account_Number":"Account Number"
-       },
-       "Dividend_Calculation":{
-        "Title":"Dividend Calculation",
-        "Branch_Code":"branch code",
-        "Schema_Code":"Schema Code",
-        "Dividend_Date_From":"Dividend Date From",
-        "Dividend_Date_To":"Dividend Date To",
-        "Warrant_Date":"Warrant Date",
-        "Member_form": "Member form",
-        "From_Account":"From Account",
-        "Member_To":"Member To",
-        "To_Account":"From Account",
-        "Dividend_%":"Dividend %",
-        "Bonus_%":"Bonus %",
-        "Status":"Status"
+        "Year_w_unpaid_div_entry": {
+            "Title": "Year Wise Unpaid Dividend Opening Entry ",
+            "Scheme": "Scheme",
+            "Salary_Division": "Salary Division",
+            "Dividend_Warrant_Date": "Dividend Warrant Date",
+            "Dividend_Year_From": "Dividend Year From",
+            "Dividend_Year_To": "Dividend Year To",
+            "Member_form": "Member form",
+            "Member_To": "Member To",
+            "Total_Amount": "Total Amount"
         },
-        "Dividend_Posting":{
-            "Title":"Dividend Posting",
-            "Scheme_Code":"Scheme Code",
-            "Dividend_Warrant_Date":"Dividend Warrant Date",
-            "Post":"Post"
-
+        "Dividend_Transfer_entry": {
+            "Title": "Payable Dividend Transfer Instruction",
+            "Scheme": "Scheme",
+            "Member_Number": "Member Number",
+            "Branch": "Branch",
+            "Account_Type": "Account Type",
+            "Account_Number": "Account Number"
         },
-         "Dividend_Transfar_Posting":{
-            "Title":"Dividend_Transfar_Posting",
-            "Dividend_Warrant_Date":"Dividend Warrant Date",
-            "Warrant_Date":"Warrant Date",
-            "Transfer_To_Reserver_F_Or_Other_Acc":"Transfer To Reserver Fund Or Other Account",
-            "Scheme_Code":"Scheme Code",
-            "Select_Acc":"Select Account",
-            "Process":"Process"
-         }
-       
+        "Dividend_Calculation": {
+            "Title": "Dividend Calculation",
+            "Branch_Code": "branch code",
+            "Schema_Code": "Schema Code",
+            "Dividend_Date_From": "Dividend Date From",
+            "Dividend_Date_To": "Dividend Date To",
+            "Warrant_Date": "Warrant Date",
+            "Member_form": "Member form",
+            "From_Account": "From Account",
+            "Member_To": "Member To",
+            "To_Account": "From Account",
+            "Dividend_%": "Dividend %",
+            "Bonus_%": "Bonus %",
+            "Status": "Status"
+        },
+        "Dividend_Posting": {
+            "Title": "Dividend Posting",
+            "Scheme_Code": "Scheme Code",
+            "Dividend_Warrant_Date": "Dividend Warrant Date",
+            "Post": "Post"
+        },
+        "Dividend_Transfar_Posting": {
+            "Title": "Dividend Transfar Posting",
+            "Dividend_Warrant_Date": "Dividend Warrant Date",
+            "Warrant_Date": "Warrant Date",
+            "Transfer_To_Reserver_F_Or_Other_Acc": "Transfer To Reserver Fund Or Other Account",
+            "Scheme_Code": "Scheme Code",
+            "Select_Acc": "Select Account",
+            "Process": "Process"
+        },
+        "Validation": {
+            "Val": "This field is required and Input allowed only A-Z a-z",
+            "Val1": "This is required field",
+            "Adhar_Val": "Input allowed only 0-9( It should have 12 digits and It should not start with 0 and 1 )",
+            "Val_Date": "Enter Valid Date",
+            "Val_Pan": " Enter Uppercase letters and digits only(It should have 10 letters and digits)",
+            "Val_ward": "Input allowed only A-Z a-z 0-9 - /. (Space)",
+            "Val_Pin_Code": "Input allowed only 0-9",
+            "Val_Mobile": "Input allowed only 0-9 and It starts by either for 7 or 8 or 9",
+            "Val_Res": "Input allowed only 0-9 and It starts by 0",
+            "Val_Email": "Enter Valid Email",
+            "Val_Receipt": "This field is required and Input allowed only 0-9",
+            "Val_Repre": "Input allowed only A-Z a-z - / . (Space)",
+            "Val_Reason": "Number 0-9 Not allowed",
+            "Validate_Date": "This is required Field .Input Date in format DD/MM/YYYY",
+            "Validate_Year":" This field is required and Input allowed only 0-9(8 digit between two years from and to (i.e.2021-2022))"
+        },
+        "Interest_Rate1":{
+            "Title":"Interest Rate For Term Deposit"
+        },
+        "Term_Dep":{
+            "Title":"Term Deposit 'Pat' Scheme"
+        },
+        "I_Rate_Saving_Pigmy_Deposit":{
+            "Title":"Interest Rate For Saving and Pigmy  Deposit"
+        },
+        "I_Rate_Loan":{
+            "Title":"Interest Rate For Loan And CC"
+        },
+        "Dep_Interest_Rate":{
+            "Title":"Deposit Interest Rate (Multi Slab)"
+        },
+        "S_Code":{
+            "Title":"Security Code"
+        }
     },
-
-   
-
-    "Passing":{
-        "Action":{
-            "Action":"Action",
-            "F1":"Field marked with",
-            "F2":"are mandatory",
-            "Cancel":"Cancel",
-            "Update":"Update",
+    "Passing": {
+        "Action": {
+            "Action": "Action",
+            "F1": "Field marked with",
+            "F2": "are mandatory",
+            "Cancel": "Cancel",
+            "Update": "Update",
             "Submit": "Submit",
-            "Add":"Add",
-            "No_Data":"No Data!",
-            "Calculate":"Calculate",
-            "Record_Number":"Record Number",
-            "Amount":"Amount",
-            "Narration":"Naration",
-            "Entry_Type":"Enter Type",
-            "Account_Type":"Account Type",
-            "Account_Number":"Account Number",
-            "Schema_Type":"Schema Type ",
-            "User":"User",
-            "Time":"Time",
-            "Approve":"Approve ",
-            "Reject":"Reject",
-
-            "Detail_Address":"Detail Address",
-            "City":"City",
-            "Open_Date":"Open Date",
-            "Opening_date":"Opening Date",
-            "Scheme":"Scheme",
-            "Customer_ID":"Customer ID",
-            "Member_Name":"Member Name ",
-            "Manual_Reference_Number":"ManualReference Number",
+            "Add": "Add",
+            "No_Data": "No Data!",
+            "Calculate": "Calculate",
+            "Record_Number": "Record Number",
+            "Amount": "Amount",
+            "Narration": "Naration",
+            "Entry_Type": "Enter Type",
+            "Account_Type": "Account Type",
+            "Account_Number": "Account Number",
+            "Schema_Type": "Schema Type ",
+            "User": "User",
+            "Time": "Time",
+            "Approve": "Approve ",
+            "Reject": "Reject",
+            "Detail_Address": "Detail Address",
+            "City": "City",
+            "Open_Date": "Open Date",
+            "Opening_date": "Opening Date",
+            "Scheme": "Scheme",
+            "Customer_ID": "Customer ID",
+            "Member_Name": "Member Name ",
+            "Manual_Reference_Number": "ManualReference Number",
             "Birth_Date": "Birth Date",
-
-            "Name":"Name",
-            "Renewal_Date":"Renewal Date",
-            "Detail":"Detail",
-            "Sanction_Date":"Sanction Date",
-            "Period":"Period",
-            "Expiry_Date":"Expiry Date",
-            "Sanction_Limit":"Sanction Limit",
-            "Drawing_Power":"Drawing Power",
-            "Interest_Rate":"Interest Rate",
-            "Installment":"Installment",
-            "Sanction_Authority":"Sanction Authority",
-            "Purpose":"Purpose"
-           
-
+            "Name": "Name",
+            "Renewal_Date": "Renewal Date",
+            "Detail": "Detail",
+            "Sanction_Date": "Sanction Date",
+            "Period": "Period",
+            "Expiry_Date": "Expiry Date",
+            "Sanction_Limit": "Sanction Limit",
+            "Drawing_Power": "Drawing Power",
+            "Interest_Rate": "Interest Rate",
+            "Installment": "Installment",
+            "Sanction_Authority": "Sanction Authority",
+            "Purpose": "Purpose",
+            "All_Passing":"All Passing"
         },
-
-        "Voucher":{
-            "Title":"Voucher",
-            "Voucher_Number":"Voucher Number",
-            "Amount":"Amount",
-             "Debit_Credit":"Debit/Credit",
-             "Time":"Time",
-             "Scheme_Type":" Scheme Type",
-             "Account_Number":"Account Number",
-             "User":"User"
+        "Voucher": {
+            "Title": "Voucher",
+            "Voucher_Number": "Voucher Number",
+            "Amount": "Amount",
+            "Debit_Credit": "Debit/Credit",
+            "Time": "Time",
+            "Scheme_Type": " Scheme Type",
+            "Account_Number": "Account Number",
+            "User": "User",
+            "Transaction_Type":"Transaction Type"
         },
-        "Batch_Voucher":{
-            "Title":"Batch Voucher",
-            "Record_Number":"Record Number",
-            "Amount":"Amount",
-            "Time":"Time",
-            "Scheme_Type":" Scheme Type",
-            "Transaction_Type":"Transaction Type",
-            "Account_Number":"Account Number",
-            "User":"User"
+        "Batch_Voucher": {
+            "Title": "Batch Voucher",
+            "Record_Number": "Record Number",
+            "Amount": "Amount",
+            "Time": "Time",
+            "Scheme_Type": " Scheme Type",
+            "Transaction_Type": "Transaction Type",
+            "Account_Number": "Account Number",
+            "User": "User"
         },
-        "Multi_Voucher":{
-            "Title":"Multi Voucher",
-            "Voucher_Number":"Voucher Number",
-            "Amount":"Amount",
-            "Time":"Time",
-            "Date":"Date"
-
+        "Multi_Voucher": {
+            "Title": "Multi Voucher",
+            "Voucher_Number": "Voucher Number",
+            "Amount": "Amount",
+            "Time": "Time",
+            "Date": "Date"
         },
-        "Deposit_Closing_Date":{
-            "Title":"Deposit Closing Date",
-            "Record_Number":"Record Number",
-            "Closing_Status":"Closing Status",
-            "Token_Number":"Token Number",
-            "Net_Payable_Amount":"Net Payable Amount",
-            "Scheme_Type":" Scheme Type",
-            "Account_Number":"Account Number",
-            "User":"User"
+        "Deposit_Closing_Date": {
+            "Title": "Deposit Closing Date",
+            "Record_Number": "Record Number",
+            "Closing_Status": "Closing Status",
+            "Token_Number": "Token Number",
+            "Net_Payable_Amount": "Net Payable Amount",
+            "Scheme_Type": " Scheme Type",
+            "Account_Number": "Account Number",
+            "User": "User"
         },
-        "Saving_Pigmy_Closing":{
-            "Title":"Saving Pigmy Closing",
-           
-            "Closing_Status":"Closing Status",
-            "Token_Number":"Token Number",
-            "Net_Payable_Amount":"Net Payable Amount",
-            "Scheme_Type":" Scheme Type",
-            "Account_Number":"Account Number",
-            "User":"User"
-
+        "Saving_Pigmy_Closing": {
+            "Title": "Saving Pigmy Closing",
+            "Closing_Status": "Closing Status",
+            "Token_Number": "Token Number",
+            "Net_Payable_Amount": "Net Payable Amount",
+            "Scheme_Type": " Scheme Type",
+            "Account_Number": "Account Number",
+            "User": "User"
         },
-        "Dead_Stock_Purchase":{
-           "Title":"Dead Stock Purchase",
-            "Supplier_Name":"Supplier Name"
+        "Dead_Stock_Purchase": {
+            "Title": "Dead Stock Purchase",
+            "Supplier_Name": "Supplier Name"
+        },
+        "Dead_Stock_Transaction": {
+            "Title": "Dead Stock Transaction"
+        },
+        "Cash_Credit_Account_Renewal": {
+            "Title": "Cash Credit Account Renewal"
+        },
+        "Depreciation_Passing": {
+            "Title": "Deadstock Depreciation Process",
+            "Branch": "Branch",
+            "Transaction_Date": "Transaction Date",
+            "Transaction_Year": "Transaction Year",
+            "Transaction_Type": "Transaction Type",
+            "Depreciation": "Depreciation",
+            "Transfer": "Transfar",
+            "Cash": "Cash",
+            "Particular": "Particular",
+            "Resolution_Date": "Resolution Date",
+            "Resolution_Number": "Resolution Number",
+            "Item": "Item",
+            "Amount": "Amount",
+            "Total_Amount": "Total Amount",
+            "Narration_Master": "Narration Master"
+        },
+        "Gold_Silver_Return_Entry": {
+            "Title": "Gold Silver Return Entry",
+            "Return_Date": "Return Date",
+            "User_Code": "User Code"
+        },
+        "Term_Deposit_Account_Renewal": {
+            "Title": "Term Deposit Account Renewal",
+            "Receipt_Number": "Receipt Number"
+        },
+        "Shares_Transfer": {
+            "Title": "Shares Transfer"
+        },
+        "Issue_New_Shares": {
+            "Title": "Issue New Shares"
+        },
+        "Membership_Cancellation": {
+            "Title": "Membership Cancellation"
+        },
+        "Locker_Rent_Transfer": {
+            "Title": "Locker Rent Transfer"
+        },
+        "Master_Shares": {
+            "Title": "Master Shares",
+            "Member_Number": "Member Number",
+            "Employee_Number": "Employee Number",
+            "Represented_By": "Represented By",
+            "Branch_Code": "Branch Code"
+        },
+        "Master_Anamat": {
+            "Title": "Master Anamat",
+            "Reason": "Reason"
+        },
+        "Master_Saving": {
+            "Title": "Master Saving",
+            "Minor_Detalis": "Minor Detalis",
+            "Name": "Name"
+        },
+        "Master_Current": {
+            "Title": "Master Current",
+            "Proprietor_Name": "Proprietor Name"
+        },
+        "Master_Deposits": {
+            "Title": "Master Deposits",
+            "Term_Deposit_Master": "Term Deposit Master",
+            "As_On_Date": "As On Date",
+            "Maturity_Date": "Maturity Date",
+            "Receipt_No": "Receipt No.",
+            "Deposit_Amount": "Deposit Amount",
+            "Minor_Details": "Minor Details",
+            "Signature_Authority": "Signature Authority",
+            "Maturity_Amount": "Maturity Amount"
+        },
+        "Master_Investments": {
+            "Title": "Master Investments",
+            "Bank_Code": "Bank Code",
+            "Branch_code": "branch code",
+            "Account_Open_Date": "Account Open Date",
+            "As_On_Date": "As On Date",
+            "Maturity_Date": "Maturity Date",
+            "Receipt_Number": "Receipt Number",
+            "Interest_Rate": "Interest Rate",
+            "Deposit_Amount": "Deposit Amount",
+            "Maturity_Amount": "Maturity Amount"
+        },
+        "Pigmy_Agent": {
+            "Title": "Pigmy Agent",
+            "Pigmy_Agent_Master": "Pigmy Agent Master",
+            "Agent_Number": "Agent Number",
+            "Pigmy_Scheme": "Pigmy Scheme",
+            "Appontied_On": "Appontied On"
+        },
+        "Master_Pigmy": {
+            "Title": "Master Pigmy",
+            "Saving_Master": "Saving Master",
+            "Expiry_Date": "Expiry Date",
+            "Period": "Period",
+            "Default_Deposite_Amount": "Default Deposit Amount",
+            "Agent_Code": "Agent Code",
+            "Minor_Details": "Minor Details",
+            "Is_cal_sep_pig_cor": "Is Calculate separate Pigmy Commission For Loan Against Collection"
+        },
+        "Master_Cash_Credit": {
+            "Title": "Master Cash Credit",
+            "Current_Master": "Current Master"
+        },
+        "Master_Loan": {
+            "Title": "Master Loan",
+            "Term_Loan_Master": "Term Loan Master"
+        },
+        "Master_Dead_Stock": {
+            "Title": "Master Dead Stock",
+            "Item_Code": "Item Code",
+            "Item_Name": "Item Name",
+            "Supplier_Name": "Supplier Name",
+            "Purchase_Date": "Purchase Date",
+            "Depreciation_Category": "Depreciation Category",
+            "Purchase_Quantity": "Purchase Quantity",
+            "Purchase_Rate": "Purchase Rate",
+            "Purchase_Value": "Purchase Value",
+            "Last_Depreciation_Date": " Last Depreciation Date",
+            "Gl_Acc_Num": "GL Account Number"
+        },
+        "Master_Locker": {
+            "Title": "Master Locker",
+            "Detail_Address": "Detail Address"
+        }
+    },
+    "Reports": {
+        "Action": {
+            "F1": "Field marked with",
+            "F2": "are mandatory",
+            "Branch": "Branch",
+            "Scheme_Code": "Scheme Code ",
+            "Scheme_Type": "Scheme Type",
+            "Account_No": "Account No",
+            "Starting_Date": "Starting Date",
+            "Ending_Date": "Ending Date",
+            "View": "View",
+            "Close": "Close",
+            "Report_Frame": "Report Frame",
+            "Range_Starting_Code": "Range Starting Code",
+            "Starting_Code": "Starting Code",
+            "Starting_Account": "Starting Account",
+            "Date": "Date",
+            "Ending_Code": "Ending Code",
+            "Range_Ending_Code":"Range Ending Code"
+        },
+        "General_Acc_Statement": {
+            "Title": "General Account Statement"
+        },
+        "Acc_Statement": {
+            "Title": " Account Statement"
+        },
+        "Loan_Statement": {
+            "Title": "Term Loan Statement With Other Amount"
+        },
+        "Term_Deposit_Statement": {
+            "Title": "Term Deposit Statement"
+        },
+        "Dead_Stock_Balance_List": {
+            "Title": "Dead Stock Balance List"
+        },
+        "Account_Balance_Book": {
+            "Title": "Account Balance Book"
+        },
+        "Account_Balance_List": {
+            "Title": "Account Balance List"
+        },
+        "Customer_ID_Wise_Balance_List": {
+            "Title": "Customer ID Wise Balance List",
+            "Customer_ID": "Customer ID",
+            "Print_Closed_Acc": "Print Closed Account?"
+        },
+        "Scheme_General_Ledger_Consistancy_Report": {
+            "Title": "Scheme General Ledger Consistancy Report",
+            "Print_Pay_rec_interest_Details": "Print Payable Receivable Interest Details",
+            "Scheme_Wise": "Scheme Wise",
+            "Print_Penal_I_Details": "Print Penal Interest Details"
+        },
+        "Receivable_I_rate": {
+            "Title": "Receivable Interest rate"
+        },
+        "Payable_I_rate": {
+            "Title": "Payable Interest rate"
+        },
+        "Dead_Stock_Balance_List_Depreciation": {
+            "Title": "Dead Stock Balance List Depreciation"
+        },
+        "Deposit_Amount_B_List": {
+            "Title": "Deposit Amount  Balance List",
+            "Within_range": "Within Range",
+            "Less_than": "Less than",
+            "Greter_than": "Greter than",
+            "Print_City_Name": "Print City Name?"
+        },
+        "Size_Wise_B_L": {
+            "Title": "Size Wise Balance List",
+            "Detail": "Detail",
+            "Summary": "Summary"
+        },
+        "Debit_B_Report": {
+            "Title": "Debit Balnce Reports",
+            "Ac_no": "Ac no",
+            "Name": "Name",
+            "Open_Date": "Open Date",
+            "Print_m_ref_mem_num": "Print Manual Reference Member Number",
+            "Print_Opening_Date": "Print Opening Date",
+            "Print_Anamat_Reson": "Print Anamat Reson",
+            "Within_range": "Within range"
+        },
+        "Amount_Wise_B_L": {
+            "Title": "Amountwise Balance List",
+            "Within_range": "Within Range",
+            "Less_than": "Less than",
+            "Greter_than": "Greter than",
+            "Print_City_Name": "Print City Name?"
+        },
+        "DeadStock_Depreciation_Category_List": {
+            "Title": "DeadStock_Depreciation_category_List",
+            "Depreciation_Category": "Depreciation Category",
+            "Detail": "Detail",
+            "Summary": "Summary"
+        },
+        "Balance_Confi_Certi": {
+            "Title": "Balance Confirmation Certificate",
+            "Print_Marathi_Cer": "Print Marathi Certificate"
+        },
+        "Short_B_List": {
+            "Title": "Short Balance List"
+        }
+    },
+    "Printing": {
+        "Action": {
+            "F1": "Field marked with",
+            "F2": "are mandatory",
+            "T1": "Passbook Issue",
+            "Branch": "Branch",
+            "Branch_Code": "Branch Code",
+            "Scheme_Code": "Scheme Code ",
+            "Account_No": "Account No",
+            "View": "View",
+            "Close": "Close",
+            "Report_Frame": "Report Frame",
+            "T2": "Passbook Print",
+            "From_Ac_No": "From A/C No.",
+            "Starting_Date": "Starting Date",
+            "Number_of_lines_printed": "Number of lines printed",
+            "Num_Of_Lines_Printed": "Number of lines on single page",
+            "T3": "Term Deposit Receipt Printing",
+            "From_Ac_Number": "From A/c Number",
+            "Print": "Print",
+            "Reasons": "Reasons",
+            "Narration_Master": "Narration Master",
+            "Scheme": "Scheme",
+            "From": "From",
+            "T4": "Voucher Printing",
+            "Date": "Date",
+            "Source_Type": "Source Type",
+            "Transaction_Type": "Transaction Type",
+            "Voucher_Num": "Voucher Number",
+            "T5": "Gold/Silver Receipt Print",
+            "Account_Num": "Account Number",
+            "T6": "Term Deposit Receipt Print",
+            "Required_Fields": "Required Fields",
+            "Bond_Receipt": "Bond Receipt",
+            "From_Date": "From Date",
+            "To_Date": "To Date",
+            "Drag_and_Drop": "Drag and Drop",
+            "Drag_me_around": " Drag me around"
+        }
+    },
+    "utility": {
+        "Action": {
+            "T1": "Recurring Amount Transfer to GL",
+            "Branch": "Branch",
+            "Scheme": "Scheme ",
+            "From_Date": "From Date",
+            "To_Date": "To Date",
+            "Credit_GL_Scheme": "Credit GL Scheme",
+            "Calculate": "Calculate",
+            "Close": "Close",
+            "T2": "Amount Transfer Transaction",
+            "Debit_Credit_Transaction": "Debit Credit Transaction",
+            "Credit_Debit_Transaction": " Credit Debit Transaction",
+            "Debit_Scheme": "Debit Scheme",
+            "Credit_Scheme": "Credit Scheme",
+            "Balance_Am": "Balance Amount",
+            "Pay_Rec_Inter": "Payable/Receivable Interest",
+            "Transaction_particulars": "Transaction Particulars",
+            "Update": "Update",
+            "Print": "Print",
+            "Cancel": "Cancel",
+            "Report_Frame": "Report Frame",
+            "T3": "General Meeting Appear Member Updation",
+            "Warrent_Date": "Warrant Date",
+            "Year": "Year",
+            "Mem_from": "Member form",
+            "Mem_To": "Member To",
+            "T4": "Demand Draft Data Export/Import Utility",
+            "Export": "Export",
+            "Import": "Import",
+            "Choose_File": "Choose File",
+            "Browse": "Browse",
+            "Ok": "Ok",
+            "Action": "Action",
+            "Name": "Name",
+            "Position": "Position",
+            "Office": "Office",
+            "Age": "Age",
+            "Start_date": "Start Date",
+            "Salary": "Salary",
+            "Edit": "Edit",
+            "Delete": "Delete",
+            "Required_Fields": "Required Fields",
+            "Upto_Date": "Upto Date",
+            "T5": "Shares Data Import/Export Utility",
+            "Branch_Code": "Branch Code",
+            "T6": "BankServ Support Call Register",
+            "Register_no": "Register No.",
+            "Call_Reg_Date": "Call Registration Date",
+            "User_Name": "User Name",
+            "Nature_Of_Custo_Pro": "Nature Of Customisations Problem",
+            "Requirement": "Requirement",
+            "Requirement_Details": "Requirement Detils with e.g. or Formats",
+            "New_Customisations": "New Customisations",
+            "Existing_Modification": "Existing Modification",
+            "Errors": "Errors",
+            "Other": "Other",
+            "Scheme_Ac_Details": "Scheme A/c Details",
+            "Completed_By": "Completed By",
+            "Remark": "Remark",
+            "Completed_Time": "Completed Time",
+            "Completed_Date": "Completed Date",
+            "Requirement Details_Formats": "Requirement Details with e.g. or Formats"
+        }
+    },
+    "View": {
+        "Action": {
+            "F1": "Field marked with",
+            "F2": "are mandatory",
+            "T1": "Ledger View",
+            "Branch": "Branch",
+            "Scheme": "Scheme ",
+            "Scheme_Code": "Scheme Code ",
+            "Acc_Num": "Account Number",
+            "Acc_no": "Account No.",
+            "From_Date": "From Date",
+            "To_Date": "To Date",
+            "Acc_Opening_Date": "Account Opening Date",
+            "Matu_But_Paid_Am": "Matured But Not Paid Amount",
+            "Un_passed": "Unpassed Accounts",
+            "Interest_Vouchers": "Interest Vouchers",
+            "View": "View",
+            "No_Data": " No data!",
+            "Grand_Total": "Grand Total",
+            "Total_Deposit_Amount": "Total Deposit Amount",
+            "Total": "Total",
+            "Balance": "Balance",
+            "Officer_ID": "Officer ID",
+            "Voucher_Number": "Voucher Number",
+            "Added_Penal": "Added Penal",
+            "Other_Amount": "Other Amount",
+            "Receivable_Penal": "Receivable Penal",
+            "Penal_Interest": "Penal Interest",
+            "Overdue_Interest": "Overdue Interest",
+            "Recbl_Payable_Interest": "Recbl/Payable Interest",
+            "Normal_Interest": "Normal Interest",
+            "Closing_Balance": "Closing Balance",
+            "Credit_Amount": "Credit Amount",
+            "Debit_Amount": "Debit Amount",
+            "Tran_Type": "Tran Type",
+            "Particulars": "Particulars",
+            "Cheque_Number": "Cheque Number",
+            "Date": "Date",
+            "Account_Closed_On": "Account Closed On:",
+            "Freez_Status": "Freez Status:",
+            "T2": "Shares ledger view",
+            "Dormant_Account": "Dormant Account",
+            "Debit_Dividend": "Debit Dividend",
+            "Credit_Dividend": "Credit Dividend",
+            "Dividend_Balance": "Dividend Balance",
+            "Bonus_Amount": "Bonus Amount",
+            "Rebit_Interest": "Rebit Interest",
+            "Certificate_Number": "Certificate Number",
+            "Number_Of_Shares": "Number Of Shares",
+            "Shares_From_To": "Shares From - To",
+            "Face_Value": "Face Value",
+            "Transaction_Type": "Transaction Type",
+            "T3": "Voucher View",
+            "Tra_Date": "Transaction Date",
+            "Num_Of_Records": "Number of records:",
+            "Record_Number": "Record Number",
+            "Time": "Time",
+            "Account_Number": "Account Number",
+            "Name": "Name ",
+            "Transaction_Source_Type": "Transaction Source Type",
+            "Type": "Type",
+            "Debit_Credit": "Debit/Credit",
+            "Amount": "Amount",
+            "Interest Amount": "Interest Amount",
+            "Receivable_Payable_Interest": "Receivable /Payable Interest",
+            "Receivable_Overdue_Interest": "Receivable Overdue Interest",
+            "Dividend_Amount": "Dividend Amount",
+            "User": "User",
+            "Close": "Close",
+            "Voucher": "Voucher",
+            "T4": "Manager View",
+            "As_on_Date": "As on Date",
+            "Transaction_Details": "Transaction Details",
+            "Credit": "Credit",
+            "Debit": "Debit ",
+            "Cash": "Cash",
+            "Transfer": "Transfar",
+            "Cash_Opening_Balance": "Cash Opening Balance",
+            "Cash_CLosing_Balance": "Cash CLosing Balance",
+            "Pending_Details": "Pending Details",
+            "All": "All",
+            "Rejected": "Rejected",
+            "Day_Scroll": "Day Scroll",
+            "CD_Ratio": "CD Ratio",
+            "Working_Capital": "Working Capital ",
+            "User_Work": " User's Work",
+            "Users_Login": "Users Login",
+            "Users_Cash": " User's Cash",
+            "Delay_Works": "Delay Works",
+            "Scheme_Log": "Scheme Log",
+            "GL_Pos_Detail": "GL Pos. Detail",
+            "Nearest_Secu": "Nearest Secu",
+            "Incompletion": "Incompletion",
+            "Rate_of_Margin": "Rate of Margin",
+            "Loan_Analysis": "Loan Analysis",
+            "Ratio_Analysis": "Ratio Analysis",
+            "NPA_Analysis": " NPA Analysis",
+            "Overdue": "Overdue",
+            "Matured_TD_LN": " Matured TD/LN",
+            "Insurance_Due": "Insurance Due",
+            "Expenses": "Expenses",
+            "Excess_Cash": "Excess Cash",
+            "FD_Payment": "FD Payment",
+            "Dr_Balances": " Dr.Balances",
+            "Cr_Balances": " Cr.Balances",
+            "Zero_Balance": "Zero Balance",
+            "CC_Overdraft": " CC Overdraft",
+            "Overdraft": " Overdraft(OD)",
+            "Consistency": "Consistency",
+            "Hight_Rec_Pay": "Hight Rec Pay",
+            "Report_Frame": "Report Frame",
+            "All_Entries": "All Entries",
+            "Daily_Liquidity": " Daily Liquidity",
+            "Remind_Me": "Remind Me",
+            "Status": "Status",
+            "Issue": "Issue",
+            "Cancel": "Cancel",
+            "Clearing_Voucher": "Clearing Voucher",
+            "Scroll_book": "Scroll book",
+            "Transfer_Entries": "Transfer Entries",
+            "Rejected_Entries": "Rejected Entries",
+            "Record_no": "Record no",
+            "Account_no": "Account no",
+            "DR_CR": "DR/CR",
+            "Bank": "Bank",
+            "Narration": "Naration",
+            "Token_no": "Token no",
+            "Cash Entries": "Cash Entries",
+            "CCP": "CCP",
+            "To_Transfer": "To Transfer",
+            "Kale_Ranjit_Digamber": "Kale Ranjit Digamber",
+            "MBP": "MBP",
+            "By_Cash": "By Cash"
+        }
+    },
+    "Transaction": {
+        "Action": {
+            "Action":"Action",
+            "F1": "Field marked with",
+            "F2": "are mandatory",
+            "Submit":"Submit",
+            "No_Data": " No data!",
+            "Close":"Close",
+            "Cancel":"Cancel",
+            "Reject":"Reject",
+            "Approve":"Approve ",
+            "Unapprove":" Unapprove",
+            "Add":"Add",
+            "Update":"Update"
+    
             
         },
-        "Dead_Stock_Transaction":{
-          
-           "Title":"Dead_Stock_Transaction"
-
-
-        },
-        "Cash_Credit_Account_Renewal":{
-            "Title":"Cash Credit Account Renewal"
-           
-        },
-        "Depreciation_Passing":{
-            "Title":"Depreciation Passing",
+        "Reconciliation":{
+            "Title":"Reconciliation Entry",
             "Branch":"Branch",
-            "Transaction_Date":"Transaction Date",
-            "Transaction_Year":"Transaction Year",
-            "Transaction_Type":"Transaction Type",
-            "Depreciation":"Depreciation",
-            "Transfer":"Transfar",
-            "Cash":"Cash",
-            "Particular":"Particular",
-            "Resolution_Date":"Resolution Date",
-            "Resolution_Number":"Resolution Number",
-            "Item":"Item",
+            "General_Acc":"General Account",
+            "All_Entries":"All Entries",
+            "Pen_Entries":"Pending Entries",
+            "From_Date":"From Date",
+            "To_Date":"To Date",
+            "Withdrawls":"Withdrawls",
+            "Deposit":"Deposit",
             "Amount":"Amount",
-            "Total_Amount":"Total Amount",
-            "Narration_Master":"Narration Master"
-        },
-        "Gold_Silver_Return_Entry":{
-            "Title":"Gold Silver Return Entry",
-           
-            "Return_Date":"Return Date",
-            "User_Code":"User Code"
-        },
-        "Term_Deposit_Account_Renewal":{
-            "Title":"Term Deposit Account Renewal",
-           
-            "Receipt_Number":"Receipt Number"
+            "No_rec":"No Of Records",
+            "Uncleared_Am":"Uncleared Amounts",
+            "Date":"Date",
+            "Statement_Date":"Statement Date",
+            "Narration":"Narration",
+            "Cheque_Number":"Cheque Number",
+            "Voucher_Type":" Voucher Type"
 
         },
-        "Shares_Transfer":{
-            "Title":"Shares Transfer"
-           
-          
+        "Saving_Pigmy":{
+            "Title":"Saving Pigmy Account Closing",
+            "Branch":"Branch",
+            "Date":"Date",
+            "Scheme":"Scheme ",
+            "Acc_Num":"Account Number",
+            "Interest_Rate":"Interest Rate %",
+            "Months":"Months",
+            "Interest_Amount":"Interest Amount",
+            "Total_Int_Am":"Total Interest Amount ",
+            "post_int_Am":"Posted Interest Amount",
+            "net_Int_Am":"Net Interest Amount",
+            "Narration":"Narration",
+            "Ledger":"Ledger Balance Amount",
+            "Pay_In_Am":"Payable Interest Amount",
+            "pen_Int_Am":"Penal Interest Amount",
+            "Net_Payable_Amount":"Net Payable Amount",
+            "Payment_de":"Payment Details",
+            "Cash":"Cash",
+            "Transfer":"Transfer",
+            "Narration_Master":"Narration Master",
+            "PAN_ID":"PAN ID:",
+            "Status":"Status:",
+            "Maturity_Date":"Maturity Date",
+            "Last_Interest_Date":"Last Interest Date ",
+            "Renewal_Date":"Renewal Date",
+            "Opening_Date":"Opening Date",
+            "Opening_Balance":"Opening Balance",
+            "Details":"Details",
+            "Matured_Account":"Matured Account",
+            "Premature_Account":"Premature Account",
+            "Other_Charges_Amount":"Other Charges Amount",
+            "Charges_ledger_Acc":"Other Charges To General ledger Account",
+            "Commission_Amount":"Commission Amount",
+            "Commission_ledger_Acc":"Commission To General ledger Account",
+            "Cheque_Number":"Cheque Number",
+            "Cheque_date":"Cheque Date",
+            "Scheme_Code":"Scheme Code ",
+            "Particulars":"Particulars",
+            "Amount":"Amount",
+            "Add_Account":"Add Account",
+            "Update_Account":" Update Account",
+            "Contact":"Contact",
+            "Acc":"Account No."
+            
         },
         "Issue_New_Shares":{
-            "Title":"Issue New Shares"
-           
+            "Title":"Issue New Shares",
+            "Branch_Code":"Branch Code",
+            "Scheme_Code":"Scheme Code",
+            "Member_Number":"Member Number",
+            "Transaction_Number":"Transaction Number",
+            "Membership_Date":"Membership Date",
+            "Total_Shares_Amount":"Total Shares Amount",
+            "Total_Number_of_Shares":"Total Number of Shares",
+            "Shares_Details":"Shares Details",
+            "Issue_Date":"Issue Date",
+            "Certificate_Number":"Certificate Number",
+            "From":"From",
+            "To":"To",
+            "Number_Of_Shares":"Number Of Shares",
+            "Cash":"Cash",
+            "Transfer":"Transfar",
+            "Face_Value_Amount":"Face Value Amount",
+            "Resolution_Date":"Resolution Date",
+            "Shares_Amount":"Shares Amount",
+            "Resolution_Number":"Resolution Number",
+            "Particulars":"Particulars",
+            "Scheme":"Scheme ",
+            "Acc_Num":"Account Number",
+            "Amount":"Amount",
+            "Debit_Credit":"Debit / Credit",
+            "Total_Debit_Amount":"Total Debit Amount",
+            "Total_Credit_Amount":"Total Credit Amount",
+            "Narration_Master":"Narration Master",
+            "DR_CR":"DR/CR",
+            "Total":"Total",
+            "Shares_Number":"Shares Number"
+        },
+        "Share_Tarnsfer":{
+            "Title":"Share Transfer",
+            "Branch_Code":"Branch Code",
+            "Scheme_Code":"Scheme Code",
+            "Member_Number":"Member Number",
+            "Transaction_Number":"Transaction Number",
+            "Membership_Date":"Membership Date",
+            "Transfer_Shares":"Transfer Number of Shares",
+            "Transfer_Shares_Amount":"Transfer Shares Amount",
+            "Member_Transfer_To":"Member Transfer To",
+            "Scheme":"Scheme ",
+            "Resolution_Date":"Resolution Date",
+            "Resolution_Number":"Resolution Number",
+            "Transfer_Date":"Transfer Date",
+            "Actual_Transfer_Amount":"Actual_Transfer_Amount",
+            "Reason":"Reason"
+
         },
         "Membership_Cancellation":{
-            "Title":"Membership Cancellation"
-        },
-        "Locker_Rent_Transfer":{
-            "Title":"Locker Rent Transfer"
-        },
-        "Master_Shares":{
-            "Title":"Master Shares",
-           
+            "Title":"Share Transfer",
+            "Branch_Code":"Branch Code",
+            "Scheme_Code":"Scheme Code",
             "Member_Number":"Member Number",
-            
-            "Employee_Number":"Employee Number",
+            "Transaction_Number":"Transaction Number",
+            "Membership_Date":"Membership Date",
+            "Transfer_Shares":"Transfer Number of Shares",
+            "Transfer_Shares_Amount":"Transfer Shares Amount",
+            "Resolution_Date":"Resolution Date",
+            "Resolution_Number":"Resolution Number",
+            "Cash":"Cash",
+            "Transfer":"Transfar",
+            "Member_Cancel_Date":"Member Cancel Date",
+            "Reason":"Reason",
+            "Scheme":"Scheme ",
+            "Acc_Num":"Account Number",
+            "Particular":"Particular",
+            "Member_Canceled":"Member Canceled",
+            "Amount":"Amount",
+            "Add_Account":"Add Account",
+            "Update_Account":" Update Account",
+            "Narration":"Naration",
+            "Narration_Master":"Narration Master"
+        },
+        "Safe_Vault_to_Cashier":{
+            "Title":"Safe Vault to Cashier",
+            "Branch":"Branch",
+            "Cashier":"Cashier",
+            "Denomination_Amount":"Denomination Amount",
+            "Denomination_Transaction_Date":"Denomination Transaction Date",
+            "Coins":"Coins",
+            "Total_Cash":"  Total Cash :"
+        },
+        "Cashier_to_Safe_Vault_Denomination":{
+           "Title" : "Cashier to Safe Vault Denomination",
+           "Branch":"Branch",
+           "Cashier":"Cashier",
            
-            "Represented_By":"Represented By",
+           "Denomination_Transaction_Date":"Denomination Transaction Date",
+           "Coins":"Coins",
+           "Total_Cash":"  Total Cash :"
            
-            "Branch_Code":"Branch Code"
-        },
-        "Master_Anamat":{
-            "Title":"मास्टर  राखीव",
-            "Reason":"कारण"
-
-        },
-        "Master_Saving":{
-            "Title":"Master Saving",
-            "Minor_Detalis":"Minor Detalis",
-            "Name":"Name"
-            
-        },
-        "Master_Current ":{
-            "Title":"Master_Current",
-            "Proprietor_Name":"Proprietor Name"
-        },
-        "Master_Deposits":{
-            "Title":"Master Deposits",
-            "Term_Deposit_Master":"Term Deposit Master",
-            "As_On_Date":"As On Date",
-            "Maturity_Date":"Maturity Date",
-            "Receipt_No":"Receipt No.",
-            "Deposit_Amount":"Deposit Amount",
-            "Minor_Details":"Minor Details",
-            "Signature_Authority":"Signature Authority",
-            "Maturity_Amount":"Maturity Amount"
-
-        },
-        "Master_Investments":{
-            "Title":"Master_Investments",
-            "Bank_Code":"Bank Code",
-            "Branch_code":"branch code",
-            "Account_Open_Date":"Account Open Date",
-            "As_On_Date":"As On Date",
-            "Maturity_Date":"Maturity Date",
-            "Receipt_Number":"Receipt Number",
-            "Interest_Rate":"Interest Rate",
-            "Deposit_Amount":"Deposit Amount",
-            "Maturity_Amount":"Maturity Amount"
-        },
-        "Pigmy_Agent":{
-            "Title":"Pigmy Agent",
-            "Pigmy_Agent_Master":"Pigmy Agent Master",
-            "Agent_Number":"Agent Number",
-            "Pigmy_Scheme":"Pigmy Scheme",
-            "Appontied_On":"Appontied On"
-        },
-        "Master_Pigmy":
-        {
-            "Title":"Master Pigmy",
-            "Saving_Master":"Saving Master",
-            "Expiry_Date":"Expiry Date",
-            "Period":"Period",
-            "Default_Deposite_Amount":"Default Deposit Amount",
-            "Agent_Code":"Agent Code",
-            "Minor_Details":"Minor Details",
-            "Is_cal_sep_pig_cor":"Is Calculate separate Pigmy Commission For Loan Against Collection"
-
-        },
-        "Master_Cash_Credit":{
-            "Title":"Master Cash Credit",
-            "Current_Master":"Current Master"
-            
-        },
-        "Master_Loan":{
-            "Title":"Master Loan",
-            "Term_Loan_Master":"Term Loan Master"
-           
-            
-        },
-        "Master_Dead_Stock":{
-            "Title":"Master Dead Stock",
-            "Item_Code":"Item Code",
-            "Item_Name":"Item Name",
-            "Supplier_Name":"Supplier Name",
-            "Purchase_Date":"Purchase Date",
-            "Depreciation_Category":"Depreciation Category",
-            "Purchase_Quantity":"Purchase Quantity",
-            "Purchase_Rate":"Purchase Rate",
-            "Purchase_Value":"Purchase Value",
-            "Last_Depreciation_Date":" Last Depreciation Date",
-            "Gl_Acc_Num":"GL Account Number"
-        },
-
-        "Master_Locker":{
-            "Title":"Master Locker",
-            "Detail_Address":"Detail Address"
         }
-
+        
        
     },
-    "Reports":{
-        "Action":{
-            "F1":"Field marked with",
-            "F2":"are mandatory",
-            "Branch":"Branch",
-            "Scheme_Code":"Scheme Code ",
-            "Scheme_Type":"Scheme Type",
-            "Account_No":"Account_No",
-            "Starting_Date":"Starting_Date",
-            "Ending_Date":"Ending Date",
-            "View":"View",
-            "Close":"Close",
-            "Report_Frame":"Report Frame",
-            "Range_Starting_Code":"Range Starting Code",
-            "Starting_Code":"Starting Code",
-            "Starting_Account":"Starting Account",
-            "Date":"Date",
-            "Ending_Code":"Ending_Code"
-        },
-        "General_Acc_Statement":{
-            "Title":"General Account Statement"
-        },
-        "Acc_Statement":{
-            "Title":" Account Statement"
-        },
-        "Loan_Statement":{
-            "Title":"Term Loan Statement With Other Amount"
-        },
-        "Term_Deposit_Statement":{
-            "Title":"Term Deposit Statement"
-        },
-        "Dead_Stock_Balance_List":{
-            "Title":"Dead Stock Balance List"
-        },
-      
-        "Account_Balance_Book":{
-            "Title":"Account Balance Book"
-        },
-        "Account_Balance_List":{
-            "Title":"Account Balance List"
-        },
-        "Customer_ID_Wise_Balance_List":{
-            "Title":"Customer ID Wise Balance List",
-            "Customer_ID":"Customer ID",
-            "Print_Closed_Acc":"Print Closed Account?"
-        },
-        "Scheme_General_Ledger_Consistancy_Report":{
-            "Title":"Scheme General Ledger Consistancy Report",
-            "Print_Pay_rec_interest_Details":"Print Payable Receivable Interest Details",
-            "Scheme_Wise":"Scheme Wise",
-            "Print_Penal_I_Details":"Print Penal Interest Details"
-        },
-
-        "Receivable_I_rate":{
-            "Title":"Receivable Interest rate"
-        },
-        "Payable_I_rate":{
-            "Title":"Payable Interest rate"
-
-        },
-        "Dead_Stock_Balance_List_Depreciation":{
-            "Title":"Dead Stock Balance List Depreciation"
-        },
-        "Deposit_Amount_B_List":{
-            "Title":"Deposit Amount  Balance List",
-            "Within_range":"Within Range",
-            "Less_than":"Less than",
-            "Greter_than":"Greter than",
-            "Print_City_Name":"Print City Name?"
-        },
-        "Size_Wise_B_L":{
-            "Title":"Size Wise Balance List",
-            "Detail":"Detail",
-            "Summary":"Summary"
+    "Swal_Msg":{
+        "Success":"Success!",
+        "S_Msg":"Data Added Successfully !",
+        "Warning":"Warning",
+        "W_Msg2":"Data is Already Submitted",
+        "Invalid_Input":"Invalid Input",
+        "Slab_Details":"Please Input Slab Details",
+        "S_Msg1":"Record Updated Successfully !",
+        "Input_Limit_50":"Please Insert Values Below 50",
+        "W_Msg1":"From Amount Should Be Less Than Upto Amount",
+        "Text":"Do You Want To Delete Interest Rate For loan And CC Data.",
+        "Info":"Info",
+        "I_Msg2":"Please Input To Month",
+        "I_Msg":"Please Add Panel Interest",
+        "I_Msg1":"Please Input Interest Rate",
+        "I_Msg3":"Please Add Interest",
+        "I_Msg4_Am":"Please Input Charges Amount",
+        "I_Msg5_Ran":"Please Input To Range",
+        "Date":"Please insert valid date",
+        "Input_Limit_100":"Please insert values below 100",
+        "Update":"Record Updated Successfully",
+        "Sure":"Are you sure?",
+        "Group_Master":"Do you want to delete Company Group Master data.",
+        "bank_master":"Do you want to delete bank master data.",
+        "narration":"Do you want to delete narration data.",
+        "Delete":"Deleted!",
+        "D_Msg":"Your data has been deleted.",
+        "Cancel":"Cancelled",
+        "C_Msg":"Your data is safe.",
+        "From_Months":"From Months Should Be Less Than To Months",
+        "W_Msg3_r":"From Range Should Be Less Than To Range",
+        "W_Msg3_Y":"please enter valid Year",
+        "Invalid_Year":"Invalid Year",
+        "Diff_Num":"Select Different Member",
+        "div_per":"Please Input Dividend Percentage upto 25",
+        "Bonus_per":"Please Input Bonus Percentage upto 99",
+        "div_al":"Dividend Already Posted !",
+        "div_al_overwrite":"Dividend Already Processed.Do You Want To Overwrite?",
+        "val_25":"Please Insert Values Below 25",
+        "val_99":"Please Insert Values Below 99",
+        "del_scheme":"Do you want to delete Scheme Code. data",
+        "pro_can":"Processing Cancelled!",
+        "Pro":"Processed!",
+        "pass_data":"Do you want to process data",
+        "del_warrant":"Do you want to delete Warrant date.",
+        "data":"data",
+        "no_re":"no Any Records Found!",
+        "Oops":"Oops!",
+        "No_Update":"No Data To Update!",
+        "rej_succ":"Deadstock depreciation rejected successfully",
+        "app_succ":"Deadstock depreciation approved successfully",
+        "No_rej":"No Data To Reject!",
+        "No_App":"No Data To Approve!",
+        "Mandatory_Field":"Please Fill All Mandatory Field!",
+        "E_S_Date":"Ending Date Must Greater Than/Equal To Starting  Date",
+        "n_records":"No Records Found",
+        "Transferd":"Transferd!",
+        "cash_transfered":"Your cash has been transfered.",
+        "Safe_Vault":"You won't be transfer cash to Safe Vault!",
+        "Correct_Amount":"Please insert Correct Amount",
+        "Correct_Quantity":"Please insert Correct Quantity",
+        "Select_Scheme":"Please Select Scheme!",
+        "Select_Account":"Please Select Account!",
+        "Select_Debit_Credit":"Please Select Debit or Credit!",
+        "Insert_Amount":"Please Insert Amount!",
+        "T_de_cr_am":"Total debit amount does not match with total credit amount",
+        "Data_Added":"Data Successfully Added!",
+        "Data_Un_S":"Data Unapproved Successfully!!",
+        "Acc_Already_E":"This Account is Already Exists!",
+        "Data_App":"Data Approved Successfully!!",
+        "Data_Rej":"Data Rejected Successfully!!",
+        "acc_closed":"Selected account is closed!",
+        "acc_0_bal":"Selected account has 0 balance!",
+        "T_am_equal_less":"Transfer amount should be equal or less than",
+        "Res_Date":"Please Insert Resolution Date!",
+        "res_number":"Please enter resolution number!",
+        "t_amount":"Please check transfer amount!",
+        "Data_Sub_S":"Data Submitted Successfully!!",
+        "Pro_Trans_Am":"Please Insert Proper Transfer Amount!",
+        "Data_Up_Suc":"Data Updated Successfully!!",
+        "Enter_Reason":"Please Enter Reason!",
+        "Actual_Transfer_Amount":"Please Enter Actual Transfer Amount!",
+        "Insert_RES":"Please Insert RESOLUTION NO!",
+        "Insert_RES_Date":"Please Insert Resolution Date!",
+        "S_Member_No":"Please Select  Member No!",
+        "Insert__Member_No":"Please Insert Member No!",
+        "Scheme_Code":"Please Select Scheme Code!",
+        "Branch_Code":"Please Select Branch Code!",
+        "amount_less_equal":"Actual transfer amount must be less or equal to",
+        "acc_cannot_same":"Transfer account cannot be same",
+        "Overdraft":"Overdraft given so Account cannot close",
+        "Freezed_account":"Freezed account so Account cannot close",
+        "account_cannot_close":"Account is already closed so account cannot close",
+        "passing_pending":"Account is already closed but passing pending",
+        "Balance_is_insufficient":"Balance is insufficient so account cannot close",
+        "Select_Acoount":"Please Select Acoount!",
+        "Already_Exists":"This Account is Already Exists!",
+        "Amount_less_same":"Amount Must be less than or same as",
+        "check_Transfer":"Please check Transfer Amount with",
+        "Closing_Balance":"Amount Is Greater Than Closing Balance",
+        "Clo_Acc_Tra_Acc":"Closing Account And Transfer Account Cannot Be Same",
+        "Net_Tras_Am":"Please Check Net Payable Amount and Transfer Amount!",
+        "Acc_Closing_Up":"Account Closing Updated Successfully !",
+        "S_P_Acc_rejected":"Saving and Pigmy Account Closing rejected successfully",
+        "Rejected":"Rejected",
+        "S_P_Acc_approved":"Saving and Pigmy Account Closing approved successfully",
+        "Approved":"Approved",
+        "Unapproved":"Unapproved",
+        "Acc_unapproved":"Account unapproved successfully"
         
-        },
-        "Debit_B_Report":{
-            "Title":"Debit Balnce Reports",
-            "Ac_no":"Ac no",
-            "Name":"Name",
-            "Open_Date":"Open Date",
-            "Print_m_ref_mem_num":"Print_m_ref_mem_num",
-            "Print_Opening_Date":"Print Opening Date",
-            "Print_Anamat_Reson":"Print Anamat Reson",
-            "Within_range":"रेंजमध्ये"
-            
-        },
-        "Amount_Wise_B_L":{
-            "Title":"Amountwise Balance List",
-            "Within_range":"Within Range",
-            "Less_than":"Less than",
-            "Greter_than":"Greter than",
-            "Print_City_Name":"Print City Name?"
-            
-
-        },
-        "DeadStock_Depreciation_Category_List":{
-            "Title":"DeadStock_Depreciation_category_List",
-            "Depreciation_Category":"Depreciation_Category",
-            "Detail":"Detail",
-            "Summary":"Summary"
-        },
-        "Balance_Confi_Certi":{
-            "Title":"Balance Confirmation Certificate",
-            "Print_Marathi_Cer":"Print Marathi Certificate"
-            
-        },
-        "Short_B_List":{
-            "Title":"Short Balance List"
-        }
     },
-    "Printing":{
-        "Action":{
-            "F1":"Field marked with",
-            "F2":"are mandatory",
-            "T1":"Passbook Issue",
-            "Branch":"Branch",
-            "Scheme_Code":"Scheme Code ",
-            "Account_No":"Account No",
-            "View":"View",
-            "Close":"Close",
-            "Report_Frame":"Report Frame",
-            "T2":"Passbook Print",
-            "From_Ac_No":"From A/C No.",
-            "Starting_Date":"Starting_Date",
-            "Number_of_lines_printed":"Number of lines printed",
-            "Num_Of_Lines_Printed":"Number of lines on single page",
-            "T3":"Term Deposit Receipt Printing",
-            "From_Ac_Number":"From A/c Number",
-            "T4":"Voucher Printing",
-            "Date":"Date",
-            "Source_Type":"Source Type",
-            "Transaction_Type":"Transaction Type",
-            "Voucher_Num":"Voucher Number",
-            "T5":"Gold/Silver Receipt Print",
-            "Account_Num":"Account Number"
-
-        }
+    "Menu":{
+        "Master":"Master"
     }
 }

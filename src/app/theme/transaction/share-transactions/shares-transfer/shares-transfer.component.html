@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Share Transfer</h5>
+                <h5>{{'Transaction.Share_Tarnsfer.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Transaction.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card-body">
                 <form [formGroup]="angForm" novalidate>
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Share_Tarnsfer.Branch_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
@@ -28,18 +28,18 @@
                                     *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['branch_code'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'Transaction.Share_Tarnsfer.Scheme_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE"
                                             bindLabel="label" formControlName="AC_TYPE" title="Compulsory Selection"
-                                            required placeholder="Scheme" (change)="getIntroducer()">
+                                            required placeholder="{{'Transaction.Share_Tarnsfer.Scheme' | translate}}" (change)="getIntroducer()">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -49,13 +49,13 @@
                                     *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Share_Tarnsfer.Member_Number' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-4">
@@ -73,11 +73,11 @@
                                     *ngIf="angForm.controls['MEMBER_CODE'].invalid && (angForm.controls['MEMBER_CODE'].dirty || angForm.controls['MEMBER_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['MEMBER_CODE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Transaction Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Share_Tarnsfer.Transaction_Number' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -96,7 +96,7 @@
                         <div class="col-md-12">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR">Membership Date<sub
+                                    <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR">{{'Transaction.Share_Tarnsfer.Membership_Date' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -112,12 +112,12 @@
                                             *ngIf="angForm.controls['MDATE'].invalid && (angForm.controls['MDATE'].dirty || angForm.controls['MDATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['MDATE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
-                                        <label for="Site Name">Transfer Number of Shares<sub class="required">*
+                                        <label for="Site Name">{{'Transaction.Share_Tarnsfer.Transfer_Shares' | translate}}<sub class="required">*
                                             </sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label for="Site Name">Transfer Shares Amount<sub class="required">*
+                                        <label for="Site Name">{{'Transaction.Share_Tarnsfer.Transfer_Shares_Amount' | translate}}<sub class="required">*
                                             </sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -151,9 +151,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="solid">
-                                <h1><span>Member Transfer To</span></h1>
+                                <h1><span>{{'Transaction.Share_Tarnsfer.Member_Transfer_To' | translate}}</span></h1>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'Transaction.Share_Tarnsfer.Scheme' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
@@ -162,7 +162,7 @@
                                                 <ng-select bindValue="value" [(ngModel)]="schemeCode1" id="AC_TYPE1"
                                                     bindLabel="label" formControlName="AC_TYPE1"
                                                     (change)=" getIntroducers()" title="Compulsory Selection" required
-                                                    placeholder="Scheme">
+                                                    placeholder="{{'Transaction.Share_Tarnsfer.Scheme_Code' | translate}}">
                                                     <ng-option *ngFor="let values of scheme" [value]="values">
                                                         {{values.label}} </ng-option>
                                                 </ng-select>
@@ -172,11 +172,11 @@
                                             *ngIf="angForm.controls['AC_TYPE1'].invalid && (angForm.controls['AC_TYPE1'].dirty || angForm.controls['AC_TYPE1'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_TYPE1'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Share_Tarnsfer.Member_Number' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
@@ -196,14 +196,14 @@
                                                 *ngIf="angForm.controls['MEMBER_CODE1'].invalid && (angForm.controls['MEMBER_CODE1'].dirty || angForm.controls['MEMBER_CODE1'].touched)"
                                                 class="alert alert-danger">
                                                 <div *ngIf="angForm.controls['MEMBER_CODE1'].errors?.required">
-                                                    This field is required
+                                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution Date<sub
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Share_Tarnsfer.Resolution_Date' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -220,13 +220,13 @@
                                             *ngIf="angForm.controls['RDATE'].invalid && (angForm.controls['RDATE'].dirty || angForm.controls['RDATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['RDATE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4"> </div>
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution
-                                            Number<sub class="required">*</sub></label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Share_Tarnsfer.Resolution_Number' | translate}}
+                                            <sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -241,7 +241,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Transfer Date</label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Share_Tarnsfer.Transfer_Date' | translate}}</label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -255,8 +255,8 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4"> </div>
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Actual Transfer
-                                            Amount<sub class="required">*</sub></label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Share_Tarnsfer.Actual_Transfer_Amount' | translate}}
+                                            <sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -274,7 +274,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Reason</label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Share_Tarnsfer.Reason' | translate}}</label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group input-group">
@@ -296,18 +296,18 @@
                 <div class="row">
                     <div class="col-sm" style="float: right;">
                         <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow" (click)="submit()">
-                            Submit
+                            {{'Transaction.Action.Submit' | translate}}
                         </button>
 
                         <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
-                            Close</button>
+                            {{'Transaction.Action.Close' | translate}}</button>
 
                         <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{'Transaction.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
-                            Approve</button>
+                            {{'Transaction.Action.Approve' | translate}}</button>
                         <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()">
-                            Unapprove</button>
+                            {{'Transaction.Action.Unapprove' | translate}}</button>
                         <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                         *ngIf="newbtnShow">
                         Cancel

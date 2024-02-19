@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectOptionService } from '../../../shared/elements/select-option.service';
 // import {SelectModule} from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -31,6 +31,8 @@ import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/sal
 import {SharesTransferModule} from './shares-transfer/shares-transfer.module'
 import {IssueNewSharesModule } from './issue-new-shares/issue-new-shares.module'
 import {MembershipCancellationModule } from './membership-cancellation/membership-cancellation.module'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
@@ -47,7 +49,14 @@ import {MembershipCancellationModule } from './membership-cancellation/membershi
     ButtonModule,
     SharesTransferModule,
     IssueNewSharesModule,
-    MembershipCancellationModule
+    MembershipCancellationModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
 
   ],
   declarations: [ShareTransactionsComponent, 
@@ -65,3 +74,6 @@ import {MembershipCancellationModule } from './membership-cancellation/membershi
 
 })
 export class ShareTransactionsModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

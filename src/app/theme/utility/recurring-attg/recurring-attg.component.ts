@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-recurring-attg',
@@ -16,11 +18,14 @@ export class RecurringAttgComponent implements OnInit {
   obj: any[];
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService
-  ) { }
+  ) { 
+    this.translate.setDefaultLang(environment.setLang);
+  }
 
   //ngfor variables
   branchCode
