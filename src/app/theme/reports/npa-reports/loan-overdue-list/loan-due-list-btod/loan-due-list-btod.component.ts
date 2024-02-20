@@ -31,6 +31,9 @@ export class LoanDueListBtodComponent implements OnInit {
 
   clicked: boolean;
   tScheme: any;
+  fromAc: null;
+  toAc: null;
+  selectedItems: null;
   
 
 
@@ -148,7 +151,7 @@ let scheme = obj.scheme;
 
 
 
-this.iframe5url=this.report_url+ "examples/LoanOverdueBetweenTwoOpenDates.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&BRANCH='"+branchName+"'&DATE1='"+sdate+"'&DATE2='"+edate+"'&NUMBER1='"+mininstal+"'&NUMBER2='"+maxinstall+"&schemeCode='"+scheme+"'&BANK='"+bankName+"'";
+this.iframe5url=this.report_url+ "examples/LoanOverdueBetweenTwoOpenDates.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&BRANCH='"+branchName+"'&DATE1='"+sdate+"'&DATE2='"+edate+"'&NUMBER1='"+mininstal+"'&NUMBER2='"+maxinstall+"'&schemeCode='"+scheme+"'&BANK='"+bankName+"'";
 console.log(this.iframe5url); 
  this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 }
@@ -157,4 +160,25 @@ else {
 }
 }
 
+close() {
+  this.resetForm()
+  // this.selectedItems =null;
+
+}
+resetForm() {
+  this.angForm.controls.scheme.reset();
+  // this.angForm.controls.BRANCH_CODE.reset();
+  this.angForm.controls.maxinst.reset();
+  this.angForm.controls.mininst.reset();
+  this.angForm.controls.fdate.reset();
+  this.angForm.controls.tdate.reset();
+
+
+  this.fromAc = null;
+  this.toAc = null;
+  this.selectedItems=null;
+
+  this.showRepo = false;
+  this.clicked = false;
+}
 }

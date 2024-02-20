@@ -1,6 +1,6 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -82,21 +82,21 @@ export class VoucherPrintingComponent implements OnInit {
 
   vtypes = [
 
-    { label: 'Locker Rent', value: 'LR' },
-    { label: 'Cancellation', value: 'CN' },
+    // { label: 'Locker Rent', value: 'LR' },
+    // { label: 'Cancellation', value: 'CN' },
     { label: 'Voucher', value: 'VC' },
     { label: 'Multi-Voucher', value: 'MV' },
-    { label: 'Deposit Closing', value: 'DC' },
-    { label: 'Renewal', value: 'RW' },
-    { label: 'Shares Issue', value: 'SHI' },
-    { label: 'SharesTransfer', value: 'SHT' },
-    { label: 'Sell', value: 'SEL' },
-    { label: 'Purches', value: 'PUR' },
-    { label: 'Depreciation', value: 'DPR' },
-    { label: 'Breakage', value: 'BRK' },
-    { label: 'Gain', value: 'GIN' },
-    { label: 'Loss', value: 'LOS' },
-    { label: 'Transfer', value: 'TRE' },
+    // { label: 'Deposit Closing', value: 'DC' },
+    // { label: 'Renewal', value: 'RW' },
+    // { label: 'Shares Issue', value: 'SHI' },
+    // { label: 'SharesTransfer', value: 'SHT' },
+    // { label: 'Sell', value: 'SEL' },
+    // { label: 'Purches', value: 'PUR' },
+    // { label: 'Depreciation', value: 'DPR' },
+    // { label: 'Breakage', value: 'BRK' },
+    // { label: 'Gain', value: 'GIN' },
+    // { label: 'Loss', value: 'LOS' },
+    // { label: 'Transfer', value: 'TRE' },
   ]
 
   constructor(
@@ -184,7 +184,8 @@ export class VoucherPrintingComponent implements OnInit {
       DATE: ['', [Validators.required]],
       VOUCHER_NO: ['', [Validators.required]],
       VOUCHER_TYPE: ['', [Validators.required]],
-      TRAN_TYPE: ['', [Validators.required]],
+      TRAN_TYPE: [''],
+      drcr: new FormControl('Debit'),
     });
   }
 
@@ -321,9 +322,31 @@ this.voucherNo
       let voucherType = obj.VOUCHER_TYPE
       let tranType = obj.TRAN_TYPE 
 
-      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
-      console.log(this.iframe5url);
-      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      let drcrtype
+      if (obj.drcr === 'Debit') {
+        drcrtype = 0
+      }
+      else if (obj.drcr === 'Credit') {
+        drcrtype = 1
+      }
+      else if (obj.drcr === 'Both') {
+        drcrtype = 2
+      }
+      // this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
+      // console.log(this.iframe5url);
+      // this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+      if (voucherType == 'VC') {
+        this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tranType + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'";
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      }
+      else if (voucherType == 'MV') {
+        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "";
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      }
+
 
     }
     else {
@@ -350,14 +373,28 @@ this.voucherNo
     this.branchName = event.branchName
   }
 
+  
+  hide: boolean = false
+  show: boolean = true
   getType(event) {
     this.vtype = event.value
-  
+    if (this.vtype == 'MV') {
+      this.show = false
+      this.hide = true
+      this.getType1(event);
+    }
+    else {
+      this.show = true
+      this.hide = false
+    }
   }
+
   getType2(event) {
     this.voucherNo = event.TRAN_NO
   
   }
+
+  trType
   getType1(event){
     this.tranType = event.value
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -372,7 +409,16 @@ this.voucherNo
       sdate = date
     }
 
+    
     //for voucher Number
+
+    if (this.vtype == 'MV') {
+      this.trType = 'TR'
+    }
+    else {
+      this.trType = this.tranType
+    }
+
     let obj1 = {
       type: this.vtype,
       branch: this.ngbranch,

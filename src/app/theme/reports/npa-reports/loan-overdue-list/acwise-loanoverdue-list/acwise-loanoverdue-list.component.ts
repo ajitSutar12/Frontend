@@ -346,7 +346,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   }
   resetForm() {
     this.ngForm.controls.Scheme_code.reset();
-    this.ngForm.controls.BRANCH_CODE.reset();
+    // this.ngForm.controls.BRANCH_CODE.reset();
     this.ngForm.controls.Max_save.reset();
     this.ngForm.controls.Min_save.reset();
     this.ngForm.controls.END_DATE.reset();

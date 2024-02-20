@@ -466,6 +466,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         this.accountedit = null
         return
+      } 
+      else if (data[0].ISLIEN == true) {
+        Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
+        this.accountedit = null
+        return
       }
       this.preMature = data[0].preMature
       this.OpenDate = data[0].AC_OPDATE

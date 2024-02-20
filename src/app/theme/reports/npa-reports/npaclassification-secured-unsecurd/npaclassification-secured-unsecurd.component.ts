@@ -125,7 +125,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
    
     createForm() {
       this.ngForm = this.fb.group({
-        // BRANCH_CODE: ['', [Validators.required]],
+        BRANCH_CODE: ['', [Validators.required]],
         // Scheme_code: ["",[ Validators.required]],
         START_DATE: ['', [Validators.required]],
         npa_per: [''],
@@ -143,7 +143,8 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       let userData = JSON.parse(localStorage.getItem('user'));
       let bankName = userData.branch.syspara.BANK_NAME;
       let branchName = userData.branch.NAME;
-      this.branchName = "OFFICE KOTOLI"
+      // this.branchName = "OFFICE KOTOLI"
+      let branch = userData.branchId;
   
   
       if(this.ngForm.valid){
@@ -177,7 +178,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     let scheme = obj.Scheme_code
     let Dates = obj.START_DATE;
   
-      let branch = '1';
+      // let branch = '1';
       let flag = obj.npa_per;
       if(flag == true){
         flag = '1'
@@ -192,7 +193,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
 
 
-      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+branch+"&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Dates+"'";
+      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+branch+"&FLAG="+flag+"&BRANCH='"+branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Dates+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
@@ -209,7 +210,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
   
     }
     resetForm() {
-    this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.START_DATE.reset();
   
       this.showRepo = false;
       this.clicked=false;

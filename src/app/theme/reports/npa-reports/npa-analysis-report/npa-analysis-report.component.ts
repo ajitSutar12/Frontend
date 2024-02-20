@@ -37,7 +37,7 @@ export class NpaAnalysisReportComponent implements OnInit {
    fromdate: any = null
    ngbranch: any = null; 
    scode: any = null;
-   GL_CODE:any;
+   OVER_CODE:any;
    AGL_CODE:any;
    //ngfor
    scheme: any[];
@@ -71,6 +71,7 @@ export class NpaAnalysisReportComponent implements OnInit {
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
       private schemeAccountNoService: SchemeAccountNoService,
+      private http: HttpClient,
      
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -129,11 +130,18 @@ export class NpaAnalysisReportComponent implements OnInit {
   
       }
     }
-  
+    glDetails: any;
     getTransferAccountList(event) {
       this.transferSchemeDetails = event
       this.tScheme = event.name
       this.getIntroducer()
+
+
+      this.http.post('http://localhost:7276/npa-classification-master/glcode',{}).subscribe((data) => {
+        this.glDetails = data
+    
+          console.log(this.glDetails)
+        })
     
     }
     getIntroducer() {
@@ -143,6 +151,7 @@ export class NpaAnalysisReportComponent implements OnInit {
       let branchCode = result.branch.id;
       let code = 10;
       this.obj1 = [code, branchCode]
+      // this.obj1 = [branchCode, this.scode]
       switch (this.tScheme) {
   
   
@@ -159,7 +168,7 @@ export class NpaAnalysisReportComponent implements OnInit {
           this.schemeAccountNoService.getGeneralLedgerList1(this.obj1).subscribe(data => {
             this.ToAC = data
             this.fromAC = data
-            console.log(data);
+            console.log("LN",data);
             
           })
           break;
@@ -190,7 +199,7 @@ export class NpaAnalysisReportComponent implements OnInit {
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
         END_DATE: ['', [Validators.required]],
-        GL_CODE: ['', [Validators.required]],
+        OVER_CODE: ['', [Validators.required]],
         AGL_CODE: ['', [Validators.required]],
        
       });
@@ -237,8 +246,8 @@ export class NpaAnalysisReportComponent implements OnInit {
      }
   
     let scheme = obj.Scheme_code
-    let VAR1 = obj.GL_CODE;
-    let VAR2 = obj.AGL_CODE;
+    let VAR1 = obj.OVER_CODE.AC_NO;
+    let VAR2 = obj.AGL_CODE.AC_NO;
     let TDate = obj.END_DATE;
     let SDate = moment(TDate, "DD/MM/YYYY").subtract(1, "year").format("DD/MM/YYYY");
 
