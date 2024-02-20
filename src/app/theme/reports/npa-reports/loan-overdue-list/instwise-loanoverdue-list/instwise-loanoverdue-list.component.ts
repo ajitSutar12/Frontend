@@ -36,6 +36,9 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
   ngForm: FormGroup
   ngbranch: any = null;
   branchName: any;
+  fromAc: null;
+  toAc: null;
+  selectedItems: null;
 
   constructor(
     private fb: FormBuilder,
@@ -187,4 +190,22 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
     }
   }
 
+  resetForm() {
+    // this.angForm.controls.BRANCH_CODE.reset();
+    this.angForm.controls.scheme.reset();
+    this.angForm.controls.date.reset();
+    // this.angForm.controls.END_DATE.reset();
+    this.fromAc = null;
+    this.toAc = null;
+    this.selectedItems=null;
+
+    this.showRepo = false;
+    this.clicked = false;
+  }
+
+close() {
+    this.resetForm()
+    // this.selectedItems =null;
+
+  }
 }

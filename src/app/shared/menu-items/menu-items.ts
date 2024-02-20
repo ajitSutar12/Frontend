@@ -1421,13 +1421,13 @@ const MENUITEMS1 = [
             type: 'sub',
             id: 230,
             children: [
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue List',
-                type: 'sub',
-                id: 231,
+              // {
+              //   state: 'loanoverduelist',
+              //   name: 'Loan Overdue List',
+              //   type: 'sub',
+              //   id: 231,
 
-              },
+              // },
               {
                 state: 'loansecurityreport',
                 name: 'Loan Security Reports',
@@ -1510,7 +1510,7 @@ const MENUITEMS1 = [
 
           {
             state: 'npaReports',
-            name: 'NPA Reports',
+            name: 'NPA & Overdue Reports',
             short_label: 'D',
             type: 'sub',
             id: 243,
@@ -1560,6 +1560,13 @@ const MENUITEMS1 = [
                 name: 'NPA Classification -Standard Or Non Standard.PNG',
                 type: 'sub',
                 id: 251,
+              },
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue List',
+                type: 'sub',
+                id: 252,
+
               },
 
             ],
@@ -4177,13 +4184,13 @@ const MENUITEMS = [
             type: 'sub',
             id: 230,
             children: [
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue List',
-                type: 'sub',
-                id: 231,
+              // {
+              //   state: 'loanoverduelist',
+              //   name: 'Loan Overdue List',
+              //   type: 'sub',
+              //   id: 231,
 
-              },
+              // },
               {
                 state: 'loansecurityreport',
                 name: 'Loan Security Reports',
@@ -4266,7 +4273,7 @@ const MENUITEMS = [
 
           {
             state: 'npaReports',
-            name: 'NPA Reports',
+            name: 'NPA & Overdue Reports',
             short_label: 'D',
             type: 'sub',
             id: 243,
@@ -4317,6 +4324,14 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 251,
               },
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue List',
+                type: 'sub',
+                id: 252,
+
+              },
+
 
             ],
           },

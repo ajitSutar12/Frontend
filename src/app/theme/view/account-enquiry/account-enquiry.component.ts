@@ -672,6 +672,8 @@ export class AccountEnquiryComponent implements OnInit {
 
   //get account details
   getAccountDetails(event) {
+    this.viewView(event)
+
     this.accountEvent = event
     this.customerIDArr = null
     // console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)

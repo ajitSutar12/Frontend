@@ -196,7 +196,7 @@ export class PassbookEntryPrintComponent implements OnInit {
       let branch = obj.BRANCH_CODE
       let scheme = obj.Scheme_code
       let schemeName = this.tScheme
-
+      let ps_lines_printed = obj.PS_LINES_PRINTED
       let date = moment(obj.START_DATE).format('DD/MM/YYYY');
       let tdate = moment(obj.END_DATE).format('DD/MM/YYYY');
       //for start date
@@ -229,7 +229,7 @@ export class PassbookEntryPrintComponent implements OnInit {
       else if (this.getschemename == 'SB' || this.getschemename == 'CA' || this.getschemename == 'TD') {
         flag = 1
       }
-      this.iframe5url = this.report_url + "examples/passbookprintnew.php?AC_NO='" + this.bankAcno + "'&flag=" + flag + "&AC_ACNOTYPE='" + this.getschemename + "'&AC_TYPE='" + this.scode + "'";
+      this.iframe5url = this.report_url + "examples/passbookprintnew1.php?AC_NO='" + this.bankAcno + "'&flag=" + flag + "&AC_ACNOTYPE='" + this.getschemename + "'&AC_TYPE='" + this.scode + "'&PS_LINES_PRINTED='" +ps_lines_printed+ "'"; 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 

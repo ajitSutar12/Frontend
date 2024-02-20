@@ -31,6 +31,9 @@ export class LoanDueListBtodComponent implements OnInit {
 
   clicked: boolean;
   tScheme: any;
+  fromAc: null;
+  toAc: null;
+  selectedItems: null;
   
 
 
@@ -163,14 +166,17 @@ close() {
 
 }
 resetForm() {
-  this.angForm.controls.Scheme_code.reset();
-  this.angForm.controls.BRANCH_CODE.reset();
-  this.angForm.controls.Max_save.reset();
-  this.angForm.controls.Min_save.reset();
-  this.angForm.controls.END_DATE.reset();
-  // this.fromAc = null;
-  // this.toAc = null;
-  // this.selectedItems=null;
+  this.angForm.controls.scheme.reset();
+  // this.angForm.controls.BRANCH_CODE.reset();
+  this.angForm.controls.maxinst.reset();
+  this.angForm.controls.mininst.reset();
+  this.angForm.controls.fdate.reset();
+  this.angForm.controls.tdate.reset();
+
+
+  this.fromAc = null;
+  this.toAc = null;
+  this.selectedItems=null;
 
   this.showRepo = false;
   this.clicked = false;

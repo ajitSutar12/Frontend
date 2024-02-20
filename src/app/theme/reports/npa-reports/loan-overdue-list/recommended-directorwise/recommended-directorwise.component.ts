@@ -309,6 +309,12 @@ export class RecommendedDirectorwiseComponent implements OnInit {
     }
     resetForm() {
       this.ngForm.controls.Scheme_code.reset();
+      this.ngForm.controls.Start_code.reset();
+      this.ngForm.controls.End_code.reset();
+      this.ngForm.controls.Max_save.reset();
+      this.ngForm.controls.Min_save.reset();
+
+
   
       this.showRepo = false;
       this.clicked = false;
