@@ -172,13 +172,13 @@ export class GoldSilverSecurityComponent implements OnInit {
       }
 
       let scheme = obj.Scheme_code
-      let branch = obj.BRANCH_CODE;
+      let branchCode = obj.BRANCH_CODE;
       let schemeName = this.tScheme
 
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'";
+      this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'&branchCode='" + branchCode+ "'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

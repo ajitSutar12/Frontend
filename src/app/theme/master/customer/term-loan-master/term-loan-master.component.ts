@@ -1159,6 +1159,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     data['id'] = this.updateID;
     data['IS_AGGRI_LOAN'] = (data.IS_AGGRI_LOAN == true ? '1' : '0')
 
+
     let date
     let opdate
     let redate

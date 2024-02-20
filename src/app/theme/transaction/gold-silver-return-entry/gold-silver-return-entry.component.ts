@@ -261,7 +261,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
   }
 
   reject() {
-    if (this.angForm.valid) {
+    // if (this.angForm.valid) {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let object = {
@@ -284,10 +284,10 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         button.click();
         this.reloadTablePassing.emit();
       })
-    }
+    // }
   }
   Approve() {
-    if (this.angForm.valid) {
+    // if (this.angForm.valid) {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let object = {
@@ -310,10 +310,10 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         button.click();
         this.reloadTablePassing.emit();
       })
-    }
+    // }
   }
   unApprove() {
-    if (this.angForm.valid) {
+    // if (this.angForm.valid) {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let object = {
@@ -337,7 +337,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         button.click();
         this.reloadTablePassing.emit();
       })
-    }
+    // }
   }
   closeModal() {
     var button = document.getElementById('triggerhide');

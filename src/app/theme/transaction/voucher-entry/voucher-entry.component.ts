@@ -170,6 +170,7 @@ export class VoucherEntryComponent implements OnInit {
   loginUser: any;
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
+  DayOpBalance: string;
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -243,6 +244,21 @@ export class VoucherEntryComponent implements OnInit {
       this.narrationList = data;
     })
 
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.selectedBranch = result.branch.id
+      this.angForm.controls['branch_code'].enable()
+      this.branchCode = result.branch.CODE
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.selectedBranch = result.branch.id
+      this.branchCode = result.branch.CODE
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+    }
 
   }
 
@@ -304,21 +320,7 @@ export class VoucherEntryComponent implements OnInit {
       bank: [''],
       Intdate: ['']
     })
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.selectedBranch = result.branch.id
-      this.angForm.controls['branch_code'].enable()
-      this.branchCode = result.branch.CODE
-    }
-    else {
-      this.angForm.controls['branch_code'].disable()
-      this.selectedBranch = result.branch.id
-      this.branchCode = result.branch.CODE
-      this.angForm.patchValue({
-        'branch_code': result.branch.id
-      })
-    }
+   
   }
 
   resetscheme() {
@@ -600,7 +602,7 @@ export class VoucherEntryComponent implements OnInit {
             icon: 'success',
             title: 'Voucher update Successfully!',
             html:
-              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>', 
             showCancelButton: true, //true
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#3085d6',
@@ -2638,7 +2640,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
       date: addInFrom,
-      branch : this.branchCODE
+      branch : this.branchCode
 
     }
 
@@ -2646,7 +2648,7 @@ export class VoucherEntryComponent implements OnInit {
 
       //debugger
       this.DayOpBal = Math.abs(data);
-      this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+      this.DayOpBalance = Number(this.DayOpBal).toFixed(2)
       if (data < 0) {
         this.extensionopenbal = 'Cr'
       } else {
