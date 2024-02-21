@@ -5,10 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RoleMasterRoutingModule } from './role-master-routing.module';
 import { RoleMasterComponent } from './role-master.component';
 import { DataTablesModule } from "angular-datatables";
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [RoleMasterComponent],
@@ -17,15 +15,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     RoleMasterRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    DataTablesModule
   ],
   providers:[{
     provide: HTTP_INTERCEPTORS,
@@ -34,6 +24,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   },]
 })
 export class RoleMasterModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

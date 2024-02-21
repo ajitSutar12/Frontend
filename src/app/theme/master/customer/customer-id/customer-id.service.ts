@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import {environment}  from '../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class CustomerIdService {
     // Variable for handleError
@@ -13,7 +14,9 @@ export class CustomerIdService {
     // // customer-id";
     url = environment.base_url;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,) { 
+        
+    }
 
     //Insertion Operation
     postData(data: any): Observable<any> {

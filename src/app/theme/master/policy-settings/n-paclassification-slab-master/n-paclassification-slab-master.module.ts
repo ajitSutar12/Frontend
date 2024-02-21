@@ -6,13 +6,11 @@ import { NPAClassificationSlabMasterComponent } from './n-paclassification-slab-
 import { NPAClassificationSlabMasterRoutingModule } from './n-paclassification-slab-master-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { npcslabMasterService } from '../../../../shared/elements/npcslab-master.service';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/theme/theme.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -24,15 +22,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     DatepickerModule.forRoot(),
     NgSelectModule,
 
-    ThemeModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    ThemeModule
   ],
   declarations: [NPAClassificationSlabMasterComponent],
   providers: [npcslabMasterService, {
@@ -42,6 +32,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   },]
 })
 export class NPAClassificationSlabMasterModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

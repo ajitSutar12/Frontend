@@ -11,7 +11,6 @@ import { NarrationService } from './narration.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -31,6 +30,9 @@ interface Narration {
   styleUrls: ['./narration.component.scss']
 })
 export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  a:any = 'data.hi'
+
   formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
@@ -73,13 +75,12 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private http: HttpClient,
     private narrationService: NarrationService,
-    private fb: FormBuilder,
-    private translate:TranslateService) {
-      
+    private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.createForm();
+    console.log('from narration',this.a)
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -133,20 +134,19 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       }],
       columns: [
         {
-          title: this.translate.instant('master.Naration_Master.Action'),
+          title: 'Action',
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title:this.translate.instant('master.Naration_Master.Narration'),
+          title: 'Narration',
           data: 'NARRATION',
         }
       ],
       dom: 'Blrtip',
     }; 
   }
-
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({

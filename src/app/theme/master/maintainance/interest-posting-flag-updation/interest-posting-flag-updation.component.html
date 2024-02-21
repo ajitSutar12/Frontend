@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.Interest_Posting_Allowed_Flag_Updation.Title' | translate}}</h5>
+                <h5>Interest Posting Allowed Flag Updation</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,11 +17,11 @@
                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" #BRANCH
                                         (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="{{'master.Interest_Posting_Allowed_Flag_Updation.Branch' | translate}}" autofocus>
+                                        placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH">{{'master.Interest_Posting_Allowed_Flag_Updation.Branch' | translate}}</label>
+                                    <label for="BRANCH">Branch</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -38,12 +38,12 @@
                                     <ng-select appTheme id="AC_TYPE" bindValue="id" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Interest_Posting_Allowed_Flag_Updation.Schema_Code' | translate}}"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code"
                                         (change)="getSchemeAcno($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">{{'master.Interest_Posting_Allowed_Flag_Updation.Schema_Code' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">Scheme Code<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -67,7 +67,7 @@
                                         <ng-option *ngFor="let values of fromAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="FROM_AC">{{'master.Interest_Posting_Allowed_Flag_Updation.From_Account' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="FROM_AC">From A/c<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -85,11 +85,11 @@
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
                                         (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="{{'master.Interest_Posting_Allowed_Flag_Updation.To_Account' | translate}}">
+                                        placeholder="To A/c">
                                         <ng-option *ngFor="let values of toAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="TO_AC">{{'master.Interest_Posting_Allowed_Flag_Updation.To_Account' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="TO_AC">To A/c<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -104,7 +104,7 @@
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 [disabled]="angForm.invalid" (click)="submit()" (keydown.Tab)="focus()"
                                 appTheme>Update</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow"> {{'master.Action.Update' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow">Update</button>
                         </div>
                     </div>
                     <div class="row">
@@ -115,9 +115,9 @@
                                         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                             class="table table-striped table-bordered table-hover compact">
                                             <thead>
-                                                <td class="td_right">{{'master.Interest_Posting_Allowed_Flag_Updation.Ac_no' | translate}}</td>
-                                                <td>{{'master.Interest_Posting_Allowed_Flag_Updation.Account_Name' | translate}}</td>
-                                                <td class="td_center">{{'master.Interest_Posting_Allowed_Flag_Updation.Is_Post_Interest?' | translate}}</td>
+                                                <td class="td_right">Account Number</td>
+                                                <td>Account Name</td>
+                                                <td class="td_center">Is Post Interest?</td>
                                                 <tr>
                                                     <td><input type="text" class="form-control"
                                                             (keyup)="filterObject($event,'AC_NO')"></td>
@@ -148,7 +148,7 @@
                                                 <tr>
                                                     <td colspan="6" class="no-data-available"
                                                         style="text-align: center;">
-                                                        {{'master.Action.No_Data' | translate}}
+                                                        No data!
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -160,9 +160,9 @@
                     </div>
                     <div class="row" style="float: right;">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" (click)="selectAll()">{{'master.Interest_Posting_Allowed_Flag_Updation.Select All' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="selectAll()">Select All</button>
                             &nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="deselectAll()">{{'master.Interest_Posting_Allowed_Flag_Updation.Deselect All' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="deselectAll()">Deselect All</button>
                         </div>
                     </div>
                 </div>

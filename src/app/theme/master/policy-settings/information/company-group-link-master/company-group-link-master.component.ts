@@ -20,6 +20,7 @@ import { environment } from '../../../../../../environments/environment';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { AllAccountDropdownService } from '../../../../../shared/dropdownService/all-account-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -102,7 +103,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     private _allAcc: AllAccountDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
 
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig, private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -157,22 +158,22 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Company Code',
+          title: this.translate.instant('master.Company_Group_Link_Master.Company_Code'),
           data: 'COMP_CODE'
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('master.Company_Group_Link_Master.Schema_Code'),
           data: 'CODE'
         },
         {
-          title: 'From Account',
+          title: this.translate.instant('master.Company_Group_Link_Master.From_Account'),
           data: 'FROM_AC'
         },
         {
-          title: 'To Account',
+          title: this.translate.instant('master.Company_Group_Link_Master.To_Account'),
           data: 'TO_AC'
         },
 
@@ -237,7 +238,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         'Company_Data': this.multiData
       }
       this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.multiData = [];
         // to reload after insertion of data
@@ -300,7 +301,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.companyGroupLinkMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -314,8 +315,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Company Group Link Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Company_Link')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -326,8 +327,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         this.companyGroupLinkMasterService.deleteData(id).subscribe(data1 => {
           this.companyGroupLinkMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -339,8 +340,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -556,7 +557,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
 
     } else {
-      Swal.fire('Oops', 'To Account Number Must Be Greater Than From Account Number', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg')}`, 'error');
       this.ngToAccount = null
       this.angForm.controls['TO_AC'].reset()
     }

@@ -11,7 +11,6 @@ import { PurposeMasterService } from './purpose-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -75,7 +74,7 @@ export class PurposeMasterComponent implements OnInit, AfterViewInit, OnDestroy 
   constructor(
     private http: HttpClient,
     private purposeMasterService: PurposeMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -128,14 +127,14 @@ export class PurposeMasterComponent implements OnInit, AfterViewInit, OnDestroy 
       }],
       columns: [
         {
-          title: this.translate.instant('master.Purpose_Master.Action')
+          title: 'Action'
         },
         {
-          title:this.translate.instant('master.Purpose_Master.Purpose_Code'),
+          title: 'Code',
           data: 'CODE'
         },
         {
-          title: this.translate.instant('master.Purpose_Master.Description'),
+          title: 'Name',
           data: 'NAME'
         },
 

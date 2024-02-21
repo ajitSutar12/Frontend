@@ -2,23 +2,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Interest_List.Title' | translate}}</h5>
+                <h5>Interest List </h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <div class="card">
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Branch">{{'Utility.Interest_List.Branch' | translate}} <sub
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder="{{'Utility.Interest_List.Branch' | translate}}"
+                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch"
                                             (change)="getBranch($event)">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">{{'Utility.Interest_List.Date' | translate}}<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">Scheme Code<sub
                                         class="required">*</sub></label> </div>
                             <div class="col-sm-2">
                                 <div class="form-group form-primary form-static-label">
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">{{'Utility.Interest_List.Date' | translate}}<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-1"> <label style="font-size: 15px; color: black;">{{'Utility.Interest_List.Type' | translate}}</label>
+                            <div class="col-md-1"> <label style="font-size: 15px; color: black;">Type</label>
                             </div>
                             <div class="col-sm-12 col-md-3">
 
@@ -92,19 +92,19 @@
                                         <label class="inputRadio">
                                             <input type="radio" name="type" value="deposit" formControlName="R_TYPE"
                                                 id="deposit" (change)="isrtype(1)">
-                                            <i class="helper"></i>{{'Utility.Interest_List.Deposit' | translate}} </label>
+                                            <i class="helper"></i>Deposit </label>
                                     </div>
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="type" value="loan" formControlName="R_TYPE"
                                                 id="loan" (change)="isrtype(2)">
-                                            <i class="helper"></i>{{'Utility.Interest_List.Loan' | translate}} </label> 
+                                            <i class="helper"></i>Loan </label> 
                                     </div>
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="type" value="pigmy" formControlName="R_TYPE"
                                                 id="pigmy" (change)="isrtype(3)">
-                                            <i class="helper"></i>{{'Utility.Interest_List.Pigmy' | translate}} </label>
+                                            <i class="helper"></i>Pigmy </label>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +116,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input type="checkbox" class="border-checkbox" id="PRPAYABLEINT"
                                                     value="PRPAYABLEINT" formControlName="PRPAYABLEINT">
-                                                <label class="border-checkbox-label" for="PRPAYABLEINT">{{'Utility.Interest_List.Print_Payable_Interest_List' | translate}}</label>
+                                                <label class="border-checkbox-label" for="PRPAYABLEINT">Print Payable
+                                                    Intrest
+                                                    List</label>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +127,8 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input type="checkbox" class="border-checkbox" id="PAGEWISETOTAL"
                                                     value="PAGEWISETOTAL" formControlName="PAGEWISETOTAL">
-                                                <label class="border-checkbox-label" for="PAGEWISETOTAL">{{'Utility.Interest_List.Print_PageWise_Total' | translate}}</label>
+                                                <label class="border-checkbox-label" for="PAGEWISETOTAL">Print PageWise
+                                                    Total</label>
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +142,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input type="checkbox" class="border-checkbox" id="PRRECEIVEINT"
                                                     value="PRRECEIVEINT" formControlName="PRRECEIVEINT">
-                                                <label class="border-checkbox-label" for="PRRECEIVEINT">{{'Utility.Interest_List.Print_Receivable_Overdue_List' | translate}}</label>
+                                                <label class="border-checkbox-label" for="PRRECEIVEINT">Print Receivable
+                                                    Overdue
+                                                    List</label>
                                             </div>
                                         </div>
                                     </div>
@@ -148,7 +153,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input type="checkbox" class="border-checkbox" id="PRRECEIVEINT1"
                                                     value="PRRECEIVEINT1" formControlName="PRRECEIVEINT1">
-                                                <label class="border-checkbox-label" for="PRRECEIVEINT1">{{'Utility.Interest_List.Print_Receivable_Intres_List' | translate}}</label>
+                                                <label class="border-checkbox-label" for="PRRECEIVEINT1">Print Receivable
+                                                    Intrest
+                                                    List</label>
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +164,8 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input type="checkbox" class="border-checkbox" id="PAGEWISETOTAL"
                                                     value="PAGEWISETOTAL" formControlName="PAGEWISETOTAL1">
-                                                <label class="border-checkbox-label" for="PAGEWISETOTAL">{{'Utility.Interest_List.Print_PageWise_Total' | translate}}</label>
+                                                <label class="border-checkbox-label" for="PAGEWISETOTAL">Print PageWise
+                                                    Total</label>
                                             </div>
                                         </div>
                                     </div>
@@ -172,12 +180,12 @@
                                     <div class="radio radio-inline col-md-3">
                                         <label class="inputRadio">
                                             <input type="radio" name="type1" value="detail" formControlName="T_TYPE">
-                                            <i class="helper"></i>{{'Utility.Interest_List.details' | translate}} </label>
+                                            <i class="helper"></i>Detail </label>
                                     </div>
                                     <div class="radio radio-inline col-md-3">
                                         <label class="inputRadio">
                                             <input type="radio" name="type1" value="summary" formControlName="T_TYPE">
-                                            <i class="helper"></i>{{'Utility.Interest_List.Summary' | translate}} </label>
+                                            <i class="helper"></i>Summary </label>
                                     </div>
 
                                 </div>
@@ -187,18 +195,18 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event); clicked = true ">{{'Utility.Interest_List.View' | translate}}</button>
+                                    (click)="view($event); clicked = true ">View</button>
 
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'Utility.Action.close' | translate}}</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Interest_List.Report_Frame' | translate}}</h5>
+                                        <h5>Report Frame</h5>
                                     </div>
                                     <div *ngIf="showRepo">
                                         <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>

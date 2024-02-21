@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CashierUmService } from './cashier-um.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
-import { TranslateService } from '@ngx-translate/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-cashier-um',
@@ -17,7 +15,7 @@ export class CashierUMComponent implements OnInit {
   angForm: FormGroup;
   checkFlag : boolean = true;
 
-  constructor(private _service : CashierUmService,private fb: FormBuilder,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+  constructor(private _service : CashierUmService,private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({
@@ -70,9 +68,6 @@ export class CashierUMComponent implements OnInit {
     }else{
       Swal.fire('Oops...','Please insert required data field and processed','warning')
     }
-  }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
   }
 
 }

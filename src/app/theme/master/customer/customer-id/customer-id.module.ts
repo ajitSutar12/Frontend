@@ -15,12 +15,14 @@ import { RiskCategoryDropdownService } from '../../../../shared/dropdownService/
 import { DocumentMasterDropdownService } from '../../../../shared/dropdownService/document-master-dropdown.service';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SharedModule } from '../../../../shared/shared.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from "../../../theme.module";
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +36,14 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
 
   ],
   exports: [CustomerIdComponent],
@@ -56,3 +65,6 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
   ]
 })
 export class CustomerIdModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

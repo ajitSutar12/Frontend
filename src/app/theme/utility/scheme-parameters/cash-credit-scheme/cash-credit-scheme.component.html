@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Utility1.T13' | translate}}</h5>
+                <h5>Cash Credit Scheme Setting</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Utility.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <div class="card-block">
@@ -19,7 +19,7 @@
                                         pattern="^[0-9]+$" maxlength="3" minlength="3" min="601" max="699"
                                         title="Input allowed only  0-9. (Space)" formControlName="S_APPL"
                                         (onkeyup)="presentdata()" #autofocus>
-                                    <label for="S_APPL">{{'Utility.Utility1.Scheme_Code' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -54,7 +54,7 @@
                                         required="" maxlength="90"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_NAME">
-                                    <label for="S_NAME">{{'Utility.Utility1.Description' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_NAME">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -76,7 +76,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="15"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
-                                    <label for="S_SHNAME">{{'Utility.Utility1.Short_Name' | translate}}<sub class="required">* </sub></label>
+                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -105,11 +105,11 @@
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
-                                        placeholder="{{'Utility.Utility1.GL_Acc_Num' | translate}}">
+                                        placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_GLACNO">{{'Utility.Utility1.GL_Acc_Num' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -134,11 +134,11 @@
                                         formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
-                                        placeholder="{{'Utility.Utility1.Interest_GL_Acc' | translate}}">
+                                        placeholder="Interest GL Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_INT_ACNO">{{'Utility.Utility1.Interest_GL_Acc' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -166,11 +166,11 @@
                                         bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="{{'Utility.Utility1.Recble_Penal_In_Ac' | translate}}">
+                                        placeholder="Receivable Interest Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_RECBL_PYBL_INT_ACNO">{{'Utility.Utility1.Recble_Penal_In_Ac' | translate}}<sub class="required">
+                                    <label for="S_RECBL_PYBL_INT_ACNO">Receivable Interest Account<sub class="required">
                                             * </sub></label>
                                 </span>
                             </div>
@@ -196,11 +196,11 @@
                                         formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'
-                                        placeholder="{{'Utility.Utility1.Penal_In_Acc' | translate}}">
+                                        placeholder="Penal Interest Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_PENAL_ACNO">{{'Utility.Utility1.Penal_In_Acc' | translate}}<sub class="required"> *
+                                    <label for="S_PENAL_ACNO">Penal Interest Account<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -230,11 +230,11 @@
                                         bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true'
-                                        placeholder="{{'Utility.Utility1.Recble_Penal_In_Ac' | translate}}">
+                                        placeholder="Recble Penal Interest Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_RECBL_PENAL_ACNO">{{'Utility.Utility1.Recble_Penal_In_Ac' | translate}}<sub class="required">
+                                    <label for="S_RECBL_PENAL_ACNO">Recble Penal Interest Account<sub class="required">
                                             * </sub></label>
                                 </span>
                             </div>
@@ -261,11 +261,11 @@
                                         bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_RECBL_ODUE_INT_ACNO (focus)="onFocus(S_RECBL_ODUE_INT_ACNO)" [selectOnTab]='true'
-                                        placeholder="{{'Utility.Utility1.Recble_Penal_In_Ac' | translate}}">
+                                        placeholder="Recble Overdue Interest">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="S_RECBL_ODUE_INT_ACNO">{{'Utility.Utility1.Recble_Penal_In_Ac' | translate}}<sub class="required"> *
+                                    <label for="S_RECBL_ODUE_INT_ACNO">Recble Overdue Interest<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -288,32 +288,32 @@
                                         <h6> <a (click)="OpenLink(31)" routerLinkActive="active"
                                                 routerLink="/utility/schemeParameters"
                                                 [ngClass]="{'isActive': InterestApplicableTrue}"
-                                                class="text-right f-w-600" id="pointer">{{'Utility.Utility1.Interest_AppliCable' | translate}}</a></h6>
+                                                class="text-right f-w-600" id="pointer">Interest Applicable</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(32)" routerLinkActive="active"
                                                 routerLink="/utility/schemeParameters"
                                                 [ngClass]="{'isActive': PenalInterestApplicableTrue}"
-                                                class="text-right f-w-600" id="pointer">{{'Utility.Utility1.Penal_Interest_Acc' | translate}}</a>
+                                                class="text-right f-w-600" id="pointer">Penal Interest Applicable</a>
                                         </h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(33)" routerLinkActive="active"
                                                 routerLink="/utility/schemeParameters"
                                                 [ngClass]="{'isActive': OverDraftInteresttypeTrue}"
-                                                class="text-right f-w-600" id="pointer">{{'Utility.Utility1.Overdraft_Applicable' | translate}}</a></h6>
+                                                class="text-right f-w-600" id="pointer">OverDraft Interest type</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(34)" routerLinkActive="active"
                                                 routerLink="/utility/schemeParameters"
                                                 [ngClass]="{'isActive': otherSettingsTrue}" class="text-right f-w-600"
-                                                id="pointer">{{'Utility.Utility1.Other_Sett' | translate}}</a></h6>
+                                                id="pointer">Other Settings</a></h6>
                                     </li>
                                     <li>
                                         <h6> <a (click)="OpenLink(35)" routerLinkActive="active"
                                                 routerLink="/utility/schemeParameters"
                                                 [ngClass]="{'isActive': cashCredittypeTrue}" class="text-right f-w-600"
-                                                id="pointer">{{'Utility.Utility1.Cash_Credit_type' | translate}}</a></h6>
+                                                id="pointer">Cash Credit type</a></h6>
                                     </li>
                                 </ul>
                             </div>
@@ -322,7 +322,7 @@
                             <div *ngIf="InterestApplicableTrue">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Interest_AppliCable' | translate}}</h5>
+                                        <h5>Interest Applicable</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -332,7 +332,9 @@
                                                         <input class="border-checkbox" type="checkbox"
                                                             formControlName="S_INT_APPLICABLE" id="S_INT_APPLICABLE"
                                                             (click)="Interest_applicable($event)">
-                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">{{'Utility.Utility1.Is_I_App' | translate}}</label>
+                                                        <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is
+                                                            Interest
+                                                            Applicable</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -343,7 +345,9 @@
                                                             formControlName="POST_TO_INDIVIDUAL_AC"
                                                             id="POST_TO_INDIVIDUAL_AC" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="POST_TO_INDIVIDUAL_AC">{{'Utility.Utility1.Post_Interest' | translate}}</label>
+                                                            for="POST_TO_INDIVIDUAL_AC">Is
+                                                            Post
+                                                            Interest to Account</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -356,7 +360,9 @@
                                                             formControlName="S_RECEIVABLE_INT_ALLOW"
                                                             id="S_RECEIVABLE_INT_ALLOW" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="S_RECEIVABLE_INT_ALLOW">{{'Utility.Utility1.Post_Interest' | translate}}</label>
+                                                            for="S_RECEIVABLE_INT_ALLOW">Is
+                                                            Receivable
+                                                            Interest Allowed ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -367,7 +373,8 @@
                                                             formControlName="IS_SHOW_INT_AS_RECINT_IFDUEBAL"
                                                             id="IS_SHOW_INT_AS_RECINT_IFDUEBAL" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="IS_SHOW_INT_AS_RECINT_IFDUEBAL">{{'Utility.Utility1.Post_as_Receivable_Interest' | translate}}</label>
+                                                            for="IS_SHOW_INT_AS_RECINT_IFDUEBAL">Post as
+                                                            Receivable Interest, if Account goes in Overdue ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,7 +386,10 @@
                                                         <input class="border-checkbox" type="checkbox"
                                                             id="IS_INTUPTODATE" formControlName="IS_INTUPTODATE"
                                                             disabled>
-                                                        <label class="border-checkbox-label" for="IS_INTUPTODATE">{{'Utility.Utility1.Is_Don_tPost' | translate}}</label>
+                                                        <label class="border-checkbox-label" for="IS_INTUPTODATE">Is
+                                                            Don't
+                                                            Post
+                                                            Interest After Expiry Date ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -390,7 +400,10 @@
                                                             formControlName="IS_NO_POST_INT_AFT_OD"
                                                             id="IS_NO_POST_INT_AFT_OD" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="IS_NO_POST_INT_AFT_OD">{{'Utility.Utility1.Is_Don' | translate}}</label>
+                                                            for="IS_NO_POST_INT_AFT_OD">Is
+                                                            Don't
+                                                            Post
+                                                            Interest After OD ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -409,7 +422,7 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46)"
                                                             maxlength="15" title="Input allowed only  0-9 . (Space)"
                                                             formControlName="MIN_INT_LIMIT" disabled>
-                                                        <label for="MIN_INT_LIMIT">{{'Utility.Utility1.Minimum_Interest_Amount' | translate}}</label>
+                                                        <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -432,7 +445,8 @@
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 || $event.charCode <= 32 "
                                                             title="Input allowed only  0-9 . (Space)"
                                                             formControlName="ROUNDOFF_FACTOR" disabled>
-                                                        <label for="ROUNDOFF_FACTOR">{{'Utility.Utility1.Interest_Round' | translate}}</label>
+                                                        <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in
+                                                            Paise</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -452,7 +466,7 @@
                                 <app-second></app-second>
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Pay_Int_Acc' | translate}}</h5>
+                                        <h5>Penal Interest Applicable</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -464,7 +478,9 @@
                                                             id="S_PENAL_INT_APPLICABLE"
                                                             (click)="PenalInterest_applicable($event)">
                                                         <label class="border-checkbox-label"
-                                                            for="S_PENAL_INT_APPLICABLE">{{'Utility.Utility1.Pay_Int_Acc' | translate}}</label>
+                                                            for="S_PENAL_INT_APPLICABLE">Penal
+                                                            Interest
+                                                            Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -475,7 +491,9 @@
                                                             formControlName="IS_POST_PENAL_TO_AC"
                                                             id="IS_POST_PENAL_TO_AC" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="IS_POST_PENAL_TO_AC">{{'Utility.Utility1.Penal_In_Acc' | translate}}</label>
+                                                            for="IS_POST_PENAL_TO_AC">Post
+                                                            Penal
+                                                            Interest to Account ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -488,7 +506,8 @@
                                                             formControlName="POST_PENALINT_IN_INTEREST"
                                                             id="POST_PENALINT_IN_INTEREST" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="POST_PENALINT_IN_INTEREST">{{'Utility.Utility1.Add_Penal' | translate}}</label>
+                                                            for="POST_PENALINT_IN_INTEREST">Add Penal
+                                                            Interest in Interest Amount ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -499,7 +518,8 @@
                                                             formControlName="IS_CAL_EXTRAPENAL_FOR_CC"
                                                             id="IS_CAL_EXTRAPENAL_FOR_CC" disabled>
                                                         <label class="border-checkbox-label"
-                                                            for="IS_CAL_EXTRAPENAL_FOR_CC">{{'Utility.Utility1.Calculate_Extra' | translate}}</label>
+                                                            for="IS_CAL_EXTRAPENAL_FOR_CC">Calculate
+                                                            Extra Penal for CC Overdraf</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -518,7 +538,7 @@
                                                              maxlength="5"
                                                             title="Input allowed only  0-9 ."
                                                             formControlName="S_PENAL_INT_RATE" disabled>
-                                                        <label for="S_PENAL_INT_RATE">{{'Utility.Utility1.Penal_Interest' | translate}}</label>
+                                                        <label for="S_PENAL_INT_RATE">Penal Interest Rate %</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -558,11 +578,14 @@
                                                             bindLabel="label" title="Compulsory Selection"
                                                             [ngClass]="{'form-submitted': formSubmitted}" required
                                                             #OVERDRAFT_INTEREST_APPLICABLE (focus)="onFocus(OVERDRAFT_INTEREST_APPLICABLE)" [selectOnTab]='true'
+
                                                             placeholder="{{'Utility.Utility1.Overdraft_Interest_Rate' | translate}}">
+
                                                             <ng-option *ngFor="let values of OverDraft"
                                                                 [value]="values">{{values.label}}</ng-option>
                                                         </ng-select>
-                                                        <label for="OVERDRAFT_INTEREST_APPLICABLE">{{'Utility.Utility1.Overdraft_Applicable' | translate}} <sub class="required"> * </sub></label>
+                                                        <label for="OVERDRAFT_INTEREST_APPLICABLE">OverDraft Interest
+                                                            Post / Add in <sub class="required"> * </sub></label>
                                                     </span>
                                                 </div>
                                             </div>
@@ -580,7 +603,8 @@
                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46 "
                                                                 title="Input allowed only  0-9."
                                                                 formControlName="OVERDRAFT_INTEREST_RATE">
-                                                            <label for="OVERDRAFT_INTEREST_RATE">{{'Utility.Utility1.Overdraft_Interest_Rate' | translate}}</label>
+                                                            <label for="OVERDRAFT_INTEREST_RATE">Overdraft
+                                                                Interest Rate %</label>
                                                         </span>
                                                     </div>
                                                     <!-- <div class="form-group form-primary form-static-label"
@@ -613,7 +637,9 @@
                                                             formControlName="ODPENALTY_ON_EXPIRED_LEDGERBAL"
                                                             id="ODPENALTY_ON_EXPIRED_LEDGERBAL">
                                                         <label class="border-checkbox-label"
-                                                            for="ODPENALTY_ON_EXPIRED_LEDGERBAL">{{'Utility.Utility1.Is_OD_Interest' | translate}}</label>
+                                                            for="ODPENALTY_ON_EXPIRED_LEDGERBAL">Is OD
+                                                            Interest
+                                                            Calculate Only after Account Expiry Date ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -625,7 +651,7 @@
                                 <app-four></app-four>
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Other_Sett' | translate}}</h5>
+                                        <h5>Other Settings</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -636,7 +662,9 @@
                                                             formControlName="INT_INSTRUCTION_ALLOW"
                                                             id="INT_INSTRUCTION_ALLOW">
                                                         <label class="border-checkbox-label"
-                                                            for="INT_INSTRUCTION_ALLOW">{{'Utility.Utility1.Other_Sett' | translate}}</label>
+                                                            for="INT_INSTRUCTION_ALLOW">Is
+                                                            Interest
+                                                            Instruction Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -647,7 +675,8 @@
                                                             formControlName="STAND_INSTRUCTION_ALLOW"
                                                             id="STAND_INSTRUCTION_ALLOW">
                                                         <label class="border-checkbox-label"
-                                                            for="STAND_INSTRUCTION_ALLOW">{{'Utility.Utility1.Is_Standing' | translate}}</label>
+                                                            for="STAND_INSTRUCTION_ALLOW">Is Standing
+                                                            Instruction Applicable ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -663,7 +692,9 @@
                                                             formControlName="BALANCE_ADD_APPLICABLE"
                                                             id="BALANCE_ADD_APPLICABLE">
                                                         <label class="border-checkbox-label"
-                                                            for="BALANCE_ADD_APPLICABLE">{{'Utility.Utility1.Balance_Entry_All' | translate}}</label>
+                                                            for="BALANCE_ADD_APPLICABLE">Is
+                                                            Balance
+                                                            Entry Allowed ?</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -677,7 +708,8 @@
                                                             (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                                                             title="Input allowed only  0-9."
                                                             formControlName="CHEQUEBOOK_MIN_BAL">
-                                                        <label for="CHEQUEBOOK_MIN_BAL">{{'Utility.Utility1.Cheque_Book_Mini_Balance' | translate}}</label>
+                                                        <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum
+                                                            Balance</label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
@@ -697,7 +729,7 @@
                                 <app-five></app-five>
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>{{'Utility.Utility1.Cash_Credit_Type' | translate}}</h5>
+                                        <h5>Cash Credit Type</h5>
                                     </div>
                                     <div class="card-block">
                                         <div class="row">
@@ -708,7 +740,7 @@
                                                             <input type="radio" name="IS_DEPO_LOAN" value='1'
                                                                 [checked]="IS_DEPO_LOAN" formControlName="IS_DEPO_LOAN"
                                                                 (click)="isDepoloan(1)">
-                                                            <i class="helper"></i>{{'Utility.Utility1.Is_Deposit' | translate}}
+                                                            <i class="helper"></i>Is Deposit against CC
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
@@ -716,7 +748,7 @@
                                                             <input type="radio" name="IS_DEPO_LOAN" value='0'
                                                                 [checked]="IS_GOLD_LOAN" formControlName="IS_DEPO_LOAN"
                                                                 (click)="isDepoloan(2)">
-                                                            <i class="helper"></i>{{'Utility.Utility1.Is_Gold' | translate}}
+                                                            <i class="helper"></i>Is Gold against CC
 
                                                         </label>
                                                     </div>
@@ -725,7 +757,7 @@
                                                             <input type="radio" name="IS_DEPO_LOAN" [checked]="IS_BOTH"
                                                                 value="2" formControlName="IS_DEPO_LOAN"
                                                                 (click)="isDepoloan(3)">
-                                                            <i class="helper"></i>{{'Utility.Utility1.Other_CC' | translate}}
+                                                            <i class="helper"></i>Other CC
                                                         </label>
                                                     </div>
                                                 </div>
@@ -746,14 +778,14 @@
                                 <div class="col-sm m-b-20">
                                     <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
                                         *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
-                                        {{'Utility.Action.Submit' | translate}}
+                                        Submit
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
-                                        {{'Utility.Action.Update' | translate}}</button>&nbsp;
+                                        Update</button>&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
-                                        {{'Utility.Action.Cancel' | translate}}
+                                        Cancel
                                     </button>
                                 </div>
                             </div>

@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Transcation_Input_GL_Head_Setting.Title' | translate}}</h5>
+                <h5>Transcation Input GL Head Setting</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Utility.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <div class="card-block">
@@ -17,9 +17,9 @@
                                         formControlName="SCHEME_TYPE" [(ngModel)]="ngSchemeType"  [virtualScroll]="true"
                                         #SCHEME_TYPE (focus)="onFocus(SCHEME_TYPE)" [selectOnTab]='true'
                                         (change)="checkduplicate()" [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="{{'Utility.Transcation_Input_GL_Head_Setting.Scheme_Type' | translate}}" required autofocus>
+                                        placeholder="Scheme Type" required autofocus>
                                     </ng-select>
-                                    <label for="SCHEME_TYPE">{{'Utility.Transcation_Input_GL_Head_Setting.Scheme_Type' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="SCHEME_TYPE">Scheme Type<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -37,9 +37,9 @@
                                         formControlName="FIELD_AMOUNT" (change)="getHeadType($event);checkduplicate()"
                                         [(ngModel)]="ngHeadType" [ngClass]="{'form-submitted': formSubmitted}"  [virtualScroll]="true"
                                         #FIELD_AMOUNT (focus)="onFocus(FIELD_AMOUNT)" [selectOnTab]='true'
-                                        placeholder="{{'Utility.Transcation_Input_GL_Head_Setting.Head_Type' | translate}}" required>
+                                        placeholder="Head Type" required>
                                     </ng-select>
-                                    <label for="FIELD_AMOUNT">{{'Utility.Transcation_Input_GL_Head_Setting.Head_Type' | translate}}<sub class="required"> * </sub></label>
+                                    <label for="FIELD_AMOUNT">Head Type<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -56,14 +56,14 @@
                                     <label  class="inputRadio">
                                         <input type="radio" name="scheme" (change)="showGLCode(1)"
                                             [checked]="!schemeWise">
-                                        <i class="helper"></i>{{'Utility.Transcation_Input_GL_Head_Setting.Scheme_Wise' | translate}}<span class="required"> </span>
+                                        <i class="helper"></i>Scheme Wise<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="scheme" (change)="showGLCode(2)"
                                             [checked]="schemeWise">
-                                        <i class="helper"></i>{{'Utility.Transcation_Input_GL_Head_Setting.GL_Code' | translate}}<span class="required"> </span>
+                                        <i class="helper"></i>GL Code Wise<span class="required"> </span>
                                     </label>
                                 </div>
                             </div>
@@ -72,13 +72,13 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="glAcno" bindValue="value" [(ngModel)]="ngGlCode" bindLabel="label"
-                                        placeholder="{{'Utility.Transcation_Input_GL_Head_Setting.GL_Account' | translate}}" (change)="patchGlNo($event)"  [virtualScroll]="true"
+                                        placeholder="GL A/c Number" (change)="patchGlNo($event)"  [virtualScroll]="true"
                                         #GL_CODE (focus)="onFocus(GL_CODE)" [selectOnTab]='true'
                                         formControlName="GL_CODE">
                                         <ng-option *ngFor="let values of glcode" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="glAcno">{{'Utility.Transcation_Input_GL_Head_Setting.GL_Account' | translate}}</label>
+                                    <label for="glAcno">GL Account Number</label>
                                 </span>
                             </div>
 
@@ -99,7 +99,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="CHECK_REQUIRE"
                                         formControlName="CHECK_REQUIRE">
-                                    <label class="border-checkbox-label" for="CHECK_REQUIRE">{{'Utility.Transcation_Input_GL_Head_Setting.Check_Required' | translate}}
+                                    <label class="border-checkbox-label" for="CHECK_REQUIRE">Check Required
                                     </label>
                                 </div>
                             </div>
@@ -109,8 +109,8 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="INTEREST_DATE_INPUT"
                                         formControlName="INTEREST_DATE_INPUT">
-                                    <label class="border-checkbox-label" for="INTEREST_DATE_INPUT">{{'Utility.Transcation_Input_GL_Head_Setting.Interest_Date_Applicable' | translate}}
-                                       
+                                    <label class="border-checkbox-label" for="INTEREST_DATE_INPUT">Interest Date
+                                        Applicable
                                     </label>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IS_NOTING_REQUIRED"
                                         formControlName="IS_NOTING_REQUIRED">
-                                    <label class="border-checkbox-label" for="IS_NOTING_REQUIRED">{{'Utility.Transcation_Input_GL_Head_Setting.Is_Noting' | translate}}
+                                    <label class="border-checkbox-label" for="IS_NOTING_REQUIRED">Is Noting Required
                                     </label>
                                 </div>
                             </div>
@@ -132,7 +132,8 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="IS_GLBAL_MAINTAIN"
                                         formControlName="IS_GLBAL_MAINTAIN">
-                                    <label class="border-checkbox-label" for="IS_GLBAL_MAINTAIN">{{'Utility.Transcation_Input_GL_Head_Setting.Is_Check' | translate}}
+                                    <label class="border-checkbox-label" for="IS_GLBAL_MAINTAIN">Is Check Balance when
+                                        Account Closing
                                     </label>
                                 </div>
                             </div>
@@ -143,9 +144,9 @@
                                     <ng-select appTheme id="DRCR_APPLICABLE" [items]="debitCredit" bindLabel="label"
                                         formControlName="DRCR_APPLICABLE" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DRCR_APPLICABLE (focus)="onFocus(DRCR_APPLICABLE)" [selectOnTab]='true'  [virtualScroll]="true"
-                                        [(ngModel)]="ngDebitCredit" placeholder="{{'Utility.Transcation_Input_GL_Head_Setting.Debit/Credit_Applicable' | translate}}" required>
+                                        [(ngModel)]="ngDebitCredit" placeholder="Debit/Credit Applicable" required>
                                     </ng-select>
-                                    <label for="DRCR_APPLICABLE">{{'Utility.Transcation_Input_GL_Head_Setting.Debit/Credit_Applicable' | translate}}<sub class="required"> *
+                                    <label for="DRCR_APPLICABLE">Debit/Credit Applicable<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -166,7 +167,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                         title="Input allowed only  A-Z a-z (Space)">
-                                    <label for="DESCRIPTION">{{'Utility.Transcation_Input_GL_Head_Setting.Description' | translate}}<sub class="required">* </sub></label>
+                                    <label for="DESCRIPTION">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -188,7 +189,7 @@
                                         pattern="^[A-Za-z\ ]+$" [ngClass]="{'form-submitted': formSubmitted}"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                         title="Input allowed only  A-Z a-z (Space)">
-                                    <label for="SHORT_NAME">{{'Utility.Transcation_Input_GL_Head_Setting.Short_Name' | translate}}<sub class="required">* </sub></label>
+                                    <label for="SHORT_NAME">Short Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -202,12 +203,11 @@
                         </div>
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit()" (keydown.Tab)="focus()" appTheme>{{'Utility.Action.Submit' | translate}}  </button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">{{'Utility.Action.Cancel' | translate}}
-                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                (click)="submit()" (keydown.Tab)="focus()" appTheme> Submit </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                Cancel </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                                {{'Utility.Action.Update' | translate}}
-                                </button>
+                                Update</button>
                         </div>
                     </div>
                 </form>
@@ -239,7 +239,7 @@
                                 </tbody>
                                 <tbody *ngIf="transactionInput?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
+                                        <td colspan="6" class="no-data-available">No data!</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

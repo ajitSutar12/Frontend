@@ -24,7 +24,6 @@ import { data, event } from 'jquery';
 import { id } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from '@ngx-translate/core';
 
 
 // Handling datatable data
@@ -133,9 +132,8 @@ export class UserDefinationComponent implements OnInit {
     private UserdefinationServiceD: UserdefinationServiceD,
     private _branchMasterServices: OwnbranchMasterService
     , private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService
 
-  ) { this.translate.setDefaultLang(environment.setLang);
+  ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d    
@@ -203,39 +201,39 @@ export class UserDefinationComponent implements OnInit {
       
       columns: [
         {
-          title: this.translate.instant('master.Action.Action'),
+          title: 'Action',
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: this.translate.instant('master.User_Defination.First_Name'),
+          title: 'First Name',
           data: 'F_NAME',
         },
         {
-          title:  this.translate.instant('master.User_Defination.Last_Name'),
+          title: 'Last Name',
           data: 'L_NAME',
         },
         {
-          title:  this.translate.instant('master.User_Defination.Birth_Date'),
+          title: 'DOB',
           data: 'DOB',
         },
         {
-          title:  this.translate.instant('master.User_Defination.Mobile'),
+          title: 'Mobile',
           data: 'MOB_NO',
         },
         {
-          title:  this.translate.instant('master.User_Defination.Email'),
+          title: 'Email',
           data: 'EMAIL',
         },
 
         {
-          title:  this.translate.instant('master.User_Defination.Role'),
+          title: 'Role',
           data: 'ROLE',
         },
 
         {
-          title:  this.translate.instant('master.User_Defination.User_Name'),
+          title: 'User Name',
           data: 'USER_NAME',
         },
         // {
@@ -243,7 +241,7 @@ export class UserDefinationComponent implements OnInit {
         //   data: 'PASSWORD',
         // },
         {
-          title:  this.translate.instant('master.User_Defination.Status'),
+          title: 'Status',
           data: 'STATUS',
         },
         // {
@@ -497,9 +495,7 @@ export class UserDefinationComponent implements OnInit {
     this.showButton = true;
     this.updateShow = false;
   }
-   selectLanguage(event:any){
-    this.translate.use(event.target.value);
-  }
+  
 }
 
 

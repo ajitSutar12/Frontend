@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -48,7 +49,10 @@ export class LockerCloseTransactionComponent implements OnInit {
 
   values
 
-  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
+  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang) }
 
   ngOnInit(): void {
     this.createForm()
@@ -166,8 +170,8 @@ export class LockerCloseTransactionComponent implements OnInit {
     }
     this.http.post(this.url + "/locker-tran/closeLocker", obj).subscribe(data => {
       Swal.fire(
-        'Success',
-        'Locker Closed Successfully!',
+        `${this.translate.instant('Swal_Msg.Success')}`,
+        `${this.translate.instant('Swal_Msg.Locker_Close')}`,
         'success'
       );
       this.createForm()

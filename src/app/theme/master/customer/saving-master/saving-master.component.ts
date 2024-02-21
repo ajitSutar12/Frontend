@@ -28,6 +28,7 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 @Directive({
   selector: 'autofocus'
 })
@@ -261,7 +262,13 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private _cityMasterService: cityMasterService,
     private _ownbranchMaster: OwnbranchMasterService,
     private config: NgSelectConfig,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    private translate: TranslateService
+
+  ) {
+
+    this.translate.setDefaultLang(environment.setLang);
+
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -276,6 +283,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+
     this.getSystemParaDate()
     this.elementRef.nativeElement.focus();
     this.createForm();
@@ -332,42 +341,42 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Saving_Acc_Master.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Saving_Acc_Master.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Saving_Acc_Master.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Saving_Acc_Master.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Saving_Acc_Master.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Saving_Acc_Master.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Saving_Acc_Master.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Minor Details',
+          title: this.translate.instant('master.Saving_Acc_Master.Minor'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Birth Date',
+          title: this.translate.instant('master.Saving_Acc_Master.Birth_Date'),
           data: 'AC_MBDATE'
         },
       ],
@@ -543,7 +552,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         if (data.find(data => data['AC_TYPE'] == this.selectedValue && data['AC_CUSTID'] == event.value && (data['AC_CLOSEDT'] == '' || data['AC_CLOSEDT'] == null))) {
           Swal.fire({
             icon: 'info',
-            title: 'Saving Account Already Exists For This Scheme',
+            title: `${this.translate.instant('Swal_Msg.Save_Ac')}`,
           })
           event.id = null
           this.newcustid = null
@@ -589,7 +598,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire('Invalid Input!', 'Please insert valid date!', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid Date')}`, 'error');
         (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
       }
     }
@@ -634,11 +643,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_AREA: [''],
       AC_CTCODE: [''],
       AC_PIN: [''],
-      AC_THONO: ['', [Validators.pattern]],
-      AC_TWARD: ['', [Validators.pattern]],
-      AC_TADDR: ['', [Validators.pattern]],
-      AC_TGALLI: ['', [Validators.pattern]],
-      AC_TAREA: ['', [Validators.pattern]],
+      AC_THONO: ['', []],
+      AC_TWARD: ['', []],
+      AC_TADDR: ['', []],
+      AC_TGALLI: ['', []],
+      AC_TAREA: ['', []],
       AC_TCTCODE: [''],
       AC_TPIN: [''],
       AC_PHNO: [''],
@@ -647,24 +656,24 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //minor and introducer
       AC_MINOR: ['', []],
       AC_MBDATE: ['', []],
-      AC_GRDNAME: ['', [Validators.pattern]],
-      AC_GRDRELE: ['', [Validators.pattern]],
+      AC_GRDNAME: ['', []],
+      AC_GRDRELE: ['', []],
       AC_INTROBRANCH: ['', []],
       AC_INTROID: [''],
       AC_INTRACNO: [''],
       AC_INTRNAME: [''],
-      SIGNATURE_AUTHORITY: ['', [Validators.pattern]],
+      SIGNATURE_AUTHORITY: ['', []],
       BANKACNO: [''],
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern]],
-      AC_NRELA: ['', [Validators.pattern]],
+      AC_NNAME: ['', []],
+      AC_NRELA: ['', []],
       AC_NDATE: ['', []],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
       AC_NHONO: ['', [Validators.pattern]],
-      AC_NWARD: ['', [Validators.pattern]],
-      AC_NADDR: ['', [Validators.pattern]],
-      AC_NGALLI: ['', [Validators.pattern]],
-      AC_NAREA: ['', [Validators.pattern]],
+      AC_NWARD: ['', []],
+      AC_NADDR: ['', []],
+      AC_NGALLI: ['', []],
+      AC_NAREA: ['', []],
       AC_NCTCODE: [''],
       AC_NPIN: [''],
       //joint ac
@@ -878,7 +887,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.savingMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
-          title: 'Account Created successfully!',
+          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -902,7 +911,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.selectedValue = this.bindScheme
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
 
@@ -1101,7 +1110,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       data['AC_OPDATE'] = this.openingDate
     }
     this.savingMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1142,8 +1151,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Saving master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Save_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1154,8 +1163,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.savingMasterService.deleteData(id).subscribe(data1 => {
           this.savingMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1169,8 +1178,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -1437,26 +1446,26 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
 
-              Swal.fire('', 'This Nominee is Already Exists!', 'error');
+              Swal.fire('', `${this.translate.instant('Swal_Msg.Nomi_Exist')}`, 'error');
 
             } else {
 
@@ -1544,13 +1553,13 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -1623,7 +1632,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
 
-              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+              Swal.fire('', `${this.translate.instant('Swal_Msg.Joint_Ac')}`, 'warning');
               this.multiJointAC.push(object);
               this.jointID = null
               this.jointID = ''
@@ -1639,7 +1648,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
         else {
-          Swal.fire('', "Please Select Different Customer id", 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
           this.multiJointAC.push(object);
           this.jointID = null
           this.jointID = ''
@@ -1648,14 +1657,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       else {
-        Swal.fire('', "Please Select Customer Id", 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
         this.resetJointAC()
       }
     } else {
-      Swal.fire('', "Please Select Customer Id", 'warning');
+      Swal.fire('',`${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1700,7 +1709,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         else {
           if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-            Swal.fire("This Customer is Already Exists", "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Cust_Exist')}`, "error");
             this.jointID = null
             this.jointID = ''
             this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1716,14 +1725,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       else {
-        Swal.fire("Please Select Different Customer id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
         this.resetJointAC()
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1763,17 +1772,17 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       DATE_EXPIRY: moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
     }
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Power_of_Attorney')}`, 'warning');
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Power_of_Attorney')}`, 'warning');
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Power_of_Attorney')}`, 'warning');
         }
         else {
           if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
-            Swal.fire('', 'This Attorney is Already Exists!', 'error');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Attorney_Exist')}`, 'error');
           } else {
             this.multiAttorney.push(object);
             this.resetAttorney()
@@ -1881,13 +1890,13 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
         }
         else {
           this.multiAttorney[index] = object;
@@ -1931,8 +1940,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (date1 != "") {
       if (moment(date).isAfter(date1)) {
         Swal.fire(
-          'Cancelled',
-          'Expiry Date must be greater than Appointed date',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.Exp_Date')}`,
           'error'
         );
         this.resetexpirydate = "";
@@ -1944,8 +1953,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   age() {
     if (this.angForm.controls['AGE'].value > 100) {
       Swal.fire(
-        'Cancelled',
-        'Please Input Proper Age',
+        `${this.translate.instant('Swal_Msg.Cancel')}`,
+        `${this.translate.instant('Swal_Msg.Input_Age')}`,
         'error'
       );
       this.angForm.controls['AGE'].reset()
@@ -1971,8 +1980,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.savingMasterService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Saving Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Save_Approve')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -1993,8 +2002,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.savingMasterService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Saving Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Save_Reject')}`,
         'success'
       );
 
@@ -2040,8 +2049,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.savingMasterService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.U_Msg')}`,
         'success'
       );
       var button = document.getElementById('trigger');

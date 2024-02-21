@@ -14,7 +14,6 @@ import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -82,7 +81,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private ownbranchMasterService:OwnbranchMasterService,
     private recoveryClearkMasterService: RecoveryClearkMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -153,18 +152,18 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: this.translate.instant('master.Recovery_Cleark_Master.Action')
+          title: 'Action'
         },
         {
-          title: this.translate.instant('master.Recovery_Cleark_Master.Recovery_Cleark_Code'),
+          title: 'Recovery Cleark Code',
           data: 'CODE'
         }, 
         {
-          title: this.translate.instant('master.Recovery_Cleark_Master.Description'),
+          title: 'Description',
           data: 'NAME'
         },
         {
-          title: this.translate.instant('master.Recovery_Cleark_Master.Branch_Code'),
+          title: 'Branch Code',
           data: 'BRANCH_CODE'
         },
       ],

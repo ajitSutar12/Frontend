@@ -6,14 +6,12 @@ import { InterestPostingFlagUpdationComponent } from './interest-posting-flag-up
 import { InterestPostingFlagUpdationRoutingModule } from './interest-posting-flag-updation-routing.module'
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { InterestPostingFlagUpdationService } from './interest-posting-flag-updation.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,15 +21,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    ThemeModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    ThemeModule
   ],
   declarations: [InterestPostingFlagUpdationComponent],
   providers: [InterestPostingFlagUpdationService, SchemeAccountNoService,OwnbranchMasterService, {
@@ -41,6 +31,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   },],
 })
 export class InterestPostingFlagUpdationModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

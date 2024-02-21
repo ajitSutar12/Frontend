@@ -11,6 +11,7 @@ import { CourtMasterService } from './court-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,7 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private courtMasterService: CourtMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -125,14 +126,14 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Court_Master.Action')
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Court_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Court_Master.Name'),
           data: 'NAME'
         },
 
@@ -156,7 +157,7 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'NAME': formVal.NAME,
     }
     this.courtMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -187,7 +188,7 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.courtMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -206,8 +207,8 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete court master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Court_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -218,8 +219,8 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.courtMasterService.deleteData(id).subscribe(data1 => {
           this.courtMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -231,8 +232,8 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

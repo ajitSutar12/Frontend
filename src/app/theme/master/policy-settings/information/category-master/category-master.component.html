@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.Category_Master.Title' | translate}}</h5>
+                <h5>Category Master</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Category_Master.F1' | translate}} (<sub class="required"> * </sub>){{'master.Category_Master.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="4" disabled
                                         id="CategoryCode" pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="CODE">
-                                    <label for="CategoryCode">{{'master.Category_Master.Category_Code' | translate}}</label>
+                                    <label for="CategoryCode">Category Code</label>
                                 </span>
                             </div>
 
@@ -25,12 +25,12 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
                                     formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Category_Master.Scheme_Type' | translate}}"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
                                     #scheme (focus)="onFocus(scheme)" [selectOnTab]='true'  >
                                     <ng-option *ngFor="let values of schemetype" [value]="values">
                                       {{values.label}}</ng-option> 
                                   </ng-select>
-                                  <label for="ACNOTYPE">{{'master.Category_Master.Scheme_Type' | translate}}<sub class="required"> * </sub></label>
+                                  <label for="ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
@@ -48,7 +48,7 @@
                                     id="Description" required=""
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}" #autofocus>
-                                    <label for="Description">{{'master.Category_Master.Description' | translate}}<sub class="required">* </sub></label>
+                                    <label for="Description">Description<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)" class="alert alert-danger">
@@ -62,9 +62,9 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Category_Master.Submit' | translate}}</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">{{'master.Category_Master.Cancel' | translate}}</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">{{'master.Category_Master.Update' | translate}}</button>&nbsp;
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">Update</button>&nbsp;
                         </div>
                     </div>
 

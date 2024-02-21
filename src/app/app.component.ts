@@ -14,12 +14,10 @@ export class AppComponent implements OnInit {
   site = environment.sitename
   siteUrl: string;
 
-  constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService) {
-    //  this.translate.setDefaultLang('ma');
-
-   }
-
+ 
+  constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService,){}
   ngOnInit() {
+    
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
@@ -146,7 +144,7 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:unload', ['$event'])
   unloadHandler(event) {
-    console.log("Leaving site, window:unload,")
+    console.log("Leaving site, window:unload")
 
   }
 
@@ -155,9 +153,6 @@ export class AppComponent implements OnInit {
     console.log("Leaving site, beforeunload!")
     return false;
   }
-  // Translate
-  // selectLanguage(event:any){
-  //   this.translate.use(event.target.value);
-  // }
+
 
 }

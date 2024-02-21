@@ -11,7 +11,6 @@ import { AuthorityMasterService } from './authority-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -75,7 +74,7 @@ export class AuthorityMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private authorityMasterService: AuthorityMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -128,13 +127,13 @@ export class AuthorityMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: this.translate.instant('master.Authority_Master.Action')
+          title: 'Action'
         },
         {
-          title: this.translate.instant('master.Authority_Master.Authority_Code'),
+          title: 'Authority Code',
           data: 'CODE'
         }, {
-          title: this.translate.instant('master.Authority_Master.Description'),
+          title: 'Description',
           data: 'NAME'
         },
       ],

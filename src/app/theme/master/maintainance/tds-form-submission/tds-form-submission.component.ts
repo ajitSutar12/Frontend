@@ -14,7 +14,6 @@ import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/
 import { first } from 'rxjs/operators';
 import { TDSFormSubmissionService } from './tds-form-submission.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from '@ngx-translate/core';
 
 // For fetching values from backend
 interface TDSFormSubmission {
@@ -62,7 +61,7 @@ export class TDSFormSubmissionComponent implements OnInit {
     private TDSformsubmission: TDSFormSubmissionService,
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
+    private config: NgSelectConfig,) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -215,8 +214,5 @@ export class TDSFormSubmissionComponent implements OnInit {
       event.target.value = parseFloat(event.target.value).toFixed(2);
     else
       event.target.value = 0
-  }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
   }
 }

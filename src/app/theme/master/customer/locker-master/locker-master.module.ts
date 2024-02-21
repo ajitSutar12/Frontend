@@ -21,13 +21,15 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { MinimumBalanceMasterDropdownService } from '../../../../shared/dropdownService/minimum-balance-master-dropdown.service'
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { LockerRMasterDropDownService } from '../../../../shared/dropdownService/lockerrack-master-dropdown.service'
 import { LockerRWMasterDropDownService } from '../../../../shared/dropdownService/lockerrackwise-master-dropdown.service'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -40,7 +42,14 @@ import { LockerRWMasterDropDownService } from '../../../../shared/dropdownServic
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [LockerMasterComponent],
   providers: [LockerMasterService, CustomerIDMasterDropdownService, CustomerIdService,
@@ -56,3 +65,6 @@ import { LockerRWMasterDropDownService } from '../../../../shared/dropdownServic
   exports: [LockerMasterComponent],
 })
 export class LockerMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

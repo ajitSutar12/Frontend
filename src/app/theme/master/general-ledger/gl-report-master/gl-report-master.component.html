@@ -2,14 +2,14 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.GL_Report_Master.Title' | translate}}</h5>
-                <h6 style="float: right;">{{'master.Action.F1' | translate}}<sub class="required">* </sub>{{'master.Action.F2' | translate}}</h6>
+                <h5>GL Report Master</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <form [formGroup]="ngForm">
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="rtype">{{'master.GL_Report_Master.Report_Type' | translate}}<sub
+                            <div class="col-sm-12 col-md-1"> <label for="rtype">Report Type<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-4">
@@ -17,7 +17,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="label" appTheme [(ngModel)]="reportType" id="REPORT_TYPE"
                                             bindLabel="label" formControlName="REPORT_TYPE" title="Compulsory Selection"
-                                            placeholder="{{'master.GL_Report_Master.Report_Type' | translate}}" #REPOTYPE (focus)="onFocus(REPOTYPE)"
+                                            placeholder="Report Type" #REPOTYPE (focus)="onFocus(REPOTYPE)"
                                             [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of glreport" [value]="values">
                                                 {{values.id}} {{values.label}}
@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="col-md-1">
-                                <label for="code">{{'master.GL_Report_Master.Code' | translate}} <sub class="required">*</sub></label>
+                                <label for="code">Code <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -55,7 +55,7 @@
                             </div>
 
                             <div class="col-md-1">
-                                <label for="code">{{'master.GL_Report_Master.Name' | translate}} <sub class="required">*</sub></label>
+                                <label for="code">Name <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group input-group">
@@ -79,14 +79,14 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-1"> <label for="type">{{'master.GL_Report_Master.Type' | translate}}<sub class="required">*</sub></label>
+                            <div class="col-sm-12 col-md-1"> <label for="type">Type<sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="id" appTheme [(ngModel)]="selectedType" id="CODE_TYPE"
                                             bindLabel="label" formControlName="CODE_TYPE" title="Compulsory Selection"
-                                            placeholder="{{'master.GL_Report_Master.Type' | translate}}" #CODETYPE (focus)="onFocus(CODETYPE)"
+                                            placeholder="Code Type" #CODETYPE (focus)="onFocus(CODETYPE)"
                                             [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of codetype" [value]="values">
                                                 {{values.id}} {{values.name}}
@@ -108,8 +108,8 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input class="border-checkbox" type="checkbox" id="ADD_PL_AMOUNT"
                                             formControlName="ADD_PL_AMOUNT" />
-                                        <label class="border-checkbox-label" for="ADD_PL_AMOUNT">{{'master.GL_Report_Master.Add_Profit_and_Loss_Amount' | translate}}
-                                        </label>
+                                        <label class="border-checkbox-label" for="ADD_PL_AMOUNT">Add Profit and Loss
+                                            Amount</label>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <label for="Serial No.">{{'master.GL_Report_Master.sr_no' | translate}}<sub class="required">*</sub></label>
+                                <label for="Serial No.">Serial No. <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -148,7 +148,7 @@
                             </div>
 
                             <div class="col-md-2">
-                                <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' | translate}} <sub class="required">*</sub></label>
+                                <label for="poc">Percentage of Code <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -173,8 +173,8 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                             formControlName="INPUT_ALLOWED" />
-                                        <label class="border-checkbox-label" for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed' | translate}}
-                                            </label>
+                                        <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input Allowed
+                                            ?</label>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                         <div class="row">
 
                             <div class="col-md-2">
-                                <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}} <sub class="required">*</sub></label>
+                                <label for="poc">Percentage <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -209,7 +209,7 @@
 
 
                             <div class="col-md-2">
-                                <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' | translate}}<sub class="required">*</sub></label>
+                                <label for="poc">Percentage of Cosideration <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -234,8 +234,8 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                             formControlName="IS_PRINT_IN_REPORT" />
-                                        <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report' | translate}}
-                                    </label>
+                                        <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print in GL
+                                            Report ?</label>
                                     </div>
                                 </div>
                             </div>
@@ -249,12 +249,12 @@
                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
                             [disabled]="ngForm.invalid"
                                 *ngIf="addButton">
-                                {{'master.Action.Add' | translate}}
+                                Add
                             </button>
                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
                             [disabled]="ngForm.invalid"
                                 *ngIf="updateButton">
-                                {{'master.Action.Update' | translate}}
+                                Update
                             </button>
                         </div>
                     </div>
@@ -379,8 +379,8 @@
                                 </tbody>
                                 <tbody *ngIf="glreportMaster?.length == 0">
                                     <tr>
-                                        <td colspan="8" class="no-data-available" Style="text-align: center;">{{'master.Action.No_Data' | translate}}
-                                            </td>
+                                        <td colspan="8" class="no-data-available" Style="text-align: center;">No
+                                            data!</td>
                                     </tr>
                                 </tbody>
                             </table>

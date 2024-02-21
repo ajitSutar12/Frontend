@@ -11,6 +11,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { environment } from 'src/environments/environment';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-locker-open-transaction',
@@ -42,7 +43,11 @@ export class LockerOpenTransactionComponent implements OnInit {
   ngacno: any = null
   transferAccountDetails
   selectedTransScheme: any = null
-  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,) { }
+  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, 
+    private schemeAccountNoService: SchemeAccountNoService,
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang) }
   ngOnInit(): void {
     this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));
@@ -143,8 +148,8 @@ export class LockerOpenTransactionComponent implements OnInit {
     }
     this.http.post(this.url + "/locker-tran/openLocker", obj).subscribe(data => {
       Swal.fire(
-        'Success',
-        `Locker Opened Successfully`,
+        `${this.translate.instant('Swal_Msg.Success')}`,
+        `${this.translate.instant('Swal_Msg.Locker_Open')}`,
         'success'
       );
       this.createForm()

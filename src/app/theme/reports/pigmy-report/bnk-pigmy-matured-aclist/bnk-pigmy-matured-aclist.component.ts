@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-pigmy-matured-aclist',
@@ -50,8 +51,9 @@ export class BnkPigmyMaturedAclistComponent implements OnInit {
     public SchemeTypes: SchemeTypeDropdownService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-
-  ) {
+    private translate:TranslateService
+      ) {
+      this.translate.setDefaultLang(environment.setLang)
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -164,7 +166,7 @@ export class BnkPigmyMaturedAclistComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

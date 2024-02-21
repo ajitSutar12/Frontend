@@ -12,7 +12,6 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { NgSelectComponent } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -70,7 +69,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     private _npaService: NpaOpeningDetailsEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+    private ownbranchMasterService: OwnbranchMasterService,) { }
 
   ngOnInit(): void {
     this.dtOptions = {

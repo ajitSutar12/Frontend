@@ -11,7 +11,6 @@ import { CitytMasterService } from './city-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +71,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private citytMasterService: CitytMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder) { }
 
 
   ngOnInit(): void {
@@ -126,37 +125,37 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: this.translate.instant('master.City_Master.Action'),
+          title: 'Action',
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title:this.translate.instant('master.City_Master.City_Code'),
+          title: 'City Code',
           data: 'CITY_CODE',
         },
         {
-          title:this.translate.instant('master.City_Master.City_Name'),
+          title: 'City Name',
           data: 'CITY_NAME',
         },
         {
-          title:this.translate.instant('master.City_Master.Distance'),
+          title: 'Distance',
           data: 'DISTANCE',
         },
         {
-          title:this.translate.instant('master.City_Master.Taluka_Code'),
+          title: 'Taluka Code',
           data: 'TALUKA_CODE',
         },
         {
-          title: this.translate.instant('master.City_Master.District_Code'),
+          title: 'District Code',
           data: 'DISTRICT_CODE',
         },
         {
-          title:this.translate.instant('master.City_Master.State_Code'),
+          title: 'State Code',
           data: 'STATE_CODE',
         },
         {
-          title:this.translate.instant('master.City_Master.Region'),
+          title: 'Region',
           data: 'REGION_CODE',
         },
       ],

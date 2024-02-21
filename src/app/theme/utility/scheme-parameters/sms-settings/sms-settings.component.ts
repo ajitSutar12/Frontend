@@ -7,7 +7,6 @@ import { environment } from '../../../../../environments/environment'
 import { Subject, Subscription } from 'rxjs-compat';
 import { SharesSchemeService } from '../shares-scheme/shares-scheme.service'
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -21,7 +20,7 @@ class DataTableResponse {
 })
 export class SmsSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
   dtExportButtonOptions: any = {};
-  constructor(private http: HttpClient, private SharesSchemeService: SharesSchemeService, private fb: FormBuilder,private translate:TranslateService) { }
+  constructor(private http: HttpClient, private SharesSchemeService: SharesSchemeService, private fb: FormBuilder,) { }
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -78,34 +77,34 @@ export class SmsSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: 'Action'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Schema'),
+          title: 'Type',
           data: 'S_ACNOTYPE'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Schema_Code'),
+          title: 'Scheme Code',
           data: 'S_APPL'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Descaption'),
+          title: 'Description',
           data: 'S_NAME'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Short_Name'),
+          title: 'Short Name',
           data: 'S_SHNAME'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Is_Allow_SMS'),
+          title: 'Allow SMS',
           data: 'ALLOW_SMS'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Is_Use'),
+          title: 'Use short name',
           data: 'SMS_USE_SHNAME'
         },
         {
-          title: this.translate.instant('Utility.SMS_Settings.Is_Allow'),
+          title: 'Allow remainder SMS',
           data: 'ALLOW_REM_SMS'
         }
 

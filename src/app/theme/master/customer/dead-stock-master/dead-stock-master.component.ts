@@ -33,6 +33,7 @@ import { environment } from "src/environments/environment";
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { TranslateService } from "@ngx-translate/core";
 
 // Handling datatable data
 class DataTableResponse {
@@ -150,7 +151,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private ACMasterDropdownService: ACMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
-  ) {
+    private translate:TranslateService
+    ) {
+      this.translate.setDefaultLang(environment.setLang)
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
     }
@@ -210,47 +213,47 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: "Item Code",
+          title: this.translate.instant('master.Dead_Stock_Master.Item_Code'),
           data: "ITEM_CODE",
         },
         {
-          title: "Item Name",
+          title: this.translate.instant('master.Dead_Stock_Master.Item_Name'),
           data: "ITEM_NAME",
         },
         {
-          title: "SupplierName",
+          title: this.translate.instant('master.Dead_Stock_Master.Supp_Name'),
           data: "SUPPLIER_NAME",
         },
         {
-          title: "Purchase Date",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Date'),
           data: "PURCHASE_DATE",
         },
         {
-          title: "Depreciation Category",
+          title: this.translate.instant('master.Dead_Stock_Master.Dep_Category'),
           data: "DEPR_CATEGORY",
         },
         {
-          title: "Purchase Quantity",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Qty'),
           data: "PURCHASE_QUANTITY",
         },
         {
-          title: "Purchase Rate",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Rate'),
           data: "PURCHASE_RATE",
         },
 
         {
-          title: "Purchase Value",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Val'),
           data: "PURCHASE_VALUE",
         },
         {
-          title: "Last Depreciation Date",
+          title: this.translate.instant('master.Dead_Stock_Master.Last_Dep_Date'),
           data: "LAST_DEPR_DATE",
         },
         {
-          title: "GL Account Number",
+          title: this.translate.instant('master.Dead_Stock_Master.GL_Ac_No'),
           data: "GL_ACNO",
         },
       ],
@@ -281,11 +284,11 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.angForm = this.fb.group({
       ITEM_TYPE: [[Validators.required, Validators.pattern]],
       ITEM_CODE: [""],
-      ITEM_NAME: ["", [Validators.required, Validators.pattern]],
+      ITEM_NAME: ["", [Validators.required, ]],
       PURCHASE_DATE: ["", [Validators.required]],
       DEPR_CATEGORY: ["", [Validators.required]],
       OP_BAL_DATE: ["", [Validators.pattern]],
-      SUPPLIER_NAME: ["", [Validators.required, Validators.pattern]],
+      SUPPLIER_NAME: ["", [Validators.required, ]],
       PURCHASE_OP_QUANTITY: [""],
       PURCHASE_RATE: ["", [Validators.pattern]],
       PURCHASE_QUANTITY: [0, [Validators.pattern]],
@@ -300,7 +303,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -372,7 +375,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         (data1) => {
           Swal.fire({
             icon: 'success',
-            title: 'Account Created successfully!',
+            title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
             html:
               '<b>ITEM NAME : </b>' + data1.ITEM_NAME + ',' + '<br>' +
               '<b>ITEM CODE : </b>' + data1.ITEM_CODE + '<br>'
@@ -398,7 +401,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.angForm.reset();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
   lddate: any
@@ -562,7 +565,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
     data['PURCHASE_VALUE'] = this.firstnumber * this.secondnumber
     this.deadstockmasterService.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.ngOnInit()
       this.showButton = true;
       this.updateShow = false;
@@ -607,8 +610,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete narration data.",
+      title:`${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Narration_Data')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -618,7 +621,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       if (result.isConfirmed) {
         this.deadstockmasterService.deleteData(id).subscribe((data1) => {
           this.customerMaster = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -626,7 +629,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -683,8 +686,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
     this.deadstockmasterService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Dead Stock Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Dead_Stock')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -703,8 +706,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
     this.deadstockmasterService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Dead Stock rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Dead_Stock_Reject')}`,
         'success'
       );
 
@@ -724,8 +727,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
     this.deadstockmasterService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.U_Msg')}`,
         'success'
       );
       var button = document.getElementById('trigger');
