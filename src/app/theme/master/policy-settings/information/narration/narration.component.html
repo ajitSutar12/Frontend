@@ -25,7 +25,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NARRATION'].errors?.pattern || angForm.controls['NARRATION'].errors?.required || angForm.controls['NARRATION'].errors?.maxlength">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

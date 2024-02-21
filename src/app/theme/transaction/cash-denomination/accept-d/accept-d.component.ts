@@ -6,6 +6,7 @@ import { userInfo } from 'os';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-accept-d',
@@ -55,8 +56,8 @@ export class AcceptDComponent implements OnInit {
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: CashDenominationService
-  ) { }
+    private _service: CashDenominationService,private translate:TranslateService
+  ) {  this.translate.setDefaultLang(environment.setLang);}
 
   ngOnInit(): void {
     // debugger
@@ -266,7 +267,7 @@ export class AcceptDComponent implements OnInit {
       DENOMINATION_AMT: this.sum
     }
     if (formVal.DENOMINATION_AMT != this.sum) {
-      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.insert_Correct_Amount')}`, 'warning')
     }
     else if (Number(this.transactionAmt) != Number(this.denomination)) {
       Swal.fire('Oops...', 'Please Check Transaction Amount and Denomination Amount', 'warning');
@@ -274,7 +275,7 @@ export class AcceptDComponent implements OnInit {
     }
     else {
       this._service.acceptDinominationInsert(object).subscribe(data => {
-        Swal.fire('Success', 'Cash Accept Denomincation Successfully Done', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Successfully_Done')}`, 'success');
         this.angForm.reset();
         this.showCash = false;
         for (let item of this.currencyData) {
@@ -314,6 +315,9 @@ export class AcceptDComponent implements OnInit {
       event.target.value = parseFloat(event.target.value).toFixed(2);
     else
       event.target.value = 0
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

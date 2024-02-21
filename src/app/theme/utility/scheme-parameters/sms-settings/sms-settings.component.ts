@@ -173,7 +173,7 @@ export class SmsSettingsComponent implements OnInit, AfterViewInit, OnDestroy {
       data['SMS_USE_SHNAME'] = data.SMS_USE_SHNAME == true ? 1 : 0,
       data['ALLOW_REM_SMS'] = data.ALLOW_REM_SMS == true ? 1 : 0
     this.http.post(this.url + '/scheme-parameters/SMSupdate', data).subscribe(data1 => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
         this.createForm()

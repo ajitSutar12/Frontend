@@ -68,7 +68,7 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="LOCKER_FROMNO"
                                         class="form-control" placeholder=" " id="LOCKER_FROMNO" required=""
-                                        pattern="^[0-9]+$" maxlength="10"
+                                        pattern="^[0-9\u0966-\u096F]*$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focusout)="check()" title="Input allowed only  0-9"
                                         formControlName="LOCKER_FROMNO">
@@ -80,7 +80,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['LOCKER_FROMNO'].errors?.pattern || angForm.controls['LOCKER_FROMNO'].errors?.required || angForm.controls['LOCKER_FROMNO'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                     <input appTheme style="text-align: right;" type="text" name="LOCKER_TONO"
                                         class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="LOCKER_TONO"
-                                        required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         (focusout)="check()" formControlName="LOCKER_TONO" maxlength="10">
                                     <label for="LOCKER_TONO">Lockers To<sub class="required">* </sub></label>
                                 </span>
@@ -100,7 +100,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['LOCKER_TONO'].errors?.pattern || angForm.controls['LOCKER_TONO'].errors?.required || angForm.controls['LOCKER_TONO'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'Utility.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>

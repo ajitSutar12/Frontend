@@ -232,7 +232,7 @@ export class GlReportLinkingComponent implements OnInit {
     }
     this.resetForm();
     this.glLinkingMasterService.postLData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -276,7 +276,7 @@ export class GlReportLinkingComponent implements OnInit {
     data['EFFECT_TO_DATE'] = moment(EFFECT_TODATE).format('DD/MM/YYYY')
 
     this.glLinkingMasterService.updateLData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg1')}`, 'success');
       this.addButton = true;
       this.updateButton = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

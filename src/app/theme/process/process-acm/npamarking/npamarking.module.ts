@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {DataTablesModule} from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {UserAuthInterceptor} from '../../../../../app/user-auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
@@ -24,7 +24,15 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
    
   ],
   declarations: [NPAMarkingComponent],
@@ -35,3 +43,6 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
   },]
 })
 export class NpaMarkingModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -642,7 +642,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
 
     }
     this.otherBanksDepositSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
@@ -835,7 +835,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     data['IS_INTUPTODATE'] = (data.IS_INTUPTODATE == true ? '1' : '0')
 
     this.otherBanksDepositSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
@@ -1280,12 +1280,12 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
         this.otherBanksDepositSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 701 to 799 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.701_to_799_this_range')}`, 'error')
       }
     }
   }
@@ -1307,7 +1307,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
   
     }

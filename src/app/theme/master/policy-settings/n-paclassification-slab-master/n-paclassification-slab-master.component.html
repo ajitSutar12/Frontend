@@ -31,7 +31,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['EFFECT_DATE'].errors?.required || angForm.controls['EFFECT_DATE'].errors?.maxlength || angForm.controls['EFFECT_DATE'].errors?.minlength">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -53,7 +53,9 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NPA_BASE_DAYS'].errors?.pattern || angForm.controls['NPA_BASE_DAYS'].errors?.required || angForm.controls['NPA_BASE_DAYS'].errors?.minlength || angForm.controls['NPA_BASE_DAYS'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -148,7 +150,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SECURED_PERCENT'].errors?.pattern || angForm.controls['SECURED_PERCENT'].errors?.max || angForm.controls['SECURED_PERCENT'].errors?.minlength || angForm.controls['SECURED_PERCENT'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>

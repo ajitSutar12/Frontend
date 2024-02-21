@@ -144,7 +144,7 @@ export class OccupationMasterComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
     });
   }
   // Method to insert data into database through NestJS
@@ -155,7 +155,7 @@ export class OccupationMasterComponent implements OnInit {
       'NAME': formVal.NAME,
     }
     this.occupationMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`);
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -186,7 +186,7 @@ export class OccupationMasterComponent implements OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.occupationMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -208,8 +208,8 @@ export class OccupationMasterComponent implements OnInit {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete occupation master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.occupation_master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -220,8 +220,7 @@ export class OccupationMasterComponent implements OnInit {
         this.occupationMasterService.deleteData(id).subscribe(data1 => {
           this.occupationMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -233,8 +232,7 @@ export class OccupationMasterComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

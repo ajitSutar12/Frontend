@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Cash In Denomination</h5>
+                        <h5>{{'Transaction.Cash_In_Denomination.Title' | translate}}</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                             Fields marked with (<sub class="required"> * </sub>) are mandatory
                         </h6>
@@ -12,7 +12,7 @@
                     <form action="javascript:" [formGroup]="angForm">
                         <div class="card-block">
                             <div class="row">
-                                <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Branch<sub
+                                <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Cash_In_Denomination.Branch' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-4">
                                     <div class="form-group form-primary form-static-label">
@@ -59,7 +59,7 @@
                                     </div>
                                 </div> -->
 
-                                <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
+                                <div class="col-sm-12 col-md-2"> <label for="CASHIER">{{'Transaction.Cash_In_Denomination.Cashier' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -82,8 +82,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination
-                                        Amount</label></div>
+                                <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">{{'Transaction.Cash_In_Denomination.Denomination_Amount' | translate}}</label></div>
                                 <div class="col-md-4">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
@@ -96,8 +95,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">Denomination Transaction
-                                        Date<sub class="required">*</sub></label>
+                                <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">{{'Transaction.Cash_In_Denomination.Denomination_Transaction' | translate}}<sub class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group input-group">
@@ -123,7 +121,7 @@
                             </div>
                             <div class="row">
 
-                                <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Transaction No<sub
+                                <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">{{'Transaction.Cash_In_Denomination.Denomination_Transaction' | translate}}<sub
                                             class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-12 col-md-3">
@@ -156,7 +154,7 @@
 
         <div class="card " style="width: 450px;">
             <div class="card-header">
-                <h5>Cash in Denomination</h5>
+                <h5>{{'Transaction.Cash_In_Denomination.Cash_in' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="solid">
@@ -180,7 +178,7 @@
                         <div></div>
                         <tr>
                             <td align="right">
-                                Total Cash :
+                                {{'Transaction.Cash_In_Denomination.Total_Cash' | translate}} :
                             </td>
                             <td></td>
 
@@ -195,10 +193,10 @@
                 <div class="row">
                     <div class="col-sm">
                         <button class="btn btn-outline-primary btn-sm" (click)="submit()">
-                            Submit
+                            {{'Transaction.Action.Submit' | translate}} 
                         </button>
                         <button class="btn btn-outline-primary btn-sm" (click)="reset()">
-                            Cancel
+                            {{'Transaction.Action.Cancel' | translate}}
                         </button>
                     </div>
                 </div>

@@ -188,7 +188,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   //checks percentage of interest rate
   checkInt(event) {
     if (Number(event) > 20) {
-      Swal.fire('Info', 'Please Input Interest upto 20', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Input_Limit_20')}`, 'info')
       this.angForm.patchValue({
         INT_RATE: ''
       })
@@ -223,7 +223,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       this.dtTrigger.next();
     }
     else {
-      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Account_Number')}`, 'info')
     }
   }
   //table show or hide
@@ -234,7 +234,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
       this.showTable = true
     }
     else {
-      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Account_Number')}`, 'info')
       this.modalClass = 'modalHide';
       this.showTable = false
     }
@@ -282,7 +282,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
           'InterestRate': this.angForm.controls['INT_RATE'].value
         }
         this._interestRateChange.updateData(dataToSend).subscribe(data => {
-          Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           this.formSubmitted = false;
         }, (error) => {
           console.log(error)
@@ -300,7 +300,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
           'InterestList': this.interestList
         }
         this._interestRateChange.postData(dataToSend).subscribe(data => {
-          Swal.fire('Success!', 'Record Added Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           this.formSubmitted = false;
         }, (error) => {
           console.log(error)

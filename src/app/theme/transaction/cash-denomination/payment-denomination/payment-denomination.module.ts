@@ -5,11 +5,13 @@ import {PaymentDenominationComponent } from './payment-denomination.component';
 import { PaymentDenominationRoutingModule } from './payment-denomination-routing.module';
 
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -19,7 +21,15 @@ import { HttpClientModule } from '@angular/common/http';
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   
   ],
   declarations: [PaymentDenominationComponent],
@@ -30,3 +40,6 @@ import { HttpClientModule } from '@angular/common/http';
   },]
 })
 export class PaymentDenominationModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

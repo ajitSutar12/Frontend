@@ -30,7 +30,7 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                                     *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['date'].errors?. maxlength || ngForm.controls['date'].errors?. minlength || ngForm.controls['date'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>

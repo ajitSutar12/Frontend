@@ -31,7 +31,7 @@
                                 angForm.controls['S_APPL'].errors?.min || 
                                 angForm.controls['S_APPL'].errors?.max
                               ">
-                                    This field is required and valid range 801 to 899
+                                    <!-- This field is required and valid range 801 to 899 -->
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required || angForm.controls['S_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['S_SHNAME'].errors?.pattern || angForm.controls['S_SHNAME'].errors?.required || angForm.controls['S_SHNAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                                 *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf=" angForm.controls['S_GLACNO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

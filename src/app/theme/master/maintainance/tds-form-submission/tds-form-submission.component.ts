@@ -99,7 +99,7 @@ export class TDSFormSubmissionComponent implements OnInit {
   //checks percentage of interest rate
   checkInt(event) {
     if (Number(event) > 20) {
-      Swal.fire('Info', 'Please Input Interest upto 20', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Input_Limit_20')}`, 'info')
       this.angForm.patchValue({
         TDS_RATE: ''
       })
@@ -112,7 +112,7 @@ export class TDSFormSubmissionComponent implements OnInit {
     this.formSubmitted = true;
     if (this.angForm.valid) {
       if (this.isTdsFormA == true && this.angForm.controls['TDS_RATE'].value == '' && this.angForm.controls['TDS_LIMIT'].value == '') {
-        Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`);
       }
       else {
         const formVal = this.angForm.value;
@@ -125,7 +125,7 @@ export class TDSFormSubmissionComponent implements OnInit {
           'SUBMIT_DATE': (formVal.SUBMIT_DATE == '' || formVal.SUBMIT_DATE == 'Invalid date') ? ngSubmitDate = '' : ngSubmitDate = moment(formVal.SUBMIT_DATE).format('DD/MM/YYYY')
         }
         this.TDSformsubmission.postData(dataToSend).subscribe(data1 => {
-          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`,'success');
           this.formSubmitted = false;
         }, (error) => {
           console.log(error)
@@ -135,7 +135,7 @@ export class TDSFormSubmissionComponent implements OnInit {
       }
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`,'warning');
     }
   }
 
@@ -144,7 +144,7 @@ export class TDSFormSubmissionComponent implements OnInit {
     let date = new Date().getFullYear() + 1;
     let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
     if (result > date) {
-      Swal.fire("Warning!", "please enter valid Year ", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.valid_Year')}`,'warning');
       (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
     }
     else {
@@ -174,7 +174,7 @@ export class TDSFormSubmissionComponent implements OnInit {
       console.log(value)
       if (value.length != 0) {
         this.ngcustomer = null
-        Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Already_Submitted')}`, 'warning');
 
       }
 

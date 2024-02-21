@@ -30,7 +30,7 @@
                                 angForm.controls['S_APPL'].errors?.pattern ||
                                 angForm.controls['S_APPL'].errors?.min || 
                                 angForm.controls['S_APPL'].errors?.max">
-                                    This field is required and valid range 301 to 399
+                                    <!-- This field is required and valid range 301 to 399 -->
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['S_NAME'].errors?.pattern || angForm.controls['S_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['S_SHNAME'].errors?.pattern || angForm.controls['S_SHNAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -143,7 +143,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['MIN_INT_LIMIT'].errors?.pattern || angForm.controls['MIN_INT_LIMIT'].errors?.required">
-                                                        Input allowed only 0-9 . (Space)
+                                                        <!-- Input allowed only 0-9 . (Space) -->{{'Utility.Validation.Val_Reason' | translate}}
                                                     </div>
                                                 </div>
                                             </div>

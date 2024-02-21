@@ -6,7 +6,7 @@ import { ProcessACMComponent } from './process-acm.component';
 import { ProcessACMRoutingModule } from './process-acm-routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NPAProcessComponent } from './npaprocess/npaprocess.component';
 import { NPAMarkingComponent } from './npamarking/npamarking.component';
@@ -25,6 +25,8 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { ChargesPostingComponent } from './charges-posting/charges-posting.component';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -37,7 +39,15 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    DeadStockDepreciationModule
+    DeadStockDepreciationModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [
     ProcessACMComponent,
@@ -57,3 +67,6 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
   },]
 })
 export class ProcessACMModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { MenuItems } from '../../shared/menu-items/menu-items';
@@ -184,7 +185,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   };
 
-  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,) {
+
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService) {
+
+
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';

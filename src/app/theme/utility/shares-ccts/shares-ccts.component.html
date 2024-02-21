@@ -25,7 +25,7 @@
                                 *ngIf="angForm.controls['dscheme'].invalid && (angForm.controls['dscheme'].dirty || angForm.controls['dscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['dscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -48,7 +48,7 @@
                                 *ngIf="angForm.controls['cscheme'].invalid && (angForm.controls['cscheme'].dirty || angForm.controls['cscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['cscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -72,7 +72,7 @@
                                 *ngIf="angForm.controls['accNo'].invalid && (angForm.controls['accNo'].dirty || angForm.controls['accNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['accNo'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                                 *ngIf="angForm.controls['kdscheme'].invalid && (angForm.controls['kdscheme'].dirty || angForm.controls['kdscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['kdscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -118,12 +118,14 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['shamtlimit'].errors?.pattern || angForm.controls['shamtlimit'].errors?.required || angForm.controls['shamtlimit'].errors?.maxlength">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Particulars</label>
+
+                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">{{'Utility.Member_Contribution_Credit_to_Shares.Particulars' | translate}}</label>
+
                         </div>
                         <div class="col-md-4">
                             <div class="form-group input-group">

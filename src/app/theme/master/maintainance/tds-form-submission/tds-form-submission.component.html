@@ -25,7 +25,7 @@
                                 *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIN_YEAR'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_CUSTID'].errors?.pattern || angForm.controls['AC_CUSTID'].errors?.required || angForm.controls['AC_CUSTID'].errors?.maxlength">
-                                    This Field id required.
+                                    <!-- This Field id required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                                 *ngIf="angForm.controls['SUBMIT_DATE'].invalid && (angForm.controls['SUBMIT_DATE'].dirty || angForm.controls['SUBMIT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SUBMIT_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>

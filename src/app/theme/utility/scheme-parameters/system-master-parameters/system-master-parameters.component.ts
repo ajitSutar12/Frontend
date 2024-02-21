@@ -842,7 +842,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
 
     this.systemMasterParametersService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -1098,7 +1098,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       (data.PIGMY_CURRENT_DATE == 'Invalid date' || data.PIGMY_CURRENT_DATE == '' || data.PIGMY_CURRENT_DATE == null) ? (ngpigmycurrentdate = '', data['PIGMY_CURRENT_DATE'] = ngpigmycurrentdate) : (ngpigmycurrentdate = data.PIGMY_CURRENT_DATE, data['PIGMY_CURRENT_DATE'] = moment(ngpigmycurrentdate).format('DD/MM/YYYY'))
     }
     this.systemMasterParametersService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1158,8 +1158,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete bank master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text:`${this.translate.instant('Swal_Msg.bank_master_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1170,8 +1170,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         this.systemMasterParametersService.deleteData(id).subscribe(data1 => {
           this.systemParameters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1183,8 +1182,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

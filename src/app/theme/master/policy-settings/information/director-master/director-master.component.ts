@@ -200,7 +200,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.required, Validators.pattern]],
+      NAME: ['', [, Validators.pattern]],
       DESIGNATION: ['', [Validators.required, Validators.pattern]],
       AC_CTCODE: [''],
       AC_ADDR1: ['', [Validators.required, Validators.pattern]],
@@ -232,7 +232,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'BRANCH_CODE': this.ngBranchCode
     }
     this.directorMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -292,7 +292,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     data['IS_CURRENT_BODY_MEMBER']= (data.IS_CURRENT_BODY_MEMBER  == true? '1':'0' ),
     this.directorMasterService.updateData(data).subscribe(() => {
      
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -315,8 +315,9 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete director master data.",
+      title: 
+      `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text:`${this.translate.instant('Swal_Msg.Are_you_sure')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -327,8 +328,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.directorMasterService.deleteData(id).subscribe(data1 => {
           this.directorMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -340,8 +340,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

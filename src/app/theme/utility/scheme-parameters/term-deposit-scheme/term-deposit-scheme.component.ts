@@ -16,6 +16,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -214,7 +215,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     private unitOfTDPeriodService: UnitOfTDPeriodService,
     public DaysService: DaysService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -261,50 +262,43 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
       },
       columns: [
         {
-          title: 'Action',
-          render: function (data: any, type: any, full: any) {
-            return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
-          }
+          title: this.translate.instant('Utility.Action.Action'),
+
         },
         {
-          title: 'Type',
-          data: 'S_ACNOTYPE'
+          title: this.translate.instant('Utility.Utility1.Type'),
+          data: 'S_ACNOTYPE',
+
         },
         {
-          title: 'Scheme Code',
-          data: 'S_APPL'
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
+          data: 'S_APPL',
         },
         {
-          title: 'Description',
-          data: 'S_NAME'
+          title: this.translate.instant('Utility.Utility1.Description'),
+          data: 'S_NAME',
         },
         {
-          title: 'Short Name',
-          data: 'S_SHNAME'
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
+          data: 'S_SHNAME',
         },
         {
-          title: 'GL Account Number',
-          data: 'S_GLACNO'
-        }, {
-          title: 'Interest Debit GL Account',
-          data: 'S_INT_ACNO'
-        }, {
-          title: 'Interest Credit GL Account',
-          data: 'S_INT_CR_ACNO'
-        }, {
-          title: 'Payable Interest Account',
-          data: 'S_RECBL_PYBL_INT_ACNO'
-        }, {
-          title: 'Penal Interest Account',
-          data: 'S_PENAL_ACNO'
-        }, {
-          title: 'Recble Penal Interest Account',
-          data: 'S_RECBL_PENAL_ACNO'
-        }, {
-          title: 'Cash Interest Account',
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
+          data: 'S_GLACNO',
+        },
+        {
+          title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
+          data: 'S_INT_ACNO',
+        },
+        {
+          title:  this.translate.instant('Utility.Utility1.Rece_Interest_Acc'),
+          data: 'S_RECBL_PYBL_INT_ACNO',
+        },
+           {
+          title:this.translate.instant('Utility.Utility1.Cash_in_Acc'),
           data: 'S_CASH_INT_ACNO'
         }, {
-          title: 'Mature But Not Paid GL',
+          title: this.translate.instant('Utility.Utility1.Mature_but_not_paid_GL'),
           data: 'MATURED_BUT_NOT_PAID_GLAC'
         },
         //  {
@@ -1252,7 +1246,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     }
     console.log(dataToSend);
     this.TermDepositSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       // to reload after insertion of data
@@ -1490,7 +1484,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     data['IS_INT_ON_DEPO_AMT'] = (data.IS_INT_ON_DEPO_AMT == true ? '1' : '0')
     data['IS_INTUPTODATE'] = (data.IS_INTUPTODATE == true ? '1' : '0')
     this.TermDepositSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1540,8 +1534,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         this.TermDepositSchemeService.deleteData(id).subscribe(data1 => {
           this.termDepositScheme = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1553,8 +1546,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -1616,12 +1608,12 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
         this.TermDepositSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 201 to 299 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.201_to_299_this_range')}`, 'error')
       }
     }
   }
@@ -1644,7 +1636,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
   
     }

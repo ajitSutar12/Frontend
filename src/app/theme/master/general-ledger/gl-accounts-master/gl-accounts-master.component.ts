@@ -333,7 +333,7 @@ export class GlAccountsMasterComponent implements OnInit {
       'IS_ACTIVE': formVal.IS_ACTIVE
     }
     this.glAccountsMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -384,7 +384,7 @@ export class GlAccountsMasterComponent implements OnInit {
     data['id'] = this.updateID;
     data['PARENT_NODE'] = data.AC_CODE
     this.glAccountsMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

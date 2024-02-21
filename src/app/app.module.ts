@@ -27,6 +27,10 @@ import { DatatablekitComponent } from './datatablekit/datatablekit.component';
 import { GlobalErrorHandler } from './app.service';
 import { ShortcutKeyModule } from './theme/shortcut-key/shortcut-key.module';
 import { MinusPipe } from './minus.pipe';
+
+// import { ShortcutKeyComponent } from './theme/shortcut-key/shortcut-key.component';
+
+
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 

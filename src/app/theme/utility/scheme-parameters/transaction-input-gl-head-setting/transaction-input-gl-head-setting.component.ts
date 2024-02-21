@@ -332,7 +332,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         IS_GLBAL_MAINTAIN: (formVal.IS_GLBAL_MAINTAIN == true ? '1' : '0')
       }
       this._transInput.postData(dataToSend).subscribe(data => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -342,7 +342,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       //To clear form
       this.resetForm();
     } else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`, 'warning');
     }
   }
 
@@ -416,7 +416,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     data['IS_NOTING_REQUIRED'] = (data.IS_NOTING_REQUIRED == true ? '1' : '0')
     data['IS_GLBAL_MAINTAIN'] = (data.IS_GLBAL_MAINTAIN == true ? '1' : '0')
     this._transInput.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -480,7 +480,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       this._transInput.duplicatecheck(obj).subscribe(data => {
         if (data.length != 0) {
           this.ngHeadType = null
-          Swal.fire('Oops', 'This record already exists', 'error')
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.record_already')}`, 'error')
         }
       })
     }
