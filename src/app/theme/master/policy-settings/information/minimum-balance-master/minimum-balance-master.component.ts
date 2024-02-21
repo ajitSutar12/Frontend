@@ -143,7 +143,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm = this.fb.group({
       BC_MINBAL: ['', [Validators.required, Validators.pattern]],
       BC_CODE: [''],
-      BC_NAME: ['', [Validators.required, Validators.pattern]]
+      BC_NAME: ['', [Validators.required]]
     });
   }
 
@@ -156,7 +156,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
       'BC_MINBAL': formVal.BC_MINBAL
     }
     this.minimumBalanceMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
      // to reload after insertion of data
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()
@@ -188,7 +188,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.minimumBalanceMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -208,8 +208,8 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Minimum Balance Master data.",
+      title:`${this.translate.instant('Swal_Msg.Success')}`,
+      text: `${this.translate.instant('Swal_Msg.Min_Bal_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -220,8 +220,8 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
         this.minimumBalanceMasterService.deleteData(id).subscribe(data1 => {
           this.minimumBalanceMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -235,8 +235,8 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

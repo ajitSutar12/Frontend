@@ -13,7 +13,6 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
-import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -85,7 +84,7 @@ export class PigmyAppProcessComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private http: HttpClient,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+    private http: HttpClient,) { }
 
   ngOnInit(): void {
     this.createForm()
@@ -263,8 +262,4 @@ export class PigmyAppProcessComponent implements OnInit {
     this.completedCount = this.accountsList.filter(r => r.completed).length;
     return (this.completedCount / this.accountsList.length) * 100;
   }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
-  }
-
 }

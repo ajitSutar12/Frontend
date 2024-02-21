@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5>Locker Open</h5>
+                <h5>{{'Transaction.Locker_Transaction.T1'|translate}}</h5>
             </div>
             <form [formGroup]="angForm" novalidate>
 
@@ -10,7 +10,7 @@
                     <div class="solid">
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
-                                    Date<sub class="required">*</sub></label></div>
+                                {{'Transaction.Locker_Transaction.Date'|translate}}<sub class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -22,13 +22,13 @@
                                     *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Locker_Transaction.Branch'|translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
@@ -45,11 +45,11 @@
                                     *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Locker_Transaction.Scheme'|translate}}<sub
                                         class="required">*</sub></label></div>
 
                             <div class="col-sm-12 col-md-2">
@@ -66,20 +66,19 @@
                                     *ngIf="angForm.controls['SCHEME_CODE'].invalid && (angForm.controls['SCHEME_CODE'].dirty || angForm.controls['SCHEME_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['SCHEME_CODE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"><label for="AC_NO">Account
-                                    Number<sub class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2"><label for="AC_NO">{{'Transaction.Locker_Transaction.Ac_No'|translate}}<sub class="required">*</sub></label></div>
                             <div class="col-sm-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="ACCOUNT_NO" [(ngModel)]="ngacno" formControlName="ACCOUNT_NO"
                                             bindLabel="label" bindValue="bankacno" title="Compulsory Selection"
-                                            placeholder="Account Number" (change)="getTransferAccountDeatil()">
+                                            placeholder="{{'Transaction.Locker_Transaction.Ac_No'|translate}}" (change)="getTransferAccountDeatil()">
                                             <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -89,13 +88,13 @@
                                     *ngIf="angForm.controls['ACCOUNT_NO'].invalid && (angForm.controls['ACCOUNT_NO'].dirty || angForm.controls['ACCOUNT_NO'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['ACCOUNT_NO'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="RACK_NO">Rack Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="RACK_NO">{{'Transaction.Locker_Transaction.Rack_No'|translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -108,7 +107,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="LOC_NO">Locker Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="LOC_NO">{{'Transaction.Locker_Transaction.Locker_No'|translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -121,7 +120,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="Loc_Size">Locker Size<sub
+                            <div class="col-sm-12 col-md-2"> <label for="Loc_Size">{{'Transaction.Locker_Transaction.Locker_Size'|translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -136,7 +135,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="KEY_NO">Key Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="KEY_NO">{{'Transaction.Locker_Transaction.Key_No'|translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -149,7 +148,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2  "><label for="Locker Open">Locker Open By</label>
+                            <div class="col-sm-12 col-md-2  "><label for="Locker Open">{{'Transaction.Locker_Transaction.Locker_O_By'|translate}}</label>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
@@ -162,7 +161,7 @@
                                                 {{values.name}}</ng-option>
                                         </ng-select> -->
                                         <ng-select id="LOC_OPBY" [(ngModel)]="ngacno" formControlName="LOC_OPBY"
-                                            bindLabel="label" bindValue="bankacno" placeholder="Account Number"
+                                            bindLabel="label" bindValue="bankacno" placeholder="{{'Transaction.Locker_Transaction.Ac_No'|translate}}"
                                             disabled>
                                             <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
@@ -173,14 +172,14 @@
                                     *ngIf="angForm.controls['LOC_OPBY'].invalid && (angForm.controls['LOC_OPBY'].dirty || angForm.controls['LOC_OPBY'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['LOC_OPBY'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Open Time<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Locker_Transaction.Open_Time'|translate}}<sub
                                         class="required">*</sub></label></div>
 
                             <div class="col-md-2">
@@ -195,7 +194,7 @@
                         <div class="row">
                             <div class="col-sm" style="float: right;">
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="submit()">
-                                    Submit
+                                    {{'Transaction.Action.Submit'|translate}}
                                 </button>
                             </div>
                         </div>

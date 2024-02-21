@@ -13,7 +13,6 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -109,7 +108,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     public sharesSchemeService: SharesSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,private translate:TranslateService) { }
+    private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -156,37 +155,37 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: 'Action',
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: this.translate.instant('Utility.Utility1.Type'),
+          title: 'Type',
           data: 'S_ACNOTYPE'
         },
         {
-          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
+          title: 'Scheme Code',
           data: 'S_APPL'
         },
         {
-          title: this.translate.instant('Utility.Utility1.Description'),
+          title: 'Description',
           data: 'S_NAME'
         },
         {
-          title:this.translate.instant('Utility.Utility1.Short_Name'),
+          title: 'Short Name',
           data: 'S_SHNAME'
         },
         {
-          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
+          title: 'GL Account Number',
           data: 'S_GLACNO'
         },
         {
-          title:this.translate.instant('Utility.Utility1.Member_type'),
+          title: 'Member Type',
           data: 'MEMBER_TYPE'
         },
         {
-          title: this.translate.instant('Utility.Utility1.Auto_account'),
+          title: 'Is Auto Account Number Show ?',
           data: 'IS_AUTO_NO'
         },
         // {

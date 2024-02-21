@@ -16,7 +16,6 @@ import { GeneralLedgerSchemeService } from './general-ledger-scheme.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -89,7 +88,7 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
     private http: HttpClient,
     private generalLedgerSchemeService: GeneralLedgerSchemeService,
     private s1Service: S1Service,
-    private fb: FormBuilder,private translate:TranslateService) {
+    private fb: FormBuilder) {
     this.generalLedgerSchemeService.getData().subscribe(data => {
       if (data.length == 0) {
         this.showButton = true
@@ -148,22 +147,22 @@ export class GeneralLedgerSchemeComponent implements OnInit, AfterViewInit, OnDe
       },
       columns: [
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: 'Action',
         },
         {
-          title: this.translate.instant('Utility.General_Ledger_Scheme_Settings.Type'),
+          title: 'Type',
           data: 'S_ACNOTYPE'
         },
         {
-          title: this.translate.instant('Utility.General_Ledger_Scheme_Settings.Scheme_Code'),
+          title: 'Scheme Code',
           data: 'S_APPL'
         },
         {
-          title:this.translate.instant('Utility.General_Ledger_Scheme_Settings.Description'),
+          title: 'Description',
           data: 'S_NAME'
         },
         {
-          title: this.translate.instant('Utility.General_Ledger_Scheme_Settings.Short_Name'),
+          title: 'Short Name',
           data: 'S_SHNAME'
         },
         // {

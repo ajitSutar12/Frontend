@@ -6,6 +6,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cash-initialisation-entry',
@@ -69,7 +70,10 @@ export class CashInitialisationEntryComponent implements OnInit {
     private http: HttpClient,
     private config: NgSelectConfig,    
     private systemParameter: SystemMasterParametersService,
-    private _services: CashDenominationService) {
+    private _services: CashDenominationService,
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang)
   
   }
 
@@ -161,15 +165,15 @@ export class CashInitialisationEntryComponent implements OnInit {
     if (Number(formVal.DENOMINATION_AMT) == this.sum) {
       this._services.initialize(object).subscribe(data=>{
         Swal.fire(
-          'Good job!',
-          'Your Form is Submitted Successfully..!',
+          `${this.translate.instant('Swal_Msg.Cash_Int')}`,
+          `${this.translate.instant('Swal_Msg.Add_Success')}`,
           'success'
         );
         this.DenominationChart = false
         this.angForm.reset()
       })
     }else {
-      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Correct_AMT')}`, 'warning')
     }
   }
 }

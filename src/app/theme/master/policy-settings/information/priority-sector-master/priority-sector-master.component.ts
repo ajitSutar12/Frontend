@@ -11,7 +11,6 @@ import { PrioritySectorMasterService } from './priority-sector-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -74,7 +73,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
   constructor(
     private http: HttpClient,
     private prioritySectorMasterService: PrioritySectorMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -127,26 +126,26 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: this.translate.instant('master.Priority_Sector_Code.Action')
+          title: 'Action'
         },
         {
-          title: this.translate.instant('master.Priority_Sector_Code.Code'),
+          title: 'Code',
           data: 'CODE'
         },
         {
-          title: this.translate.instant('master.Priority_Sector_Code.Subcode'),
+          title: 'Sub Code',
           data: 'SUB1_CODE'
         },
         {
-          title: this.translate.instant('master.Priority_Sector_Code.Second_Subcode'),
+          title: '2nd Sub code',
           data: 'SUB2_CODE'
         },
         {
-          title: this.translate.instant('master.Priority_Sector_Code.Third_Subcode'),
+          title: '3rd Sub Code',
           data: 'SUB3_CODE'
         },
         {
-          title: this.translate.instant('master.Priority_Sector_Code.Description'),
+          title: 'Description',
           data: 'NAME'
         }
       ],

@@ -3,12 +3,12 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Member_Contribution_Credit_to_Shares.Title' | translate}}</h5>
+                <h5>Member Contribution Credit to Shares</h5>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Debit_Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Debit Scheme<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -31,7 +31,7 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Credit_Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Credit Scheme<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.GL_A/c_No.' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">GL A/c No.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -78,7 +78,7 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Kayam_Dep_Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Kayam Dep. Scheme<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Shares_Amount_Limit' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Amount Limit<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -123,8 +123,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">{{'Utility.Member_Contribution_Credit_to_Shares.Particulars
-                            ' | translate}}</label>
+                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Particulars</label>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group input-group">
@@ -140,17 +139,17 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.close' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Delete' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm">Delete</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Cancel' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Print' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm">Print</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Update' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm">Update</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Calculate' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm">Calculate</button>
                         </div>
                     </div>
 
@@ -158,7 +157,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>{{'Utility.Member_Contribution_Credit_to_Shares.Report_Frame' | translate}}</h5>
+                                    <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe [url]='iframeurl'></app-iframe>

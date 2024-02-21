@@ -11,7 +11,6 @@ import { BankService } from './bank-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -84,8 +83,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private bankService: BankService,
-    private fb: FormBuilder,
-    private translate:TranslateService) {
+    private fb: FormBuilder) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -140,23 +138,22 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: this.translate.instant('master.Bank_Master.Action'),
-          data: 'ACTION'
+          title: 'Action',
         },
         {
-          title:this.translate.instant('master.Bank_Master.Bank_code') ,
+          title: 'Bank Code',
           data: 'BANK_CODE'
         },
         {
-          title: this.translate.instant('master.Bank_Master.Bank_Name'),
+          title: 'Bank Name',
           data: 'BANK_NAME'
         },
         {
-          title: this.translate.instant('master.Bank_Master.Bank_short_Name'),
+          title: 'Bank Short Name',
           data: 'BANK_SHORTNAME'
         },
         {
-          title: this.translate.instant('master.Bank_Master.Ledger_Code'),
+          title: 'Ledger Code',
           data: 'LEDGER_CODE'
         },
         {

@@ -134,8 +134,8 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TITLE'].invalid && (angForm.controls['AC_TITLE'].dirty || angForm.controls['AC_TITLE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TITLE'].errors?.pattern">
-                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                <div>
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_MEMBTYPE'].invalid && (angForm.controls['AC_MEMBTYPE'].dirty || angForm.controls['AC_MEMBTYPE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_MEMBTYPE'].errors?.pattern">
+                                <div>
                                     <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                 </div>
                             </div>
@@ -186,7 +186,8 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_MEMBNO'].invalid && (angForm.controls['AC_MEMBNO'].dirty || angForm.controls['AC_MEMBNO'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_MEMBNO'].errors?.pattern">
+                                <!-- <div *ngIf="angForm.controls['AC_MEMBNO'].errors?.pattern"> -->
+                                    <div>
                                     <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                 </div>
                             </div>
@@ -358,8 +359,8 @@
                                 *ngIf="angForm.controls['AC_PARTICULAR'].invalid && (angForm.controls['AC_PARTICULAR'].dirty || angForm.controls['AC_PARTICULAR'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['AC_PARTICULAR'].errors?.pattern || angForm.controls['AC_PARTICULAR'].errors?.required">
-                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre'|translate}}
+                                    *ngIf=" angForm.controls['AC_PARTICULAR'].errors?.required">
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>

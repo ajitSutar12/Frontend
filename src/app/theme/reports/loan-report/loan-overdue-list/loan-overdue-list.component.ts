@@ -207,43 +207,43 @@ import { Router } from '@angular/router';
     //   this.ddrelODPerfoTrue = false;
 
     // }
-    else if (val == 10) {
-      this.loanoverdueTrue = false;
-      this.accountwiseTrue = false;
-      this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
-      this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
-      this.loanduelistbetnTrue = true;
-      this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
-    }
-    else if (val == 11) {
-      this.loanoverdueTrue = false;
-      this.accountwiseTrue = false;
-      this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
-      this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
-      this.loanduelistbetnTrue = false;
-      this.loanduelistbetnTwoOpenTrue = true;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+    // else if (val == 10) {
+    //   this.loanoverdueTrue = false;
+    //   this.accountwiseTrue = false;
+    //   this.installmentwiseTrue = false;
+    //   this.otherreceiveInstallTrue = false;
+    //   this.citiwiselorTrue = false;
+    //   this.recoveryClerkTrue = false;
+    //   this.directorlorTrue = false;
+    //   this.directorrecommendedTrue = false;
+    //   this.duePeriodlTrue = false;
+    //   this.loanduelistbetnTrue = true;
+    //   this.loanduelistbetnTwoOpenTrue = false;
+    //   this.lreceivedueTrue = false;
+    //   this.recIntTrue = false;
+    //   this.compareODTrue = false;
+    //   this.ddrelODTrue = false;
+    //   this.ddrelODPerfoTrue = false;
+    // }
+    // else if (val == 11) {
+    //   this.loanoverdueTrue = false;
+    //   this.accountwiseTrue = false;
+    //   this.installmentwiseTrue = false;
+    //   this.otherreceiveInstallTrue = false;
+    //   this.citiwiselorTrue = false;
+    //   this.recoveryClerkTrue = false;
+    //   this.directorlorTrue = false;
+    //   this.directorrecommendedTrue = false;
+    //   this.duePeriodlTrue = false;
+    //   this.loanduelistbetnTrue = false;
+    //   this.loanduelistbetnTwoOpenTrue = true;
+    //   this.lreceivedueTrue = false;
+    //   this.recIntTrue = false;
+    //   this.compareODTrue = false;
+    //   this.ddrelODTrue = false;
+    //   this.ddrelODPerfoTrue = false;
 
-    }
+    // }
     // else if (val == 12) {
     //   this.loanoverdueTrue = false;
     //   this.accountwiseTrue = false;

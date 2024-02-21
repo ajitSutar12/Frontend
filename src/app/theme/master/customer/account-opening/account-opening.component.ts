@@ -282,13 +282,13 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       INVEST_BANK: ['', [Validators.required]],
       INVEST_BRANCH: ['', [Validators.required]],
       AC_NAME: [''],
-      AC_REF_RECEIPTNO: ['', [Validators.pattern, Validators.required]],
+      AC_REF_RECEIPTNO: ['', [Validators.required]],
       AC_OPDATE: ['', [Validators.required]],
       AC_ASON_DATE: ['', [Validators.required]],
       AC_EXPDT: ['', [Validators.required]],
       AC_MONTHS: ['', [Validators.pattern, Validators.required]],
       AC_DAYS: ['', [Validators.pattern, Validators.required]],
-      AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
+      AC_SCHMAMT: ['', [Validators.required]],
       AC_INTRATE: ['', [Validators.pattern, Validators.required]],
       AC_MATUAMT: ['', [Validators.pattern]],
       AC_CLOSEDT: ['']
@@ -352,7 +352,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       // Swal.fire('Success!', 'Data Added Successfully !', 'success');
       Swal.fire({
         icon: 'success',
-        title: 'Account Created successfully!',
+        title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
         html:
           '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
           '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -489,7 +489,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
 
     data['id'] = this.updateID;
     this.investmentService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -543,8 +543,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.investmentService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Investment Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Invest')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -565,8 +565,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.investmentService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Investment Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Invest_Reject')}`,
         'success'
       );
 
@@ -602,7 +602,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -623,8 +623,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.investmentService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.U_Msg')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -651,7 +651,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.controls['AC_MONTHS'].enable()
         this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH +  `${this.translate.instant('Swal_Msg.Month')} ` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Days')}`, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['AC_DAYS'].reset()
         }
@@ -684,7 +684,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.controls['AC_MONTHS'].enable()
         this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.And')}` + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['AC_DAYS'].reset()
         }
@@ -701,12 +701,12 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
 
       if (data.MULTIPLE_OF_DAYS != null) {
         if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
-          Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Day_Multiple')}` + data.MULTIPLE_OF_DAYS, "error");
         }
       }
       if (data.MULTIPLE_OF_MONTH != null) {
         if ((Number((this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
-          Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Month_Multiple')}` + data.MULTIPLE_OF_MONTH, "error");
         }
       }
     })
@@ -745,7 +745,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
                 AC_DAYS: Diffdays,
               })
               if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-                Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+                Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.Month_')}` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Days')}`, "error");
                 this.angForm.controls['AC_MONTHS'].reset()
                 this.angForm.controls['AC_DAYS'].reset()
                 this.angForm.controls['AC_EXPDT'].reset()
@@ -765,7 +765,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
               this.angForm.controls['AC_MONTHS'].disable()
               this.angForm.controls['AC_DAYS'].enable()
               if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-                Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+                Swal.fire(`${this.translate.instant('Swal_Msg.D_greater')}` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Days')}`, "error");
                 this.angForm.controls['AC_DAYS'].reset()
                 this.angForm.controls['AC_EXPDT'].reset()
               }
@@ -778,7 +778,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
               this.angForm.controls['AC_MONTHS'].enable()
               this.angForm.controls['AC_DAYS'].disable()
               if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-                Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+                Swal.fire(`${this.translate.instant('Swal_Msg.M_greater')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.Months')}`, "error");
                 this.angForm.controls['AC_MONTHS'].reset()
                 this.angForm.controls['AC_EXPDT'].reset()
               }

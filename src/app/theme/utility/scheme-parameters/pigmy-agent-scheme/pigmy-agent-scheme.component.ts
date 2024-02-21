@@ -18,7 +18,6 @@ import { PigmyagentService } from "./pigmy-agent-scheme.service";
 // Used to Call API
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../../../../../environments/environment";
-import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -91,7 +90,7 @@ export class PigmyAgentSchemeComponent
   constructor(
     private http: HttpClient,
     private pigmyagentService: PigmyagentService,
-    private fb: FormBuilder,private translate:TranslateService
+    private fb: FormBuilder
   ) {
     this.createForm();
   }
@@ -143,25 +142,25 @@ export class PigmyAgentSchemeComponent
       },
       columns: [
         {
-          title: this.translate.instant('Utility.Action.Action'),
+          title: "Action",
           // render: function (data: any, type: any, full: any) {
           //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           // },
         },
         {
-          title: this.translate.instant('Utility.Utility1.Type'),
+          title: "Type",
           data: "S_ACNOTYPE",
         },
         {
-          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
+          title: "Scheme Code",
           data: "S_APPL",
         },
         {
-          title: this.translate.instant('Utility.Utility1.Description'),
+          title: "Description",
           data: "S_NAME",
         },
         {
-          title: this.translate.instant('Utility.Utility1.Short_Name'),
+          title: "Short Name",
           data: "S_SHNAME",
         },
         // {

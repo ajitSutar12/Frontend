@@ -1,13 +1,11 @@
-
-
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular/animations';
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../theme/auth/auth.service';
 import { DayEndService } from '../../theme/process/day-end/day-end.service';
-import { Observable, interval } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
@@ -22,8 +20,6 @@ import { HttpClient } from '@angular/common/http';
         })
       ),
       state('an-animate',
-
-      
         style({
           overflow: 'visible',
           height: AUTO_STYLE,
@@ -90,7 +86,6 @@ import { HttpClient } from '@angular/common/http';
   ]
 })
 export class AdminComponent implements OnInit, OnDestroy {
-  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;
   public animateSidebar: string;
   public navType: string;
   public themeLayout: string;
@@ -170,10 +165,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   disableFlag: string = 'disableflag';
   disableList: any = [];
 
-  public searchTerm: string = '';
-  public filteredMenuListData: any[] = [];
-
-
   scroll = (): void => {
     const scrollPosition = window.pageYOffset;
     if (scrollPosition > 56) {
@@ -192,11 +183,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.sidebarFixedNavHeight = '';
     }
   };
-  newsContent: string;
 
-
-  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,
-    private http: HttpClient) {
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,) {
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -389,11 +377,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
   notifications
 
-  dataArray:any[]
- 
   ngOnInit() {
 
-     this.roleWiseMenuAssign()
+    this.roleWiseMenuAssign()
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -405,6 +391,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     })
 
     this.setBackgroundPattern('theme1');
+
     interval(2000).subscribe(x => {
       let data: any = localStorage.getItem('user');
       if (data) {
@@ -422,29 +409,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       }
     });
 
-    // interval(5000).subscribe(x => {
-    //   let data1: any = localStorage.getItem('user');
-    //   let result1 = JSON.parse(data1);
-    //   let branchcode = result1.branch.id;
-    //   this.http.get<any>('http://192.168.137.172:3000/remainder'+branchcode).subscribe(
-    //   // this.http.get<any>(environment.base_url+branchcode).subscribe(
-
-    //     (apiData) => {
-
-    //       for (let i = 0; i < apiData.length; i++) {
-    //       this.newsContent +=apiData[i].S_APPL + " "+apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " +apiData[i].AC_MATUAMT + " " ;
-    //       // console.log(this.newsContent);
-    //       }
-    //     }, 
-    //     (error) => {
-    //       console.error(error);
-    //     }
-    //   );
-    // });
   }
 
-
-  
   onResize(event) {
     this.windowWidth = event.target.innerWidth;
     this.setHeaderAttributes(this.windowWidth);
@@ -628,9 +594,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   onClickedOutsideSidebar(e: Event) {
     // if ((this.windowWidth <= 992 && this.toggleOn && this.verticalNavType !== 'offcanvas') || this.verticalEffect === 'overlay') {
-    this.toggleOn = true;
-    this.verticalNavType = 'offcanvas';
-    this.toggleIcon = 'icon-toggle-left';
+      this.toggleOn = true;
+      this.verticalNavType = 'offcanvas';
+      this.toggleIcon = 'icon-toggle-left';
     // }
   }
 
@@ -793,50 +759,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     this._authService.LOGOFFHISTORY(obj).subscribe(data => { })
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-  }
-
-// Menu search options
-showMenu: boolean = false;
-
-    onSearchBarClick() {
-        this.showMenu = true;
-    }
-
-    onSearchBlur() {
-         const inputElement = this.searchInput.nativeElement;
-        inputElement.value = '';
-        setTimeout(() => {
-            this.showMenu = false;
-            
-        }, 200);
-    }
-
-  performSearch() {
-    const searchTerm = (document.querySelector('.search-input') as HTMLInputElement).value.toLowerCase();
-    if (searchTerm.trim() === '') {
-      this.filteredMenuListData = [];
-      return;
-  }
-    const filterMenus = (menus) => {
-      return menus
-        .filter(menuItem =>
-          menuItem.name.toLowerCase().includes(searchTerm) ||
-          (menuItem.children && filterMenus(menuItem.children).length > 0)
-        )
-        .map(menuItem => {
-          if (menuItem.children) {
-            menuItem.filteredChildren = filterMenus(menuItem.children);
-          }
-          return menuItem;
-        });
-    };
-
-    // Filter main menus and their submenus recursively
-    this.filteredMenuListData = filterMenus(this.meunItemList);
-  }
-  resetSearchInput(inputElement: HTMLInputElement) {
-    inputElement.value = '';
-    this.filteredMenuListData = [];
   }
 
 }

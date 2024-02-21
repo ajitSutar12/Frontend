@@ -1360,7 +1360,7 @@ export class VoucherEntryComponent implements OnInit {
   checkSanctionAmountWithAmount() {
     // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
     let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
-    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && this.Submitscheme.IS_GOLD_LOAN != '1' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({

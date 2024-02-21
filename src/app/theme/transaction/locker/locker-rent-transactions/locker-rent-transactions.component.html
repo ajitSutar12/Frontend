@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Locker Rent Transactions</h5>
+                <h5>{{'Transaction.Locker_Transaction.T3'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1'|translate}} (<sub class="required"> * </sub>){{'Transaction.Action.F2'|translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="ngForm">
@@ -12,7 +12,7 @@
                     <div class="solid">
                         <div class="row">
 
-                            <div class="col-sm-2 col-md-2"> <label for="BRANCH_CODE">Branch
+                            <div class="col-sm-2 col-md-2"> <label for="BRANCH_CODE">{{'Transaction.Locker_Transaction.branch'|translate}}
                                     <sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2 col-md-2">
@@ -21,7 +21,7 @@
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="BranchCode"
                                             (change)="getTransferAccountList1()" #branchcode autofocus
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            placeholder="Branch" autofocus>
+                                            placeholder="{{'Transaction.Locker_Transaction.branch'|translate}}" autofocus>
                                             <ng-option *ngFor="let values of   branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -31,13 +31,13 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
-                                <label for="TransactionDate">Transaction Date<sub class="required">* </sub></label>
+                                <label for="TransactionDate">{{'Transaction.Locker_Transaction.Tran_Date'|translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-2">
 
@@ -50,7 +50,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-2 col-md-2"> <label for="Transaction">Transaction
+                            <div class="col-sm-2 col-md-2"> <label for="Transaction">{{'Transaction.Locker_Transaction.Transaction'|translate}}
                                     <sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2 col-md-2">
@@ -64,7 +64,7 @@
                                     *ngIf="ngForm.controls['TRANSACTION'].invalid && (ngForm.controls['TRANSACTION'].dirty || ngForm.controls['TRANSACTION'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['TRANSACTION'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                         <br>
                         <div class="row">
 
-                            <div class="col-sm-2 col-md-2"> <label for="Scheme">Scheme
+                            <div class="col-sm-2 col-md-2"> <label for="Scheme">{{'Transaction.Locker_Transaction.Scheme'|translate}}
                                     <sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -80,7 +80,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select id="SCHEME" bindValue="value" [(ngModel)]="scheme"
                                             formControlName="SCHEME" bindLabel="label" title="Compulsory Selection"
-                                            placeholder="Scheme" (change)="getIntroducer()">
+                                            placeholder="{{'Transaction.Locker_Transaction.Scheme'|translate}}" (change)="getIntroducer()">
                                             <ng-option *ngFor="let item of Scheme" [value]="item">
                                                 {{item.id}} {{item.label}}</ng-option>
                                         </ng-select>
@@ -90,12 +90,12 @@
                                     *ngIf="ngForm.controls['SCHEME'].invalid && (ngForm.controls['SCHEME'].dirty || ngForm.controls['SCHEME'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['SCHEME'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-2 col-md-2"> <label for="AC_NO">Account Number
+                            <div class="col-sm-2 col-md-2"> <label for="AC_NO">{{'Transaction.Locker_Transaction.Ac_No'|translate}}
                                     <sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -103,7 +103,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="acnumber"
                                             formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
-                                            placeholder="Account Number" (change)="getAccountDetails()">
+                                            placeholder="{{'Transaction.Locker_Transaction.Ac_No'|translate}}" (change)="getAccountDetails()">
                                             <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -113,12 +113,12 @@
                                     *ngIf="ngForm.controls['AC_NO'].invalid && (ngForm.controls['AC_NO'].dirty || ngForm.controls['AC_NO'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['AC_NO'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-2 col-md-2"> <label for="Transactiontype"> Transaction Type
+                            <div class="col-sm-2 col-md-2"> <label for="Transactiontype"> {{'Transaction.Locker_Transaction.Tran_Type'|translate}}
                                     <sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2 col-md-2">
@@ -127,13 +127,13 @@
                                         <label class="inputRadio">
                                             <input type="radio" name="T_TYPE" value="ACCLOSE" formControlName="T_TYPE"
                                                 (change)="isFormA(2)">
-                                            <i class="helper"></i>A/c Closing </label>
+                                            <i class="helper"></i>{{'Transaction.Locker_Transaction.Ac_Closing'|translate}} </label>
                                     </div>
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="T_TYPE" value="RENT" formControlName="T_TYPE"
                                                 (change)="isFormA(1)">
-                                            <i class="helper"></i>Rent Receipt </label>
+                                            <i class="helper"></i>{{'Transaction.Locker_Transaction.Rent'|translate}}</label>
                                     </div>
 
                                 </div>
@@ -144,7 +144,7 @@
                         <div class="row">
 
                             <div class="col-md-1">
-                                <label for="rackno">Rack Number<sub class="required">* </sub></label>
+                                <label for="rackno">{{'Transaction.Locker_Transaction.Rack_No'|translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
@@ -160,13 +160,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['RACK_NO'].errors?. maxlength || ngForm.controls['RACK_NO'].errors?. minlength || ngForm.controls['RACK_NO'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-1">
-                                <label for="locno">Locker Number<sub class="required">* </sub></label>
+                                <label for="locno">{{'Transaction.Locker_Transaction.Locker_No'|translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
@@ -182,13 +182,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['LOC_NO'].errors?. maxlength || ngForm.controls['LOC_NO'].errors?. minlength || ngForm.controls['LOC_NO'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
-                                <label for="locSize">Locker Size<sub class="required">* </sub></label>
+                                <label for="locSize">{{'Transaction.Locker_Transaction.Locker_Size'|translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
@@ -204,13 +204,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['LOC_SIZE'].errors?. maxlength || ngForm.controls['LOC_SIZE'].errors?. minlength || ngForm.controls['LOC_SIZE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-2">
-                                <label for="LastrentDate">Last Rent Date<sub class="required">* </sub></label>
+                                <label for="LastrentDate">{{'Transaction.Locker_Transaction.Last_Rent_Date'|translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-sm-2">
 
@@ -226,7 +226,7 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['LAST_RENT_DATE'].errors?. maxlength || ngForm.controls['LAST_RENT_DATE'].errors?. minlength || ngForm.controls['LAST_RENT_DATE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +239,7 @@
                         <div class="col-sm-12">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-2 col-md-2"> <label for="Transactiontype"> Transaction Type
+                                    <div class="col-sm-2 col-md-2"> <label for="Transactiontype"> {{'Transaction.Locker_Transaction.Tran_Type'|translate}}
                                             <sub class="required">*</sub></label>
                                     </div>
 
@@ -249,19 +249,19 @@
                                                 <label class="inputRadio">
                                                     <input type="radio" name="TRN_TYPE" value="CS"
                                                         formControlName="TRN_TYPE" (change)="isFormB(1)">
-                                                    <i class="helper"></i>Cash </label>
+                                                    <i class="helper"></i>{{'Transaction.Locker_Transaction.Cash'|translate}} </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label class="inputRadio">
                                                     <input type="radio" name="TRN_TYPE" value="TR"
                                                         formControlName="TRN_TYPE" (change)="isFormB(2)">
-                                                    <i class="helper"></i>Transfer </label>
+                                                    <i class="helper"></i>{{'Transaction.Locker_Transaction.Transfer'|translate}} </label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
-                                        <label for="rent_amount">Rent Amount<sub class="required">* </sub></label>
+                                        <label for="rent_amount">{{'Transaction.Locker_Transaction.Rent_Amount'|translate}}<sub class="required">* </sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -278,13 +278,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['RENT_AMOUNT'].errors?. maxlength || ngForm.controls['RENT_AMOUNT'].errors?. minlength || ngForm.controls['RENT_AMOUNT'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
-                                        <label for="receiptno">Receipt No.<sub class="required">* </sub></label>
+                                        <label for="receiptno">{{'Transaction.Locker_Transaction.Receipt_No'|translate}}<sub class="required">* </sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -300,7 +300,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['RECEIPT_NO'].errors?. maxlength || ngForm.controls['RECEIPT_NO'].errors?. minlength || ngForm.controls['RECEIPT_NO'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -312,7 +312,7 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
-                                        <label for="default_rent">Default Rent<sub class="required">* </sub></label>
+                                        <label for="default_rent">{{'Transaction.Locker_Transaction.Default_Rent'|translate}}<sub class="required">* </sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -330,12 +330,12 @@
 
                                             <div
                                                 *ngIf="ngForm.controls['DEF_RENT'].errors?. maxlength || ngForm.controls['DEF_RENT'].errors?. minlength || ngForm.controls['DEF_RENT'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label for="rentfdate">Rent From Date<sub class="required">* </sub></label>
+                                        <label for="rentfdate">{{'Transaction.Locker_Transaction.Rent_From_Date'|translate}}<sub class="required">* </sub></label>
                                     </div>
                                     <div class="col-sm-2">
 
@@ -353,13 +353,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['RENT_F_DATE'].errors?. maxlength || ngForm.controls['RENT_F_DATE'].errors?. minlength || ngForm.controls['RENT_F_DATE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-2">
-                                        <label for="uptodate">Up to Date<sub class="required">* </sub></label>
+                                        <label for="uptodate">{{'Transaction.Locker_Transaction.Up_to'|translate}}<sub class="required">* </sub></label>
                                     </div>
                                     <div class="col-sm-2">
 
@@ -377,7 +377,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['UP_TO_DATE'].errors?. maxlength || ngForm.controls['UP_TO_DATE'].errors?. minlength || ngForm.controls['UP_TO_DATE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -387,7 +387,7 @@
                                 <div class="col-sm-12">
                                     <div class="solid">
                                         <div class="row">
-                                            <div class="col-sm-2 col-md-2"> <label for="Scheme">Scheme
+                                            <div class="col-sm-2 col-md-2"> <label for="Scheme">{{'Transaction.Locker_Transaction.Scheme'|translate}}
                                                     <sub class="required">*</sub></label>
                                             </div>
                                             <div class="col-sm-12 col-md-2">
@@ -396,7 +396,7 @@
                                                         <ng-select id="TRF_ACTYPE" bindValue="value"
                                                             [(ngModel)]="scheme1" formControlName="TRF_ACTYPE"
                                                             bindLabel="label" (change)="getTransferAccountList($event)"
-                                                            title="Compulsory Selection" placeholder="Scheme">
+                                                            title="Compulsory Selection" placeholder="{{'Transaction.Locker_Transaction.Scheme'|translate}}">
                                                             <ng-option *ngFor="let data of Schew" [value]="data">
                                                                 {{data.id}} {{data.label}}</ng-option>
                                                         </ng-select>
@@ -406,12 +406,12 @@
                                                     *ngIf="ngForm.controls['TRF_ACTYPE'].invalid && (ngForm.controls['TRF_ACTYPE'].dirty || ngForm.controls['TRF_ACTYPE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="ngForm.controls['TRF_ACTYPE'].errors?.required">
-                                                        This field is required.
+                                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-2 col-md-2"> <label for="ACNT_NO">Account Number
+                                            <div class="col-sm-2 col-md-2"> <label for="ACNT_NO">{{'Transaction.Locker_Transaction.Ac_No'|translate}}
                                                     <sub class="required">*</sub></label>
                                             </div>
                                             <div class="col-sm-12 col-md-2">
@@ -420,7 +420,7 @@
                                                         <ng-select id="ACNT_NO" bindValue="bankacno"
                                                             [(ngModel)]="acnumber1" formControlName="ACNT_NO"
                                                             bindLabel="label" title="Compulsory Selection"
-                                                            placeholder="Account Number" (change)="getLedgerBalance()">
+                                                            placeholder="{{'Transaction.Locker_Transaction.Ac_No'|translate}}" (change)="getLedgerBalance()">
                                                             <ng-option *ngFor="let values of schemeACNo"
                                                                 [value]="values">
                                                                 {{values.label}} {{values.name}}</ng-option>
@@ -431,13 +431,13 @@
                                                     *ngIf="ngForm.controls['ACNT_NO'].invalid && (ngForm.controls['ACNT_NO'].dirty || ngForm.controls['ACNT_NO'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="ngForm.controls['ACNT_NO'].errors?.required">
-                                                        This field is required.
+                                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-1">
-                                                <label for="ledgerbalance">Ledger Balance<sub class="required">*
+                                                <label for="ledgerbalance">{{'Transaction.Locker_Transaction.L_Bal'|translate}}<sub class="required">*
                                                     </sub></label>
                                             </div>
                                             <div class="col-md-2">
@@ -454,7 +454,7 @@
                                                     *ngIf="ngForm.controls['LEDGER_BALANCE'].invalid && (ngForm.controls['LEDGER_BALANCE'].dirty || ngForm.controls['LEDGER_BALANCE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="ngForm.controls['LEDGER_BALANCE'].errors?.maxlength">
-                                                        Input allowed only 0-9
+                                                        <!-- Input allowed only 0-9 -->{{'Transaction.Validation.Bill_Val'|translate}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -470,16 +470,16 @@
                         <div class="col-sm" style="float: right;">
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="submitShow"
                                 (click)="submit()">
-                                Submit
+                                {{'Transaction.Action.Submit'|translate}}
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow" (click)="closeModal()">
-                                Close</button>
+                                {{'Transaction.Validation.Close'|translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{'Transaction.Validation.Reject'|translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="approve()">
-                                Approve</button>
+                                {{'Transaction.Validation.Approve'|translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unapprove()">
-                                Unapprove</button>
+                                {{'Transaction.Validation.Unapprove'|translate}}</button>
                         </div>
                     </div>
                 </div>

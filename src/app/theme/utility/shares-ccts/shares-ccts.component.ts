@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-shares-ccts',
@@ -23,8 +21,8 @@ export class SharesCCTSComponent implements OnInit {
     private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private _schemeService: SchemeAccountNoService,
-    private schemeAccountNoService: SchemeAccountNoService,private translate:TranslateService
-  ) { this.translate.setDefaultLang(environment.setLang);}
+    private schemeAccountNoService: SchemeAccountNoService
+  ) { }
 
   //ngfor variables
   d_Scheme
@@ -84,7 +82,5 @@ export class SharesCCTSComponent implements OnInit {
       particulars: ['',[Validators.required]],
     });
   }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
-  }
+
 }

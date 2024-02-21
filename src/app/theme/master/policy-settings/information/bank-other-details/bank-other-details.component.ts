@@ -252,16 +252,16 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       BANK_CODE: ['', [Validators.pattern]],
       BRANCH_CODE: ['', [Validators.required]],
       HO_GL: ['', [Validators.required]],
-      NAME: ['', [Validators.pattern, Validators.required]],
-      SHORT_NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
+      SHORT_NAME: ['', [ Validators.required]],
       TAN_NO: ['', [Validators.pattern]],
       PAN_NO: ['', [Validators.pattern, Validators.required]],
       FLAT_PRM_NO: ['', [Validators.pattern]],
       FLAT_PRM_NAME: ['', []],
-      RD_LANE_NAME: ['', [Validators.pattern]],
-      AREA_LOCATION: ['', [Validators.pattern]],
+      RD_LANE_NAME: ['', []],
+      AREA_LOCATION: ['', []],
       CITY_CODE: ['', [Validators.pattern]],
-      STATE: ['', [Validators.pattern]],
+      STATE: ['', []],
       PIN_CODE: ['', [Validators.pattern, Validators.required]],
       PHONE_OFFICE: ['', [Validators.pattern]],
       MOB_NUM: ['', [Validators.pattern, Validators.required]],
@@ -306,7 +306,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           ATM_GLACNO: formVal.ATM_GLACNO,
         }
         this.bankDetails.postData(dataToSend).subscribe(data1 => {
-          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           this.formSubmitted = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -318,7 +318,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         this.resetForm();
       }
       else {
-        Swal.fire('Info!', 'Data Already Exist!', 'info');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Already')}`, 'info');
       }
     })
   }
@@ -371,7 +371,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     data['IBT_TRAN'] = (data.IBT_TRAN == true ? '1' : '0')
 
     this.bankDetails.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

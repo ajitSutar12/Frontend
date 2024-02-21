@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Deadstock Transactions</h5>
+                <h5>{{'Transaction.Dead_Stock_Tran.T1'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'Transaction.Action.F2'|translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'Transaction.Dead_Stock_Tran.Branch'|translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
@@ -19,7 +19,7 @@
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                             [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                            placeholder="Branch" #selectBranch (focus)="onFocus(selectBranch)" appTheme
+                                            placeholder="{{'Transaction.Dead_Stock_Tran.Branch'|translate}}" #selectBranch (focus)="onFocus(selectBranch)" appTheme
                                             [selectOnTab]='true' autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values">
                                                 {{values.label}}</ng-option>
@@ -30,11 +30,11 @@
                                     *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Transaction Date</label></div>
+                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">{{'Transaction.Dead_Stock_Tran.Tran_Date'|translate}}</label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -43,12 +43,12 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="TRAN_YEAR">Transaction Year</label></div>
+                            <div class="col-sm-12 col-md-2"> <label for="TRAN_YEAR">{{'Transaction.Dead_Stock_Tran.Tran_Year'|translate}}</label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" style="text-align: right;" name="TRAN_YEAR"
-                                            class="form-control" placeholder=" " pattern="^[0-9]+$"
+                                            class="form-control" placeholder=" " pattern="^[0-9\u0966-\u096F]*$"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             title="Input allowed only 0-9" id="TRAN_YEAR" formControlName="TRAN_YEAR"
                                             disabled>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">Transaction Type<sub
+                            <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">{{'Transaction.Dead_Stock_Tran.Tran_Type'|translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
@@ -66,7 +66,7 @@
                                             bindLabel="label" formControlName="TRANSACTION_TYPE" #TRANSACTION_TYPE
                                             (focus)="onFocus(TRANSACTION_TYPE)" appTheme [selectOnTab]='true'
                                             [ngClass]="{'form-submitted': formSubmitted}" (change)="changetransaction()"
-                                            [(ngModel)]="ngtransactiontype" placeholder="Transaction Type" required>
+                                            [(ngModel)]="ngtransactiontype" placeholder="{{'Transaction.Dead_Stock_Tran.Tran_Type'|translate}}" required>
                                         </ng-select>
                                     </span>
                                 </div>
@@ -74,7 +74,8 @@
                                     *ngIf="angForm.controls['TRANSACTION_TYPE'].invalid && (angForm.controls['TRANSACTION_TYPE'].dirty || angForm.controls['TRANSACTION_TYPE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['TRANSACTION_TYPE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->
+                                        {{'Transaction.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
@@ -85,14 +86,14 @@
                                             <input type="radio" formControlName="DEAD_STOCK" name="DEAD_STOCK"
                                                 value="FormT" id="formT" (change)="isFormA(1)"
                                                 [(ngModel)]="radioDeadStock">
-                                            <i class="helper"></i>Transfer
+                                            <i class="helper"></i>{{'Transaction.Dead_Stock_Tran.Transfer'|translate}}
                                         </label>
                                     </div>
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" formControlName="DEAD_STOCK" id="formC"
                                                 name="DEAD_STOCK" (change)="isFormA(2)" value="FormC">
-                                            <i class="helper"></i>Cash
+                                            <i class="helper"></i>{{'Transaction.Dead_Stock_Tran.Cash'|translate}}
                                         </label>
                                     </div>
                                 </div>
@@ -101,7 +102,7 @@
                         <div class="row" id="FORMA">
                             <div class="col-sm-12">
                                 <div class="row" *ngIf="GLAccount">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Transfer GL Scheme Code<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'Transaction.Dead_Stock_Tran.Tran_GL_SC'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -109,7 +110,7 @@
                                                 <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
                                                     (change)="schemechange($event)" formControlName="AC_TYPE"
                                                     bindLabel="label" title="Compulsory Selection" required
-                                                    placeholder="Transfer Scheme Code" #AC_TYPE
+                                                    placeholder="{{'Transaction.Dead_Stock_Tran.Tran_SC'|translate}}" #AC_TYPE
                                                     (focus)="onFocus(AC_TYPE)" appTheme [selectOnTab]='true'>
                                                     <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">
                                                         {{values.id}} {{values.label}}</ng-option>
@@ -120,19 +121,19 @@
                                             *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">Transfer GL Account Number<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">{{'Transaction.Dead_Stock_Tran.Tran_GL_AcNo'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select id="AC_NO" bindValue="AC_NO" [(ngModel)]="accountedit"
                                                     formControlName="AC_NO" bindLabel="AC_NO"
-                                                    title="Compulsory Selection" required placeholder="Account Number"
+                                                    title="Compulsory Selection" required placeholder="{{'Transaction.Dead_Stock_Tran.Ac_No'|translate}}"
                                                     #AC_NO (focus)="onFocus(AC_NO)" appTheme [selectOnTab]='true'>
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -143,7 +144,8 @@
                                             *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->
+                                                {{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +154,7 @@
 
                                 <div class="row" *ngIf="Resolution">
 
-                                    <div class="col-sm-12 col-md-2"> <label for="RESOLUTION_DATE">Resolution Date<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="RESOLUTION_DATE">{{'Transaction.Dead_Stock_Tran.Resolution_Date'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
@@ -174,11 +176,11 @@
                                             *ngIf="angForm.controls['RESOLUTION_DATE'].invalid && (angForm.controls['RESOLUTION_DATE'].dirty || angForm.controls['RESOLUTION_DATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['RESOLUTION_DATE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"><label for="RESOLUTION_NUM">Resolution Number<sub
+                                    <div class="col-sm-12 col-md-2"><label for="RESOLUTION_NUM">{{'Transaction.Dead_Stock_Tran.Resolution_No'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -197,7 +199,7 @@
                                             *ngIf="angForm.controls['RESOLUTION_NUM'].invalid && (angForm.controls['RESOLUTION_NUM'].dirty || angForm.controls['RESOLUTION_NUM'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['RESOLUTION_NUM'].errors?.required">
-                                                Input allowed only 0-9.
+                                                <!-- Input allowed only 0-9. -->{{'Transaction.Validation.Bill_Val'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -207,7 +209,7 @@
                         <div class="row" id="FORMB">
                             <div class="col-sm-12">
                                 <div class="row" *ngIf="Narration">
-                                    <div class="col-sm-12 col-md-2"><label for="NARRATION">Narration</label></div>
+                                    <div class="col-sm-12 col-md-2"><label for="NARRATION">{{'Transaction.Dead_Stock_Tran.Narration'|translate}}</label></div>
                                     <div class="col-md-4">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -221,7 +223,7 @@
                                             *ngIf="angForm.controls['NARRATION'].invalid && (angForm.controls['NARRATION'].dirty || angForm.controls['NARRATION'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['NARRATION'].errors?.required">
-                                                Input allowed only A-Z a-z - / . (Space)
+                                                <!-- Input allowed only A-Z a-z - / . (Space) -->{{'Transaction.Validation.Validate'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -233,7 +235,7 @@
                     </div>
                     <div class="solid">
                         <div class="row">
-                            <div class="col-md"><label for="ITEM_CODE">Item Code<sub class="required">*</sub></label>
+                            <div class="col-md"><label for="ITEM_CODE">{{'Transaction.Dead_Stock_Tran.Item_Code'|translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -241,7 +243,7 @@
                                         <ng-select id="ITEM_CODE" [items]="itemcode" [(ngModel)]="ngItem"
                                             bindLabel="ITEM_NAME" formControlName="ITEM_CODE"
                                             (change)="getItemDetails($event)"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Item Code"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'Transaction.Dead_Stock_Tran.Item_Code'|translate}}"
                                             #ITEM_CODE (focus)="onFocus(ITEM_CODE)" appTheme [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of itemcode" [value]="values">
                                                 {{values.ITEM_CODE}} {{values.ITEM_NAME}}</ng-option>
@@ -249,7 +251,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md"><label for="Quantity">Quantity<sub class="required">*</sub></label>
+                            <div class="col-md"><label for="Quantity">{{'Transaction.Dead_Stock_Tran.Qty'|translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
@@ -261,7 +263,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md"><label for="Rate">Rate<sub class="required">*</sub></label></div>
+                            <div class="col-md"><label for="Rate">{{'Transaction.Dead_Stock_Tran.Rate'|translate}}<sub class="required">*</sub></label></div>
                             <div class="col-md">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -271,7 +273,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-md"><label for="amount">Amount<sub class="required">*</sub></label></div>
+                            <div class="col-md"><label for="amount">{{'Transaction.Dead_Stock_Tran.Amount'|translate}}<sub class="required">*</sub></label></div>
                             <div class="col-md">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -285,7 +287,7 @@
                             </div>
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm" (click)="addItem()">
-                                    Add Item
+                                    {{'Transaction.Action.Add_Item'|translate}}
                                 </button>
                             </div>
                         </div>
@@ -296,10 +298,10 @@
                                         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                             class="table table-striped table-bordered table-hover compact">
                                             <thead>
-                                                <td>Item</td>
-                                                <td>Quantity</td>
-                                                <td>Rate</td>
-                                                <td>Amount</td>
+                                                <td>{{'Transaction.Dead_Stock_Tran.Item'|translate}}</td>
+                                                <td>{{'Transaction.Dead_Stock_Tran.Qty'|translate}}</td>
+                                                <td>{{'Transaction.Dead_Stock_Tran.Rate'|translate}}</td>
+                                                <td>{{'Transaction.Dead_Stock_Tran.Amount'|translate}}</td>
                                             </thead>
                                             <tbody *ngIf="itemArr?.length != 0">
                                                 <tr *ngFor="let data of itemArr;">
@@ -331,7 +333,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="3" style="text-align: right;">Total Amount</td>
+                                                    <td colspan="3" style="text-align: right;">{{'Transaction.Dead_Stock_Tran.Total_Amount'|translate}}</td>
                                                     <td>
                                                         <input style="text-align: right;" type="text"
                                                             class="form-control" name="cgst" id="cgst"
@@ -344,7 +346,7 @@
                                                 <tr>
                                                     <td colspan="4" class="no-data-available"
                                                         style="text-align: center;">
-                                                        No data!
+                                                        {{'Transaction.Action.No_Data'|translate}}
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -357,25 +359,25 @@
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
                                     *ngIf="showButton" (click)="submit();selectBranch.focus()">
-                                    Submit
+                                    {{'Transaction.Action.Submit'|translate}}
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                     (click)="closeModal()">
-                                    Close</button>
+                                    {{'Transaction.Action.Close'|translate}}</button>
                                 <button class="btn btn-outline-primary btn-sm"
                                     (click)="addNewData();selectBranch.focus()" *ngIf="newbtnShow">
-                                    Cancel
+                                    {{'Transaction.Action.Cancel'|translate}}
                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <!-- <button class="btn btn-outline-primary btn-sm"
                                     (click)="updateData();selectBranch.focus()" *ngIf="updateShow">
                                     Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{'Transaction.Action.Reject'|translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                    Approve</button>
+                                    {{'Transaction.Action.Approve'|translate}}</button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                     (click)="unApprove()">
-                                    Unapprove</button>
+                                    {{'Transaction.Action.Unapprove'|translate}}</button>
                             </div>
                         </div>
                     </div>
@@ -386,7 +388,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Dead_Stock_Tran.Narration_Master'|translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -397,7 +399,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Narration</th>
+                            <th>{{'Transaction.Dead_Stock_Tran.Narration'|translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
@@ -406,7 +408,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
-                        (click)="modalLarge.hide()">Close</button>
+                        (click)="modalLarge.hide()">{{'Transaction.Action.Close'|translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>

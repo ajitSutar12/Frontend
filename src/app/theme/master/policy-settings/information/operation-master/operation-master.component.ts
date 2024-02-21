@@ -11,7 +11,6 @@ import { OperationService } from './operation-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -75,7 +74,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private operationService: OperationService,
-    private fb: FormBuilder,private translate:TranslateService) {
+    private fb: FormBuilder) {
 
   }
 
@@ -130,14 +129,14 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: this.translate.instant('master.Operation_Code.Action')
+          title: 'Action'
         },
         {
-          title: this.translate.instant('master.Operation_Code.Operation_Code'),
+          title: 'Code',
           data: 'CODE'
         },
         {
-          title: this.translate.instant('master.Operation_Code.Description'),
+          title: 'Name',
           data: 'NAME'
         },
 

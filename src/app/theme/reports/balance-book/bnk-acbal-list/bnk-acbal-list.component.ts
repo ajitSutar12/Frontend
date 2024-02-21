@@ -153,7 +153,7 @@ fromdate: any;
      let data: any = localStorage.getItem('user');
      let result = JSON.parse(data);
      let branchCode = this.ngForm.value.BRANCH_CODE;
-     this.obj = [this.scode, this.ngbranch]
+     this.obj = [this.scode, branchCode]
    
     switch (this.getschemename) {
       case 'SB':

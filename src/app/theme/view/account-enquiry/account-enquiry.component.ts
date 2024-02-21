@@ -901,7 +901,7 @@ export class AccountEnquiryComponent implements OnInit {
       }, (error) => {
         console.log(error, 'err')
         this.modalClass = 'modalHide';
-        Swal.fire('Oops!', error?.error?.message, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, error?.error?.message, 'error');
       })
     }
   }

@@ -92,10 +92,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import { SalaryDMasterdropdownService } from '../../../../shared/dropdownService/salary-division-master-dropdown.service'
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
-
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, } from '@angular/common/http';
-=======
-
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
@@ -108,6 +105,8 @@ import { BankOtherDetailsComponent } from './bank-other-details/bank-other-detai
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+
 
 
 // import { NgSelectModule } from '@ng-select/ng-select';
@@ -134,7 +133,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps:[HttpClient]
       }
     })
-
 
 
     // NgSelectModule
@@ -246,4 +244,3 @@ export class InformationModule { }
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http);
 }
-

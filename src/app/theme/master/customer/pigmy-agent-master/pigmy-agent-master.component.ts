@@ -437,16 +437,16 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NO: ['',],
       AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
-      AC_NAME: ['', [Validators.pattern]],
+      AC_NAME: ['', []],
       AC_CAST: ['',],
       AC_OPDATE: ['', [Validators.required]],
       PIGMY_ACTYPE: ['', [Validators.required]],
-      AC_HONO: ['', [Validators.pattern]],
-      AC_WARD: ['', [Validators.pattern]],
-      AC_GALLI: ['', [Validators.pattern]],
-      AC_AREA: ['', [Validators.pattern]],
+      AC_HONO: ['', []],
+      AC_WARD: ['', []],
+      AC_GALLI: ['', []],
+      AC_AREA: ['', []],
       AC_PIN: ['', [Validators.pattern]],
-      AC_ADDR: ['', [Validators.pattern]],
+      AC_ADDR: ['', []],
       AC_PHONE_RES: ['', [Validators.pattern]],
       AC_PHONE_OFFICE: ['', [Validators.pattern]],
       AC_MOBILENO: ['', [Validators.pattern]],
@@ -460,15 +460,15 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       SIGNATURE_AUTHORITY: ['', [Validators.pattern]],
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern]],
-      AC_NRELA: ['', [Validators.pattern]],
+      AC_NNAME: ['', []],
+      AC_NRELA: ['', []],
       AC_NDATE: ['',],
       AGE: ['', [Validators.pattern, Validators.min(1), Validators.max(100)]],
-      AC_NHONO: ['', [Validators.pattern]],
-      AC_NWARD: ['', [Validators.pattern]],
-      AC_NADDR: ['', [Validators.pattern]],
-      AC_NGALLI: ['', [Validators.pattern]],
-      AC_NAREA: ['', [Validators.pattern]],
+      AC_NHONO: ['', []],
+      AC_NWARD: ['', []],
+      AC_NADDR: ['', []],
+      AC_NGALLI: ['', []],
+      AC_NAREA: ['', []],
       AC_NCTCODE: ['', [Validators.pattern]],
       AC_NPIN: ['', [Validators.pattern]],
 
@@ -634,7 +634,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
-          title: 'Account Created successfully!',
+          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -654,7 +654,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       this.multiNominee = []
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
 
@@ -875,8 +875,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   age() {
     if (this.angForm.controls['AGE'].value > 100) {
       Swal.fire(
-        'Cancelled',
-        'Please Input Proper Age',
+        `${this.translate.instant('Swal_Msg.Cancel')}`,
+        `${this.translate.instant('Swal_Msg.Input_Age')}`,
         'error'
       );
       this.angForm.controls['AGE'].reset()
@@ -899,7 +899,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     data['PIGMY_ACTYPE'] = this.ngPigmy
 
     this.PigmyAgentMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -924,8 +924,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Share master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Share_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -936,8 +936,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         this.PigmyAgentMasterService.deleteData(id).subscribe(data1 => {
           this.pigmyAgentMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -951,8 +951,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -984,27 +984,27 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       AC_NPIN: formVal.AC_NPIN,
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+      Swal.fire('',`${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
 
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('',`${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
 
-              Swal.fire('', 'This Nominee is Already Exists!', 'error');
+              Swal.fire('', `${this.translate.instant('Swal_Msg.Nomi_Exist')}`, 'error');
 
             } else {
 
@@ -1089,13 +1089,13 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -1162,8 +1162,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
     this.PigmyAgentMasterService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Pigmy Agent Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Pigmy_Ag_Approve')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -1184,8 +1184,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
     this.PigmyAgentMasterService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Pigmy Agent Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Pigmy_Ag_Reject')}`,
         'success'
       );
 
@@ -1232,8 +1232,8 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
     this.PigmyAgentMasterService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         'success'
       );
       var button = document.getElementById('trigger');

@@ -13,6 +13,7 @@ import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownSer
 import { CashCreditLoanRenewalService } from './cash-credit-loan-renewal.service'
 import *  as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -95,7 +96,10 @@ export class CashCreditAcRenewalComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,
+    private translate:TranslateService
+    ) {
+    this.translate.setDefaultLang(environment.setLang)
 
     if (this.childMessage != undefined) {
 
@@ -424,7 +428,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       }
       this._service.postData(dataToSend).subscribe(data => {
         this.formSubmitted = false;
-        Swal.fire("Success!", "Data Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Tran_Msg')}`, "success");
       })
       this.formSubmitted = false
       if (result.RoleDefine[0].Role.id == 1) {
@@ -438,7 +442,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
       this.resetForm()
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
   editClickHandler(id) {
@@ -574,8 +578,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this._service.approve(dataToSend).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Approved',
-        'Cash Credit Account Renew approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.A_Msg')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -597,8 +601,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Rejected',
-        'Cash Credit Account Renew rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.R_Msg')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -624,8 +628,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this._service.unapprove(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.U_Msg')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -667,7 +671,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
     //check  if given value  is below 100
     if (ele.target.value <= 50) {
     } else {
-      Swal.fire("Oops", "Please insert values below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
     }
   }

@@ -5,8 +5,6 @@ import { RoleMasterModule } from './role-master.module';
 import { RoleMasterService } from './role-master.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import { TranslateService } from '@ngx-translate/core';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-role-master',
@@ -30,8 +28,8 @@ export class RoleMasterComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private fb: FormBuilder,
-    private _service: RoleMasterService,private translate:TranslateService)
-   {this.translate.setDefaultLang(environment.setLang);
+    private _service: RoleMasterService
+  ) {
     
   }
 
@@ -121,8 +119,5 @@ export class RoleMasterComponent implements OnInit {
       dtInstance.destroy();
       this.dtTrigger.next();
     });
-  }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
   }
 }

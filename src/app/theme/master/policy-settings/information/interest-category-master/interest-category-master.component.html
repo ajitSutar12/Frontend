@@ -13,7 +13,7 @@
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="Account" class="form-control" placeholder=" " id="CODE" pattern="^[0-9]+$"
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="CODE" pattern="^[0-9\u0966-\u096F]*$"
                     title="Input allowed only  0-9" formControlName="CODE" disabled />
                   <label for="CODE">{{'master.Interest_Category_Master.Interest_Category_Code' | translate}}</label>
                 </span>
@@ -34,7 +34,7 @@
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
                   <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
-                      This field is required
+                      <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                   </div>
               </div>
           </div>
@@ -42,7 +42,7 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme type="text" #autofocus name="NAME" class="form-control" placeholder=" " id="NAME"
-                    required pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                    requiredmaxlength="100"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME" />
                   <label for="NAME">{{'master.Interest_Category_Master.Description' | translate}}<sub class="required">* </sub></label>
@@ -54,13 +54,13 @@
                     angForm.controls['NAME'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="
-                    angForm.controls['NAME'].errors?.pattern ||
+                    
                     angForm.controls['NAME'].errors?.required ||
                     angForm.controls['NAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  <!-- {{'master.Interest_Category_Master.Val' | translate}} -->
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / . -->
+                  {{'master.Validation.Val1' | translate}}
+                  
                 </div>
               </div>
             </div>

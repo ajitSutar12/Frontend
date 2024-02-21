@@ -146,7 +146,6 @@
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length ==0"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length !=0">
                                         <div><label style="color: #1e5bc5">{{'master.View_Ac_Enquiry.Lien_Ac'|translate}}</label></div>
-
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!dormantac"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="dormantac">
@@ -199,7 +198,7 @@
                                     <div class="col-sm-2" *ngIf="!accountData?.AC_BALDATE"></div>
                                     <div class="col-sm-2" *ngIf="!accountData?.AC_ASON_DATE"></div>
                                     <div class="col-sm-2" *ngIf="overdraftAmt">
-                                        <span><label>{{'master.View_Ac_Enquiry.Scheme'|translate}}: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Overdraft_Amount'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="overdraftAmt"><span
                                             style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{overdraftAmt
@@ -208,19 +207,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2" *ngIf="accountData?.AC_MONTHS || accountData?.AC_DAYS">
-                                        <span><label>Period : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Period'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_MONTHS || accountData?.AC_DAYS">
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountData?.AC_MONTHS==''||
                                                 accountData?.AC_MONTHS==null? 0:
-                                                accountData?.AC_MONTHS}}</label></span> Months
+                                                accountData?.AC_MONTHS}}</label></span>  {{'master.View_Ac_Enquiry.Months'|translate}}
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountData?.AC_DAYS==''||
                                                 accountData?.AC_DAYS==null ? 0:accountData?.AC_DAYS}}</label></span>
-                                        Days
+                                                {{'master.View_Ac_Enquiry.Days'|translate}}
                                     </div>
                                     <div class="col-sm-2"
                                         *ngIf="accountData?.AC_EXPIRE_DATE || accountData?.AC_EXPDT && accountData?.AC_ACNOTYPE!='SH'">
-                                        <span><label>Maturity Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Maturity_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"
                                         *ngIf="accountData?.AC_EXPIRE_DATE || accountData?.AC_EXPDT && accountData?.AC_ACNOTYPE!='SH'">
@@ -235,13 +234,13 @@
                                         *ngIf="!accountData?.AC_EXPIRE_DATE && !accountData?.AC_EXPDT && accountData?.AC_ACNOTYPE=='SH'">
                                     </div>
                                     <div class="col-sm-2" *ngIf="isLastTranDate">
-                                        <span><label>Last Transaction Date: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Last_Tran_Date'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isLastTranDate"><span
                                             style="color: #3e8cd0;  text-align: left; padding-right:10px;"><label>{{transactionData?.lastTransactionDate}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isRenewalDate">
-                                        <span><label>Renewal Date: </label></span>
+                                        <span><label> {{'master.View_Ac_Enquiry.Renewal'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isRenewalDate"><span
                                             style="color: #3e8cd0;  text-align: left; padding-right:10px;"><label>{{accountData?.AC_RENEW_DATE}}</label></span>
@@ -250,14 +249,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2" *ngIf="accountData?.PIGMY_ACTYPE">
-                                        <span><label>Pigmy Scheme :</label></span>
+                                        <span><label> {{'master.View_Ac_Enquiry.Pigmy_Scheme'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.PIGMY_ACTYPE">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{PIGMY_ACTYPE}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isATypeMemNo">
-                                        <span><label>'A' Type Member No:</label></span>
+                                        <span><label> {{'master.View_Ac_Enquiry.A_Type_Member_No'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isATypeMemNo">
                                         <span style="color: #3e8cd0; text-align: left;"><label>{{accountEvent?.AC_MEMBNO==null
@@ -266,21 +265,21 @@
                                     </div>
                                     <div class="col-sm-4" *ngIf="!accountData?.PIGMY_ACTYPE"></div>
                                     <div class="col-sm-2" *ngIf="isAgentScheme">
-                                        <span><label>Agent Scheme :</label></span>
+                                        <span><label> {{'master.View_Ac_Enquiry.Agent_Scheme'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isAgentScheme">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MEMBNO}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isAgentCode">
-                                        <span><label>Agent Code :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Agent_Code'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isAgentCode">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MEMBNO}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_LINTEDT">
-                                        <span><label>Interest Paid Date: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Interest_Paid_Date'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_LINTEDT"><span
                                             style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{accountData?.AC_LINTEDT}}</label></span>
@@ -288,14 +287,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2" *ngIf="accountData?.AC_SCHMAMT">
-                                        <span><label>Deposit Amount :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Deposit_Amount'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_SCHMAMT">
                                         <span style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_SCHMAMT
                                                 | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_MATUAMT">
-                                        <span><label>Maturity Amount :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Maturity_Amount'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_MATUAMT">
                                         <span style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_MATUAMT
@@ -304,7 +303,7 @@
                                     <div class="col-sm-4" *ngIf="!accountData?.AC_SCHMAMT"></div>
                                     <div class="col-sm-4" *ngIf="!accountData?.AC_MATUAMT"></div>
                                     <div class="col-sm-2" *ngIf="accountData?.LAST_TDS_DATE">
-                                        <span><label>Last TDS Date: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Last_TDS'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.LAST_TDS_DATE"><span
                                             style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{accountData?.LAST_TDS_DATE}}</label></span>
@@ -312,7 +311,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2" *ngIf="accountData?.AC_REF_RECEIPTNO">
-                                        <span><label>Receipt Number :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Receipt_No'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_REF_RECEIPTNO">
                                         <span
@@ -320,7 +319,7 @@
                                     </div>
                                     <div class="col-sm-8" *ngIf="!accountData?.AC_REF_RECEIPTNO"></div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_INTRATE">
-                                        <span><label>Interest Rate: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Interest'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="accountData?.AC_INTRATE"><span
                                             style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate==0?accountData?.AC_INTRATE:transactionData?.interest_rate}}</label></span>
@@ -328,14 +327,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2" *ngIf="divtransferScheme && getschemename=='SH'">
-                                        <span><label>Dividend Transfer Scheme:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Dividend'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="divtransferScheme && getschemename=='SH'">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{divtransferScheme}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="divtransferName && getschemename=='SH'">
-                                        <span><label>Dividend Transfer Code :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Dividend_Trans_Code'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="divtransferName && getschemename=='SH'">
                                         <span
@@ -346,13 +345,13 @@
                             <div class="solid" *ngIf="transactionData">
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Opening Balance : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Open_Balance'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.openingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="transactionData?.TDSAmount">
-                                        <span><label>TDS Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.TDS_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="transactionData?.TDSAmount">
                                         <span
@@ -360,7 +359,7 @@
                                     </div>
                                     <div class="col-sm-4" *ngIf="!transactionData?.TDSAmount"></div>
                                     <div class="col-sm-2" *ngIf="isrecurringScheme">
-                                        <span><label>Installment Amount: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Install'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{accountData?.AC_SCHMAMT
@@ -369,19 +368,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Passed Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Passed_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.passedAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Overdraft Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Overdraft_Interest'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.overDraftInt}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="transactionData?.intrestonMonth">
-                                        <span><label>Interest On Months : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Interest_Month'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"
                                         *ngIf="transactionData?.intrestonMonth"><span
@@ -390,26 +389,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Closing Balance : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Closing_Balance'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.closingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Payable Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Payable_Interest'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.payableInt}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="transactionData?.intrestonDays">
-                                        <span><label>Interest On Days : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Interest_Day'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"
                                         *ngIf="transactionData?.intrestonDays"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.intrestonDays}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isTotalProducts">
-                                        <span><label>Total Products : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Product'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isTotalProducts"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.totalProducts}}</label></span>
@@ -417,19 +416,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Unpassed Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Unpassed_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.unpassedAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Current Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Current_Interest'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.currentInt}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Penal Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Penal_Interest'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.penalInt}}</label></span>
@@ -437,19 +436,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Total Closing Balance: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Closing'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.totalClosingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Total Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Interest'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.totalInterest}}</label></span>
                                     </div>
                                     <div class="col-sm-2" *ngIf="isrecurringScheme">
-                                        <span><label>Expected Installments : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Expected'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.expectedInstallment}}</label></span>
@@ -458,7 +457,7 @@
                                 <div class="row">
                                     <div class="col-sm-8"></div>
                                     <div class="col-sm-2" *ngIf="isrecurringScheme">
-                                        <span><label>Received Installments : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Received'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.receivedInstallment}}</label></span>
@@ -467,7 +466,7 @@
                                 <div class="row">
                                     <div class="col-sm-8"></div>
                                     <div class="col-sm-2" *ngIf="isrecurringScheme">
-                                        <span><label>Due Installments : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Due'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.dueInstallment}}</label></span>
@@ -476,7 +475,7 @@
                                 <div class="row">
                                     <div class="col-sm-8"></div>
                                     <div class="col-sm-2" *ngIf="isrecurringScheme">
-                                        <span><label>Passbook Balance : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.PB'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;" *ngIf="isrecurringScheme"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.passbookBal}}</label></span>
@@ -484,20 +483,20 @@
                                 </div>
                                 <div class="row" *ngIf="isIntroducer">
                                     <div class="col-sm-2">
-                                        <span><label>Introduced By : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Introduced_By'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{introducerName==null
                                                 ?'---':introducerName}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Salary Division : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Salary_Division'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px; "><label>{{transactionData?.salaryname==null?'---':transactionData?.salaryname}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Sub Salary Division : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Sub_Sal_Div'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{transactionData?.subsalaryname==null?'---':transactionData?.subsalaryname}}</label></span>
@@ -505,17 +504,15 @@
                                 </div>
                                 <div class="row" *ngIf="isBankBranch">
                                     <div class="col-sm-2">
-                                        <span><label>Bank Name : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Bank_Name'|translate}} : </label></span>
                                     </div>
-                                    <div class="col-sm-2"><span style="color: #3e8cd0; padding-right:10px;"><label>bank
-                                                name</label></span>
+                                    <div class="col-sm-2"><span style="color: #3e8cd0; padding-right:10px;"><label>{{'master.View_Ac_Enquiry.Bank_Name'|translate}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Branch Name : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Branch_Name'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; padding-right:10px; "><label>branch
-                                                name</label></span>
+                                            style="color: #3e8cd0; padding-right:10px; "><label>{{'master.View_Ac_Enquiry.Branch_Name'|translate}}</label></span>
                                     </div>
                                 </div>
                             </div>
@@ -524,12 +521,12 @@
                                     <div class="col-sm">
                                         <h5
                                             style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
-                                            General Ledger Details</h5>
+                                            {{'master.View_Ac_Enquiry.GL_Detail'|translate}}</h5>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Opening Balance : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Open_Balance'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.openingBal}}</label></span>
@@ -537,7 +534,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Current Balance: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Current_Bal'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.totalClosingBal}}</label></span>
@@ -545,7 +542,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Scheme Link To: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Scheme_To'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
@@ -553,7 +550,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Balance Sheet Code: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Bal_Sheet_Code'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
@@ -561,7 +558,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Subsidiary Code: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Subsidiary_Code'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
@@ -569,7 +566,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Expenses Code: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Expenses_Code'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
@@ -577,7 +574,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Daily Liquidity Code: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Daily_Liquidity_Code'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
@@ -585,7 +582,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Friday Liquidity Code: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Friday_Liquidity_Code'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{GLtransactionData?.schemeLinkGL}}</label></span>
@@ -595,21 +592,21 @@
                             <div class="solid" *ngIf="ShareRecordShow">
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Opening Shares Amount :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Opening_Shares_Amount'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{SHtransactionData?.openingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Opening Number of Shares:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Open_No_Shares'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{openingNumberShares}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Paid Dividend:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Paid_Dividend'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
@@ -618,21 +615,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Shares Amount :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Shares_Amount'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{SHtransactionData?.passedAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Number of Shares:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.No_Shares'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{numberofshares}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Unpaid Dividend:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Unpaid'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
@@ -641,14 +638,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Total Shares Amount :</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Shares_Amount'|translate}} :</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{SHtransactionData?.totalsharesAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Total Number of Shares:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_No_Shares'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
@@ -657,19 +654,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Salary Division : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Salary_Division'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px; "><label>{{SHtransactionData?.salaryname==null?'---':SHtransactionData?.salaryname}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Sub Salary Division : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Sub_Sal_Div'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{SHtransactionData?.subsalaryname==null?'---':SHtransactionData?.subsalaryname}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Paid Bonus Amount:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Paid_Bonus_Amount'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
@@ -678,7 +675,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Retirement Date:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Retirement_Date'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_RETIRE_DATE==null
@@ -686,14 +683,14 @@
                                                 accountData?.AC_RETIRE_DATE==''?'---':accountData?.AC_RETIRE_DATE}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Left Months:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Left_Months'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
                                             style="color: #3e8cd0; text-align: left;"><label>{{leftMonth}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Unpaid Bonus Amount:</label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Unpaid_Bonus_Amount'|translate}}:</label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span
@@ -706,7 +703,7 @@
                                     <div class="col-sm" *ngIf="isloanDetails">
                                         <h5
                                             style="text-align: center; color: rgb(14 168 14); font-size: 12.5px; font-weight: 800;">
-                                            Loan/Cash Credit Loan Details</h5>
+                                            {{'master.View_Ac_Enquiry.Lc_Credit'|translate}}</h5>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -714,14 +711,13 @@
 
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Interest Rate: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Interest'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{loantransactionData?.interest_rate}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Overdraft
-                                                Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Overdraft_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{overdraftAmt
@@ -730,19 +726,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Opening Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Open_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{opendate}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Renewal Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Renewal'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_BALDATE}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Last Interest Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Last_Int_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_LINTEDT}}</label></span>
@@ -750,24 +746,24 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Expiry Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Expiry_Date'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_EXPIRE_DATE}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Period : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Period'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2">
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_MONTHS==''||
                                                 accountEvent?.AC_MONTHS==null? 0:
-                                                accountEvent?.AC_MONTHS}}</label></span> Months
+                                                accountEvent?.AC_MONTHS}}</label></span> {{'master.View_Ac_Enquiry.Months'|translate}}
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_DAYS==''||
                                                 accountEvent?.AC_DAYS==null ? 0:accountEvent?.AC_DAYS}}</label></span>
-                                        Days
+                                                {{'master.View_Ac_Enquiry.Days'|translate}}
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Overdue Date : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Overdue'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.overdueDate==null
@@ -776,20 +772,20 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Drawing Power : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Drawing_Power'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_DRAWPOWER_AMT}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Security Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Security_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_SECURITY_AMT
                                                 | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Total Installments : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Install'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.totalInstallment}}</label></span>
@@ -797,21 +793,21 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Sanction Limit : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Sanction_Limit'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_SANCTION_AMOUNT
                                                 | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Director Recommdation : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Director'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.AC_RECOMMEND_BY==undefined
                                                 ?'---':loantransactionData?.AC_RECOMMEND_BY }}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Due Installments : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Due_Install'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{dueInstallmentLoan}}</label></span>
@@ -819,7 +815,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Installment Type : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Install_Type'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_REPAYMODE=='M'
@@ -830,7 +826,7 @@
                                                 )}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Installment Method : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Install_Method'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
@@ -841,7 +837,7 @@
                                                 '---')))}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Due Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Due_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.dueBalance
@@ -850,14 +846,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Installment Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Install_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_INSTALLMENT
                                                 | number: '1.2-2'}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>+ Interest : </label></span>
+                                        <span><label>+ {{'master.View_Ac_Enquiry.Int'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-1"><span
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
@@ -876,19 +872,19 @@
                             <div class="solid" *ngIf="loanSchemeShow">
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Day Opening Balance : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Day_Open_Bal'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.openingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Last Transaction Date: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Last_Tran_Date'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; text-align: left; padding-right:10px;"><label>{{loantransactionData?.lastTransactionDate}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Penal Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Penal_Interest'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.penalInt}}</label></span>
@@ -896,19 +892,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Passed Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Passed_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.passedAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Other Receivable Amount: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Other_Receive_Amount'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; text-align: right; padding-right:10px;"><label>{{loantransactionData?.otherReceivedAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Receivable Penal: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Receivable_Penal'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.receiveablePenal}}</label></span>
@@ -916,19 +912,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Closing Balance : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Closing_Balance'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.closingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Interest On Days : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Int_On_Days'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.intrestonDays}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Overdue Interest: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Overdue_Int'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.overdueInt}}</label></span>
@@ -936,19 +932,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Unpassed Amount : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Unpassed_Amount'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.unpassedAmount}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Received Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Received_Int'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.receivedInterest}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Receivable Interest: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Receivable_Int'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.payableInt}}</label></span>
@@ -956,19 +952,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Total Closing Balance: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Closing'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.totalClosingBal}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Rebate Interest : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Rebat_Int'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{rebateIntrest}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Current Interest: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Current_Interest'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.currentInt}}</label></span>
@@ -978,13 +974,13 @@
                                     <div class="col-sm-4">
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Total Receivable: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Receivable'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loanTotalReceivable}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Total Interest: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Total_Interest'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2" style="text-align: right;"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loanTotalInterest}}</label></span>
@@ -992,19 +988,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-2">
-                                        <span><label>Loan Reason: </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Loan_Reason'|translate}}: </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{accountEvent?.purpose?.NAME}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Salary Division : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Salary_Division'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px; "><label>{{loantransactionData?.salaryname==null?'---':loantransactionData?.salaryname}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
-                                        <span><label>Sub Salary Division : </label></span>
+                                        <span><label>{{'master.View_Ac_Enquiry.Sub_Sal_Div'|translate}} : </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
                                             style="color: #3e8cd0; padding-right:10px;"><label>{{loantransactionData?.subsalaryname==null?'---':loantransactionData?.subsalaryname}}</label></span>
@@ -1022,7 +1018,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Account Enquiry</h5>
+                        <h5>{{'master.View_Ac_Enquiry.T1'|translate}}</h5>
                     </div>
                     <div class="card-body">
                         <div class="col-md-12">
@@ -1031,38 +1027,34 @@
                                     <li class="mb-75">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('ledgerView')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Ledger View</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Ledger_View'|translate}}</a>
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('attorney')"
                                             *ngIf="attorneyView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Attorney</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Attorney'|translate}}</a>
                                     </li>
                                     <li class="mb-75" *ngIf="securityView">
                                         <a href="javascript:void(0);"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Security</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Security'|translate}}</a>
                                     </li>
                                     <li class="mb-75" *ngIf="interestReceivedHistoryView">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('interestReceivedHistory')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Interest Received
-                                            History </a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Int_Received_History'|translate}} </a>
                                     </li>
                                     <li class="mb-75" *ngIf="interestPaidHistoryView">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('interestPaidHistory')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Interest Paid
-                                            History</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Int_Paid_History'|translate}}</a>
                                     </li>
                                     <li class="mb-75" *ngIf="interestPostedHistoryView">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('interestPostedHistory')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Interest Posted
-                                            History</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Int_Post_History'|translate}}</a>
                                     </li>
                                     <li class="mb-75" *ngIf="interestInstructionView">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('interestInstructions')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Interest
-                                            Instructions</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Interest_Instruction'|translate}}</a>
                                     </li>
                                     <!-- <li class="mb-75" *ngIf="intrestProjectionView">
                                         <a href="javascript:void(0);"><i class="fa fa-book fa-fw"
@@ -1071,74 +1063,69 @@
                                     <li class="mb-75" *ngIf="payableInterestView">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('payableInterest')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Payable
-                                            Interest</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Payable_Interest'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('lienInfo')"
                                             *ngIf="lienInformationView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Lien
-                                            Information</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Lien_Information'|translate}}</a>
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('tdsDetail')"
                                             *ngIf="tdsDetailsView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; TDS Details</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.TDS_Detail'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('goldsilver')"
                                             *ngIf="securityDetailsView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Goldsilver
-                                            Details</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Goldsilver'|translate}}</a>
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('guaranter')"
                                             *ngIf="gaurantorView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Guarantor</a>
+                                                aria-hidden="true"></i>&nbsp;{{'master.View_Ac_Enquiry.Gaurantor'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('productview')" *ngIf="productView"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Product View</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Product_View'|translate}}</a>
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('oldDeposits')"
                                             *ngIf="oldDepositsView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Old Deposits</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Old_Deposits'|translate}}</a>
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('coborrower')"
                                             *ngIf="coborrowerView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Coborrower</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Coborrower'|translate}}</a>
                                     </li>
                                     <li class="mb-75" *ngIf="npaView">
                                         <a href="javascript:void(0);"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; NPA</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.NPA'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('joints')"
                                             *ngIf="jointHolderView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Joint Holders</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Joint_Holders'|translate}}</a>
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('nominee')"
                                             *ngIf="nomineeView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Nominee</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Nominee'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('accountInfo')"
                                             *ngIf="accountInformationView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Account
-                                            Information</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Ac_Info'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);" *ngIf="receivableInterestView"
                                             (click)="modalLarge.show();viewView('payableInterest')"><i
-                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Receivable
-                                            Interest</a>
+                                                class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Receivable_Int'|translate}}</a>
                                     </li>
                                     <li class="mb-75">
                                         <a href="javascript:void(0);" (click)="modalLarge.show(); viewView('document')"
                                             *ngIf="documentsView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Documents</a> <a
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Doc'|translate}}</a> <a
                                             href="javascript:void(0);"
                                             (click)="modalLarge.show(); viewView('customerID')"
                                             *ngIf="customerIdView"><i class="fa fa-book fa-fw"
-                                                aria-hidden="true"></i>&nbsp; Customer ID</a>
+                                                aria-hidden="true"></i>&nbsp; {{'master.View_Ac_Enquiry.Cust_Id'|translate}}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -1192,39 +1179,39 @@
                         <div class="info-container">
                             <ul class="list-unstyled">
                                 <li class="mb-75" *ngIf="getschemename !='GL'">
-                                    <label class="fw-bolder me-25">Status:</label>
-                                    <span class="badge bg-light-success">Active</span>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.Status'|translate}}:</label>
+                                    <span class="badge bg-light-success">{{'master.View_Ac_Enquiry.Active'|translate}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="idmaster">
-                                    <label class="fw-bolder me-25">Account Number:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.Ac_No'|translate}}:</label>
                                     <span style="color: green;">{{accountEvent?.BANKACNO}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="idmaster">
-                                    <label class="fw-bolder me-25">Customer ID:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.Cust_Id'|translate}}:</label>
                                     <span style="color: green;">{{idmaster.id}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="idmaster?.AC_PANNO">
-                                    <label class="fw-bolder me-25">PAN ID:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.PAN_ID'|translate}}:</label>
                                     <span style="color: green;">{{idmaster.AC_PANNO}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="idmaster?.AC_ADHARNO">
-                                    <label class="fw-bolder me-25">Adhar Card Number:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.Adhar_No'|translate}}:</label>
                                     <span style="color: green;">{{idmaster?.AC_ADHARNO}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="idmaster?.AC_MOBILENO">
-                                    <label class="fw-bolder me-25">Contact:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.Contact'|translate}}:</label>
                                     <span style="color: green;">{{idmaster.AC_MOBILENO}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="accountEvent?.AC_GRDNAME">
-                                    <label class="fw-bolder me-25">Guardian Name:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.G_Name'|translate}}:</label>
                                     <span style="color: green;">{{accountEvent?.AC_GRDNAME}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="jointHolderName">
-                                    <label class="fw-bolder me-25">Joint Holder Name:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.J_H_Name'|translate}}:</label>
                                     <span style="color: green; font-size: 11px;">{{jointHolderName}}</span>
                                 </li>
                                 <li class="mb-75" *ngIf="accountEvent?.AC_RENEWAL_COUNT">
-                                    <label class="fw-bolder me-25">Renewal Count:</label>
+                                    <label class="fw-bolder me-25">{{'master.View_Ac_Enquiry.Renewal_Count'|translate}}:</label>
                                     <span style="color: green;">{{accountEvent?.AC_RENEWAL_COUNT}}</span>
                                 </li>
                             </ul>
@@ -1238,7 +1225,7 @@
 
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">View</h4>
+        <h4 class="modal-title">{{'master.View_Ac_Enquiry.View'|translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -1278,7 +1265,7 @@
                     <div class="row"
                         *ngIf="accountEvent?.jointAccounts.length != 0 && accountEvent?.jointAccounts !=undefined">
                         <div class="col-12">
-                            <h5>Joint Holders</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Joint_Holder'|translate}}</h5>
                             <br>
                         </div>
                     </div>
@@ -1289,9 +1276,9 @@
                                 <table class="table table-striped table-bordered table-hover compact"
                                     *ngIf="accountEvent?.jointAccounts?.length != 0 && accountEvent?.jointAccounts !=undefined">
                                     <thead>
-                                        <td style="max-width: 20px">Customer ID</td>
-                                        <td>Name</td>
-                                        <td style="max-width: 15px">Operation</td>
+                                        <td style="max-width: 20px">{{'master.View_Ac_Enquiry.Cust_Id'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Name'|translate}}</td>
+                                        <td style="max-width: 15px">{{'master.View_Ac_Enquiry.Operation'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="jointAccounts?.length != 0">
                                         <tr *ngFor="
@@ -1336,7 +1323,7 @@
                                     <tbody *ngIf="accountEvent?.jointAccounts?.length == 0">
                                         <tr>
                                             <td class="no-data-available" colspan="4" style="text-align: center">
-                                                No data!
+                                                {{'master.View_Ac_Enquiry.No_Data'|translate}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1348,12 +1335,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Joint Holders</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Joint_Holder'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1365,7 +1352,7 @@
                     <div class="row"
                         *ngIf="accountEvent?.nomineeDetails?.length != 0 && accountEvent?.nomineeDetails !=undefined">
                         <div class="col-sm-12">
-                            <h5>Nominee Details</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Nominee_Details'|translate}}</h5>
                         </div>
 
                     </div>
@@ -1376,13 +1363,13 @@
                                     style="width: 100%;"
                                     *ngIf="accountEvent?.nomineeDetails?.length != 0 && accountEvent?.nomineeDetails !=undefined">
                                     <thead>
-                                        <td>Name</td>
-                                        <td>Relation</td>
-                                        <td>Age</td>
-                                        <td>Nomination Date</td>
-                                        <td>Details</td>
-                                        <td>City</td>
-                                        <td>Pin code</td>
+                                        <td>{{'master.View_Ac_Enquiry.Name'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Relation'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Age'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Nomination_Date'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Detail'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.City'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Pin_Code'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="accountEvent.nomineeDetails?.length != 0">
                                         <tr *ngFor="let nominee of accountEvent.nomineeDetails;
@@ -1420,7 +1407,7 @@
                                     <tbody *ngIf="accountEvent.nomineeDetails?.length == 0">
                                         <tr>
                                             <td colspan="7" class="no-data-available" style="text-align: center;">
-                                                No data!
+                                                {{'master.View_Ac_Enquiry.No_Data'|translate}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1432,12 +1419,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Nominee Details</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Nominee_Details'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1449,7 +1436,7 @@
                     <div class="row"
                         *ngIf="accountEvent?.powerOfAttorney?.length != 0 && accountEvent?.powerOfAttorney !=undefined">
                         <div class="col-sm-12">
-                            <h5>Attorneys</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Attorneys'|translate}}</h5>
                         </div>
                     </div>
                     <div class="row"
@@ -1459,11 +1446,11 @@
                                 <table class="table table-striped table-bordered table-hover compact"
                                     *ngIf="accountEvent?.powerOfAttorney?.length != 0">
                                     <thead>
-                                        <td>Name</td>
+                                        <td>{{'master.View_Ac_Enquiry.Name'|translate}}</td>
                                         <td style="max-width: 15px">
-                                            Appointed on
+                                            {{'master.View_Ac_Enquiry.Appointed_on'|translate}}
                                         </td>
-                                        <td style="max-width: 15px">Expiry Date</td>
+                                        <td style="max-width: 15px">{{'master.View_Ac_Enquiry.Expiry_Date'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="accountEvent?.powerOfAttorney?.length != 0">
                                         <tr *ngFor="
@@ -1513,12 +1500,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Attorney</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Attorney'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1530,7 +1517,7 @@
                     <div class="row"
                         *ngIf="accountEvent?.guaranterMaster?.length != 0 && accountEvent?.guaranterMaster !=undefined">
                         <div class="col-sm-12">
-                            <h5>GUARANTER DETAILS</h5>
+                            <h5>{{'master.View_Ac_Enquiry.G_Detail'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1542,10 +1529,10 @@
                             <div class="table-responsive">
                                 <table class=" table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Customer Id</td>
-                                        <td>Member no</td>
-                                        <td>Member Scheme</td>
-                                        <td>Full Name</td>
+                                        <td>{{'master.View_Ac_Enquiry.Customer_Id'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Member_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Member_Scheme'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.F_Name'|translate}}</td>
                                         <td>Expiry Date</td>
                                     </thead>
                                     <tbody *ngIf="accountEvent?.guaranterMaster?.length != 0">
@@ -1565,7 +1552,7 @@
                                     <tbody *ngIf="accountEvent?.guaranterMaster?.length == 0">
                                         <tr>
                                             <td colspan="6" class="no-data-available">
-                                                No data!
+                                                {{'master.View_Ac_Enquiry.No_data'|translate}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -1577,12 +1564,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>GUARANTER DETAILS</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.G_Detail'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1594,7 +1581,7 @@
                     <div class="row"
                         *ngIf="accountEvent?.CoborrowerMaster?.length != 0 && accountEvent?.CoborrowerMaster !=undefined">
                         <div class="col-sm-12">
-                            <h5>Coborrowers</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Co_Bor'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1605,8 +1592,8 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Customer ID</td>
-                                        <td>Full Name</td>
+                                        <td>{{'master.View_Ac_Enquiry.Cust_Id'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.F_Name'|translate}}</td>
 
                                     </thead>
                                     <tbody *ngIf="accountEvent?.CoborrowerMaster?.length != 0">
@@ -1626,12 +1613,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Coborrowers</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Co_Bor'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1642,7 +1629,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="oldDepositArr?.length != 0 && oldDepositArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Old Deposits</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Old_Deposits'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1653,15 +1640,15 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td> Renewal Counter</td>
-                                        <td> As on Date</td>
-                                        <td> Months</td>
-                                        <td> Days</td>
-                                        <td> Maturity Date</td>
-                                        <td> Deposit Amount</td>
-                                        <td> Maturiy AFmount</td>
-                                        <td> Rate</td>
-                                        <td> Receipt Number</td>
+                                        <td> {{'master.View_Ac_Enquiry.Renewal_Counter'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.As_On_Date'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Months'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Days'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Maturity_Date'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Deposit_Amount'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Maturity_Amount'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Rate'|translate}}</td>
+                                        <td> {{'master.View_Ac_Enquiry.Receipt_No'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="oldDepositArr?.length != 0">
                                         <tr *ngFor="let data of oldDepositArr; let indexOfelement=index;">
@@ -1686,12 +1673,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Old Deposits</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Old_Deposits'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1702,7 +1689,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="interestInstructionArr?.length != 0 && interestInstructionArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Interest Instruction</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Interest_Instruction'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1713,12 +1700,12 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Scheme Type</td>
-                                        <td>Scheme Code</td>
-                                        <td>Account Number</td>
-                                        <td>Account Name</td>
-                                        <td>Instruction Mode</td>
-                                        <td>Last Execution Date</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Type'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Code'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_Name'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Int_Mode'|translate}}/td>
+                                        <td>{{'master.View_Ac_Enquiry.Last_Exe_Date'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="interestInstructionArr?.length != 0">
                                         <tr *ngFor="let data of interestInstructionArr; let indexOfelement=index;">
@@ -1738,12 +1725,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Interest Instruction</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Interest_Instruction'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}!
                                 </div>
                             </div>
                         </div>
@@ -1754,7 +1741,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="goldsilverArr?.length != 0 && goldsilverArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Gold Silver Details</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Goldsilver'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1765,16 +1752,16 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Serial Number</td>
-                                        <td>Submission Date</td>
-                                        <td>Exp. Date</td>
-                                        <td>Receipt Number</td>
-                                        <td>Article Details</td>
-                                        <td>Nominee</td>
-                                        <td>Nominee Relation</td>
-                                        <td>Total Weight</td>
-                                        <td>Clear Weight</td>
-                                        <td>Gold Loan Details</td>
+                                        <td>{{'master.View_Ac_Enquiry.Sr_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Submission'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Exp_Date'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Receipt_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Art_Detail'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Nominee'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Nominee_Rel'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Total_Weight'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Clear_Weight'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Gold_Loan'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="goldsilverArr?.length != 0">
                                         <tr *ngFor="let data of goldsilverArr; let indexOfelement=index;">
@@ -1798,12 +1785,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Gold Silver Details</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Goldsilver'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1814,7 +1801,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="lienInfoArr?.length != 0 && lienInfoArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Lien Information</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Lien_Information'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1826,13 +1813,13 @@
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
 
-                                        <td>Scheme Type</td>
-                                        <td>Scheme Code</td>
-                                        <td>Scheme Name</td>
-                                        <td>Account Number</td>
-                                        <td>Account Name</td>
-                                        <td>Security Code</td>
-                                        <td>Remark</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Type'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Code'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Name'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_Name'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Security_Code'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Remark'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="lienInfoArr?.length != 0">
                                         <tr *ngFor="let data of lienInfoArr; let indexOfelement=index;">
@@ -1860,12 +1847,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Lien Information</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Lien_Information'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1876,7 +1863,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="customerIDArr?.length != 0 && customerIDArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Customer ID</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Cust_Id'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1896,12 +1883,12 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Customer ID</td>
-                                        <td>Scheme Type</td>
-                                        <td>Scheme Code</td>
-                                        <td>Account Number</td>
-                                        <td>Account Name</td>
-                                        <td>Ledger Balance</td>
+                                        <td>{{'master.View_Ac_Enquiry.Cust_Id'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Type'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme_Code'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_Name'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ledger_Bal'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="customerIDArr?.length != 0">
                                         <tr *ngFor="let data of customerIDArr; let indexOfelement=index;">
@@ -1921,12 +1908,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Customer ID</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Cust_Id'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1938,7 +1925,7 @@
                     <div class="row"
                         *ngIf="interestPostedHistoryArr?.length != 0 && interestPostedHistoryArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Interest Posted History</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Int_Post_History'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -1949,11 +1936,11 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Transaction Number</td>
-                                        <td>Transaction Date</td>
-                                        <td>Amount</td>
-                                        <td>Interest Amount</td>
-                                        <td>Particulars</td>
+                                        <td>{{'master.View_Ac_Enquiry.Tran_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Tran_Date'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Amount'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Interest_Amount'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Particulars'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="interestPostedHistoryArr?.length != 0">
                                         <tr *ngFor="let data of interestPostedHistoryArr; let indexOfelement=index;">
@@ -1972,12 +1959,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Interest Posted History</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Int_Post_History'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -1989,7 +1976,7 @@
                     <div class="row"
                         *ngIf="interestReceivedHistoryArr?.length != 0 && interestReceivedHistoryArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Interest Received History</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Int_Received_History'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -2000,11 +1987,11 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Transaction Number</td>
-                                        <td>Transaction Date</td>
-                                        <td>Amount</td>
-                                        <td>Interest Amount</td>
-                                        <td>Particulars</td>
+                                        <td>{{'master.View_Ac_Enquiry.Tran_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Tran_Date'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Amount'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Interest_Amount'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Particulars'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="interestReceivedHistoryArr?.length != 0">
                                         <tr *ngFor="let data of interestReceivedHistoryArr; let indexOfelement=index;">
@@ -2023,12 +2010,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Interest Received History</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Int_Received_History'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -2039,10 +2026,10 @@
                 <div class="col-12">
                     <div class="row" *ngIf="payableInterestArr?.length != 0 && payableInterestArr !=undefined">
                         <div class="col-sm-12" *ngIf="getschemename=='LN' || getschemename=='CC'">
-                            <h5>Receivable Interest Details</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Receivable_Int_Detail'|translate}}</h5>
                         </div>
                         <div class="col-sm-12" *ngIf="getschemename!='LN' && getschemename!='CC'">
-                            <h5>Payable Interest Details</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Payable_Int_Detail'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -2053,13 +2040,13 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Transaction Date</td>
-                                        <td>Debit/Credit</td>
-                                        <td *ngIf="getschemename=='LN' || getschemename=='CC'">Receivable Amount
+                                        <td>{{'master.View_Ac_Enquiry.Tran_Date'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Debit_Credit'|translate}}</td>
+                                        <td *ngIf="getschemename=='LN' || getschemename=='CC'">{{'master.View_Ac_Enquiry.Receivable_Amount'|translate}}
                                         </td>
-                                        <td *ngIf="getschemename!='LN' && getschemename!='CC'">Payable Amount
+                                        <td *ngIf="getschemename!='LN' && getschemename!='CC'">{{'master.View_Ac_Enquiry.Payable_Amount'|translate}}
                                         </td>
-                                        <td>Particulars</td>
+                                        <td>{{'master.View_Ac_Enquiry.Particulars'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="payableInterestArr?.length != 0">
                                         <tr *ngFor="let data of payableInterestArr; let indexOfelement=index;">
@@ -2077,15 +2064,15 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-sm-12" *ngIf="getschemename=='LN' || getschemename=='CC'">
-                                    <h5>Receivable Interest Details</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Receivable_Int_Detail'|translate}}</h5>
                                 </div>
                                 <div class="col-sm-12" *ngIf="getschemename!='LN' && getschemename!='CC'">
-                                    <h5>Payable Interest Details</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Payable_Int_Detail'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -2096,7 +2083,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="accountInfoArr.length != 0 && accountInfoArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Account Information</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Ac_Info'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -2107,15 +2094,15 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Serial Number</td>
-                                        <td>Name</td>
-                                        <td>Receipt Printed</td>
-                                        <td>Phone No. (R )</td>
-                                        <td>Phone No. (O )</td>
-                                        <td>Address Line 1</td>
-                                        <td>Address Line2</td>
-                                        <td>Address Line3</td>
-                                        <td>City</td>
+                                        <td>{{'master.View_Ac_Enquiry.Sr_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Name'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Receipt_Printed'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Phone_R'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Phone_O'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Add_L1'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Add_L2'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Add_L3'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.City'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="accountInfoArr.length != 0">
                                         <tr *ngFor="let data of accountInfoArr; let indexOfelement=index;">
@@ -2138,12 +2125,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Account Information</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Ac_Info'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -2154,7 +2141,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="tdsDeatilsArr?.length != 0 && tdsDeatilsArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>TDS Details</h5>
+                            <h5>{{'master.View_Ac_Enquiry.TDS_Detail'|translate}}TDS Details</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -2165,12 +2152,12 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Type</td>
-                                        <td>Scheme</td>
-                                        <td>Account Number</td>
-                                        <td>Interest Paid</td>
-                                        <td>Last TDS Date</td>
-                                        <td>TDS Paid</td>
+                                        <td>{{'master.View_Ac_Enquiry.Type'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Scheme'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Ac_No'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Int_Paid'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Last_TDS'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.TDS_Paid'|translate}}</td>
                                     </thead>
                                     <tbody *ngIf="tdsDeatilsArr?.length != 0">
                                         <tr *ngFor="let data of tdsDeatilsArr; let indexOfelement=index;">
@@ -2190,12 +2177,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>TDS Details</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.TDS_Detail'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -2206,7 +2193,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="accountEvent?.custdocument?.length != 0 && tdsDeatilsArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>Documents</h5>
+                            <h5>{{'master.View_Ac_Enquiry.Documents'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -2217,10 +2204,10 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td style="max-width: 10px">Code</td>
-                                        <td>Description</td>
+                                        <td style="max-width: 10px">{{'master.View_Ac_Enquiry.Code'|translate}}</td>
+                                        <td>{{'master.View_Ac_Enquiry.Description'|translate}}</td>
                                         <td style="max-width: 25px">
-                                            View Document
+                                            {{'master.View_Ac_Enquiry.View_Document'|translate}}
                                         </td>
                                     </thead>
                                     <tbody *ngIf="accountEvent?.idmaster?.custdocument?.length != 0">
@@ -2251,14 +2238,14 @@
                                     <tbody *ngIf="accountEvent?.custdocument?.length == 0">
                                         <tr>
                                             <td class="no-data-available" colspan="3" style="text-align: center">
-                                                No data!
+                                                {{'master.View_Ac_Enquiry.No_Data'|translate}}
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                                 <app-modal-basic #modalDoc [dialogClass]="'modal-md'">
                                     <div class="app-modal-header">
-                                        <h4 class="modal-title">Document</h4>
+                                        <h4 class="modal-title">{{'master.View_Ac_Enquiry.Document'|translate}}</h4>
                                         <button type="button" class="close basic-close" (click)="modalDoc.hide()">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -2272,7 +2259,7 @@
                                     <div class="app-modal-footer">
                                         <button type="button" class="btn btn-outline-primary btn-sm"
                                             (click)="modalDoc.hide()">
-                                            Close
+                                            {{'master.Action.Close'|translate}}
                                         </button>
                                     </div>
                                 </app-modal-basic>
@@ -2283,12 +2270,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>Documents</h5>
+                                    <h5>{{'master.View_Ac_Enquiry.Documents'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -2299,7 +2286,7 @@
                 <div class="col-12">
                     <div class="row" *ngIf="productViewArr?.length != 0 && productViewArr !=undefined">
                         <div class="col-sm-12">
-                            <h5>{{productName}} product</h5>
+                            <h5>{{productName}} {{'master.View_Ac_Enquiry.Product'|translate}}</h5>
                         </div>
                         <div class="col-sm">
                             <span></span>
@@ -2332,7 +2319,7 @@
                                             <td *ngFor="let ele of data | keyvalue;">{{ele.value}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Total</td>
+                                            <td>{{'master.View_Ac_Enquiry.Total'|translate}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -2349,7 +2336,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>- Interest Received</td>
+                                            <td>- {{'master.View_Ac_Enquiry.Int_Received'|translate}}</td>
                                             <td>{{loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
@@ -2362,7 +2349,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>Total Interest</td>
+                                            <td>{{'master.View_Ac_Enquiry.Total_Interest'|translate}}</td>
                                             <td>{{productTotal-loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
@@ -2379,12 +2366,12 @@
                         <div class="col-sm">
                             <div class="row">
                                 <div class="col-sm">
-                                    <h5>{{productName}} product</h5>
+                                    <h5>{{productName}} {{'master.View_Ac_Enquiry.Product'|translate}}</h5>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
-                                    No Records!
+                                    {{'master.View_Ac_Enquiry.No_Records'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -2396,7 +2383,7 @@
 
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-            (click)="modalLarge.hide()">Close</button>
+            (click)="modalLarge.hide()">{{'master.Action.Close'|translate}}</button>
     </div>
 </app-modal-basic>
 <div [class]="modalClass"><!-- Place at bottom of page --> </div>

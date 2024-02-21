@@ -224,7 +224,7 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -242,7 +242,7 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
     this.ngForm.controls.Scheme_acc.reset();
     this.ngForm.controls.START_DATE.reset();
     this.ngForm.controls.END_DATE.reset();
-    // this.ngForm.controls.radio.reset();
+    this.ngForm.controls.radio.reset();
     this.showRepo = false;
     this.clicked = false;
   }

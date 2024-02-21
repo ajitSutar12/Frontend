@@ -501,7 +501,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       BANKACNO: [''],
       AC_MEMBNO: [''],
       AC_OPDATE: ['', [Validators.required]],
-      REF_ACNO: ['', [Validators.pattern]],
+      REF_ACNO: [''],
       AC_CAST: ['',],
       AC_OCODE: ['',],
       AC_CATG: ['', [Validators.required]],
@@ -534,10 +534,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_PHNO: [''],
       AC_ADDFLAG: [true],
       AC_ADDTYPE: ['P'],
-      AC_THONO: ['', [Validators.pattern]],
-      AC_TWARD: ['', [Validators.pattern]],
-      AC_TGALLI: ['', [Validators.pattern]],
-      AC_TAREA: ['', [Validators.pattern]],
+      AC_THONO: [''],
+      AC_TWARD: [''],
+      AC_TGALLI: [''],
+      AC_TAREA: [''],
       AC_TADDR: [''],
       AC_TPIN: ['', [Validators.pattern]],
       AC_PHONE_RES: ['', [Validators.pattern]],
@@ -546,25 +546,25 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       //minor and introducer
       AC_MINOR: ['', []],
       AC_MBDATE: ['', []],
-      AC_GRDNAME: ['', [Validators.pattern]],
-      AC_GRDRELE: ['', [Validators.pattern]],
+      AC_GRDNAME: [''],
+      AC_GRDRELE: [''],
       AC_INTROBRANCH: ['', []],
       AC_INTROID: [''],
       AC_INTRACNO: [''],
       AC_INTRNAME: ['', [Validators.pattern]],
-      SIGNATURE_AUTHORITY: ['', [Validators.pattern]],
+      SIGNATURE_AUTHORITY: ['', []],
 
 
       //nominee controls (NOMINEELINK table)
-      AC_NNAME: ['', [Validators.pattern]],
-      AC_NRELA: ['', [Validators.pattern]],
+      AC_NNAME: ['', []],
+      AC_NRELA: ['', []],
       AC_NDATE: ['',],
       AGE: ['', [Validators.pattern]],
-      AC_NHONO: ['', [Validators.pattern]],
-      AC_NWARD: ['', [Validators.pattern]],
+      AC_NHONO: ['', []],
+      AC_NWARD: ['', []],
       AC_NADDR: ['', [Validators.pattern]],
-      AC_NGALLI: ['', [Validators.pattern]],
-      AC_NAREA: ['', [Validators.pattern]],
+      AC_NGALLI: ['', []],
+      AC_NAREA: ['', []],
       AC_NCTCODE: ['', [Validators.pattern]],
       AC_NPIN: ['', [Validators.pattern]],
 
@@ -976,10 +976,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
       if (data.MAX_DEP_LMT != '' || data.MULTIPLE_OF_AMT != '') {
         if (Number(this.angForm.controls['AC_SCHMAMT'].value) > Number(data.MAX_DEP_LMT)) {
-          Swal.fire("Deposit Amount Should Be Less Than " + data.MAX_DEP_LMT, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Dep_Amount')}`+ data.MAX_DEP_LMT, `${this.translate.instant('Swal_Msg.Error')}`);
           this.angForm.controls['AC_SCHMAMT'].reset()
         } else if (((Number(this.angForm.controls['AC_SCHMAMT'].value)) % Number((data.MULTIPLE_OF_AMT))) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_AMT, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Dep_Mul')}`  + data.MULTIPLE_OF_AMT, `${this.translate.instant('Swal_Msg.Error')}`);
         }
       } else {
         this.angForm.patchValue({
@@ -996,7 +996,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.controls['AC_MONTHS'].enable()
         this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.Month')}` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Days')}`, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['AC_DAYS'].reset()
         }
@@ -1008,7 +1008,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.controls['AC_MONTHS'].disable()
         this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_greater')}` + data.MIN_DAYS + ' Days', "error");
           this.angForm.controls['AC_DAYS'].reset()
         }
       }
@@ -1019,7 +1019,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.controls['AC_MONTHS'].enable()
         this.angForm.controls['AC_DAYS'].disable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-          Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_greater')}` + data.MIN_MONTH + ' Months', "error");
           this.angForm.controls['AC_MONTHS'].reset()
         }
       }
@@ -1029,7 +1029,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.angForm.controls['AC_MONTHS'].enable()
         this.angForm.controls['AC_DAYS'].enable()
         if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}`+ data.MIN_MONTH + `${this.translate.instant('Swal_Msg.And')}` + data.MIN_DAYS, "error");
           this.angForm.controls['AC_MONTHS'].reset()
           this.angForm.controls['AC_DAYS'].reset()
         }
@@ -1046,12 +1046,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
       if (data.MULTIPLE_OF_DAYS != null) {
         if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
-          Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Day_Multiple')}` + data.MULTIPLE_OF_DAYS, "error");
         }
       }
       if (data.MULTIPLE_OF_MONTH != null) {
         if ((Number((this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
-          Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Month_Multiple')}` + data.MULTIPLE_OF_MONTH, "error");
         }
       }
     })
@@ -1090,7 +1090,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
                 AC_DAYS: Diffdays,
               })
               if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-                Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+                Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.Month')}` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Days')}`, "error");
                 this.angForm.controls['AC_MONTHS'].reset()
                 this.angForm.controls['AC_DAYS'].reset()
                 this.angForm.controls['AC_EXPDT'].reset()
@@ -1110,7 +1110,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
               this.angForm.controls['AC_MONTHS'].disable()
               this.angForm.controls['AC_DAYS'].enable()
               if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-                Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+                Swal.fire(`${this.translate.instant('Swal_Msg.D_greater')}` + data.MIN_DAYS + ' Days', "error");
                 this.angForm.controls['AC_DAYS'].reset()
                 this.angForm.controls['AC_EXPDT'].reset()
               }
@@ -1123,7 +1123,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
               this.angForm.controls['AC_MONTHS'].enable()
               this.angForm.controls['AC_DAYS'].disable()
               if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-                Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+                Swal.fire(`${this.translate.instant('Swal_Msg.M_greater')}` + data.MIN_MONTH + ' Months', "error");
                 this.angForm.controls['AC_MONTHS'].reset()
                 this.angForm.controls['AC_EXPDT'].reset()
               }
@@ -1297,11 +1297,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             VcumPeriod = 3
           } else if (data.COMPOUND_INT_BASIS == "M") {
             if (data.COMPOUND_INT_DAYS <= 0) {
-              Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+              Swal.fire(`${this.translate.instant('Swal_Msg.S1')}`)
             }
             VcumPeriod = 0
           } else {
-            Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+            Swal.fire(`${this.translate.instant('Swal_Msg.S1')}`)
           }
 
           if (PeriodEndDate > EndDate) {
@@ -1660,7 +1660,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
         Swal.fire({
           icon: 'success',
-          title: 'Account Created successfully!',
+          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -1692,7 +1692,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
   updatecheckdata: any
@@ -1826,7 +1826,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         'AC_INTRATE': data.AC_INTRATE,
-        RENEW_TYPE: (data?.RENEW_TYPE).toString()
+        // RENEW_TYPE: (data.RENEW_TYPE).toString(),
+        // RENEW_TYPE_SCHEME: data.RENEW_TYPE_SCHEME,
+        // RENEW_TYPE_ACCOUNTNO: data.RENEW_TYPE_ACCOUNTNO
       })
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
@@ -1887,7 +1889,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
     this.TermDepositMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.ngOnInit()
       this.showButton = true;
       this.updateShow = false;
@@ -1915,8 +1917,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Share master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Share_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1927,8 +1929,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.TermDepositMasterService.deleteData(id).subscribe(data1 => {
           this.termDepositMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1942,8 +1944,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -2066,26 +2068,26 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
 
-              Swal.fire('', 'This Nominee is Already Exists!', 'error');
+              Swal.fire('', `${this.translate.instant('Swal_Msg.Nomi_Exist')}`, 'error');
 
             } else {
 
@@ -2197,13 +2199,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -2286,7 +2288,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.jointID)) {
 
-              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
+              Swal.fire('', `${this.translate.instant('Swal_Msg.Joint_Ac')}`, 'warning');
               this.jointID = null
               this.jointID = ''
               this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -2301,7 +2303,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           }
         }
         else {
-          Swal.fire('', "Please Select Different Customer id", 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
           this.jointID = null
           this.jointID = ''
           this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -2309,14 +2311,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       }
       else {
-        Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.G_CustId')}`, 'warning');
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
         this.resetJointAC()
       }
     } else {
-      Swal.fire('', "Please Select Customer Id", 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -2378,14 +2380,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       }
       else {
-        Swal.fire("Please Select Different Customer id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
         this.resetJointAC()
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -2463,17 +2465,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       DATE_EXPIRY: moment(formVal.DATE_EXPIRY).format('DD/MM/YYYY')
     }
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Power_of_Attorney')}`, 'warning');
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Power_of_Attorney')}`, 'warning');
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Power Of Attorney!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Power_of_Attorney')}`, 'warning');
         }
         else {
           if (this.multiAttorney.find(ob => ob['ATTERONEY_NAME'].toUpperCase() === formVal.ATTERONEY_NAME.toUpperCase())) {
-            Swal.fire('', 'This Attorney is Already Exists!', 'error');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Attorney_Exist')}`, 'error');
           } else {
             this.multiAttorney.push(object);
             this.resetAttorney()
@@ -2533,13 +2535,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
 
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-        Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-          Swal.fire("Please Insert Mandatory Record For Power Of Attorney");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
         }
         else {
           this.multiAttorney[index] = object;
@@ -2800,11 +2802,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
                     VcumPeriod = 3
                   } else if (data.COMPOUND_INT_BASIS == "M") {
                     if (data.COMPOUND_INT_DAYS <= 0) {
-                      Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                      Swal.fire(`${this.translate.instant('Swal_Msg.S1')}`)
                     }
                     VcumPeriod = 0
                   } else {
-                    Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                    Swal.fire(`${this.translate.instant('Swal_Msg.S1')}`)
                   }
 
                   if (PeriodEndDate > EndDate) {
@@ -2886,8 +2888,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
     this.TermDepositMasterService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Term Deposit Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Term_Dep_Approve')}`,
         'success'
       );
       var button = document.getElementById('trigger');
@@ -2908,8 +2910,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
     this.TermDepositMasterService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Term Deposit Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Term_Dep_Reject')}`,
         'success'
       );
 
@@ -2976,7 +2978,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -2997,8 +2999,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
     this.TermDepositMasterService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Term Deposit Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.Term_Dep_Unapprove')}`,
         'success'
       );
       var button = document.getElementById('trigger');

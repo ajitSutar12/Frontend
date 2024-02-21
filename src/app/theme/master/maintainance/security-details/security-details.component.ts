@@ -17,7 +17,6 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-entry.service'
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-security-details',
@@ -87,7 +86,7 @@ export class SecurityDetailsComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private _voucher: VoucherEntryService,
 
-    private config: NgSelectConfig,private translate:TranslateService) {  this.translate.setDefaultLang(environment.setLang);}
+    private config: NgSelectConfig,) { }
   ngOnInit(): void {
     this.createForm()
     let data: any = localStorage.getItem('user');
@@ -839,9 +838,6 @@ export class SecurityDetailsComponent implements OnInit {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
-  }
-  selectLanguage(event:any){
-    this.translate.use(event.target.value);
   }
 
 }

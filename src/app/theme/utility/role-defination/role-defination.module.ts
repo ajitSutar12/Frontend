@@ -8,11 +8,9 @@ import { SharedModule } from '../../../shared/shared.module';
 import { UserDefinationService } from '../user-defination/user-defination.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from "angular-datatables";
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TreeviewModule } from 'ngx-treeview';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -23,15 +21,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     TreeviewModule.forRoot(),
     FormsModule,
     NgSelectModule,
-    DataTablesModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    DataTablesModule
   ],
   declarations: [RoleDefinationComponent],
   providers: [UserDefinationService,
@@ -42,6 +32,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     },]
 })
 export class RoleDefinationModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

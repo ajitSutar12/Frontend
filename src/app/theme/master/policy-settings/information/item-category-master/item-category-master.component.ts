@@ -11,7 +11,6 @@ import { ItemCategoryMasterService } from './item-category-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -71,7 +70,7 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDes
   constructor(
     private http: HttpClient,
     private itemCategoryMasterService: ItemCategoryMasterService,
-    private fb: FormBuilder,private translate:TranslateService) {
+    private fb: FormBuilder) {
 
   }
 
@@ -127,17 +126,17 @@ export class ItemCategoryMasterComponent implements OnInit, AfterViewInit, OnDes
       },
       columns: [
         {
-          title: this.translate.instant('master.Item_Category_Master.Action'),
+          title: 'Action',
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: this.translate.instant('master.Item_Category_Master.code'),
+          title: 'Code',
           data: 'CODE',
         },
         {
-          title: this.translate.instant('master.Item_Category_Master.Description'),
+          title: 'Name',
           data: 'NAME',
         },
 

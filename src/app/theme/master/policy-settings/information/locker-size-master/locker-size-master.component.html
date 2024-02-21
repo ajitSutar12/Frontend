@@ -15,7 +15,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="footer-email" class="form-control" placeholder=" "
-                                        id="SIZE_SR_NO" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        id="SIZE_SR_NO" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         formControlName="SIZE_SR_NO" disabled>
                                     <label for="SIZE_SR_NO">{{'master.Locker_Size_Master.Size_Serial_Number' | translate}}</label>
                                 </span>
@@ -55,8 +55,8 @@
                                 *ngIf="angForm.controls['SIZE_NAME'].invalid && (angForm.controls['SIZE_NAME'].dirty || angForm.controls['SIZE_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['SIZE_NAME'].errors?.pattern || angForm.controls['SIZE_NAME'].errors?.required || angForm.controls['SIZE_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf=" angForm.controls['SIZE_NAME'].errors?.required || angForm.controls['SIZE_NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['RENT'].errors?.pattern || angForm.controls['RENT'].errors?.required">
-                                    This field is required and Input allowed only . 0-9
+                                    <!-- This field is required and Input allowed only . 0-9 -->{{'master.Validation.Val_Receipt'|translate}}
                                 </div>
                             </div>
                         </div>
