@@ -1274,7 +1274,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       this._TDService.postData(dataToSend).subscribe(data => {
         // this.getVoucherData();
-        Swal.fire('Success!', 'Account Closed Successfully !', 'success');
+        const successMessage = `Account Closed Successfully ! <b> Please Note Voucher Number </b> <br> ${data.TRAN_NO}`; 
+        Swal.fire('Success!', successMessage, 'success');
         this.transferTotalAmount = 0
         this.multigrid = []
         this.customerImg = 'assets/images/nouser.png';

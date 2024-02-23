@@ -93,10 +93,9 @@ export class CitiwiseNpaRegComponent implements OnInit {
 
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }
-    })
+      }    })
 
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -163,7 +162,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
     let obj1 = {
       // date: moment(this.fordate).format('DD/MM/YYYY')
       AC_TYPE: this.AC_TYPE,
-      BRANCH_CODE: BRANCH_CODE,
+      BRANCH_CODE: this.ngbranch,
       // branch_code: this.ngbranch,
     }
 
@@ -323,7 +322,10 @@ export class CitiwiseNpaRegComponent implements OnInit {
       {
         flag=0
       }
-         this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName+"'&AC_TYPE='"+ scheme+"'&Npa_Date='"+npaDate+"'&percentZero='"+this.percentZero+"'&percentTen='"+this.percentTen+"'&percentFive='"+this.percentFive+"'&percentTwenty='"+this.percentTwenty+"'&ACNOTYPE='"+schemeName+"'&BRANCH_CODE='"+branch+"'&FROM='"+FROMCT+"'&flag="+flag+"&TO='"+TOCT+"'";
+      if(branch == 0){
+         this.branchName='Consolidate';
+      }
+         this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName+"'&AC_TYPE='"+ scheme+"'&Npa_Date='"+npaDate+"'&percentZero='"+this.percentZero+"'&percentTen='"+this.percentTen+"'&percentFive='"+this.percentFive+"'&percentTwenty='"+this.percentTwenty+"'&ACNOTYPE='"+schemeName+"'&BRANCH_CODE='"+this.ngbranch+"'&FROM='"+FROMCT+"'&flag="+flag+"&TO='"+TOCT+"'";
       console.log(this.iframe5url); 
        this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 

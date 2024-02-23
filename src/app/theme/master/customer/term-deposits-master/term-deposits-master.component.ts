@@ -1050,6 +1050,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       }
     })
+    this.monthDays()
   }
   monthDays() {
     if (this.selectedValue != null) {
