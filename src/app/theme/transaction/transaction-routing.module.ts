@@ -69,14 +69,14 @@ const routes: Routes = [
         path: 'cashDenomination',
         loadChildren: () => import('./cash-denomination/cash-denomination.module').then(m => m.CashDenominationModule)
       },
-      {
-        path: 'passbookPrinting',
-        loadChildren: () => import('./passbook-printing/passbook-printing.module').then(m => m.PassbookPrintingModule)
-      },
-      {
-        path: 'termDepositReceiptPrinting',
-        loadChildren: () => import('./term-deposit-receipt-printing/term-deposit-receipt-printing.module').then(m => m.TermDepositReceiptPrintingModule)
-      },
+      // {
+      //   path: 'passbookPrinting',
+      //   loadChildren: () => import('./passbook-printing/passbook-printing.module').then(m => m.PassbookPrintingModule)
+      // },
+      // {
+      //   path: 'termDepositReceiptPrinting',
+      //   loadChildren: () => import('./term-deposit-receipt-printing/term-deposit-receipt-printing.module').then(m => m.TermDepositReceiptPrintingModule)
+      // },
       {
         path: 'deadStockPurchase',
         loadChildren: () => import('./dead-stock-purchase/dead-stock-purchase.module').then(m => m.DeadStockPurchaseModule)
@@ -105,10 +105,10 @@ const routes: Routes = [
         path: 'cashier',
         loadChildren: () => import('./cashier/cashier.module').then(m =>m.CashierModule)
       },
-      {
-        path: 'voucherPrint',
-        loadChildren: () => import('./voucher-printing/voucher-printing.module').then(m =>m.VoucherPrintingModule)
-      },
+      // {
+      //   path: 'voucherPrint',
+      //   loadChildren: () => import('./voucher-printing/voucher-printing.module').then(m =>m.VoucherPrintingModule)
+      // },
       {
         path: 'cashRecoveryTransaction',
         loadChildren: () => import('./cash-recovery-transaction/cash-recovery-transaction.module').then(m =>m.CashRecoveryTransactionModule)
@@ -121,10 +121,10 @@ const routes: Routes = [
         path: 'inwardRegister',
         loadChildren: () => import('./inward-register/inward-register.module').then(m => m.InwardRegisterModule)
       },
-      {
-        path: 'goldSilverReceipt',
-        loadChildren: () => import('./gold-silver-receipt-print/gold-silver-receipt-print.module').then(m => m.GoldSilverReceiptPrintModule)
-      },
+      // {
+      //   path: 'goldSilverReceipt',
+      //   loadChildren: () => import('./gold-silver-receipt-print/gold-silver-receipt-print.module').then(m => m.GoldSilverReceiptPrintModule)
+      // },
     ]
   }
 ];

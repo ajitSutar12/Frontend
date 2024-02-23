@@ -56,6 +56,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   showRepo:boolean=false;
   todate: any;
   fromdate: moment.Moment;
+  bankacno: any;
 
   constructor(
     private fb: FormBuilder,
@@ -179,6 +180,13 @@ export class BnkLNamtStatementComponent implements OnInit {
     }
   }
 
+  
+  getacdetails(event){
+    this.bankacno = event.bankacno
+    
+    
+  }
+
   src: any;
   View(event) {
      debugger
@@ -214,7 +222,7 @@ export class BnkLNamtStatementComponent implements OnInit {
      let scheme=obj.Scheme_code;
   
  
-    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+this.ngbranch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&endingcode="+ startingcode +"&scheme= "+scheme+
+    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+this.ngbranch+"'&sdate='"+sdate+"'&startingcode='"+this.bankacno +"'&endingcode='"+ this.bankacno +"'&scheme= "+scheme+
                     " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
     this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     

@@ -86,7 +86,7 @@ export class NonNpaRecoveryComponent implements OnInit {
       
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
   
@@ -208,7 +208,10 @@ export class NonNpaRecoveryComponent implements OnInit {
       let Dates =   obj.END_DATE;
       // moment(this.Dates)
       let schemeName = this.tScheme
-  
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
+
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
     //   this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"

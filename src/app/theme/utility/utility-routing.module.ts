@@ -9,14 +9,14 @@ const routes: Routes = [
       status: false
     },
     children: [
-      {
-        path: 'dayBegin',
-        loadChildren: () => import('./day-begin/day-begin.module').then(m => m.DayBeginModule)
-      },
-      {
-        path: 'dayEnd',
-        loadChildren: () => import('./day-end/day-end.module').then(m => m.DayEndModule)
-      },
+      // {
+      //   path: 'dayBegin',
+      //   loadChildren: () => import('./day-begin/day-begin.module').then(m => m.DayBeginModule)
+      // },
+      // {
+      //   path: 'dayEnd',
+      //   loadChildren: () => import('./day-end/day-end.module').then(m => m.DayEndModule)
+      // },
       {
         path: 'backDatedDO',
         loadChildren: () => import('./back-dated-do/back-dated-do.module').then(m => m.BackDatedDOModule)
@@ -25,18 +25,18 @@ const routes: Routes = [
         path: 'receiptPrintingD',
         loadChildren: () => import('./receipt-printing-d/receipt-printing-d.module').then(m => m.ReceiptPrintingDModule)
       },
-      {
-        path: 'holiday',
-        loadChildren: () => import('./holiday/holiday.module').then(m => m.HolidayModule)
-      },
+      // {
+      //   path: 'holiday',
+      //   loadChildren: () => import('./holiday/holiday.module').then(m => m.HolidayModule)
+      // },
       {
         path: 'interestPosting',
         loadChildren: () => import('./interest-posting/interest-posting.module').then(m => m.InterestPostingModule)
       },
-      {
-        path: 'processACM',
-        loadChildren: () => import('./process-acm/process-acm.module').then(m => m.ProcessACMModule)
-      },
+      // {
+      //   path: 'processACM',
+      //   loadChildren: () => import('./process-acm/process-acm.module').then(m => m.ProcessACMModule)
+      // },
       {
         path: 'pigmyMachineProcess',
         loadChildren: () => import('./pigmy-machine-process/pigmy-machine-process.module').then(m => m.PigmyMachineProcessModule)
@@ -49,10 +49,10 @@ const routes: Routes = [
         path: 'whatsappmessages',
         loadChildren: () => import('./send-message/send-message.module').then(m => m.SendMessageModule)
       },
-      {
-        path: 'deadStockP',
-        loadChildren: () => import('./dead-stock-p/dead-stock-p.module').then(m => m.DeadStockPModule)
-      },
+      // {
+      //   path: 'deadStockP',
+      //   loadChildren: () => import('./dead-stock-p/dead-stock-p.module').then(m => m.DeadStockPModule)
+      // },
       {
         path: 'dividend',
         loadChildren: () => import('./dividend/dividend.module').then(m => m.DividendModule)
@@ -109,10 +109,10 @@ const routes: Routes = [
         path: 'remindMe',
         loadChildren: () => import('./remind-me/remind-me.module').then(m => m.RemindMeModule)
       },
-      {
-        path: 'dataBackup',
-        loadChildren: () => import('./backup-data/backup-data.module').then(m => m.BackupDataModule)
-      },
+      // {
+      //   path: 'dataBackup',
+      //   loadChildren: () => import('./backup-data/backup-data.module').then(m => m.BackupDataModule)
+      // },
       {
         path: 'pataSevaSupportR',
         loadChildren: () => import('./pata-seva-support-r/pata-seva-support-r.module').then(m => m.PataSevaSupportRModule)

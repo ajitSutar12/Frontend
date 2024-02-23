@@ -83,7 +83,8 @@
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
                                                         <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
-                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                        "-"
                                                         :
                                                         values?.idmaster?.custAddress[0]?.city?.CITY_NAME }}
                                                         <!-- <div *ngFor="let val of values.idmaster" > 
@@ -146,7 +147,7 @@
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length ==0"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length !=0">
-                                        <div><label style="color: #1e5bc5">Lien Account</label></div>
+                                        <div><label style="color: #f52121">Lien Account</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!dormantac"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="dormantac">
@@ -763,6 +764,9 @@
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_MONTHS==''||
                                                 accountEvent?.AC_MONTHS==null? 0:
                                                 accountEvent?.AC_MONTHS}}</label></span> Months
+                                        <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_DAYS==''||
+                                                accountEvent?.AC_DAYS==null ? 0:accountEvent?.AC_DAYS}}</label></span>
+                                        Days
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Overdue Date : </label></span>
@@ -834,7 +838,8 @@
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
                                                 == 'E'? 'EMI' : (accountEvent?.INSTALLMENT_METHOD == 'R'? 'Reducing' :
                                                 (accountEvent?.INSTALLMENT_METHOD == 'I'? 'Plain' :
-                                                (accountEvent?.INSTALLMENT_METHOD == 'Null'? 'With Interest' :
+                                                (accountEvent?.INSTALLMENT_METHOD == 'Null' ||
+                                                accountEvent?.INSTALLMENT_METHOD == null? 'With Interest' :
                                                 '---')))}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
@@ -857,7 +862,12 @@
                                         <span><label>+ Interest : </label></span>
                                     </div>
                                     <div class="col-sm-1"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.currentInt}}</label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
+                                                == 'E'? 0 :(accountEvent?.INSTALLMENT_METHOD == 'Null' ||
+                                                accountEvent?.INSTALLMENT_METHOD == null? 0 :
+                                                loantransactionData?.currentInt)}}
+                                                <!-- {{loantransactionData?.currentInt}} -->
+                                            </label></span>
                                         <!-- </div>
                                     <div class="col-sm-2"> -->
                                         = <span
@@ -2322,19 +2332,45 @@
                                     <tbody>
                                         <tr *ngFor="let data of productViewArr; let indexOfelement=index;">
                                             <td *ngFor="let ele of data | keyvalue;">{{ele.value}}</td>
-                                            <!-- <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{productTotal | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                        </tr>
+                                        <tr *ngIf="isloanDetails">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>- Interest Received</td>
+                                            <td>{{loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
+                                        </tr>
+                                        <tr *ngIf="isloanDetails">
                                             <td></td>
-                                            <td></td> -->
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total Interest</td>
+                                            <td>{{productTotal-loanreceivedInterest | number: '1.2-2'}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>

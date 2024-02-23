@@ -21,61 +21,61 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class BnkGLConsistRepoComponent implements OnInit {
   showRepo: boolean = false;
   printpenal: boolean = false;
-  iframeurl : any = ' ';
-  clicked:boolean=false;
-// Created Form Group
-angForm: FormGroup;
- //Dropdown option variable
- branchOption: any;
- ngbranch: any = null;
- ngscheme: any = null;
- schemetype: any = null
- defaultDate: any;
- maxDate: Date;
- minDate: Date;
- bsValue = new Date();
- allSchemeCode:any;
- report_url = environment.report_url;
+  iframeurl: any = ' ';
+  clicked: boolean = false;
+  // Created Form Group
+  angForm: FormGroup;
+  //Dropdown option variable
+  branchOption: any;
+  ngbranch: any = null;
+  ngscheme: any = null;
+  schemetype: any = null
+  defaultDate: any;
+  maxDate: Date;
+  minDate: Date;
+  bsValue = new Date();
+  allSchemeCode: any;
+  report_url = environment.report_url;
 
-  constructor( private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter:SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
     private voucherservice: VoucherEntryService,
-    private sanitizer: DomSanitizer, ) { 
-      this.defaultDate = moment().format('DD/MM/YYYY');
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
-    }
+    private sanitizer: DomSanitizer,) {
+    this.defaultDate = moment().format('DD/MM/YYYY');
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm();
- //branch List
+    //branch List
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-        var schemetype = data.filter(function (scheme) {
-          return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'AG' || scheme.name == 'LK'|| scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'IV' || scheme.name == 'GL' )
-        });
-        this.schemetype = schemetype;
+      var schemetype = data.filter(function (scheme) {
+        return (scheme.name == 'SB' || scheme.name == 'CA' || scheme.name == 'GS' || scheme.name == 'PG' || scheme.name == 'TD' || scheme.name == 'LN' || scheme.name == 'AG' || scheme.name == 'LK' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'SH' || scheme.name == 'IV' || scheme.name == 'GL')
+      });
+      this.schemetype = schemetype;
     });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.defaultDate = data.CURRENT_DATE;
     })
-    
-    this.voucherservice.getSchemeCodeList().subscribe(data=>{
+
+    this.voucherservice.getSchemeCodeList().subscribe(data => {
       this.allSchemeCode = [...new Map(data.map(item => [item['S_ACNOTYPE'], item])).values()]
       this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));
       let obj = {
-        "S_ACNOTYPE" : 'ALL'
+        "S_ACNOTYPE": 'ALL'
       }
       this.allSchemeCode.unshift(obj);
       console.log(this.allSchemeCode);
-    },err=>{
+    }, err => {
       console.log(err);
     })
   }
@@ -95,12 +95,12 @@ angForm: FormGroup;
   }
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE:["",[Validators.pattern, Validators.required]],
-      S_ACNOTYPE:["",[Validators.pattern, Validators.required]],
+      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
+      S_ACNOTYPE: ["", [Validators.pattern, Validators.required]],
       REPOTYPE: [""],
       Print: [""],
       Penal: [""],
-      OPENINGDATE:["",[Validators.pattern, Validators.required]],
+      OPENINGDATE: ["", [Validators.pattern, Validators.required]],
     });
 
     let data: any = localStorage.getItem('user');
@@ -114,8 +114,8 @@ angForm: FormGroup;
       this.ngbranch = result.branch.id
     }
   }
-  printpay(){
-    this.printpenal=true;
+  printpay() {
+    this.printpenal = true;
   }
   view(event) {
     // debugger
@@ -124,18 +124,18 @@ angForm: FormGroup;
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
-    
+
     if (this.angForm.valid) {
 
       this.showRepo = true;
       let obj = this.angForm.value
       // let sdate = moment(obj.OPENINGDATE).format('DD/MM/YYYY');
 
-      let sdate:any;
+      let sdate: any;
       if (this.defaultDate == obj.OPENINGDATE) {
-        sdate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        sdate = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        sdate = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        sdate = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
       let schemed = obj.S_ACNOTYPE;
@@ -143,14 +143,14 @@ angForm: FormGroup;
       let schemewise = obj.REPOTYPE;
       let print = obj.Print;
       let penal = obj.Penal;
-  
-      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branch='"+this.ngbranch +"'&schemed='"+schemed+"'&schemewise='"+schemewise+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
+
+      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branch='"+this.ngbranch +"'&schemed='"+schemed+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -164,6 +164,6 @@ angForm: FormGroup;
     this.angForm.controls.S_ACNOTYPE.reset();
     this.angForm.controls.REPOTYPE.reset();
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
 }
