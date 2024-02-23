@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Loan Overdue List</h5>
+            </div>
+            <div class="card-block">
+                <div class="col-md-12">
+                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+                        <ul class="basic-list">
+                            
+                           <li>
+                                <h6> <a (click)="OpenLink(2)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': accountwiseTrue}" class="text-right f-w-600" id="pointer">1. Accountwise Loan Overdue Report</a></h6>
+                            </li>
+                           
+                            <li>
+                                <h6> <a (click)="OpenLink(3)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': installmentwiseTrue}" class="text-right f-w-600" id="pointer">2. Installmentwise Loan Over due Report</a></h6>
+                            </li>
+                        
+                             <!-- <li>
+                                <h6> <a (click)="OpenLink(8)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': directorrecommendedTrue}" class="text-right f-w-600" id="pointer">3. Directorwise Recommended Report </a></h6>
+                            </li>   -->
+                      
+                            <li>
+                                <h6> <a (click)="OpenLink(10)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': loanduelistbetnTrue}" class="text-right f-w-600" id="pointer">3. Loan Due List Between Two Dates</a></h6>
+                            </li>
+                            <li>
+                                <h6> <a (click)="OpenLink(11)" routerLink="/reports/loan-reports/loan-overdue-list" routerLinkActive="active" [ngClass]="{'isActive': loanduelistbetnTwoOpenTrue}" class="text-right f-w-600" id="pointer">4. Loan Due List Between Two Open Dates</a></h6>
+                            </li>
+                            <li>
+                          
+                            
+                        </ul>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="card-block">
+            
+               <div *ngIf="accountwiseTrue">
+                <app-acwise-loanoverdue-list></app-acwise-loanoverdue-list>
+            </div>
+              <div *ngIf="installmentwiseTrue">
+                <app-instwise-loanoverdue-list></app-instwise-loanoverdue-list>
+            </div>
+            <!-- <div *ngIf="directorrecommendedTrue">
+                
+                <app-recommended-directorwise></app-recommended-directorwise>
+           </div> -->
+             
+            <div *ngIf="loanduelistbetnTrue">
+                <app-loan-due-list-btd></app-loan-due-list-btd>
+            </div>
+            <div *ngIf="loanduelistbetnTwoOpenTrue">
+                <app-loan-due-list-btod></app-loan-due-list-btod>
+            </div>
+         
+        
+        </div>
+
+    </div>
+</div>

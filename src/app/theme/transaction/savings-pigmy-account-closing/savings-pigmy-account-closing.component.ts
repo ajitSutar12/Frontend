@@ -351,6 +351,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
           this.transferAcno = data;
         })
         break;
+      case 'GL':
+        this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
+          this.transferAcno = data;
+        })
+        break;
     }
   }
 
@@ -459,6 +464,11 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       }
       else if (Number(data[0].ledgerBal) >= 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
+        this.accountedit = null
+        return
+      } 
+      else if (data[0].ISLIEN == true) {
+        Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
         this.accountedit = null
         return
       }

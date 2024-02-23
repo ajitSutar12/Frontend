@@ -249,6 +249,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   minDate: Date;
   intInstructionObject
   logDate
+  renewtypescheme
+  renewtypeaccountno
+  ngrenewtypescheme
+  ngrenewtypeaccountno
+  showrenewdetails: boolean = false
+  showrenewacctr: boolean = false
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -419,6 +425,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
     this.SchemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.SchemeCodeDropdownDropdown = data;
+      this.renewtypescheme = data.filter(function (schem) {
+        return (schem.name == 'SB')
+      });
     })
     this.CastMasterService.getcastList().pipe(first()).subscribe(data => {
 
@@ -564,9 +573,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
 
-      AGENT_BRANCH: [],
+      AGENT_BRANCH: [], 
       AGENT_ACTYPE: [],
       AGENT_ACNO: [],
+
+      RENEW_TYPE: [1],
+      RENEW_TYPE_SCHEME: [],
+      RENEW_TYPE_ACCOUNTNO: []
     });
 
     let data: any = localStorage.getItem('user');
@@ -1037,6 +1050,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       }
     })
+    this.monthDays()
   }
   monthDays() {
     if (this.selectedValue != null) {
@@ -1522,7 +1536,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   // Method to insert data into database through NestJS
   submit() {
-    console.log(this.receiptNo);
+    // console.log(this.receiptNo);
 
     this.formSubmitted = true;
     if (this.angForm.valid) {
@@ -1595,6 +1609,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_ASON_DATE': asondate,
         // 'AC_ASON_DATE': (formVal.AC_ASON_DATE == '' || formVal.AC_ASON_DATE == 'Invalid date') ? asondate = '' : asondate = moment(formVal.AC_ASON_DATE).format('DD/MM/YYYY'),
         'AC_MONTHS': formVal.AC_MONTHS,
+        'AC_DAYS': formVal.AC_DAYS,
         'AC_EXPDT': expiry,
         // 'AC_EXPDT': (formVal.AC_EXPDT == '' || formVal.AC_EXPDT == 'Invalid date') ? maturitydate = '' : maturitydate = moment(formVal.AC_EXPDT).format('DD/MM/YYYY'),
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
@@ -1633,6 +1648,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AGENT_BRANCH': formVal.AGENT_BRANCH,
         'AGENT_ACTYPE': formVal.AGENT_ACTYPE,
         'AGENT_ACNO': formVal.AGENT_ACNO,
+        RENEW_TYPE: formVal.RENEW_TYPE,
+        RENEW_TYPE_SCHEME: formVal.RENEW_TYPE_SCHEME,
+        RENEW_TYPE_ACCOUNTNO: formVal.RENEW_TYPE_ACCOUNTNO
       }
       // console.log(dataToSend)
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
@@ -1732,6 +1750,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.ngOperation = data.AC_OPR_CODE
       this.ngIntCategory = data.AC_INTCATA
       this.selectedValue = data.AC_TYPE
+      data.REQ_RENEW == 1 ? this.showrenewdetails = true : this.showrenewdetails = false
+      this.getrenewtransfertype(data.RENEW_TYPE)
       this.SchemeCodeDropdownService.getSchemeCodeList(this.agentSchemeCode).pipe(first()).subscribe(data1 => {
         var filtered = data1.filter(function (AGscheme) {
 
@@ -1758,6 +1778,17 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             break;
         }
       }
+      if ((data.RENEW_TYPE_SCHEME != null && data.RENEW_TYPE_SCHEME != null) || (data.RENEW_TYPE_SCHEME != "" && data.RENEW_TYPE_SCHEME != "")) {
+        this.ngrenewtypescheme = Number(data.RENEW_TYPE_SCHEME)
+        let data1: any = localStorage.getItem('user');
+        let result = JSON.parse(data1);
+        let branchCode = result.branch.id;
+        let obj = [this.ngrenewtypescheme, branchCode]
+        this.schemeAccountNoService.getSavingSchemeList1(obj).subscribe(data2 => {
+          this.renewtypeaccountno = data2;
+          this.ngrenewtypeaccountno = data.RENEW_TYPE_ACCOUNTNO
+        })
+      }
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
@@ -1771,6 +1802,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // 'AC_CATG': data.AC_CATG,
         // AC_INTCATA: data.AC_INTCATA,
         'AC_MONTHS': data.AC_MONTHS,
+        'AC_DAYS': data.AC_DAYS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         // 'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
         'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
@@ -1790,6 +1822,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         'AC_INTRATE': data.AC_INTRATE,
+        RENEW_TYPE: (data?.RENEW_TYPE).toString()
       })
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
@@ -2987,6 +3020,36 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         })
         break;
     }
+  }
+
+  getrenewtype(event) {
+    if (event.target.checked) {
+      this.showrenewdetails = true
+    }
+    else {
+      this.showrenewdetails = false
+    }
+  }
+  getrenewtransfertype(value) {
+    if (value == 1) {
+      this.showrenewacctr = false
+      this.ngrenewtypeaccountno = null
+      this.ngrenewtypescheme = null
+    }
+    else {
+      this.showrenewacctr = true
+    }
+  }
+
+  getSavingAccountTransferlist() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = [this.ngrenewtypescheme, branchCode]
+    this.schemeAccountNoService.getSavingSchemeList1(obj).subscribe(data => {
+      this.renewtypeaccountno = data;
+      this.ngrenewtypeaccountno = null
+    })
   }
 
 }

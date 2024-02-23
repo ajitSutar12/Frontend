@@ -170,6 +170,7 @@ export class VoucherEntryComponent implements OnInit {
   loginUser: any;
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
+  DayOpBalance: string;
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -243,24 +244,39 @@ export class VoucherEntryComponent implements OnInit {
       this.narrationList = data;
     })
 
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.selectedBranch = result.branch.id
+      this.angForm.controls['branch_code'].enable()
+      this.branchCode = result.branch.CODE
+    }
+    else {
+      this.angForm.controls['branch_code'].disable()
+      this.selectedBranch = result.branch.id
+      this.branchCode = result.branch.CODE
+      this.angForm.patchValue({
+        'branch_code': result.branch.id
+      })
+    }
 
   }
 
   isShow: boolean = false
   submitbtnshow: boolean = true
-  printData(data: any) {
-    this.isShow = true
-    this.submitbtnshow = false
-    let obj = data
-    let branch = obj.BRANCH_CODE
-    let voucherNo = obj.TRAN_NO
-    let voucherType = obj.TRAN_SOURCE_TYPE
-    let tran_type = obj.TRAN_TYPE
-    this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
-    // console.log(this.iframe5url);
-    this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    this.showRepo = true
-  }
+  // printData(data: any) {
+  //   this.isShow = true
+  //   this.submitbtnshow = false
+  //   let obj = data
+  //   let branch = obj.BRANCH_CODE
+  //   let voucherNo = obj.TRAN_NO
+  //   let voucherType = obj.TRAN_SOURCE_TYPE
+  //   let tran_type = obj.TRAN_TYPE
+  //   this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
+  //   // console.log(this.iframe5url);
+  //   this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  //   this.showRepo = true
+  // }
 
   close() {
     this.isShow = false
@@ -304,21 +320,7 @@ export class VoucherEntryComponent implements OnInit {
       bank: [''],
       Intdate: ['']
     })
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.selectedBranch = result.branch.id
-      this.angForm.controls['branch_code'].enable()
-      this.branchCode = result.branch.CODE
-    }
-    else {
-      this.angForm.controls['branch_code'].disable()
-      this.selectedBranch = result.branch.id
-      this.branchCode = result.branch.CODE
-      this.angForm.patchValue({
-        'branch_code': result.branch.id
-      })
-    }
+   
   }
 
   resetscheme() {
@@ -488,7 +490,8 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom
+      date: addInFrom , 
+      branch : this.branchCODE
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -599,15 +602,17 @@ export class VoucherEntryComponent implements OnInit {
             icon: 'success',
             title: 'Voucher update Successfully!',
             html:
-              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>', 
             showCancelButton: true, //true
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#3085d6',
+
             confirmButtonText: 'Print',
+
             cancelButtonText: 'OK'
           }).then((result) => {
             if (result.isConfirmed == true) {
-              this.printData(data);
+              // this.printData(data);
             }
           });
           this.angForm.controls['temp_over_draft'].reset()
@@ -748,15 +753,11 @@ export class VoucherEntryComponent implements OnInit {
       { FieldAmount: 'OTHER10_AMOUNT' }
     ]
     let date = this.date;
-    // var rowData = date.split('/');
+    var rowData = date.split('/');
     // let lastdate = Number(rowData[0]) - 1;
     // // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
-    // let firstdate
-    // if (lastdate < 10) {
-    //   firstdate = '0' + lastdate
-    // }
-    // this.IntersetHeadDate = firstdate.toString() + '/' + rowData[1] + '/' + rowData[2];
-    this.IntersetHeadDate = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
+    // this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+    this.IntersetHeadDate  = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
 
     this._service.getHeadDetails(obj).subscribe(data => {
       // debugger
@@ -1142,7 +1143,9 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch : this.branchCODE
+
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -1359,7 +1362,7 @@ export class VoucherEntryComponent implements OnInit {
   checkSanctionAmountWithAmount() {
     // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
     let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
-    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && this.Submitscheme.IS_GOLD_LOAN != '1' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({
@@ -2609,7 +2612,9 @@ export class VoucherEntryComponent implements OnInit {
       let obj = {
         scheme: this.Submitscheme.S_APPL,
         acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-        date: addInFrom
+        date: addInFrom,
+        branch : this.branchCODE
+
       }
       this._service.getpigmychartBalance(obj).subscribe(data2 => {
         console.log(data2, 'pigmy');
@@ -2634,14 +2639,16 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch : this.branchCode
+
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
 
       //debugger
       this.DayOpBal = Math.abs(data);
-      this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+      this.DayOpBalance = Number(this.DayOpBal).toFixed(2)
       if (data < 0) {
         this.extensionopenbal = 'Cr'
       } else {
@@ -2732,7 +2739,7 @@ export class VoucherEntryComponent implements OnInit {
   }
   branchCODE
   getBranch(ele) {
-    this.branchCODE = ele.name
+    this.branchCODE = ele
     this.selectedScheme = null
     this.selectedAccountno = null
     this.introducerACNo = []

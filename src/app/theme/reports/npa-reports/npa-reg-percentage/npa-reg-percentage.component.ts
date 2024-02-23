@@ -1,5 +1,5 @@
 
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { CommonModule, formatDate } from '@angular/common';
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { Router } from "@angular/router";
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
@@ -21,6 +21,7 @@ import { ReportFrameComponent } from "../../report-frame/report-frame.component"
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { event } from "jquery";
 
 
 @Component({
@@ -30,245 +31,285 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 })
 export class NpaRegPercentageComponent implements OnInit {
 
-    iframe5url:any='';
-    @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
+  iframe5url: any = '';
+  @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
   formSubmitted = false;
   ngCity: any = null
-  radioValue: boolean = false;  
-  Selection: boolean = false;  
+  // radioValue: boolean = false;  
+  Selection: boolean = false;
   isChecked: boolean = true;
   url = environment.base_url;
-  
+
   //fromgroup
-  ngForm:FormGroup
-  selectcity:any=new Array();
-  Ecity:any;
-  Scity:any;
-  startcity:any;
-  endcity:any;
-   // for dropdown ng module
-   fromdate: any = null
-   ngbranch: any = null; 
-   scode: any = null;
-   //ngfor
-   scheme: any[];
+  ngForm: FormGroup
+  selectcity: any = new Array();
+  Ecity: any;
+  Scity: any;
+  startcity: any;
+  endcity: any;
+  // for dropdown ng module
+  fromdate: any = null
+  ngbranch: any = null;
+  scode: any = null;
+  //ngfor
+  scheme: any[];
   branchOption: any[];
-  clicked:boolean=false;
+  clicked: boolean = false;
   showRepo: boolean = false;
-  showLoading:boolean = false;
+  showLoading: boolean = false;
   transferSchemeDetails: any;
   tScheme
-  
-   //date
+
+  radioValue: string = 'allacc';
+  //date
   todate: any = null
   bsValue = new Date();
-  nasf:any
-  
+  nasf: any
+
   maxDate: Date;
-    minDate: Date;
-    report_url = environment.report_url;
-    branchName: any;
+  minDate: Date;
+  report_url = environment.report_url;
+  branchName: any;
   glDetails: any;
   fordate: Date;
-  
-    constructor(
-      private fb: FormBuilder,
-      private _ownbranchmasterservice: OwnbranchMasterService,
-      private systemParameter:SystemMasterParametersService,
-      public schemeCodeDropdownService: SchemeCodeDropdownService,
-      private sanitizer: DomSanitizer,
-      private http: HttpClient,
-     
-    ) {
-      this.todate = moment().format('31/03/2024');
-      this.fordate = new Date('31/03/2024');
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1); 
-      this.maxDate.setDate(this.maxDate.getDate())
-    }
-  
-    ngOnInit(): void {
-      this.createForm()
-     //branchlist
-     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+  branchno: any;
+  AC_TYPE: any;
+  AC_ACNOTYPE: any;
+  npa_per = '1'
+  reportDate: any;
+  constructor(
+    private fb: FormBuilder,
+    private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+    public schemeCodeDropdownService: SchemeCodeDropdownService,
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
+
+  ) {
+    this.todate = moment().format('31/03/2024');
+    this.fordate = new Date('31/03/2024');
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
+
+  ngOnInit(): void {
+    this.createForm()
+    //branchlist
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-      console.log(this.branchOption,"sjhjd");
-      
+      console.log(this.branchOption, "sjhjd");
+
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
-  
-   // Scheme Code
-   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-      
-    var filtered = data.filter(function (scheme) {
-      return ( scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
-    });
-    this.scheme = filtered;
-   
-    // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    //   this.todate = data.CURRENT_DATE;
-    // });
-  
-  })
-  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data1 => {
-      
-   console.log(data1);
-   
-    // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    //   this.todate = data.CURRENT_DATE;
-    // });
-  
-
-  })
-  
-  
-  this.systemParameter.getFormData(1).subscribe(data => {
-    let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-    this.todate = data.CURRENT_DATE
-    
-    this.fromdate = moment(`31/03/${year - 1}`, "DD/MM/YYYY")
-    this.fromdate = this.fromdate._d
-  })
-    
-    let data: any = localStorage.getItem('user');
-      let result = JSON.parse(data);
-      if (result.RoleDefine[0].Role.id == 1) {
-        this.ngbranch = result.branch.id
-        this.ngForm.controls['BRANCH_CODE'].enable()
-        this.branchName = result.branch.NAME
-  
       }
-      else {
-        this.ngForm.controls['BRANCH_CODE'].disable()
-        this.ngbranch = result.branch.id
-        this.branchName = result.branch.NAME
-  
-      }
+    })
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
-
- 
-    
-    }
-    datas
-  
-    getTransferAccountList(event) {
-      this.transferSchemeDetails = event
-      this.tScheme = event.name
-    
-    }
-   
-    createForm() {
-      this.ngForm = this.fb.group({
-        BRANCH_CODE: ['', [Validators.required]],
-        Scheme_code: ["",[ Validators.required]],
-        END_DATE: ['', [Validators.required]],
-        OD_TEMP: [''],
-        Non_Standard: [''],
-        Standard: [''],
-        NPA_Date: [''],
-       
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'DS');
       });
-      
-    }
-    getnpa(event:any){
-      let obj1 = {
+      this.scheme = filtered;
 
-        date:  moment(this.fordate).format('DD/MM/YYYY')
-       
-        // branch_code: this.ngbranch,
-        
+      // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      //   this.todate = data.CURRENT_DATE;
+      // });
 
-      }
-      this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-        this.glDetails = data
-   
-            console.log(this.glDetails, "dasds")
-        })
+    })
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data1 => {
 
-    }
-    
-    view(event){
-     
-  
-      event.preventDefault();
-      this.formSubmitted = true;
-  
-      let userData = JSON.parse(localStorage.getItem('user'));
-      let bankName = userData.branch.syspara.BANK_NAME;
-      let branchName = userData.branch.NAME;
-  
-  
-      if(this.ngForm.valid){
-  
-     this.showRepo = true;
-   
-      let obj = this.ngForm.value
-        let cityCode = obj.AC_CTCODE;
-  
-      let Date = moment(obj.date).format('DD/MM/YYYY');
-      let tDate = moment(Date, 'DD/MM/YYYY')
-        //for start date
-        if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
-        {
-          obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
-        }
-        else{
-        let date = moment(this.fromdate).format('DD/MM/YYYY');
-        let toDate = moment(date, 'DD/MM/YYYY')
-        obj['START_DATE']=date 
-      }
-     //for end date
-      if(this.todate == userData.branch.syspara.CURRENT_DATE)
-      {
-        obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
-      }
-      else{
-      let date = moment(this.todate).format('DD/MM/YYYY');
-      let tDate = moment(date, 'DD/MM/YYYY')
-      obj['END_DATE']=date 
-     }
-  
-    let scheme = obj.Scheme_code
-  
-      let branch = obj.BRANCH_CODE;
-  
-      let schemeName = this.tScheme
-  
-      //  let startingcode= obj.Starting_Account;
-      // let endingcode =obj.Ending_Account;
-      this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+this.ngbranch+"'"
-    console.log(this.iframe5url); 
-     this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+      console.log(data1);
+
+      // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      //   this.todate = data.CURRENT_DATE;
+      // });
+
+
+    })
+
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      this.todate = data.CURRENT_DATE
+
+      this.fromdate = moment(`31/03/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
+    })
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = result.branch.NAME
+
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
-    }
-    close(){
-      this.resetForm()
-  
-    }
-    onLoad(){
-      this.showLoading = false;
-  
-    }
-    resetForm() {
-    this.ngForm.controls.Scheme_code.reset();
-  
-      this.showRepo = false;
-      this.clicked=false;
-    }
-    onFocus(ele: NgSelectComponent) {
-      ele.open()
-    }
-    
-    getBranch(event) {
-      this.ngbranch = event.value
-      this.branchName = event.branchName
-    }
-    
   }
+  datas
+
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.AC_ACNOTYPE = event.name
+    this.AC_TYPE = event.value
+
+    let data1: any = localStorage.getItem('user');
+    let result1 = JSON.parse(data1);
+    let BRANCH_CODE = result1.branch.id;
+    let obj1 = {
+      // date: moment(this.fordate).format('DD/MM/YYYY')
+      AC_TYPE: this.AC_TYPE,
+      BRANCH_CODE: this.ngbranch,
+      // branch_code: this.ngbranch,
+    }
+
+    console.log(obj1)
+    // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
+    // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
+    this.http.post('http://localhost:7276/npa-classification-master/data', obj1).subscribe((data) => {
+      this.glDetails = data
+
+      console.log(this.glDetails)
+    })
+
+  }
+
+  createForm() {
+    this.ngForm = this.fb.group({
+      BRANCH_CODE: ['', [Validators.required]],
+      Scheme_code: ["", [Validators.required]],
+      END_DATE: ['', [Validators.required]],
+      from: [''],
+      to: [''],
+      NPA_Date: [''],
+      OD_TEMP: [''],
+      npa_per: ['1'],
+      checkboxValue: ['']
+    });
+
+  }
+  getDate(event) {
+    this.reportDate = event.REPORT_DATE
+  }
+
+  percentZero
+  percentTen
+  percentFive
+  percentTwenty
+  percentageDetail(event) {
+
+    let obj = {
+      "REPORT_DATE": this.reportDate
+    }
+
+    this.http.post('http://localhost:7276/npa-classification-master/percentage', obj).subscribe((data) => {
+      this.glDetails = data
+      this.percentZero = data[0].NPA_PERCENTAGE,
+        this.percentTen = data[1].NPA_PERCENTAGE,
+        this.percentFive = data[2].NPA_PERCENTAGE,
+        this.percentTwenty = data[3].NPA_PERCENTAGE,
+
+
+
+        console.log(this.glDetails)
+    })
+  }
+  view(event) {
+    event.preventDefault();
+    this.formSubmitted = true;
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
+    this.branchno = userData.branch.CODE
+    if (this.radioValue === 'allacc') {
+      // if (this.ngForm.valid) {
+      this.showRepo = true;
+      let obj = this.ngForm.value
+
+      let scheme = obj.Scheme_code
+      let branch = obj.BRANCH_CODE;
+      let AC_ACNOTYPE = this.AC_ACNOTYPE;
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
+      let flag = obj.npa_per;
+      let flag1 = obj.checkboxValue;
+      if (flag == true) {
+        flag = 1
+      }
+      if (flag1 == true) {
+        flag1 = 1
+      }
+      if (branch == 0) {
+        this.branchName = 'Consolidate';
+      }
+      //  let startingcode= obj.Starting_Account;
+      // let endingcode =obj.Ending_Account;
+      this.iframe5url = this.report_url + "examples/transactionless.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Npa_Date='" + npaDate + "'&percentZero='" + this.percentZero + "'&percentTen='" + this.percentTen + "'&percentFive='" + this.percentFive + "'&percentTwenty='" + this.percentTwenty + "'&AC_TYPE='" + scheme + "'&ACNOTYPE='" + AC_ACNOTYPE + "'&FLAG=" + flag + "&FLAG1=" + flag1 + "&BRANCH_CODE='" + this.ngbranch + "'"
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    // }
+    else if (this.radioValue == 'betamt' || this.radioValue === 'betbal') {
+      // if (this.ngForm.valid) {
+      this.showRepo = true;
+      let obj = this.ngForm.value
+      let scheme = obj.Scheme_code
+      let branch = obj.BRANCH_CODE;
+      let AC_ACNOTYPE = this.AC_ACNOTYPE;
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
+      let from = obj.from
+      let to = obj.to;
+
+      let flag;
+      if (this.radioValue == 'betamt') {
+        flag = 0;
+      }
+      else if (this.radioValue == 'betbal') {
+        flag = 1
+      }
+
+      this.iframe5url = this.report_url + "examples/nparegister1.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Npa_Date='" + npaDate + "'&AC_TYPE='" + scheme + "'&percentZero='" + this.percentZero + "'&percentTen='" + this.percentTen + "'&percentFive='" + this.percentFive + "'&percentTwenty='" + this.percentTwenty + "'&ACNOTYPE='" + AC_ACNOTYPE + "'&From=" + from + "&To=" + to + "&BRANCH_CODE='" + this.ngbranch + "'&radioValue='" + this.radioValue + "'&flagRadio=" + flag + "";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
+
+  }
+  close() {
+    this.resetForm()
+
+  }
+  onLoad() {
+    this.showLoading = false;
+
+  }
+  resetForm() {
+    this.ngForm.controls.Scheme_code.reset();
+
+    this.showRepo = false;
+    this.clicked = false;
+  }
+  onFocus(ele: NgSelectComponent) {
+    ele.open()
+  }
+
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
+
+}

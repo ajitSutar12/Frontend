@@ -195,7 +195,7 @@
                                     <input appTheme style="text-align: right;" type="text" name="AC_DAYS"
                                         class="form-control" placeholder=" " id="AC_DAYS" required pattern="^[0-9]+$"
                                         title="Input allowed only 0-9"  (change)="CheckmonthDays()"
-                                        (ngModelChange)="setMaturityDate()"
+                                        
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_DAYS">
                                     <label for="AC_DAYS">Days <sub class="required">*</sub></label>

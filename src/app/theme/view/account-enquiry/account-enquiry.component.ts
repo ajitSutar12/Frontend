@@ -207,8 +207,9 @@ export class AccountEnquiryComponent implements OnInit {
     this.dormantac = false
     this.REBATE_INTRATE = 0
     this.transactionData = null
+    this.IS_WEEKLY_REPAY = false
   }
-
+  IS_WEEKLY_REPAY
   schemechange(event) {
     this.schemeACNo = null
     this.accountedit = null
@@ -226,6 +227,7 @@ export class AccountEnquiryComponent implements OnInit {
     this.transactionData = null
     this.REBATE_INTRATE = event.rebateRate == undefined ? 0 : Number(event.rebateRate)
     this.IsLedgerView = false
+    this.IS_WEEKLY_REPAY = event.IS_WEEKLY_REPAY == '1' ? true : false
     event.schemeMethod == 'SimpleasperSharesClosingBalance' ? this.isrecurringScheme = true : this.isrecurringScheme = false
     this.getAccountlist()
   }
@@ -670,11 +672,14 @@ export class AccountEnquiryComponent implements OnInit {
 
   //get account details
   getAccountDetails(event) {
+    this.viewView(event)
+
     this.accountEvent = event
     this.customerIDArr = null
-    console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)
+    // console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)
     this.accountData = event
     this.IsLedgerView = false
+    this.loanreceivedInterest = 0
     if (this.getschemename == 'GL') {
       this.accountData = null
       this.transactionData = null
@@ -706,7 +711,18 @@ export class AccountEnquiryComponent implements OnInit {
         this.http.get(this.url + '/system-master-parameters/' + 1).subscribe(data => {
           let date = this.accountEvent.AC_OPEN_OLD_DATE == '' || this.accountEvent.AC_OPEN_OLD_DATE == null ? moment(this.accountEvent.AC_SANCTION_DATE, "DD/MM/YYYY") : moment(this.accountEvent.AC_OPEN_OLD_DATE, "DD/MM/YYYY")
           let sysparaCurrentDate = moment(data['CURRENT_DATE'], "DD/MM/YYYY");
-          this.accountEvent['totalInstallment'] = sysparaCurrentDate.diff(date, 'months');
+          if (this.IS_WEEKLY_REPAY) {
+            let days = sysparaCurrentDate.diff(date, 'days')
+            let weeks = days / 7
+            this.accountEvent['totalInstallment'] = this.roundoff(weeks, 30);
+          }
+          else {
+            this.accountEvent['totalInstallment'] = sysparaCurrentDate.diff(date, 'months');
+          }
+        })
+
+        this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+          this.loanreceivedInterest = Number(data)
         })
       }
       else {
@@ -844,15 +860,17 @@ export class AccountEnquiryComponent implements OnInit {
           this.SHtransactionData = null
           this.loantransactionData = data
           this.GLtransactionData = null
-          this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(this.loantransactionData.currentInt)
+          let interest = this.accountEvent?.INSTALLMENT_METHOD == 'E' ? 0 : (this.accountEvent?.INSTALLMENT_METHOD == 'Null' || this.accountEvent?.INSTALLMENT_METHOD == null ? 0 : this.loantransactionData?.currentInt)
+          // this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(this.loantransactionData.currentInt)
+          this.totalInterest = Number(this.accountEvent.AC_INSTALLMENT) + Number(interest)
           this.loanTotalInterest = Number(this.loantransactionData.penalInt) + Number(this.loantransactionData.receiveablePenal) + Number(this.loantransactionData.overdueInt) + Number(this.loantransactionData.payableInt) + Number(this.loantransactionData.currentInt)
           this.loanTotalReceivable = Number(this.loanTotalInterest) + Number(this.loantransactionData.otherReceivedAmount) + Number(this.loantransactionData.totalClosingBalforLoan)
           this.loanTotalReceivable = Math.abs(this.loanTotalReceivable)
           this.rebateIntrest = Math.round((Number(this.loantransactionData.rebateAmount) * Number(this.REBATE_INTRATE)) / 100)
-          let wholeNumber = Number(this.loantransactionData.dueBalance) / Number(this.accountEvent?.AC_INSTALLMENT)
+          let wholeNumber = Number(this.accountEvent?.AC_INSTALLMENT) == 0 ? 0 : Number(this.loantransactionData.dueBalance) / Number(this.accountEvent?.AC_INSTALLMENT)
           // wholeNumber = 10.01
           let wholeNumber1 = Math.round(wholeNumber)
-          let fractionNumber = Number(this.loantransactionData.dueBalance) % Number(this.accountEvent?.AC_INSTALLMENT)
+          let fractionNumber = Number(this.accountEvent?.AC_INSTALLMENT) == 0 ? 0 : Number(this.loantransactionData.dueBalance) % Number(this.accountEvent?.AC_INSTALLMENT)
           let dueInstall = fractionNumber > 0 ? wholeNumber1 + 1 : wholeNumber1
           this.dueInstallmentLoan = this.loantransactionData == null ? 0 : dueInstall
           // this.dueInstallmentLoan = this.loantransactionData == null ? 0 : Number(this.loantransactionData.dueBalance) / Number(this.accountEvent?.AC_INSTALLMENT)
@@ -897,6 +915,8 @@ export class AccountEnquiryComponent implements OnInit {
   customerIDArr = []
   goldsilverArr = []
   productViewArr = []
+  productTotal = 0
+  loanreceivedInterest = 0
   accountInfoArr = []
   IsJointView: boolean = false
   IsNomineeView: boolean = false
@@ -1410,6 +1430,7 @@ export class AccountEnquiryComponent implements OnInit {
       })
     }
     else if (view == 'productview') {
+      this.productTotal = 0
       this.IsJointView = false
       this.IsNomineeView = false
       this.IsAttorneyView = false
@@ -1454,8 +1475,13 @@ export class AccountEnquiryComponent implements OnInit {
       else {
         this.productName = ''
       }
-      this.productViewArr = []
-      this.productViewArr = this.transactionData.productView
+      this.productViewArr = (this.getschemename == 'LN' || this.getschemename == 'CC') ? this.loantransactionData.productView : this.transactionData.productView
+      for (let ele of this.productViewArr) {
+        this.productTotal = Number(this.productTotal) + Number(ele['amount'])
+      }
+      // this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+      //   this.loanreceivedInterest = data
+      // })
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
@@ -1666,4 +1692,16 @@ export class AccountEnquiryComponent implements OnInit {
     this.loadItems();
   }
 
+  roundoff(vAmount, vRemainingFactor) {
+    let GetRoundOffAmount: any = Number(vAmount).toFixed(2);
+    let pricision = GetRoundOffAmount.toString().split('.');
+    if (Number(vRemainingFactor) <= 0) {
+      GetRoundOffAmount = Math.round(Number(GetRoundOffAmount))
+    } else if (Number(pricision[1]) >= Number(vRemainingFactor)) {
+      GetRoundOffAmount = Number(pricision[0]) + 1;
+    } else {
+      GetRoundOffAmount = Number(pricision[0])
+    }
+    return GetRoundOffAmount;
+  }
 }
