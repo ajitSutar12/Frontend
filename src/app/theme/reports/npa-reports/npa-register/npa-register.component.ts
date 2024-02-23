@@ -87,10 +87,9 @@ export class NpaRegisterComponent implements OnInit {
 
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }
-    })
+      }    })
 
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -211,7 +210,9 @@ export class NpaRegisterComponent implements OnInit {
       // let endingcode =obj.Ending_Account;
       // this.iframe5url = this.report_url + "examples/transactionless.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&ACNOTYPE='" + schemeName + "' &BRANCH_CODE='" + branch + "'";
 
-
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
       this.iframe5url = this.report_url + "examples/Npa_register.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BranchName='"+ this.branchName+ "&date='"+ date  +"'&schemeCode='" +scheme+ "'&bankName='"+bankName+"'";
 
       console.log(this.iframe5url);

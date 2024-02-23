@@ -92,7 +92,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
 
@@ -151,7 +151,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       let obj1 = {
         // date: moment(this.fordate).format('DD/MM/YYYY')
         AC_TYPE:this.AC_TYPE, 
-        BRANCH_CODE: BRANCH_CODE,
+        BRANCH_CODE: this.ngbranch,
         // branch_code: this.ngbranch,
       }
      
@@ -252,7 +252,9 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       // let endingcode =obj.Ending_Account;
       // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
    
-
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
 
     this.iframe5url=this.report_url+ "examples/RecommandedByDirectowiseNPARegisterReport.php?AC_TYPE="+scheme+"&BRANCH_CODE="+this.ngbranch+"&BranchName="+this.branchName+"&startdir="+startdir+"&enddir="+enddir+"&NPA_DATE='"+Start_DATE+"'&bankName='"+bankName+"'";
     console.log(this.iframe5url); 

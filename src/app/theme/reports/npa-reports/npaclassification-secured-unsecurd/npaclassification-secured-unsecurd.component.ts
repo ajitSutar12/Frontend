@@ -76,7 +76,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
   
@@ -177,7 +177,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
   
     let scheme = obj.Scheme_code
     let Dates = obj.START_DATE;
-  
+    let branch = obj.BRANCH_CODE;
       // let branch = '1';
       let flag = obj.npa_per;
       if(flag == true){
@@ -187,13 +187,10 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       }
   
       let schemeName = this.tScheme
-  
-      //  let startingcode= obj.Starting_Account;
-      // let endingcode =obj.Ending_Account;
-      // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
-
-
-      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+branch+"&FLAG="+flag+"&BRANCH='"+branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Dates+"'";
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
+      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Dates+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
@@ -210,7 +207,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
   
     }
     resetForm() {
-    this.ngForm.controls.START_DATE.reset();
+    this.ngForm.controls.BRANCH_CODE.reset();
   
       this.showRepo = false;
       this.clicked=false;

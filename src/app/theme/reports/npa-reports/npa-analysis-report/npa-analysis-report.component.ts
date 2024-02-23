@@ -88,7 +88,7 @@ export class NpaAnalysisReportComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
   
@@ -255,12 +255,14 @@ export class NpaAnalysisReportComponent implements OnInit {
       let branch = obj.BRANCH_CODE;
   
       let schemeName = this.tScheme
-  
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
       // this.iframe5url=this.report_url+ "examples/deposit.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&GL_CODETYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
 
-      this.iframe5url=this.report_url+ "examples/NPA_Analysis_Report1.php?BRANCH_CODE="+branch
+      this.iframe5url=this.report_url+ "examples/NPA_Analysis_Report1.php?BRANCH_CODE="+this.ngbranch
 
       +"&FLAG=0&DATE1='"+TDate+"'&DATE2='"+SDate+"'&VAR1='"+VAR1+"'&VAR2='"+VAR2+"'&BRANCH_NAME='"+this.branchName+"'&BANK_NAME='"+bankName+"'"
     console.log(this.iframe5url); 
