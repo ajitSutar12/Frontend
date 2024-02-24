@@ -141,7 +141,7 @@ export class PigmyAppProcessComponent implements OnInit {
       this.accountsList = data
       this.showloader = false
       // this.showprocessbutton = false
-      Swal.fire('success', 'Data processed successfully.Now you can proceed with app', 'success')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_processed_successfully')}`)
     })
   }
 
@@ -164,7 +164,7 @@ export class PigmyAppProcessComponent implements OnInit {
         this.http.post('http://68.183.93.209/pigmy_test/inserData.php', obj).subscribe(res => {
           // console.log('resp', res)
           this.showprocessbutton = true
-          Swal.fire('Success', 'Data processed successfully', 'success')
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.processed_successfully')}`)
         })
       }
     } else {
@@ -176,7 +176,7 @@ export class PigmyAppProcessComponent implements OnInit {
       }
       this.http.post(this.url + '/pigmy-chart/receivefromapp/', obj).subscribe(data => {
         this.showprocessbutton = true
-        Swal.fire('Success', 'Data processed successfully', 'success')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.processed_successfully')}`)
       })
     }
     this.userID = result.USER_NAME
@@ -250,7 +250,7 @@ export class PigmyAppProcessComponent implements OnInit {
       this.receivedAccount = data
       this.showloader = false
       // this.showprocessbutton = false
-      Swal.fire('Success', 'Data processed successfully', 'success')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.processed_successfully')}`, "success");
     })
   }
   Process() {

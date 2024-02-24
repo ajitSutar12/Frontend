@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { environment } from '../environments/environment'
 import { AuthService } from './theme/auth/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,9 +14,10 @@ export class AppComponent implements OnInit {
   site = environment.sitename
   siteUrl: string;
 
-  constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService,) { }
-
+ 
+  constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService,){}
   ngOnInit() {
+    
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
@@ -151,4 +153,6 @@ export class AppComponent implements OnInit {
     console.log("Leaving site, beforeunload!")
     return false;
   }
+
+
 }

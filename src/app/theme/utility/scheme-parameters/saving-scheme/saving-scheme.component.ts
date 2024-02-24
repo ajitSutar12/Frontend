@@ -177,6 +177,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
+
+
           title: this.translate.instant('Utility.Action.Action'),
 
         },
@@ -205,6 +207,8 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
           title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
           data: 'S_INT_ACNO',
         }
+
+
         // {
         //   title: "Is Interest Applicable ?",
         //   data: "S_INT_APPLICABLE",

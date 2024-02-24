@@ -31,7 +31,9 @@ export class PigmyDayEndComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private _service: DayEndService,
     private http: HttpClient,private translate:TranslateService
+
   ) { this.translate.setDefaultLang(environment.setLang)}
+
 
   ngOnInit(): void {
     this.createForm()

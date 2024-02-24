@@ -72,6 +72,7 @@
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME" class="form-control " placeholder=" "
                                         id="L_NAME" required pattern="^[A-Za-z\s]+$"  maxlength="15"
+
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -85,7 +86,9 @@
                                 *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
+
                                     *ngIf=" angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
+
                                     {{'master.Validation.Val'|translate}}
                                 </div>
                             </div>
@@ -96,7 +99,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME" class="form-control " placeholder=" "
+
                                         id="F_NAME" required pattern="^[A-Za-z\s]+$"  maxlength="15"
+
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="fname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -108,8 +113,10 @@
                                 *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
+
                                     *ngIf="angForm.controls['L_NAME'].errors?.pattern ||  angForm.controls['F_NAME'].errors?.required">
                                     {{'master.Validation.Val'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -118,8 +125,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME" style="text-transform:uppercase"
+
                                         class="form-control " placeholder=" " id="M_NAME" required pattern="^[A-Za-z\s]+$" 
-                                        [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
+                       [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
                                         title="Input allowed only A-Z" (ngModelChange)="mname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         style="text-transform:uppercase;" formControlName="M_NAME"
@@ -131,8 +139,10 @@
                                 *ngIf="angForm.controls['M_NAME'].invalid && (angForm.controls['M_NAME'].dirty || angForm.controls['M_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
+
                                     *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['M_NAME'].errors?.required">
                                     {{'master.Validation.Val'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -140,7 +150,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+
                                     pattern="^[A-Za-z\./ -]+$"  style="text-transform:uppercase" disabled
+
                                         [(ngModel)]="fullname" value="{{lname + ' ' + fname + ' ' + mname}}"
                                         formControlName="AC_NAME">
                                     <label for="AC_NAME">{{'master.Customer_Id.Full_Name' | translate}}</label>

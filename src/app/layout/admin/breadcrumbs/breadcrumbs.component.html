@@ -22,13 +22,19 @@
     </div>
   </div>
 </div> -->
+
 <!-- <div class="col-md-4"> -->
 <ul class="breadcrumb-title">
     <li class="breadcrumb-item">
+      <!-- <select (change)="selectLanguage($event)">
+        <option value="en">english</option>
+        <option value="ma">मराठी</option>
+      </select> -->
         <a [routerLink]="['/dashboard/default/']" class="bread"> <i class="fa fa-home"></i> </a>
     </li>
     <li class="breadcrumb-item" *ngFor="let breadcrumb of breadcrumbs;">
         <a class="bread" [ngClass]="breadcrumb.status === false ? 'not-active':''" [routerLink]="breadcrumb.url">{{breadcrumb.label}}</a>
     </li>
 </ul>
+
 <!-- </div> -->

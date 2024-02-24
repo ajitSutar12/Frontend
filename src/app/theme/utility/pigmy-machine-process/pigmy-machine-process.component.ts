@@ -197,14 +197,14 @@ export class PigmyMachineProcessComponent implements OnInit {
     if (this.sysToMachine == true) {
       this.http.get(this.url + '/pigmy-chart/systomachine/' + mem).subscribe((data1: any) => {
         if (data1.length != 0) {
-          Swal.fire("Success!", "Pigmy Agent Processed Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Pigmy_Successfully')}`, "success");
           var xurl = "http://localhost:5000/send?" + 'data=' + JSON.stringify(data1);
           window.open(xurl)
         }
         else {
           Swal.fire({
             icon: 'info',
-            title: 'Pigmy Agent Do Not Have Account',
+            title: `${this.translate.instant('Swal_Msg.Pigmy_Agent')}`,
           })
         }
       })

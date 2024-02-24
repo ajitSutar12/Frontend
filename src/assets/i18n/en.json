@@ -1,3 +1,4 @@
+
 {
     "master": {
         "No_Data": " No data!",
@@ -9,6 +10,7 @@
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update"
+
         },
         "Bank_Master": {
             "Bank_code": "Bank Code",
@@ -24,11 +26,13 @@
             "Allow": "Allow To Prepare D.D By Our Bank",
             "Participation": "Participation in Clearing",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action"
+
         },
         "clearing_Branch_Master": {
             "Clearing_Branch_Master": "clearing branch master",
@@ -36,6 +40,7 @@
             "Branch_Name": "branch name",
             "Account_Number": "Account number",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
@@ -43,6 +48,7 @@
             "code": "code",
             "Name": "Name",
             "Action": "Action"
+
         },
         "Own_Branch_Master": {
             "Own_Branch_master": "Own Branch master",
@@ -50,6 +56,7 @@
             "Branch_name": "branch name",
             "Account_number": "Account number",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
@@ -57,18 +64,21 @@
             "code": "code",
             "Name": "Name",
             "Action": "Action"
+
         },
         "Category_Master": {
             "Category_Code": "Category Code ",
             "Scheme_Type": " Scheme Type",
             "Description": "Description",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action",
             "Account_Type": "Account Type"
+
         },
         "City_Master": {
             "City_Code": "City Code ",
@@ -79,34 +89,40 @@
             "State_Code": "State Code ",
             "Region": "Region ",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action",
             "District": "District"
+
         },
         "cast_master": {
             "Cast_Master": "cast master",
             "Cast_Code": "Cast Code",
             "Descaption": "Descaption",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action"
+
         },
         "Occupation_Master": {
             "Occupation_Master": "Occupation Master",
             "Occupation_Code": "Occupation Code",
             "Descaption": "Descaption",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action"
+
         },
         "Director_Master": {
             "Director_Master": "Director Master",
@@ -120,16 +136,19 @@
             "Mobile_Number": "Mobile Number",
             "Require_SMS_Facility": "Require SMS facility",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action"
+
         },
         "Authority_Master": {
             "Authority_Code": "Authority Code",
             "Description": "Description",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
@@ -140,10 +159,12 @@
             "Title": "Recovery Cleark Master",
             "F1": "Fields marked with",
             "F2": "are mandatory ",
+
             "Recovery_Cleark_Code": "Recovery Cleark Code",
             "Branch_Code": "Branch Code",
             "Description": "Description",
             "Submit": "Submit",
+
             "Action": "Action",
             "Cancel": "Cancel",
             "Update": "Update "
@@ -185,12 +206,14 @@
             "Title": "Priority Sector Code",
             "F1": "Fields marked with",
             "F2": "are mandatory ",
+
             "Priority_Sector_Code": "Priority Sector Code ",
             "Subcode": "Subcode ",
             "Second_Subcode": "Second Subcode ",
             "Third_Subcode": "Third Subcode ",
             "Description": "Description",
             "Submit": "Submit",
+
             "Action": "Action",
             "Code": "Code",
             "Cancel": "Cancel",
@@ -283,6 +306,7 @@
             "Action": "Action"
         },
         "Prefix_Master": {
+
             "SNo": "Serial No",
             "Prefix": "Prefix",
             "Prefix_Regional": "Prefix Regional",
@@ -292,6 +316,7 @@
             "Not_Applicable": "Not Applicable",
             "other": "Other",
             "Submit": "Submit",
+
             "Title": "Prefix Master",
             "F1": "Field marked with",
             "F2": "are mandatory",
@@ -300,10 +325,12 @@
             "Action": "Action"
         },
         "Minimum_Balance_Master": {
+
             "Balance_Categary_Code": "Balance Categary Code",
             "Balance_Categaray_Name": "Balance Categaray Name",
             "Minimum_Balance": "Minimum Balance",
             "Submit": "Submit",
+
             "Title": "Minimum Balance Master",
             "No_data": "No Data",
             "F1": "Field marked with",
@@ -324,23 +351,27 @@
         },
         "Locker_Rack_Master": {
             "Locker_Rack_Master": "Locker Rack Master",
+
             "Rack_Number": "Rack Number",
             "Branch": "Branch",
             "Rack_Description": "Rack Description",
             "Lockers_From": "Lockers From",
             "Lockers_To": "Lockers To",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update"
         },
         "Locker_Size_Master": {
+
             "Size_Serial_Number": "Size Serial Number",
             "Branch": "Branch",
             "Locker_Size": "Locker Size",
             "Locker_Rent_Deposit": "Locker Rent/ Deposit",
             "Submit": "Submit",
+
             "Title": "Locker Size Master",
             "F1": "Field marked with",
             "F2": "are mandatory",
@@ -349,12 +380,14 @@
         },
         "Locker_Rackwise_Master": {
             "Locker_Rackwise_Master": "Locker Rackwise Master",
+
             "Rack_Number": "Rack Number",
             "Branch": "Branch",
             "Locker_Number": "Locker Number",
             "Locker_Key_Number": "Locker Key Number",
             "Locker_Size": "Locker Size",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
@@ -362,6 +395,7 @@
         },
         "Company_Group_Master": {
             "Company_Group_Master": "Company Group Master",
+
             "Code": "Code",
             "Branch": "Branch",
             "Name": "Name",
@@ -370,6 +404,7 @@
             "Scheme_Code": "Scheme Code",
             "Account_Number": "Account Number",
             "Submit": "Submit",
+
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
@@ -404,12 +439,14 @@
             "Cancel": "Cancel",
             "Update": "Update",
             "Name": "Name"
+
         },
         "Item_Category_Master": {
             "Title": "Item Category Master",
             "code": "Item Category Code",
             "Description": "Description",
             "Submit": "Submit",
+
             "Action": "Action",
             "Update": "Update",
             "Cancel": "Cancel",
@@ -417,28 +454,33 @@
             "F2": "are mandatory"
         },
         "Description_Category_Master": {
+
             "code": "Code",
             "Branch": "Branch",
             "Description": "Description",
             "Ac_no": "Account Number",
             "Submit": "Submit",
+
             "Title": "Description Category Code",
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
             "Update": "Update",
             "Action": "Action"
+
         },
         "Risk_Category": {
             "Title": "Risk Category",
             "code": "Risk Category Code",
             "Description": "Description",
             "Submit": "Submit",
+
             "Action": "Action",
             "Update": "Update",
             "Cancel": "Cancel",
             "F1": "Field marked with",
             "F2": "are mandatory"
+
         },
         "Bank_Other_Details": {
             "Bank_Code": "Bank Code",
@@ -465,6 +507,7 @@
             "IBT_Transaction": "IBT Transaction",
             "ATM_GL_account": "ATM GL account",
             "Submit": "Submit",
+
             "Title": "Bank Other Details",
             "F1": "Field marked with",
             "F2": "are mandatory",
@@ -4825,3 +4868,4 @@
        
     }
 }
+

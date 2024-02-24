@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-policy-settings',
   templateUrl: './policy-settings.component.html',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class PolicySettingsComponent implements OnInit {
 
   constructor() { }
+  
 
   ngOnInit(): void {
   }

@@ -558,7 +558,9 @@
                                                             bindLabel="label" title="Compulsory Selection"
                                                             [ngClass]="{'form-submitted': formSubmitted}" required
                                                             #OVERDRAFT_INTEREST_APPLICABLE (focus)="onFocus(OVERDRAFT_INTEREST_APPLICABLE)" [selectOnTab]='true'
+
                                                             placeholder="{{'Utility.Utility1.Overdraft_Interest_Rate' | translate}}">
+
                                                             <ng-option *ngFor="let values of OverDraft"
                                                                 [value]="values">{{values.label}}</ng-option>
                                                         </ng-select>

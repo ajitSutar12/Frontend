@@ -1,5 +1,6 @@
 {
     "master": {
+
         "No_Data": "माहिती उपलब्ध नाही!",
         "Naration_Master": {
             "Action": "कृती",
@@ -21,22 +22,26 @@
             "Ledger_Code": "लेजर  कोड ",
             "DD_Details": "डि डी  तपशील ",
             "DD_Application": "डि डी अ‍ॅप्लिकेशन",
+
             "GL_Code": "जनरल लेजर कोड ",
             "Sub_GL_Code": "उप  जनरल  लेजर कोड",
             "commission": "बँकर्स कमिशन  ",
             "Allow": "डि डी तयार करण्यासाठी मान्यता देणे  ",
+
             "Participation": "Participation in Clearing ",
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत "
+
         },
         "clearing_branch_master": {
             "clearing_branch_master": "स्वत:ची ब्रांच मास्टर  ",
             "branch_code": "शाखा कोड",
             "branch_name": "शाखा नाव ",
             "Account_number": "खाते नंबर",
+
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
@@ -75,12 +80,14 @@
         },
         "City_Master": {
             "City_Master": "शहर मास्टर",
+
             "City_Code": "शहर कोड ",
             "City_Name": "शहराचे नाव ",
             "Distance_from_Branch(in Km)": "शाखेपासूनचे  अंतर (कि . मी )",
             "Taluka_Code": "तालुका कोड ",
             "District_Code": "जिल्हा कोड ",
             "State_Code": "राज्य कोड ",
+
             "Region": "रिजन कोड ",
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
@@ -89,22 +96,26 @@
             "F2": "अनिवार्य आहेत ",
             "Action": "कृती",
             "Distance": "अंतर"
+
         },
         "Cast_master": {
             "cast_master": "जात मास्टर",
             "Cast_Code": "जात कोड ",
             "Descaption": "तपशील",
+
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
             "Action": "कृती"
+
         },
         "Occupation_Master": {
             "Occupation_Master": "व्यवसाय मास्टर",
             "Occupation_Code": "व्यवसाय कोड",
             "Descaption": "तपशील",
+
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
@@ -122,10 +133,12 @@
             "Designation": "हुद्दा",
             "Address": "पत्ता",
             "City_Code": "शहर ",
+
             "Pin_Code": "पिन कोड ",
             "Current_Body_Member": "चालू बॉडी मेंबर",
             "Mobile_Number": "मोबईल नंबर",
             "Require_SMS_facility": "एस.एम.एस सुविधा हवी का",
+
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट ",
@@ -193,11 +206,13 @@
             "Title": "प्राधान्य घटक(प्रायोरिटी सेक्टर) मास्टर",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
+
             "Priority_Sector_Code": "कोड नंबर ",
             "Subcode": "1 ला सब कोड ",
             "Second_Subcode": "2 रा सब कोड ",
             "Third_Subcode": "3 रा सब कोड ",
             "Description": "तपशील",
+
             "Submit": "जमा करा ",
             "Action": "कृती",
             "Code": "कोड",
@@ -294,6 +309,7 @@
             "Action": "कृती "
         },
         "Prefix_Master": {
+
             "SNo": "अ. नंबर ",
             "Prefix": "शीर्षक ",
             "Prefix_Regional": "शीर्षक विभागीय ",
@@ -302,6 +318,7 @@
             "Female": "स्त्री ",
             "Not_Applicable": "अपात्र ",
             "other": "इतर ",
+
             "Title": "खाते शीर्षक मास्टर ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
@@ -335,22 +352,26 @@
         },
         "Locker_Rack_Master": {
             "Locker_Rack_Master": "लॉकर रॅक मास्टर ",
+
             "Rack_Number": "रॅक नंबर ",
             "Branch": "शाखा ",
             "Rack_Description": "रॅक तपशील",
             "Lockers_From": "लॉकर पासून ",
             "Lockers_To": "लॉकर पर्यन्त ",
+
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
             "Update": "अपडेट "
+
         },
         "Locker_Size_Master": {
             "Size_Serial_Number": "लॉकर साइज नंबर",
             "Branch": "शाखा ",
             "Locker_Size": "लॉकर साइज ",
             "Locker_Rent_Deposit": "लॉकर भाडे ",
+
             "Title": "लॉकर साइज मास्टर ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
@@ -362,10 +383,12 @@
             "Locker_Rackwise_Master": "लॉकर रॅकनुसार मास्टर",
             "Rack_Number": "रॅक नंबर  ",
             "Branch_code": "शाखा कोड",
+
             "Branch": "शाखा",
             "Locker_Number": "लॉकर  नंबर ",
             "Locker_Key_Number": "लॉकर की  नंबर ",
             "Locker_Size": "लॉकर साइज",
+
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
             "Submit": "जमा करा ",
@@ -430,11 +453,13 @@
             "Action": "कृती"
         },
         "Description_Category_Master": {
+
             "Title": "घसारा / झीज  प्रवर्ग मास्टर   ",
             "code": "कोड ",
             "Branch": "शाखा ",
             "Description": "तपशील ",
             "Ac_no": "खाते नंबर ",
+
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
             "Submit": "जमा करा ",
@@ -453,6 +478,7 @@
             "Action": "कृती"
         },
         "Bank_Other_Details": {
+
             "Bank_Code": "बँक कोड ",
             "Branch_Code": "शाखा कोड ",
             "Branch": "शाखा ",
@@ -475,6 +501,7 @@
             "Mobile_Number": "मोबाईल नंबर ",
             "Email": "ईमेल ",
             "IBT_Transaction": "आयबीटी व्यवहार",
+
             "ATM_GL_account": "एटीएम जनरल लेजर खाते ",
             "Title": "बँकेची इतर माहिती",
             "F1": "चिन्हांकित फील्ड ",
@@ -4183,6 +4210,7 @@
             "GL_Account": "जी एल खाते",
             "Flag_Setting": "ध्वज सेटिंग",
             "Admin_Options": "प्रशासन पर्याय"
+
         },
         "Validation": {
             "Val": "ही फील्ड आवश्यक आहे आणि इनपुटला 0-9 नंबरला परवानगी नाही .",
@@ -4199,6 +4227,7 @@
             "Val_Repre": "इनपुटला परवानगी आहे फक्त A-Z a-z -/ . (स्पेस)",
             "Val_Reason": "इनपुटला 0-9 परवानगी नाही ",
             "Validate_Date": "ही आवश्यक फील्ड आहे .DD/MM/YYYY फॉरमॅटमध्ये तारीख इनपुट करा"
+
         }
     },
     "Passing": {
@@ -4844,3 +4873,4 @@
        "GL_Acc_code": "जीएल  खाते कोड" 
     }
 }
+

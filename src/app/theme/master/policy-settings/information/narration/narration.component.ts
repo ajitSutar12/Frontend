@@ -31,6 +31,9 @@ interface Narration {
   styleUrls: ['./narration.component.scss']
 })
 export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  a:any = 'data.hi'
+
   formSubmitted = false;
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
@@ -80,6 +83,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    console.log('from narration',this.a)
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
