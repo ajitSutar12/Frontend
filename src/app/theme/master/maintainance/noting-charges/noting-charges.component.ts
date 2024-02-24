@@ -14,6 +14,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-master-dropdown.service";
 import { NotingChargesService } from './noting-charges.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -121,7 +122,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     private schemeAccountNoService: SchemeAccountNoService,
     private acMasterDropdownService: ACMasterDropdownService,
     private _service: NotingChargesService,
-    private http: HttpClient,) {
+    private http: HttpClient,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -567,4 +568,8 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
     else
       event.target.value = 0
   }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
+  }
+
 }

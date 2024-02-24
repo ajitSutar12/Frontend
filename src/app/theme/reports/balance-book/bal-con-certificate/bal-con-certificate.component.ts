@@ -12,6 +12,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { DeadstockmasterService } from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-bal-con-certificate',
   templateUrl: './bal-con-certificate.component.html',
@@ -45,6 +46,7 @@ export class BalConCertificateComponent implements OnInit {
    defaultDate:any
 
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -55,6 +57,7 @@ export class BalConCertificateComponent implements OnInit {
     private deadstockmasterService: DeadstockmasterService,
 
     ) {
+      this.translate.setDefaultLang(environment.setLang);
       this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -275,7 +278,7 @@ export class BalConCertificateComponent implements OnInit {
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
 }

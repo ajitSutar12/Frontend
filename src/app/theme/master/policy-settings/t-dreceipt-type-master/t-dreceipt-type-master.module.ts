@@ -5,12 +5,14 @@ import { TDReceiptTypeMasterRoutingModule } from './t-dreceipt-type-master-routi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TDReceiptService } from './t-dreceipt-type-master.component.service'
 import { TdReceiptService } from '../../../../shared/dropdownService/tdReceipt-type.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +22,15 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
 
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [TDReceiptTypeMasterComponent],
   providers: [TDReceiptService, TdReceiptService, {
@@ -31,3 +41,6 @@ import { ThemeModule } from 'src/app/theme/theme.module';
   },]
 })
 export class TDReceiptTypeMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

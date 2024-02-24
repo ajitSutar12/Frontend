@@ -23,6 +23,7 @@ import { Router } from "@angular/router";
 //date pipe
 import { DatePipe } from '@angular/common';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -124,7 +125,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public router: Router,
-    private datePipe: DatePipe,) { }
+    private datePipe: DatePipe,private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang) }
 
   ngOnInit(): void {
     this.createForm();
@@ -176,68 +178,68 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Instruction No',
+          title: this.translate.instant('master.Interest_Instructions.Instruction_Number'),
           data: 'INSTRUCTION_NO'
         },
         {
-          title: 'Date',
+          title:this.translate.instant('master.Interest_Instructions.Date'),
           data: 'INSTRUCTION_DATE'
         },
         {
-          title: 'Start From',
+          title: this.translate.instant('master.Interest_Instructions.Start_From'),
           data: 'FROM_DATE'
         },
         {
-          title: 'Next Execution On',
+          title: this.translate.instant('master.Interest_Instructions.Next_Execution_On'),
           data: 'NEXT_EXE_DATE'
         },
         {
-          title: 'TRAN Type',
+          title: this.translate.instant('master.Interest_Instructions.Transfer'),
           data: 'TRAN_TYPE'
         },
         {
-          title: 'Last Executed On',
+          title: this.translate.instant('master.Interest_Instructions.Last_Execution_On'),
           data: 'LAST_EXEC_DATE'
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Interest_Instructions.Scheme'),
           data: 'DR_ACTYPE'
         },
         {
-          title: 'Account No',
+          title: this.translate.instant('master.Interest_Instructions.Account_Number'),
           data: 'DR_AC_NO'
         }, {
-          title: 'Particulars',
+          title: this.translate.instant('master.Interest_Instructions.Particulars'),
           data: 'DR_PARTICULARS'
         }, {
-          title: 'Credit Scheme',
+          title: this.translate.instant('master.Interest_Instructions.Credit_Scheme'),
           data: 'CR_ACTYPE'
         },
         {
-          title: 'Credit Account No',
+          title: this.translate.instant('master.Interest_Instructions.Credit_Account_No'),
           data: 'CR_AC_NO'
         },
         {
-          title: 'Particulars',
+          title: this.translate.instant('master.Interest_Instructions.Particulars'),
           data: 'CR_PARTICULARS'
         },
         {
-          title: 'Frequency',
+          title: this.translate.instant('master.Interest_Instructions.Frequency'),
           data: 'SI_FREQUENCY'
         },
         {
-          title: 'Revoke Date',
+          title: this.translate.instant('master.Interest_Instructions.Revoke_Date'),
           data: 'REVOKE_DATE'
         },
         {
-          title: 'Advice Narration',
+          title:this.translate.instant('master.Interest_Instructions.Advice_Narration'),
           data: 'ADV_NARRATION'
         },
         {
-          title: 'Is Discounted Interest Applicable',
+          title: this.translate.instant('master.Interest_Instructions.Interest_Applicable'),
           data: 'DEFAULT_INTEREST_APPLICABLE'
         },],
       dom: 'Blrtip'
@@ -635,7 +637,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     dataToSend['NEXT_EXE_DATE'] = moment(NEXT_EXE_DATE).format('DD/MM/YYYY')
     this._interestInstruction.postData(dataToSend).subscribe(
       (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
         // to reload after insertion of data
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -815,7 +817,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       (data.REVOKE_DATE == 'Invalid date' || data.REVOKE_DATE == '' || data.REVOKE_DATE == null) ? (revokeDate = '', data['REVOKE_DATE'] = revokeDate) : (revokeDate = data.REVOKE_DATE, data['REVOKE_DATE'] = moment(revokeDate).format('DD/MM/YYYY'))
     }
     this._interestInstruction.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.angForm.controls['LAST_EXEC_DATE'].disable()
       this.angForm.controls['REVOKE_DATE'].disable()
       this.showButton = true;
@@ -860,8 +862,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
 
   delClickHandler(info: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Date.",
+      title:  `${this.translate.instant('Swal_Msg.Sure')}`,
+      text:`${this.translate.instant('Swal_Msg.W16')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -873,16 +875,16 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
        */
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

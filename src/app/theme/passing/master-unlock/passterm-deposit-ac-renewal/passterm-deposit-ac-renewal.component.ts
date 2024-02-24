@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { TermDepositeAcRenewalComponent } from 'src/app/theme/transaction/term-deposite-ac-renewal/term-deposite-ac-renewal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 class DataTableResponse {
@@ -45,7 +46,9 @@ export class PasstermDepositAcRenewalComponent implements OnInit, AfterViewInit 
   // Store data from backend
   termDepositAcRenewal: TermDepositAcRenewal[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient, private translate:TranslateService) {
+    this.translate.setDefaultLang(environment.setLang) }
+
 
   termDepositAcRenewalData: any = {};
 
@@ -106,14 +109,14 @@ export class PasstermDepositAcRenewalComponent implements OnInit, AfterViewInit 
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title:this.translate.instant('master.All.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Account Type',
+          title:this.translate.instant('master.All.Account_Type'),
           data: 'AC_TYPE'
         },
 
@@ -123,11 +126,11 @@ export class PasstermDepositAcRenewalComponent implements OnInit, AfterViewInit 
         // },
 
         {
-          title: 'Account Number',
+          title:this.translate.instant('master.All.Account_Number'),
           data: 'AC_NO'
         },
         {
-          title: 'Receipt Number',
+          title: this.translate.instant('master.All.Receipt_Number'),
           data: 'NEW_RECEIPTNO'
         },
 

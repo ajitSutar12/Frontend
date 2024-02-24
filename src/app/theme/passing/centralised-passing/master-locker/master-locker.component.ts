@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { LockerMasterComponent } from '../../../master/customer/locker-master/lockermaster.component'
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -80,7 +81,9 @@ export class MasterLockerComponent implements OnInit, AfterViewInit {
   lockerMaster: lockerMaster[];
   shareData: any;
   mySubscription: Subscription
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {
@@ -137,35 +140,35 @@ export class MasterLockerComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: ' BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('Passing.Action.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Customer ID',
+          title:this.translate.instant('Passing.Action.Customer_ID'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('Passing.Action.Detail_Address'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('Passing.Action.City'),
           data: 'AC_CTCODE'
         },
 
         {
-          title: 'Opening Date',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_OPDATE'
         },
         // {

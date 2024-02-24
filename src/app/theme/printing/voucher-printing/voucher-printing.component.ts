@@ -15,6 +15,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 
 import { ReportFrameComponent } from "../../reports/report-frame/report-frame.component";
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -100,6 +101,7 @@ export class VoucherPrintingComponent implements OnInit {
   ]
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private _service: VoucherEntryService,
 
@@ -113,6 +115,7 @@ export class VoucherPrintingComponent implements OnInit {
 
 
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -327,7 +330,7 @@ this.voucherNo
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

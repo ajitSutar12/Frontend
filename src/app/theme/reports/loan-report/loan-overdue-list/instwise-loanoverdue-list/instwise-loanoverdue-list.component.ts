@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-instwise-loanoverdue-list',
@@ -42,7 +43,8 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-  ) { }
+    private translate:TranslateService
+  ) { this.translate.setDefaultLang(environment.setLang) ;}
 
   //checkbox variable
   isIsRestrictTransactionEntry: boolean = false;
@@ -183,7 +185,7 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
   }
 

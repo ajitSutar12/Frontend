@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { DomSanitizer} from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-bnk-dep-amount-movement-detail',
   templateUrl: './bnk-dep-amount-movement-detail.component.html',
@@ -54,8 +55,10 @@ export class BnkDepAmountMovementDetailComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
     private sanitizer: DomSanitizer,   
-      public router: Router, )
-      {  this.todate = moment().format('DD/MM/YYYY');
+      public router: Router, private translate:TranslateService )
+      {  
+        this.translate.setDefaultLang(environment.setLang) ;
+        this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);
@@ -147,7 +150,7 @@ let Rdio = obj.radio
 }
 
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
     }
   }
 

@@ -10,6 +10,7 @@ import { first } from "rxjs/operators";
 import { ReportTMasterDropdownService } from "../../../../shared/dropdownService/report-type-master-dropdown.service";
 import { DataTableDirective } from "angular-datatables";
 import { GlAccountsMasterService } from "../gl-accounts-master/gl-accounts-master.service";
+import { TranslateService } from "@ngx-translate/core";
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -87,8 +88,8 @@ export class GlReportMasterComponent implements OnInit {
 
 
   constructor(private http: HttpClient, private fb: FormBuilder,
-    private reportTypeDropdown: ReportTMasterDropdownService, private glReportMasterService: GlAccountsMasterService,
-  ) { }
+    private reportTypeDropdown: ReportTMasterDropdownService, private glReportMasterService: GlAccountsMasterService,private translate:TranslateService
+  ) { this.translate.setDefaultLang(environment.setLang);}
 
   ngOnInit(): void {
 
@@ -147,38 +148,38 @@ export class GlReportMasterComponent implements OnInit {
       ],
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: "Report Type",
+          title: this.translate.instant('master.GL_Report_Master.Report_Type'),
           data: "REPORT_TYPE",
         },
         {
-          title: "Code",
+          title: this.translate.instant('master.GL_Report_Master.Code'),
           data: "CODE",
         },
         {
-          title: "Name",
+          title: this.translate.instant('master.GL_Report_Master.Name'),
           data: "NAME",
         },
         {
-          title: "Code Type",
+          title: this.translate.instant('master.GL_Report_Master.Code_Type'),
           data: "CODE_TYPE",
         },
         {
-          title: "Serial Number",
+          title: this.translate.instant('master.GL_Report_Master.sr_no'),
           data: "SERIAL_NO",
         },
         {
-          title: "Percentage",
+          title: this.translate.instant('master.GL_Report_Master.Percentage'),
           data: "PERCENTAGE",
         },
         {
-          title: "Percentage Consideartion",
+          title: this.translate.instant('master.GL_Report_Master.Percentage_of_Cosideration'),
           data: "PERCENTAGE_CONSIDARATION",
         },
         {
-          title: "Percentage of Code",
+          title: this.translate.instant('master.GL_Report_Master.Percentage_of_Code'),
           data: "PERCENTAGE_OF_CODE",
         },
       ],
@@ -313,6 +314,9 @@ export class GlReportMasterComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

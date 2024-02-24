@@ -20,6 +20,7 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer} from '@angular/platform-browser';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-ac-statement',
@@ -76,6 +77,7 @@ export class BnkAcStatementComponent implements OnInit {
 
 
   constructor(
+    private translate:TranslateService,
     private  fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
@@ -91,6 +93,7 @@ export class BnkAcStatementComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.translate.setDefaultLang(environment.setLang);
   }
 
   ngOnInit(): void {
@@ -313,7 +316,7 @@ end(){
     this.equal = [this.startfrom, this.startto]
   }
   else {
-    Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+    Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.E_S_Date')}`, 'info')
   }
 }
 
@@ -358,7 +361,7 @@ View(event) {
 
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
 
 }

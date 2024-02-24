@@ -7,7 +7,7 @@ import { BalanceUpdationComponent } from './balance-updation.component';
 import { DebitService } from '../../../../shared/elements/debit.service';
 // import { SelectModule } from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
@@ -18,6 +18,8 @@ import { BalanceUpdationService } from './balance-updation.service';
 // import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 // import { LazyLoadEvent } from 'primeng/primeng';
 
 
@@ -34,7 +36,15 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     // InfiniteScrollModule,
     NgxDatatableModule,
     // LazyLoadEvent,
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   declarations: [BalanceUpdationComponent],
   providers: [
@@ -50,3 +60,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     },]
 })
 export class BalanceUpdationModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

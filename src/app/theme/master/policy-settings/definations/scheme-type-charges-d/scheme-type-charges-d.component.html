@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Charges Type Defination</h5>
+                <h5>{{'master.Scheme_Type_Charges_Defination.Charges_Type_def' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -19,17 +19,17 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
                                     formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Type"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Scheme_Type_Charges_Defination.Scheme_Type' | translate}}"
                                     #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of schemeType" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                                  <label for="ACNOTYPE">{{'master.Scheme_Type_Charges_Defination.Scheme_Type' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -54,12 +54,12 @@
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker  #EFFECT_DATE="bsDatepicker"
                                             (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
-                                    <label for="EFFECT_DATE">Effective Date<sub class="required">* </sub></label>
+                                    <label for="EFFECT_DATE">{{'master.Scheme_Type_Charges_Defination.Effective_Date' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div> 
                             </div>
                         </div>
@@ -73,17 +73,17 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="CHARGES_TYPE" appTheme bindValue="value" [(ngModel)]="ngchargestype"
                                     formControlName="CHARGES_TYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges Type"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Scheme_Type_Charges_Defination.Charges_Type' | translate}}"
                                     #chargtype (focus)="onFocus(chargtype)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of chargestype" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="CHARGES_TYPE">Charges Type<sub class="required"> * </sub></label>
+                                  <label for="CHARGES_TYPE">{{'master.Scheme_Type_Charges_Defination.Charges_Type' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CHARGES_TYPE'].invalid && (angForm.controls['CHARGES_TYPE'].dirty || angForm.controls['CHARGES_TYPE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CHARGES_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -96,17 +96,17 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="CHARGES_GL_ACNO" appTheme bindValue="value" [(ngModel)]="ngchargesgl"
                                     formControlName="CHARGES_GL_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Charges GL Account"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Scheme_Type_Charges_Defination.Charges_GL_Acc' | translate}}"
                                     #charggl (focus)="onFocus(charggl)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of accontType" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="CHARGES_GL_ACNO">Charges GL Account<sub class="required"> * </sub></label>
+                                  <label for="CHARGES_GL_ACNO">{{'master.Scheme_Type_Charges_Defination.Charges_GL_Acc' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CHARGES_GL_ACNO'].invalid && (angForm.controls['CHARGES_GL_ACNO'].dirty || angForm.controls['CHARGES_GL_ACNO'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CHARGES_GL_ACNO'].errors?.required">
-                                    This field is required 
+                                    <!-- This field is required  --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                             <input type="text" name="SERIAL_NO" class="form-control"
                                                 placeholder=" " id="SERIAL_NO"
                                                 formControlName="SERIAL_NO" disabled>
-                                            <label for="SERIAL_NO">Serial No</label>
+                                            <label for="SERIAL_NO">{{'master.Scheme_Type_Charges_Defination.Serial_No' | translate}}</label>
                                         </span>
                                     </div>
                                 </div>
@@ -128,15 +128,15 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" name="FROM_RANGE" class="form-control"
-                                                placeholder=" " id="FROM_RANGE" pattern="^[0-9]+$" (focusout)="comparerange()" #frmren
+                                                placeholder=" " id="FROM_RANGE" pattern="^[0-9\u0966-\u096F]*$" (focusout)="comparerange()" #frmren
                                                 title="Input allowed only 0-9" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 formControlName="FROM_RANGE" maxlength="8">
-                                            <label for="FROM_RANGE">From Range</label>
+                                            <label for="FROM_RANGE">{{'master.Scheme_Type_Charges_Defination.From_Range' | translate}}</label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FROM_RANGE'].invalid && (angForm.controls['FROM_RANGE'].dirty || angForm.controls['FROM_RANGE'].touched)" class="alert alert-danger">
                                         <div *ngIf="angForm.controls['FROM_RANGE'].errors?.pattern">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -144,15 +144,15 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" style="text-align: right;" name="TO_RANGE" class="form-control"
-                                                placeholder=" " id="TO_RANGE" pattern="^[0-9]+$" maxlength="8" (focusout)="comparerange()"
+                                                placeholder=" " id="TO_RANGE" pattern="^[0-9\u0966-\u096F]*$" maxlength="8" (focusout)="comparerange()"
                                                 title="Input allowed only 0-9" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                 formControlName="TO_RANGE">
-                                            <label for="TO_RANGE">To Range</label>
+                                            <label for="TO_RANGE">{{'master.Scheme_Type_Charges_Defination.To_Range' | translate}}</label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TO_RANGE'].invalid && (angForm.controls['TO_RANGE'].dirty || angForm.controls['TO_RANGE'].touched)" class="alert alert-danger">
                                         <div *ngIf="angForm.controls['TO_RANGE'].errors?.pattern">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div> 
@@ -167,21 +167,21 @@
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                               title="Input allowed only  0-9" maxlength="15"  (keyup)="getDecimal($event)"
                                                 title="Input allowed only  0-9"  formControlName="CHARGES_AMT">
-                                            <label for="CHARGES_AMT">Charges Amount<sub
+                                            <label for="CHARGES_AMT">{{'master.Scheme_Type_Charges_Defination.Charges_Amount' | translate}}<sub
                                                     class="required">* </sub>
                                             </label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CHARGES_AMT'].invalid && (angForm.controls['CHARGES_AMT'].dirty || angForm.controls['CHARGES_AMT'].touched)" class="alert alert-danger">
                                         <div *ngIf="angForm.controls['CHARGES_AMT'].errors?.pattern || angForm.controls['CHARGES_AMT'].errors?.maxlength">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm">
                                     <div class="col-sm">
-                                        <button type="button" class="btn btn-outline-primary btn-sm"  *ngIf="addShowButton" (click)="addField();frmren.focus()">Add </button>
-                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField();frmren.focus()" *ngIf="UpdateShowButton">Update</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm"  *ngIf="addShowButton" (click)="addField();frmren.focus()">{{'master.Action.Add' | translate}} </button>
+                                        <button class="btn btn-outline-primary btn-sm" (click)="updateField();frmren.focus()" *ngIf="UpdateShowButton">{{'master.Action.Update' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -191,11 +191,11 @@
                                         <table class="table table-striped table-bordered table-hover compact">
                                             
                                                 <thead>
-                                                    <td>Action</td>
-                                                    <td>Serial No.</td>
-                                                    <td>From Range</td>
-                                                    <td>To Range</td>
-                                                    <td>Charges Amount</td>
+                                                    <td>{{'master.Action.Action' | translate}}</td>
+                                                    <td>{{'master.Scheme_Type_Charges_Defination.Serial_No' | translate}}</td>
+                                                    <td>{{'master.Scheme_Type_Charges_Defination.From_Range' | translate}}</td>
+                                                    <td>{{'master.Scheme_Type_Charges_Defination.To_Range' | translate}}</td>
+                                                    <td>{{'master.Scheme_Type_Charges_Defination.Charges_Amount' | translate}}</td>
                                                 </thead>
                                             <tbody *ngIf="multiField?.length != 0">
                                                 <tr *ngFor="let data of multiField; let indexOfelement=index;">
@@ -215,7 +215,7 @@
                                             </tbody>
                                             <tbody *ngIf="multiField?.length == 0">
                                                 <tr>
-                                                    <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                                                    <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.Action.No_Data' | translate}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -226,10 +226,10 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()" (keydown.Tab)="focus()" appTheme>Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()" *ngIf="updateShow">Update</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" *ngIf="showButton" (click)="submit();scheme.focus()" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()" *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>&nbsp;
 
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()" *ngIf="newbtnShow">Cancel
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()" *ngIf="newbtnShow">{{'master.Action.Cancel' | translate}}
                             </button>
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                                 </tbody>
                                 <tbody *ngIf="schemeTypeChargesRate?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -13,13 +13,15 @@ import { SizewiseBalanceModificationRoutingModule } from './sizewise-balance-mod
 import { SharedModule } from '../../../../shared/shared.module';
 import { DepositSizeWiseBalanceComponent } from './deposit-size-wise-balance/deposit-size-wise-balance.component';
 import { LoanSizeWiseBalanceComponent } from './loan-size-wise-balance/loan-size-wise-balance.component'
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { CommissionSlabMasterComponent } from './commission-slab-master/commission-slab-master.component';
 // import { CommissionSlabMasterModule } from './commission-slab-master/commission-slab-master.module';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from '../../../theme.module';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -42,7 +44,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     // CommissionSlabMasterModule,
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
 
 
   ],
@@ -64,3 +74,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   bootstrap: [SizewiseBalanceModificationComponent]
 })
 export class SizewiseBalanceModificationModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

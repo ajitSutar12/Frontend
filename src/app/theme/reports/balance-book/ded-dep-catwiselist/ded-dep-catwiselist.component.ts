@@ -11,6 +11,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { DeadstockmasterService } from "../../../master/customer/dead-stock-master/dead-stock-master.service";
 import { HttpClient } from "@angular/common/http";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-ded-dep-catwiselist",
@@ -44,6 +45,7 @@ export class DedDepCatwiselistComponent implements OnInit {
   report_url = environment.report_url;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     private config: NgSelectConfig,
@@ -53,6 +55,7 @@ export class DedDepCatwiselistComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private deadstockmasterService: DeadstockmasterService
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.defaultDate = moment().format("DD/MM/YYYY");
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -130,7 +133,7 @@ export class DedDepCatwiselistComponent implements OnInit {
 
     
     } else {
-      Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, "warning").then(
         () => {
           this.clicked = false;
         }

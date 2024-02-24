@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import{environment} from '../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-definations',
   templateUrl: './definations.component.html',
@@ -22,7 +23,10 @@ export class DefinationsComponent implements OnInit {
   sizeslabwarTrue: boolean = false;
 
 
-  constructor(private_router: Router) {
+  constructor(private_router: Router, private translate:TranslateService) {
+    
+    this.translate.setDefaultLang(environment.setLang);
+
   }
   ngOnInit(): void {
   }

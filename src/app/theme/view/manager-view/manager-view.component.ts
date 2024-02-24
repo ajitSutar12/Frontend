@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-manager-view',
   templateUrl: './manager-view.component.html',
@@ -90,6 +91,7 @@ export class ManagerViewComponent implements OnInit {
   ehead
   eheadt
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private config: NgSelectConfig,
     private _service: ManagerViewService,
@@ -98,6 +100,7 @@ export class ManagerViewComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       // this.maxDate = this.maxDate.subtract(1, "days");
@@ -494,7 +497,7 @@ export class ManagerViewComponent implements OnInit {
       }
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
   }
 

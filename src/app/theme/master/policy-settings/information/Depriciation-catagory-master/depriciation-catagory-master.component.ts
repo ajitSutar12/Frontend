@@ -150,11 +150,13 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
           }
         },
         {
-          title: this.translate.instant('master.Description_Category_Code.code'),
+
+          title: this.translate.instant('master.Description_Category_Master.code'),
           data: 'CODE'
         },
         {
-          title: this.translate.instant('master.Description_Category_Code.Description'),
+          title: this.translate.instant('master.Description_Category_Master.Description'),
+
           data: 'NAME'
         },
         // {

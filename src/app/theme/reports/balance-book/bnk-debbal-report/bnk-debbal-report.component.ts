@@ -10,6 +10,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { environment } from 'src/environments/environment';
 import { DomSanitizer} from '@angular/platform-browser';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-debbal-report',
@@ -49,6 +50,7 @@ maxDate: Date;
   transferSchemeDetails: any;
   tScheme
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private systemParameter:SystemMasterParametersService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -58,6 +60,7 @@ maxDate: Date;
     private sanitizer: DomSanitizer,
     
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -299,7 +302,7 @@ maxDate: Date;
  this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
     }
   }
   close(){

@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Membership Cancellation</h5>
+                <h5>{{'Transaction.Membership_Cancellation.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Transaction.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card-body">
                 <form [formGroup]="angForm" novalidate>
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Membership_Cancellation.Branch_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
@@ -29,18 +29,18 @@
                                     *ngIf="angForm.controls['branchOption'].invalid && (angForm.controls['branchOption'].dirty || angForm.controls['branchOption'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['branchOption'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'Transaction.Membership_Cancellation.Scheme_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" [(ngModel)]="schemeCode" id="AC_TYPE"
                                             bindLabel="label" formControlName="AC_TYPE" (change)="getIntroducer()"
-                                            title="Compulsory Selection" required placeholder="Scheme">
+                                            title="Compulsory Selection" required placeholder="{{'Transaction.Membership_Cancellation.Scheme_Code' | translate}}">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -50,13 +50,13 @@
                                     *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Membership_Cancellation.Member_Number' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-4">
@@ -75,11 +75,11 @@
                                     *ngIf="angForm.controls['MEMBER_CODE1'].invalid && (angForm.controls['MEMBER_CODE1'].dirty || angForm.controls['MEMBER_CODE1'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['MEMBER_CODE1'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Transaction Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Membership_Cancellation.Transaction_Number' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -99,7 +99,7 @@
                         <div class="col-md-12">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR">Membership Date</label>
+                                    <div class="col-sm-12 col-md-2 "><label for="AC_PARTICULAR">{{'Transaction.Membership_Cancellation.Membership_Date' | translate}}</label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
-                                        <label for="Site Name">Transfer Number of Shares<sub class="required">*
+                                        <label for="Site Name">{{'Transaction.Membership_Cancellation.Transfer_Shares' | translate}}<sub class="required">*
                                             </sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
-                                        <label for="Site Name">Transfer Shares Amount<sub class="required">*
+                                        <label for="Site Name">{{'Transaction.Membership_Cancellation.Transfer_Shares_Amount' | translate}}<sub class="required">*
                                             </sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -145,7 +145,7 @@
                         <div class="col-md-12">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution Date<sub
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Membership_Cancellation.Resolution_Date' | translate}}<sub
                                                 class="required">*
                                             </sub></label>
                                     </div>
@@ -166,21 +166,21 @@
                                                 <label>
                                                     <input type="radio" name="type" value="cash" formControlName="type"
                                                         (change)="isFormA(1)">
-                                                    <i class="helper"></i>Cash </label>
+                                                    <i class="helper"></i>{{'Transaction.Membership_Cancellation.Cash' | translate}} </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label>
                                                     <input type="radio" name="type" value="transfer"
                                                         formControlName="type" (change)="isFormA(2)">
-                                                    <i class="helper"></i>Transfer </label>
+                                                    <i class="helper"></i>{{'Transaction.Membership_Cancellation.Transfer' | translate}} </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-4"> </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Resolution
-                                            Number<sub class="required">*
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Membership_Cancellation.Resolution_Number' | translate}}
+                                            <sub class="required">*
                                             </sub></label>
                                     </div>
                                     <div class="col-md-2">
@@ -195,8 +195,8 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4"> </div>
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Member Cancel
-                                            Date</label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Membership_Cancellation.Member_Cancel_Date' | translate}}
+                                        </label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -211,7 +211,7 @@
                                 </div>
                                 <div class="col-sm-12 col-md-4"> </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Reason</label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Membership_Cancellation.Reason' | translate}}</label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group input-group">
@@ -229,7 +229,7 @@
                                 <div class="row" id="FORMA" *ngIf="isTransfer">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Membership_Cancellation.Scheme' | translate}}<sub
                                                         class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-5">
                                                 <div class="form-group form-primary form-static-label">
@@ -247,14 +247,14 @@
                                                     *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['Tscheme'].errors?.required">
-                                                        This field is required.
+                                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"><label for="TschemeAC">Account
-                                                    Number<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"><label for="TschemeAC">{{'Transaction.Membership_Cancellation.Acc_Num' | translate}}
+                                                    <sub class="required">*</sub></label></div>
 
                                             <div class="col-sm">
                                                 <div class="form-group form-primary form-static-label">
@@ -262,7 +262,7 @@
                                                         <ng-select id="TschemeAC" [(ngModel)]="ngacno"
                                                             formControlName="TschemeAC" bindLabel="label"
                                                             bindValue="bankacno" title="Compulsory Selection"
-                                                            placeholder="Account Number"
+                                                            placeholder="{{'Transaction.Membership_Cancellation.Acc_Num' | translate}}"
                                                             (change)="getTransferAccountDeatil($event)">
                                                             <ng-option *ngFor="let values of schemeACNo"
                                                                 [value]="values">
@@ -274,20 +274,20 @@
                                                     *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
-                                                        This field is required.
+                                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-12 col-md-2  "><label
-                                                    for="AC_PARTICULAR">Particular</label>
+                                                    for="AC_PARTICULAR">{{'Transaction.Membership_Cancellation.Particulars' | translate}}</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
                                                         <textarea class="form-control" formControlName="particularss"
-                                                            [(ngModel)]="particulars">Member Canceled</textarea>
+                                                            [(ngModel)]="particulars">{{'Transaction.Membership_Cancellation.Member_Canceled' | translate}}</textarea>
                                                         <i class="fa fa-info-circle errspan"
                                                             (click)="modalLarge.show()"></i>
                                                     </span>
@@ -295,7 +295,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-2"><label for="amount">Amount<sub
+                                            <div class="col-md-2"><label for="amount">{{'Transaction.Membership_Cancellation.Amount' | translate}}<sub
                                                         class="required">*</sub></label></div>
                                             <div class="col-md-2">
                                                 <div class="form-group input-group">
@@ -311,18 +311,18 @@
                                                     *ngIf="angForm.controls['amount'].invalid && (angForm.controls['amount'].dirty || angForm.controls['amount'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['amount'].errors?.maxlength">
-                                                        Input allowed only 0-9
+                                                        <!-- Input allowed only 0-9 --> {{'master.Validation.Val_Pin_Code' | translate}}
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md">
                                                 <button type="button" class="btn btn-outline-primary btn-sm"
                                                     *ngIf="jointShowButton" (click)="addTransferAccount()">
-                                                    Add Account
+                                                     {{'Transaction.Membership_Cancellation.Add_Account' | translate}}
                                                 </button>
                                                 <button class="btn btn-outline-primary btn-sm"
                                                     (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
-                                                    Update Account
+                                                    t {{'Transaction.Membership_Cancellation.Update_Account' | translate}}
                                                 </button>
                                             </div>
                                         </div>
@@ -332,11 +332,11 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered table-hover compact">
                                                         <thead>
-                                                            <td>Action</td>
-                                                            <td>Scheme</td>
-                                                            <td>Account Number</td>
-                                                            <td>Particulars</td>
-                                                            <td style="text-align: right;">Amount</td>
+                                                            <td>{{'Transaction.Action.Action' | translate}}</td>
+                                                            <td>{{'Transaction.Membership_Cancellation.Scheme' | translate}}</td>
+                                                            <td>{{'Transaction.Membership_Cancellation.Acc_Num' | translate}}</td>
+                                                            <td>{{'Transaction.Membership_Cancellation.Particulars' | translate}}</td>
+                                                            <td style="text-align: right;">{{'Transaction.Membership_Cancellation.Amount' | translate}}</td>
                                                         </thead>
                                                         <tbody *ngIf="multigrid.length != 0">
                                                             <tr *ngFor="let data of multigrid;
@@ -371,21 +371,21 @@
                                     <div class="col-sm" style="float: right;">
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="submitShow"
                                             (click)="submit()">
-                                            Submit
+                                            {{'Transaction.Action.Submit' | translate}}
                                         </button>
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="closeShow"
                                             (click)="closeModal()">
-                                            Close</button>
+                                            {{'Transaction.Action.Close' | translate}}</button>
 
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                             (click)="reject()">
-                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{'Transaction.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                             (click)="approve()">
-                                            Approve</button>
+                                            {{'Transaction.Action.Approve' | translate}}</button>
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                             (click)="unapprove()">
-                                            Unapprove</button>
+                                            {{'Transaction.Action.Unapprove' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -399,7 +399,7 @@
 
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Membership_Cancellation.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -410,7 +410,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Paticulars</th>
+                            <th>{{'Transaction.Membership_Cancellation.Particulars' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration1(item.NARRATION)"
@@ -420,7 +420,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggrhide"
-                        #triggerhide (click)="modalLarge.hide()">Close</button>
+                        #triggerhide (click)="modalLarge.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>
@@ -432,7 +432,7 @@
 </app-modal-basic>
 <app-modal-basic #formnarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Membership_Cancellation.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="formnarration.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -443,7 +443,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Narration</th>
+                            <th>{{'Transaction.Membership_Cancellation.Narration' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getFormNarration(item.NARRATION)">
@@ -452,7 +452,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #narrationhide
-                        (click)="formnarration.hide()">Close</button>
+                        (click)="formnarration.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>

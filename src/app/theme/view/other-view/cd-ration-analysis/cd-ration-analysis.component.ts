@@ -12,6 +12,7 @@ import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 import { data } from 'jquery';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cd-ration-analysis',
@@ -49,7 +50,9 @@ export class CdRationAnalysisComponent implements OnInit {
     private _service: EditInterestCalculationService, private http: HttpClient,
     private other_service: OtherViewService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -125,7 +128,7 @@ export class CdRationAnalysisComponent implements OnInit {
       this.modalClass = 'modalShow';
       this.other_service.updateCdData(data).subscribe(data => {
         this.modalClass = 'modalHide';
-        Swal.fire('Success', 'CD ratio updated successfully', 'success')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.S_Msg1')}`, 'success')
         this.angForm.reset()
         this.profitloss = 0
         this.tableData = []

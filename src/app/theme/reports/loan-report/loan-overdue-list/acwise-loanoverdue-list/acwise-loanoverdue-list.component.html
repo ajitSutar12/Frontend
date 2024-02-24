@@ -2,23 +2,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Accountwise Loanoverdue Report</h5>
+                <h5>{{'master.Term_Loan.T14' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                   {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card">
                 <form [formGroup]="ngForm ">
                     <div class="card-block scrollable">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch<sub
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">{{'master.Term_Loan.Branch' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                             (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
-                                            placeholder="Branch">
+                                            placeholder="{{'master.Term_Loan.Branch' | translate}}">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -29,11 +29,11 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"><label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-1"><label for=" Date">{{'master.Term_Loan.Scheme_Code' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-3 col-md-3">
@@ -51,11 +51,11 @@
                                     *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">{{'master.Term_Loan.Date' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -74,13 +74,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['END_DATE'].errors?. maxlength || ngForm.controls['END_DATE'].errors?. minlength || ngForm.controls['END_DATE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Min. installment<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">{{'master.Term_Loan.Installment' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
@@ -96,13 +96,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['Min_save'].errors?. maxlength || ngForm.controls['Min_save'].errors?. minlength || ngForm.controls['Min_save'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
 
 
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Max. installment<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">{{'master.Term_Loan.Installment1' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
@@ -118,7 +118,7 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['Max_save'].errors?. maxlength || ngForm.controls['Max_save'].errors?. minlength || ngForm.controls['Max_save'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -128,14 +128,14 @@
                             <div class="col-md-12">
                                 <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont" (tabChange)="onTabChange($event)">
                                     <!-- start of basic tab -->
-                                    <ngb-tab title="Range" id="Range" class="col-md-12 border">
+                                    <ngb-tab title="{{'master.Term_Loan.Range' | translate}}" id="Range" class="col-md-12 border">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="">
                                                     <div class="card-block highlight">
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-2"> <label
-                                                                    for="Start_code">Start code<sub
+                                                                    for="Start_code">{{'master.Term_Loan.Start_code' | translate}}<sub
                                                                         class="required">*</sub></label>
                                                             </div>
                                                             <div class="col-sm-12 col-md-4">
@@ -145,7 +145,7 @@
                                                                             [(ngModel)]="start"
                                                                             (change)="getAccountList($event)"
                                                                             formControlName="FROM_AC" bindLabel="label"
-                                                                            placeholder="FROM_AC">
+                                                                            placeholder="{{'master.Term_Loan.From_Ac' | translate}}">
                                                                             <ng-option *ngFor="let values of fromAc"
                                                                                 [value]="values">
                                                                                 {{values.label}}
@@ -159,12 +159,12 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="ngForm.controls['FROM_AC'].errors?.required">
-                                                                        This field is required
+                                                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-12 col-md-2"> <label for="Start_code">End
-                                                                    code<sub class="required">*</sub></label>
+                                                            <div class="col-sm-12 col-md-2"> <label for="Start_code">{{'master.Term_Loan.End_Code' | translate}}
+                                                                    <sub class="required">*</sub></label>
                                                             </div>
                                                             <div class="col-sm-12 col-md-4">
                                                                 <div class="form-group form-primary form-static-label">
@@ -172,7 +172,7 @@
                                                                         <ng-select id="TO_AC" bindValue="bankbankacno"
                                                                             [(ngModel)]="end" formControlName="TO_AC"
                                                                             (change)="getAccountList1($event)"
-                                                                            bindLabel="label" placeholder="TO_AC">
+                                                                            bindLabel="label" placeholder="{{'master.Term_Loan.To_Ac' | translate}}">
                                                                             <ng-option *ngFor="let values of toAc"
                                                                                 [value]="values">
                                                                                 {{values.label}}
@@ -187,7 +187,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="ngForm.controls['TO_AC'].errors?.required">
-                                                                        This field is required
+                                                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -196,7 +196,7 @@
                                                         </div>
                                                         <div class="col-sm" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('address')">Next
+                                                                (click)="switchNgBTab('address')">{{'master.Term_Loan.Next' | translate}}
                                                             </button>
                                                         </div>
 
@@ -207,7 +207,7 @@
                                     </ngb-tab>
                                     <!-- end of basic tab -->
                                     <!-- start of Address tab -->
-                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
+                                    <ngb-tab title="{{'master.Term_Loan.Selective' | translate}}" role="tab" data-toggle="tab" id="Selective">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -217,12 +217,12 @@
                                                             <table class="border">
                                                                 <tr class="fs-1 h-3">
                                                                     <th style="width:400px;"
-                                                                        class="bg-primary fs-1 td_center">Accountnumber
+                                                                        class="bg-primary fs-1 td_center">{{'master.Term_Loan.Accountnumber' | translate}}
                                                                     </th>
                                                                     <th style="width: 400px;"
-                                                                        class="bg-primary fs-1 td_left">Name</th>
+                                                                        class="bg-primary fs-1 td_left">{{'master.Term_Loan.Name' | translate}}</th>
                                                                     <th style="width: 100px;"
-                                                                        class="bg-primary fs-1 td_center">chaeakbox</th>
+                                                                        class="bg-primary fs-1 td_center">{{'master.Term_Loan.chaeakbox' | translate}}</th>
                                                                 </tr>
                                                                 <tr *ngFor="let values of toAc">
                                                                     <td class="td_center">{{values.bankacno}}</td>
@@ -260,7 +260,7 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue" value="1"
                                             formControlName="checkboxValue">
-                                        <label class="border-checkbox-label" for="checkboxValue">Show Guarantor
+                                        <label class="border-checkbox-label" for="checkboxValue">{{'master.Term_Loan.Show_Guarantor' | translate}}
                                         </label>
                                     </div>
                                 </div>
@@ -270,8 +270,8 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="npa_per" value="0"
                                             formControlName="npa_per">
-                                        <label class="border-checkbox-label" for="npa_per">Calculate Overdue Only After
-                                            Expiry
+                                        <label class="border-checkbox-label" for="npa_per">{{'master.Term_Loan.Calculate_Overdue' | translate}}
+                                            
                                         </label>
                                     </div>
                                 </div>
@@ -282,18 +282,18 @@
                             <div class="cosl-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event); clicked = true ">View</button>
+                                    (click)="view($event); clicked = true ">{{'master.Action.View' | translate}}</button>
 
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close' | translate}}</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>{{'master.Term_Loan.Report_Frame' | translate}}</h5>
                                     </div>
                                     <div *ngIf="showRepo">
 

@@ -5,15 +5,24 @@ import { PataSevaSupportRComponent } from './pata-seva-support-r.component';
 import { PataSevaSupportRRoutingModule } from './pata-seva-support-r-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
     CommonModule,
     PataSevaSupportRRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [PataSevaSupportRComponent],
   providers:[{
@@ -23,3 +32,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   },]
 })
 export class PataSevaSupportRModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

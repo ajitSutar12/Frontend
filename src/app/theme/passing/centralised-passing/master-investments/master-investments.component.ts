@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { AccountOpeningComponent } from '../../../master/customer/account-opening/account-opening.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -53,7 +54,9 @@ export class MasterInvestmentsComponent implements OnInit, AfterViewInit {
   // Store data from backend
   investmentMaster: InvestmentMaster[];
   investmentData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) { 
+    this.translate.setDefaultLang(environment.setLang);
+  }
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
     //   ajax: 'fake-data/datatable-data.json',
@@ -145,55 +148,55 @@ export class MasterInvestmentsComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('Passing.Action.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Bank Code',
+          title: this.translate.instant('Passing.Master_Investments.Bank_Code'),
           data: 'INVEST_BANK'
         },
         {
-          title: 'Branch Code',
+          title: this.translate.instant('Passing.Master_Investments.Branch_code'),
           data: 'INVEST_BRANCH'
         },
         {
-          title: 'Account Open Date',
+          title: this.translate.instant('Passing.Master_Investments.Account_Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'As On Date',
+          title: this.translate.instant('Passing.Master_Investments.As_On_Date'),
           data: 'AC_ASON_DATE'
         },
         {
-          title: 'Maturity Date',
+          title: this.translate.instant('Passing.Master_Investments.Maturity_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt Number',
+          title: this.translate.instant('Passing.Master_Investments.Receipt_Number'),
           data: 'AC_REF_RECEIPTNO'
         },
         {
-          title: 'Interest Rate',
+          title: this.translate.instant('Passing.Master_Investments.Interest_Rate'),
           data: 'AC_INTRATE'
         },
         {
-          title: 'Deposit Amount',
+          title: this.translate.instant('Passing.Master_Investments.Deposit_Amount'),
           data: 'AC_SCHMAMT'
         },
 
         {
-          title: 'Maturity Amount',
+          title: this.translate.instant('Passing.Master_Investments.Maturity_Amount'),
           data: 'AC_MATUAMT'
         },
         // {

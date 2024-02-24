@@ -21,6 +21,7 @@ import { OtherBanksDepositSchemeService } from './other-banks-deposit-scheme.ser
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -192,7 +193,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
     private installmentBaseService: InstallmentBaseService,
     private unitOfTDPeriodService: UnitOfTDPeriodService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -240,46 +241,46 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
         },
         {
-          title: 'Type',
+          title: this.translate.instant('Utility.Investment_Scheme_Settings.Scheme_Code'),
           data: 'S_ACNOTYPE',
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('Utility.Investment_Scheme_Settings.Type'),
           data: 'S_APPL',
         },
         {
-          title: 'Description',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.Description'),
           data: 'S_NAME',
         },
         {
-          title: 'Short Name',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.Short_Name'),
           data: 'S_SHNAME',
         },
         {
-          title: 'GL Account Number',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.GL_Acc_Num'),
           data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL Account',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.Interest_GL_Acc'),
           data: 'S_INT_ACNO',
         },
         {
-          title: 'Receivable Interest Account',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.Rece_Interest_Acc'),
           data: 'S_RECBL_PYBL_INT_ACNO',
         },
         {
-          title: 'Penal Interest Account',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.Penal_Interest_Acc'),
           data: 'S_PENAL_ACNO',
         },
         {
-          title: 'Recble Penal Interest Account',
+          title:  this.translate.instant('Utility.Investment_Scheme_Settings.R_Penal_Interest_Acc'),
           data: 'S_RECBL_PENAL_ACNO',
         },
         {
-          title: 'Cash Interest Account',
+          title: this.translate.instant('Utility.Investment_Scheme_Settings.Cash_Interest_Acc'),
           data: 'S_CASH_INT_ACNO',
         },
         // {

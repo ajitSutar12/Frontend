@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Scheme-General Ledger Consistancy Report</h5>
+                <h5>{{'Reports.Scheme_General_Ledger_Consistancy_Report.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Reports.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Reports.Action.F2' | translate}}
                 </h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="scheme">Branch<sub class="required">*</sub></label></div>
+                        <div class="col-md-1"> <label for="scheme">{{'Reports.Action.Branch' | translate}}<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -26,18 +26,18 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"><label for="S_ACNOTYPE">Scheme Code<sub class="required">*</sub></label>
+                        <div class="col-md-2"><label for="S_ACNOTYPE"> {{'Reports.Action.Scheme_Type' | translate}} <sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="S_ACNOTYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="S_ACNOTYPE" bindLabel="label" title="Compulsory Selection"
-                                        placeholder="Scheme Type">
+                                        placeholder="{{'Reports.Action.Scheme_Type' | translate}}">
                                         <ng-option *ngFor="let values of allSchemeCode" [value]="values.S_ACNOTYPE">{{ values.S_ACNOTYPE }}
                                         </ng-option>
                                     </ng-select>
@@ -47,7 +47,7 @@
                                 *ngIf="angForm.controls['S_ACNOTYPE'].invalid && (angForm.controls['S_ACNOTYPE'].dirty || angForm.controls['S_ACNOTYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['S_ACNOTYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                     <label>
                                         <input type="radio" name="REPOTYPE" checked="checked" formControlName="REPOTYPE"
                                             value="Scheme Wise">
-                                        <i class="helper"></i>Scheme Wise
+                                        <i class="helper"></i> {{'Reports.Scheme_General_Ledger_Consistancy_Report.Scheme_Wise' | translate}}
                                     </label>
                                 </div>
                                 <!-- <div class="radio radio-inline">
@@ -70,7 +70,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"> <label for="FROM_DATE">Date<sub class="required">*</sub></label></div>
+                        <div class="col-md-1"> <label for="FROM_DATE">{{'Reports.Action.Date' | translate}}<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -85,7 +85,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['OPENINGDATE'].errors?.pattern || angForm.controls['OPENINGDATE'].errors?.required || angForm.controls['OPENINGDATE'].errors?.maxlength">
-                                    This is required Field .Input Date in format DD/MM/YYYY
+                                    <!-- This is required Field .Input Date in format DD/MM/YYYY --> {{'master.Validation.Validate_Date' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -94,8 +94,8 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" (change)="printpay()" id="Print" formControlName="Print">
-                                    <label class="border-checkbox-label" for="Print">Print Payable/Receivable Interest
-                                        Details ?</label>
+                                    <label class="border-checkbox-label" for="Print">{{'Reports.Scheme_General_Ledger_Consistancy_Report.Print_Pay_rec_interest_Details' | translate}}
+                                        </label>
                                 </div>
                             </div>
                         </div>
@@ -103,8 +103,8 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="Penal" formControlName="Penal">
-                                    <label class="border-checkbox-label" for="Penal">Print Penal Interest
-                                        Details</label>
+                                    <label class="border-checkbox-label" for="Penal">
+                                        {{'Reports.Scheme_General_Ledger_Consistancy_Report.Print_Penal_Interest_Details ' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -114,18 +114,18 @@
                         <div class="col-md-8"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">{{'Reports.Action.View' | translate}}</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="back"
-                                (click)="close()">Close</button>
+                                (click)="close()">{{'Reports.Action.Close' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'Reports.Action.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe [url]='iframeurl'></app-iframe>

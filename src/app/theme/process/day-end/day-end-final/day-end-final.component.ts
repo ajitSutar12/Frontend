@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
 import { TranslateService } from '@ngx-translate/core';
+
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-day-end-final',
   templateUrl: './day-end-final.component.html',
@@ -10,7 +13,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class DayEndFinalComponent implements OnInit {
   branchHandOverList: any = [];
   flagCheck: boolean = true;
-  constructor(private _service: DayEndService,private translate:TranslateService) { }
+
+  constructor(private _service: DayEndService,private translate:TranslateService) { this.translate.setDefaultLang(environment.setLang)}
+
   sysparadetails: any;
   remark: boolean = false;
   interval;

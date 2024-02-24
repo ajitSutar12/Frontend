@@ -29,6 +29,7 @@ import { SchemetypeService } from "./scheme-type-setting.service";
 import { SchemeTypeDropdownService } from "../../../../shared/dropdownService/scheme-type-dropdown.service";
 import { environment } from "../../../../../environments/environment";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -132,7 +133,7 @@ export class SchemeTypeSettingComponent
     // for dropdown
     public SchemeTypes: SchemeTypeDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,private translate:TranslateService) {
     this.createForm();
   }
 
@@ -185,7 +186,7 @@ export class SchemeTypeSettingComponent
 
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('Utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return (
               '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' +
@@ -195,15 +196,15 @@ export class SchemeTypeSettingComponent
           },
         },
         {
-          title: "id",
+          title: this.translate.instant('Utility.Scheme_types_Settings.ID'),
           data: "id",
         },
         {
-          title: "Type",
+          title: this.translate.instant('Utility.Scheme_types_Settings.Scheme_Type'),
           data: "S_ACNOTYPE",
         },
         {
-          title: "Description",
+          title: this.translate.instant('Utility.Scheme_types_Settings.Descaption'),
           data: "S_NAME",
         },
 

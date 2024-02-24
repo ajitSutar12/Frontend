@@ -10,10 +10,12 @@ import { MonthlyRecoverySubsidiaryRoutingModule } from './monthly-recovery-subsi
 import {DataTablesModule} from 'angular-datatables';
 import {MonthlyRecoverySubsidiaryComponent} from './monthly-recovery-subsidiary.component'
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -27,7 +29,15 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   declarations: [MonthlyRecoverySubsidiaryComponent],
   providers:[{
@@ -40,3 +50,8 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
   
 })
 export class MonthlyRecoverySubsidiaryModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

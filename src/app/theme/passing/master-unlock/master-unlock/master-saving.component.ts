@@ -13,6 +13,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { first } from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -84,7 +85,9 @@ export class MasterSavingComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
-  ) { }
+    private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang) }
+  
   ngOnInit(): void {
     this.createForm()
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -298,8 +301,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/saving-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -311,8 +314,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/term-deposits-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -324,8 +327,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/investment/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -337,8 +340,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/anamat-gsm/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -351,8 +354,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/pigmy-agent-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -363,8 +366,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/pigmy-account-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -376,8 +379,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/term-loan-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -388,8 +391,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/cash-credit-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -400,8 +403,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/term-deposits-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -413,8 +416,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/share-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -425,8 +428,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/locker-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()
@@ -437,8 +440,8 @@ export class MasterSavingComponent implements OnInit {
         this.http.post(this.url + '/dead-stock-master/unapporve', obj).subscribe(data => {
           if (data == 0) {
             Swal.fire(
-              'Unapproved',
-              'Accounts unapproved successfully',
+              `${this.translate.instant('Swal_Msg.Unapprove')}`,
+              `${this.translate.instant('Swal_Msg.U_Msg')}`,
               'success'
             );
             this.createForm()

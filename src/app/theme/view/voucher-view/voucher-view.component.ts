@@ -12,6 +12,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { VoucherEntryComponent } from 'src/app/theme/transaction/voucher-entry/voucher-entry.component';
 import { MultiVoucherComponent } from 'src/app/theme/transaction/multi-voucher/multi-voucher.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-voucher-view',
@@ -43,11 +44,13 @@ export class VoucherViewComponent implements OnInit {
   ngdate: any = null
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -117,7 +120,7 @@ export class VoucherViewComponent implements OnInit {
         }
         else {
           this.tableData = []
-          Swal.fire('Info', 'No Records Found', 'info')
+          Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.n_records')}`, 'info')
         }
         this.isLoading = false
       })

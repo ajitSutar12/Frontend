@@ -5,7 +5,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { SelectModule } from 'ng-select';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,9 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { ThemeModule } from 'src/app/theme/theme.module';
+// import { HttpLoaderFactory } from '../../balance-entry/balance-updation/balance-updation.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +32,15 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   declarations: [OverDraftComponent],
   providers: [{
@@ -40,3 +51,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     SchemeCodeDropdownService, SchemeAccountNoService, overdraftservice, SystemMasterParametersService, OwnbranchMasterService]
 })
 export class OverDraftModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

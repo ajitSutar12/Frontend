@@ -3,13 +3,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>General Meeting Appear Member Updation</h5>
+                <h5>{{'utility.Action.T3' | translate}}</h5>
             </div>
 
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">{{'utility.Action.Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -27,13 +27,13 @@
                                 *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="Date">Warrent Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for="Date">{{'utility.Action.Warrent_Date' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -50,12 +50,12 @@
                                 *ngIf="angForm.controls['wdate'].invalid && (angForm.controls['wdate'].dirty || angForm.controls['wdate'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['wdate'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Year
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">{{'utility.Action.Year' | translate}}
                                 <sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-1">
                             <div class="form-group input-group">
@@ -70,7 +70,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['myear'].errors?.pattern || angForm.controls['myear'].errors?.required || angForm.controls['myear'].errors?.maxlength">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -88,14 +88,14 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['myear'].errors?.pattern || angForm.controls['myear'].errors?.required || angForm.controls['myear'].errors?.maxlength">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Member from<sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">{{'utility.Action.Mem_from' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -112,13 +112,13 @@
                                 *ngIf="angForm.controls['memfrom'].invalid && (angForm.controls['memfrom'].dirty || angForm.controls['memfrom'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['memfrom'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Member To<sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">{{'utility.Action.Mem_To' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -135,7 +135,7 @@
                                 *ngIf="angForm.controls['memto'].invalid && (angForm.controls['memto'].dirty || angForm.controls['memto'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['memto'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -144,11 +144,11 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Close' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Cancel' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Update' | translate}}</button>
                         </div>
                     </div>
                 </div>

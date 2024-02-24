@@ -9,15 +9,15 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Deposit Account Closing</h5>
+                            <h5> {{'Transaction.Deposit_Account_Closing.Title' | translate}}</h5>
                             <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                                Fields marked with (<sub class="required"> * </sub>) are mandatory
+                                {{'Transaction.Action.F1' | translate}} (<sub class="required"> * </sub>)  {{'Transaction.Action.F2' | translate}}
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Deposit_Account_Closing.Branch_Code' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
@@ -35,7 +35,7 @@
                                             *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['branch_code'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
 
                                     </div> -->
                                     <!-- <div class="col-md-1"></div> -->
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Date</label></div>
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">{{'Transaction.Deposit_Account_Closing.Date' | translate}}</label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="scheme">Scheme<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="scheme">{{'Transaction.Deposit_Account_Closing.Scheme' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
@@ -73,13 +73,13 @@
                                             *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account Number<sub
+                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">{{'Transaction.Deposit_Account_Closing.Account_Number' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
@@ -96,15 +96,15 @@
                                             *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['account_no'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm">
                                         <label *ngIf="!preMature && customer!=null"
-                                            style="color: rgb(7, 144, 7);">Matured Account</label>
+                                            style="color: rgb(7, 144, 7);">{{'Transaction.Deposit_Account_Closing.Matured_Account' | translate}}</label>
                                         <label *ngIf="preMature && customer!=null"
-                                            style="color: rgb(194, 55, 55);">Premature Account</label>
+                                            style="color: rgb(194, 55, 55);">{{'Transaction.Deposit_Account_Closing.Premature_Account' | translate}}</label>
                                     </div>
                                 </div>
 
@@ -112,7 +112,7 @@
                                     <div class="col-md-6 solid1">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Interest Rate(%)</label>
+                                                <label>{{'Transaction.Deposit_Account_Closing.Interest_Rate' | translate}}(%)</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
@@ -128,7 +128,7 @@
                                         </div>
                                         <div class="row" *ngIf="!preMature">
                                             <div class="col-md-4">
-                                                <label>Days</label>
+                                                <label>{{'Transaction.Deposit_Account_Closing.Days' | translate}}</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
@@ -146,11 +146,11 @@
                                             <div class="col-md-12">
                                                 <table>
                                                     <tr>
-                                                        <td colspan="2">Closing Period</td>
-                                                        <td>Interest</td>
+                                                        <td colspan="2">{{'Transaction.Deposit_Account_Closing.Closing_Period' | translate}}</td>
+                                                        <td>{{'Transaction.Deposit_Account_Closing.Interest' | translate}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Quaters</td>
+                                                        <td>{{'Transaction.Deposit_Account_Closing.Quaters' | translate}}</td>
                                                         <td>
                                                             <input style="width:50% ; text-align: right;"
                                                                 formControlName="ClosingQuaters" type="text" disabled>
@@ -161,7 +161,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Months</td>
+                                                        <td>{{'Transaction.Deposit_Account_Closing.Months' | translate}}</td>
                                                         <td><input style="width:50% ; text-align: right;" type="text"
                                                                 formControlName="ClosingMonth" disabled>
                                                         </td>
@@ -170,7 +170,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Days</td>
+                                                        <td>{{'Transaction.Deposit_Account_Closing.Days' | translate}}</td>
                                                         <td><input style="width:50% ; text-align: right;" type="text"
                                                                 formControlName="ClosingDays" disabled>
                                                         </td>
@@ -188,10 +188,10 @@
                                             <div class="col-md-12">
                                                 <table>
                                                     <tr>
-                                                        <td colspan="2">After Matured Interest</td>
+                                                        <td colspan="2">{{'Transaction.Deposit_Account_Closing.After_Matured_Interest' | translate}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Interest Rate</td>
+                                                        <td>{{'Transaction.Deposit_Account_Closing.Interest_Rate' | translate}}</td>
                                                         <td>
                                                             <input style="width:50% ; text-align: right;"
                                                                 (change)="getMaturedIntRate()" maxlength="5"
@@ -201,7 +201,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Interest Amount</td>
+                                                        <td>{{'Transaction.Deposit_Account_Closing.Interest_Amount' | translate}}</td>
                                                         <td>
                                                             <input style="width:50% ; text-align: right;" disabled
                                                                 class="form-control" (focus)="selectAllContent($event)"
@@ -215,7 +215,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Total Interest Amount @ {{intRateShow | number:'1.2-2'}}
+                                                <label>{{'Transaction.Deposit_Account_Closing.Total_Interest_Amount' | translate}} @ {{intRateShow | number:'1.2-2'}}
                                                     %</label>
                                             </div>
                                             <div class="col-md-6">
@@ -231,7 +231,7 @@
                                         </div>
                                         <div class="row" *ngIf="preMature">
                                             <div class="col-md-6">
-                                                <label>Paid/Posted Interest -</label>
+                                                <label>{{'Transaction.Deposit_Account_Closing.Paid/Posted_Interest' | translate}} -</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -253,7 +253,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Net/Excess Interest Amount</label>
+                                                <label>{{'Transaction.Deposit_Account_Closing.Net/Excess_Interest_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -286,7 +286,7 @@
                                             </div>
                                         </div> -->
                                         <div class="row">
-                                            <div class="col-md-4"><label for="narration">Narration</label></div>
+                                            <div class="col-md-4"><label for="narration">{{'Transaction.Deposit_Account_Closing.Narration' | translate}}</label></div>
                                             <div class="col-md">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -303,7 +303,7 @@
                                     <div class="col-md-6 solid1">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label> Ledger Balance Amount</label>
+                                                <label> {{'Transaction.Deposit_Account_Closing.Ledger_Balance_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -321,8 +321,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label><span *ngIf="!preMature"
-                                                        style="font-weight: 800; font-size: 16px;">+</span>Payable
-                                                    Interest Amount</label>
+                                                        style="font-weight: 800; font-size: 16px;">+</span>{{'Transaction.Deposit_Account_Closing.Payable_Interest_Amount' | translate}}
+                                                   </label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -343,9 +343,9 @@
                                                 <label><span *ngIf="NET_EXC_INTAMT >= 0"
                                                         style="font-weight: 800; font-size: 16px;">+</span> <span
                                                         *ngIf="NET_EXC_INTAMT < 0"
-                                                        style="font-weight: 800; font-size: 16px;">-</span> Net
-                                                    Interest/Excess
-                                                    Interest Amount</label>
+                                                        style="font-weight: 800; font-size: 16px;">-</span> 
+                                                        {{'Transaction.Deposit_Account_Closing.Net_Interest/Excess_Interest_Amount' | translate}}
+                                                   </label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -362,8 +362,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> TDS
-                                                    Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> {{'Transaction.Deposit_Account_Closing.TDS_Amount' | translate}}
+                                                    </label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -381,7 +381,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label><span style="font-weight: 800; font-size: 16px;">-</span>
-                                                    Surcharge Amount</label>
+                                                    {{'Transaction.Deposit_Account_Closing.Surcharge_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -398,8 +398,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> Penal
-                                                    Interest Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> 
+                                                    {{'Transaction.Deposit_Account_Closing.Penal_Interest_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -421,7 +421,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Net Payable Amount</label>
+                                                <label>{{'Transaction.Deposit_Account_Closing.Net_Payable_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -440,7 +440,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm">
-                                        <h5>Payment Details:</h5>
+                                        <h5>{{'Transaction.Deposit_Account_Closing.Payment_Details' | translate}}:</h5>
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="form-radio">
@@ -449,7 +449,7 @@
                                                             <input type="radio" formControlName="SAVING_PIGMY"
                                                                 name="SAVING_PIGMY" value="FormC" id="formT"
                                                                 (change)="isFormA(1)">
-                                                            <i class="helper"></i>Cash
+                                                            <i class="helper"></i>{{'Transaction.Deposit_Account_Closing.Cash' | translate}}
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
@@ -457,7 +457,7 @@
                                                             <input type="radio" value="FormT"
                                                                 formControlName="SAVING_PIGMY" id="formC"
                                                                 name="SAVING_PIGMY" (change)="isFormA(2)">
-                                                            <i class="helper"></i>Transfer
+                                                            <i class="helper"></i>{{'Transaction.Deposit_Account_Closing.Transfer' | translate}}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -466,8 +466,8 @@
                                         <div class="row" id="FORMA" *ngIf="isTransfer">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque
-                                                            Number</label></div>
+                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">{{'Transaction.Deposit_Account_Closing.Cheque_Number' | translate}}
+                                                           </label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -480,8 +480,8 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque
-                                                            Date</label>
+                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">{{'Transaction.Deposit_Account_Closing.Cheque_Date' | translate}}
+                                                            </label>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
@@ -515,7 +515,7 @@
                                                     </div> -->
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Deposit_Account_Closing.Scheme' | translate}}<sub
                                                                 class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md-4">
                                                         <div class="form-group form-primary form-static-label">
@@ -535,15 +535,15 @@
                                                             *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
                                                             class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['Tscheme'].errors?.required">
-                                                                This field is required.
+                                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                                             </div>
                                                         </div>
 
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-2"><label for="TschemeAC">Account
-                                                            Number<sub class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md-2"><label for="TschemeAC">{{'Transaction.Deposit_Account_Closing.Account_Number' | translate}}
+                                                            <sub class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md-5">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
@@ -565,14 +565,14 @@
                                                             *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
                                                             class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
-                                                                This field is required.
+                                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-2  "><label
-                                                            for="AC_PARTICULAR">Particulars</label></div>
+                                                            for="AC_PARTICULAR">{{'Transaction.Deposit_Account_Closing.Particulars' | translate}}</label></div>
                                                     <div class="col-md-4">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -586,7 +586,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-2"><label for="amount">Amount<sub
+                                                    <div class="col-md-2"><label for="amount">{{'Transaction.Deposit_Account_Closing.Amount' | translate}}<sub
                                                                 class="required">*</sub></label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
@@ -603,20 +603,20 @@
                                                         <div class="form-group form-primary form-static-label"
                                                             *ngIf="angForm.controls['amount'].invalid && (angForm.controls['amount'].dirty || angForm.controls['amount'].touched)"
                                                             class="alert alert-danger">
-                                                            <div
-                                                                *ngIf="angForm.controls['amount'].errors?.pattern || angForm.controls['amount'].errors?.required || angForm.controls['amount'].errors?.maxlength">
-                                                                Input allowed only 0-9
+                                                            <div>
+                                                               <!-- <div *ngIf="angForm.controls['amount'].errors?.pattern || angForm.controls['amount'].errors?.required || angForm.controls['amount'].errors?.maxlength"> -->
+                                                                <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code' | translate}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md">
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
                                                             *ngIf="jointShowButton" (click)="addTransferAccount()">
-                                                            Add Account
+                                                           {{'Transaction.Action.Add_Account' | translate}}
                                                         </button>
                                                         <button class="btn btn-outline-primary btn-sm"
                                                             (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
-                                                            Update Account
+                                                            {{'Transaction.Action.Update_Account' | translate}}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -627,12 +627,12 @@
                                                         <div class="table-responsive">
                                                             <table class="table table-bordered table-hover compact">
                                                                 <thead>
-                                                                    <td>Action</td>
-                                                                    <td>Scheme</td>
-                                                                    <td>Account Number</td>
+                                                                    <td> {{'Transaction.Action.Action' | translate}}</td>
+                                                                    <td>{{'Transaction.Deposit_Account_Closing.Scheme' | translate}}</td>
+                                                                    <td>{{'Transaction.Deposit_Account_Closing.Account_Number' | translate}}</td>
 
-                                                                    <td>Particulars</td>
-                                                                    <td style="text-align: right;">Amount</td>
+                                                                    <td>{{'Transaction.Deposit_Account_Closing.Particulars' | translate}}</td>
+                                                                    <td style="text-align: right;">{{'Transaction.Deposit_Account_Closing.Amount' | translate}}</td>
                                                                 </thead>
 
                                                                 <tbody *ngIf="multigrid.length != 0">
@@ -664,7 +664,7 @@
                                                                     </tr>
                                                                     <tr *ngIf="multigrid.length != 0">
 
-                                                                        <td colspan="4" style="text-align: right;">Total
+                                                                        <td colspan="4" style="text-align: right;">{{'Transaction.Deposit_Account_Closing.Total' | translate}}
                                                                         </td>
                                                                         <td [ngClass]="'td_right'">
                                                                             {{transferTotalAmount}}
@@ -683,27 +683,27 @@
                                     <div class="col-sm" style="float: right;">
                                         <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
                                             *ngIf="showButton" (click)="submit();branchcode.focus()">
-                                            Submit
+                                            {{'Transaction.Action.Submit' | translate}}
                                         </button>
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                             (click)="closeModal()">
-                                            Close</button>
+                                            {{'Transaction.Action.Close' | translate}}</button>
                                         <button class="btn btn-outline-primary btn-sm" (click)="ResetForm()"
                                             *ngIf="newbtnShow">
-                                            Cancel
+                                            {{'Transaction.Action.Cancel' | translate}}
                                         </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                             *ngIf="updateShow">
                                             Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                             (click)="reject()">
-                                            Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            {{'Transaction.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                             (click)="Approve()">
-                                            Approve</button>
+                                            {{'Transaction.Action.Approve' | translate}}</button>
                                         <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                             (click)="unApprove()">
-                                            Unapprove</button>
+                                            {{'Transaction.Action.unapprove' | translate}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -720,7 +720,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Details</h5>
+                            <h5> {{'Transaction.Deposit_Account_Closing.Details' | translate}}</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -733,8 +733,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Deposit
-                                                    Amount
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.Deposit_Amount' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -753,8 +753,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity
-                                                    Amount
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.Maturity_Amount' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -772,7 +772,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Int Rate%
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Deposit_Account_Closing.Int_Rate' | translate}}%
                                                 </h6>
                                             </div>
                                         </div>
@@ -790,8 +790,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Last Int.
-                                                    Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.Last_Int_Date' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -809,8 +809,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Opening
-                                                    Date</h6>
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.Opening_Date' | translate}}</h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -826,8 +826,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">As On
-                                                    Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.As_On_Date' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -845,8 +845,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity
-                                                    Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.Maturity_Date' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -864,8 +864,8 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Receipt
-                                                    No.
+                                                <h6 class="transaction-title" style="font-size: 12px;">
+                                                    {{'Transaction.Deposit_Account_Closing.Receipt_No' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -882,7 +882,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Operation
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Deposit_Account_Closing.Operation' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -900,7 +900,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Months
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Deposit_Account_Closing.Months' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -917,7 +917,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Days
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Deposit_Account_Closing.Days' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -946,7 +946,7 @@
                                             <div class="info-container">
                                                 <ul class="list-unstyled">
                                                     <li class="mb-75">
-                                                        <span class="fw-bolder me-25">Status:</span>
+                                                        <span class="fw-bolder me-25">{{'Transaction.Deposit_Account_Closing.Status' | translate}}:</span>
                                                         <span class="badge bg-light-success">{{Status == true ||
                                                             Status
                                                             ==
@@ -954,11 +954,11 @@
                                                             'Active'}}</span>
                                                     </li>
                                                     <li class="mb-75">
-                                                        <span class="fw-bolder me-25">PAN ID:</span>
+                                                        <span class="fw-bolder me-25">{{'Transaction.Deposit_Account_Closing.PAN_ID' | translate}}:</span>
                                                         <span>{{Customer_info?.AC_PANNO}}</span>
                                                     </li>
                                                     <li class="mb-75">
-                                                        <span class="fw-bolder me-25">Contact:</span>
+                                                        <span class="fw-bolder me-25">{{'Transaction.Deposit_Account_Closing.Contact' | translate}}:</span>
                                                         <span>{{Customer_info?.AC_MOBILENO}}</span>
                                                     </li>
                                                 </ul>
@@ -976,7 +976,7 @@
 </form>
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Deposit_Account_Closing.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -987,7 +987,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Paticulars</th>
+                            <th>{{'Transaction.Deposit_Account_Closing.Particulars' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
@@ -996,7 +996,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
-                        (click)="modalLarge.hide()">Close</button>
+                        (click)="modalLarge.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>
@@ -1005,7 +1005,7 @@
 
 <app-modal-basic #modalNarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Deposit_Account_Closing.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalNarration.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -1016,7 +1016,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Paticulars</th>
+                            <th>{{'Transaction.Deposit_Account_Closing.Particulars' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getFormNarration(item.NARRATION)">
@@ -1025,7 +1025,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm"
-                        #triggerNarrationhide (click)="modalNarration.hide()">Close</button>
+                        #triggerNarrationhide (click)="modalNarration.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>

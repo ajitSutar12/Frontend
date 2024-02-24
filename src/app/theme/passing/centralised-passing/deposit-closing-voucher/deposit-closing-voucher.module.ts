@@ -13,6 +13,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { DepositClosingVoucherComponent } from './deposit-closing-voucher.component';
 import { TermDepositAccountClosingModule } from "../../../transaction/term-deposit-account-closing/term-deposit-account-closing.module";
+import { HttpClient } from "@angular/common/http";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 @NgModule({
   imports: [
@@ -21,7 +24,15 @@ import { TermDepositAccountClosingModule } from "../../../transaction/term-depos
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    TermDepositAccountClosingModule
+    TermDepositAccountClosingModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
+
   ],
   exports: [DepositClosingVoucherComponent],
   declarations: [DepositClosingVoucherComponent],
@@ -33,3 +44,6 @@ import { TermDepositAccountClosingModule } from "../../../transaction/term-depos
   ],
 })
 export class DepositClosingVoucherModule {}
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

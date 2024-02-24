@@ -13,6 +13,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { PassdeadStockPurchaseComponent } from './passdead-stock-purchase.component';
 import { DeadStockPurchaseModule } from "../../../transaction/dead-stock-purchase/dead-stock-purchase.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -21,7 +24,15 @@ import { DeadStockPurchaseModule } from "../../../transaction/dead-stock-purchas
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    DeadStockPurchaseModule
+    DeadStockPurchaseModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [PassdeadStockPurchaseComponent],
   declarations: [PassdeadStockPurchaseComponent],
@@ -33,3 +44,8 @@ import { DeadStockPurchaseModule } from "../../../transaction/dead-stock-purchas
   ],
 })
 export class PassDeadStockPurchaseModule {}
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

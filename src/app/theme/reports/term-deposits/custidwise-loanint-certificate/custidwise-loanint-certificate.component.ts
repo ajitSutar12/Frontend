@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-custidwise-loanint-certificate',
   templateUrl: './custidwise-loanint-certificate.component.html',
@@ -48,7 +49,10 @@ showRepo: boolean = false;
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService,
-    private sanitizer: DomSanitizer) { this.todate = moment().format('DD/MM/YYYY');
+    private sanitizer: DomSanitizer, private translate:TranslateService) { 
+      this.translate.setDefaultLang(environment.setLang) ;
+
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -156,7 +160,7 @@ view(event) {
  
 }
 else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
 }
 
 }

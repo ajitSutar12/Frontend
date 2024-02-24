@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -70,7 +71,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private riskCatMasterService: RiskCatMasterService,
-    private http: HttpClient) { this.createForm(); }
+    private http: HttpClient,private translate:TranslateService) { this.createForm(); }
 
   ngOnInit(): void {
     const that = this;
@@ -130,18 +131,18 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Risk_Category.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Category Code',
+          title: this.translate.instant('master.Risk_Category.code'),
           data: 'CODE'
 
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Risk_Category.Description'),
           data: 'NAME'
         }
       ],

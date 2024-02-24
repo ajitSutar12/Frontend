@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { GoldSilverReturnEntryComponent } from 'src/app/theme/transaction/gold-silver-return-entry/gold-silver-return-entry.component';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -45,7 +46,9 @@ export class PassgoldSilverReturnEntryComponent implements OnInit, AfterViewInit
   // Store data from backend
   goldSilverReturnEntry: GoldSilverReturnEntry[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   goldSilverReturnEntryData: any = {};
   ngOnInit(): void {
@@ -104,19 +107,19 @@ export class PassgoldSilverReturnEntryComponent implements OnInit, AfterViewInit
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'AC_NO'
         },
         {
-          title: 'Return date',
+          title: this.translate.instant('Passing.Gold_Silver_Return_Entry.Return_Date'),
           data: 'RETURN_DATE'
         },
 
         {
-          title: 'User code',
+          title: this.translate.instant('Passing.Gold_Silver_Return_Entry.User_Code'),
           data: 'USER_CODE'
         },
       ],

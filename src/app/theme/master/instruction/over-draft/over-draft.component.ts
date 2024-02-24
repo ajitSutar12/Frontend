@@ -19,6 +19,7 @@ import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -103,9 +104,11 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private http: HttpClient,
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
-    private ownbranchMasterService: OwnbranchMasterService
-  ) {
-    // this.maxDate = new Date();
+    private ownbranchMasterService: OwnbranchMasterService,
+    private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang)
+
+      // this.maxDate = new Date();
     // this.minDate = new Date();
     // this.minDate.setDate(this.minDate.getDate() - 1);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -229,10 +232,10 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   submit() {
     const formVal = this.angForm.value;
     if (formVal.BRANCH_CODE == "" || formVal.BRANCH_CODE == null) {
-      Swal.fire("Warning!", "Please Select Branch!", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.M2')}`, "warning");
     }
     else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.W1')}`, "warning");
     }
     else if (formVal.AC_NO == "" || formVal.AC_NO == null) {
       Swal.fire(
@@ -259,7 +262,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       };
       this._overdraft.postData(dataToSend).subscribe(
         (data1) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
           this.PeriodicallyOverDraftTrue = true
           this.TemporaryOverDraftTrue = false
           this.formSubmitted = false;
@@ -272,7 +275,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     }
     else {
-      Swal.fire('info', 'Please fill mandatory fields', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'info')
     }
   }
 
@@ -321,7 +324,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       (data.AC_ODDATE == 'Invalid date' || data.AC_ODDATE == '' || data.AC_ODDATE == null) ? (effectdate = '', data['AC_ODDATE'] = effectdate) : (effectdate = data.AC_ODDATE, data['AC_ODDATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this._overdraft.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -433,8 +436,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   */
   delClickHandler(id: any): void {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete Over Draft data",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.M3')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -446,11 +449,11 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
        */
       if (result.isConfirmed) {
         this._overdraft.deleteData(id).subscribe((data1) => {
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`,`${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`,`${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -558,5 +561,12 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   {
     this.resetForm();
   }
+
+   //translate
+   selectLanguage(event:any){
+    this.translate.use(event.target.value);
+
+  }
+
 
 }

@@ -2,9 +2,9 @@
     <div class="col">
         <div class="card">
             <div class="card-header">
-                <h5>Interest Instructions </h5>
+                <h5>{{'master.Interest_Instructions.Title' | translate}} </h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required "> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}}(<sub class="required "> * </sub>) {{'master.Action.F1' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="INSTRUCTION_NO" class="form-control" placeholder=" "
                                         id="INSTRUCTION_NO" formControlName="INSTRUCTION_NO" disabled>
-                                    <label for="INSTRUCTION_NO">Instruction Number</label>
+                                    <label for="INSTRUCTION_NO">{{'master.Interest_Instructions.Instruction_Number' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                         (keydown.Tab)="INSTRUCTION_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="INSTRUCTION_DATE" bsDatepicker autofocus>
-                                    <label for="INSTRUCTION_DATE">Date</label>
+                                    <label for="INSTRUCTION_DATE">{{'master.Interest_Instructions.Date' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -41,18 +41,18 @@
                                         [virtualScroll]="true" (change)="setStartDate($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" #EXECUTION_DAY
                                         (focus)="onFocus(EXECUTION_DAY)" [selectOnTab]='true' required
-                                        placeholder="Execution Day">
+                                        placeholder="{{'master.Interest_Instructions.Execution_Day' | translate}}">
                                         <ng-option *ngFor="let values of executionDay" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="EXECUTION_DAY">Execution Day <sub class="required"> * </sub></label>
+                                    <label for="EXECUTION_DAY">{{'master.Interest_Instructions.Execution_Day' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['EXECUTION_DAY'].invalid && (angForm.controls['EXECUTION_DAY'].dirty || angForm.controls['EXECUTION_DAY'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EXECUTION_DAY'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -60,9 +60,9 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="DAYS" class="form-control" placeholder=" " id="DAYS" max="31"
-                                        style="text-align: right;" formControlName="DAYS" pattern="^[0-9]+$" disabled
+                                        style="text-align: right;" formControlName="DAYS" pattern="^[0-9\u0966-\u096F]*$" disabled
                                         (ngModelChange)="fromDate()">
-                                    <label for="DAYS">Days</label>
+                                    <label for="DAYS">{{'master.Interest_Instructions.Days' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -70,7 +70,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['DAYS'].errors?.pattern || angForm.controls['DAYS'].errors?.minlength||angForm.controls['DAYS'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                         #FROM_DATE="bsDatepicker" (keydown.Tab)="FROM_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="FROM_DATE" bsDatepicker>
-                                    <label for="FROM_DATE">Start From<sub class="required">*
+                                    <label for="FROM_DATE">{{'master.Interest_Instructions.Start_From' | translate}}<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
@@ -92,7 +92,7 @@
                                 *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
                                 class='alert alert-danger'>
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -106,18 +106,18 @@
                                         [virtualScroll]="true" (change)="setNextExeDate($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" #SI_FREQUENCY
                                         (focus)="onFocus(SI_FREQUENCY)" [selectOnTab]='false' required
-                                        placeholder="Frequency">
+                                        placeholder="{{'master.Interest_Instructions.Frequency' | translate}}">
                                         <ng-option *ngFor="let values of frequencyOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="SI_FREQUENCY">Frequency <sub class="required"> * </sub></label>
+                                    <label for="SI_FREQUENCY">{{'master.Interest_Instructions.Frequency' | translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['SI_FREQUENCY'].invalid && (angForm.controls['SI_FREQUENCY'].dirty || angForm.controls['SI_FREQUENCY'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SI_FREQUENCY'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -131,11 +131,11 @@
                                         #NEXT_EXE_DATE="bsDatepicker" (keydown.Tab)="NEXT_EXE_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="NEXT_EXE_DATE" bsDatepicker>
-                                    <label for="NEXT_EXE_DATE">Next Execution On</label>
+                                    <label for="NEXT_EXE_DATE">{{'master.Interest_Instructions.Next_Execution_On' | translate}}</label>
                                 </span>
                             </div>
                         </div>
-                        <p><b>Payment By: </b></p>
+                        <p><b>{{'master.Interest_Instructions.Payment_By' | translate}} </b></p>
                         <!-- <ng-container *ngIf='router.url==="/master/Instruction/interestInstruction"'>
                             <div class="col-sm-1">
                                 <a routerLinkActive="active" class="text-right f-w-600" id="pointer">
@@ -158,7 +158,7 @@
                                         <label class="inputRadio">
                                             <input (change)="OpenLink(2)" type="radio" formControlName="TRAN_TYPE"
                                                 name="TRAN_TYPE" value="Transfer">
-                                            <i class="helper"></i>Transfer<span class="required"> </span>
+                                            <i class="helper"></i>{{'master.Interest_Instructions.Transfer' | translate}}<span class="required"> </span>
                                         </label>
                                     </div>
                                 </div>
@@ -173,14 +173,14 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" [maxDate]="maxDate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="LAST_EXEC_DATE" bsDatepicker disabled>
-                                    <label for="LAST_EXEC_DATE">Last Execution On</label>
+                                    <label for="LAST_EXEC_DATE">{{'master.Interest_Instructions.Last_Execution_On' | translate}}</label>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <ng-container *ngIf='router.url==="/master/Instruction/interestInstruction"'>
                         <div *ngIf="cashTrue">
-                            <h6>Interest Instruction Account Details</h6>
+                            <h6>{{'master.Interest_Instructions.Account_Details' | translate}}</h6>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
@@ -190,18 +190,18 @@
                                                 (change)="getTermAc($event)" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_ACTYPE (focus)="onFocus(DR_ACTYPE)" [selectOnTab]='true'
-                                                placeholder="Scheme">
+                                                placeholder="{{'master.Interest_Instructions.Scheme' | translate}}">
                                                 <ng-option *ngFor="let values of scheme" [value]="values">
                                                     {{values.id}} {{values.label}}</ng-option>
                                             </ng-select>
-                                            <label for="cashScheme">Scheme <sub class="required"> * </sub></label>
+                                            <label for="cashScheme">{{'master.Interest_Instructions.Scheme' | translate}} <sub class="required"> * </sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
                                         *ngIf="angForm.controls['DR_ACTYPE'].invalid && (angForm.controls['DR_ACTYPE'].dirty || angForm.controls['DR_ACTYPE'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['DR_ACTYPE'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -222,18 +222,18 @@
                                                 title="Compulsory Selection" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DRACNO (focus)="onFocus(DRACNO)" [selectOnTab]='true'
-                                                placeholder="Account Number">
+                                                placeholder="{{'master.Interest_Instructions.Account_Number' | translate}}">
                                                 <ng-option *ngFor="let values of termSchemeAC" [value]="values">
                                                     {{values.label}} {{values.name}}</ng-option>
                                             </ng-select>
-                                            <label for="DR_AC_NO">Account Number <sub class="required"> * </sub></label>
+                                            <label for="DR_AC_NO">{{'master.Interest_Instructions.Account_Number' | translate}} <sub class="required"> * </sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
                                         *ngIf="angForm.controls['DR_AC_NO'].invalid && (angForm.controls['DR_AC_NO'].dirty || angForm.controls['DR_AC_NO'].touched)"
                                         class='alert alert-danger'>
                                         <div *ngIf="angForm.controls['DR_AC_NO'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +243,7 @@
                                             <input appTheme type="text" name="To" class="form-control" placeholder=" "
                                                 id="DR_PARTICULARS" maxlength="50" formControlName="DR_PARTICULARS"
                                                 [required]="cashoption">
-                                            <label for="DR_PARTICULARS">Particulars<sub class="required">*</sub></label>
+                                            <label for="DR_PARTICULARS">{{'master.Interest_Instructions.Particulars' | translate}}<sub class="required">*</sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -251,7 +251,7 @@
                                         class="alert alert-danger">
                                         <div
                                             *ngIf=" angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -259,7 +259,7 @@
                         </div>
                     </ng-container>
                     <div *ngIf="transferTrue">
-                        <h6>Credit Account Details</h6>
+                        <h6>{{'master.Interest_Instructions.Credit_Account_Details' | translate}}</h6>
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="form-group form-primary form-static-label">
@@ -269,18 +269,18 @@
                                             (change)="getTermCreditAc($event)" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" [required]="transferoption"
                                             #CR_ACTYPE (focus)="onFocus(CR_ACTYPE)" [selectOnTab]='true'
-                                            placeholder="Scheme">
+                                            placeholder="{{'master.Interest_Instructions.Scheme' | translate}}">
                                             <ng-option *ngFor="let values of allscheme" [value]="values">
                                                 {{values.id}} {{values.label}}</ng-option>
                                         </ng-select>
-                                        <label for="CR_ACTYPE">Scheme <sub class="required"> * </sub></label>
+                                        <label for="CR_ACTYPE">{{'master.Interest_Instructions.Scheme' | translate}} <sub class="required"> * </sub></label>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['CR_ACTYPE'].invalid && (angForm.controls['CR_ACTYPE'].dirty || angForm.controls['CR_ACTYPE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['CR_ACTYPE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -292,18 +292,18 @@
                                             title="Compulsory Selection" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" [required]="transferoption"
                                             #CR_AC_NO (focus)="onFocus(CR_AC_NO)" [selectOnTab]='true'
-                                            placeholder="Account Number">
+                                            placeholder="{{'master.Interest_Instructions.Account_Number' | translate}}">
                                             <ng-option *ngFor="let values of crACno" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
-                                        <label for="CR_AC_NO">Account Number <sub class="required"> * </sub></label>
+                                        <label for="CR_AC_NO">{{'master.Interest_Instructions.Account_Number' | translate}} <sub class="required"> * </sub></label>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['CR_AC_NO'].invalid && (angForm.controls['CR_AC_NO'].dirty || angForm.controls['CR_AC_NO'].touched)"
                                     class='alert alert-danger'>
                                     <div *ngIf="angForm.controls['CR_AC_NO'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -313,7 +313,7 @@
                                         <input appTheme type="text" name="To" class="form-control" placeholder=" "
                                             id="CR_PARTICULARS" maxlength="50" formControlName="CR_PARTICULARS"
                                             [required]="transferoption">
-                                        <label for="CR_PARTICULARS">Particulars<sub class="required">*</sub></label>
+                                        <label for="CR_PARTICULARS">{{'master.Interest_Instructions.Particulars' | translate}}<sub class="required">*</sub></label>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -321,13 +321,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="angForm.controls['CR_PARTICULARS'].errors?.required || angForm.controls['CR_PARTICULARS'].errors?.maxlength">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ng-container *ngIf='router.url==="/master/Instruction/interestInstruction"'>
-                            <h6>Debit Account Deatils</h6>
+                            <h6>{{'master.Interest_Instructions.Debit_Account_Deatils' | translate}}</h6>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group form-primary form-static-label">
@@ -337,18 +337,18 @@
                                                 (change)="getTermAc($event)" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_ACTYPE (focus)="onFocus(DR_ACTYPE)" [selectOnTab]='true'
-                                                placeholder="Scheme">
+                                                placeholder="{{'master.Interest_Instructions.Scheme' | translate}}">
                                                 <ng-option *ngFor="let values of scheme" [value]="values">
                                                     {{values.id}} {{values.label}}</ng-option>
                                             </ng-select>
-                                            <label for="cashScheme">Scheme <sub class="required"> * </sub></label>
+                                            <label for="cashScheme">{{'master.Interest_Instructions.Scheme' | translate}} <sub class="required"> * </sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
                                         *ngIf="angForm.controls['DR_ACTYPE'].invalid && (angForm.controls['DR_ACTYPE'].dirty || angForm.controls['DR_ACTYPE'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['DR_ACTYPE'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -360,18 +360,18 @@
                                                 title="Compulsory Selection" [virtualScroll]="true"
                                                 [ngClass]="{'form-submitted': formSubmitted}" [required]="cashoption"
                                                 #DR_AC_NO (focus)="onFocus(DR_AC_NO)" [selectOnTab]='true'
-                                                placeholder="Account No">
+                                                placeholder="{{'master.Interest_Instructions.Account_Number' | translate}}">
                                                 <ng-option *ngFor="let values of termSchemeAC" [value]="values">
                                                     {{values.label}} {{values.name}}</ng-option>
                                             </ng-select>
-                                            <label for="DR_AC_NO">Account Number <sub class="required"> * </sub></label>
+                                            <label for="DR_AC_NO">{{'master.Interest_Instructions.Account_Number' | translate}}<sub class="required"> * </sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
                                         *ngIf="angForm.controls['DR_AC_NO'].invalid && (angForm.controls['DR_AC_NO'].dirty || angForm.controls['DR_AC_NO'].touched)"
                                         class='alert alert-danger'>
                                         <div *ngIf="angForm.controls['DR_AC_NO'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -382,7 +382,7 @@
                                                 id="DR_PARTICULARS"  maxlength="50"
                                                 formControlName="DR_PARTICULARS"
                                                                                                [required]="cashoption">
-                                            <label for="DR_PARTICULARS">Particulars<sub class="required">*</sub></label>
+                                            <label for="DR_PARTICULARS">{{'master.Interest_Instructions.Particulars' | translate}}<sub class="required">*</sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -390,7 +390,7 @@
                                         class="alert alert-danger">
                                         <div
                                             *ngIf="angForm.controls['DR_PARTICULARS'].errors?.required || angForm.controls['DR_PARTICULARS'].errors?.maxlength">
-                                            This field is required and Input allowed only A-Za-z
+                                            <!-- This field is required and Input allowed only A-Za-z -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -401,11 +401,11 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input appTheme type="text" name="To" class="form-control" placeholder=" "
-                                            id="ADV_NARRATION" pattern="^[A-Za-z ]+$" maxlength="50"
+                                            id="ADV_NARRATION"  maxlength="50"
                                             title="Input allowed only A-Za-z" formControlName="ADV_NARRATION"
                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                             [required]="transferoption">
-                                        <label for="ADV_NARRATION">Advice Narration <sub
+                                        <label for="ADV_NARRATION">{{'master.Interest_Instructions.Advice_Narration' | translate}} <sub
                                                 class="required">*</sub></label>
                                     </span>
                                 </div>
@@ -413,8 +413,8 @@
                                     *ngIf="angForm.controls['ADV_NARRATION'].invalid && (angForm.controls['ADV_NARRATION'].dirty || angForm.controls['ADV_NARRATION'].touched)"
                                     class="alert alert-danger">
                                     <div
-                                        *ngIf="angForm.controls['ADV_NARRATION'].errors?.pattern || angForm.controls['ADV_NARRATION'].errors?.required || angForm.controls['ADV_NARRATION'].errors?.maxlength">
-                                        This field is required and Input allowed only A-Za-z
+                                        *ngIf=" angForm.controls['ADV_NARRATION'].errors?.required || angForm.controls['ADV_NARRATION'].errors?.maxlength">
+                                        <!-- This field is required and Input allowed only A-Za-z -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -428,7 +428,7 @@
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             formControlName="REVOKE_DATE" bsDatepicker [required]="transferoption"
                                             disabled>
-                                        <label for="REVOKE_DATE">Revoke Date<sub class="required">*
+                                        <label for="REVOKE_DATE">{{'master.Interest_Instructions.Revoke_Date' | translate}}<sub class="required">*
                                             </sub></label>
                                     </span>
                                 </div>
@@ -436,7 +436,7 @@
                                     *ngIf="angForm.controls['REVOKE_DATE'].invalid && (angForm.controls['REVOKE_DATE'].dirty || angForm.controls['REVOKE_DATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['REVOKE_DATE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -446,7 +446,7 @@
                                         <input type="checkbox" class="border-checkbox" id="DEFAULT_INTEREST_APPLICABLE"
                                             formControlName="DEFAULT_INTEREST_APPLICABLE">
                                         <label class="border-checkbox-label" for="DEFAULT_INTEREST_APPLICABLE">
-                                            Is Discounted Interest Applicable</label>
+                                            {{'master.Interest_Instructions.Interest_Applicable' | translate}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -457,7 +457,7 @@
                             <ng-container *ngIf='router.url==="/master/Instruction/interestInstruction"'>
                                 <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
                                     (click)="submit()" *ngIf="showButton" appTheme (keydown.Tab)="focus()">
-                                    Submit
+                                    {{'master.Action.Submit' | translate}}
                                 </button>
                             </ng-container>
                             <ng-container *ngIf='router.url!=="/master/Instruction/interestInstruction"'>
@@ -467,10 +467,10 @@
                                 </button>
                             </ng-container>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                                Cancel
+                                {{'master.Action.Cancel' | translate}}
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                                Update</button>
+                                {{'master.Action.Update' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -523,7 +523,7 @@
                                     </tbody>
                                     <tbody *ngIf="interestInstruction?.length == 0">
                                         <tr>
-                                            <td colspan="10" class="no-data-available">No data!</td>
+                                            <td colspan="10" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                         </tr>
                                     </tbody>
                                     <tfoot #filters class="filters">

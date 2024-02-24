@@ -8,6 +8,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 // import { DeadStockTransactionService } from '../dead-stock-transaction/dead-stock-transaction.service';
 
 @Component({
@@ -52,6 +53,7 @@ export class DepreciationPassingComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private translate:TranslateService,
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -165,11 +167,11 @@ export class DepreciationPassingComponent implements OnInit {
         this.itemArr = []
         this.drepreciationData = null
         this.ngOnInit()
-        Swal.fire("Success!", "Data Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
       })
     }
     else {
-      Swal.fire("Oops!", "No Data To Update!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.No_Update')}`, "error");
     }
   }
 
@@ -186,12 +188,12 @@ export class DepreciationPassingComponent implements OnInit {
         this.drepreciationData = null
         this.ngOnInit()
         Swal.fire(
-          'Success', 'Deadstock depreciation rejected successfully', 'success'
+          `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.rej_succ')}`, 'success'
         );
       })
     }
     else {
-      Swal.fire("Oops!", "No Data To Reject!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.No_rej')}`, "error");
     }
   }
 
@@ -215,12 +217,12 @@ export class DepreciationPassingComponent implements OnInit {
         this.drepreciationData = null
         this.ngOnInit()
         Swal.fire(
-          'Success', 'Deadstock depreciation approved successfully', 'success'
+          `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.app_succ')}`, 'success'
         );
       })
     }
     else {
-      Swal.fire("Oops!", "No Data To Approve!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.No_App')}`, "error");
     }
   }
 }

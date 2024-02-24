@@ -19,6 +19,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import * as moment from 'moment';
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { Console } from "console";
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -131,15 +132,18 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   multiDividend = []
   mem: any
   totalAmt : Number = 0
-
+ 
   constructor(
+    private translate:TranslateService,
     private http: HttpClient,
     private YearwiseunpaidService: YearwiseunpaidService,
     private fb: FormBuilder,
     private SalaryDMasterdropdownService: SalaryDMasterdropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-  ) { }
+  ) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   ngOnInit(): void {
     this.createForm();
@@ -277,7 +281,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       })
     }
     else {
-       Swal.fire('Invalid Year', 'Please enter a valid year.', 'error');
+       Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Year')}`, `${this.translate.instant('Swal_Msg.W_Msg3_Y')}`, 'error');
 
       this.angForm.patchValue({
         DIV_TO_YEAR: ''
@@ -305,7 +309,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       });
     }
     else {
-      Swal.fire("Select Different Member", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Diff_Num')}`, "error");
       this.angForm.patchValue({
         AC_NOTo: ''
       })
@@ -427,7 +431,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
 
     this.YearwiseunpaidService.postData(dataToSend).subscribe(
       (data) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
       },
       (error) => {
         console.log(error);
@@ -470,7 +474,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
     data["id"] = this.updateID;
     data['FieldData'] = this.sharemember
     this.YearwiseunpaidService.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -489,8 +493,8 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.narration')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -500,7 +504,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
       if (result.isConfirmed) {
         this.YearwiseunpaidService.deleteData(id).subscribe((data1) => {
           this.yearwiseunpaid = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -508,7 +512,7 @@ export class YearWiseUnpaidDividendEntryComponent implements AfterViewInit, OnDe
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }

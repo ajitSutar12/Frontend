@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { DeadstockmasterService } from 'src/app/theme/master/customer/dead-stock-master/dead-stock-master.service';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -78,7 +79,11 @@ export class BnkRegDeadStockComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private deadstockmasterService: DeadstockmasterService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -172,7 +177,7 @@ export class BnkRegDeadStockComponent implements OnInit {
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.Re1')}`, 'warning');
     }
 
   }

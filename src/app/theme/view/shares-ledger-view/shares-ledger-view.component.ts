@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { Subject } from 'rxjs-compat';
 import { DataTableDirective } from 'angular-datatables';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-shares-ledger-view',
@@ -82,6 +83,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
   @Input() accountEvent: any;
   showView: boolean = true
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -90,6 +92,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d

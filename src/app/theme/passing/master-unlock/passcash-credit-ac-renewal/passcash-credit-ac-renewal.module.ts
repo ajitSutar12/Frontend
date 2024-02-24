@@ -13,6 +13,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { PasscashCreditAcRenewalComponent } from './passcash-credit-ac-renewal.component';
 import { CashCreditAcRenewalModule } from "../../../transaction/cash-credit-ac-renewal/cash-credit-ac-renewal.module";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -21,7 +24,15 @@ import { CashCreditAcRenewalModule } from "../../../transaction/cash-credit-ac-r
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    CashCreditAcRenewalModule
+    CashCreditAcRenewalModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [PasscashCreditAcRenewalComponent],
   declarations: [PasscashCreditAcRenewalComponent],
@@ -33,3 +44,8 @@ import { CashCreditAcRenewalModule } from "../../../transaction/cash-credit-ac-r
   ],
 })
 export class PassCashCreditAcRenewalModule {}
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -60,6 +61,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
   Cust_ID: any[] //customer id from idmaster
   newcustid: any = null;
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
@@ -68,6 +70,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private deadstockmasterService: DeadstockmasterService
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -138,7 +141,7 @@ debugger
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning');
     }
 
   }

@@ -8,11 +8,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 // import { SelectModule } from 'ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { DividendTransferPostingService } from './dividend-transfer-posting.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -25,7 +27,16 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     // SelectModule,
     FormsModule,
     ReactiveFormsModule,
-    ThemeModule
+    ThemeModule,
+    
+    
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [DividendTransferPostingComponent],
   providers: [SchemeCodeService, SchemeCodeDropdownService, DividendTransferPostingService, {
@@ -35,3 +46,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
   },]
 })
 export class DividendTransferPostingModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

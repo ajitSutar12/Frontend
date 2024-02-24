@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-directorwise-deposit-list',
@@ -49,7 +50,10 @@ director: any[]
     private systemParameter: SystemMasterParametersService,
     private directorMasterDropdown: DirectorMasterDropdownService,
 
-    private sanitizer: DomSanitizer) { this.todate = moment().format('DD/MM/YYYY');
+    private sanitizer: DomSanitizer, private translate:TranslateService) { 
+      this.translate.setDefaultLang(environment.setLang) ;
+
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -147,7 +151,7 @@ obj['END_DATE']=date
  
 }
 else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
 }
 
 }

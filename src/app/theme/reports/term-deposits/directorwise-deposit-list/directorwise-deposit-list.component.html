@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Directorwise Deposit List</h5>
+                <h5>{{'master.Term_Deposit_Reports.T10' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-2"> <label for="scheme">{{'master.Term_Deposit_Reports.Branch' | translate}} <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
@@ -27,18 +27,18 @@
                                 *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Director <sub
+                        <div class="col-sm-12 col-md-2"> <label for="scheme">{{'master.Term_Deposit_Reports.Director' | translate}} <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="F_DIRECTOR" bindValue="value" [(ngModel)]="ngdirectorFrom"
                                         formControlName="F_DIRECTOR" bindLabel="label" title="Compulsory Selection"
-                                        placeholder="Director" #F_DIRECTOR (focus)="onFocus(F_DIRECTOR)"
+                                        placeholder="{{'master.Term_Deposit_Reports.Director' | translate}}" #F_DIRECTOR (focus)="onFocus(F_DIRECTOR)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of director" [value]="values">
                                             {{values.label}}</ng-option>
@@ -50,14 +50,14 @@
                                 *ngIf="ngForm.controls['F_DIRECTOR'].invalid && (ngForm.controls['F_DIRECTOR'].dirty || ngForm.controls['F_DIRECTOR'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['F_DIRECTOR'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="START_DATE">{{'master.Term_Deposit_Reports.Start_Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group input-group">
@@ -75,12 +75,12 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-2"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="END_DATE">{{'master.Term_Deposit_Reports.End_Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group input-group">
@@ -100,7 +100,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['END_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -111,18 +111,18 @@
                         <div class="col-md-9"></div>
                         <div class="col-sm-12 col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">{{'master.Action.View' | translate}}</button>
                         </div>
                         <div class="col-sm-12 col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"
-                                (click)="close()">Close</button>
+                                (click)="close()">{{'master.Action.Close' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Term_Deposit_Reports.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>

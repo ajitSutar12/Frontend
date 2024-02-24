@@ -14,6 +14,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import *  as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-gold-silver-receipt-print',
   templateUrl: './gold-silver-receipt-print.component.html',
@@ -61,6 +62,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
   clicked: boolean = false;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -69,6 +71,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
     private systemParameter: SystemMasterParametersService, private sanitizer: DomSanitizer,
 
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -203,7 +206,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning');
     }
 
   }

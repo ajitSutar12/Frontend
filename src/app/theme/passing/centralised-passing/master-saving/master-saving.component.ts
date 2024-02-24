@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { SavingMasterComponent } from '../../../master/customer/saving-master/saving-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -69,7 +70,9 @@ export class MasterSavingComponent implements OnInit, AfterViewInit {
   // Store data from backend
   savingMaster: SavingMaster[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService, ) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
 
   ngOnInit(): void {
@@ -175,42 +178,42 @@ export class MasterSavingComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'BANKACNO'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('Passing.Master_Saving.Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('Passing.Action.Detail_Address'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('Passing.Action.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('Passing.Action.Manual_Reference_Number'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Minor Details',
+          title: this.translate.instant('Passing.Master_Saving.Minor_Detalis'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Birth Date',
+          title: this.translate.instant('Passing.Action.Birth_Date'),
           data: 'AC_MBDATE'
         },
       ],

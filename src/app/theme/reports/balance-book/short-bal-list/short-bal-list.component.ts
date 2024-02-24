@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { DomSanitizer} from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-short-bal-list',
@@ -41,6 +42,7 @@ export class ShortBalListComponent implements OnInit {
   scheme: any[];
 
   constructor(    private fb: FormBuilder,
+    private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
@@ -48,6 +50,8 @@ export class ShortBalListComponent implements OnInit {
 
     )
      {  
+      this.translate.setDefaultLang(environment.setLang);
+      
      this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -120,7 +124,7 @@ export class ShortBalListComponent implements OnInit {
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
 }

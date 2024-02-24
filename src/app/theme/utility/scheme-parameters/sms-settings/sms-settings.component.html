@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>SMS Settings</h5>
+                <h5>{{'Utility.SMS_Settings.Title' | translate}}</h5>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
@@ -13,7 +13,7 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="S_ACNOTYPE" class="form-control"
                                         placeholder=" " id="S_ACNOTYPE" formControlName="S_ACNOTYPE" />
-                                    <label for="S_ACNOTYPE">Scheme Type</label>
+                                    <label for="S_ACNOTYPE">{{'Utility.SMS_Settings.Schema' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="S_APPL" class="form-control"
                                         placeholder=" " id="S_APPL" formControlName="S_APPL" />
-                                    <label for="S_APPL">Scheme Code</label>
+                                    <label for="S_APPL">{{'Utility.SMS_Settings.Schema_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME"
                                         formControlName="S_NAME" />
-                                    <label for="S_NAME">Description</label>
+                                    <label for="S_NAME">{{'Utility.SMS_Settings.Descaption' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                         maxlength="10"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" />
-                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
+                                    <label for="S_SHNAME">{{'Utility.SMS_Settings.Short_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
@@ -68,7 +68,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="ALLOW_SMS" id="ALLOW_SMS"
                                         formControlName="ALLOW_SMS" />
-                                    <label class="border-checkbox-label" for="ALLOW_SMS">Is Allow SMS
+                                    <label class="border-checkbox-label" for="ALLOW_SMS">{{'Utility.SMS_Settings.Is_Allow_SMS' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="SMS_USE_SHNAME"
                                         id="SMS_USE_SHNAME" formControlName="SMS_USE_SHNAME" />
-                                    <label class="border-checkbox-label" for="SMS_USE_SHNAME">Is Use Short name
+                                    <label class="border-checkbox-label" for="SMS_USE_SHNAME">{{'Utility.SMS_Settings.Is_Use' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -90,16 +90,16 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="ALLOW_REM_SMS"
                                         id="ALLOW_REM_SMS" formControlName="ALLOW_REM_SMS" />
-                                    <label class="border-checkbox-label" for="ALLOW_REM_SMS">Is Allow Remainder SMS
+                                    <label class="border-checkbox-label" for="ALLOW_REM_SMS">{{'Utility.SMS_Settings.Is_Allow' | translate}}
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()">
-                                Update</button>&nbsp;
+                                {{'Utility.Action.Update' | translate}}</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()">
-                                Cancel
+                                {{'Utility.Action.Cancel' | translate}}
                             </button>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                                 </tbody>
                                 <tbody *ngIf="Scheme?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

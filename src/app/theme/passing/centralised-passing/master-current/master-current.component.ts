@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { CurrentAccountMasterComponent } from '../../../master/customer/current-account-master/current-account-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -68,7 +69,9 @@ export class MasterCurrentComponent implements OnInit ,AfterViewInit{
   // Store data from backend
   currentAccountMaster: CurrentAccountMaster[];
   currentData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
     //   ajax: 'fake-data/datatable-data.json',
@@ -161,42 +164,42 @@ export class MasterCurrentComponent implements OnInit ,AfterViewInit{
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: ' BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('Passing.Action.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('Passing.Action.Customer_ID'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('Passing.Action.Detail_Address'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('Passing.Action.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Proprietor Name',
+          title: this.translate.instant('Passing.Master_Current.Proprietor_Name'),
           data: 'AC_PROPRITOR_NAME'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('Passing.Action.Manual_Reference_Number'),
           data: 'REF_ACNO'
         },
       ],

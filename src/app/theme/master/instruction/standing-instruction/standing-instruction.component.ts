@@ -23,6 +23,7 @@ import { Router } from "@angular/router";
 //date pipe
 import { DatePipe } from '@angular/common';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -120,7 +121,9 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public router: Router,
-    private datePipe: DatePipe,) { }
+    private datePipe: DatePipe, private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang)
+}
 
   ngOnInit(): void {
     this.createForm();
@@ -172,56 +175,56 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Instruction No',
+          title: this.translate.instant('master.Standing_Instruction.Instruction_No'),
           data: 'INSTRUCTION_NO'
         },
         {
-          title: 'Date',
+          title: this.translate.instant('master.Standing_Instruction.Date'),
           data: 'INSTRUCTION_DATE'
         },
         {
-          title: 'Start From',
+          title: this.translate.instant('master.Standing_Instruction.Start_From'),
           data: 'FROM_DATE'
         },
         {
-          title: 'Next Execution On',
+          title: this.translate.instant('master.Standing_Instruction.Next_Execution_On'),
           data: 'TO_DATE'
         },
         {
-          title: 'Last Executed On',
+          title: this.translate.instant('master.Standing_Instruction.Last_Execution_On'),
           data: 'LAST_EXEC_DATE'
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Standing_Instruction.Scheme'),
           data: 'DR_ACTYPE'
         },
         {
-          title: 'Account No',
+          title: this.translate.instant('master.Standing_Instruction.Account_No'),
           data: 'DR_AC_NO'
         }, {
-          title: 'Particulars',
+          title: this.translate.instant('master.Standing_Instruction.Particulars'),
           data: 'DR_PARTICULARS'
         }, {
-          title: 'Credit Scheme',
+          title: this.translate.instant('master.Standing_Instruction.Credit_Scheme'),
           data: 'CR_ACTYPE'
         },
         {
-          title: 'Credit Account No',
+          title: this.translate.instant('master.Standing_Instruction.Credit_Account_No'),
           data: 'CR_AC_NO'
         },
         {
-          title: 'Particulars',
+          title: this.translate.instant('master.Standing_Instruction.Particulars'),
           data: 'CR_PARTICULARS'
         },
         {
-          title: 'Frequency',
+          title: this.translate.instant('master.Standing_Instruction.Frequency'),
           data: 'SI_FREQUENCY'
         },
         {
-          title: 'Revoke Date',
+          title: this.translate.instant('master.Standing_Instruction.Revoke_Date'),
           data: 'REVOKE_DATE'
         },
       ],
@@ -599,7 +602,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.endDate == this.angForm.controls['TO_DATE'].value ? dataToSend['TO_DATE'] = this.instructionDate : dataToSend['TO_DATE'] = moment(this.angForm.controls['TO_DATE'].value).format('DD/MM/YYYY')
       this._service.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
           // to reload after insertion of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -613,7 +616,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       this.resetForm();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning');
     }
 
   }
@@ -785,8 +788,8 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
   */
   delClickHandler(info: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Date data",
+      title:`${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.W16')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -798,16 +801,16 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
        */
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { LockerRentTransactionsComponent } from '../../../transaction/locker/locker-rent-transactions/locker-rent-transactions.component';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -50,7 +51,9 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
   // Store data from backend
   rentLocker: RentLockerComponent[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   rentLockerData: any
 
@@ -110,23 +113,23 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title: this.translate.instant('Passing.Action.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title: this.translate.instant('Passing.Action.Amount'),
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Time',
+          title: this.translate.instant('Passing.Action.Time'),
           data: 'TRAN_TIME'
         },
 
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('Passing.Action.Schema_Type'),
           data: 'TRAN_ACTYPE'
         },
         // {
@@ -135,7 +138,7 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'TRAN_ACNO'
         },
         // {
@@ -143,7 +146,7 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title: 'User',
+          title: this.translate.instant('Passing.Action.User'),
           data: 'USER_CODE'
         },
         // {

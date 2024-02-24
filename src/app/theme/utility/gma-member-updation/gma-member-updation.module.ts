@@ -11,9 +11,11 @@ import {DataTablesModule} from 'angular-datatables';
 import {GmaMemberUpdationComponent} from './gma-member-updation.component';
 
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -27,6 +29,14 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
+
   ],
   declarations: [GmaMemberUpdationComponent],
   providers:[{
@@ -39,3 +49,6 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 ]
 })
 export class GmaMemberUpdationModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

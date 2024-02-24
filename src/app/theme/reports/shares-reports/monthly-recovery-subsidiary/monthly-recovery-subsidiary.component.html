@@ -3,13 +3,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Monthly Recovery Subsidiary</h5>
+                <h5>{{'master.Shaer_Report.T8' | translate}}</h5>
             </div>
 
             <form [formGroup]="angForm" novalidate>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Division Code From<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Shaer_Report.Code_From' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
@@ -26,13 +26,13 @@
                                 *ngIf="angForm.controls['dcode1'].invalid && (angForm.controls['dcode1'].dirty || angForm.controls['dcode1'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['dcode1'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Division Code To<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Shaer_Report.Code_To' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
@@ -49,13 +49,13 @@
                                 *ngIf="angForm.controls['dcode2'].invalid && (angForm.controls['dcode2'].dirty || angForm.controls['dcode2'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['dcode2'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="Date">Date<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="Date">{{'master.Shaer_Report.Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -71,7 +71,7 @@
                                 *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['date'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -79,11 +79,11 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.Close' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">SetUp</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.SetUp' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.Print' | translate}}</button>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Shaer_Report.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe [url]='iframeurl'></app-iframe>

@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
 // import Swal from 'sweetalert2';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-customer-view',
@@ -55,7 +56,11 @@ export class CustomerViewComponent implements OnInit {
     private config: NgSelectConfig,
     private _CustomerIdService: CustomerIdService,
     private _ownbranchmasterservice: OwnbranchMasterService,
-  ) { }
+    private translate:TranslateService
+  ) { 
+    this.translate.setDefaultLang(environment.setLang) ;
+
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -204,7 +209,7 @@ export class CustomerViewComponent implements OnInit {
         this.allAccounts.push(termloan)
       });
       if (this.allAccounts.length == 0) {
-        Swal.fire('Info', 'No Any Accounts Found', 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg7')}`, 'info')
         this.ngcustomer = null
       }
       for (let account of this.allAccounts) {

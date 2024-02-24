@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-other-view',
   templateUrl: './other-view.component.html',
@@ -23,7 +25,10 @@ export class OtherViewComponent implements OnInit {
   cdratioanalysisTrue = false;
 
 
-  constructor(private_router: Router) {
+  constructor(private_router: Router,     private translate:TranslateService
+    ) {
+      this.translate.setDefaultLang(environment.setLang) ;
+
   }
   ngOnInit(): void {
   }

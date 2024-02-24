@@ -15,6 +15,7 @@ import { DividendPostingService } from './dividend-posting.service'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { date } from 'ngx-custom-validators/src/app/date/validator';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -85,11 +86,13 @@ export class DividendPostingComponent implements OnInit {
   private dataSub: Subscription = null;
 
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private http: HttpClient,
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
     private _service: DividendPostingService,
     private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
+      this.translate.setDefaultLang(environment.setLang);
   }
 
   ngOnInit(): void {
@@ -208,8 +211,8 @@ export class DividendPostingComponent implements OnInit {
 
 
       Swal.fire({
-        title: 'Are you sure?',
-        text: "Do you want to process data",
+        title: `${this.translate.instant('Swal_Msg.Sure')}`,
+        text: `${this.translate.instant('Swal_Msg.pass_data')}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#229954',
@@ -218,13 +221,13 @@ export class DividendPostingComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this._service.postData(dataToSend).subscribe((data) => {
-            Swal.fire('Success!', "Processed!", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Pro')}`, "success");
           }),
             (error) => {
               console.log(error);
             };
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire('Info!', "Processing Cancelled!", "info");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.pro_can')}`, "info");
           this.createForm()
           this.ngscheme = null
           this.ngwarrentDate = null
@@ -273,8 +276,8 @@ export class DividendPostingComponent implements OnInit {
   */
   delClickHandler(info: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Scheme Code. data",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.del_scheme')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -283,16 +286,16 @@ export class DividendPostingComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

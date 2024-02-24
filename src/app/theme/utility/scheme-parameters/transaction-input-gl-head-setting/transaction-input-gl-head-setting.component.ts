@@ -13,6 +13,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { TranscationInputSettingService } from './transaction-input-gl-head-setting.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -136,7 +137,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   //filter variable
   filterData = {};
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService, private _transInput: TranscationInputSettingService) { }
+  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService, private _transInput: TranscationInputSettingService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.createForm()
@@ -184,20 +185,20 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Scheme_Type'),
           data: 'SCHEME_TYPE'
         }, {
-          title: 'Head Type',
+          title:  this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Head_Type'),
           data: 'FIELD_AMOUNT'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Description'),
           data: 'DESCRIPTION'
         }, {
-          title: 'Short Name',
+          title:  this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Short_Name'),
           data: 'SHORT_NAME'
         },],
       dom: "Blrtip",
@@ -488,5 +489,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

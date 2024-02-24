@@ -29,6 +29,7 @@ import { ACMasterDropdownService } from "../../../../shared/dropdownService/ac-m
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -128,7 +129,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
     private http: HttpClient,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -177,6 +178,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       columns: [
         {
 
+
           title: this.translate.instant('Utility.Action.Action'),
 
         },
@@ -205,6 +207,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
           title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
           data: 'S_INT_ACNO',
         }
+
 
         // {
         //   title: "Is Interest Applicable ?",

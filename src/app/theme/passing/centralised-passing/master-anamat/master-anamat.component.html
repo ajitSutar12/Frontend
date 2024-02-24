@@ -22,7 +22,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Master Anamat</h5>
+                <h5>{{'Passing.Master_Anamat.Title' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="row">
@@ -84,7 +84,7 @@
                                                 <tbody *ngIf="anamat?.length == 0">
                                                     <tr>
                                                         <td colspan="9" style="text-align: center;"
-                                                            class="no-data-available">No data!
+                                                            class="no-data-available">{{'Passing.Action.No_Data' | translate}}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -121,7 +121,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Anamat Master</h4>
+        <h4 class="modal-title">{{'Passing.Master_Anamat.Title' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -133,6 +133,6 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
-            (click)="modalLarge.hide();" hidden>Close</button>
+            (click)="modalLarge.hide();" hidden>{{'Passing.Action.Close' | translate}}</button>
     </div>
 </app-modal-basic>

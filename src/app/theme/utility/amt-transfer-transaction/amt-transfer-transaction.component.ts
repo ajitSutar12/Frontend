@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-amt-transfer-transaction',
@@ -16,9 +18,12 @@ export class AmtTransferTransactionComponent implements OnInit {
   showRepo: boolean = false;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-  ) { }
+  ) {
+    this.translate.setDefaultLang(environment.setLang);
+   }
 
   //ngfor variables
   d_Scheme

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-member-liablity-view',
@@ -17,9 +19,14 @@ export class MemberLiablityViewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private _schemeService: SchemeAccountNoService
+    private _schemeService: SchemeAccountNoService,
+    private translate:TranslateService
 
-  ) { }
+
+  ) { 
+    this.translate.setDefaultLang(environment.setLang) ;
+
+  }
 
   //ngfor variables
   sh_Scheme

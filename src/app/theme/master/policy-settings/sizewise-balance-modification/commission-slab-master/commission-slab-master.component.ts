@@ -16,7 +16,6 @@ class DataTableResponse {
   recordsFiltered: number;
   recordsTotal: number;
 }
-
 @Component({
   selector: 'app-commissionslabmaster',
   templateUrl: './commission-slab-master.component.html',
@@ -47,7 +46,7 @@ export class CommissionSlabMasterComponent implements OnInit {
   // page: number = 1;
   //filter variable
   filterData = {};
-  constructor(private fb: FormBuilder, private http: HttpClient, private systemParameter: SystemMasterParametersService,) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private systemParameter: SystemMasterParametersService) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d

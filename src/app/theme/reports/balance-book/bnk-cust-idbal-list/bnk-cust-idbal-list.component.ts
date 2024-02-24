@@ -15,6 +15,7 @@ import { first } from "rxjs/operators";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/customer-id-master-dropdown.service";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 //service file for fetching records from customer ID
 // import { CustomerIdService } from "../customer-id/customer-id.service";
@@ -48,6 +49,7 @@ export class BnkCustIDBalListComponent implements OnInit {
     minDate: Date;
     bsValue = new Date();
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
@@ -57,6 +59,7 @@ export class BnkCustIDBalListComponent implements OnInit {
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter:SystemMasterParametersService,
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -138,7 +141,7 @@ export class BnkCustIDBalListComponent implements OnInit {
    
    }
   else {
-     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+     Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
    }
 }
 close(){

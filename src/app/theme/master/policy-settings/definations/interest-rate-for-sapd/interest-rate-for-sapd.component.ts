@@ -21,6 +21,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -113,7 +114,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,private translate:TranslateService) {
     // this.datemax =new Date() ;
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -169,21 +170,21 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Effected Date',
+          title: this.translate.instant('master.Interest_Rate.Effected_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Interest_Rate.Scheme_Type'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Interest Category',
+          title: this.translate.instant('master.Interest_Rate.Interest_Category'),
           data: 'INT_CATEGORY'
         },
         {
-          title: 'Interest Rate',
+          title: this.translate.instant('master.Interest_Rate.Interest_Rate'),
           data: 'INT_RATE'
         }
       ],
@@ -214,7 +215,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
 
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -233,7 +234,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       'INT_RATE': formVal.INT_RATE
     }
     this.savingandPigmyInterestRatesService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -252,7 +253,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`,`${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       ele.target.value = 0
 
 
@@ -288,7 +289,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.savingandPigmyInterestRatesService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -310,8 +311,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Interest Rate for saving and pigmy Deposit data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Pigmy_Deposit')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -322,8 +323,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         this.savingandPigmyInterestRatesService.deleteData(id).subscribe(data1 => {
           this.savingandPigmyInterestRate = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -334,8 +335,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

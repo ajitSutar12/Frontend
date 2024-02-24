@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-monthly-recovery-subsidiary',
@@ -20,8 +22,11 @@ export class MonthlyRecoverySubsidiaryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private salaryDMasterdropdownService: SalaryDMasterdropdownService,
+    private translate:TranslateService
   ) 
   {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
   }

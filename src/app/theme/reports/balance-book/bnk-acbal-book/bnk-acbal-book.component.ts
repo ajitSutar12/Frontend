@@ -16,6 +16,7 @@ import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-maste
 import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SavingMasterService } from '../../../master/customer/saving-master/saving-master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -66,6 +67,7 @@ export class BnkACBalBookComponent implements OnInit {
 
   schemeType
   constructor(
+    private translate:TranslateService,
     private http: HttpClient,
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
@@ -80,6 +82,7 @@ export class BnkACBalBookComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private config: NgSelectConfig,
     public router: Router,) {
+      this.translate.setDefaultLang(environment.setLang);
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -304,7 +307,7 @@ export class BnkACBalBookComponent implements OnInit {
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
   }
 

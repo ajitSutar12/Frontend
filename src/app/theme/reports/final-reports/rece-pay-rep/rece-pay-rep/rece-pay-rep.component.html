@@ -2,21 +2,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Receipt & Payment Report (Concise)</h5>
+                <h5>{{'master.Final_Reports.T5' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-md-1"> <label for="scheme">{{'master.Final_Reports.Branch' | translate}} <sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        placeholder="Branch" required>
+                                        placeholder="{{'master.Final_Reports.Branch' | translate}}" required>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -27,11 +27,11 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['BRANCH_CODE'].errors?.required ||angForm.controls['BRANCH_CODE'].errors?.pattern">
-                                    This is required field
+                                    <!-- This is required field -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="START_DATE">{{'master.Final_Reports.Starting_Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -49,11 +49,11 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">Ending Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">{{'master.Final_Reports.Ending_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -71,13 +71,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['END_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"> <label for="Transaction Type">Line Spacing</label>
+                        <div class="col-md-1"> <label for="Transaction Type">{{'master.Final_Reports.Line_Spacing' | translate}}</label>
                         </div>
                         <div class=" col-md-3">
                             <div class="form-radio">
@@ -86,19 +86,19 @@
                                     <label>
                                         <input type="radio" name="TRANSCATION" value="None"
                                             formControlName="TRANSCATION">
-                                        <i class="helper"></i>None</label>
+                                        <i class="helper"></i>{{'master.Final_Reports.None' | translate}}</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="TRANSCATION" value="Blank"
                                             formControlName="TRANSCATION">
-                                        <i class="helper"></i>Blank</label>
+                                        <i class="helper"></i>{{'master.Final_Reports.Blank' | translate}}</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="TRANSCATION" value="Dash"
                                             formControlName="TRANSCATION" [checked]="true">
-                                        <i class="helper"></i>Dash</label>
+                                        <i class="helper"></i>{{'master.Final_Reports.Dash' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="PRINT" formControlName="PRINT">
-                                    <label class="border-checkbox-label" for="PRINT">Print Profit & Loss
-                                        Accounts?</label>
+                                    <label class="border-checkbox-label" for="PRINT">{{'master.Final_Reports.Print_P_L_Acc' | translate}}
+                                     ?</label>
                                 </div>
                             </div>
                         </div>
@@ -115,8 +115,8 @@
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="PENAL" formControlName="PENAL">
-                                    <label class="border-checkbox-label" for="PENAL">Print BalanceSheet
-                                        Accounts?</label>
+                                    <label class="border-checkbox-label" for="PENAL">{{'master.Final_Reports.P_BalanceSheet_Accounts' | translate}}
+                                        </label>
                                 </div>
                             </div>
                         </div>
@@ -126,18 +126,18 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">{{'master.Action.View' | translate}}</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">Close</button>
+                                (click)="close()">{{'master.Action.Close' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Final_Reports.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe4 [url]='iframeurl'></app-iframe4>

@@ -17,6 +17,7 @@ import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -111,7 +112,8 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     private schemeAccountNoService: SchemeAccountNoService,
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang)
     this.setdate()
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -205,7 +207,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       AC_FREEZE_STATUS: ['', [Validators.required]],
       AC_FREEZE_AMOUNT: [0, [Validators.pattern]],
       AC_FREEZE_DATE: ['',],
-      AC_FREEZE_REASON: ['', [Validators.pattern]]
+      AC_FREEZE_REASON: ['',]
     });
   }
 
@@ -227,7 +229,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
         'AC_FREEZE_REASON': formVal.AC_FREEZE_REASON
       }
       this.FreezeAccountService.postData(dataToSend).subscribe(data => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
       }, (error) => {
         console.log(error)
@@ -236,7 +238,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       this.resetForm();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,  `${this.translate.instant('Swal_Msg.Re1')}`, 'warning');
     }
   }
   updatecheckdata: any
@@ -385,7 +387,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     this.datemin = year + "-" + m + "-" + day;
     if (date != "") {
       if (date < this.datemin) {
-        Swal.fire("Cancelled", "please input date below" + this.datemin, "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`,  `${this.translate.instant('Swal_Msg.C_Msg1')}` + this.datemin, "error");
         this.angForm.controls['AC_FREEZE_DATE'].reset()
       }
     }
@@ -394,8 +396,8 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
   //function for delete button clicked
   delClickHandler(): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete freez account data",
+      title:  `${this.translate.instant('Swal_Msg.Sure')}`,
+      text:  `${this.translate.instant('Swal_Msg.M5')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -404,16 +406,16 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -429,7 +431,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.FreezeAccountService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

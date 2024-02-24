@@ -11,6 +11,7 @@ import { BalanceSheetService } from '../balance-sheet.service';
 import { date } from 'ngx-custom-validators/src/app/date/validator';
 import { data } from 'jquery';
 import { NgSelectConfig } from "@ng-select/ng-select";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -47,8 +48,13 @@ export class BalanceSheetComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
-    private _service: BalanceSheetService
+    private _service: BalanceSheetService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
+
     this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -142,7 +148,7 @@ export class BalanceSheetComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

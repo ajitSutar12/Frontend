@@ -48,8 +48,11 @@ export class InformationComponent implements OnInit {
   riskCategoryTrue: boolean = false;
   bankotherdetailsTrue:boolean=false;
 
-  constructor(private_router: Router,private translate:TranslateService){
+
+  constructor(private_router: Router, private translate:TranslateService) {
     this.translate.setDefaultLang(environment.setLang);
+
+
   }
   
   ngOnInit(): void {

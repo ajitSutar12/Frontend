@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -79,7 +80,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     private http: HttpClient,
     private ownBranchService: OwnBranchService,
     private _acMaster: ACMasterDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
   }
 
   ngOnInit(): void {
@@ -133,17 +134,17 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Own_Branch_master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Own_Branch_master.code'),
           data: 'CODE',
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Own_Branch_master.name'),
           data: 'NAME',
         },
         // {

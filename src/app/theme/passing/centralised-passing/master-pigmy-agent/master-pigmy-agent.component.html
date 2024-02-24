@@ -21,7 +21,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Pigmy Agent</h5>
+                <h5>{{'Passing.Pigmy_Agent.Title' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="row">
@@ -66,7 +66,7 @@
                                                 </tbody>
                                                 <tbody *ngIf="pigmyAgentMaster?.length == 0">
                                                     <tr>
-                                                        <td colspan="7" class="no-data-available">No data!</td>
+                                                        <td colspan="7" class="no-data-available">{{'Passing.Action.No_Data' | translate}}</td>
                                                     </tr>
                                                 </tbody>
                                                 <tfoot #filters class="filters">
@@ -98,7 +98,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Pigmy Agent Master</h4>
+        <h4 class="modal-title">{{'Passing.Pigmy_Agent.Pigmy_Agent_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -111,6 +111,6 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
-            (click)="modalLarge.hide();" hidden>Close</button>
+            (click)="modalLarge.hide();" hidden>{{'Passing.Action.Close' | translate}}</button>
     </div>
 </app-modal-basic>

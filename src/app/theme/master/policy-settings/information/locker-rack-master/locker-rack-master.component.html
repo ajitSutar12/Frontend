@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Locker Rack Master</h5>
+                <h5>{{'master.Locker_Rack_Master.Locker_Rack_Master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Locker_Rack_Master.F1' | translate}} (<sub class="required"> * </sub>){{'master.Locker_Rack_Master.F2' | translate}}
                 </h6>
             </div>
             <div class="card-block">
@@ -16,7 +16,7 @@
                                     <input type="text" name="RACK_NO" class="form-control" placeholder=" "
                                         id="RackNumber" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="RACK_NO" disabled>
-                                    <label for="RackNumber">Rack Number</label>
+                                    <label for="RackNumber">{{'master.Locker_Rack_Master.Rack_Number' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH_CODE">Branch</label>
+                                    <label for="BRANCH_CODE">{{'master.Locker_Rack_Master.Branch' | translate}}</label>
                                 </span>
                             </div>
                             <!-- 
@@ -48,7 +48,7 @@
                                         #autofocus id="RACK_DESC" required="" maxlength="50"
                                         title="Input allowed only  A-Z a-z 0-9 - * # / . (Space)"
                                         formControlName="RACK_DESC">
-                                    <label for="RACK_DESC">Rack Description<sub class="required">* </sub></label>
+                                    <label for="RACK_DESC">{{'master.Locker_Rack_Master.Rack_Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -72,7 +72,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focusout)="check()" title="Input allowed only  0-9"
                                         formControlName="LOCKER_FROMNO">
-                                    <label for="LOCKER_FROMNO">Lockers From<sub class="required">* </sub></label>
+                                    <label for="LOCKER_FROMNO">{{'master.Locker_Rack_Master.Lockers_From' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -92,7 +92,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="LOCKER_TONO"
                                         required="" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         (focusout)="check()" formControlName="LOCKER_TONO" maxlength="10">
-                                    <label for="LOCKER_TONO">Lockers To<sub class="required">* </sub></label>
+                                    <label for="LOCKER_TONO">{{'master.Locker_Rack_Master.Lockers_To' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -111,11 +111,11 @@
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
                                 *ngIf="showButton" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                appTheme>Submit</button>
+                                appTheme>{{'master.Locker_Rack_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">{{'master.Locker_Rack_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Locker_Rack_Master.Update' | translate}}</button>&nbsp;
 
                         </div>
                     </div>

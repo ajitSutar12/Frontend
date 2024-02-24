@@ -24,6 +24,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { DepositLoanInterestRateEditChangeService } from "src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service";
 import { data } from "jquery";
 import { NgbTabChangeEvent } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -100,8 +101,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
     private _interestRateChange: DepositLoanInterestRateEditChangeService,
+    private translate:TranslateService
+
 
   ) {
+    this.translate.setDefaultLang(environment.setLang)
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -332,7 +337,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
   }
   close() {

@@ -8,12 +8,15 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { FreezeAccountService } from './freeze-account.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { FreezeAccountComponent } from './freeze-account.component';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+// import { HttpLoaderFactory } from '../over-draft/over-draft.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +26,14 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
     FreezeAccountRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    }),
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot()
   ],
@@ -34,3 +45,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
   }, freezeAccountService, SchemeCodeDropdownService, SchemeAccountNoService, FreezeAccountService, SystemMasterParametersService]
 })
 export class FreezeAccountModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

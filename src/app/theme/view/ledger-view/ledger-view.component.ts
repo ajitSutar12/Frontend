@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { LegderViewService } from './ledger-view.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-ledger-view',
   templateUrl: './ledger-view.component.html',
@@ -83,6 +84,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
   showView: boolean = true
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -93,6 +95,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     private systemParameter: SystemMasterParametersService,
     private _service: LegderViewService
   ) {
+    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d

@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Loan Stage Master</h5>
+                <h5>{{'master.Loan_Stage_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Loan_Stage_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Loan_Stage_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +16,7 @@
                                     <input type="text" name="CODE" class="form-control" placeholder=" " disabled
                                         id="LoanStageCode" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="CODE">
-                                    <label for="LoanStageCode">Loan Stage Code.</label>
+                                    <label for="LoanStageCode">{{'master.Loan_Stage_Master.Loan_Stage_Code' | translate}}</label>
                                 </span>
                             </div>
 
@@ -27,7 +27,7 @@
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="Description"
                                         #autofocus required=""  maxlength="100"
                                          formControlName="NAME">
-                                    <label for="Description">Description<sub class="required">* </sub></label>
+                                    <label for="Description">{{'master.Loan_Stage_Master.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -35,14 +35,14 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required 
+                                    <!-- This field is required  -->  {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"  [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit </button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()" >Cancel</button> 
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow"  (click)="updateData()" [disabled]="angForm.invalid">Update</button>&nbsp;         
+                            <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"  [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Loan_Stage_Master.Submit' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()" >{{'master.Loan_Stage_Master.Cancel' | translate}}</button> 
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow"  (click)="updateData()" [disabled]="angForm.invalid">{{'master.Loan_Stage_Master.Update' | translate}}</button>&nbsp;         
                             
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                                 </tbody>
                                 <tbody *ngIf="loanstagemasters?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

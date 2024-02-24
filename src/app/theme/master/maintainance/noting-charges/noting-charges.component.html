@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Charges Noting</h5>
+                <h5>{{'master.Charges_Noting.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,11 +17,11 @@
                                         formControlName="BRANCH" bindLabel="label" title="Compulsory Selection" #BRANCH
                                         (focus)="onFocus(BRANCH)" [selectOnTab]='true' [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
-                                        placeholder="Branch">
+                                        placeholder="{{'master.Charges_Noting.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH">Branch</label>
+                                    <label for="BRANCH">{{'master.Charges_Noting.Branch' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -39,11 +39,11 @@
                                         formControlName="Scheme" bindLabel="label" title="Compulsory Selection" #Scheme
                                         (focus)="onFocus(Scheme)" [selectOnTab]='true' (change)="schemechange($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
-                                        placeholder="Scheme Code">
+                                        placeholder="{{'master.Charges_Noting.Schema_Code' | translate}}">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                                     </ng-select>
-                                    <label for="Scheme">Scheme Code<sub class="required"> * </sub></label>
+                                    <label for="Scheme">{{'master.Charges_Noting.Schema_Code' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -63,11 +63,11 @@
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true' [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Charges_Noting.From_Account' | translate}}">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="FROM_AC">From Account Number<sub class="required"> * </sub></label>
+                                    <label for="FROM_AC">{{'master.Charges_Noting.From_Account' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -87,11 +87,11 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
                                         [virtualScroll]="true" (change)="getTable()" #TO_AC (focus)="onFocus(TO_AC)"
                                         [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="To A/C">
+                                        placeholder="{{'master.Charges_Noting.To_Account' | translate}}">
                                         <ng-option *ngFor="let values of toAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="TO_AC">To Account Number<sub class="required"> * </sub></label>
+                                    <label for="TO_AC">{{'master.Charges_Noting.To_Account' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -109,7 +109,7 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                 <span class="border-lable-flt">
                                     <input type="text" name="TRAN_DATE" class="form-control" formControlName="TRAN_DATE"
                                         disabled>
-                                    <label for="date">Noting Date<sub class="required">*</sub></label>
+                                    <label for="date">{{'master.Charges_Noting.Noting_Date' | translate}}<sub class="required">*</sub></label>
                                 </span>
                             </div>
                         </div>
@@ -131,11 +131,11 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                         [virtualScroll]="true" title="Compulsory Selection" #AMOUNT_TYPE
                                         (focus)="onFocus(AMOUNT_TYPE)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Charges Type">
+                                        placeholder="{{'master.Charges_Noting.Charges_Type' | translate}}">
                                         <ng-option *ngFor="let values of chargesType" [value]="values">
                                             {{values.DESCRIPTION}}</ng-option>
                                     </ng-select>
-                                    <label for="AMOUNT_TYPE">Charges Type<sub class="required"> * </sub></label>
+                                    <label for="AMOUNT_TYPE">{{'master.Charges_Noting.Charges_Type' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -151,13 +151,13 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" formControlName="TRAN_DRCR" name="TRAN_DRCR" value="D">
-                                        <i class="helper"></i>Debit<span> </span>
+                                        <i class="helper"></i>{{'master.Charges_Noting.Debit' | translate}}<span> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" formControlName="TRAN_DRCR" name="TRAN_DRCR" value="C">
-                                        <i class="helper"></i>Credit<span> </span>
+                                        <i class="helper"></i>{{'master.Charges_Noting.Credit' | translate}}<span> </span>
                                     </label>
                                 </div>
                             </div>
@@ -172,7 +172,7 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                         (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         (change)="getCommanChargeAmount()" formControlName="TRAN_AMOUNT">
-                                    <label for="TRAN_AMOUNT">Charges Amount</label>
+                                    <label for="TRAN_AMOUNT">{{'master.Charges_Noting.Charges_Amount' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -200,11 +200,11 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                                         formControlName="transeferglaccno" bindLabel="label" [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Transfer G.L.A/c No">
+                                        required placeholder="{{'master.Charges_Noting.Transfer_G.L._A/C_No' | translate}}">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="transeferglaccno">Transfer G.L. A/C No<sub class="required"> *
+                                    <label for="transeferglaccno">{{'master.Charges_Noting.Transfer_G.L._A/C_No' | translate}}<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -214,9 +214,9 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                     <div class="row" style="float: right;">
                         <div class="col-sm-2">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit()" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                (click)="submit()" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>
+                                *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -237,10 +237,10 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                         class="table table-striped table-bordered table-hover compact">
                         <thead>
                             <tr>
-                                <td class="td_right">Account Number</td>
-                                <td>Account Name</td>
-                                <td class="td_center">Charges Amount</td>
-                                <td class="td_right">Narration</td>
+                                <td class="td_right">{{'master.Charges_Noting.Account_Number' | translate}}</td>
+                                <td>{{'master.Charges_Noting.Account_Number' | translate}}</td>
+                                <td class="td_center">{{'master.Charges_Noting.Charges_Amount' | translate}}</td>
+                                <td class="td_right">{{'master.Charges_Noting.Narration' | translate}}</td>
                             </tr>
                             <tr>
                                 <td><input type="text" class="form-control" (keyup)="filterObject($event,'AC_NO')"></td>
@@ -273,7 +273,7 @@ Charges Type                                <div *ngIf="angForm.controls['FROM_A
                         <tbody *ngIf="notingChargesArr?.length == 0">
                             <tr>
                                 <td colspan="6" class="no-data-available" style="text-align: center;">
-                                    No data!
+                                    {{'master.Action.No_Data' | translate}}
                                 </td>
                             </tr>
                         </tbody>

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { DividendTransferPostingService } from './dividend-transfer-posting.service'
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-dividend-transfer-posting',
   templateUrl: './dividend-transfer-posting.component.html',
@@ -62,8 +63,10 @@ export class DividendTransferPostingComponent implements OnInit {
   };
   warrentDate: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private config: NgSelectConfig, private _service: DividendTransferPostingService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) { }
+  constructor( private translate:TranslateService,private fb: FormBuilder, private http: HttpClient, private config: NgSelectConfig, private _service: DividendTransferPostingService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
+      this.translate.setDefaultLang(environment.setLang);
+     }
 
   ngOnInit(): void {
     this.createForm();
@@ -198,7 +201,7 @@ export class DividendTransferPostingComponent implements OnInit {
     // console.log(dataToSend, 'submit')
     this._service.postData(dataToSend).subscribe(data1 => {
       // console.log(data1, 'posting data')
-      data1.length != 0 ? Swal.fire('Success!', 'Data Added Successfully !', 'success') : Swal.fire('Info!', 'No Any Records Found!', 'info');
+      data1.length != 0 ? Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success') : Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.no_re')}`, 'info');
     }, (error) => {
       console.log(error)
     })
@@ -250,8 +253,8 @@ export class DividendTransferPostingComponent implements OnInit {
   delClickHandler(info: any): void {
     this.message.WarrantDate = info.WarrantDate;
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Warrant Date." + this.message.WarrantDate + "  data",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.del_warrant')}` + this.message.WarrantDate + "  `${this.translate.instant('Swal_Msg.data')}`",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -260,16 +263,16 @@ export class DividendTransferPostingComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

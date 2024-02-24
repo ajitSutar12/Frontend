@@ -13,6 +13,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { SavingPigmyClosingComponent } from './saving-pigmy-closing.component';
 import { SavingsPigmyAccountClosingModule } from "../../../transaction/savings-pigmy-account-closing/savings-Pigmy-Account-Closing.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -21,7 +24,15 @@ import { SavingsPigmyAccountClosingModule } from "../../../transaction/savings-p
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    SavingsPigmyAccountClosingModule
+    SavingsPigmyAccountClosingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [SavingPigmyClosingComponent],
   declarations: [SavingPigmyClosingComponent],
@@ -33,3 +44,8 @@ import { SavingsPigmyAccountClosingModule } from "../../../transaction/savings-p
   ],
 })
 export class SavingPigmyClosingModule {}
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

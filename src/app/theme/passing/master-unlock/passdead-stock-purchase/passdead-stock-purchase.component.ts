@@ -6,6 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { DeadStockPurchaseComponent } from 'src/app/theme/transaction/dead-stock-purchase/dead-stock-purchase.component';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -47,7 +48,9 @@ export class PassdeadStockPurchaseComponent implements OnInit, AfterViewInit {
   // Store data from backend
   deadStockPurchase: DeadStockPurchase[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService) {
+    this.translate.setDefaultLang(environment.setLang) }
+
 
   deadStockPurchaseData: any = {};
 
@@ -109,28 +112,28 @@ export class PassdeadStockPurchaseComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title: this.translate.instant('master.All.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title: this.translate.instant('master.All.Amount'),
           data: 'TRAN_AMOUNT'
         },
 
         {
-          title: 'Supplier Name ',
+          title: this.translate.instant('master.All.Supplier_Name'),
           data: 'TRAN_SUPPLIER_NAME'
         },
         {
-          title: 'Narration',
+          title: this.translate.instant('master.All.Narration'),
           data: 'NARRATION'
         },
 
         {
-          title: 'Entry Type',
+          title: this.translate.instant('master.All.Entry_Type'),
           data: 'TRAN_ENTRY_TYPE'
         },
 

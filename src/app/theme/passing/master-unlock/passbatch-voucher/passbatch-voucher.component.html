@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Batch Voucher</h5>
+                <h5>{{'master.Batch_Voucher.Title' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="row">
@@ -54,7 +54,7 @@
                                                 </tbody>
                                                 <tbody *ngIf="batchVoucher?.length == 0">
                                                     <tr>
-                                                        <td colspan="7" class="no-data-available">No data!</td>
+                                                        <td colspan="7" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -71,7 +71,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Batch Voucher</h4>
+        <h4 class="modal-title">{{'master.Batch_Voucher.Title' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -86,6 +86,6 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="triggerhide" (click)="modalLarge.hide();"
-            hidden>Close</button>
+            hidden>{{'master.Action.Close' | translate}}</button>
     </div>
 </app-modal-basic>

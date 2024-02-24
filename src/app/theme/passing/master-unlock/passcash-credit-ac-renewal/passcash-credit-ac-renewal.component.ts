@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { CashCreditAcRenewalComponent } from 'src/app/theme/transaction/cash-credit-ac-renewal/cash-credit-ac-renewal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 class DataTableResponse {
@@ -45,7 +46,9 @@ export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
   // Store data from backend
   cashCreditAcRenewal: CashCreditAcRenewal[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService) {
+    this.translate.setDefaultLang(environment.setLang) }
+
 
   cashCreditAcRenewalData: any = {};
 
@@ -105,14 +108,14 @@ export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title: this.translate.instant('master.All.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Account Type',
+          title: this.translate.instant('master.All.Account_Type'),
           data: 'AC_TYPE'
         },
 
@@ -122,7 +125,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.All.Account_Number'),
           data: 'AC_NO'
         },
         // {

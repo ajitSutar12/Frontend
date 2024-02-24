@@ -31,6 +31,7 @@ import { environment } from '../../../../../environments/environment';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -296,7 +297,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     public selectOptionService: SelectOptionService,
     public systemMasterParametersService: SystemMasterParametersService,
     private fb: FormBuilder,
-    private config: NgSelectConfig) {
+    private config: NgSelectConfig,private translate:TranslateService) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -362,7 +363,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
           }
@@ -372,36 +373,36 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         //   data: 'SYSPARA_CODE'
         // },
         {
-          title: 'Bank Code',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Code'),
           data: 'BANK_CODE'
         }, {
-          title: 'Bank Name',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Name'),
           data: 'BANK_NAME'
         }, {
-          title: 'Branch Code',
+          title: this.translate.instant('Utility.System_Master_Parameters.Branch_Code'),
           data: 'BRANCH_CODE'
         }, {
-          title: 'Bank Address',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Add'),
           data: 'ADDRESS'
         }, {
-          title: 'Bank Start Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Start_date'),
           data: 'COMPANY_START_DATE'
         },
 
         {
-          title: 'Previous Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Previous_Date'),
           data: 'PREVIOUS_DATE'
         }, {
-          title: 'Current Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Current_Date'),
           data: 'CURRENT_DATE'
         },
 
         {
-          title: ' Pigmy Previous Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Pigmy_Previous_Date'),
           data: 'PIGMY_PREVIOUS_DATE'
         },
         {
-          title: 'Pigmy Current Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Pigmy_Current_Date'),
           data: 'PIGMY_CURRENT_DATE'
         },
 

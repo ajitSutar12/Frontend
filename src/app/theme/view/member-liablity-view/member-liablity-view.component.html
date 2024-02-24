@@ -3,13 +3,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Member Guranter Details</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h5>{{'master.Member_Guranter_Details.T1' | translate}}</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: {{'master.Action.F2' | translate}}</h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Member_Guranter_Details.Shares_Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -27,13 +27,13 @@
                                 *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member No.<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Member_Guranter_Details.Member_No' | translate}}.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -49,7 +49,7 @@
                                 *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['memNo'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -58,11 +58,11 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.Close' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.Cancel' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.Update' | translate}}</button>
 
                         </div>
                     </div>

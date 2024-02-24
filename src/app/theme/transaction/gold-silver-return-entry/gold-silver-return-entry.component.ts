@@ -12,6 +12,7 @@ import { Subject } from 'rxjs-compat';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import *  as moment from 'moment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-gold-silver-return-entry',
   templateUrl: './gold-silver-return-entry.component.html',
@@ -60,7 +61,11 @@ export class GoldSilverReturnEntryComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -172,7 +177,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         USER_CODE: result.id
       }
       this.http.post(this.url + '/gold-silver-return-entry/insert', object).subscribe((data: any) => {
-        Swal.fire("Success!", "Data Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.P7')}`, "success");
         // this.createForm()
         this.tableData = []
         this.ngscheme = null
@@ -271,7 +276,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
       }
       this.http.post(this.url + '/gold-silver-return-entry/reject', object).subscribe((data: any) => {
         this.angForm.enable()
-        Swal.fire("Success!", "Data Rejected Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.P8')}`, "success");
         // this.createForm()
         this.tableData = []
         this.ngscheme = null
@@ -297,7 +302,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
       }
       this.http.post(this.url + '/gold-silver-return-entry/approve', object).subscribe((data: any) => {
         this.angForm.enable()
-        Swal.fire("Success!", "Data Approved Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.P9')}`, "success");
         // this.createForm()
         this.tableData = []
         this.ngscheme = null
@@ -324,7 +329,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
       }
       this.http.post(this.url + '/gold-silver-return-entry/unapprove', object).subscribe((data: any) => {
         this.angForm.enable()
-        Swal.fire("Success!", "Data Unapproved Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.P10')}`, "success");
         // this.createForm()
         this.tableData = []
         this.ngscheme = null

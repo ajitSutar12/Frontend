@@ -27,6 +27,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { data } from "jquery";
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from "@ngx-translate/core";
 
 // Handling datatable data
 class DataTableResponse {
@@ -102,7 +103,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
     private _special: specialservice,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang)
     this.maxDate = new Date();
     this.minDate = new Date();
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -160,44 +162,44 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Instruction No',
+          title: this.translate.instant('master.Special_Instruction.Instruction_No'),
           data: 'INSTRUCTION_NO'
         }, {
-          title: 'Date',
+          title: this.translate.instant('master.Special_Instruction.Date'),
           data: 'INSTRUCTION_DATE'
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Special_Instruction.Scheme'),
           data: 'TRAN_ACTYPE'
         }, {
-          title: 'Account No',
+          title: this.translate.instant('master.Special_Instruction.Account_No'),
           data: 'TRAN_ACNO'
         },
         {
-          title: 'Start From',
+          title: this.translate.instant('master.Special_Instruction.Start_From'),
           data: 'FROM_DATE'
         },
         {
-          title: 'Upto Date',
+          title: this.translate.instant('master.Special_Instruction.Upto_Date'),
           data: 'TO_DATE'
         },
         {
-          title: 'Execute On',
+          title: this.translate.instant('master.Special_Instruction.Execute_On'),
           data: 'DRCR_APPLY'
         },
         {
-          title: 'Is Restrict Transaction Entry',
+          title: this.translate.instant('master.Special_Instruction.Restrict'),
           data: 'IS_RESTRICT'
         },
         {
-          title: 'Details',
+          title:this.translate.instant('master.Special_Instruction.Details'),
           data: 'DETAILS'
         },
         {
-          title: 'Revoke Date',
+          title: this.translate.instant('master.Special_Instruction.Revoke_Date'),
           data: 'REVOKE_DATE'
         },
 
@@ -287,7 +289,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this._special.postData(dataToSend).subscribe(
         (data1) => {
-          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           this.formSubmitted = false;
           // to reload after delete of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -302,7 +304,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning');
     }
 
   }
@@ -431,7 +433,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       (data.REVOKE_DATE == 'Invalid date' || data.REVOKE_DATE == '' || data.REVOKE_DATE == null) ? (revokeDate = '', data['REVOKE_DATE'] = revokeDate) : (revokeDate = data.REVOKE_DATE, data['REVOKE_DATE'] = moment(revokeDate).format('DD/MM/YYYY'))
     }
     this._special.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -526,8 +528,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   */
   delClickHandler(id: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete  Special Instruction  data",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.M4')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -539,19 +541,19 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
        */
       if (result.isConfirmed) {
         this._special.deleteData(id).subscribe((data1) => {
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

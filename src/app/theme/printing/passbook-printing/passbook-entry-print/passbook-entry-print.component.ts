@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-passbook-entry-print',
   templateUrl: './passbook-entry-print.component.html',
@@ -59,6 +60,7 @@ export class PassbookEntryPrintComponent implements OnInit {
   transferSchemeDetails: any;
   tScheme: any;
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
@@ -66,6 +68,7 @@ export class PassbookEntryPrintComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private http: HttpClient,
     private sanitizer: DomSanitizer) {
+      this.translate.setDefaultLang(environment.setLang);
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -235,7 +238,7 @@ export class PassbookEntryPrintComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

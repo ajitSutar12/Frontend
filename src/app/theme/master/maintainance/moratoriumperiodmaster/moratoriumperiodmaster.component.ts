@@ -18,6 +18,7 @@ import { MoratoriumPeriod } from './moratorium-period-master.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -121,7 +122,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private_router: Router,
     private config: NgSelectConfig,
-    private ownbranchMasterService: OwnbranchMasterService,) {
+    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -182,35 +183,35 @@ export class MoratoriumperiodmasterComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
 
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Moratorium_Period_Master.Schema'),
           data: 'AC_TYPE'
         },
 
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Moratorium_Period_Master.Schema'),
           data: 'AC_NO'
         },
 
         {
-          title: 'Installment Number',
+          title: this.translate.instant('master.Moratorium_Period_Master.Account_Number'),
           data: 'INSTALLMENT_NO'
         },
         {
-          title: 'Moratorium Period',
+          title: this.translate.instant('master.Moratorium_Period_Master.Installment_Number'),
           data: 'PERIOD'
         },
 
         {
-          title: 'Resolution Date',
+          title: this.translate.instant('master.Moratorium_Period_Master.Moratorium_Period'),
           data: 'AC_RESO_DATE'
         },
 
         {
-          title: 'Resolution Number',
+          title: this.translate.instant('master.Moratorium_Period_Master.Resolution_Date'),
           data: 'AC_RESO_NO'
         },
 
@@ -433,6 +434,9 @@ export class MoratoriumperiodmasterComponent implements OnInit {
         });
       });
     });
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

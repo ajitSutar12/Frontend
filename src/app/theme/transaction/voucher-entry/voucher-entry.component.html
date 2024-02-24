@@ -8,9 +8,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Voucher Entry</h5>
+                        <h5>{{'master.Voucher_Entry.Title' | translate}}</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                            Fields marked with (<sub class="required"> * </sub>) are mandatory
+                            {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                         </h6>
 
                     </div>
@@ -18,7 +18,7 @@
                         <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Voucher_Entry.Branch_Code' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
@@ -37,7 +37,7 @@
                                             *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['branch_code'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -47,17 +47,17 @@
                                                 <label class="inputRadio">
                                                     <input type="radio" name="type" value="cash" formControlName="type"
                                                         (change)="transactionMode('cash')">
-                                                    <i class="helper"></i>Cash </label>
+                                                    <i class="helper"></i>{{'master.Voucher_Entry.Cash' | translate}} </label>
                                             </div>
                                             <div class="radio radio-inline">
                                                 <label class="inputRadio">
                                                     <input type="radio" name="type" value="transfer"
                                                         formControlName="type" (change)="transactionMode('transfer')">
-                                                    <i class="helper"></i>Transfer </label>
+                                                    <i class="helper"></i>{{'master.Voucher_Entry.Transfer' | translate}} </label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">Date</label></div>
+                                    <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">{{'master.Voucher_Entry.Date' | translate}}</label></div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">{{'master.Voucher_Entry.Scheme_Type' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-2">
                                         <div class="form-group form-primary form-static-label">
@@ -92,11 +92,11 @@
                                             *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme_type'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Voucher_Entry.Scheme' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
@@ -115,14 +115,14 @@
                                             *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Account Number<sub
+                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">{{'master.Voucher_Entry.Account_Number' | translate}}<sub
                                                 class="required">*</sub></label></div>
 
                                     <div class="col-sm-6">
@@ -141,13 +141,13 @@
                                             *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['account_no'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Transaction Mode<sub
+                                    <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">{{'master.Voucher_Entry.Transaction_Mode' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
@@ -166,13 +166,13 @@
                                             *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['tran_mode'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label>
+                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'master.Voucher_Entry.Particulars' | translate}}</label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group input-group">
@@ -186,8 +186,8 @@
 
                                     </div>
                                     <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
-                                            for="AC_PARTICULAR">Token
-                                            Number</label></div>
+                                            for="AC_PARTICULAR">{{'master.Voucher_Entry.Token_Number' | translate}}
+                                            </label></div>
                                     <div class="col-md-2" *ngIf="tokenshowhide">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -217,7 +217,7 @@
                                 </div>
                                 <div *ngIf="showChequeDetails">
                                     <div class="row" *ngIf="showChequeDetails">
-                                        <div class="col-sm-12 col-md-2"><label for="ChequeNo">Cheque Number</label>
+                                        <div class="col-sm-12 col-md-2"><label for="ChequeNo">{{'master.Voucher_Entry.Cheque_Number' | translate}}</label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
@@ -232,7 +232,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque Date</label>
+                                        <div class="col-sm-12 col-md-2"><label for="ChequeDate">{{'master.Voucher_Entry.Cheque_Date' | translate}}</label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
@@ -247,7 +247,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 col-md-2"><label for="">Bank Name</label></div>
+                                        <div class="col-sm-12 col-md-2"><label for="">{{'master.Voucher_Entry.Bank_Name' | translate}}</label></div>
 
                                         <div class="col-md-6">
                                             <div class="form-group input-group">
@@ -286,7 +286,7 @@
                                                 </span> 
                                             </div>
                                         </div> -->
-                                    <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Amount</label></div>
+                                    <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">{{'master.Voucher_Entry.Amount' | translate}}</label></div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -305,7 +305,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-1"></div>
-                                    <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Total Amount</label>
+                                    <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">{{'master.Voucher_Entry.Total_Amount' | translate}}</label>
                                     </div>
 
                                     <div class="col-md-2">
@@ -328,11 +328,11 @@
                                                 <table class="table table-bordered table-hover compact">
                                                     <thead>
                                                         <!-- <th>Sr  No</th> -->
-                                                        <td>Head</td>
-                                                        <td>Interset Date</td>
-                                                        <td style="text-align: right;"> Amount</td>
-                                                        <td style="text-align: right;">Balance</td>
-                                                        <td>Type</td>
+                                                        <td>{{'master.Voucher_Entry.Head' | translate}}</td>
+                                                        <td>{{'master.Voucher_Entry.Interset_Date' | translate}}</td>
+                                                        <td style="text-align: right;"> {{'master.Voucher_Entry.Amount' | translate}}</td>
+                                                        <td style="text-align: right;">{{'master.Voucher_Entry.Balance' | translate}}</td>
+                                                        <td>{{'master.Voucher_Entry.Type' | translate}}</td>
                                                     </thead>
                                                     <tbody *ngIf="headData?.length != 0">
                                                         <tr *ngFor="let item of headData;let i=index">
@@ -383,7 +383,7 @@
                                                     </tbody>
                                                     <tbody *ngIf="headData?.length == 0">
                                                         <tr>
-                                                            <td colspan="5" class="no-data-available">No data!</td>
+                                                            <td colspan="5" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -398,12 +398,12 @@
                                         <button type="submit" class="btn btn-outline-primary btn-sm btn-submit"
                                             *ngIf="showButton" (keydown.Tab)="focus()" appTheme #submitbtn
                                             (click)="submit();branchcode.focus()" [disabled]="disableSubmit">
-                                            Submit
+                                            {{'master.Action.Submit' | translate}}
                                         </button>
                                     </div>
                                     <button *ngIf="isShow" class="btn btn-outline-primary btn-sm btn-submit"
                                         (click)="close()">
-                                        Close
+                                        {{'master.Action.Close' | translate}}
                                     </button>
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
@@ -414,18 +414,18 @@
                                         Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                         (click)="closeModal()">
-                                        Close</button>
+                                        {{'master.Action.Close' | translate}}</button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                         (click)="reject()">
-                                        Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {{'master.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                         (click)="Approve()">
-                                        Approve</button>
+                                        {{'master.Action.Approve' | translate}}</button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                         (click)="unApprove()">
-                                        Unapprove</button>
+                                        {{'master.Action.Unapprove' | translate}}</button>
                                     <button (click)="tran_mode.focus()" style="display: none;"
-                                        #focusbutton>focus</button>
+                                        #focusbutton>{{'master.Action.Focus' | translate}}</button>
                                 </div>
                             </div>
 
@@ -433,7 +433,7 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Report Frame</h5>
+                                            <h5>{{'master.Voucher_Entry.Report_Frame' | translate}}</h5>
                                         </div>
                                         <div *ngIf="showRepo">
                                             <app-iframe5 [url]='iframe5url' ></app-iframe5>
@@ -454,7 +454,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h6 class="requiredlable">
-                            Balance
+                            {{'master.Voucher_Entry.Balance' | translate}}
                         </h6>
                     </div>
                     <div class="card-body">
@@ -468,7 +468,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Day Opening Balance
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Day_Opening' | translate}}
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -487,7 +487,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Pigmy Amount
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Pigmy_Amount' | translate}}
                                             </h6>
                                         </div>
                                     </div>
@@ -505,7 +505,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Passed</h6>
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Passed' | translate}}</h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
@@ -523,7 +523,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Unpassed</h6>
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Unpassed' | translate}}</h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
@@ -541,7 +541,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Uneffected Clearing
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Uneffected_Clearing' | translate}}
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -560,8 +560,8 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Overdraft
-                                                Amount
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Overdraft_Amount' | translate}}
+                                               
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -580,7 +580,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Open Date
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Open_Date' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -599,7 +599,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">As On Date
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.As_On_Date' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -618,7 +618,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Sanction Date
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Sanction_Date' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -637,7 +637,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Expiry Date
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Expiry_Date' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -656,7 +656,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Renewal Date
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Renewal_Date' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -675,7 +675,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Sanctions Amount</h6>
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Sanctions_Amount' | translate}}</h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
@@ -693,7 +693,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Deposit_Amount' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -713,7 +713,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.Maturity_Amount' | translate}}
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -733,7 +733,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 15px;">Cleared Balance</h6>
+                                            <h6 class="transaction-title" style="font-size: 15px;">{{'master.Voucher_Entry.Cleared_Balance' | translate}}</h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
                                     </div>
@@ -751,7 +751,7 @@
                                             </div>
                                         </div>
                                         <div class="transaction-percentage">
-                                            <h6 class="transaction-title" style="font-size: 12px;">After this voucher
+                                            <h6 class="transaction-title" style="font-size: 12px;">{{'master.Voucher_Entry.After_this_voucher' | translate}}
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -785,18 +785,18 @@
                                         <div class="info-container">
                                             <ul class="list-unstyled">
                                                 <li class="mb-75">
-                                                    <span class="fw-bolder me-25">Status:</span>
+                                                    <span class="fw-bolder me-25">{{'master.Voucher_Entry.Status' | translate}}:</span>
                                                     <span class="badge bg-light-success">{{Status == true || Status ==
                                                         1? 'Inactive' :
                                                         'Active'}}</span>
                                                 </li>
 
                                                 <li class="mb-75" *ngIf="Customer_Pan_No">
-                                                    <span class="fw-bolder me-25">PAN ID:</span>
+                                                    <span class="fw-bolder me-25">{{'master.Voucher_Entry.PAN_ID' | translate}}:</span>
                                                     <span>{{Customer_Pan_No}}</span>
                                                 </li>
                                                 <li class="mb-75" *ngIf="Customer_Contact_No">
-                                                    <span class="fw-bolder me-25">Contact:</span>
+                                                    <span class="fw-bolder me-25">{{'master.Voucher_Entry.Contact' | translate}}:</span>
                                                     <span>+91 {{Customer_Contact_No}}</span>
                                                 </li>
                                             </ul>
@@ -815,7 +815,7 @@
 
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'master.Voucher_Entry.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -826,7 +826,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Paticulars</th>
+                            <th>{{'master.Voucher_Entry.Paticulars' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
@@ -835,7 +835,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggerhide"
-                        #triggerhide (click)="modalLarge.hide()">Close</button>
+                        #triggerhide (click)="modalLarge.hide()">{{'master.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>
@@ -848,7 +848,7 @@
 <!-- bank name dropdown checking -->
 <app-modal-basic #modalLarge1 [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Bank Master</h4>
+        <h4 class="modal-title">{{'master.Voucher_Entry.Bank_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge1.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -859,7 +859,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Bank Name</th>
+                            <th>{{'master.Voucher_Entry.Bank_Name' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of bankName" (click)="getBankName(item.name)">

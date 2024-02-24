@@ -8,8 +8,10 @@ import {DataTablesModule} from 'angular-datatables';
 import {FileUploadModule} from 'ng2-file-upload';
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
 import {SelectModule} from 'ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 @NgModule({
@@ -19,7 +21,15 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     SharedModule,
     DataTablesModule,
     FileUploadModule,
-    SelectModule
+    SelectModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
+
   ],
   providers:[SelectOptionService,
     {
@@ -30,3 +40,6 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
   declarations: [SharesDataEIComponent]
 })
 export class SharesDataEIModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

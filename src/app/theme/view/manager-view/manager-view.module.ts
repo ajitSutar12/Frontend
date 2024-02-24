@@ -5,7 +5,7 @@ import { ManagerViewComponent } from './manager-view.component';
 import { ManagerViewRoutingModule } from './manager-view-routing.module'
 import { SharedModule } from '../../../shared/shared.module';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +19,8 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -33,7 +35,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     Iframe1Module,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [ManagerViewComponent],
   exports: [ManagerViewComponent],
@@ -54,3 +63,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ]
 })
 export class ManagerViewModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -4,7 +4,7 @@ import { DailyReportsComponent } from './daily-reports.component';
 import {DailyReportsRoutingModule} from './dailyReports-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 // import {ChartModule} from 'angular2-chartjs';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 // import { BnkDayBookSummaryComponent } from './bnk-day-book-summary/bnk-day-book-summary.component';
 import { BnkScrollDetailBothComponent } from './bnk-scroll-detail-both/bnk-scroll-detail-both.component';
@@ -23,12 +23,13 @@ import { SbsidiarySummeryComponent } from './sbsidiary-summery/sbsidiary-summery
 import { OtherSbsidiaryComponent } from './other-sbsidiary/other-sbsidiary.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
     DailyReportsRoutingModule,
     SharedModule,
-    HttpClientModule
+   
     // ChartModule
   ],
   declarations: [DailyReportsComponent, ],
@@ -39,3 +40,5 @@ import { OtherSbsidiaryComponent } from './other-sbsidiary/other-sbsidiary.compo
   },]
 })
 export class DailyReportsModule { }
+
+

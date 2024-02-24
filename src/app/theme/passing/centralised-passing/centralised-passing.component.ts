@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ConnectionServiceModule } from 'ng-connection-service';
 import { interval, Subscription } from 'rxjs';
 import { CentralisedPassingService } from './centralised-passing.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-centralised-passing',
@@ -77,7 +79,8 @@ export class CentralisedPassingComponent implements OnInit {
 
 
 
-  constructor(private _router: Router, private _service: CentralisedPassingService) {
+  constructor(private _router: Router, private _service: CentralisedPassingService, private translate:TranslateService,) {
+    this.translate.setDefaultLang(environment.setLang);
   }
   ngOnInit(): void {
     this.mySubscription = interval(1000).subscribe((x => {

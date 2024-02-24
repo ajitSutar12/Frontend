@@ -12,6 +12,8 @@ import readXlsxFile from 'read-excel-file'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { userInfo } from 'os';
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -62,8 +64,12 @@ export class BatchVoucherComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private _service: BatchVoucherService,
     private CompanyGroupMasterDropdownService: CompanyGroupMasterDropdownService,
-    private _multiService: MultiVoucherService
+    private _multiService: MultiVoucherService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -259,7 +265,7 @@ export class BatchVoucherComponent implements OnInit {
     // debugger
     var obj = this.angForm.value;
     if (Number(obj.voucherAmount) != Number(this.totalAmount)) {
-      Swal.fire('Oops!', 'Voucher amount not equal to Total Amount', 'error');
+      Swal.fire( `${this.translate.instant('Swal_Msg.Oops')}`,  `${this.translate.instant('Swal_Msg.M6')}`, 'error');
     } else {
       let cheqDate
       const formVal = this.angForm.value
@@ -274,7 +280,7 @@ export class BatchVoucherComponent implements OnInit {
 
       this._service.submitData(dataObj).subscribe(data => {
         console.log(data);
-        Swal.fire('Success!', 'Batch Voucher submited successfully', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.P3')}`, 'success');
         this.angForm.controls['company_code'].reset();
         this.angForm.controls['ledger_balance'].reset();
         this.angForm.controls['chequeNo'].reset();
@@ -370,8 +376,8 @@ export class BatchVoucherComponent implements OnInit {
     this._service.approve(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Approved',
-        'Batch Voucher approved successfully',
+        `${this.translate.instant('Swal_Msg.Apporove')}`,
+        `${this.translate.instant('Swal_Msg.P4')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -394,8 +400,8 @@ export class BatchVoucherComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Rejected',
-        'Batch Voucher rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.P5')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -416,8 +422,8 @@ export class BatchVoucherComponent implements OnInit {
     this._service.unapporveBatchVoucher(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Unapproved',
-        'Voucher unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.S8')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -470,7 +476,7 @@ export class BatchVoucherComponent implements OnInit {
     let flag: boolean = false;
     readXlsxFile(fi.files[0]).then((rows) => {
       if (this.filterArray == undefined) {
-        Swal.fire('Oops...!', "Please select company data first", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.P6')}`, "error");
       } else {
         for (let item of this.filterArray) {
           flag = false;
@@ -493,7 +499,7 @@ export class BatchVoucherComponent implements OnInit {
           }
           string += `above Account not find in system please check once again`;
 
-          Swal.fire('Oops...!', string, 'error');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, string, 'error');
         }
 
         this.totalAmt = 0;

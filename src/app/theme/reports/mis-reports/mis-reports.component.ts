@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mis-reports',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MisReportsComponent implements OnInit {
 
-  constructor() { }
+  constructor(     private translate:TranslateService
+    ) {     this.translate.setDefaultLang(environment.setLang) ;
+    }
 
   ngOnInit(): void {
   }

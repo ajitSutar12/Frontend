@@ -12,6 +12,7 @@ import * as moment from "moment";
 import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
 import { first } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-intratewise-balancelist",
@@ -43,8 +44,12 @@ export class IntratewiseBalancelistComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.defaultDate = moment().format("DD/MM/YYYY");
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -113,7 +118,7 @@ export class IntratewiseBalancelistComponent implements OnInit {
         this.iframe5url
       );
     } else {
-      Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, "warning").then(
         () => {
           this.clicked = false;
         }

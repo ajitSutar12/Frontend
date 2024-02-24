@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
 import { data } from 'jquery';
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-loan-installment-inquiry',
   templateUrl: './loan-installment-inquiry.component.html',
@@ -34,7 +35,10 @@ export class LoanInstallmentInquiryComponent implements OnInit {
   installmentType: string
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
 
-  constructor(private fb: FormBuilder, private repayModeService: RepayModeService, private _services: OtherViewService, private installmentMethodService: InstallmentMethodService,) { }
+  constructor(private fb: FormBuilder, private repayModeService: RepayModeService, private _services: OtherViewService, private installmentMethodService: InstallmentMethodService,
+    private translate:TranslateService) { 
+      this.translate.setDefaultLang(environment.setLang) ;
+    }
   ngOnInit(): void {
     this.createForm()
     this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {
@@ -83,7 +87,7 @@ export class LoanInstallmentInquiryComponent implements OnInit {
       // })
       // })
     } else {
-      Swal.fire("Invalid Input", "Please insert values below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       this.angForm.patchValue({
         TDS_RATE: 0
       })

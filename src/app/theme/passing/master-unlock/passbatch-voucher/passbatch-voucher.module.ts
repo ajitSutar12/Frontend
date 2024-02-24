@@ -13,6 +13,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { PassbatchVoucherComponent } from './passbatch-voucher.component';
 import { BatchVoucherModule } from "../../../transaction/batch-voucher/batch-voucher.module";
+// import { HttpLoaderFactory } from "../masterUnlock.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 @NgModule({
   imports: [
@@ -21,7 +25,15 @@ import { BatchVoucherModule } from "../../../transaction/batch-voucher/batch-vou
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    BatchVoucherModule
+    BatchVoucherModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [PassbatchVoucherComponent],
   declarations: [PassbatchVoucherComponent],
@@ -33,3 +45,8 @@ import { BatchVoucherModule } from "../../../transaction/batch-voucher/batch-vou
   ],
 })
 export class PassBatchVoucherModule {}
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

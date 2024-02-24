@@ -10,15 +10,15 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Savings-Pigmy Account Closing</h5>
+                            <h5>{{'Transaction.Saving_Pigmy.Title' | translate}}</h5>
                             <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                                Fields marked with (<sub class="required"> * </sub>) are mandatory
+                                {{'Transaction.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Transaction.Action.F2' | translate}}
                             </h6>
                         </div>
                         <div class="card-body">
                             <div class="solid">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'Transaction.Saving_Pigmy.Branch' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
@@ -28,7 +28,7 @@
                                                     (change)="getBranch()" title="Compulsory Selection" #branchcode
                                                     appTheme (focus)="onFocus(branchcode)" [selectOnTab]='true'
                                                     autofocus [ngClass]="{'form-submitted': formSubmitted}"
-                                                    placeholder="Branch">
+                                                    placeholder="{{'Transaction.Saving_Pigmy.Branch' | translate}}">
                                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                                         {{values.label}}</ng-option>
                                                 </ng-select>
@@ -38,12 +38,12 @@
                                             *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm"></div>
-                                    <div class="col-sm-12 col-md-1 labelWidth"><label for="DATE">Date</label></div>
+                                    <div class="col-sm-12 col-md-1 labelWidth"><label for="DATE">{{'Transaction.Saving_Pigmy.Date' | translate}}</label></div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'Transaction.Saving_Pigmy.Scheme' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
@@ -63,7 +63,7 @@
                                                     formControlName="AC_TYPE" bindLabel="label" appTheme
                                                     title="Compulsory Selection" (change)="schemechange($event)"
                                                     [ngClass]="{'form-submitted': formSubmitted}" required
-                                                    placeholder="Scheme" #selectcode (focus)="onFocus(selectcode)"
+                                                    placeholder="{{'Transaction.Saving_Pigmy.Scheme' | translate}}" #selectcode (focus)="onFocus(selectcode)"
                                                     [selectOnTab]='true'>
                                                     <ng-option *ngFor="let values of allScheme" [value]="values">
                                                         {{values.id}} {{values.label}} </ng-option>
@@ -74,13 +74,13 @@
                                             *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">{{'Transaction.Saving_Pigmy.Acc_Num' | translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-5">
                                         <div class="form-group form-priminry form-static-label">
@@ -88,7 +88,7 @@
                                                 <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="accountedit"
                                                     (change)="getAccountDetails($event)" formControlName="AC_NO"
                                                     bindLabel="label" title="Compulsory Selection" required
-                                                    placeholder="Account No." #accountNumber appTheme
+                                                    placeholder="{{'Transaction.Saving_Pigmy.Acc_Num' | translate}}" #accountNumber appTheme
                                                     (focus)="onFocus(accountNumber)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.label}} {{values.name}}</ng-option>
@@ -99,22 +99,22 @@
                                             *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm">
                                         <label *ngIf="!preMature && accountedit!=null && getschemename=='PG'"
-                                            style="color: rgb(7, 144, 7);">Matured Account</label>
+                                            style="color: rgb(7, 144, 7);">{{'Transaction.Saving_Pigmy.Matured_Account' | translate}}</label>
                                         <label *ngIf="preMature && accountedit!=null && getschemename=='PG'"
-                                            style="color: rgb(194, 55, 55);">Premature Account</label>
+                                            style="color: rgb(194, 55, 55);">{{'Transaction.Saving_Pigmy.Premature_Account' | translate}}</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 solid1">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Interest Rate %</label>
+                                                <label>{{'Transaction.Saving_Pigmy.Interest_Rate' | translate}}</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group input-group">
@@ -129,8 +129,8 @@
                                             <div class="col-md-12">
                                                 <table>
                                                     <tr>
-                                                        <td>Months</td>
-                                                        <td>Interest Amount</td>
+                                                        <td>{{'Transaction.Saving_Pigmy.Months' | translate}}</td>
+                                                        <td>{{'Transaction.Saving_Pigmy.Interest_Amount' | translate}}</td>
                                                         <!-- <td>Interest Amount 0 For Fresh Calculation</td> -->
                                                     </tr>
                                                     <tr>
@@ -145,7 +145,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Total Interest Amount @ {{intrateShow}} %</b></label>
+                                                <label><b>{{'Transaction.Saving_Pigmy.Total_Int_Am' | translate}} @ {{intrateShow}} %</b></label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving">
                                             <div class="col-md-6">
-                                                <label><b>Posted Interest Amount -</b></label>
+                                                <label><b>{{'Transaction.Saving_Pigmy.post_int_Am' | translate}} -</b></label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -180,7 +180,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><b>Net Interest Amount</b></label>
+                                                <label><b>{{'Transaction.Saving_Pigmy.net_Int_Am' | translate}}</b></label>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group input-group">
@@ -194,7 +194,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6"><label for="Fnarration">Narration</label></div>
+                                            <div class="col-md-6"><label for="Fnarration">{{'Transaction.Saving_Pigmy.Narration' | translate}}</label></div>
                                             <div class="col-md">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -221,7 +221,7 @@
                                     <div class="col-md-6 solid1">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                Ledger Balance Amount
+                                                {{'Transaction.Saving_Pigmy.Ledger' | translate}}
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -239,7 +239,7 @@
                                             <div class="col-md-6">
                                                 <label><span *ngIf="preMature==false || preMature==null"
                                                         style="font-weight: 800; font-size: 16px;">+</span>
-                                                    Payable Interest Amount</label>
+                                                        {{'Transaction.Saving_Pigmy.Pay_In_Am' | translate}}</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -254,8 +254,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">+</span> Net
-                                                    Interest Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">+</span> {{'Transaction.Saving_Pigmy.net_Int_Am' | translate}}
+                                                    </label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -271,7 +271,7 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
-                                                <label>- Other Charges Amount</label>
+                                                <label>- {{'Transaction.Saving_Pigmy.Other_Charges_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -288,7 +288,7 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
-                                                <label>Other Charges To General ledger Account</label>
+                                                <label>{{'Transaction.Saving_Pigmy.Charges_ledger_Acc' | translate}}</label>
                                             </div>
                                             <div class="col-md">
                                                 <!-- <span class="border-lable-flt">
@@ -299,7 +299,7 @@
                                                         <ng-select id="GlACNo" bindValue="value" [(ngModel)]="ngGlAcno"
                                                             formControlName="OTHER_CHARGES_GLACNO" bindLabel="label"
                                                             title="Compulsory Selection" required
-                                                            placeholder="Account No." #OTHER_CHARGES_GLACNO
+                                                            placeholder="{{'Transaction.Saving_Pigmy.Acc' | translate}}" #OTHER_CHARGES_GLACNO
                                                             (focus)="onFocus(OTHER_CHARGES_GLACNO)"
                                                             [selectOnTab]='true'>
                                                             <ng-option *ngFor="let values of GlACNo" [value]="values">
@@ -312,7 +312,7 @@
                                         <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
                                                 <label><span style="font-weight: 800; font-size: 16px;">-</span>
-                                                    Commission Amount</label>
+                                                    {{'Transaction.Saving_Pigmy.Commission_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -329,7 +329,7 @@
                                         </div>
                                         <div class="row" *ngIf="isHideForSaving && preMature">
                                             <div class="col-md-6">
-                                                <label>Commission To General ledger Account</label>
+                                                <label>{{'Transaction.Saving_Pigmy.Commission_ledger_Acc' | translate}}</label>
                                             </div>
                                             <div class="col-md">
                                                 <!-- <span class="border-lable-flt">
@@ -341,7 +341,7 @@
                                                             [(ngModel)]="ngCommission"
                                                             formControlName="COMMISSION_GLACNO" bindLabel="label"
                                                             title="Compulsory Selection" required
-                                                            placeholder="Account No." #COMMISSION_GLACNO
+                                                            placeholder="{{'Transaction.Saving_Pigmy.Acc' | translate}}" #COMMISSION_GLACNO
                                                             (focus)="onFocus(COMMISSION_GLACNO)" [selectOnTab]='true'>
                                                             <ng-option *ngFor="let values of GlACNo" [value]="values">
                                                                 {{values.label}} {{values.name}}</ng-option>
@@ -352,8 +352,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> Penal
-                                                    Interest Amount</label>
+                                                <label><span style="font-weight: 800; font-size: 16px;">-</span> {{'Transaction.Saving_Pigmy.pen_Int_Am' | translate}}
+                                                    </label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -374,7 +374,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Net Payable Amount</label>
+                                                <label>{{'Transaction.Saving_Pigmy.Net_Payable_Amount' | translate}}</label>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group input-group">
@@ -394,7 +394,7 @@
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="solid">
-                                        <h3><span>Payment Details</span></h3>
+                                        <h3><span>{{'Transaction.Saving_Pigmy.Payment_de' | translate}}</span></h3>
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="form-radio">
@@ -403,7 +403,7 @@
                                                             <input type="radio" formControlName="SAVING_PIGMY"
                                                                 name="SAVING_PIGMY" value="FormC" id="formT"
                                                                 (change)="isFormA(1)">
-                                                            <i class="helper"></i>Cash
+                                                            <i class="helper"></i>{{'Transaction.Saving_Pigmy.Cash' | translate}}
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
@@ -411,7 +411,7 @@
                                                             <input type="radio" value="FormT"
                                                                 formControlName="SAVING_PIGMY" id="formC"
                                                                 name="SAVING_PIGMY" (change)="isFormA(2)">
-                                                            <i class="helper"></i>Transfer
+                                                            <i class="helper"></i>{{'Transaction.Saving_Pigmy.Transfer' | translate}}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -420,8 +420,8 @@
                                         <div class="row" id="FORMA" *ngIf="isTransfer">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque
-                                                            Number</label></div>
+                                                    <div class="col-sm-12 col-md-2"><label for="chequeNo">{{'Transaction.Saving_Pigmy.Cheque_Number' | translate}}
+                                                        </label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -434,8 +434,8 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">Cheque
-                                                            Date</label>
+                                                    <div class="col-sm-12 col-md-2"><label for="ChequeDate">{{'Transaction.Saving_Pigmy.Cheque_date' | translate}}
+                                                            </label>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
@@ -466,8 +466,8 @@
                                                     </div> -->
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-12 col-md-2"> <label for="Tscheme">Scheme
-                                                            Code<sub class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md-2"> <label for="Tscheme">{{'Transaction.Saving_Pigmy.Scheme_Code' | translate}}
+                                                            <sub class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md-4">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
@@ -477,7 +477,7 @@
                                                                     #Tscheme appTheme (focus)="onFocus(Tscheme)"
                                                                     [selectOnTab]='true'
                                                                     (change)="getTransferAccountList($event)"
-                                                                    placeholder="Scheme">
+                                                                    placeholder="{{'Transaction.Saving_Pigmy.Scheme' | translate}}">
                                                                     <ng-option *ngFor="let values of scheme"
                                                                         [value]="values">
                                                                         {{values.id}} {{values.label}}</ng-option>
@@ -489,12 +489,12 @@
                                                             *ngIf="angForm.controls['Tscheme'].invalid && (angForm.controls['Tscheme'].dirty || angForm.controls['Tscheme'].touched)"
                                                             class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['Tscheme'].errors?.required">
-                                                                This field is required.
+                                                                <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-12 col-md-2"> <label for="TschemeAC">Account
-                                                            Number<sub class="required">*</sub></label></div>
+                                                    <div class="col-sm-12 col-md-2"> <label for="TschemeAC">{{'Transaction.Saving_Pigmy.Acc_Num' | translate}}
+                                                            <sub class="required">*</sub></label></div>
                                                     <div class="col-sm-12 col-md">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -502,7 +502,7 @@
                                                                     formControlName="TschemeAC" bindLabel="label"
                                                                     (change)="getTransferAccountDeatil($event)"
                                                                     bindValue="bankacno" title="Compulsory Selection"
-                                                                    placeholder="Account Number" #TschemeAC appTheme
+                                                                    placeholder="{{'Transaction.Saving_Pigmy.Acc_Num' | translate}}" #TschemeAC appTheme
                                                                     (focus)="onFocus(TschemeAC)" [selectOnTab]='true'>
                                                                     <ng-option *ngFor="let values of transferAcno"
                                                                         [value]="values">
@@ -514,14 +514,14 @@
                                                             *ngIf="angForm.controls['TschemeAC'].invalid && (angForm.controls['TschemeAC'].dirty || angForm.controls['TschemeAC'].touched)"
                                                             class="alert alert-danger">
                                                             <div *ngIf="angForm.controls['TschemeAC'].errors?.required">
-                                                                This field is required.
+                                                                <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-2"><label
-                                                            for="NARRATION">Particulars</label></div>
+                                                            for="NARRATION">{{'Transaction.Saving_Pigmy.Particulars' | translate}}</label></div>
                                                     <div class="col-md-3">
                                                         <div class="form-group input-group">
                                                             <span class="border-lable-flt">
@@ -534,7 +534,7 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-2"><label for="amount">Amount<sub
+                                                    <div class="col-md-2"><label for="amount">{{'Transaction.Saving_Pigmy.Amount' | translate}}<sub
                                                                 class="required">*</sub></label></div>
                                                     <div class="col-md-2">
                                                         <div class="form-group input-group">
@@ -549,11 +549,11 @@
                                                     <div class="col-md">
                                                         <button type="button" class="btn btn-outline-primary btn-sm"
                                                             *ngIf="jointShowButton" (click)="addTransferAccount()">
-                                                            Add Account
+                                                            {{'Transaction.Saving_Pigmy.Add_Account' | translate}}
                                                         </button>
                                                         <button class="btn btn-outline-primary btn-sm"
                                                             (click)="updateTransferAcccount()" *ngIf="jointUpdateShow">
-                                                            Update Account
+                                                            {{'Transaction.Saving_Pigmy. Update_Account' | translate}}
                                                         </button>
                                                     </div>
                                                 </div>
@@ -563,10 +563,10 @@
                                                     <div class="col-md-12">
                                                         <table class="table table-bordered table-hover compact">
                                                             <thead>
-                                                                <td>Action</td>
-                                                                <td>Account Number</td>
-                                                                <td>Particulars</td>
-                                                                <td style="text-align: right;">Amount</td>
+                                                                <td>{{'Transaction.Action.Action' | translate}}</td>
+                                                                <td>{{'Transaction.Saving_Pigmy.Acc_Num' | translate}}</td>
+                                                                <td>{{'Transaction.Saving_Pigmy.Particulars' | translate}}</td>
+                                                                <td style="text-align: right;">{{'Transaction.Saving_Pigmy.Amount' | translate}}</td>
                                                             </thead>
 
                                                             <tbody *ngIf="multigrid?.length != 0">
@@ -586,7 +586,7 @@
                                                                 <tr>
                                                                     <td colspan="5" class="no-data-available"
                                                                         style="text-align: center;">
-                                                                        No data!
+                                                                        {{'Transaction.Action.No_Data' | translate}}
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -605,27 +605,27 @@
                                 <div class="col-sm" style="float: right;">
                                     <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
                                         *ngIf="showButton" (click)="submit();branchcode.focus()">
-                                        Submit
+                                        {{'Transaction.Action.Submit' | translate}}
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                         (click)="closeModal()">
-                                        Close</button>
+                                        {{'Transaction.Action.Close' | translate}}</button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="resetForm()"
                                         *ngIf="newbtnShow">
-                                        Cancel
+                                        {{'Transaction.Action.Cancel' | translate}}
                                     </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
                                         Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                         (click)="reject()">
-                                        Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        {{'Transaction.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                         (click)="Approve()">
-                                        Approve</button>
+                                        {{'Transaction.Action.Approve' | translate}}</button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                         (click)="unApprove()">
-                                        Unapprove</button>
+                                        {{'Transaction.Action.Unapprove' | translate}}</button>
                                 </div>
                             </div>
 
@@ -639,7 +639,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5> Details</h5>
+                            <h5> {{'Transaction.Saving_Pigmy.Details' | translate}}</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -652,7 +652,7 @@
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Opening Balance
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Saving_Pigmy.Opening_Balance' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -669,7 +669,7 @@
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Opening Date</h6>
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Saving_Pigmy.Opening_Date' | translate}}</h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -685,7 +685,7 @@
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Renewal Date</h6>
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Saving_Pigmy.Renewal_Date' | translate}}</h6>
                                             </div>
                                         </div>
                                         <div class="fw-bolder transaction-title text-success"
@@ -701,7 +701,7 @@
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Interest Rate%
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Saving_Pigmy.Interest_Rate' | translate}}
                                                 </h6>
                                             </div>
                                         </div>
@@ -718,8 +718,8 @@
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Last Interest
-                                                    Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Saving_Pigmy.Last_Interest_Date' | translate}}
+                                                    
                                                 </h6>
                                             </div>
                                         </div>
@@ -738,8 +738,8 @@
                                                 </div>
                                             </div>
                                             <div class="transaction-percentage">
-                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity
-                                                    Date
+                                                <h6 class="transaction-title" style="font-size: 12px;">{{'Transaction.Saving_Pigmy.Maturity_Date' | translate}}
+                                                    
                                                 </h6>
                                             </div>
                                         </div>
@@ -770,18 +770,18 @@
                                             <div class="info-container">
                                                 <ul class="list-unstyled">
                                                     <li class="mb-75">
-                                                        <span class="fw-bolder me-25">Status:</span>
+                                                        <span class="fw-bolder me-25">{{'Transaction.Saving_Pigmy.Status' | translate}}</span>
                                                         <span class="badge bg-light-success">{{Status == true || Status
                                                             ==
                                                             1? 'Inactive' :
                                                             'Active'}}</span>
                                                     </li>
                                                     <li class="mb-75">
-                                                        <span class="fw-bolder me-25">PAN ID:</span>
+                                                        <span class="fw-bolder me-25">{{'Transaction.Saving_Pigmy.PAN_ID' | translate}}</span>
                                                         <span>{{Customer_info?.AC_PANNO}}</span>
                                                     </li>
                                                     <li class="mb-75">
-                                                        <span class="fw-bolder me-25">Contact:</span>
+                                                        <span class="fw-bolder me-25">{{'Transaction.Saving_Pigmy.Contact' | translate}}</span>
                                                         <span>{{Customer_info?.AC_MOBILENO}}</span>
                                                     </li>
                                                 </ul>
@@ -801,7 +801,7 @@
 </form>
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Saving_Pigmy.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -812,7 +812,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Narration</th>
+                            <th>{{'Transaction.Saving_Pigmy.Narration' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
@@ -821,7 +821,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #triggerhide
-                        (click)="modalLarge.hide()">Close</button>
+                        (click)="modalLarge.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>
@@ -830,7 +830,7 @@
 
 <app-modal-basic #formnarration [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Saving_Pigmy.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="formnarration.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -841,7 +841,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Narration</th>
+                            <th>{{'Transaction.Saving_Pigmy.Narration' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getFormNarration(item.NARRATION)">
@@ -850,7 +850,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" #narrationhide
-                        (click)="formnarration.hide()">Close</button>
+                        (click)="formnarration.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>

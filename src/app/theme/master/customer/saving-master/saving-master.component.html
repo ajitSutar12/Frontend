@@ -554,7 +554,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_PIN" class="form-control" placeholder=" " id="AC_PIN"
                                     formControlName="AC_PIN" disabled />
-                                  <label for="AC_PIN">{{'master.Saving_Acc_Master.pin_Code'| translate}}</label>
+
+                                  <label for="AC_PIN">{{'master.Saving_Acc_Master.Pin_Code'| translate}}</label>
+
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -574,7 +576,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_PHNO" class="form-control" placeholder=" " id="AC_PHNO"
                                     formControlName="AC_PHNO" disabled />
-                                  <label for="AC_PHNO">{{'master.Saving_Acc_Master.Residentia'| translate}}</label>
+
+                                  <label for="AC_PHNO">{{'master.Saving_Acc_Master.Residential'| translate}}</label>
+
                                 </span>
                               </div>
                             </div>
@@ -1524,7 +1528,7 @@
                                           formControlName="JOINT_AC_CUSTID" (change)="getJointCustomer($event)"
                                           [virtualScroll]="true" [virtualScroll]="true" [ngClass]="{
                                             'form-submitted': formSubmitted
-                                          }" title="Compulsory Selection" placeholder="Customer Id" #AC_CUSTID
+                                          }" title="Compulsory Selection" placeholder="{{'master.Saving_Acc_Master.Customer_Id'| translate}}" #AC_CUSTID
                                           (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>
                                           <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{ values.label }}</ng-option>

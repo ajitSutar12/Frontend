@@ -2,16 +2,16 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5>Batch Transfer Voucher</h5>
+                <h5>{{'Transaction.Batch_Transfer_Voucher.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'Transaction.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card-body">
                 <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Branch_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
@@ -29,12 +29,12 @@
                                     *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['branch_code'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4"></div>
-                            <div class="col-md-1"><label for="date">Date</label></div>
+                            <div class="col-md-1"><label for="date">{{'Transaction.Batch_Transfer_Voucher.Date' | translate}}</label></div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -48,7 +48,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Company Code<sub class="required">*</sub></label>
+                                <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Company_Code' | translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
@@ -66,14 +66,14 @@
                                     *ngIf="angForm.controls['company_code'].invalid && (angForm.controls['company_code'].dirty || angForm.controls['company_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['company_code'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Scheme</label>
+                                <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Scheme' | translate}}</label>
                             </div>
                             <div class="col-sm-12 col-md-1">
                                 <div class="form-group input-group">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Debit Account</label>
+                                <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Debit_Account' | translate}}</label>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group input-group">
@@ -97,7 +97,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Ledger Balance<sub class="required">*</sub></label>
+                                <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Ledger_Balance' | translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"><label for="chequeNo">Cheque Number</label></div>
+                            <div class="col-sm-12 col-md-2"><label for="chequeNo">{{'Transaction.Batch_Transfer_Voucher.Cheque_Number' | translate}}</label></div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-1">
-                                <label for="AC_BRANCH">Cheque Date</label>
+                                <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Cheque_Date' | translate}}</label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
@@ -142,7 +142,7 @@
                             </div>
                             <div class="col-md-1"></div>
                             <div class="col-sm-12 col-md-2">
-                                <label for="AC_BRANCH">Voucher Amount</label>
+                                <label for="AC_BRANCH">{{'Transaction.Batch_Transfer_Voucher.Voucher_Amount' | translate}}</label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
@@ -162,21 +162,21 @@
                             <div class="col-md-2">
                                 <input type="checkbox" id="vehicle1" name="vehicle1" formControlName="import"
                                     (click)="importFlag($event)"><span style="margin-right: 2%;"></span>
-                                <label for="vehicle1"> Import Data</label>
+                                <label for="vehicle1"> {{'Transaction.Batch_Transfer_Voucher.Import_Data' | translate}}</label>
                             </div>
                             <div class="col-md-4" *ngIf="showImportDiv">
                                 <input type="file" class="form-control" formControlName="file" #fileInput
                                     style="height:32px !important">
                             </div>
                             <div class="col-md-2" *ngIf="showImportDiv">
-                                <button class="btn btn-sm btn-outline-primary" (click)="ImportData()">Import
-                                    Data</button>
+                                <button class="btn btn-sm btn-outline-primary" (click)="ImportData()">{{'Transaction.Batch_Transfer_Voucher.Import_Data' | translate}}
+                                   </button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h5>Credit Amount Details</h5>
+                            <h5>{{'Transaction.Batch_Transfer_Voucher.Credit_Amount_Details' | translate}}</h5>
                         </div>
                     </div>
                     <div class="solid">
@@ -186,10 +186,10 @@
                                     <thead>
                                         <tr>
                                             <td></td>
-                                            <td>Scheme</td>
-                                            <td>Account No</td>
+                                            <td>{{'Transaction.Batch_Transfer_Voucher.Scheme' | translate}}</td>
+                                            <td>{{'Transaction.Batch_Transfer_Voucher.Account_No' | translate}}</td>
                                             <!-- <td>Name</td> -->
-                                            <td>Amount</td>
+                                            <td>{{'Transaction.Batch_Transfer_Voucher.Amount' | translate}}</td>
                                         </tr>
                                         <tr>
                                             <td></td>
@@ -218,7 +218,7 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Particulars</label></div>
+                            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'Transaction.Batch_Transfer_Voucher.Particulars' | translate}}</label></div>
                             <div class="col-md-5">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -230,7 +230,7 @@
 
                             </div>
                             <div class="col-sm-12 col-md-2">
-                                <label for="">Total Amount</label>
+                                <label for="">{{'Transaction.Batch_Transfer_Voucher.Total_Amount' | translate}}</label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
@@ -248,25 +248,25 @@
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
                                     *ngIf="showButton" (click)="Submit();selectBranch.focus()">
-                                    Submit
+                                    {{'Transaction.Action.Submit' | translate}}
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                     (click)="closeModal()">
-                                    Close</button>
+                                    {{'Transaction.Action.Close' | translate}}</button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                     *ngIf="newbtnShow">
-                                    Cancel
+                                    {{'Transaction.Action.Cancel' | translate}}
                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                     *ngIf="updateShow">
                                     Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                     (click)="unApprove()">
-                                    Unapprove</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{'Transaction.Action.Unapprove' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{'Transaction.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                    Approve</button>
+                                    {{'Transaction.Action.Approve' | translate}}</button>
                             </div>
                         </div>
                     </div>
@@ -277,7 +277,7 @@
 </div>
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
-        <h4 class="modal-title">Narration Master</h4>
+        <h4 class="modal-title">{{'Transaction.Batch_Transfer_Voucher.Narration_Master' | translate}}</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -288,7 +288,7 @@
                 <div class="col-md-12">
                     <table class="table table-bordered">
                         <thead>
-                            <th>Paticulars</th>
+                            <th>{{'Transaction.Batch_Transfer_Voucher.Particulars' | translate}}</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of narrationList" (click)="getNarration(item.NARRATION)">
@@ -297,7 +297,7 @@
                         </tbody>
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="trigger"
-                        (click)="modalLarge.hide()">Close</button>
+                        (click)="modalLarge.hide()">{{'Transaction.Action.Close' | translate}}</button>
                 </div>
             </div>
         </perfect-scrollbar>

@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Monthly Recovery Print</h5>
+                <h5>{{'master.Shaer_Report.T7' | translate}}</h5>
             </div>
 
             <form [formGroup]="angForm" novalidate>
@@ -15,13 +15,13 @@
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="T_TYPE" value="sd-wise" formControlName="T_TYPE">
-                                            <i class="helper"></i>Salary Division Wise</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.Salary' | translate}}</label>
                                     </div>
 
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="T_TYPE" value="ps-wise" formControlName="T_TYPE">
-                                            <i class="helper"></i>Page Sum Wise</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.Page' | translate}}</label>
                                     </div>
 
                                     <div class="form-group form-primary form-static-label" *ngIf="
@@ -30,7 +30,7 @@
                                             angForm.controls['T_TYPE'].touched)
                                           " class="alert alert-danger">
                                         <div *ngIf="angForm.controls['T_TYPE'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
 
                                     </div>
@@ -43,13 +43,13 @@
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="P_TYPE" value="mem-no" formControlName="P_TYPE">
-                                            <i class="helper"></i>Member No.</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.Member' | translate}}</label>
                                     </div>
 
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="P_TYPE" value="emp-no" formControlName="P_TYPE">
-                                            <i class="helper"></i>Employee No.</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.Emp' | translate}}</label>
                                     </div>
 
                                     <div class="form-group form-primary form-static-label" *ngIf="
@@ -58,7 +58,7 @@
                                             angForm.controls['P_TYPE'].touched)
                                           " class="alert alert-danger">
                                         <div *ngIf="angForm.controls['P_TYPE'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
 
                                     </div>
@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="row">
-                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Division Code<sub
+                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">{{'master.Shaer_Report.Code' | translate}}<sub
                                             class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-12 col-md-3">
@@ -87,7 +87,7 @@
                                         *ngIf="angForm.controls['dcode'].invalid && (angForm.controls['dcode'].dirty || angForm.controls['dcode'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['dcode'].errors?.required">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
 
@@ -97,7 +97,7 @@
 
                         <div class="col-sm">
                             <div class="row">
-                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Month
+                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">{{'master.Shaer_Report.Month' | translate}}
                                         <sub class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group input-group">
@@ -113,14 +113,14 @@
                                         class="alert alert-danger">
                                         <div
                                             *ngIf="angForm.controls['month'].errors?.pattern || angForm.controls['month'].errors?.required || angForm.controls['month'].errors?.maxlength">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
 
 
 
-                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Year
+                                <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">{{'master.Shaer_Report.Year' | translate}}
                                         <sub class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group input-group">
@@ -136,7 +136,7 @@
                                         class="alert alert-danger">
                                         <div
                                             *ngIf="angForm.controls['year'].errors?.pattern || angForm.controls['year'].errors?.required || angForm.controls['year'].errors?.maxlength">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -151,20 +151,20 @@
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="R_TYPE" value="all" formControlName="R_TYPE">
-                                            <i class="helper"></i>All</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.All' | translate}}</label>
                                     </div>
 
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="R_TYPE" value="un-posted"
                                                 formControlName="R_TYPE">
-                                            <i class="helper"></i>Un posted</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.Un' | translate}}</label>
                                     </div>
 
                                     <div class="radio radio-inline">
                                         <label class="inputRadio">
                                             <input type="radio" name="R_TYPE" value="posted" formControlName="R_TYPE">
-                                            <i class="helper"></i>Posted</label>
+                                            <i class="helper"></i>{{'master.Shaer_Report.Posted' | translate}}</label>
                                     </div>
 
                                     <div class="form-group form-primary form-static-label" *ngIf="
@@ -173,7 +173,7 @@
                                             angForm.controls['R_TYPE'].touched)
                                           " class="alert alert-danger">
                                         <div *ngIf="angForm.controls['R_TYPE'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
 
                                     </div>
@@ -182,9 +182,9 @@
                         </div>
                         <div class="col-sm">
                             <div class="solid">
-                                <h3><span>Member No</span></h3>
+                                <h3><span>{{'master.Shaer_Report.Member' | translate}}</span></h3>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">From<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Shaer_Report.From' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -201,7 +201,7 @@
                                             *ngIf="angForm.controls['mfrom'].invalid && (angForm.controls['mfrom'].dirty || angForm.controls['mfrom'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['mfrom'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
 
@@ -209,7 +209,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">To<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'master.Shaer_Report.To' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -226,7 +226,7 @@
                                             *ngIf="angForm.controls['mto'].invalid && (angForm.controls['mto'].dirty || angForm.controls['mto'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['mto'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                             </div>
                                         </div>
 
@@ -238,9 +238,9 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'master.Action.Close' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm" (click)="alertWithSuccess()">Print</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="alertWithSuccess()">{{'master.Action.Print' | translate}}</button>
 
                         </div>
                     </div>
@@ -249,7 +249,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Shaer_Report.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe [url]='iframeurl'></app-iframe>

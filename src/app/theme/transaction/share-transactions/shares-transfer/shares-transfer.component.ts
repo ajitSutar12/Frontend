@@ -22,6 +22,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import { HttpClient } from '@angular/common/http';
 import * as moment from 'moment';
 import { event } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-shares-transfer',
   templateUrl: './shares-transfer.component.html',
@@ -77,10 +78,11 @@ export class SharesTransferComponent implements OnInit {
   ];
 
   dtExportButtonOptions: any = {};
-  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService,) {
+  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService, private translate:TranslateService,) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
+    this.translate.setDefaultLang(environment.setLang);
   }
   showButton: boolean = true;
   updateShow: boolean = false;
@@ -220,63 +222,63 @@ export class SharesTransferComponent implements OnInit {
       RESULATION_NO: formVal.RESOLUTIONNO,
     }
     if (formVal.branch_code == "" || formVal.branch_code == null) {
-      Swal.fire("Warning!", "Please Select Branch Code!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Branch_Code')}`, "error");
     }
     else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Scheme Code!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Scheme_Code')}`,
         "info"
       );
     }
     else if (formVal.AC_TYPE1 == "" || formVal.AC_TYPE1 == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Member No!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert__Member_No')}`,
         "info"
       );
     }
     else if (formVal.MEMBER_CODE == "" || formVal.MEMBER_CODE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select  Member No!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.S_Member_No')}`,
         "info"
       );
     }
     else if (formVal.AC_TYPE1 == "" || formVal.AC_TYPE1 == null) {
       Swal.fire(
-        "Warning!", "Please Select Scheme!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error"
       );
     }
     else if (formVal.RDATE == "" || formVal.RDATE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Resolution Date!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_RES_Date')}`,
         "info"
       );
     }
     else if (formVal.RESOLUTIONNO == "" || formVal.RESOLUTIONNO == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert RESOLUTION NO!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_RES')}`,
         "info"
       );
     }
     else if (formVal.TRANS_AMOUNT == "" || formVal.TRANS_AMOUNT == null) {
       Swal.fire(
-        "Warning!", "Please Enter Actual Transfer Amount!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Actual_Transfer_Amount')}`, "error"
       );
     }
 
     else if (formVal.Fnarration == "" || formVal.Fnarration == null) {
       Swal.fire(
-        "Warning!", "Please Enter Reason!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Enter_Reason')}`, "error"
       );
     }
     else {
       this.http.post(this.url + '/shares-transfer/insert', object).subscribe(data => {
         Swal.fire(
-          'success', "Data Submitted Successfully!!", 'success'
+          `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Sub_S')}`, 'success'
         );
         this.createForm()
       })
@@ -292,10 +294,10 @@ export class SharesTransferComponent implements OnInit {
     }
     this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', obj).subscribe(data => {
       if (data['isclosed'] == 1) {
-        Swal.fire("Oops!", "Selected account is closed!", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_closed')}`, "error");
         this.ngIntroducer = null
       } else if (Number(data['shareBal']) == 0) {
-        Swal.fire("Oops!", "Selected account has 0 balance!", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_0_bal')}`, "error");
         this.ngIntroducer = null
       } else {
         this.shareBal = data['shareBal']
@@ -310,7 +312,7 @@ export class SharesTransferComponent implements OnInit {
   }
   checkActualAmt() {
     if (Number(this.angForm.controls['T_SHARES_AMOUNT'].value) < Number(this.angForm.controls['TRANS_AMOUNT'].value)) {
-      Swal.fire('OOPS', `Actual transfer amount must be less or equal to ${this.shareBal}`)
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.amount_less_equal')} ${this.shareBal}`)
       this.angForm.patchValue({
         TRANS_AMOUNT: this.shareBal
       })
@@ -324,7 +326,7 @@ export class SharesTransferComponent implements OnInit {
       this.angForm.patchValue({
         MEMBER_CODE1: null
       })
-      Swal.fire('OOPS', 'Transfer account cannot be same', 'error')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_cannot_same')}`, 'error')
     }
   }
   updateID
@@ -370,10 +372,10 @@ export class SharesTransferComponent implements OnInit {
       }
       this.http.post(this.url + '/shares-transfer/getAccountSharesDetails', objJECT).subscribe(data => {
         if (data['isclosed'] == 1) {
-          Swal.fire("Oops!", "Selected account is closed!", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_closed')}`, "error");
           this.ngIntroducer = null
         } else if (Number(data['shareBal']) == 0) {
-          Swal.fire("Oops!", "Selected account has 0 balance!", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.acc_0_bal')}`, "error");
           this.ngIntroducer = null
         } else {
           this.shareBal = data['shareBal']
@@ -425,64 +427,64 @@ export class SharesTransferComponent implements OnInit {
       RESULATION_NO: formVal.RESOLUTIONNO,
     }
     if (formVal.branch_code == "" || formVal.branch_code == null) {
-      Swal.fire("Warning!", "Please Select Branch Code!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Branch_Code')}`, "error");
     }
     else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Scheme Code!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Scheme_Code')}`,
         "info"
       );
     }
     else if (formVal.AC_TYPE1 == "" || formVal.AC_TYPE1 == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Member No!",
+       `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert__Member_No')}`,
         "info"
       );
     }
     else if (formVal.MEMBER_CODE == "" || formVal.MEMBER_CODE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select  Member No!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.S_Member_No')}`,
         "info"
       );
     }
     else if (formVal.AC_TYPE1 == "" || formVal.AC_TYPE1 == null) {
       Swal.fire(
-        "Warning!", "Please Select Scheme!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error"
       );
     }
     else if (formVal.RDATE == "" || formVal.RDATE == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Resolution Date!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_RES_Date')}`,
         "info"
       );
     }
     else if (formVal.RESOLUTIONNO == "" || formVal.RESOLUTIONNO == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert RESOLUTION NO!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_RES')}`,
         "info"
       );
     }
     else if (formVal.TRANS_AMOUNT == "" || formVal.TRANS_AMOUNT == null) {
       Swal.fire(
-        "Warning!", "Please Enter Actual Transfer Amount!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Actual_Transfer_Amount')}`, "error"
       );
     }
 
     else if (formVal.Fnarration == "" || formVal.Fnarration == null) {
       Swal.fire(
-        "Warning!", "Please Enter Reason!", "error"
+        `${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Enter_Reason')}`, "error"
       );
     }
     else {
       this.http.post(this.url + '/shares-transfer/update', object).subscribe(data => {
         this.angForm.enable()
         Swal.fire(
-          'success', "Data Updated Successfully!!", 'success'
+          `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Up_Suc')}`, 'success'
         );
       })
     }
@@ -511,7 +513,7 @@ export class SharesTransferComponent implements OnInit {
     this.http.post(this.url + '/shares-transfer/approve', object).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'success', "Data Approved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_App')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -531,7 +533,7 @@ export class SharesTransferComponent implements OnInit {
     this.http.post(this.url + '/shares-transfer/reject', object).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'success', "Data Rejected Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Rej')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();
@@ -566,7 +568,7 @@ export class SharesTransferComponent implements OnInit {
     this.http.post(this.url + '/shares-transfer/unapprove/ ', object).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'success', "Data Unapproved Successfully!!", 'success'
+        `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Data_Un_S')}`, 'success'
       );
       var button = document.getElementById('trigger');
       button.click();

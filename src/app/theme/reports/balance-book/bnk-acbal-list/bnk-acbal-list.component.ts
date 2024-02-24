@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { SavingMasterService } from '../../../master/customer/saving-master/saving-master.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -65,6 +66,7 @@ bsValue: any;
 fromdate: any;
  
   constructor( private http: HttpClient,
+    private translate:TranslateService,
     private fb: FormBuilder,
     public schemeTypeDropdown: SchemeTypeDropdownService,
     private _schemeService: SchemeAccountNoService,
@@ -76,6 +78,7 @@ fromdate: any;
     private sanitizer: DomSanitizer,
     private systemParameter:SystemMasterParametersService,
     public router: Router) { 
+      this.translate.setDefaultLang(environment.setLang);
       this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -309,7 +312,7 @@ fromdate: any;
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
 }

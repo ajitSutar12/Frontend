@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -49,7 +50,8 @@ export class TFormDayBookComponent implements OnInit {
   constructor(private fb: FormBuilder, private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,
-    public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,) {
+    public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang) 
     this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -154,7 +156,7 @@ export class TFormDayBookComponent implements OnInit {
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
 
 

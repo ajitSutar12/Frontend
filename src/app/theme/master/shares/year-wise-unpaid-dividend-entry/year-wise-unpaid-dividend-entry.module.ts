@@ -15,12 +15,14 @@ import { ShareMasterDropdownService } from '../../../../shared/dropdownService/s
 import { ShareSchemeDropdownService } from '../../../../shared/dropdownService/share-scheme-dropdown.Service';
 import { ShareMasterService } from '../../customer/shares-master/shares-master.service';
 import { CustomerIdService } from '../../customer/customer-id/customer-id.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -34,7 +36,16 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+
+    
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [YearWiseUnpaidDividendEntryComponent],
   providers: [YearwiseunpaidService,
@@ -54,3 +65,6 @@ import { ThemeModule } from 'src/app/theme/theme.module';
 
 })
 export class YearWiseUnpaidDividendEntryModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

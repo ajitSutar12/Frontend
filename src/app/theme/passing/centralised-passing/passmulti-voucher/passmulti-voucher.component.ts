@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { MultiVoucherComponent } from 'src/app/theme/transaction/multi-voucher/multi-voucher.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 class DataTableResponse {
@@ -47,7 +48,9 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
   // Store data from backend
   multiVoucher: MultiVoucher[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) { 
+    this.translate.setDefaultLang(environment.setLang);
+  }
 
   multiVoucherData: any = {};
 
@@ -107,22 +110,22 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         {
-          title: 'Voucher Number ',
+          title: this.translate.instant('Passing.Multi_Voucher.Voucher_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title: this.translate.instant('Passing.Multi_Voucher.Amount'),
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Date',
+          title: this.translate.instant('Passing.Multi_Voucher.Date'),
           data: 'TRAN_DATE'
         },
         {
-          title: 'Time',
+          title: this.translate.instant('Passing.Multi_Voucher.Time'),
           data: 'TRAN_TIME'
         },
       ],

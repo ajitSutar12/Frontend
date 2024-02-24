@@ -2,16 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Balance Updation</h5>
+                <h5>{{'master.Balance_Updation.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate
                 (ngSubmit)="submit();BRANCH_CODE.focus()" #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-3"> <label for="BRANCH_CODE">Branch Code<sub
+                        <div class="col-sm-12 col-md-3"> <label for="BRANCH_CODE">{{'master.Balance_Updation.Branch_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -19,7 +19,7 @@
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
-                                        (change)="getBranch($event)" placeholder="Branch" #BRANCH_CODE
+                                        (change)="getBranch($event)" placeholder="{{'master.Balance_Updation.Branch_Code' | translate}}" #BRANCH_CODE
                                         (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -31,12 +31,12 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-md-3"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-3"> <label for="AC_TYPE">{{'master.Balance_Updation.Scheme_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
 
@@ -45,7 +45,7 @@
                                     <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
                                         [virtualScroll]="true" title="Compulsory Selection" required
-                                        placeholder="Scheme Code" #AC_TYPE (focus)="onFocus(AC_TYPE)"
+                                        placeholder="{{'master.Balance_Updation.Scheme_Code' | translate}}" #AC_TYPE (focus)="onFocus(AC_TYPE)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
@@ -57,14 +57,14 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">Balance Date</label></div>
+                        <div class="col-sm-12 col-md-3"> <label for="TRAN_DATE">{{'master.Balance_Updation.Balance_Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -80,7 +80,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-3"> <label for="FROM_AC">From Account Number<sub
+                        <div class="col-sm-12 col-md-3"> <label for="FROM_AC">{{'master.Balance_Updation.From_Account_Number' | translate}}<sub
                             class="required">*</sub></label></div>
                 <div class="col-sm-12 col-md-3">
                     <div class="form-group form-primary form-static-label">
@@ -88,7 +88,7 @@
                             <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                 formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                 (change)="getTable()" [virtualScroll]="true"
-                                [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C"
+                                [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Balance_Updation.From_A/C' | translate}}"
                                 #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
                                 <ng-option *ngFor="let values of fromAC" [value]="values">
                                     {{values.label}} {{values.name}}</ng-option>
@@ -100,7 +100,7 @@
                         *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                         class="alert alert-danger">
                         <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                            This field is required.
+                            <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                     <div class="row">
                         
 
-                        <div class="col-sm-12 col-md-3"> <label for="TO_AC">To Account Number<sub
+                        <div class="col-sm-12 col-md-3"> <label for="TO_AC">{{'master.Balance_Updation.To_Account_Number' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -116,7 +116,7 @@
                                     <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngtoac"
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
                                         (change)="getTable()" [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Balance_Updation.To_A/C' | translate}}"
                                         #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -128,7 +128,7 @@
                                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -138,7 +138,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -155,55 +155,52 @@
                                             class="table table-striped table-bordered table-hover compact">
                                             <thead>
                                                 <tr>
-                                                    <td class="td_right">Account Number</td>
-                                                    <td>Account Name</td>
-                                                    <td *ngIf="ledgerbalance" class="td_right">Ledger Balance </td>
-                                                    <td *ngIf="productamount" class="td_right">Product Amount</td>
-                                                    <td *ngIf="lastTranDate" class="td_center">Last Transaction Date
+                                                    <td class="td_right">{{'master.Balance_Updation.Account_Number' | translate}}</td>
+                                                    <td>{{'master.Balance_Updation.Account_Name' | translate}}</td>
+                                                    <td *ngIf="ledgerbalance" class="td_right">{{'master.Balance_Updation.Ledger_Balance' | translate}} </td>
+                                                    <td *ngIf="productamount" class="td_right">{{'master.Balance_Updation.Product_Amount' | translate}}</td>
+                                                    <td *ngIf="lastTranDate" class="td_center">{{'master.Balance_Updation.Last_Transaction_Date' | translate}}
                                                     </td>
-                                                    <td *ngIf="lastintpaidDate" class="td_center">Last Interest paid
-                                                        Date</td>
+                                                    <td *ngIf="lastintpaidDate" class="td_center">{{'master.Balance_Updation.Last_Interest_paid_Date' | translate}}
+                                                    </td>
                                                     <td *ngIf="closingdate" style="width: 10px;" class="td_center">
-                                                        &nbsp; &nbsp; Closing Date &nbsp; &nbsp; &nbsp; </td>
-                                                    <td *ngIf="debitcredit" class="td_center">Debit/Credit</td>
-                                                    <td *ngIf="payableint" class="td_right">Payable Interest</td>
-                                                    <td *ngIf="totalintpaid" class="td_right">Total Interest paid</td>
-                                                    <td *ngIf="totalpenalint" class="td_right">Total Penal Interest</td>
-                                                    <td *ngIf="totalinstallmentrec" class="td_right">Total Number of
-                                                        Installment Received</td>
-                                                    <td *ngIf="tdsopDate" class="td_center">TDS Opening Date &nbsp;</td>
-                                                    <td *ngIf="intinfinancialyear" class="td_right">Opening Credit
-                                                        Interest in Financial Year </td>
-                                                    <td *ngIf="opintpaidfinyear" class="td_right">Opening Interest Paid
-                                                        in Financial Year </td>
-                                                    <td *ngIf="acopenDate" class="td_center">Account Open Date</td>
-                                                    <td *ngIf="lastcreditDate" class="td_center">Last Credit Date</td>
-                                                    <td *ngIf="lastintDate" class="td_center">Last Interest Date</td>
-                                                    <td *ngIf="opproduct" class="td_right">O/p Product</td>
-                                                    <td *ngIf="balanceDate" class="td_center">Balance Date</td>
-                                                    <td *ngIf="receivableint" class="td_right">Receivable Interest</td>
-                                                    <td *ngIf="totalintrec" class="td_right">Total Interest Received
+                                                        &nbsp; &nbsp; {{'master.Balance_Updation.Closing_Date' | translate}} &nbsp; &nbsp; &nbsp; </td>
+                                                    <td *ngIf="debitcredit" class="td_center">{{'master.Balance_Updation.Debit/Credit' | translate}}</td>
+                                                    <td *ngIf="payableint" class="td_right">{{'master.Balance_Updation.Payable_Interest' | translate}}</td>
+                                                    <td *ngIf="totalintpaid" class="td_right">{{'master.Balance_Updation.Total_Interest_paid' | translate}}</td>
+                                                    <td *ngIf="totalpenalint" class="td_right">{{'master.Balance_Updation.Total_Penal_Interest' | translate}}</td>
+                                                    <td *ngIf="totalinstallmentrec" class="td_right">{{'master.Balance_Updation.Total_Number_of_Installment_Received' | translate}}</td>
+                                                    <td *ngIf="tdsopDate" class="td_center">{{'master.Balance_Updation.TDS_Opening_Date' | translate}} &nbsp;</td>
+                                                    <td *ngIf="intinfinancialyear" class="td_right">{{'master.Balance_Updation.Opening_Credit_Interest_in_Financial_Year' | translate}}
+                                                   </td>
+                                                    <td *ngIf="opintpaidfinyear" class="td_right">{{'master.Balance_Updation.Opening_Interest_Paid_in_Financial_Year' | translate}} </td>
+                                                    <td *ngIf="acopenDate" class="td_center">{{'master.Balance_Updation.Account_pen_Date' | translate}}</td>
+                                                    <td *ngIf="lastcreditDate" class="td_center">{{'master.Balance_Updation.Last_Credit_Date' | translate}}</td>
+                                                    <td *ngIf="lastintDate" class="td_center">{{'master.Balance_Updation.Last_Interest_Date' | translate}}</td>
+                                                    <td *ngIf="opproduct" class="td_right">{{'master.Balance_Updation.O/p_Product' | translate}}</td>
+                                                    <td *ngIf="balanceDate" class="td_center">{{'master.Balance_Updation.Receivable_Interest' | translate}}</td>
+                                                    <td *ngIf="receivableint" class="td_right">{{'master.Balance_Updation.Receivable_Interest' | translate}}</td>
+                                                    <td *ngIf="totalintrec" class="td_right">{{'master.Balance_Updation.Total_Interest_Received' | translate}}
                                                     </td>
-                                                    <td *ngIf="penalint" class="td_right">Penal Interest</td>
-                                                    <td *ngIf="totaldepositamt" class="td_right">Total Deposit Amount
+                                                    <td *ngIf="penalint" class="td_right">{{'master.Balance_Updation.Penal_Interest' | translate}}</td>
+                                                    <td *ngIf="totaldepositamt" class="td_right">{{'master.Balance_Updation.Total_Deposit_Amount' | translate}}
                                                     </td>
-                                                    <td *ngIf="totalpostedint" class="td_right">Total Posted Interest
-                                                    </td>
-                                                    <td *ngIf="npaDate" class="td_center">NPA Date</td>
-                                                    <td *ngIf="loaninstallment" class="td_right">Installment</td>
-                                                    <td *ngIf="isdisputeloan" class="td_right">Is Dispute Loan</td>
-                                                    <td *ngIf="noofshares" class="td_right">Number of Shares</td>
-                                                    <td *ngIf="shareamt" class="td_right">Share Amount</td>
-                                                    <td *ngIf="accloseDate" class="td_center">Account Close Date</td>
-                                                    <td *ngIf="purchaseDate" class="td_center">Purchase Date</td>
-                                                    <td *ngIf="supliername">Supplier Name</td>
-                                                    <td *ngIf="purchaserate" class="td_center">Purchase Rate</td>
-                                                    <td *ngIf="purchasequantity" class="td_right">Purchase Rate</td>
-                                                    <td *ngIf="purchasevalue" class="td_right">Purchase value</td>
-                                                    <td *ngIf="openingamt" class="td_right">Opening Amount</td>
-                                                    <td *ngIf="openingquantity" class="td_right">Opening Quantity</td>
-                                                    <td *ngIf="lastdepreciationDate" class="td_center">Last Depreciation
-                                                        Date
+                                                    <td *ngIf="totalpostedint" class="td_right">{{'master.Balance_Updation.Total_Posted_Interest' | translate}}
+                                                    <td *ngIf="npaDate" class="td_center">{{'master.Balance_Updation.NPA_Date' | translate}}</td>
+                                                    <td *ngIf="loaninstallment" class="td_right">{{'master.Balance_Updation.Installment' | translate}}</td>
+                                                    <td *ngIf="isdisputeloan" class="td_right">{{'master.Balance_Updation.Is_Dispute_Loan' | translate}}</td>
+                                                    <td *ngIf="noofshares" class="td_right">{{'master.Balance_Updation.Number_of_Shares' | translate}}</td>
+                                                    <td *ngIf="shareamt" class="td_right">{{'master.Balance_Updation.Share_Amount' | translate}}</td>
+                                                    <td *ngIf="accloseDate" class="td_center">{{'master.Balance_Updation.Account_Close_Date' | translate}}</td>
+                                                    <td *ngIf="purchaseDate" class="td_center">{{'master.Balance_Updation.Purchase_Date' | translate}}</td>
+                                                    <td *ngIf="supliername">{{'master.Balance_Updation.Supplier_Name' | translate}}</td>
+                                                    <td *ngIf="purchaserate" class="td_center">{{'master.Balance_Updation.Purchase_value' | translate}}</td>
+                                                    <td *ngIf="purchasequantity" class="td_right">{{'master.Balance_Updation.Purchase_Rate' | translate}}</td>
+                                                    <td *ngIf="purchasevalue" class="td_right">{{'master.Balance_Updation.Purchase_value' | translate}}</td>
+                                                    <td *ngIf="openingamt" class="td_right">{{'master.Balance_Updation.Opening_Amount' | translate}}</td>
+                                                    <td *ngIf="openingquantity" class="td_right">{{'master.Balance_Updation.Opening_Quantity' | translate}}</td>
+                                                    <td *ngIf="lastdepreciationDate" class="td_center">{{'master.Balance_Updation.Last_Depreciation_Date' | translate}}
+                                                    
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -606,7 +603,7 @@
                                                 <tr>
                                                     <td colspan="12" class="no-data-available"
                                                         style="text-align: center;">
-                                                        No data!
+                                                        {{'master.Action.No_Data' | translate}}
                                                     </td>
                                                 </tr>
                                             </tbody>

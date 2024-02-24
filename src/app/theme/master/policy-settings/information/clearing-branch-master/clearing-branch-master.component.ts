@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -77,7 +78,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private clearingBranchService: ClearingBranchService,
     private _acMaster: ACMasterDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
   }
 
   ngOnInit(): void {
@@ -128,17 +129,17 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.clearing_branch_master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Code',
+          title:this.translate.instant('master.clearing_branch_master.code'),
           data: 'CODE',
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.clearing_branch_master.name'),
           data: 'NAME',
         },
         // {

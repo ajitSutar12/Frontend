@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -38,11 +39,13 @@ export class BnkGLConsistRepoComponent implements OnInit {
   report_url = environment.report_url;
 
   constructor(private fb: FormBuilder,
+    private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,
     private voucherservice: VoucherEntryService,
     private sanitizer: DomSanitizer,) {
+      this.translate.setDefaultLang(environment.setLang);
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -150,7 +153,7 @@ export class BnkGLConsistRepoComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

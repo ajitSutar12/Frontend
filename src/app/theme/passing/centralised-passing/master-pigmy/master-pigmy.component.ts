@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { PigmyAccountMasterComponent } from '../../../master/customer/pigmy-account-master/pigmy-account-master.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -84,7 +85,9 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
   // Store data from backend
   pigmyAccountMaster: PigmyAccountMaster[];
   PigmyData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) { 
+    this.translate.setDefaultLang(environment.setLang);
+  }
 
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
@@ -176,26 +179,26 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Passing.Action.Action'),
         },
         // {
         //   title: 'PG Scheme Type',
         //   data: 'AC_ACNOTYPE'
         // },
         {
-          title: 'Scheme',
+          title: this.translate.instant('Passing.Action.Scheme'), 
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('Passing.Action.Account_Number'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title:  this.translate.instant('Passing.Action.Customer_ID'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('Passing.Action.Member_Name'),
           data: 'AC_NAME'
         },
         // {
@@ -204,15 +207,15 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('Passing.Action.Manual_Reference_Number'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('Passing.Action.Detail_Address'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('Passing.Action.City'),
           data: 'AC_CTCODE'
         },
         // {
@@ -225,7 +228,7 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Opening Date',
+          title: this.translate.instant('Passing.Action.Opening_date'),
           data: 'AC_OPDATE'
         },
         // {
@@ -233,7 +236,7 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
         //   data: 'AC_RENEW_DATE'
         // },
         {
-          title: 'Expiry Date',
+          title: this.translate.instant('Passing.Master_Pigmy.Expiry_Date'),
           data: 'AC_EXPDT'
         },
 
@@ -251,11 +254,11 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Period',
+          title: this.translate.instant('Passing.Master_Pigmy.Expiry_Date'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Default Deposite Amount',
+          title: this.translate.instant('Passing.Master_Pigmy.Default_Deposite_Amount'),
           data: 'AC_SCHMAMT'
         },
         // {
@@ -263,10 +266,10 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
         //   data: 'AGENT_ACTYPE'
         // },
         {
-          title: 'Agent Code',
+          title: this.translate.instant('Passing.Master_Pigmy.Agent_Code'),
           data: 'AGENT_ACNO'
         }, {
-          title: 'Minor Details',
+          title: this.translate.instant('Passing.Master_Pigmy.Minor_Details'),
           data: 'AC_MINOR'
         },
         // {
@@ -302,7 +305,7 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
         //   data: 'SIGNATURE_AUTHORITY'
         // },
         {
-          title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
+          title: this.translate.instant('Passing.Master_Pigmy.Is_cal_sep_pig_cor'),
           data: 'PG_COMM_TYPE'
         },
 

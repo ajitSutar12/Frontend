@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Amount Transfer Transaction</h5>
+                <h5>{{'utility.Action.T2' | translate}}</h5>
             </div>
 
             <form [formGroup]="angForm" novalidate>
@@ -14,13 +14,13 @@
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="T_TYPE" value="debit-credit" formControlName="T_TYPE">
-                                        <i class="helper"></i>Debit-Credit Transaction</label>
+                                        <i class="helper"></i>{{'utility.Action.Debit_Credit_Transaction' | translate}}</label>
                                 </div>
 
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="T_TYPE" value="credit-debit" formControlName="T_TYPE">
-                                        <i class="helper"></i>Credit-Debit Transaction</label>
+                                        <i class="helper"></i>{{'utility.Action.Credit_Debit_Transaction' | translate}}</label>
                                 </div>
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -29,7 +29,7 @@
                                         angForm.controls['T_TYPE'].touched)
                                       " class="alert alert-danger">
                                     <div *ngIf="angForm.controls['T_TYPE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>
@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Debit Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'utility.Action.Debit_Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -55,13 +55,13 @@
                                 *ngIf="angForm.controls['dscheme'].invalid && (angForm.controls['dscheme'].dirty || angForm.controls['dscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['dscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Credit Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'utility.Action.Credit_Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -78,7 +78,7 @@
                                 *ngIf="angForm.controls['cscheme'].invalid && (angForm.controls['cscheme'].dirty || angForm.controls['cscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['cscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -92,13 +92,13 @@
                                     <label class="inputRadio">
                                         <input type="radio" name="R_TYPE" value="BA" formControlName="R_TYPE"
                                             [checked]="true">
-                                        <i class="helper"></i>Balance Amount</label>
+                                        <i class="helper"></i>{{'utility.Action.Balance_Am' | translate}}</label>
                                 </div>
 
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="R_TYPE" value="PR" formControlName="R_TYPE">
-                                        <i class="helper"></i>Payable/Receivable Interest</label>
+                                        <i class="helper"></i>{{'utility.Action.Pay_Rec_Inter' | translate}}</label>
                                 </div>
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -107,7 +107,7 @@
                                         angForm.controls['R_TYPE'].touched)
                                       " class="alert alert-danger">
                                     <div *ngIf="angForm.controls['R_TYPE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>
@@ -116,7 +116,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Transaction Particulars</label>
+                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">{{'utility.Action.Transaction_particulars' | translate}}</label>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group input-group">
@@ -132,15 +132,15 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Close' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Cancel' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Print' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Update' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Calculate</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'utility.Action.Calculate' | translate}}</button>
                         </div>
                     </div>
 
@@ -148,7 +148,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'utility.Action.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe [url]='iframeurl'></app-iframe>

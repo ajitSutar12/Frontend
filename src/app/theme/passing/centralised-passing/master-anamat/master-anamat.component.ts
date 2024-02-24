@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { AnamatGSMComponent } from '../../../master/customer/anamat-gsm/anamat-gsm.component';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -59,7 +60,9 @@ export class MasterAnamatComponent implements OnInit, AfterViewInit {
   // Store data from backend
   anamat: anamatinf[];
   anamatData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService,) { 
+    this.translate.setDefaultLang(environment.setLang);
+  }
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
     //   ajax: 'fake-data/datatable-data.json',
@@ -157,26 +160,26 @@ export class MasterAnamatComponent implements OnInit, AfterViewInit {
       ],
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('Passing.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
         {
           data: "AC_TYPE",
-          title: "Scheme",
+          title:this.translate.instant('Passing.Action.Scheme'), 
         },
         {
           data: "BANKACNO",
-          title: "Account Number",
+          title: this.translate.instant('Passing.Action.Account_Number'),
         },
         {
           data: "AC_CUSTID",
-          title: "Customer ID",
+          title: this.translate.instant('Passing.Action.Customer_ID'),
         },
         {
           data: "AC_NAME",
-          title: "Member Name",
+          title: this.translate.instant('Passing.Action.Member_Name'),
         },
         // {
         //   data: "AC_MEMBTYPE",
@@ -188,19 +191,19 @@ export class MasterAnamatComponent implements OnInit, AfterViewInit {
         // },
         {
           data: "AC_AREA",
-          title: "Detail Address",
+          title: this.translate.instant('Passing.Action.Detail_Address'),
         },
         {
           data: "AC_CTCODE",
-          title: "City",
+          title: this.translate.instant('Passing.Action.City'),
         },
         {
           data: "AC_OPDATE",
-          title: "Opening date",
+          title: this.translate.instant('Passing.Action.Opening_date'),
         },
         {
           data: "AC_PARTICULAR",
-          title: "Reason",
+          title: this.translate.instant('Passing.Master_Anamat.Reason'), 
         },
       ],
       dom: "Blrtip",

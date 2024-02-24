@@ -3,16 +3,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Dividend Calculation</h5>
+                <h5>{{'master.Dividend_Calculation.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>)  {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()"
                 #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Branch Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'master.Dividend_Calculation.Branch_Code' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -22,14 +22,14 @@
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
                                         [virtualScroll]="true" (change)="getBranch()" autofocus
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'master.Dividend_Calculation.Branch_Code' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'master.Dividend_Calculation.Schema_Code' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -39,7 +39,7 @@
                                         formControlName="AC_TYPE" bindLabel="label" [virtualScroll]="true"
                                         (change)="getAccountList(); getShareDividend($event)" #AC_TYPE
                                         (focus)="onFocus(AC_TYPE)" [selectOnTab]='true' title="Compulsory Selection"
-                                        required placeholder="Scheme Code">
+                                        required placeholder="{{'master.Dividend_Calculation.Schema_Code' | translate}}">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -49,14 +49,14 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="DIV_FROMDATE">Dividend Date From<sub
+                        <div class="col-sm-12 col-md-2"> <label for="DIV_FROMDATE">{{'master.Dividend_Calculation.Dividend_Date_From' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -75,11 +75,11 @@
                                 *ngIf="angForm.controls['DIV_FROMDATE'].invalid && (angForm.controls['DIV_FROMDATE'].dirty || angForm.controls['DIV_FROMDATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DIV_FROMDATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="DIV_TODATE">Dividend Date To<sub
+                        <div class="col-sm-12 col-md-2"> <label for="DIV_TODATE">{{'master.Dividend_Calculation.Dividend_Date_To' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -97,11 +97,11 @@
                                 *ngIf="angForm.controls['DIV_TODATE'].invalid && (angForm.controls['DIV_TODATE'].dirty || angForm.controls['DIV_TODATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DIV_TODATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Warrent Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">{{'master.Dividend_Calculation.Warrant_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -120,13 +120,13 @@
                                 *ngIf="angForm.controls['WARRENT_DATE'].invalid && (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['WARRENT_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">Member From<sub
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">{{'master.Dividend_Calculation.Member_form' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -136,7 +136,7 @@
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #FROM_AC (focus)="onFocus(FROM_AC)" [selectOnTab]='true'
-                                        placeholder="From Account">
+                                        placeholder="{{'master.Dividend_Calculation.From_Account' | translate}}">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
@@ -147,12 +147,12 @@
                                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">Member To<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">{{'master.Dividend_Calculation.Member_To' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -162,7 +162,7 @@
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
                                         (change)="getAccNumbers()" #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="To Account">
+                                        placeholder="{{'master.Dividend_Calculation.To_Account' | translate}}">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
@@ -173,13 +173,13 @@
                                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="Dividend">Dividend %<sub
+                        <div class="col-sm-12 col-md-2"> <label for="Dividend">{{'master.Dividend_Calculation.Dividend_%' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -196,11 +196,11 @@
                                 *ngIf="angForm.controls['Dividend'].invalid && (angForm.controls['Dividend'].dirty || angForm.controls['Dividend'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['Dividend'].errors?.required">
-                                    This field is required and input allowed only . 0-9
+                                    <!-- This field is required and input allowed only . 0-9 --> {{'master.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="Bonus">Bonus %<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="Bonus">{{'master.Dividend_Calculation.Bonus_%' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -217,7 +217,7 @@
                                 *ngIf="angForm.controls['Bonus'].invalid && (angForm.controls['Bonus'].dirty || angForm.controls['Bonus'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['Bonus'].errors?.required">
-                                    This field is required and input allowed only . 0-9
+                                    <!-- This field is required and input allowed only . 0-9 --> {{'master.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -225,9 +225,9 @@
 
                     <div class="col-sm">
                         <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
-                            appTheme>Calculate</button>
+                            appTheme>{{'master.Action.Calculate' | translate}}</button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                            *ngIf="updateShow">Update</button>
+                            *ngIf="updateShow"> {{'master.Action.Update' | translate}}</button>
                     </div>
 
                 </div>
@@ -241,15 +241,15 @@
             <table class="table table-striped table-bordered table-hover compact">
                 <thead>
                     <tr>
-                        <td>Warrent Date</td>
-                        <td>Scheme</td>
-                        <td>Dividend From Year</td>
-                        <td>Dividend To Year</td>
-                        <td>From Account</td>
-                        <td>To Account</td>
-                        <td>Dividend Amount</td>
-                        <td>Bouns Amount</td>
-                        <td>Status</td>
+                        <td>{{'master.Dividend_Calculation.Warrant_Date' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.Schema_Code' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.Dividend_From_Year' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.Dividend_To_Year' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.From_Account' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.To_Account' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.Dividend_Amount' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.Bouns_Amount' | translate}}</td>
+                        <td>{{'master.Dividend_Calculation.Status' | translate}}</td>
                     </tr>
                 </thead>
                 <tbody *ngIf="tablelist?.length != 0">
@@ -268,7 +268,7 @@
                 <tbody *ngIf="tablelist?.length == 0">
                     <tr>
                         <td colspan="12" class="no-data-available" style="text-align: center;">
-                            No data!
+                            {{'master.Action.No_Data' | translate}}
                         </td>
                     </tr>
                 </tbody>

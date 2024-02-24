@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-catbal-list',
@@ -51,6 +52,7 @@ obj: any;
   
  ngbranch: any = null;
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
@@ -62,6 +64,7 @@ obj: any;
     private systemParameter:SystemMasterParametersService,
     
   ) {
+    this.translate.setDefaultLang(environment.setLang);
    
    }
 
@@ -183,7 +186,7 @@ obj: any;
     }
    
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
     }
   }
     

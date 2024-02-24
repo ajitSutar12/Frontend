@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-loan-projection',
@@ -55,7 +56,9 @@ export class LoanProjectionComponent implements OnInit {
     private fb: FormBuilder,
     private _services: OtherViewService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
     this.resolutionDate = new Date();
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -112,7 +115,7 @@ export class LoanProjectionComponent implements OnInit {
         })
       })
     } else {
-      Swal.fire("Invalid Input", "Please insert values below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       this.angForm.patchValue({
         TDS_RATE: 0
       })

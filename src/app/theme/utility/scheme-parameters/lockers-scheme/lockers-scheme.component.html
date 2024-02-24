@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Locker Deposit Scheme Master</h5>
+                <h5>{{'Utility.Locker_Deposit_Scheme_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Utility.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -19,7 +19,7 @@
                                         [(ngModel)]="ngschemecode" (focusout)="checkDuplicate($event)" #autofocus
                                         required="" pattern="^[0-9]+$" min="351" max="400"
                                         title="Input allowed only 0-9" formControlName="S_APPL" #autofocus>
-                                    <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
+                                    <label for="S_APPL">{{'Utility.Locker_Deposit_Scheme_Master.Scheme_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -38,7 +38,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME"
                                         maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)">
-                                    <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
+                                    <label for="S_SHNAME">{{'Utility.Locker_Deposit_Scheme_Master.Short_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
 
@@ -58,7 +58,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_NAME" maxlength="90"
                                         title="Input allowed only  A-Z a-z  - / . (Space)">
-                                    <label for="S_NAME">Description<sub class="required">* </sub></label>
+                                    <label for="S_NAME">{{'Utility.Locker_Deposit_Scheme_Master.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -89,11 +89,11 @@
                                         formControlName="S_GLACNO" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
-                                        placeholder="GL Account Number">
+                                        placeholder="{{'Utility.Locker_Deposit_Scheme_Master.GL_Account' | translate}}">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
+                                    <label for="S_GLACNO">{{'Utility.Locker_Deposit_Scheme_Master.GL_Account' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -119,11 +119,11 @@
                                         formControlName="LOCKER_RENT_ACNO" bindLabel="label" [virtualScroll]="true" 
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #LOCKER_RENT_ACNO (focus)="onFocus(LOCKER_RENT_ACNO)" [selectOnTab]='true'
-                                        required placeholder="Locker Rent Account">
+                                        required placeholder="{{'Utility.Locker_Deposit_Scheme_Master.Locker_Rent' | translate}}">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="LOCKER_RENT_ACNO">Locker Rent Account<sub class="required"> *
+                                    <label for="LOCKER_RENT_ACNO">{{'Utility.Locker_Deposit_Scheme_Master.Locker_Rent' | translate}}<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -152,11 +152,11 @@
                                         bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         #LOCKER_RECBL_RENT_ACNO (focus)="onFocus(LOCKER_RECBL_RENT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Receivable Locker Rend Account">
+                                        placeholder="{{'Utility.Locker_Deposit_Scheme_Master.Receivable_Locker' | translate}}">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="LOCKER_RECBL_RENT_ACNO">Receivable Locker Rend Account<sub
+                                    <label for="LOCKER_RECBL_RENT_ACNO">{{'Utility.Locker_Deposit_Scheme_Master.Receivable_Locker' | translate}}<sub
                                             class="required"> * </sub></label>
                                 </span>
                             </div>
@@ -173,7 +173,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" name="LOCKER_DEPOSIT_APPLICABLE"
                                         id="checkbox1" value="checkbox" formControlName="LOCKER_DEPOSIT_APPLICABLE">
-                                    <label class="border-checkbox-label" for="checkbox1">Locker Deposit Applicable
+                                    <label class="border-checkbox-label" for="checkbox1">{{'Utility.Locker_Deposit_Scheme_Master.Locker_Deposit' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -189,14 +189,14 @@
                                 <div class="col-sm m-b-20">
                                     <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
                                         (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
-                                        Submit
+                                        {{'Utility.Action.Submit' | translate}}
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                         *ngIf="updateShow">
-                                        Update</button>&nbsp;
+                                        {{'Utility.Action.Update' | translate}}</button>&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                         *ngIf="newbtnShow">
-                                        Cancel
+                                        {{'Utility.Action.Cancel' | translate}}
                                     </button>
                                 </div>
                             </div>
@@ -251,7 +251,7 @@
                                 </tbody>
                                 <tbody *ngIf="lockeScheme?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

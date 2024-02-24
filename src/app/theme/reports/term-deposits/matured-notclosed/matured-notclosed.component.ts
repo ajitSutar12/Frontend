@@ -8,6 +8,7 @@ import { DomSanitizer} from '@angular/platform-browser';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-matured-notclosed',
@@ -45,7 +46,10 @@ ngForm: FormGroup;
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
 
-    private fb: FormBuilder) { this.todate = moment().format('DD/MM/YYYY');
+    private fb: FormBuilder, private translate:TranslateService) { 
+      this.translate.setDefaultLang(environment.setLang) ;
+
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -129,7 +133,7 @@ ngForm: FormGroup;
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
 }
