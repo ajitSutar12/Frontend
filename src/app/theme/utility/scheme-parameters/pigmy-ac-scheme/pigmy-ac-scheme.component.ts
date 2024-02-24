@@ -15,6 +15,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -123,7 +124,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     private pigmyAcSchemeService: PigmyAcSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -175,28 +176,28 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
         },
         {
-          title: 'Type'
+          title: this.translate.instant('Utility.Utility1.Type'),
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Utility1.Description'),
         },
         {
-          title: 'Short Name',
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
         },
         {
-          title: 'GL Account Number',
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
         },
         {
-          title: 'Interest GL Account',
+          title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
         },
         {
-          title: 'Payable Interest Account',
+          title: this.translate.instant('Utility.Utility1.Payable'),
         },
         // {
         //   title: 'Is Interest Applicable? ',
@@ -305,7 +306,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       })
     })
     if (schemecode = S_APPL) {
-      Swal.fire('Scheme code value already present ');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Scheme_code')}`);
     }
     else {
       this.submit();
@@ -346,7 +347,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       'SVR_CHARGE_RATE': formVal.SVR_CHARGE_RATE
     }
     this.pigmyAcSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -418,7 +419,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     data['PREMATURE_COMPOUND_INT'] = (data.PREMATURE_COMPOUND_INT == true ? '1' : '0')
     data['OVERDRAFT_INTEREST_APPLICABLE'] = (data.OVERDRAFT_INTEREST_APPLICABLE == true ? '1' : '0')
     this.pigmyAcSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -641,12 +642,12 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         this.pigmyAcSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 401 to 499 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.401_to_499_this_range')}`, 'error')
       }
     }
   }
@@ -670,7 +671,7 @@ export class PigmyAcSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
       ele.target.value = 0
 
     }

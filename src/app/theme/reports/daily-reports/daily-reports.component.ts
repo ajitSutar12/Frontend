@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-daily-reports',
   templateUrl: './daily-reports.component.html',
@@ -11,7 +12,7 @@ export class DailyReportsComponent implements OnInit {
   isImageSaved: boolean;
   cardImageBase64: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }

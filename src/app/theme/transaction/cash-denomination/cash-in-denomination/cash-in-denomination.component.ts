@@ -12,6 +12,7 @@ import { first } from 'rxjs/operators';
 
 import { CashierUmService } from 'src/app/theme/utility/cashier-um/cashier-um.service';
 import { CashDenominationService } from '../cash-denomination.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cash-in-denomination',
@@ -73,9 +74,9 @@ export class CashInDenominationComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private _services: CashDenominationService,
 
-    private _service: CashierUmService,
+    private _service: CashierUmService,private translate:TranslateService
 
-  ) {
+  ) { this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -202,13 +203,13 @@ export class CashInDenominationComponent implements OnInit {
       user: JSON.parse(localStorage.getItem('user'))
     }
     if (formVal.DENOMINATION_AMT != this.sum) {
-      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.insert_Correct_Amount')}`, 'warning')
     }
     else {
       this._services.cashInDenomination(object).subscribe(data => {
         Swal.fire(
-          'Great!',
-          'Your Form is Submitted Successfully..!',
+          `${this.translate.instant('Swal_Msg.Great')}`,
+          `${this.translate.instant('Swal_Msg.Submitted_Successfully')}`,
           'success'
         );
         this.angForm.reset();
@@ -244,6 +245,9 @@ export class CashInDenominationComponent implements OnInit {
       event.target.value = parseFloat(event.target.value).toFixed(2);
     else
       event.target.value = 0
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }
 

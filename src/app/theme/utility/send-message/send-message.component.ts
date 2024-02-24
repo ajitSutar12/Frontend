@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { environment } from "../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-send-message',
   templateUrl: './send-message.component.html',
@@ -39,8 +40,8 @@ export class SendMessageComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
-  ) { }
+    private http: HttpClient,private translate:TranslateService)
+   { this.translate.setDefaultLang(environment.setLang);}
 
   ngOnInit(): void {
     this.createForm();
@@ -131,7 +132,7 @@ export class SendMessageComponent implements OnInit {
           if (data == 1) {
             this.isLoading = true
             this.isDisabled = true
-            Swal.fire("success", "Message Send Successfully", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Message_Send')}`);
             this.angForm.reset()
             this.isLoading = false
             this.isDisabled = false
@@ -140,7 +141,7 @@ export class SendMessageComponent implements OnInit {
           else {
             this.isLoading = false
             this.isDisabled = false
-            Swal.fire("warning", "Please contact to Compserv to allow Whatsapp messages", "warning");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Whatsapp_messages')}`), "warning";
           }
         },
         (err) => {
@@ -148,14 +149,14 @@ export class SendMessageComponent implements OnInit {
           this.isDisabled = false
 
           if (err.error.statusCode == 400) {
-            Swal.fire("error", err.error.message, "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, err.error.message, "error");
           } else {
-            Swal.fire("Error", 'Something Wents Wrong', "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Wents_Wrong')}`, "error");
           }
         }
       );
     } else {
-      Swal.fire('Error', "Please Fill All Fields", 'error')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Fill_All_Fields')}`, 'error')
     }
   }
   selectedType() {
@@ -228,5 +229,8 @@ export class SendMessageComponent implements OnInit {
         this.convertedData.push(obj);
       }
     }
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

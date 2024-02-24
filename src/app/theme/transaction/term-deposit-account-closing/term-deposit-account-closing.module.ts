@@ -9,7 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeService } from '../../../shared/elements/scheme-code.service';
 import { AcountnoService } from '../../../shared/elements/acountno.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -25,6 +25,8 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 // import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component';
 import { ThemeModule } from '../../theme.module'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +37,15 @@ import { ThemeModule } from '../../theme.module'
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [TermDepositAccountClosingComponent],
   exports: [TermDepositAccountClosingComponent],
@@ -49,3 +59,8 @@ import { ThemeModule } from '../../theme.module'
     SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
 })
 export class TermDepositAccountClosingModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+
+

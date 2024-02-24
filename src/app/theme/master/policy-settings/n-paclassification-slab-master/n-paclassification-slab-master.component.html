@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>NPA Classification Master</h5>
+                <h5>{{'master.NPA_Classification_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.Action' | translate}} (<sub class="required"> * </sub>){{'master.Action.Action' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -22,7 +22,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="EFFECT_DATE" [bsValue]="bsValue" bsDatepicker 
                                         #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
-                                    <label for="EFFECT_DATE">Effective Date<sub class="required">*
+                                    <label for="EFFECT_DATE">{{'master.NPA_Classification_Master.Effictive_Date' | translate}}<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
@@ -31,7 +31,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['EFFECT_DATE'].errors?.required || angForm.controls['EFFECT_DATE'].errors?.maxlength || angForm.controls['EFFECT_DATE'].errors?.minlength">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                         (focus)="selectAllContent($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="NPA_BASE_DAYS"
                                         formControlName="NPA_BASE_DAYS">
-                                    <label for="NPA_BASE_DAYS">Base Days<sub class="required">*
+                                    <label for="NPA_BASE_DAYS">{{'master.NPA_Classification_Master.Base_days' | translate}}<sub class="required">*
                                     </sub></label>
                                 </span>
                             </div>
@@ -53,7 +53,9 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NPA_BASE_DAYS'].errors?.pattern || angForm.controls['NPA_BASE_DAYS'].errors?.required || angForm.controls['NPA_BASE_DAYS'].errors?.minlength || angForm.controls['NPA_BASE_DAYS'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->
+
+                                    
                                 </div>
                             </div>
                         </div>
@@ -64,10 +66,10 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="NPA_CLASS" appTheme [items]="NPAClass" bindLabel="label"
                                         (change)="selectedNPA()" formControlName="NPA_CLASS" [(ngModel)]="ngNPAClass"
-                                        placeholder="NPA Class" 
+                                        placeholder="{{'master.NPA_Classification_Master.NPA_class' | translate}}" 
                                         #NPACLASS (focus)="onFocus(NPACLASS)" [selectOnTab]='true' >
                                     </ng-select>
-                                    <label for="NPA_CLASS">NPA Class<sub class="required"> * </sub></label>
+                                    <label for="NPA_CLASS">{{'master.NPA_Classification_Master.NPA_class' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                         </div>
@@ -76,7 +78,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="NPA_DESCRIPTION" formControlName="NPA_DESCRIPTION"
                                         class="form-control" placeholder=" " maxlength="60" id="NPA_DESCRIPTION">
-                                    <label for="NPA_DESCRIPTION">NPA Class Description</label>
+                                    <label for="NPA_DESCRIPTION">{{'master.NPA_Classification_Master.NPA_class_Description' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -88,7 +90,7 @@
                                         (focus)="selectAllContent($event)" (focusout)="disableMonth()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" maxlength="4"
                                         formControlName="FROM_DAYS">
-                                    <label for="FROM_DAYS">From Days</label>
+                                    <label for="FROM_DAYS">{{'master.NPA_Classification_Master.From_Days' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -100,7 +102,7 @@
                                         title="Input allowed only 0-9" maxlength="4" (focus)="selectAllContent($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focusout)="disableDays()" formControlName="FROM_MONTHS">
-                                    <label for="FROM_MONTHS">From Months</label>
+                                    <label for="FROM_MONTHS">{{'master.NPA_Classification_Master.From_Months' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -114,7 +116,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         (focus)="selectAllContent($event)" (focusout)="compareDays()" maxlength="4"
                                         formControlName="TO_DAYS">
-                                    <label for="TO_DAYS">To Days</label>
+                                    <label for="TO_DAYS">{{'master.NPA_Classification_Master.To_Days' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -126,7 +128,7 @@
                                         (focusout)="compareMonths()" maxlength="4" (focus)="selectAllContent($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="TO_MONTHS">
-                                    <label for="TO_MONTHS">To Months</label>
+                                    <label for="TO_MONTHS">{{'master.NPA_Classification_Master.To_Months' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -140,7 +142,7 @@
                                         (keyup)="checkPercent(secure.value)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="SECURED_PERCENT">
-                                    <label for="SECURED_PERCENT">Secured Percent<sub class="required"> * </sub></label>
+                                    <label for="SECURED_PERCENT">{{'master.NPA_Classification_Master.Secured_Percent' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -148,7 +150,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SECURED_PERCENT'].errors?.pattern || angForm.controls['SECURED_PERCENT'].errors?.max || angForm.controls['SECURED_PERCENT'].errors?.minlength || angForm.controls['SECURED_PERCENT'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -162,7 +164,7 @@
                                         (keyup)="checkUnsecurePercent(unsecure.value)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="UNSECURED_PERCENT">
-                                    <label for="UNSECURED_PERCENT">Unsecured Percent<sub class="required"> *
+                                    <label for="UNSECURED_PERCENT">{{'master.NPA_Classification_Master.Unsecured_Percent' | translate}}<sub class="required"> *
                                         </sub></label>
                                 </span>
                             </div>
@@ -177,9 +179,9 @@
                         </div>
                         <div class="col-sm">
                             <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
-                                (click)="addField()">Add Classification</button>
+                                (click)="addField()">{{'master.Action.Add' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateField()"
-                                *ngIf="UpdateShowButton">Update Classification</button>
+                                *ngIf="UpdateShowButton">{{'master.Action.Update' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -187,16 +189,16 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Action</td>
-                                        <td>Serial No</td>
-                                        <td>NPA Class</td>
-                                        <td>NPA Class Description</td>
-                                        <td>From Days</td>
-                                        <td>To Days</td>
-                                        <td>From Months</td>
-                                        <td>To Months</td>
-                                        <td>Secured Percent</td>
-                                        <td>UnSecured Percent</td>
+                                        <td>{{'master.Action.Action' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.sr_no' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.NPA_class' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.NPA_class_Description' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.From_Days' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.From_Months' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.To_Days' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.To_Months' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.Secured_Percent' | translate}}</td>
+                                        <td>{{'master.NPA_Classification_Master.Unsecured_Percent' | translate}}</td>
                                     </thead>
                                     <tbody *ngIf="multiField?.length != 0">
                                         <tr *ngFor="let data of multiField; let indexOfelement=index;">
@@ -242,8 +244,8 @@
                                     </tbody>
                                     <tbody *ngIf="multiField?.length == 0">
                                         <tr>
-                                            <td colspan="10" class="no-data-available" style="text-align: center;">No
-                                                data!</td>
+                                            <td colspan="10" class="no-data-available" style="text-align: center;">{{'master.Action.No_Data' | translate}}
+                                                </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -253,12 +255,12 @@
                     <div class="row">
                         <div class="col-sm" style="float: right;">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                [disabled]="angForm.invalid" (click)="submit(angForm.value)" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (click)="submit(angForm.value)" appTheme>{{'master.Action.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                                Cancel
+                                {{'master.Cancel.' | translate}}
                             </button> &nbsp; &nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                [disabled]="angForm.invalid" *ngIf="updateShow">Update</button>
+                                [disabled]="angForm.invalid" *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>
                         </div>
                     </div>
                 </div>

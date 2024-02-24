@@ -21,6 +21,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -128,7 +129,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,
+    private translate:TranslateService) {
+
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     // console.log(this.datemax);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -183,17 +186,17 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Effected Date',
+          title: this.translate.instant('master.Interest.Effective_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Interest.Scheme_Type'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Interest Category',
+          title: this.translate.instant('master.Interest.Interest_Category'),
           data: 'INT_CATEGORY'
         },
       ],
@@ -260,7 +263,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         'FieldData': this.multiField,
       }
       this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
 
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -276,8 +279,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     }
     else {
       Swal.fire(
-        'Info',
-        'Please Input Slab Details ',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.W_Ms')}`,
         'info'
       )
     }
@@ -375,8 +378,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       if (from > to) {
         this.myField.nativeElement.focus();
         Swal.fire(
-          'Warning!',
-          'From Days Should Be Less Than To Days',
+          `${this.translate.instant('Swal_Msg.Warning')}`,
+          `${this.translate.instant('Swal_Msg.From_Days')}`,
           'warning'
         );
         (document.getElementById("todays") as HTMLInputElement).value = ""
@@ -392,8 +395,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'From Months Should Be Less Than To Months',
+          `${this.translate.instant('Swal_Msg.Warning')}`,
+          `${this.translate.instant('Swal_Msg.From_Months')}`,
           'warning'
         );
         (document.getElementById("TO_months") as HTMLInputElement).value = ""
@@ -408,7 +411,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       ele.target.value = 0
 
     }
@@ -417,7 +420,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -476,7 +479,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       data['EFFECT_DATE'] = this.effectdate
     }
     this.termDepositInterestRateService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       // this.myEField.nativeElement.show();
 
       this.showButton = true;
@@ -510,8 +513,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do You Want To Delete Interest Rate For Term Deposit Data.",
+      title:`${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Deposit_Data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -522,8 +525,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         this.termDepositInterestRateService.deleteData(id).subscribe(data1 => {
           this.termDepositInterestRate = data1;
           Swal.fire(
-            'Deleted!',
-            'Your Data Has Been Deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -534,8 +537,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your Data Is Safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -601,8 +604,8 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     if (intrate == "") {
 
       Swal.fire(
-        'Info',
-        'Please Input Interest Rate ',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.I_Msg1')}`,
         'info'
       )
 

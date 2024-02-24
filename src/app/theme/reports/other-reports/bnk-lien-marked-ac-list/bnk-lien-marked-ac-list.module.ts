@@ -10,11 +10,13 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BnkLienMarkedAcListComponent } from './bnk-lien-marked-ac-list.component';
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -30,7 +32,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module 
+    Iframe5Module ,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
+
   ],
 exports:[BnkLienMarkedAcListComponent],
   providers:[    
@@ -55,3 +66,7 @@ exports:[BnkLienMarkedAcListComponent],
   
 })
 export class BnkLienMarkedAcListModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

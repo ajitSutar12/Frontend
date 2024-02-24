@@ -12,6 +12,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -69,7 +70,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     private _npaService: NpaOpeningDetailsEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private ownbranchMasterService: OwnbranchMasterService,) { }
+    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -163,7 +164,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       });
     }
     else {
-      Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Account_Number')}`);
       this.npaOpeningForm.patchValue({
         TO_AC: ''
       })
@@ -359,7 +360,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       };
       this._npaService.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`);
 
         },
         (error) => {
@@ -372,7 +373,7 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
       this.npaEntryArray = []
     }
     else {
-      Swal.fire("Warning!", "Please Enter Valid Data !", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`);
     }
   }
 
@@ -394,8 +395,8 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   //function for delete button clicked
   delClickHandler(info: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete A/c no  data",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.A/c_no_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -404,17 +405,13 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
-          'success'
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
-          'error'
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,'error'
         )
       }
     })

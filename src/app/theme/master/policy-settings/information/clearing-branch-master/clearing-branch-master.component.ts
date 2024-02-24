@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { first } from 'rxjs/operators';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -77,7 +78,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private clearingBranchService: ClearingBranchService,
     private _acMaster: ACMasterDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
   }
 
   ngOnInit(): void {
@@ -128,17 +129,17 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.clearing_branch_master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Code',
+          title:this.translate.instant('master.clearing_branch_master.code'),
           data: 'CODE',
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.clearing_branch_master.name'),
           data: 'NAME',
         },
         // {
@@ -160,7 +161,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm = this.fb.group({
       CODE: [''],
       AC_NO: [''],
-      NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
     });
   }
   // Method to insert data into database through NestJS
@@ -173,7 +174,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       'NAME': formVal.NAME,
     }
     this.clearingBranchService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -215,7 +216,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.clearingBranchService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -229,7 +230,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
       text: "Do you want to delete clearing branch master data.",
       icon: 'warning',
       showCancelButton: true,
@@ -241,8 +242,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
         this.clearingBranchService.deleteData(id).subscribe(data1 => {
           this.clearingBranches = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -254,8 +254,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

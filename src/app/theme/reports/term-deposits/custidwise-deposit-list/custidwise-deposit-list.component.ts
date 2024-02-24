@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-custidwise-deposit-list',
   templateUrl: './custidwise-deposit-list.component.html',
@@ -55,7 +56,9 @@ ngForm: FormGroup;
     private customerID: CustomerIDMasterDropdownService,    private savingMasterService: SavingMasterService,
 
     public customerIdService: CustomerIdService,
-    private sanitizer: DomSanitizer) {this.todate = moment().format('DD/MM/YYYY');
+    private sanitizer: DomSanitizer , private translate:TranslateService) {this.todate = moment().format('DD/MM/YYYY');
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -241,7 +244,7 @@ view(event) {
  
 }
 else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
 }
 
 }

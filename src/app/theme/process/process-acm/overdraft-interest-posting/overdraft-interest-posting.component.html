@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>OverDraft Interest Posting</h5>
+                <h5> {{'uti.O_I_Post' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'uti.F1' | translate}}  (<sub class="required"> * </sub>) {{'uti.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'uti.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -18,7 +18,7 @@
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        placeholder="Branch">
+                                        placeholder="{{'uti.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -28,18 +28,18 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'uti.S_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
                                         formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
-                                        title="Compulsory Selection" required placeholder="Scheme Code">
+                                        title="Compulsory Selection" required placeholder="{{'uti.S_Code' | translate}}">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -49,21 +49,21 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From Account Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_AC">{{'uti.F_Acc_Num' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac" (change)="select()"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'uti.f_AC' | translate}}">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -73,18 +73,18 @@
                                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">To Account Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TO_AC">{{'uti.To_Acc_Num' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="value" [(ngModel)]="ngtoac" formControlName="TO_AC"
                                         bindLabel="label" title="Compulsory Selection" (change)="select()"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'uti.To_AC' | translate}}">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -94,13 +94,13 @@
                                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="CAL_DATE">Calculation Upto Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="CAL_DATE">{{'uti.Cal_Upto_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -115,18 +115,18 @@
                                 *ngIf="angForm.controls['CAL_DATE'].invalid && (angForm.controls['CAL_DATE'].dirty || angForm.controls['CAL_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CAL_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="GL_ACNO">GL Account Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="GL_ACNO">{{'uti.GL_Account_Num' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="GL_ACNO" bindValue="value" [(ngModel)]="ngGlAC"
                                         formControlName="GL_ACNO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="GL Account Number">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'uti.GL_Account_Num' | translate}}">
                                         <ng-option *ngFor="let values of GLACNooption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -136,7 +136,7 @@
                                 *ngIf="angForm.controls['GL_ACNO'].invalid && (angForm.controls['GL_ACNO'].dirty || angForm.controls['GL_ACNO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['GL_ACNO'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                                 </span>
                             </div>
                         </div> -->
-                        <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">Particulars</label></div>
+                        <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">{{'uti.Particulars' | translate}}</label></div>
                         <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -174,12 +174,12 @@
                                     border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="AUTO_TRAN"
                                         formControlName="AUTO_TRAN" />
-                                    <label class="border-checkbox-label" for="AUTO_TRAN">Auto Transactions
-                                        Passing?</label>
+                                    <label class="border-checkbox-label" for="AUTO_TRAN">{{'uti.Auto_Transactions_P' | translate}}
+                                        </label>
                                 </div>
                             </div>
                             <button class="btn btn-outline-primary btn-sm" [disabled]="angForm.invalid"
-                                (click)="submit()">Posting</button>
+                                (click)="submit()">{{'uti.Posting' | translate}}</button>
                         </div>
                     </div>
                 </div>

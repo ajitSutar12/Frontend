@@ -13,6 +13,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { TranscationInputSettingService } from './transaction-input-gl-head-setting.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -136,7 +137,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   //filter variable
   filterData = {};
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService, private _transInput: TranscationInputSettingService) { }
+  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService, private _transInput: TranscationInputSettingService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
 
   ngOnInit(): void {
     this.createForm()
@@ -184,20 +185,20 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Scheme_Type'),
           data: 'SCHEME_TYPE'
         }, {
-          title: 'Head Type',
+          title:  this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Head_Type'),
           data: 'FIELD_AMOUNT'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Description'),
           data: 'DESCRIPTION'
         }, {
-          title: 'Short Name',
+          title:  this.translate.instant('Utility.Transcation_Input_GL_Head_Setting.Short_Name'),
           data: 'SHORT_NAME'
         },],
       dom: "Blrtip",
@@ -332,7 +333,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
         IS_GLBAL_MAINTAIN: (formVal.IS_GLBAL_MAINTAIN == true ? '1' : '0')
       }
       this._transInput.postData(dataToSend).subscribe(data => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -342,7 +343,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       //To clear form
       this.resetForm();
     } else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`, 'warning');
     }
   }
 
@@ -416,7 +417,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
     data['IS_NOTING_REQUIRED'] = (data.IS_NOTING_REQUIRED == true ? '1' : '0')
     data['IS_GLBAL_MAINTAIN'] = (data.IS_GLBAL_MAINTAIN == true ? '1' : '0')
     this._transInput.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -480,7 +481,7 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
       this._transInput.duplicatecheck(obj).subscribe(data => {
         if (data.length != 0) {
           this.ngHeadType = null
-          Swal.fire('Oops', 'This record already exists', 'error')
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.record_already')}`, 'error')
         }
       })
     }
@@ -488,5 +489,8 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

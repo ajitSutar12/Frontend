@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -13,7 +15,7 @@ export class CounterWorkDayEndComponent implements OnInit {
   ngdate: any;
   ngbdate
   systemInfo: any;
-  constructor(private _services: DayEndService) { }
+  constructor(private _services: DayEndService,private translate:TranslateService) {  this.translate.setDefaultLang(environment.setLang);}
 
   ngOnInit(): void {
     this._services.getSysparaDetails().subscribe(data => {
@@ -33,11 +35,11 @@ export class CounterWorkDayEndComponent implements OnInit {
     this._services.checkDayHandOverStatus({ date: this.ngbdate, branch_id: user.branchId }).subscribe(data => {
       flag = data.flag
       if (flag == 1) {
-        Swal.fire('Info', `Already day handovered for ${this.ngbdate}`, 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `Already day handovered for ${this.ngbdate}`, 'info')
       } else {
         //  let current_date = this.ngdate;
         Swal.fire({
-          title: 'Are you sure?',
+          title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
           text: "Do you want day handover to Admin.",
           icon: 'warning',
           showCancelButton: true,
@@ -54,23 +56,22 @@ export class CounterWorkDayEndComponent implements OnInit {
             //check Is valid today all transaction 
             this._services.dayEndHandoverProcess(obj).subscribe(data => {
               this._services.dayHandOver(obj).subscribe(data => {
-                Swal.fire('Success', 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
               }, err => {
                 if (err.error.statusCode == 400) {
-                  Swal.fire('Cancelled', err.error.message, 'error');
+                  Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, err.error.message, 'error');
                 }
               })
             }, err => {
               if (err.error.statusCode == 400) {
-                Swal.fire('Cancelled', err.error.message, 'error');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, err.error.message, 'error');
               }
             })
           } else if (
             result.dismiss === Swal.DismissReason.cancel
           ) {
             Swal.fire(
-              'Cancelled',
-              'Your Action is revert',
+              `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
               'error'
             )
           }
@@ -81,5 +82,8 @@ export class CounterWorkDayEndComponent implements OnInit {
     })
 
 
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

@@ -2,16 +2,16 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5>Term Deposit Account Renewal</h5>
+                <h5>{{'Transaction.Term_Deposit_Account_Renewal.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Transaction.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card-body">
                 <form [formGroup]="angForm" novalidate>
                     <div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_BRANCH">Branch Code<sub
+                            <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Schema_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
@@ -28,12 +28,12 @@
                                     *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['branch_code'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-5"></div>
-                            <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Date</label></div>
+                            <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.date' | translate}}</label></div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
+                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Schema_Code' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-2">
                                 <!-- <div class="form-group input-group">
@@ -67,11 +67,11 @@
                                     *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['scheme_type'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_BRANCH">Scheme<sub
+                            <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.schema' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group form-primary form-static-label">
@@ -88,14 +88,14 @@
                                     *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account Number<sub
+                            <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Account_Number' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-6">
                                 <div class="form-group form-primary form-static-label">
@@ -114,12 +114,11 @@
                                     *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['account_no'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-3"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of
-                                    Times</label></div>
+                            <div class="col-sm-12 col-md-3"><label for="AC_RENEWAL_COUNTER">{{'Transaction.Term_Deposit_Account_Renewal.Account_Renewal_Numbers' | translate}}</label></div>
                             <div class="col-md-1">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -133,16 +132,16 @@
                                     *ngIf="angForm.controls['AC_RENEWAL_COUNTER'].invalid && (angForm.controls['AC_RENEWAL_COUNTER'].dirty || angForm.controls['AC_RENEWAL_COUNTER'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_RENEWAL_COUNTER'].errors?.required">
-                                        Input allowed only 0-9.
+                                        <!-- Input allowed only 0-9. -->{{'Utility.Validation.Val_Reason' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="solid">
-                            <h1><span>Previous Details</span></h1>
+                            <h1><span>{{'Transaction.Term_Deposit_Account_Renewal.Previous_Details' | translate}}</span></h1>
                             <div class="row">
                                 <div class="col-md-3 labelWidth">
-                                    <label>Deposit Amount</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Deposit_Amount' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -154,7 +153,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>A/c Open Date</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.A/c_Open_Date' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -165,7 +164,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Maturity Date</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Maturity_Date' | translate}}</label>
                                 </div>
                                 <div class="col-sm-3 col-md-2">
                                     <div class="form-group input-group">
@@ -178,7 +177,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 labelWidth">
-                                    <label>Maturity Amount</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Maturity_Amount' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -190,7 +189,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>As On Date</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.As_On_Date' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -201,7 +200,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Receipt Number</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Receipt_Number' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -214,7 +213,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 labelWidth">
-                                    <label>Months</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Months' | translate}}</label>
                                 </div>
                                 <div class="col-md-2 col-sm-3">
                                     <div class="form-group input-group">
@@ -225,7 +224,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Days</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Days' | translate}}</label>
                                 </div>
                                 <div class="col-md-2 col-sm-3">
                                     <div class="form-group input-group">
@@ -236,7 +235,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Interest Rate(%)</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Interest_Rate' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -250,7 +249,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 labelWidth">
-                                    <label>Total Interest Paid Amount</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Total_Interest_Paid_Amount' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -261,7 +260,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Last Interest Date</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Last_Interest' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -272,7 +271,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 labelWidth">
-                                    <label>Interest Category</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Interest_Category' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -285,7 +284,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2 labelWidth">
-                                    <label>Last Transaction Date</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Last_Transaction_Date' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -299,20 +298,18 @@
                         </div>
                         <br>
                         <div class="solid">
-                            <h1><span>Interest Status</span></h1>
+                            <h1><span>{{'Transaction.Term_Deposit_Account_Renewal.Interest_Status' | translate}}</span></h1>
                             <div class="row">
                                 <div class="col-sm-2">
                                     <div class="checkbox checkbox-primary">
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
                                                 formControlName="NormalIntCheck" (change)="getnormalCheck($event)">
-                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY">Normal
-                                                Interest</label>
+                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY">{{'Transaction.Term_Deposit_Account_Renewal.Normal_Interest' | translate}}</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_EXPDT">Interest Upto
-                                        Date</label>
+                                <div class="col-sm-12 col-md-2 labelWidth"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.Interest_Upto_Date' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -326,8 +323,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">Interest
-                                        Amount</label></div>
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.Interest_Amount' | translate}}</label></div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
@@ -345,34 +341,34 @@
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="cash">
-                                                <i class="helper"></i>Cash </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Cash' | translate}} </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="AddInDeposit">
-                                                <i class="helper"></i>Add In Deposit </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Add_In_Deposit' | translate}} </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="transfer">
-                                                <i class="helper"></i>Transfer </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Transfer' | translate}} </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label class="inputRadio">
                                                 <input type="radio" (change)="changeNormal($event)"
                                                     name="NormalIntRadio" [disabled]="NormalCheck"
                                                     formControlName="NormalIntRadio" value="keepaspayable">
-                                                <i class="helper"></i>Keep As Payable </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Keep_As_Payable' | translate}}</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row" *ngIf="transferShowNormal">
-                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Scheme_Type' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
@@ -395,7 +391,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_BRANCH">Scheme<sub
+                                <div class="col-sm-12 col-md-1 labelWidth"> <label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.schema' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
@@ -413,11 +409,11 @@
                                         *ngIf="angForm.controls['normal_scheme'].invalid && (angForm.controls['normal_scheme'].dirty || angForm.controls['normal_scheme'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['normal_scheme'].errors?.required">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-1 labelWidth"><label for="AC_BRANCH">Account Number<sub
+                                <div class="col-sm-12 col-md-1 labelWidth"><label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Account_Number' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-3 col-md">
                                     <div class="form-group form-primary form-static-label">
@@ -434,7 +430,7 @@
                                         *ngIf="angForm.controls['normal_account_no'].invalid && (angForm.controls['normal_account_no'].dirty || angForm.controls['normal_account_no'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['normal_account_no'].errors?.required">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -447,12 +443,11 @@
                                             <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY1"
                                                 formControlName="payableInterestcheck"
                                                 (change)="getpayableInterest($event)">
-                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY1">Payable
-                                                Interest</label>
+                                            <label class="border-checkbox-label" for="AC_IS_RECOVERY1">{{'Transaction.Term_Deposit_Account_Renewal.Payable_Interest' | translate}}</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Payable Interest Amount</label>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.Payable_Interest_Amount' | translate}}</label>
                                 </div>
                                 <div class="col-sm-3 col-md-2">
                                     <div class="form-group input-group">
@@ -471,27 +466,27 @@
                                                 <input type="radio" name="PayableIntRadio"
                                                     formControlName="PayableIntRadio" (change)="payableStatus($event)"
                                                     value="cash" [disabled]="PayableCheck">
-                                                <i class="helper"></i>Cash </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Cash' | translate}}</label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label class="inputRadio">
                                                 <input type="radio" name="PayableIntRadio"
                                                     formControlName="PayableIntRadio" (change)="payableStatus($event)"
                                                     value="AddInDeposit" [disabled]="PayableCheck">
-                                                <i class="helper"></i>Add In Deposit </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Add_In_Deposit' | translate}} </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label class="inputRadio">
                                                 <input type="radio" name="PayableIntRadio"
                                                     formControlName="PayableIntRadio" (change)="payableStatus($event)"
                                                     value="transfer" [disabled]="PayableCheck">
-                                                <i class="helper"></i>Transfer </label>
+                                                <i class="helper"></i>{{'Transaction.Term_Deposit_Account_Renewal.Transfer' | translate}} </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row" *ngIf="payableTranferShow">
-                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Scheme Type<sub
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Scheme_Type' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
@@ -510,7 +505,7 @@
                                         *ngIf="angForm.controls['payable_scheme_type'].invalid && (angForm.controls['payable_scheme_type'].dirty || angForm.controls['payable_scheme_type'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['payable_scheme_type'].errors?.required">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -532,11 +527,11 @@
                                         *ngIf="angForm.controls['payable_scheme'].invalid && (angForm.controls['payable_scheme'].dirty || angForm.controls['payable_scheme'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['payable_scheme'].errors?.required">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">Account Number<sub
+                                <div class="col-sm-12 col-md-2 labelWidth"><label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Account_Number' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-3 col-md">
                                     <div class="form-group form-primary form-static-label">
@@ -553,7 +548,7 @@
                                         *ngIf="angForm.controls['payable_account_no'].invalid && (angForm.controls['payable_account_no'].dirty || angForm.controls['payable_account_no'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['payable_account_no'].errors?.required">
-                                            This field is required.
+                                            <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -563,10 +558,10 @@
 
                         <br>
                         <div class="solid">
-                            <h1><span>Renewal Details</span></h1>
+                            <h1><span>{{'Transaction.Term_Deposit_Account_Renewal.Renewal_Details' | translate}}</span></h1>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label>Renewal Tran Number</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Renewal_Tran_Number' | translate}}</label>
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
@@ -576,7 +571,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Interest Category<sub
+                                <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Transaction.Term_Deposit_Account_Renewal.Interest_Category' | translate}}<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
@@ -591,7 +586,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-2"></div>
-                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">As On Date</label></div>
+                                <div class="col-sm-12 col-md-1"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.As_On_Date' | translate}}</label></div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
@@ -607,7 +602,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-1">
-                                    <label>Months</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Months' | translate}}</label>
                                 </div>
                                 <div class="col-md-1 col-sm-3">
                                     <div class="form-group input-group">
@@ -619,7 +614,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <label>Days</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Days' | translate}}</label>
                                 </div>
                                 <div class="col-md-1 col-sm-3">
                                     <div class="form-group input-group">
@@ -631,11 +626,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label>Total Days =</label>
+                                    <label>{{'Transaction.Term_Deposit_Account_Renewal.Total_Days' | translate}} =</label>
                                 </div>
                                 <div class="col-md-2">{{TotalDays}}</div>
                                 <div class="col-md-2" style="text-align: right;">
-                                    Receipt Number
+                                    {{'Transaction.Term_Deposit_Account_Renewal.Rate' | translate}}
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
@@ -649,7 +644,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    Deposit Amount
+                                    {{'Transaction.Term_Deposit_Account_Renewal.Deposit_Amount' | translate}}
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -663,7 +658,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-1">
-                                    Rate(%)
+                                    {{'Transaction.Term_Deposit_Account_Renewal.Rate' | translate}}
                                 </div>
                                 <div class="col-md-1">
                                     <div class="form-group input-group">
@@ -675,8 +670,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md"></div>
-                                <div class="col-sm-6 col-md-2" style="text-align: right;"> <label for="AC_EXPDT">New
-                                        Last Interest Date</label>
+                                <div class="col-sm-6 col-md-2" style="text-align: right;"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.New_Last_Interest' | translate}}</label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -689,7 +683,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    Maturity Amount
+                                    {{'Transaction.Term_Deposit_Account_Renewal.Maturity_Amount' | translate}}
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -700,7 +694,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">Maturity Date</label></div>
+                                <div class="col-sm-12 col-md-2"> <label for="AC_EXPDT">{{'Transaction.Term_Deposit_Account_Renewal.Maturity_Date' | translate}}</label></div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
@@ -724,25 +718,25 @@
                             <div class="col-sm" style="float: right;">
                                 <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
                                     *ngIf="showButton" (click)="submit();branchcode.focus()">
-                                    Submit
+                                    {{'Transaction.Action.Submit' | translate}}
                                 </button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                     (click)="closeModal()">
-                                    Close</button>
+                                    {{'Transaction.Action.close' | translate}}</button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                                     *ngIf="newbtnShow">
-                                    Cancel
+                                    {{'Transaction.Action.Cancel' | translate}}
                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                     *ngIf="updateShow">
                                     Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                    Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {{'Transaction.Action.Reject' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                    Approve</button>
+                                    {{'Transaction.Action.Approve' | translate}}</button>
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                     (click)="unApprove()">
-                                    Unapprove</button>
+                                    {{'Transaction.Action.Unapprove' | translate}}</button>
                             </div>
                         </div>
                     </div>

@@ -13,6 +13,7 @@ import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme
 import * as moment from "moment";
 import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-intratewise-maturity-list",
   templateUrl: "./intratewise-maturity-list.component.html",
@@ -54,8 +55,11 @@ export class IntratewiseMaturityListComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
 
     private systemParameter: SystemMasterParametersService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,     private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.todate = moment().format("DD/MM/YYYY");
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -157,7 +161,7 @@ export class IntratewiseMaturityListComponent implements OnInit {
         this.iframe5url
       );
     } else {
-      Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.Re1')}`, "warning").then(
         () => {
           this.clicked = false;
         }

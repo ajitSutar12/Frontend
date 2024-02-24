@@ -12,15 +12,18 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     CustomerRoutingModule,
     SharedModule,
-
+    
     
   ],
   declarations: [CustomerComponent ],
-  providers:[{
+  providers:[
+    {
+    
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },
+
 
 ]
 })

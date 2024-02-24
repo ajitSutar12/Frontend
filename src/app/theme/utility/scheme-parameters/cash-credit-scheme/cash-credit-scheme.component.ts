@@ -30,6 +30,7 @@ import { OverdraftInterestPostService } from "../../../../shared/dropdownService
 import { first } from "rxjs/operators";
 import { environment } from "../../../../../environments/environment";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -150,7 +151,7 @@ export class CashCreditSchemeComponent implements OnInit {
     private overdraftInterestPostService: OverdraftInterestPostService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -198,50 +199,37 @@ export class CashCreditSchemeComponent implements OnInit {
       },
       columns: [
         {
-          title: "Action",
-          // render: function (data: any, type: any, full: any) {
-          //   return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
-          // },
+          title: this.translate.instant('Utility.Action.Action'),
+
         },
         {
-          title: "Type",
-          data: "S_ACNOTYPE",
+          title: this.translate.instant('Utility.Utility1.Type'),
+          data: 'S_ACNOTYPE',
+
         },
         {
-          title: "Scheme Code",
-          data: "S_APPL",
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
+          data: 'S_APPL',
         },
         {
-          title: "Description",
-          data: "S_NAME",
+          title: this.translate.instant('Utility.Utility1.Description'),
+          data: 'S_NAME',
         },
         {
-          title: "Short Name",
-          data: "S_SHNAME",
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
+          data: 'S_SHNAME',
         },
         {
-          title: "GL Account Number",
-          data: "S_GLACNO",
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
+          data: 'S_GLACNO',
         },
         {
-          title: "Interest GL Account",
-          data: "S_INT_ACNO",
+          title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
+          data: 'S_INT_ACNO',
         },
         {
-          title: "Receivable Interest Account",
-          data: "S_RECBL_PYBL_INT_ACNO",
-        },
-        {
-          title: "Penal Interest Account",
-          data: "S_PENAL_ACNO",
-        },
-        {
-          title: "Recble Penal Interest Account",
-          data: "S_RECBL_PENAL_ACNO",
-        },
-        {
-          title: "Recble Overdue Interest",
-          data: "S_RECBL_ODUE_INT_ACNO",
+          title:  this.translate.instant('Utility.Utility1.Rece_Interest_Acc'),
+          data: 'S_RECBL_PYBL_INT_ACNO',
         },
         // {
         //   title: "Is Interest Applicable ?",
@@ -546,7 +534,7 @@ export class CashCreditSchemeComponent implements OnInit {
     };
     this.cashcreditservice.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
         this.formSubmitted = false;
         // to reload after insertion of data
         // to reload after insertion of data
@@ -760,7 +748,7 @@ export class CashCreditSchemeComponent implements OnInit {
     data['STAND_INSTRUCTION_ALLOW'] = (data.STAND_INSTRUCTION_ALLOW == true ? '1' : '0')
     data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     this.cashcreditservice.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -805,7 +793,7 @@ export class CashCreditSchemeComponent implements OnInit {
       if (result.isConfirmed) {
         this.cashcreditservice.deleteData(id).subscribe((data1) => {
           this.cashcredit = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -813,7 +801,7 @@ export class CashCreditSchemeComponent implements OnInit {
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -941,12 +929,12 @@ export class CashCreditSchemeComponent implements OnInit {
         this.cashcreditservice.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 601 to 699 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.601_to_699_this_range')}`, 'error')
       }
     }
   }
@@ -969,7 +957,7 @@ export class CashCreditSchemeComponent implements OnInit {
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
       ele.target.value = 0
 
     }

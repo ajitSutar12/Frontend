@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { IOption } from 'ng-select';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -87,7 +88,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     private http: HttpClient,
     private interestCategoryMasterService: InterestCategoryMasterService,
     public SchemeTypes: SchemeTypeDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -135,17 +136,17 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Interest_Category_Master.Action')
         },
         {
-          title: 'Interest Category Code',
+          title:  this.translate.instant('master.Interest_Category_Master.Interest_Category_Code'),
           data: 'CODE'
         },
         {
-          title: 'ACNOTYPE',
+          title:  this.translate.instant('master.Interest_Category_Master.AcNoType'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Description',
+          title:  this.translate.instant('master.Interest_Category_Master.Description'),
           data: 'NAME'
         },
       ],
@@ -156,7 +157,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [Validators.pattern, Validators.required]],
+      NAME: ['', [ Validators.required]],
       ACNOTYPE: ['', [Validators.required]]
 
     });
@@ -171,7 +172,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       'ACNOTYPE': formVal.ACNOTYPE
     }
     this.interestCategoryMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -209,7 +210,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.interestCategoryMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = true;
@@ -224,8 +225,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Interest Category master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Category_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -236,8 +237,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         this.interestCategoryMasterService.deleteData(id).subscribe(data1 => {
           this.intrestCatagoryMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -249,8 +250,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

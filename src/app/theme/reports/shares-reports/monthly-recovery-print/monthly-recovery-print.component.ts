@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,8 +23,10 @@ export class MonthlyRecoveryPrintComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private salaryDMasterdropdownService: SalaryDMasterdropdownService,
-    private _schemeService: SchemeAccountNoService
-  ) { }
+    private _schemeService: SchemeAccountNoService,
+    private translate:TranslateService
+  ) {      this.translate.setDefaultLang(environment.setLang) ;
+  }
 
 
   //ngfor variables
@@ -59,7 +63,7 @@ export class MonthlyRecoveryPrintComponent implements OnInit {
   }
 
   alertWithSuccess(){
-    Swal.fire('Thank you...', 'You submitted succesfully!', 'success')
+    Swal.fire(`${this.translate.instant('Swal_Msg.Thank_You')}`, `${this.translate.instant('Swal_Msg.Submit')}`, 'success')
   }
 
   createForm(){

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-loan-overdue-list',
@@ -29,7 +31,10 @@ import { Router } from '@angular/router';
   ddrelODPerfoTrue: boolean = false;
 
 
-  constructor(private_router: Router) { }
+  constructor(private_router: Router,
+    private translate:TranslateService
+    ) {     this.translate.setDefaultLang(environment.setLang)
+    }
 
   ngOnInit(): void {
   }

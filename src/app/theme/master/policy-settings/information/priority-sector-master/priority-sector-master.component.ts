@@ -11,6 +11,7 @@ import { PrioritySectorMasterService } from './priority-sector-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,7 +74,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
   constructor(
     private http: HttpClient,
     private prioritySectorMasterService: PrioritySectorMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -126,26 +127,26 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Priority_Sector_Code.Action')
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Priority_Sector_Code.Code'),
           data: 'CODE'
         },
         {
-          title: 'Sub Code',
+          title: this.translate.instant('master.Priority_Sector_Code.Subcode'),
           data: 'SUB1_CODE'
         },
         {
-          title: '2nd Sub code',
+          title: this.translate.instant('master.Priority_Sector_Code.Second_Subcode'),
           data: 'SUB2_CODE'
         },
         {
-          title: '3rd Sub Code',
+          title: this.translate.instant('master.Priority_Sector_Code.Third_Subcode'),
           data: 'SUB3_CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Priority_Sector_Code.Description'),
           data: 'NAME'
         }
       ],
@@ -177,7 +178,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
 
     }
     this.prioritySectorMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -221,7 +222,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
     data['id'] = this.updateID;
 
     this.prioritySectorMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -236,8 +237,8 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.delete_narration')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -248,8 +249,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
         this.prioritySectorMasterService.deleteData(id).subscribe(data1 => {
           this.prioritySectorMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -261,8 +261,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

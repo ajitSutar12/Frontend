@@ -5,6 +5,8 @@ import { RoleMasterModule } from './role-master.module';
 import { RoleMasterService } from './role-master.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-role-master',
@@ -28,8 +30,8 @@ export class RoleMasterComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private fb: FormBuilder,
-    private _service: RoleMasterService
-  ) {
+    private _service: RoleMasterService,private translate:TranslateService)
+   {this.translate.setDefaultLang(environment.setLang);
     
   }
 
@@ -64,7 +66,7 @@ export class RoleMasterComponent implements OnInit {
   //submit data
   submit() {
     this._service.insertData(this.angForm.value).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.angForm.reset();
 
       this._service.getRoleList().subscribe(data => {
@@ -94,7 +96,7 @@ export class RoleMasterComponent implements OnInit {
     object['id'] = this.roleId;
 
     this._service.updateRoleData(object).subscribe(data => {
-      Swal.fire('Success!', 'Data Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.updateButton = false;
       this.addButton = true;
       this.angForm.reset();
@@ -119,5 +121,8 @@ export class RoleMasterComponent implements OnInit {
       dtInstance.destroy();
       this.dtTrigger.next();
     });
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

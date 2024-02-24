@@ -9,6 +9,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
 import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-deposit-interest-projection',
@@ -43,11 +45,13 @@ export class DepositInterestProjectionComponent implements OnInit {
     private _termDepositScheme: TermDepositSchemeService,
     private datePipe: DatePipe,
     private _services: OtherViewService,
+    private translate:TranslateService,
 
     private schemeCodeDropdownService: SchemeCodeDropdownService) {
     this.dates = moment().format('DD/MM/YYYY');
     // this.maxDate = new Date();
     // this.maxDate.setDate(this.maxDate.getDate())
+    this.translate.setDefaultLang(environment.setLang) ;
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -125,7 +129,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         this.ngForm.controls['AC_MONTHS'].enable()
         this.ngForm.controls['AC_DAYS'].enable()
         if (Number(this.ngForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.ngForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.Month')}` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Day')}`, "error");
           this.ngForm.controls['AC_MONTHS'].reset()
           this.ngForm.controls['AC_DAYS'].reset()
         }
@@ -137,7 +141,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         this.ngForm.controls['AC_MONTHS'].disable()
         this.ngForm.controls['AC_DAYS'].enable()
         if (Number(this.ngForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Days_Msg')}` + data.MIN_DAYS + `${this.translate.instant('Swal_Msg.Day')}`, "error");
           this.ngForm.controls['AC_DAYS'].reset()
         }
       }
@@ -148,7 +152,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         this.ngForm.controls['AC_MONTHS'].enable()
         this.ngForm.controls['AC_DAYS'].disable()
         if (Number(this.ngForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-          Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Month_Msg')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.Months')}`, "error");
           this.ngForm.controls['AC_MONTHS'].reset()
         }
       }
@@ -158,7 +162,7 @@ export class DepositInterestProjectionComponent implements OnInit {
         this.ngForm.controls['AC_MONTHS'].enable()
         this.ngForm.controls['AC_DAYS'].enable()
         if (Number(this.ngForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.ngForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.M_and_D')}` + data.MIN_MONTH + `${this.translate.instant('Swal_Msg.And')}` + data.MIN_DAYS, "error");
           this.ngForm.controls['AC_MONTHS'].reset()
           this.ngForm.controls['AC_DAYS'].reset()
         }
@@ -425,11 +429,11 @@ export class DepositInterestProjectionComponent implements OnInit {
                     VcumPeriod = 3
                   } else if (data.COMPOUND_INT_BASIS == "M") {
                     if (data.COMPOUND_INT_DAYS <= 0) {
-                      Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                      Swal.fire(`${this.translate.instant('Swal_Msg.S1')}`)
                     }
                     VcumPeriod = 0
                   } else {
-                    Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                    Swal.fire(`${this.translate.instant('Swal_Msg.S1')}`)
                   }
 
                   if (PeriodEndDate > EndDate) {
@@ -534,10 +538,10 @@ export class DepositInterestProjectionComponent implements OnInit {
     this._termDepositScheme.getFormData(this.schemeCode).subscribe(data => {
       if (data.MAX_DEP_LMT != '' || data.MULTIPLE_OF_AMT != '') {
         if (Number(this.ngForm.controls['DEPO_AMT'].value) > Number(data.MAX_DEP_LMT)) {
-          Swal.fire("Deposit Amount Should Be Less Than " + data.MAX_DEP_LMT, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.S2')}` + data.MAX_DEP_LMT, "error");
           this.ngForm.controls['DEPO_AMT'].reset()
         } else if (((Number(this.ngForm.controls['DEPO_AMT'].value)) % Number((data.MULTIPLE_OF_AMT))) != 0) {
-          Swal.fire("Deposit Amount Should Be Multiple Of " + data.MULTIPLE_OF_AMT, "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.S3')}` + data.MULTIPLE_OF_AMT, "error");
         }
       } else {
         this.ngForm.patchValue({
@@ -553,7 +557,7 @@ export class DepositInterestProjectionComponent implements OnInit {
     //check  if given value  is below 100
     if (ele <= 50) {
     } else {
-      Swal.fire("Invalid Input", "Please insert values below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`,`${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       this.ngForm.patchValue({
         TDS_RATE: 0
       })

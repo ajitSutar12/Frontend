@@ -11,6 +11,7 @@ import { WeakerService } from './weaker-section-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -70,7 +71,8 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
   constructor(
     private http: HttpClient,
     private weakerService: WeakerService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -117,14 +119,14 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
       },
       columns: [
         {
-          title: 'Action',
+          title:this.translate.instant('master.Weaker_Section_Master.Action'),
         },
         {
-          title: 'Weaker Section Code',
+          title:this.translate.instant('master.Weaker_Section_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Weaker_Section_Master.Description'),
           data: 'NAME'
         },
       ],
@@ -135,7 +137,7 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
   createForm() {
     this.angForm = this.fb.group({
       CODE: [''],
-      NAME: ['', [ Validators.required]],
+      NAME: ['', [Validators.pattern, Validators.required]],
     });
   }
   // Method to insert data into database through NestJS
@@ -146,7 +148,7 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
       'NAME': formVal.NAME,
     }
     this.weakerService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -182,7 +184,7 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.weakerService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Upadate')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -196,8 +198,8 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete weaker master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Weaker_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -208,8 +210,8 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
         this.weakerService.deleteData(id).subscribe(data1 => {
           this.weakermasters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -221,8 +223,8 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

@@ -2,9 +2,9 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Interest Category Master</h5>
+        <h5>{{'master.Interest_Category_Master.Title' | translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'master.Interest_Category_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Interest_Category_Master.F2' | translate}}
         </h6>
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -13,9 +13,9 @@
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" name="Account" class="form-control" placeholder=" " id="CODE" pattern="^[0-9]+$"
+                  <input type="text" name="Account" class="form-control" placeholder=" " id="CODE" pattern="^[0-9\u0966-\u096F]*$"
                     title="Input allowed only  0-9" formControlName="CODE" disabled />
-                  <label for="CODE">Interest Category Code</label>
+                  <label for="CODE">{{'master.Interest_Category_Master.Interest_Category_Code' | translate}}</label>
                 </span>
               </div>
             </div>
@@ -24,17 +24,17 @@
                   <span class="border-lable-flt">
                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngschemetype"
                       formControlName="ACNOTYPE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                      required placeholder="Scheme Type"
+                      required placeholder="{{'master.Interest_Category_Master.Scheme_Type' | translate}}"
                       #scheme (focus)="onFocus(scheme)" [selectOnTab]='true'  >
                       <ng-option *ngFor="let values of schemetype" [value]="values">
                         {{values.label}}</ng-option> 
                     </ng-select>
-                    <label for="ACNOTYPE">Scheme Type<sub class="required"> * </sub></label>
+                    <label for="ACNOTYPE">{{'master.Interest_Category_Master.Scheme_Type' | translate}}<sub class="required"> * </sub></label>
                   </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)" class="alert alert-danger">
                   <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
-                      This field is required
+                      <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                   </div>
               </div>
           </div>
@@ -42,10 +42,10 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme type="text" #autofocus name="NAME" class="form-control" placeholder=" " id="NAME"
-                    required pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                    requiredmaxlength="100"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME" />
-                  <label for="NAME">Description<sub class="required">* </sub></label>
+                  <label for="NAME">{{'master.Interest_Category_Master.Description' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -54,12 +54,13 @@
                     angForm.controls['NAME'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="
-                    angForm.controls['NAME'].errors?.pattern ||
+                    
                     angForm.controls['NAME'].errors?.required ||
                     angForm.controls['NAME'].errors?.maxlength
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / . -->
+                  {{'master.Validation.Val1' | translate}}
+                  
                 </div>
               </div>
             </div>
@@ -68,10 +69,10 @@
           <div class="row">
             <div class="col-sm">
               <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
-                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Interest_Category_Master.Submit' | translate}}</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">{{'master.Interest_Category_Master.Cancel' | translate}}</button>
               <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                [disabled]="angForm.invalid"> Update</button>
+                [disabled]="angForm.invalid"> {{'master.Interest_Category_Master.Update' | translate}}</button>
 
             </div>
           </div>

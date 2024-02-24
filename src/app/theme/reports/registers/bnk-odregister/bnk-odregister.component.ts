@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -68,8 +69,11 @@ export class BnkODRegisterComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService, private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
 
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -209,7 +213,7 @@ export class BnkODRegisterComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg6')}`, 'info')
     }
   }
 
@@ -261,7 +265,7 @@ sample=tem_perOD == 'Temporary' ? 1 : 0
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
 
     // setTimeout(()=>{

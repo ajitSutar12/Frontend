@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>T Form Day Book With Details/Summary</h5>
+                <h5>{{'master.Daily_Reports.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card">
@@ -12,14 +12,14 @@
                     <div class="card-block">
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Scheme Code">Branch<sub
+                            <div class="col-sm-12 col-md-1"> <label for="Scheme Code">{{'master.Daily_Reports.Branch' | translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Branch" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="ngbranch" placeholder="Branch" (change)="getBranch($event)">
+                                            [(ngModel)]="ngbranch" placeholder="{{'master.Daily_Reports.Branch' | translate}}" (change)="getBranch($event)">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -30,14 +30,14 @@
                                     *ngIf="ngForm.controls['Branch'].invalid && (ngForm.controls['Branch'].dirty || ngForm.controls['Branch'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Branch'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
 
                             </div>
 
                             <div class="col-sm-12 col-md-1">
-                                <label for="">Type <sub class="required">*</sub></label>
+                                <label for="">{{'master.Daily_Reports.Type' | translate}} <sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-radio">
@@ -45,13 +45,13 @@
                                         <label>
                                             <input type="radio" name="Print_Code" value="Detail"
                                                 formControlName="Print_Code" [checked]="true">
-                                            <i class="helper"></i>Detail </label>
+                                            <i class="helper"></i>{{'master.Daily_Reports.Detail' | translate}} </label>
                                     </div>
                                     <div class="radio radio-inline">
                                         <label>
                                             <input type="radio" name="Print_Code" value="Summary"
                                                 formControlName="Print_Code">
-                                            <i class="helper"></i>Summary </label>
+                                            <i class="helper"></i>{{'master.Daily_Reports.Summary' | translate}} </label>
                                     </div>
                                     <!-- <div class="form-group form-primary form-static-label" *ngIf="
                                     ngForm.controls['Print_Code'].invalid &&
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-1"> <label for="Date">Date<sub class="required">*</sub></label>
+                            <div class="col-sm-12 col-md-1"> <label for="Date">{{'master.Daily_Reports.Date' | translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
@@ -84,7 +84,7 @@
                                      (ngForm.controls['date'].dirty ||ngForm.controls['date'].touched) "
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['date'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>
@@ -95,10 +95,10 @@
                             <div class="col-md">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
                                     (click)="view($event); clicked = true">
-                                    View</button>
+                                    {{'master.Action.View' | translate}}</button>
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close' | translate}}</button>
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@
                             <div class="col-12">
                                 <!-- <div class="card"> -->
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Daily_Reports.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe1 [url]='iframe1url'></app-iframe1>

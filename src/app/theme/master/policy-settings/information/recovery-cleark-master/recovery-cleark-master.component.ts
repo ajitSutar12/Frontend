@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -81,7 +82,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private ownbranchMasterService:OwnbranchMasterService,
     private recoveryClearkMasterService: RecoveryClearkMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -152,18 +153,18 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Recovery_Cleark_Master.Action')
         },
         {
-          title: 'Recovery Cleark Code',
+          title: this.translate.instant('master.Recovery_Cleark_Master.Recovery_Cleark_Code'),
           data: 'CODE'
         }, 
         {
-          title: 'Description',
+          title: this.translate.instant('master.Recovery_Cleark_Master.Description'),
           data: 'NAME'
         },
         {
-          title: 'Branch Code',
+          title: this.translate.instant('master.Recovery_Cleark_Master.Branch_Code'),
           data: 'BRANCH_CODE'
         },
       ],
@@ -203,7 +204,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
       'NAME': formVal.NAME
     }
     this.recoveryClearkMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -235,7 +236,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.recoveryClearkMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -256,8 +257,8 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Recovery cleark master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Recovery_cleark')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -268,8 +269,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
         this.recoveryClearkMasterService.deleteData(id).subscribe(data1 => {
           this.recoveryClearkMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -281,8 +281,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

@@ -18,6 +18,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-npa-analysis-report',
@@ -72,7 +73,10 @@ export class NpaAnalysisReportComponent implements OnInit {
       private sanitizer: DomSanitizer,
       private schemeAccountNoService: SchemeAccountNoService,
      
-    ) {
+      private translate:TranslateService
+      ) {
+      this.translate.setDefaultLang(environment.setLang)
+      
       this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -258,7 +262,7 @@ export class NpaAnalysisReportComponent implements OnInit {
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(()=>{ this.clicked=false});
     }
     }
     close(){

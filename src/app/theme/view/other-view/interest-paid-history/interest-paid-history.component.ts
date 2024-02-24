@@ -9,6 +9,7 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { log } from 'console';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-interest-paid-history',
   templateUrl: './interest-paid-history.component.html',
@@ -49,7 +50,9 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) {
+    private schemeCodeDropdownService: SchemeCodeDropdownService, private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang) ;
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -189,7 +192,7 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
         // console.log(data);
 
         if (data.table.length == 0) {
-          Swal.fire('info', 'No Records Found!', 'info')
+          Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Records')}`, 'info')
         }
         else {
           this.tableArr = data.table

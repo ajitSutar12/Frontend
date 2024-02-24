@@ -3,12 +3,12 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Member Contribution Credit to Shares</h5>
+                <h5>{{'Utility.Member_Contribution_Credit_to_Shares.Title' | translate}}</h5>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Debit Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Debit_Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -25,13 +25,13 @@
                                 *ngIf="angForm.controls['dscheme'].invalid && (angForm.controls['dscheme'].dirty || angForm.controls['dscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['dscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Credit Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Credit_Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -48,7 +48,7 @@
                                 *ngIf="angForm.controls['cscheme'].invalid && (angForm.controls['cscheme'].dirty || angForm.controls['cscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['cscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -56,7 +56,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">GL A/c No.<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.GL_A/c_No.' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -72,13 +72,13 @@
                                 *ngIf="angForm.controls['accNo'].invalid && (angForm.controls['accNo'].dirty || angForm.controls['accNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['accNo'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Kayam Dep. Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Kayam_Dep_Scheme' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -95,7 +95,7 @@
                                 *ngIf="angForm.controls['kdscheme'].invalid && (angForm.controls['kdscheme'].dirty || angForm.controls['kdscheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['kdscheme'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Amount Limit<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">{{'Utility.Member_Contribution_Credit_to_Shares.Shares_Amount_Limit' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -118,12 +118,12 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['shamtlimit'].errors?.pattern || angForm.controls['shamtlimit'].errors?.required || angForm.controls['shamtlimit'].errors?.maxlength">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Particulars</label>
+                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">{{'Utility.Member_Contribution_Credit_to_Shares.Particulars' | translate}}</label>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group input-group">
@@ -139,17 +139,17 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.close' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Delete</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Delete' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Cancel' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Print' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Update' | translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Calculate</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Calculate' | translate}}</button>
                         </div>
                     </div>
 
@@ -157,7 +157,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'Utility.Member_Contribution_Credit_to_Shares.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe [url]='iframeurl'></app-iframe>

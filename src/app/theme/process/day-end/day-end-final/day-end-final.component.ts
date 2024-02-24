@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-day-end-final',
   templateUrl: './day-end-final.component.html',
@@ -9,7 +11,7 @@ import { DayEndService } from '../day-end.service';
 export class DayEndFinalComponent implements OnInit {
   branchHandOverList: any = [];
   flagCheck: boolean = true;
-  constructor(private _service: DayEndService) { }
+  constructor(private _service: DayEndService,private translate:TranslateService) { this.translate.setDefaultLang(environment.setLang)}
   sysparadetails: any;
   remark: boolean = false;
   interval;
@@ -71,7 +73,7 @@ export class DayEndFinalComponent implements OnInit {
       console.log('interval')
     }, 500);
     this._service.sendBranchData({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(async data => {
-Swal.fire('Success', 'Day ended Successfully','success')
+Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Pigmy_Day_End_Successfuly')}`,'success')
     }, err => {
       console.log(err?.error?.message)
     })
@@ -80,8 +82,8 @@ Swal.fire('Success', 'Day ended Successfully','success')
 
   revertHandOver(id, date, name) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.You_revert_this')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -91,8 +93,8 @@ Swal.fire('Success', 'Day ended Successfully','success')
       if (result.isConfirmed) {
         this._service.revertHandOver({ id: id, date: date }).subscribe(data => {
           Swal.fire(
-            'Day End Reverted!',
-            name + ' Branch day end reverted successfully',
+            `${this.translate.instant('Swal_Msg.End_Reverted')}`,
+            name + `${this.translate.instant('Swal_Msg.End_Reverted')}`,
             'success'
           )
           this.ngOnInit()

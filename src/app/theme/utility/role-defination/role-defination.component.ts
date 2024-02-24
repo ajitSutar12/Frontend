@@ -9,6 +9,8 @@ import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MenuItems } from '../../../shared/menu-items/menu-items'
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-role-defination',
   templateUrl: './role-defination.component.html',
@@ -57,7 +59,7 @@ export class RoleDefinationComponent implements OnInit {
   ROLE: any;
   RoleResult: any;
   public checkedItems: any[] = [];
-  constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,) {
+  constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService, private fb: FormBuilder,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
   }
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
@@ -152,14 +154,14 @@ export class RoleDefinationComponent implements OnInit {
         "Menus": uniqueChars.toString()
       }
       this._service.addNewRoleHasPermission(roleObject).subscribe(data => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.ngOnInit()
       }, err => {
-        Swal.fire('Oops!', 'Something went wrong!', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Wents_Wrong')}`, 'error');
         this.ngOnInit()
       })
     } else {
-      Swal.fire('Warning!', 'please select All requied data !', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.This_Role')}`, 'warning');
 
     }
   }
@@ -277,11 +279,11 @@ export class RoleDefinationComponent implements OnInit {
         "Menus": uniqueChars.toString(),
       }
       this._service.updateNewRoleHasPermission(roleObject).subscribe(data => {
-        Swal.fire('Success!', 'Data Update Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
         this.angForm.reset();
         this.ngOnInit()
       }, err => {
-        Swal.fire('Error!', 'This Role Already Exists !', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Error')}`, 'error');
         this.angForm.reset();
         this.ngOnInit()
       })
@@ -294,5 +296,8 @@ export class RoleDefinationComponent implements OnInit {
     this.angForm = this.fb.group({
       ROLE: ['', [Validators.required]]
     });
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

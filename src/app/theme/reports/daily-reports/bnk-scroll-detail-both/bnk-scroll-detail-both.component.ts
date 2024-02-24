@@ -17,6 +17,7 @@ import { NgSelectConfig } from "@ng-select/ng-select";
 import { data } from "jquery";
 import { CashDenominationService } from "src/app/theme/transaction/cash-denomination/cash-denomination.service";
 import { CashierUmService } from "src/app/theme/utility/cashier-um/cashier-um.service";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -58,8 +59,12 @@ export class BnkScrollDetailBothComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private _services: CashDenominationService,    private _service : CashierUmService,
+    private translate:TranslateService
+
 
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.fromdate = moment().format('DD/MM/YYYY'); 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -337,7 +342,7 @@ else {
 }
   }
  else {
-   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+   Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
  }
 
   }

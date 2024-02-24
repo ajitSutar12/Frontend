@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>TDS Form Submission</h5>
+                <h5>{{'master.TDS_Form_Submission.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">Financial Year</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">{{'master.TDS_Form_Submission.Financial_Year' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -25,12 +25,11 @@
                                 *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIN_YEAR'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_CUSTID">Customer ID<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_CUSTIDCustomer ID">{{'master.TDS_Form_Submission.Customer_ID' | translate}}<sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -38,7 +37,7 @@
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         #AC_CUSTID (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true' 
                                         [virtualScroll]="true" title="Compulsory Selection" required
-                                        placeholder="Customer Id" (change)="getCustomer($event.value);getTds($event)">
+                                        placeholder="{{'master.TDS_Form_Submission.Customer_ID' | translate}}" (change)="getCustomer($event.value);getTds($event)">
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select> 
@@ -49,13 +48,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_CUSTID'].errors?.pattern || angForm.controls['AC_CUSTID'].errors?.required || angForm.controls['AC_CUSTID'].errors?.maxlength">
-                                    This Field id required.
+                                    <!-- This Field id required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="SUBMIT_DATE">Submission Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="SUBMIT_DATE">{{'master.TDS_Form_Submission.Submission_Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -73,39 +72,39 @@
                                 *ngIf="angForm.controls['SUBMIT_DATE'].invalid && (angForm.controls['SUBMIT_DATE'].dirty || angForm.controls['SUBMIT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SUBMIT_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <h6>Form Type</h6>
+                            <h6>{{'master.TDS_Form_Submission.Form_Type' | translate}}</h6>
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" formControlName="FORM_TYPE" name="FORM_TYPE" value="Form15A"
                                             id="formA" (change)="isForm15A(1)">
-                                        <i class="helper"></i>Form - 15 A
+                                        <i class="helper"></i>{{'master.TDS_Form_Submission.Form_15_A' | translate}}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" value="Form15H" formControlName="FORM_TYPE" id="formH"
                                             name="FORM_TYPE" (change)="isForm15A(2)">
-                                        <i class="helper"></i>Form - 15 H
+                                        <i class="helper"></i>{{'master.TDS_Form_Submission.Form_15_H' | translate}}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" value="Form60" formControlName="FORM_TYPE" id="Form60"
                                             name="FORM_TYPE" (change)="isForm15A(3)">
-                                        <i class="helper"></i>Form - 60
+                                        <i class="helper"></i>{{'master.TDS_Form_Submission.Form_60' | translate}}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" value="Form15G" formControlName="FORM_TYPE" id="formG"
                                             name="FORM_TYPE" (change)="isForm15A(4)">
-                                        <i class="helper"></i>Form - 15 G
+                                        <i class="helper"></i>{{'master.TDS_Form_Submission.Form_15 G' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -113,9 +112,9 @@
                     </div>
                     <div class="row" id="FORMA" *ngIf="isTdsFormA">
                         <div class="col-sm-2">
-                            <h6>Form - 15 A</h6>
+                            <h6>{{'master.TDS_Form_Submission.Form_15_A' | translate}}</h6>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TDS_RATE">TDS Rate %<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TDS_RATE">{{'master.TDS_Form_Submission.TDS_Rate' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -133,11 +132,11 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['TDS_RATE'].errors?.pattern || angForm.controls['TDS_RATE'].errors?.required || angForm.controls['TDS_RATE'].errors?.maxlength">
-                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                    <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TDS_LIMIT">TDS Limit<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TDS_LIMIT">{{'master.TDS_Form_Submission.TDS_Limit' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -155,7 +154,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['TDS_LIMIT'].errors?.pattern || angForm.controls['TDS_LIMIT'].errors?.required || angForm.controls['TDS_LIMIT'].errors?.maxlength">
-                                    Input allowed only 0-9 .(after decimal 2 digits)
+                                    <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -163,7 +162,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
-                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit' | translate}}</button>
                         </div>
                     </div>
 

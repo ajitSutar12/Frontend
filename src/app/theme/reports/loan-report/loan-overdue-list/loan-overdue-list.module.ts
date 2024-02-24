@@ -6,7 +6,7 @@ import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLL
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -30,6 +30,8 @@ import {InstwiseLoanoverdueListComponent} from './instwise-loanoverdue-list/inst
 import {LoanDueListBtdComponent} from './loan-due-list-btd/loan-due-list-btd.component';
 import {LoanDueListBtodComponent} from './loan-due-list-btod/loan-due-list-btod.component';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -50,6 +52,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
    
   ],
   providers:[
@@ -75,3 +85,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class LoanOverdueListModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

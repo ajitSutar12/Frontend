@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Mark Freeze Account</h5>
+                <h5>{{'master.Mark_Freeze_Account.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
@@ -18,18 +18,18 @@
                                         [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
-                                        required placeholder="Scheme" autofocus>
+                                        required placeholder="{{'master.Mark_Freeze_Account.Scheme' | translate}}" autofocus>
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">{{'master.Mark_Freeze_Account.Scheme' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -39,25 +39,25 @@
                                     <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngacno" formControlName="AC_NO"
                                         bindLabel="label" title="Compulsory Selection" (change)="getBankAcno($event)"
                                         #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true' [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Account No">
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Mark_Freeze_Account.Account_No' | translate}}">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_NO">Account No<sub class="required"> * </sub></label>
+                                    <label for="AC_NO">{{'master.Mark_Freeze_Account.Account_No' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class='alert alert-danger'>
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <h6>Freeze Details</h6>
+                            <h6>{{'master.Mark_Freeze_Account.Freeze_Details' | translate}}</h6>
                         </div>
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
@@ -67,18 +67,18 @@
                                         bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #AC_FREEZE_STATUS (focus)="onFocus(AC_FREEZE_STATUS)" [selectOnTab]='true' 
-                                        placeholder="Freeze Status">
+                                        placeholder="{{'master.Mark_Freeze_Account.Freeze_Status' | translate}}">
                                         <ng-option *ngFor="let values of freezoption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_FREEZE_STATUS">Freeze Status<sub class="required"> * </sub></label>
+                                    <label for="AC_FREEZE_STATUS">{{'master.Mark_Freeze_Account.Freeze_Status' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_FREEZE_STATUS'].invalid && (angForm.controls['AC_FREEZE_STATUS'].dirty || angForm.controls['AC_FREEZE_STATUS'].touched)"
                                 class='alert alert-danger'>
                                 <div *ngIf="angForm.controls['AC_FREEZE_STATUS'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -89,16 +89,16 @@
                                         class="form-control" placeholder=" "
                                         (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                        id="AC_FREEZE_AMOUNT" pattern="^[0-9]+$" title="Input allowed only  0-9"
+                                        id="AC_FREEZE_AMOUNT" pattern="^[0-9\u0966-\u096F]*$" title="Input allowed only  0-9"
                                         formControlName="AC_FREEZE_AMOUNT">
-                                    <label for="AC_FREEZE_AMOUNT">Freeze Amount</label>
+                                    <label for="AC_FREEZE_AMOUNT">{{'master.Mark_Freeze_Account.Freeze_Amount' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_FREEZE_AMOUNT'].invalid && (angForm.controls['AC_FREEZE_AMOUNT'].dirty || angForm.controls['AC_FREEZE_AMOUNT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_FREEZE_AMOUNT'].errors?.pattern">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -113,15 +113,15 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_FREEZE_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
-                                    <label for="AC_FREEZE_DATE">Freeze Date <sub class="required">*</sub></label>
+                                    <label for="AC_FREEZE_DATE">{{'master.Mark_Freeze_Account.Freeze_Date' | translate}} <sub class="required">*</sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_FREEZE_DATE'].invalid && (angForm.controls['AC_FREEZE_DATE'].dirty || angForm.controls['AC_FREEZE_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['AC_FREEZE_DATE'].errors?.pattern || angForm.controls['AC_FREEZE_DATE'].errors?.required">
-                                    This field is required and Input allowed only 0-9
+                                <div>
+                                   <!-- <div *ngIf="angForm.controls['AC_FREEZE_DATE'].errors?.pattern || angForm.controls['AC_FREEZE_DATE'].errors?.required"> -->
+                                    <!-- This field is required and Input allowed only 0-9 -->{{'master.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -132,10 +132,10 @@
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="To" class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        id="AC_FREEZE_REASON" pattern="^[A-Za-z\./ -]+$" maxlength="4000"
+                                        id="AC_FREEZE_REASON"  maxlength="4000"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="AC_FREEZE_REASON">
-                                    <label for="AC_FREEZE_REASON">Remark <sub class="required">*</sub></label>
+                                    <label for="AC_FREEZE_REASON">{{'master.Mark_Freeze_Account.Remark' | translate}} <sub class="required">*</sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -143,17 +143,17 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_FREEZE_REASON'].errors?.pattern || angForm.controls['AC_FREEZE_REASON'].errors?.maxlength || angForm.controls['AC_FREEZE_REASON'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
-                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>&nbsp;
+                                *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">{{'master.Action.Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>

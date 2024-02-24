@@ -20,6 +20,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -143,7 +144,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     private acMasterDropdownService: ACMasterDropdownService,
     public disputLoanSchemeService: DisputLoanSchemeService,
     private fb: FormBuilder, private http: HttpClient,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -197,54 +198,39 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
 
         },
         {
-          title: 'Type',
+          title: this.translate.instant('Utility.Utility1.Type'),
           data: 'S_ACNOTYPE',
 
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
           data: 'S_APPL',
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Utility1.Description'),
           data: 'S_NAME',
         },
         {
-          title: 'Short Name',
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
           data: 'S_SHNAME',
         },
         {
-          title: 'GL Account Number',
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
           data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL Account',
+          title: this.translate.instant('Utility.Utility1.Interest_GL_Acc'),
           data: 'S_INT_ACNO',
         },
         {
-          title: 'Receivable Interest Account',
+          title:  this.translate.instant('Utility.Utility1.Rece_Interest_Acc'),
           data: 'S_RECBL_PYBL_INT_ACNO',
         },
-        {
-          title: 'Penal Interest Account',
-          data: 'S_PENAL_ACNO',
-        },
-        {
-          title: 'Recble Penal Interest Account',
-          data: 'S_RECBL_PENAL_ACNO',
-        },
-        {
-          title: 'Recble Overdue Interest',
-          data: 'S_RECBL_ODUE_INT_ACNO',
-        },
-        {
-          title: 'Outstanding Interest Account',
-          data: 'S_OUTSTANDING_INT_ACNO',
-        },
+        
         // {
         //   title: 'Loan Type'
         // },
@@ -495,7 +481,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
 
     }
     this.disputLoanSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -586,7 +572,7 @@ export class DisputLoanSchemeComponent implements OnInit, AfterViewInit, OnDestr
     data['IS_INT_ON_RECINT'] = (data.IS_INT_ON_RECINT == true ? '1' : '0')
     data['IS_INT_ON_OTHERAMT'] = (data.IS_INT_ON_OTHERAMT == true ? '1' : '0')
     this.disputLoanSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

@@ -6,11 +6,13 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { glTypeService } from '../../../../shared/elements/gl-type.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { ReportTMasterDropdownService } from 'src/app/shared/dropdownService/report-type-master-dropdown.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-master.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -19,7 +21,15 @@ import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-maste
     DataTablesModule,
     NgbModule,
     FormsModule, ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [GlReportMasterComponent],
   
@@ -30,3 +40,6 @@ import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-maste
   },]
 })
 export class GlReportMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

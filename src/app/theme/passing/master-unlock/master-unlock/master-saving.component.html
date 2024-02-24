@@ -2,22 +2,22 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Master Unlock</h5>
+        <h5>{{'master.Master_Unlock.Title' | translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
         </h6>
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
           <div class="row">
-            <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch Code<sub class="required">*</sub></label>
+            <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">{{'master.Master_Unlock.Branch_Code' | translate}}<sub class="required">*</sub></label>
             </div>
             <div class="col-sm-12 col-md-3">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                     formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                    [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)" placeholder="Branch"
+                    [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)" placeholder="{{'master.All.Branch' | translate}}"
                     #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' autofocus>
                     <ng-option *ngFor="let values of branchOption" [value]="values">
                       {{values.label}}</ng-option>
@@ -29,17 +29,17 @@
                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                  This field is required.
+                  <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme Code<sub class="required">*</sub></label></div>
+            <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">{{'master.Master_Unlock.Scheme_Code' | translate}}<sub class="required">*</sub></label></div>
             <div class="col-sm-12 col-md-4">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme" formControlName="AC_TYPE"
                     bindLabel="label" (change)="schemechange($event)" [virtualScroll]="true"
-                    title="Compulsory Selection" required placeholder="Scheme Code" #AC_TYPE (focus)="onFocus(AC_TYPE)"
+                    title="Compulsory Selection" required placeholder="{{'master.Master_Unlock.Scheme_Code' | translate}}" #AC_TYPE (focus)="onFocus(AC_TYPE)"
                     [selectOnTab]='true'>
                     <ng-option *ngFor="let values of scheme" [value]="values">
                       {{values.id}} {{values.label}}</ng-option>
@@ -51,20 +51,20 @@
                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                  This field is required.
+                  <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12 col-md-2"> <label for="FROM_AC">From Account Number<sub
+            <div class="col-sm-12 col-md-2"> <label for="FROM_AC">{{'master.Master_Unlock.From_Account_Number' | translate}}<sub
                   class="required">*</sub></label></div>
             <div class="col-sm-12 col-md-4">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="FROM_AC" bindValue="AC_NO" [(ngModel)]="ngfromac" formControlName="FROM_AC"
                     bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="From A/C" #FROM_AC
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Master_Unlock.From_A/C' | translate}}" #FROM_AC
                     (focus)="onFocus(FROM_AC)" [selectOnTab]='true'>
                     <ng-option *ngFor="let values of fromAC" [value]="values">
                       {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -76,19 +76,19 @@
                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                  This field is required.
+                  <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
 
-            <div class="col-sm-12 col-md-2"> <label for="TO_AC">To Account Number<sub class="required">*</sub></label>
+            <div class="col-sm-12 col-md-2"> <label for="TO_AC">{{'master.Master_Unlock.To_Account_Number' | translate}}<sub class="required">*</sub></label>
             </div>
             <div class="col-sm-12 col-md-4">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select appTheme id="TO_AC" bindValue="AC_NO" [(ngModel)]="ngtoac" formControlName="TO_AC"
                     bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To A/C" #TO_AC
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Master_Unlock.To_A/C' | translate}}" #TO_AC
                     (focus)="onFocus(TO_AC)" [selectOnTab]='true'>
                     <ng-option *ngFor="let values of ToAC" [value]="values">
                       {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
@@ -100,7 +100,7 @@
                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                  This field is required.
+                  <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -111,14 +111,14 @@
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input class="border-checkbox" type="checkbox" id="ADDDEADSTOCK" formControlName="ADDDEADSTOCKFLAG"
                     (change)="addDeadstockmaster()">
-                  <label class="border-checkbox-label" for="ADDDEADSTOCK">Add deadstock account<span class="required">
+                  <label class="border-checkbox-label" for="ADDDEADSTOCK">{{'master.Master_Unlock.Add_Deadstock_account' | translate}}<span class="required">
                     </span></label>
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" appTheme
-                (click)="unlockFun();BRANCH_CODE.focus()">Unlock</button>
+                (click)="unlockFun();BRANCH_CODE.focus()">{{'master.Action.Unlock' | translate}}</button>
             </div>
           </div>
         </div>

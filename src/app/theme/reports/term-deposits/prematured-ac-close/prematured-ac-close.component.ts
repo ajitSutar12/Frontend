@@ -20,6 +20,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -62,8 +63,11 @@ maxDate: Date;
     private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+    private translate:TranslateService
    
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -184,7 +188,7 @@ this.systemParameter.getFormData(1).subscribe(data => {
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
   }
   }
   close(){

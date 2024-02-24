@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
 import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -87,9 +88,10 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   isDisableMonth: boolean = false
   isDisableDay: boolean = false
 
-  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,) {
+  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,private translate:TranslateService) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.translate.setDefaultLang('ma')
   }
 
   ngOnInit(): void {
@@ -142,15 +144,13 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          data: 'EFFECT_DATE',
-          title: 'Effect Date'
+          title: this.translate.instant('master.NPA_Classification_Master.Effictive_Date'),
         },
         {
-          data: 'NPA_BASE_DAYS',
-          title: 'Base Days'
+          title: this.translate.instant('master.NPA_Classification_Master.Base_days'),
         }
       ],
       dom: "Blrtip",
@@ -220,7 +220,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //checks percentage of secured
   checkPercent(event) {
     if (Number(event) > 100) {
-      Swal.fire('Info', 'Please Input percentage upto 100', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, 'info')
       this.angForm.patchValue({
         SECURED_PERCENT: '0.00'
       })
@@ -229,7 +229,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //checks percentage of unsecured
   checkUnsecurePercent(event) {
     if (Number(event) > 100) {
-      Swal.fire('Info', 'Please Input percentage upto 100', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, 'info')
       this.angForm.patchValue({
         UNSECURED_PERCENT: '0.00'
       })
@@ -283,7 +283,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //compare from and to Days
   compareDays() {
     if (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value)) {
-      Swal.fire('Info', 'To Days Must Greater Than From Days', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.From_Months')}`, 'info')
       this.angForm.patchValue({
         TO_DAYS: ''
       })
@@ -292,7 +292,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //compare from and to Month
   compareMonths() {
     if (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value)) {
-      Swal.fire('Info', 'To Months Must Greater Than From Months', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.From_Months')}`, 'info')
       this.angForm.patchValue({
         TO_MONTHS: ''
       })
@@ -511,7 +511,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
         };
         this.npaservice.postData(dataToSend).subscribe(
           (data) => {
-            Swal.fire("Success!", "Data Added Successfully !", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
             // to reload after insertion of data
             // this.rerender();
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -526,7 +526,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
         this.multiField = []
       }
       else {
-        Swal.fire('Info', 'Please Add NPA Classification Details', 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.NPA_Classification')}`, 'info')
       }
     }
   }
@@ -557,7 +557,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
     }
     data['MultiField'] = this.multiField
     this.npaservice.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -596,16 +596,14 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -637,6 +635,9 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
+
 
 }

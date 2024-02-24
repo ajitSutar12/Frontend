@@ -2,22 +2,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Data Backup</h5>
+                <h5>{{'Utility.Utility1.Data_Backup' | translate}}</h5>
             </div>
             <form>
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12">
                             <button type="button" class="btn btn-outline-primary btn-sm" style="float: left;"
-                                *ngIf="showButton" (click)="download()">Prepare File to
-                                Download</button>
+                                *ngIf="showButton" (click)="download()">{{'Utility.Utility1.Prepare_File' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <a [href]="fileUrl" download *ngIf="showDButton"> <button type="button"
                                     class="btn btn-outline-primary btn-sm" style="float: left;">
-                                    Download File
+                                    {{'Utility.Utility1.Download_File' | translate}}
                                 </button></a>
                         </div>
                     </div>

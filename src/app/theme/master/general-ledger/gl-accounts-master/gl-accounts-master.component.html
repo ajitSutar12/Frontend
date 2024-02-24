@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Account Master</h5>
+                <h5>{{'master.Account_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NO" class="form-control" placeholder=" " id="AC_NO"
                                         formControlName="AC_NO" disabled>
-                                    <label for="AC_NO">General Ledger Code</label>
+                                    <label for="AC_NO">{{'master.Account_Master.General_Ledger_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                                     <input type="text" name="AC_TYPE" class="form-control" placeholder=" " id="AC_NAME"
                                         #autofocus required maxlength="250"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_NAME">
-                                    <label for="AC_NAME">General Ledger Name<sub class="required">*
+                                    <label for="AC_NAME">{{'master.Account_Master.General_Ledger_Name' | translate}}<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
@@ -34,7 +34,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf=" angForm.controls['AC_NAME'].errors?.required || angForm.controls['AC_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [(ngModel)]="ngBranchCode" name="AC_CODE" formControlName="AC_CODE"
                                     (change)="getAccountList($event)" [selectOnTab]="true" [searchable]="true"
-                                    placeholder="Select State of Origin" bindvalue="id" bindLable="head_name">
+                                    placeholder="{{'master.Account_Master.Select_State_of_Origin' | translate}}" bindvalue="id" bindLable="head_name">
                                     <ng-option *ngFor="let item of role" [value]="item">
                                         {{item.head_name}}</ng-option>
                                 </ng-select>
@@ -53,7 +53,7 @@
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <ng-select [(ngModel)]="selectedStatementcode" formControlName="AC_BCD"
-                                    [selectOnTab]="true" [searchable]="true" placeholder="Statement code"
+                                    [selectOnTab]="true" [searchable]="true" placeholder="{{'master.Account_Master.Statement_code' | translate}}"
                                     bindvalue="gl_code" bindLable="head_name">
 
                                     <ng-option *ngFor="let item of scheme" [value]="item">
@@ -65,7 +65,7 @@
                                 *ngIf="angForm.controls['AC_BCD'].invalid && (angForm.controls['AC_BCD'].dirty || angForm.controls['AC_BCD'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_BCD'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -124,11 +124,11 @@
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm" (click)="submit()" *ngIf="showButton"
-                                [disabled]="angForm.invalid">Add</button>
+                                [disabled]="angForm.invalid">{{'master.Action.Add' | translate}}</button>
                             <button class="btn btn-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Action.Update' | translate}}</button>&nbsp;
                             <button class="btn btn-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.Action.Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>

@@ -2,14 +2,14 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Loan Installment Enquiry</h5>
-        <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+        <h5>{{'master.Other_View.Loan_Installment_Enquiry' | translate}}</h5>
+        <h6 style="float: right;"><sub class="required">* </sub>: {{'master.Action.F2' | translate}}</h6>
       </div>
       <form [formGroup]="angForm" novalidate>
         <div class="card-block">
           <div class="row">
             <div class="col-sm-12 col-md-2"> <label for="Loan">
-                Loan Amount<sub class="required">*</sub></label></div>
+              {{'master.Other_View.Loan_Ammount' | translate}}<sub class="required">*</sub></label></div>
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -23,13 +23,13 @@
                 *ngIf="angForm.controls['LOANAMT'].invalid && (angForm.controls['LOANAMT'].dirty || angForm.controls['LOANAMT'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['LOANAMT'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
 
             </div>
             <div class="col-sm-12 col-md-2"> <label for="Period">
-                Period in Months<sub class="required">*</sub></label></div>
+              {{'master.Other_View.Period_in_Months' | translate}}<sub class="required">*</sub></label></div>
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -41,7 +41,7 @@
                 *ngIf="angForm.controls['NOOFINST'].invalid && (angForm.controls['NOOFINST'].dirty || angForm.controls['NOOFINST'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['NOOFINST'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
 
@@ -49,13 +49,13 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Repayment Mode</label>
+            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'master.Other_View.Repayment_Mode' | translate}}</label>
             </div>
             <div class="col-sm-2">
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
                   <ng-select id="AC_REPAYMODE" bindValue="value" [(ngModel)]="repay" formControlName="AC_REPAYMODE"
-                    bindLabel="label" title="Compulsory Selection" required placeholder="Repay Mode" (change)="checkPeriod()">
+                    bindLabel="label" title="Compulsory Selection" required placeholder="{{'master.Other_View.Repay_Mode' | translate}}" (change)="checkPeriod()">
                     <ng-option *ngFor="let values of repayModeOption" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -67,11 +67,11 @@
                 *ngIf="angForm.controls['AC_REPAYMODE'].invalid && (angForm.controls['AC_REPAYMODE'].dirty || angForm.controls['AC_REPAYMODE'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_REPAYMODE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Installment Type</label>
+            <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">{{'master.Other_View.Installment_Type' | translate}}</label>
             </div>
 
             <div class="col-sm-2">
@@ -79,7 +79,7 @@
                 <span class="border-lable-flt">
                   <ng-select id="INSTALLMENT_METHOD" bindValue="value" [(ngModel)]="installmentType"
                     formControlName="INSTALLMENT_METHOD" bindLabel="label" title="Compulsory Selection" required
-                    placeholder="Installment Type">
+                    placeholder="{{'master.Other_View.Installment_Type' | translate}}">
                     <ng-option *ngFor="let values of installment" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
@@ -91,13 +91,13 @@
                 *ngIf="angForm.controls['INSTALLMENT_METHOD'].invalid && (angForm.controls['INSTALLMENT_METHOD'].dirty || angForm.controls['INSTALLMENT_METHOD'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['INSTALLMENT_METHOD'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
 
 
-            <div class="col-sm-12 col-md-2"><label for="insta">Interest Rate %</label>
+            <div class="col-sm-12 col-md-2"><label for="insta">{{'master.Other_View.Interest_Rate' | translate}} %</label>
             </div>
             <div class="col-md-2">
               <div class="form-group input-group">
@@ -112,7 +112,7 @@
                 *ngIf="angForm.controls['INT_RATE'].invalid && (angForm.controls['INT_RATE'].dirty || angForm.controls['INT_RATE'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['INT_RATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@
             </div>-->
 
 
-            <div class="col-md-2"><label for="amount">Installment Amount<sub class="required">*</sub></label></div>
+            <div class="col-md-2"><label for="amount">{{'master.Other_View.Installment_Amount' | translate}}<sub class="required">*</sub></label></div>
             <div class="col-md-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
@@ -155,15 +155,15 @@
                 *ngIf="angForm.controls['INSTALLMENTS'].invalid && (angForm.controls['INSTALLMENTS'].dirty || angForm.controls['INSTALLMENTS'].touched)"
                 class="alert alert-danger">
                 <div *ngIf="angForm.controls['INSTALLMENTS'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
             <div class="col-md-4"></div>
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-outline-primary btn-sm" (click)="Process()">View</button>
-                <button class="btn btn-outline-primary btn-sm" (click)="close()">close</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="Process()">{{'master.Action.View' | translate}}</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close' | translate}}</button>
               </div>
             </div>
 

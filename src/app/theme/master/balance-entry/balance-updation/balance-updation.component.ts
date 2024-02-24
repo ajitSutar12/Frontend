@@ -19,6 +19,7 @@ import * as moment from 'moment';
 import { __asyncDelegator } from 'tslib';
 
 import { NgSelectComponent } from '@ng-select/ng-select'
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -149,8 +150,9 @@ export class BalanceUpdationComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private config: NgSelectConfig,) {
-
+    private config: NgSelectConfig,
+     private translate:TranslateService) {
+      this.translate.setDefaultLang(environment.setLang)
 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -641,13 +643,13 @@ export class BalanceUpdationComponent implements OnInit {
     var memFrom = this.angForm.controls['FROM_AC'].value
     var memTo = this.angForm.controls['TO_AC'].value
     if (this.angForm.controls['TRAN_DATE'].value == '' || this.angForm.controls['TRAN_DATE'].value == null) {
-      Swal.fire('Warning', 'Please select balance date', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Bal1')}`, 'warning')
     }
     else if (this.angForm.controls['FROM_AC'].value == '' || this.angForm.controls['FROM_AC'].value == null) {
-      Swal.fire('Warning', 'Please select from account number', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Bal2')}`, 'warning')
     }
     else if (this.angForm.controls['TO_AC'].value == '' || this.angForm.controls['TO_AC'].value == null) {
-      Swal.fire('Warning', 'Please select to account number', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Bal3')}`, 'warning')
     }
     else {
       if (this.angForm.controls['FROM_AC'].value <= this.angForm.controls['TO_AC'].value && this.angForm.controls['TO_AC'].value != '') {
@@ -697,7 +699,7 @@ export class BalanceUpdationComponent implements OnInit {
 
       }
       else {
-        Swal.fire("Must Select To Account Number");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Bal4')}`);
         this.angForm.patchValue({
           TO_AC: ''
         })
@@ -907,7 +909,7 @@ export class BalanceUpdationComponent implements OnInit {
       };
       this._service.postData(dataToSend).subscribe(data => {
         this.formSubmitted = false;
-        Swal.fire("Success!", "Data Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
 
       })
 
@@ -932,8 +934,8 @@ export class BalanceUpdationComponent implements OnInit {
   //function for delete button clicked
   delClickHandler() {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Bal5')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -942,16 +944,16 @@ export class BalanceUpdationComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.Bal6')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.Bal7')}`,
           'error'
         )
       }
@@ -1010,6 +1012,12 @@ export class BalanceUpdationComponent implements OnInit {
 
   onClose(select: NgSelectComponent) {
     select.close()
+  }
+
+  //translate
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
+
   }
 
 }

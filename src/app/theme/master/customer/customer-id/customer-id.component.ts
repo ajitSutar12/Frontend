@@ -36,6 +36,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from "@ngx-translate/core";
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -220,8 +221,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public router: Router,
     public sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
+    // private language:LanguageService
+    private translate:TranslateService
 
   ) {
+    this.translate.setDefaultLang(environment.setLang);
+
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -300,55 +305,55 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: " Customer ID",
+          title: this.translate.instant('master.Customer_Id.Customer_id'),
           data: "AC_NO",
         },
         {
-          title: "Member Number",
+          title: this.translate.instant('master.Customer_Id.Member_Number'),
           data: "AC_MEMBNO",
         },
         {
-          title: "Member Scheme",
+          title: this.translate.instant('master.Customer_Id.Member_Scheme'),
           data: "AC_MEMBTYPE",
         },
 
         {
-          title: "Full Name",
+          title: this.translate.instant('master.Customer_Id.Full_Name'),
           data: "AC_NAME",
         },
         {
-          title: "Cast",
+          title: this.translate.instant('master.Customer_Id.cast'),
           data: "AC_CAST",
         },
         {
-          title: "Occupation",
+          title: this.translate.instant('master.Customer_Id.Occupation'),
           data: "AC_OCODE",
         },
         {
-          title: "Risk Category",
+          title: this.translate.instant('master.Customer_Id.Risk_Category'),
           data: "AC_RISKCATG",
         },
         {
-          title: "Adhar Card Number",
+          title: this.translate.instant('master.Customer_Id.Ad_No'),
           data: "AC_ADHARNO",
         },
         {
-          title: "PAN Number",
+          title: this.translate.instant('master.Customer_Id.Pan_No'),
           data: "AC_PANNO",
         },
         {
-          title: "Birth Date",
+          title: this.translate.instant('master.Customer_Id.Birth_Date'),
           data: "AC_BIRTH_DT",
         },
         {
-          title: "Mobile Number",
+          title: this.translate.instant('master.Customer_Id.Mobile_Number'),
           data: "AC_MOBILENO",
         },
         {
-          title: "Email ID",
+          title: this.translate.instant('master.Customer_Id.Eml'),
           data: "AC_EMAILID",
         },
       ],
@@ -475,11 +480,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_ADHARNO: ["", [Validators.pattern]],
       AC_RISKCATG: [""],
       AC_BIRTH_DT: ["", [Validators.required]],
-      AC_HONO: ["", [Validators.pattern]],
-      AC_WARD: ["", [Validators.pattern]],
-      AC_ADDR: ["", [Validators.pattern]],
-      AC_GALLI: ["", [Validators.pattern]],
-      AC_AREA: ["", [Validators.pattern]],
+      AC_HONO: ["", []],
+      AC_WARD: ["", []],
+      AC_ADDR: ["", []],
+      AC_GALLI: ["", []],
+      AC_AREA: ["", []],
       AC_CTCODE: ["", [Validators.required]],
       AC_PIN: ["", [Validators.pattern]],
       AC_SALARYDIVISION_CODE: [""],
@@ -572,7 +577,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         (data) => {
           Swal.fire({
             icon: 'success',
-            title: 'Account Created successfully!',
+            title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
             html:
               '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
               '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>'
@@ -602,7 +607,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.imageObject = []
 
     } else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
 
   }
@@ -614,7 +619,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
       let date = moment(this.datemax).format('DD/MM/YYYY');
       if (data < date) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, "warning");
         (document.getElementById("AC_BIRTH_DT") as HTMLInputElement).value = "";
         this.myInputField.nativeElement.focus('AC_BIRTH_DT');
       }
@@ -625,7 +630,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   disablesubdate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Valid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, "warning");
         (document.getElementById("SUBMIT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -703,7 +708,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     //check  if given value  is below 100
     if (ele <= 50) {
     } else {
-      Swal.fire("Invalid Input", "Please insert values below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Valid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       this.angForm.patchValue({
         TDS_RATE: 0
       })
@@ -725,7 +730,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     let date = new Date().getFullYear() + 1;
     let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
     if (result > date) {
-      Swal.fire("Warning!", "please enter valid Year ", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Valid_Year')}`, "warning");
       (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
     }
     else {
@@ -887,7 +892,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               if (id.id != this.updateID) {
                 Swal.fire({
                   icon: 'info',
-                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.AC_NO,
+                  title: `${this.translate.instant('Swal_Msg.Adhar')}`+ id.AC_NO,
                 })
                 // this.angForm.controls['AC_ADHARNO'].reset();
               }
@@ -903,7 +908,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               if (id.AC_NO != this.angForm.controls['AC_NO'].value) {
                 Swal.fire({
                   icon: 'info',
-                  title: 'This Customer is Already Exists Having Customer ID ' + id.AC_NO
+                  title: `${this.translate.instant('Swal_Msg.Cust')}` + id.AC_NO
                 })
                 this.resetForm();
               }
@@ -918,7 +923,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     data['FIN_YEAR'] = this.ngfinyear
     this.customerIdService.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -936,8 +941,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete Authority master data.",
+      title:`${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Authority')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -947,7 +952,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       if (result.isConfirmed) {
         this.customerIdService.deleteData(id).subscribe((data1) => {
           this.customerMaster = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -955,7 +960,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -1082,7 +1087,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       const fileSize = selectedFile.size; // in bytes
       const maxSize = 2 * 1024 * 1024; // 2MB (adjust as needed)
       if (fileSize > maxSize) {
-        Swal.fire('Info', 'File size exceeds the maximum allowed size(2 MB).', 'info');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`,`${this.translate.instant('Swal_Msg.Exceede')}` , 'info');
         // Clear the file input to prevent submission
         event.target.value = null;
       }
@@ -1266,8 +1271,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         if (data.find(data => data['AC_NAME'] == ac_name?.toUpperCase())) {
           let id = data.find(data => data['AC_NAME'] == ac_name?.toUpperCase())
           Swal.fire({
-            title: "Are you sure?",
-            text: "This Customer is Already Exists Having Customer ID " + id.AC_NO,
+            title: `${this.translate.instant('Swal_Msg.Sure')}`,
+            text: `${this.translate.instant('Swal_Msg.Cust')}` + id.AC_NO,
             //   html:
             // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
@@ -1318,7 +1323,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
                 let id = data.find(data => data['AC_ADHARNO'] == this.angForm.controls['AC_ADHARNO'].value)
                 Swal.fire({
                   icon: 'info',
-                  title: 'This Aadhar Number is Already Extists Having Customer ID ' + id.AC_NO,
+                  title: `${this.translate.instant('Swal_Msg.Adhar')}` + id.AC_NO,
                 })
                 this.angForm.controls['AC_ADHARNO'].reset();
               }
@@ -1333,7 +1338,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (id.AC_NO != this.angForm.controls['AC_NO'].value) {
                   Swal.fire({
                     icon: 'info',
-                    title: 'This Customer is Already Exists Having Customer ID ' + id.AC_NO
+                    title: `${this.translate.instant('Swal_Msg.Cust')}` + id.AC_NO
                   })
                   this.resetForm();
                 }
@@ -1354,8 +1359,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           if (data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)) {
             let id = data.find(data => data['AC_PANNO'] == this.angForm.controls['AC_PANNO'].value)
             Swal.fire({
-              title: "Are you sure?",
-              text: "This Pan Number is Already Exists Having Customer ID " + id.AC_NO,
+              title: `${this.translate.instant('Swal_Msg.Sure')}`,
+              text: `${this.translate.instant('Swal_Msg.Pan')}` + id.AC_NO,
               //   html:
               // '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
               // '<b>ACCOUNT NO : </b>' + data.AC_NO + '<br>',
@@ -1388,17 +1393,17 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   validation(event) {
     if (event != (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {
-      Swal.fire("Warning!", "Please Insert Alphabets Only", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Alphabet')}`, "warning");
     }
   }
   numvalidation(event) {
     if (event == (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)) {
-      Swal.fire("Warning!", "Please Insert Numbers Only", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Num_Only')}`, "warning");
     }
   }
   panvalidation(event) {
     if (event == (event.charCode >= 97 && event.charCode <= 122)) {
-      Swal.fire("Warning!", "Please Insert Numbers and Captital Alphabets Only", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Num_Alpha')}`, "warning");
     }
   }
 

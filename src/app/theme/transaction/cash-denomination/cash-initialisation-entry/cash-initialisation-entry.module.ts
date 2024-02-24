@@ -5,11 +5,13 @@ import {CashInitialisationEntryComponent } from './cash-initialisation-entry.com
 import { CashInitialisationEntryRoutingModule } from './cash-initialisation-entry-routing.module';
 import {DataTablesModule} from 'angular-datatables';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
@@ -18,7 +20,14 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   
   ],
   declarations: [CashInitialisationEntryComponent],
@@ -29,3 +38,6 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
   },]
 })
 export class CashInitialisationEntryModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

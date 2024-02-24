@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-n-balance-sheet',
@@ -34,7 +35,10 @@ export class NBalanceSheetComponent implements OnInit {
   // errorMessage: string = '';
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private sanitizer: DomSanitizer,) {
+    private sanitizer: DomSanitizer,    private translate:TranslateService
+    ) {
+      this.translate.setDefaultLang(environment.setLang) ;
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -96,7 +100,7 @@ export class NBalanceSheetComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

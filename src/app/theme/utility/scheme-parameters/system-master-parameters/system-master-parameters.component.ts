@@ -31,6 +31,7 @@ import { environment } from '../../../../../environments/environment';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { nullSafeIsEquivalent, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -296,7 +297,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
     public selectOptionService: SelectOptionService,
     public systemMasterParametersService: SystemMasterParametersService,
     private fb: FormBuilder,
-    private config: NgSelectConfig) {
+    private config: NgSelectConfig,private translate:TranslateService) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -362,7 +363,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm">Edit</button>' + ' ' + '<button class="btn btn-outline-primary btn-sm">Delete</button>';
           }
@@ -372,36 +373,36 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         //   data: 'SYSPARA_CODE'
         // },
         {
-          title: 'Bank Code',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Code'),
           data: 'BANK_CODE'
         }, {
-          title: 'Bank Name',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Name'),
           data: 'BANK_NAME'
         }, {
-          title: 'Branch Code',
+          title: this.translate.instant('Utility.System_Master_Parameters.Branch_Code'),
           data: 'BRANCH_CODE'
         }, {
-          title: 'Bank Address',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Add'),
           data: 'ADDRESS'
         }, {
-          title: 'Bank Start Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Bank_Start_date'),
           data: 'COMPANY_START_DATE'
         },
 
         {
-          title: 'Previous Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Previous_Date'),
           data: 'PREVIOUS_DATE'
         }, {
-          title: 'Current Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Current_Date'),
           data: 'CURRENT_DATE'
         },
 
         {
-          title: ' Pigmy Previous Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Pigmy_Previous_Date'),
           data: 'PIGMY_PREVIOUS_DATE'
         },
         {
-          title: 'Pigmy Current Date',
+          title: this.translate.instant('Utility.System_Master_Parameters.Pigmy_Current_Date'),
           data: 'PIGMY_CURRENT_DATE'
         },
 
@@ -842,7 +843,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
 
 
     this.systemMasterParametersService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -1098,7 +1099,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
       (data.PIGMY_CURRENT_DATE == 'Invalid date' || data.PIGMY_CURRENT_DATE == '' || data.PIGMY_CURRENT_DATE == null) ? (ngpigmycurrentdate = '', data['PIGMY_CURRENT_DATE'] = ngpigmycurrentdate) : (ngpigmycurrentdate = data.PIGMY_CURRENT_DATE, data['PIGMY_CURRENT_DATE'] = moment(ngpigmycurrentdate).format('DD/MM/YYYY'))
     }
     this.systemMasterParametersService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1158,8 +1159,8 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete bank master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text:`${this.translate.instant('Swal_Msg.bank_master_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1170,8 +1171,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         this.systemMasterParametersService.deleteData(id).subscribe(data1 => {
           this.systemParameters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1183,8 +1183,7 @@ export class SystemMasterParametersComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

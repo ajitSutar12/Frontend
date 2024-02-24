@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -43,8 +44,12 @@ export class BnkRegInterestInstructionComponent implements OnInit {
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService
+    private systemParameter:SystemMasterParametersService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -135,7 +140,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
       // let ageCaldate
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
     }
   }
 

@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>NPA Classification - Secured or Unsecured</h5>
+                <h5>{{'master.Report_NPA_Registration.T7'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}}
                 </h6>
             </div>
             <div class="card">
@@ -12,7 +12,7 @@
                     <div class="card-block">
                         <div class="row">
         
-                            <div class="col-md-1"> <label for="START_DATE"> Date<sub
+                            <div class="col-md-1"> <label for="START_DATE"> {{'master.Report_NPA_Registration.Date'|translate}}<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -31,7 +31,7 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                        This field is required.
+                                        <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                         <div class="border-checkbox-group border-checkbox-group-primary">
                                             <input type="checkbox" class="border-checkbox" id="npa_per"
                                                 formControlName="npa_per">
-                                            <label class="border-checkbox-label" for="npa_per">Print NPA Standard Class Accounts ?
+                                            <label class="border-checkbox-label" for="npa_per">{{'master.Report_NPA_Registration.Print_Class'|translate}}
                                                 </label>
                                         </div>
                                     </div>
@@ -55,18 +55,18 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event)">View</button>
+                                    (click)="view($event)">{{'master.Action.View'|translate}}</button>
 
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close'|translate}}</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>{{'master.Report_NPA_Registration.Report_Frame'|translate}}</h5>
                                     </div>
                                     <div *ngIf="showRepo">
                                         <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>

@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // import { DeadStockTransactionService } from '../dead-stock-transaction/dead-stock-transaction.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-dead-stock-depreciation',
   templateUrl: './dead-stock-depreciation.component.html',
@@ -46,7 +47,7 @@ export class DeadStockDepreciationComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
-    private _ownbranchmasterservice: OwnbranchMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -65,6 +66,7 @@ export class DeadStockDepreciationComponent implements OnInit {
       this.branchOption = data;
       this.selectedBranch = user.branchId;
     });
+    this.translate.setDefaultLang(environment.setLang);
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -101,11 +103,11 @@ export class DeadStockDepreciationComponent implements OnInit {
             this.http.post(this.url + '/depreciation-process/insert', obj).subscribe(data => {
               this.ngOnInit()
               Swal.fire(
-                'Success', 'Deadstock depreciation processed successfully', 'success'
+                `${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.successfully')}`, 'success'
               );
             })
           } else {
-            Swal.fire("Success!", "Process Cancelled!", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Process_Cancelled')}`, "success");
           }
         })
       }
@@ -113,7 +115,7 @@ export class DeadStockDepreciationComponent implements OnInit {
         this.http.post(this.url + '/depreciation-process/insert', obj).subscribe(data => {
           this.ngOnInit()
           Swal.fire(
-            'Success', 'Deadstock depreciation processed successfully', 'success'
+            `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.successfully')}`, 'success'
           );
         })
       }
@@ -122,6 +124,9 @@ export class DeadStockDepreciationComponent implements OnInit {
 
   Cancel() {
     this.ngOnInit()
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }
 

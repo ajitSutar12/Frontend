@@ -11,6 +11,7 @@ import { NarrationService } from './narration.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,9 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private http: HttpClient,
     private narrationService: NarrationService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translate:TranslateService) {
+      
   }
 
   ngOnInit(): void {
@@ -130,19 +133,20 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Naration_Master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Narration',
+          title:this.translate.instant('master.Naration_Master.Narration'),
           data: 'NARRATION',
         }
       ],
       dom: 'Blrtip',
     }; 
   }
+
   // Method to handle validation of form
   createForm() {
     this.angForm = this.fb.group({
@@ -163,7 +167,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         'NARRATION': formVal.NARRATION,
       }
       this.narrationService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Narration Detail Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Narration_Successfully')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -201,7 +205,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.narrationService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Narration Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Narration_Successfully')}`, 'success');
       this.showButton = true;
       this.updateShow = false;6
       this.newbtnShow = false;
@@ -215,8 +219,8 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.narration_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -227,8 +231,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         this.narrationService.deleteData(id).subscribe(data1 => {
           // this.narrations = data1;
           Swal.fire(
-            'Deleted!',
-            'Your Narration data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -240,8 +243,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your Narration data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

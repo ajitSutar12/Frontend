@@ -2,21 +2,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Standing Instructions Execution List (Failure/Success)</h5>
+                <h5>{{'master.Standing_Instructions.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
 
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-2"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-md-2"> <label for="scheme">{{'master.Standing_Instructions.Branch' | translate}} <sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                        formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
+                                        formControlName="BRANCH_CODE" bindLabel="label" placeholder="{{'master.Standing_Instructions.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -27,30 +27,30 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['BRANCH_CODE'].errors?.required ||angForm.controls['BRANCH_CODE'].errors?.pattern">
-                                    This is required field
+                                    <!-- This is required field -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"><label for="status">Status</label></div>
+                        <div class="col-md-2"><label for="status">{{'master.Standing_Instructions.Status' | translate}}</label></div>
                         <div class="col-md-2">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="RADIO" value="success" formControlName="RADIO" [checked]="true">
-                                        <i class="helper"></i>Success</label>
+                                        <i class="helper"></i>{{'master.Standing_Instructions.Success' | translate}}</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="RADIO" value="failure" formControlName="RADIO">
-                                        <i class="helper"></i>Failure</label>
+                                        <i class="helper"></i>{{'master.Standing_Instructions.Failure' | translate}}</label>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"><label for="SORT">Sort On<sub class="required">* </sub></label></div>
+                        <div class="col-md-2"><label for="SORT">{{'master.Standing_Instructions.Sort_On' | translate}}<sub class="required">* </sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="sorton" formControlName="SORT" placeholder="Sort on"
+                                    <ng-select [(ngModel)]="sorton" formControlName="SORT" placeholder="{{'master.Standing_Instructions.Sort_On' | translate}}"
                                         required>
                                         <ng-option *ngFor="let type of sort" [value]="type.name">{{ type.value }}
                                         </ng-option>
@@ -62,13 +62,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SORT'].errors?.required ||angForm.controls['SORT'].errors?.pattern">
-                                    This is required field
+                                    <!-- This is required field -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub
+                        <div class="col-md-2"> <label for="START_DATE">{{'master.Standing_Instructions.Starting_Date' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
@@ -88,11 +88,11 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="END_DATE">{{'master.Standing_Instructions.Ending_Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -110,7 +110,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['END_DATE'].invalid">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -119,8 +119,8 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="NEWPAGE"
                                         formControlName="NEWPAGE">
-                                    <label class="border-checkbox-label" for="NEWPAGE">Start Scheme on New Page
-                                        ?</label>
+                                    <label class="border-checkbox-label" for="NEWPAGE">{{'master.Standing_Instructions.Strat_Scheme' | translate}}
+                                        </label>
                                 </div>
                             </div>
                         </div>
@@ -130,18 +130,18 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                            (click)="view($event); clicked = true ">View</button>
+                            (click)="view($event); clicked = true ">{{'master.Action.View' | translate}}</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">Close</button>
+                                (click)="close()">{{'master.Action.Close' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Standing_Instructions.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe1 [url]='iframeurl'></app-iframe1>

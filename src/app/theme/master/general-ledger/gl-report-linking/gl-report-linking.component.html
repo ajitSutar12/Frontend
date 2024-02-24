@@ -2,8 +2,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>GL Report Linking</h5>
-                <h6 style="float: right;"><sub class="required">*</sub>Required Fields</h6>
+                <h5>{{'master.GL_Report_Linking.Title' | translate}}</h5>
+                <h6 style="float: right;">{{'master.Action.F1' | translate}}<sub class="required">*</sub>{{'master.Action.F2' | translate}}</h6>
             </div>
             <form [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
@@ -11,14 +11,14 @@
                         <div class="row">
                             
                             <div class="col-md-2">
-                                <label for="glacname">GL Account<sub class="required">*</sub></label>
+                                <label for="glacname">{{'master.GL_Report_Linking.GL_Account' | translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-5">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme [(ngModel)]="ngName" id="AC_NO" bindValue="AC_NO"
                                             bindLabel="label" formControlName="AC_NO" title="Compulsory Selection"
-                                            placeholder="Code Type">
+                                            placeholder="{{'master.GL_Report_Linking.Code_Type' | translate}}">
                                             <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.AC_NO}} {{values.AC_NAME}}
                                             </ng-option>
@@ -29,7 +29,7 @@
                                     *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <label for="EFFECT_DATE">Effect From Date<sub class="required">* </sub></label>
+                                <label for="EFFECT_DATE">{{'master.GL_Report_Linking.Effect_From_Date' | translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -53,13 +53,13 @@
                                     *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                        Enter Valid Date
+                                        <!-- Enter Valid Date -->{{'Utility.Validation.Validate_Date' | translate}}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-2">
-                                <label for="EFFECT_TO_DATE">Effect To Date<sub class="required">* </sub></label>
+                                <label for="EFFECT_TO_DATE">{{'master.GL_Report_Linking.Effect_To_Date' | translate}}<sub class="required">* </sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -75,7 +75,7 @@
                                     *ngIf="angForm.controls['EFFECT_TO_DATE'].invalid && (angForm.controls['EFFECT_TO_DATE'].dirty || angForm.controls['EFFECT_TO_DATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['EFFECT_TO_DATE'].errors?.required">
-                                        Enter Valid Date
+                                        <!-- Enter Valid Date -->{{'Utility.Validation.Validate_Date' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -83,14 +83,14 @@
 
 
                             <div class="col-md-1">
-                                <label for="headName">Head Name<sub class="required">*</sub></label>
+                                <label for="headName">{{'master.GL_Report_Linking.Head_Name' | translate}}<sub class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select bindValue="value" appTheme [(ngModel)]="ngHeadname" id="CODE_TYPE"
                                             bindLabel="NAME" bindValue="id" formControlName="CODE_TYPE"
-                                            title="Compulsory Selection" placeholder="Code Type">
+                                            title="Compulsory Selection" placeholder="{{'master.GL_Report_Linking.Code_Type' | translate}}">
                                             <ng-option *ngFor="let values of headName" [value]="values">
                                                 {{values.CODE}} {{values.NAME}}
                                             </ng-option>
@@ -101,7 +101,7 @@
                                     *ngIf="angForm.controls['CODE_TYPE'].invalid && (angForm.controls['CODE_TYPE'].dirty || angForm.controls['CODE_TYPE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['CODE_TYPE'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
@@ -198,12 +198,12 @@
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
                                 [disabled]="angForm.invalid"
                                     *ngIf="addButton"  >
-                                    Add
+                                    {{'master.Action.Add' | translate}}
                                 </button>
                                 <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
                                 [disabled]="angForm.invalid"
                                     *ngIf="updateButton" >
-                                    Update
+                                    {{'master.Action.Update' | translate}}
                                 </button>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                                                         </tbody>
                                                         <tbody *ngIf="glreportLink?.length == 0">
                                                             <tr>
-                                                                <td colspan="6" class="no-data-available">No data!</td>
+                                                                <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                                             </tr>
                                                         </tbody>
 

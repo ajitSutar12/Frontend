@@ -11,6 +11,7 @@ import { BankService } from './bank-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -83,7 +84,8 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private bankService: BankService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translate:TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -138,22 +140,23 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Bank_Master.Action'),
+          data: 'ACTION'
         },
         {
-          title: 'Bank Code',
+          title:this.translate.instant('master.Bank_Master.Bank_code') ,
           data: 'BANK_CODE'
         },
         {
-          title: 'Bank Name',
+          title: this.translate.instant('master.Bank_Master.Bank_Name'),
           data: 'BANK_NAME'
         },
         {
-          title: 'Bank Short Name',
+          title: this.translate.instant('master.Bank_Master.Bank_short_Name'),
           data: 'BANK_SHORTNAME'
         },
         {
-          title: 'Ledger Code',
+          title: this.translate.instant('master.Bank_Master.Ledger_Code'),
           data: 'LEDGER_CODE'
         },
         {
@@ -169,8 +172,8 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
       BANK_CODE: [''],
       LEDGER_CODE: ['', [Validators.pattern]],
-      BANK_NAME: ['', [Validators.pattern]],
-      BANK_SHORTNAME: ['', [Validators.pattern, Validators.required]],
+      BANK_NAME: ['', [Validators.required]],
+      BANK_SHORTNAME: ['', [Validators.required]],
       DD_APPLICABLE: [],
       BANKERS_COMM_APPLICABLE: [],
       RIGHT_TO_PREPARE_DD: [],
@@ -199,7 +202,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'BANKCODE': formVal.BANKCODE,
     }
     this.bankService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Bank Master Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Bank_Master_Successfully')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -252,7 +255,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data ['RIGHT_TO_PREPARE_DD'] = (data.RIGHT_TO_PREPARE_DD == true ? '1':'0'),
     data ['PARTICIPATE_IN_CLEARING'] = (data.PARTICIPATE_IN_CLEARING == true ? '1':'0'),
     this.bankService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Bank Master Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Bank_Master_Successfully')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -266,8 +269,8 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete bank master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.bank_master_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -278,8 +281,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.bankService.deleteData(id).subscribe(data1 => {
           this.bankmasters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -291,8 +293,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

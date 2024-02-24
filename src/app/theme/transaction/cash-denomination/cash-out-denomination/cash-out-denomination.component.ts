@@ -9,6 +9,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cash-out-denomination',
@@ -58,8 +59,12 @@ export class CashOutDenominationComponent implements OnInit {
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig, private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private _service: CashDenominationService
+    private _service: CashDenominationService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -111,7 +116,7 @@ export class CashOutDenominationComponent implements OnInit {
   calculation(data, index, element) {
     let qty = element.target.value;
     if (Number(qty) > Number(this.currencyData[index].available)) {
-      Swal.fire('Warning!', 'Please insert Correct Quantity', 'warning')
+      Swal.fire( `${this.translate.instant('Swal_Msg.Warning')}`,  `${this.translate.instant('Swal_Msg.M7')}`, 'warning')
       element.target.value = 0;
       let currency = this.currencyData[index].currency;
       let available = element.target.value;
@@ -144,12 +149,12 @@ export class CashOutDenominationComponent implements OnInit {
       user: JSON.parse(localStorage.getItem('user'))
     }
     if (formVal.DENOMINATION_AMT != this.sum) {
-      Swal.fire('Warning!', 'Please insert Correct Amount!', 'warning')
+      Swal.fire( `${this.translate.instant('Swal_Msg.Warning')}`,  `${this.translate.instant('Swal_Msg.Msg')}`, 'warning')
     } else {
       this._service.cashOutDenomination(object).subscribe(data => {
         Swal.fire(
-          'Good job!',
-          'Your Form is Submitted Successfully..!',
+          `${this.translate.instant('Swal_Msg.Msg1')}`,
+          `${this.translate.instant('Swal_Msg.Msg2')}`,
           'success'
         );
         this.angForm.reset();

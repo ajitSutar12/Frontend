@@ -11,6 +11,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 import {IssueNewSharesModule} from '../../../transaction/share-transactions/issue-new-shares/issue-new-shares.module'
+import { HttpClient,  HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [SharesIssueNewComponent],
@@ -20,7 +23,15 @@ import {IssueNewSharesModule} from '../../../transaction/share-transactions/issu
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    IssueNewSharesModule
+    IssueNewSharesModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [SharesIssueNewComponent],
   providers: [
@@ -32,3 +43,7 @@ import {IssueNewSharesModule} from '../../../transaction/share-transactions/issu
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class SharesIssueNewModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

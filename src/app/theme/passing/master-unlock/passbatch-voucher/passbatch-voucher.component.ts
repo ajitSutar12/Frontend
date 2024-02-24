@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { BatchVoucherComponent } from 'src/app/theme/transaction/batch-voucher/batch-voucher.component';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -49,7 +50,8 @@ export class PassbatchVoucherComponent implements OnInit {
   // Store data from backend
   batchVoucher: BatchVoucher[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,  private translate:TranslateService) {
+    this.translate.setDefaultLang(environment.setLang) }
 
   batchVoucherData: any = {};
 
@@ -112,23 +114,23 @@ export class PassbatchVoucherComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title: this.translate.instant('master.Batch_Voucher.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title:this.translate.instant('master.Batch_Voucher.Amount'),
           data: 'TRAN_AMOUNT'
         },
 
         {
-          title: 'Time',
+          title: this.translate.instant('master.Batch_Voucher.Time'),
           data: 'TRAN_TIME'
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Batch_Voucher.Scheme_Type'),
           data: 'TRAN_ACTYPE'
         },
         // {
@@ -136,11 +138,11 @@ export class PassbatchVoucherComponent implements OnInit {
         //   data: 'scheme'
         // },
         {
-          title: 'Transaction Type',
+          title: this.translate.instant('master.Batch_Voucher.Transaction_Type'),
           data: 'TRAN_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Batch_Voucher.Account_Number'),
           data: 'TRAN_ACNO'
         },
         // {
@@ -148,7 +150,7 @@ export class PassbatchVoucherComponent implements OnInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title: 'User',
+          title: this.translate.instant('master.Batch_Voucher.User'),
           data: 'USER_CODE'
         },
         // {

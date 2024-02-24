@@ -21,6 +21,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -110,7 +111,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,private translate:TranslateService) {
+      this.translate.setDefaultLang('environment.SetLang');
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -164,18 +166,18 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Effected Date',
+          title: this.translate.instant('master.Interest_Loan.Effected_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Interest_Loan.Scheme_Type'),
           data: 'ACNOTYPE'
         },
         {
-          title: 'Interest Category',
+          title: this.translate.instant('master.Interest_Loan.Interest_Category'),
           data: 'INT_CATEGORY'
         },
 
@@ -213,7 +215,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -237,7 +239,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
 
       this.interestRateForLoanandCCService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -250,8 +252,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     }
     else {
       Swal.fire(
-        'Warning',
-        'Please Input Slab Details ',
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.W_Ms')}`,
         'warning'
       )
     }
@@ -291,7 +293,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.interestRateForLoanandCCService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -316,7 +318,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       ele.target.value = 0
 
     }
@@ -327,8 +329,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'From Amount Should Be Less Than Upto Amount',
+          `${this.translate.instant('Swal_Msg.Warning')}`,
+          `${this.translate.instant('Swal_Msg.W_Msg1')}`,
           'warning'
         );
         (document.getElementById("toamt") as HTMLInputElement).value = ""
@@ -340,8 +342,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do You Want To Delete Interest Rate For loan And CC Data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Text')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -352,8 +354,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         this.interestRateForLoanandCCService.deleteData(id).subscribe(data1 => {
           this.interestRateForLoanandCC = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -364,8 +366,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -427,15 +429,15 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
     if (penint == "") {
       Swal.fire(
-        'Info',
-        'Please Add Panel Interest',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.I_Msg')}`,
         'info'
       )
     }
     if (intrate == "") {
       Swal.fire(
-        'Info',
-        'Please Input Interest Rate',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.I_Msg1')}`,
         'info'
       )
     }

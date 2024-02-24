@@ -11,6 +11,7 @@ import { CitytMasterService } from './city-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -71,7 +72,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private citytMasterService: CitytMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
 
   ngOnInit(): void {
@@ -125,37 +126,37 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.City_Master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'City Code',
+          title:this.translate.instant('master.City_Master.City_Code'),
           data: 'CITY_CODE',
         },
         {
-          title: 'City Name',
+          title:this.translate.instant('master.City_Master.City_Name'),
           data: 'CITY_NAME',
         },
         {
-          title: 'Distance',
+          title:this.translate.instant('master.City_Master.Distance'),
           data: 'DISTANCE',
         },
         {
-          title: 'Taluka Code',
+          title:this.translate.instant('master.City_Master.Taluka_Code'),
           data: 'TALUKA_CODE',
         },
         {
-          title: 'District Code',
+          title: this.translate.instant('master.City_Master.District_Code'),
           data: 'DISTRICT_CODE',
         },
         {
-          title: 'State Code',
+          title:this.translate.instant('master.City_Master.State_Code'),
           data: 'STATE_CODE',
         },
         {
-          title: 'Region',
+          title:this.translate.instant('master.City_Master.Region'),
           data: 'REGION_CODE',
         },
       ],
@@ -168,8 +169,8 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm = this.fb.group({
 
       CITY_CODE: [''],
-      DISTANCE: ['', [Validators.pattern]],
-      CITY_NAME: ['', [Validators.required, Validators.pattern]],
+      DISTANCE: ['', [Validators.required]],
+      CITY_NAME: ['', [Validators.required,]],
       TALUKA_CODE: ['', [Validators.required, Validators.pattern]],
       STATE_CODE: ['', [Validators.required, Validators.pattern]],
       DISTRICT_CODE: ['', [Validators.required, Validators.pattern]],
@@ -191,7 +192,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'REGION_CODE': formVal.REGION_CODE
     }
     this.citytMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -233,7 +234,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['id'] = this.updateID;
 
     this.citytMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -253,8 +254,8 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete city master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.city_master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -265,8 +266,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.citytMasterService.deleteData(id).subscribe(data1 => {
           this.cityMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -278,8 +278,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

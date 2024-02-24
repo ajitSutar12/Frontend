@@ -4,7 +4,7 @@ import { MasterUnlockComponent } from './master-unlock.component';
 import { MasterUnlockRoutingModule } from './masterUnlock-routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { MasterSavingModule } from './master-unlock/master-saving.module'
 import { VoucherModule } from './voucher/voucher.module';
@@ -28,6 +28,9 @@ import { SharesIssueNewModule } from './shares-issue-new/shares-issue-new.module
 import { RentLockerModule } from './rent-locker/rent-locker.module';
 import { ShareTransferModule } from '../centralised-passing/share-transfer/share-transfer.module';
 import { CentralisedPassingModule } from '../centralised-passing/centralisedPassing.module';
+// import { HttpLoaderFactory } from '../../master/instruction/interest-instruction/interest-instruction.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -56,6 +59,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RentLockerModule,
     ShareTransferModule,
     CentralisedPassingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
     
     
 
@@ -70,3 +81,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   }, MasterUnlockService]
 })
 export class MasterUnlockModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

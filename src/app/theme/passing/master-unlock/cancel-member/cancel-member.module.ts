@@ -11,6 +11,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { CancelMemberComponent} from './cancel-member.component'
 import { MembershipCancellationModule } from '../../../transaction/share-transactions/membership-cancellation/membership-cancellation.module';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [CancelMemberComponent],
@@ -20,7 +23,15 @@ import { MembershipCancellationModule } from '../../../transaction/share-transac
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    MembershipCancellationModule
+    MembershipCancellationModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [CancelMemberComponent],
   providers: [
@@ -32,3 +43,8 @@ import { MembershipCancellationModule } from '../../../transaction/share-transac
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class CancelMemberModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

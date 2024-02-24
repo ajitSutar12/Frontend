@@ -39,6 +39,7 @@ import { first } from "rxjs/operators";
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { DomSanitizer} from '@angular/platform-browser';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-sbsidiary-summery',
@@ -84,8 +85,11 @@ export class SbsidiarySummeryComponent implements OnInit {
    private sanitizer: DomSanitizer,
    private _ownbranchmasterservice: OwnbranchMasterService,
    public schemeCodeDropdownService: SchemeCodeDropdownService,
+   private translate:TranslateService
 
  ) {
+  this.translate.setDefaultLang(environment.setLang) ;
+
    this.fromdate = moment().format('DD/MM/YYYY'); 
    this.maxDate = new Date();
    this.minDate = new Date();
@@ -193,7 +197,7 @@ export class SbsidiarySummeryComponent implements OnInit {
   
  } 
  else {
-   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+   Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
  }
  
 }

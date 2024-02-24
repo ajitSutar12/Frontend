@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { Subject } from 'rxjs-compat';
@@ -59,7 +60,8 @@ export class NPAMarkingComponent implements OnInit {
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private ownbranchMasterService: OwnbranchMasterService,
-    private config: NgSelectConfig,
+    private config: NgSelectConfig,private translate:TranslateService
+    
   ) { 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -109,7 +111,7 @@ export class NPAMarkingComponent implements OnInit {
      value2 = moment(this.todate).format('DD/MM/YYYY');
      // console.log(value2)
      if(moment(value1).isSame(value2)){
-       Swal.fire("from date should not be same as to date")
+       Swal.fire(`${this.translate.instant('Swal_Msg.same_date')}`)
        this.angForm.controls['TO_DATE'].reset()
      }
      }

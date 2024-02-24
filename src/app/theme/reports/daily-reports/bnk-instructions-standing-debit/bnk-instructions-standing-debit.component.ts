@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-instructions-standing-debit',
@@ -69,7 +70,11 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter:SystemMasterParametersService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -126,7 +131,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       this.equal = [this.startfrom, this.startto]
     }
     else {
-      Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg5')}`, 'info')
     }
   }
 
@@ -184,7 +189,7 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
     }
     else {
       this.formSubmitted = false;
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
     }
 
   }

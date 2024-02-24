@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -40,11 +41,11 @@ export class LoancashcreditacOpensanctiondatewiseComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,  private SchemeCodeDropdownService: SchemeCodeDropdownService,
-               private sanitizer: DomSanitizer,    private _service: MultiVoucherService,
+               private sanitizer: DomSanitizer,    private _service: MultiVoucherService, private translate:TranslateService
 
 
 
-  ) { }
+  ) { this.translate.setDefaultLang(environment.setLang) ;}
 
   ngOnInit(): void {
 
@@ -123,7 +124,7 @@ export class LoancashcreditacOpensanctiondatewiseComponent implements OnInit {
       this.iframeurl5 = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl5);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
   }
 

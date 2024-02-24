@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Npa Marking</h5>
+                <h5>{{'uti.Npa_Mraking' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'uti.F1' | translate}} (<sub class="required"> * </sub>) {{'uti.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'uti.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -27,11 +27,11 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'uti.S_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -49,20 +49,20 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">{{'uti.Div_Warrent_Date' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
                                         formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
-                                        title="Compulsory Selection" required placeholder="Warrent Date">
+                                        title="Compulsory Selection" required placeholder="{{'uti.Warrent_Date' | translate}}">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
                                             {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
                                         </ng-option>
@@ -74,11 +74,11 @@
                                 *ngIf="angForm.controls['WARRENT_DATE'].invalid && (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['WARRENT_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">{{'uti.From_date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -94,13 +94,13 @@
                                 *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">{{'uti.To_date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -117,15 +117,15 @@
                                 *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Update</button>
-                            <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm">{{'uti.Update' | translate}}</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm">{{'uti.Cancel' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
@@ -134,13 +134,13 @@
                                 <div class="table-responsive">
                                     <table datatable>
                                         <thead>
-                                            <td>Serial Number</td>
-                                            <td>Account Number</td>
-                                            <td>Account Name</td>
-                                            <td>NPA Class</td>
-                                            <td class="td_right">NPA Provision</td>
-                                            <td>NPA Percentage</td>
-                                            <td class="td_right">To Be Recovered</td>
+                                            <td>{{'uti.Serial_Number' | translate}}</td>
+                                            <td>{{'uti.Account_Number' | translate}}</td>
+                                            <td>{{'uti.Account_Name' | translate}}</td>
+                                            <td>{{'uti.NPA_class' | translate}}</td>
+                                            <td class="td_right">{{'uti.NPA_Provision' | translate}}</td>
+                                            <td>{{'uti.NPA_Percentage' | translate}}</td>
+                                            <td class="td_right">{{'uti.Is_To_Be' | translate}}</td>
 
                                         </thead>
                                         <tbody>
@@ -152,7 +152,7 @@
                                                     <ng-select id="NPA_CLASS" [items]="npaClass" name="type"
                                                         bindLabel="label" formControlName="NPA_CLASS"
                                                         [ngClass]="{'form-submitted': formSubmitted}"
-                                                        [(ngModel)]="ngnpaclass" placeholder="Transaction Type"
+                                                        [(ngModel)]="ngnpaclass" placeholder="{{'uti.Transaction_Type' | translate}}"
                                                         required>
                                                     </ng-select>
                                                 </td>

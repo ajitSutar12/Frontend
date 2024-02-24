@@ -21,6 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -70,8 +71,11 @@ maxDate: Date;
     private sanitizer: DomSanitizer,
     private directorMasterDropdown: DirectorMasterDropdownService,
 
+    private translate:TranslateService
+
    
   ) {
+    this.translate.setDefaultLang(environment.setLang)
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -200,7 +204,7 @@ this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName=
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
   }
   }
   close(){

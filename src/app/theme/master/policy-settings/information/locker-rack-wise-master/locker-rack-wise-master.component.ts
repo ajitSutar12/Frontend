@@ -15,6 +15,7 @@ import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -89,7 +90,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     private lockerSMaster: LockerSMasterDropDownService,
     private ownbranchMasterService: OwnbranchMasterService,
 
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig, private translate: TranslateService) { }
+
 
   ngOnInit(): void {
     this.createForm();
@@ -148,21 +150,22 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
+
         },
         {
-          title: 'Rack Number',
+          title: this.translate.instant('master.Locker_Rackwise_Master.Rack_Number'),
           data: 'RACK_NO'
         }, {
-          title: 'Locker Number',
+          title: this.translate.instant('master.Locker_Rackwise_Master.Locker_Number'),
           data: 'LOCKER_NO'
         },
         {
-          title: 'Locker Key Number',
+          title: this.translate.instant('master.Locker_Rackwise_Master.Locker_Key_Number'),
           data: 'KEY_NO'
         },
         {
-          title: 'Locker size',
+          title: this.translate.instant('master.Locker_Rackwise_Master.Locker_Size'),
           data: 'SIZE_SR_NO'
         },
       ],
@@ -217,7 +220,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
       'BRANCH_CODE': this.ngBranchCode
     }
     this.lockerRackWiseMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
 
@@ -268,7 +271,7 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.lockerRackWiseMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -288,8 +291,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Locker Rack Wise master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Locker_Rackwise_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -300,8 +303,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
         this.lockerRackWiseMasterService.deleteData(id).subscribe(data1 => {
           this.lockerRackWiseMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -313,8 +316,8 @@ export class LockerRackWiseMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

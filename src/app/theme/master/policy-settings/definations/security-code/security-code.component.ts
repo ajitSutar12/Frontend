@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 
 
 // Handling datatable data
@@ -86,7 +87,9 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public securityCodeService: SecurityCodeService,
     private http: HttpClient,
     private fb: FormBuilder,
-  ) { this.createForm(); }
+    private translate:TranslateService
+  ) { this.createForm();
+   }
 
 
   ngOnInit(): void {
@@ -137,60 +140,60 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         }, {
-          title: 'Security Code',
+          title: this.translate.instant('master.Security_Code_Maintenance.Security_Code'),
           data: 'SECU_CODE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Security_Code_Maintenance.Description'),
           data: 'SECU_NAME'
         }, {
-          title: 'Margin',
+          title: this.translate.instant('master.Security_Code_Maintenance.Margin'),
           data: 'MARGIN'
         }, {
-          title: 'Fire Policy',
+          title: this.translate.instant('master.Security_Code_Maintenance.Fire_Policy'),
           data: 'FIRE_POLICY'
         }, {
-          title: 'Market Shares',
+          title: this.translate.instant('master.Security_Code_Maintenance.Market_Shares'),
           data: 'MARKET_SHARE'
         }, {
-          title: 'Book Debts',
+          title: this.translate.instant('master.Security_Code_Maintenance.Book_Debts'),
           data: 'BOOK_DEBTS'
         }, {
-          title: 'Pledge Stock',
+          title: this.translate.instant('master.Security_Code_Maintenance.Pledge_Stock'),
           data: 'PLEDGE_STOCK'
         }, {
-          title: 'Stock Statement',
+          title: this.translate.instant('master.Security_Code_Maintenance.Stock_Statement'),
           data: 'STOCK_STATEMENT'
         }, {
-          title: 'LIC',
+          title: this.translate.instant('master.Security_Code_Maintenance.LIC'),
           data: 'GOVT_SECU_LIC'
         }, {
-          title: 'Customer Insurance',
+          title: this.translate.instant('master.Security_Code_Maintenance.Customer_Insurance'),
           data: 'CUST_INSURANCE'
         }, {
-          title: 'Plantand Machinery',
+          title: this.translate.instant('master.Security_Code_Maintenance.Plant_Machinary'),
           data: 'PLANT_MACHINARY'
         }, {
-          title: 'Furniture & Fixture',
+          title: this.translate.instant('master.Security_Code_Maintenance.Furniture_Fixture'),
           data: 'FURNITURE_FIXTURE'
         }, {
-          title: 'Vehicle',
+          title: this.translate.instant('master.Security_Code_Maintenance.Vehicle'),
           data: 'VEHICLE'
         }, {
-          title: 'OwnDeposit',
+          title: this.translate.instant('master.Security_Code_Maintenance.Own_Deposit'),
           data: 'OWN_DEPOSIT'
         }, {
-          title: 'Land & Buildings',
+          title: this.translate.instant('master.Security_Code_Maintenance.Land_Buildings'),
           data: 'LAND_BUILDING'
         }, {
-          title: 'Gold & Silver',
+          title: this.translate.instant('master.Security_Code_Maintenance.Gold_Silver'),
           data: 'GOLD_SILVER'
         }, {
-          title: 'Other Securities',
+          title: this.translate.instant('master.Security_Code_Maintenance.Other_securities'),
           data: 'OTHER_SECURITY'
         },
       ],
@@ -204,7 +207,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
 
-      SECU_NAME: ['', [Validators.pattern, Validators.required]],
+      SECU_NAME: ['', [ Validators.required]],
       SECU_CODE: [''],
       MARGIN: ['', [Validators.pattern, Validators.max]],
       FIRE_POLICY: new FormControl('firepolicy'),
@@ -246,7 +249,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       'CUST_INSURANCE': (formVal.CUST_INSURANCE == true ? '1' : '0'),
     }
     this.securityCodeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -270,7 +273,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit100')}`, "error");
       ele.target.value = 0 
 
     }
@@ -367,7 +370,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     data['PLANT_MACHINARY'] = (data.PLANT_MACHINARY == true ? '1' : '0')
     data['FIRE_POLICY'] = (data.FIRE_POLICY == true ? '1' : '0')
     this.securityCodeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -385,8 +388,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete bank master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Bank_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -397,8 +400,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.securityCodeService.deleteData(id).subscribe(data1 => {
           this.securityCode = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -409,8 +412,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

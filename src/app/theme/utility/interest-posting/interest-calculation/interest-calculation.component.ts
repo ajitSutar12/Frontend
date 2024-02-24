@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 import { async } from 'rxjs/internal/scheduler/async';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -70,8 +71,9 @@ export class InterestCalculationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _serviceScheme: CurrentSchemeService
-  ) {
+    private _serviceScheme: CurrentSchemeService,private translate:TranslateService
+  ) 
+  {this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -133,11 +135,11 @@ export class InterestCalculationComponent implements OnInit {
   submit() {
     var FormValue = this.angForm.value;
     if (FormValue.INT_CAL == "") {
-      Swal.fire("Oops...", "Please choose any option for Interest Calculation", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
       return;
     } else if (FormValue.INT_CAL == 'Form1') {
       if (FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || this.selectedSchemeDataForOption1.length == 0) {
-        Swal.fire("Oops...", "Please select required field value", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
         return;
       } else {
         this.modalClass = 'modalShow';
@@ -156,7 +158,7 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
           this.showButton = true;
         },
@@ -168,13 +170,13 @@ export class InterestCalculationComponent implements OnInit {
           (error) => {
             console.log(error, 'err')
             this.modalClass = 'modalHide';
-            Swal.fire('Oops!', error?.error?.message, 'error');
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, error?.error?.message, 'error');
             this.showButton = true;
           })
       }
     } else if (FormValue.INT_CAL == 'Form2') {
       if (FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || FormValue.FROM_AC == '' || FormValue.TO_AC == '') {
-        Swal.fire("Oops...", "Please select required field value", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
       } else {
         this.modalClass = 'modalShow';
         this.showButton = false;
@@ -195,19 +197,19 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
           console.log(error, 'err')
           this.modalClass = 'modalHide';
-          Swal.fire('Oops!', error?.error?.message, 'error');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, error?.error?.message, 'error');
           this.showButton = true;
         })
       }
     } else {
       if (FormValue.BRANCH1 == '' || FormValue.AC_TYPE1 == '' || this.InterestArr.length == 0) {
-        Swal.fire("Oops...", "Please select required field value", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
       } else {
         this.modalClass = 'modalShow';
         this.showButton = false;
@@ -227,7 +229,7 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
           this.showButton = true;
         }, err => {
@@ -375,7 +377,7 @@ export class InterestCalculationComponent implements OnInit {
     this.showTable = true
     let searchData = this.InterestArr.filter(ele => ele.AC_NO === event.value);
     if (searchData.length != 0) {
-      Swal.fire('Oops...!', 'Your selected Account Already Exists in Table', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Account_Already_Exists')}`, 'error');
     } else {
       let obj = {
         AC_NO: event.bankacno,
@@ -497,5 +499,8 @@ export class InterestCalculationComponent implements OnInit {
       delete this.selectedSchemeDataForOption1[index];
       console.log(this.selectedSchemeDataForOption1);
     }
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

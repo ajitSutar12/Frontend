@@ -18,6 +18,7 @@ import { first } from "rxjs/operators";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-non-guaranteer-view',
@@ -74,7 +75,11 @@ report_url = environment.report_url;
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private translate:TranslateService
+
   ) {
+    this.translate.setDefaultLang(environment.setLang) ;
+
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -180,7 +185,7 @@ report_url = environment.report_url;
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
     }
 
     }

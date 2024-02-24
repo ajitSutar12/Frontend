@@ -6,6 +6,7 @@ import { DayEndService } from '../day-end.service';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-pigmy-day-end',
   templateUrl: './pigmy-day-end.component.html',
@@ -29,8 +30,8 @@ export class PigmyDayEndComponent implements OnInit {
     private router: Router,
     private systemParameter: SystemMasterParametersService,
     private _service: DayEndService,
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,private translate:TranslateService
+  ) { this.translate.setDefaultLang(environment.setLang)}
 
   ngOnInit(): void {
     this.createForm()
@@ -74,16 +75,19 @@ export class PigmyDayEndComponent implements OnInit {
       if (result.isConfirmed) {
         this._service.pigmyDayEnd(obj).subscribe(data => {
           Swal.fire(
-            'Pigmy Day End Successfuly!',
+            `${this.translate.instant('Swal_Msg.Pigmy_Day_End_Successfuly')}`,
             '',
             'success'
           )
           this.ngOnInit()
         }, err => {
           console.log(err);
-          Swal.fire('Oops..',err.error.message,'warning');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`,err.error.message,'warning');
       })
       }
     })
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

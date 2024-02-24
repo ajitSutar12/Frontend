@@ -6,7 +6,7 @@ import { TermDepositeAcRenewalRoutingModule } from './term-deposite-ac-renewal-r
 import { SharedModule } from '../../../shared/shared.module';
 import { StatementTypeService } from '../../../shared/elements/statement-type.service';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -19,6 +19,8 @@ import { SavingMasterService } from '../../master/customer/saving-master/saving-
 //date pipe
 import { DatePipe } from '@angular/common';
 import { ThemeModule } from '../../theme.module'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +31,15 @@ import { ThemeModule } from '../../theme.module'
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     SharedModule,
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [TermDepositeAcRenewalComponent],
   exports: [TermDepositeAcRenewalComponent],
@@ -47,3 +57,6 @@ import { ThemeModule } from '../../theme.module'
   ]
 })
 export class TermDepositeAcRenewalModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

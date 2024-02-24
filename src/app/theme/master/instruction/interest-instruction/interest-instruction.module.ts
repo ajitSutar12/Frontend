@@ -5,7 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { InterestInstructionRoutingModule } from './interest-instruction-routing.module'
 import { InterestInstructionComponent } from './interest-instruction.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FrequencyService } from '../../../../shared/dropdownService/frequency.service'
 import { ExecutionDayService } from '../../../../shared/dropdownService/execution-day.service'
@@ -17,6 +17,8 @@ import { DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -28,7 +30,16 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    }),
+  
   ],
   exports: [InterestInstructionComponent],
   declarations: [InterestInstructionComponent],
@@ -46,3 +57,7 @@ import { ThemeModule } from 'src/app/theme/theme.module';
 
 })
 export class InterestInstructionModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

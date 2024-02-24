@@ -5,6 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { TermDepositAccountClosingComponent } from 'src/app/theme/transaction/term-deposit-account-closing/term-deposit-account-closing.component';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -49,7 +50,9 @@ export class DepositClosingVoucherComponent implements OnInit, AfterViewInit {
   // Store data from backend
   termDepositClosingVoucher: TermDepositClosingVoucher[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient,private translate:TranslateService) {
+    this.translate.setDefaultLang(environment.setLang) }
+
 
   termDepositClosingVoucherData: any = {};
 
@@ -109,26 +112,26 @@ export class DepositClosingVoucherComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title:this.translate.instant('master.All.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Closing Status',
+          title: this.translate.instant('master.All.Closing_Status'),
           data: 'IS_PREMATURE_CLOSE'
         },
         {
-          title: 'Token Number',
+          title: this.translate.instant('master.All.Token_Number'),
           data: 'TOKEN_NO'
         },
         {
-          title: 'Net Payable Amount',
+          title: this.translate.instant('master.All.Net_Payable_Amount'),
           data: 'NET_PAYABLE_AMOUNT'
         },
         {
-          title: 'Scheme Type',
+          title:this.translate.instant('master.All.Scheme_Type'),
           data: 'TRAN_ACTYPE'
         },
         // {
@@ -137,7 +140,7 @@ export class DepositClosingVoucherComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.All.Account_Number'),
           data: 'TRAN_ACNO'
         },
         // {
@@ -145,7 +148,7 @@ export class DepositClosingVoucherComponent implements OnInit, AfterViewInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title: 'User',
+          title: this.translate.instant('master.All.User'),
           data: 'USER_CODE'
         },
         // {

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LockerRentTransactionsComponent } from './locker-rent-transactions.component';
 import { LockerRentTransactionRoutingModule } from './locker-rent-transactions-routing.module';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +13,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
 @NgModule({
@@ -25,6 +27,13 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
 
   ],
   declarations: [LockerRentTransactionsComponent],
@@ -38,3 +47,6 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     },]
 })
 export class LockerRentTransactionModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 import { NgSelectComponent } from '@ng-select/ng-select'
 //date pipe
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-term-deposite-ac-renewal',
   templateUrl: './term-deposite-ac-renewal.component.html',
@@ -70,8 +72,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private Multiservice: MultiVoucherService,
     private _service: TermDepositeAcRenewalService,
-    private datePipe: DatePipe,
-  ) {
+    private datePipe: DatePipe,private translate:TranslateService
+  ) {this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     if (this.childMessage != undefined) {
@@ -245,7 +247,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this._service.getAccountDeatils(obj).subscribe(data => {
       this.modalClass = 'modalHide';
       if (data['PASSINGPENDING'] == true) {
-        Swal.fire('Oops', 'Account is already renewaled but passing pending', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.passing_pending')}`, 'error')
         this.angForm.patchValue({
           'new_month': 0,
           'new_day': 0,
@@ -495,11 +497,11 @@ export class TermDepositeAcRenewalComponent implements OnInit {
                       VcumPeriod = 3
                     } else if (data.COMPOUND_INT_BASIS == "M") {
                       if (data.COMPOUND_INT_DAYS <= 0) {
-                        Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                        Swal.fire(`${this.translate.instant('Swal_Msg.Software_Engineer')}`)
                       }
                       VcumPeriod = 0
                     } else {
-                      Swal.fire('You Must Assign Valid Compound Basis Days For The Scheme Please Contact To Software Engineer')
+                      Swal.fire(`${this.translate.instant('Swal_Msg.Software_Engineer')}`)
                     }
                     if (PeriodEndDate > EndDate) {
                       PeriodEndDate = EndDate
@@ -951,7 +953,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this._service.updateData(dataToSend).subscribe(
       (data) => {
         this.angForm.enable()
-        Swal.fire("Success!", "Data Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
         this.resetForm()
         var button = document.getElementById('triggerhide');
         button.click();
@@ -977,8 +979,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this._service.approve(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Approved',
-        'Term Deposit Account Renewal approved successfully',
+        `${this.translate.instant('Swal_Msg.Approved')}`,
+        `${this.translate.instant('Swal_Msg.rejected_successfully')}`,
         'success'
       );
       this.showAccount = false
@@ -1002,8 +1004,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Rejected',
-        'Term Deposit Account Renewal rejected successfully',
+        `${this.translate.instant('Swal_Msg.Rejected')}`,
+        `${this.translate.instant('Swal_Msg.rejected_successfully')}`,
         'success'
       );
       this.showAccount = false
@@ -1025,8 +1027,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this._service.unapprove(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.unapproved_successfully')}`,
         'success'
       );
       this.showAccount = false
@@ -1169,7 +1171,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
       this.getMaturityAmount()
     } else {
-      Swal.fire('Oops...!', 'You select wrong option please select proper option', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.select_proper_option')}`, 'error');
       this.angForm.patchValue({
         payableInt: ''
       })
@@ -1184,7 +1186,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     obj['user'] = JSON.parse(localStorage.getItem('user'))
 
     this._service.postData(obj).subscribe(data => {
-      Swal.fire('Success!', 'Account Renewaled Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Renewaled_Successfully')}`, 'success');
       this.createForm()
       this.ngOnInit()
       this.TotalDays = 0
@@ -1219,5 +1221,8 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   getbranch() {
     this.selectedScheme = null
     this.customer = null
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 }

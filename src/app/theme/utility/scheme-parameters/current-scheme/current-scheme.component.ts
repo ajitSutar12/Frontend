@@ -20,6 +20,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -127,7 +128,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     private interestApplicableTypeService: InterestApplicableTypeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
 
   ngOnInit(): void {
@@ -176,30 +177,30 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
         },
         {
-          title: 'Type',
+          title: this.translate.instant('Utility.Utility1.Type'),
           data: 'S_ACNOTYPE',
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
           data: 'S_APPL',
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Utility1.Description'),
           data: 'S_NAME',
         },
         {
-          title: 'Short Name',
+          title: this.translate.instant('Utility.Utility1.Short_Name'),
           data: 'S_SHNAME',
         },
         {
-          title: 'GL Account Number',
+          title:  this.translate.instant('Utility.Utility1.GL_Acc_Num'),
           data: 'S_GLACNO',
         },
         {
-          title: 'Interest GL Account',
+          title: this.translate.instant('Utility.Utility1.Auto_account'),
           data: 'S_INT_ACNO',
         },
         // {
@@ -303,7 +304,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       console.log(ele);
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
     }
   }
   // Method to insert data into database through NestJS
@@ -331,7 +332,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
       'OVERDRAFT_INTEREST_RATE': formVal.OVERDRAFT_INTEREST_RATE
     }
     this.currentSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       // to reload after insertion of data
@@ -405,7 +406,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     data['DORMANT_FLAG_APPLICABLE'] = (data.DORMANT_FLAG_APPLICABLE == true ? '1' : '0')
     this.currentSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -607,12 +608,12 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
         this.currentSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 151 to 200 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.151_to_200_this_range')}`, 'error')
       }
     }
   }
@@ -634,7 +635,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
       ele.target.value = 0
 
     }

@@ -8,6 +8,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ProcessAcmService } from '../process-acm.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-penal-interest-calculation',
@@ -34,7 +35,7 @@ export class PenalInterestCalculationComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private processacm: ProcessAcmService,
 
-    private config: NgSelectConfig,
+    private config: NgSelectConfig,private translate:TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -68,7 +69,7 @@ export class PenalInterestCalculationComponent implements OnInit {
     obj['user'] = JSON.parse(user);
     Swal.fire({
       title: 'Are you sure?',
-      text: "Do you want to process Penal Interest!",
+      text: `${this.translate.instant('Swal_Msg.Process')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -81,14 +82,14 @@ export class PenalInterestCalculationComponent implements OnInit {
           if (data.status == 'Ok') {
             this.processacm.penalInterestCalculationProcess(obj).subscribe(ele => {
               if (ele.status == 'done') {
-                Swal.fire('Penal Insertest Process Done!');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Process')}`);
               }
               this.modalClass = 'modalHide';
             })
           } else {
             Swal.fire({
               title: 'Interest Calcluation',
-              text: "Processed For Some Of The Selected Accounts!<br>D o  Y o u  W a n t  T o   C o n t i n u e",
+              text: `${this.translate.instant('Swal_Msg.Process')}`,
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -98,7 +99,7 @@ export class PenalInterestCalculationComponent implements OnInit {
               this.modalClass = 'modalShow';
               this.processacm.penalInterestCalculationProcess(obj).subscribe(ele => {
                 if (ele.status == 'done') {
-                  Swal.fire('Penal Insertest Process Done!');
+                  Swal.fire(`${this.translate.instant('Swal_Msg.Process')}`);
                   this.modalClass = 'modalHide';
                 }
               })

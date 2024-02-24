@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Security Code Maintenance</h5>
+                <h5>{{'master.Security_Code_Maintenance.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" #myform="ngForm">
@@ -16,7 +16,7 @@
                                     <input style="text-align: right;" appTheme type="text" name="SECU_CODE"
                                         class="form-control" placeholder=" " id="SECU_CODE" pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="SECU_CODE" disabled>
-                                    <label for="SECU_CODE">Security Code<sub class="required">* </sub></label>
+                                    <label for="SECU_CODE">{{'master.Security_Code_Maintenance.Security_Code' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                         </div>
@@ -24,24 +24,24 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme name="SECU_NAME" class="form-control" placeholder=" "
-                                        #autofocus id="SECU_NAME" required="" pattern="^[A-Za-z\./ -]+$"
+                                        #autofocus id="SECU_NAME" required=""
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="60"
                                         formControlName="SECU_NAME">
-                                    <label for="SECU_NAME">Description<sub class="required">* </sub></label>
+                                    <label for="SECU_NAME">{{'master.Security_Code_Maintenance.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['SECU_NAME'].invalid && (angForm.controls['SECU_NAME'].dirty || angForm.controls['SECU_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['SECU_NAME'].errors?.pattern || angForm.controls['SECU_NAME'].errors?.required">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf=" angForm.controls['SECU_NAME'].errors?.required">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <h6>Applicable securities</h6>
+                    <h6>{{'master.Security_Code_Maintenance.Applicable_Securities' | translate}}</h6>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group input-group">
@@ -51,15 +51,15 @@
                                         #margin
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         (keyup)="checkmargin($event)" max="100" formControlName="MARGIN">
-                                    <label for="MARGIN">Margin(%)</label>
+                                    <label for="MARGIN">{{'master.Security_Code_Maintenance.Margin' | translate}}(%)</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['MARGIN'].invalid && (angForm.controls['MARGIN'].dirty || angForm.controls['MARGIN'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['MARGIN'].errors?.pattern || angForm.controls['MARGIN'].errors?.max">
-                                    Input allowed only 0-9
+                                <div>
+                                   <!-- <div *ngIf="angForm.controls['MARGIN'].errors?.pattern || angForm.controls['MARGIN'].errors?.max"> -->
+                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox1"
                                         formControlName="PLANT_MACHINARY">
-                                    <label class="border-checkbox-label" for="checkbox1">Plant & Machinary
+                                    <label class="border-checkbox-label" for="checkbox1">{{'master.Security_Code_Maintenance.Plant_Machinary' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checxkbo2"
                                         formControlName="FIRE_POLICY">
-                                    <label class="border-checkbox-label" for="checxkbo2">Fire Policy
+                                    <label class="border-checkbox-label" for="checxkbo2">{{'master.Security_Code_Maintenance.Fire_Policy' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -103,8 +103,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox3"
                                         formControlName="FURNITURE_FIXTURE">
-                                    <label class="border-checkbox-label" for="checkbox3">Furniture &
-                                        Fixture
+                                    <label class="border-checkbox-label" for="checkbox3">{{'master.Security_Code_Maintenance.Furniture_Fixture' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -124,7 +123,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox4"
                                         formControlName="MARKET_SHARE">
-                                    <label class="border-checkbox-label" for="checkbox4">Market Shares
+                                    <label class="border-checkbox-label" for="checkbox4">{{'master.Security_Code_Maintenance.Market_Shares' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -140,7 +139,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox5"
                                         formControlName="VEHICLE">
-                                    <label class="border-checkbox-label" for="checkbox5">Vehicle
+                                    <label class="border-checkbox-label" for="checkbox5">{{'master.Security_Code_Maintenance.Vehicle' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -160,7 +159,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox6"
                                         formControlName="BOOK_DEBTS">
-                                    <label class="border-checkbox-label" for="checkbox6">Book Debts
+                                    <label class="border-checkbox-label" for="checkbox6">{{'master.Security_Code_Maintenance.Book_Debts' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -176,7 +175,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox7"
                                         formControlName="OWN_DEPOSIT">
-                                    <label class="border-checkbox-label" for="checkbox7">Own Deposit
+                                    <label class="border-checkbox-label" for="checkbox7">{{'master.Security_Code_Maintenance.Own_Deposit' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -195,7 +194,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox8"
                                         formControlName="PLEDGE_STOCK">
-                                    <label class="border-checkbox-label" for="checkbox8">Pledger Stock
+                                    <label class="border-checkbox-label" for="checkbox8">{{'master.Security_Code_Maintenance.Pledge_Stock' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -211,7 +210,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox9"
                                         formControlName="LAND_BUILDING">
-                                    <label class="border-checkbox-label" for="checkbox9">Land & Buildings
+                                    <label class="border-checkbox-label" for="checkbox9">{{'master.Security_Code_Maintenance.Land_Buildings' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -230,7 +229,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox10"
                                         formControlName="STOCK_STATEMENT">
-                                    <label class="border-checkbox-label" for="checkbox10">Stock Statement
+                                    <label class="border-checkbox-label" for="checkbox10">{{'master.Security_Code_Maintenance.Stock_Statement' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -246,7 +245,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox11"
                                         formControlName="GOLD_SILVER">
-                                    <label class="border-checkbox-label" for="checkbox11">Gold & Silver
+                                    <label class="border-checkbox-label" for="checkbox11">{{'master.Security_Code_Maintenance.Gold_Silver' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -265,7 +264,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox12"
                                         formControlName="GOVT_SECU_LIC">
-                                    <label class="border-checkbox-label" for="checkbox12">LIC
+                                    <label class="border-checkbox-label" for="checkbox12">{{'master.Security_Code_Maintenance.LIC' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -281,7 +280,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox13"
                                         formControlName="OTHER_SECURITY">
-                                    <label class="border-checkbox-label" for="checkbox13">Other securities
+                                    <label class="border-checkbox-label" for="checkbox13">{{'master.Security_Code_Maintenance.Other_securities' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -300,7 +299,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox14"
                                         formControlName="CUST_INSURANCE">
-                                    <label class="border-checkbox-label" for="checkbox14">General Insurance</label>
+                                    <label class="border-checkbox-label" for="checkbox14">{{'master.Security_Code_Maintenance.General_Insurance' | translate}}</label>
                                 </div>
 
 
@@ -313,11 +312,11 @@
                             <div class="col-sm">
                                 <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                     (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                    appTheme>Submit</button>
+                                    appTheme>{{'master.Action.Submit' | translate}}</button>
                                 <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                                    [disabled]="angForm.invalid">Update</button>&nbsp;
+                                    [disabled]="angForm.invalid">{{'master.Action.Update' | translate}}</button>&nbsp;
                                 <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                    (click)="addNewData()">Cancel</button>
+                                    (click)="addNewData()">{{'master.Action.Cancel' | translate}}</button>
                             </div>
                         </div>
                     </div>
@@ -369,7 +368,7 @@
                                 </tbody>
                                 <tbody *ngIf="securityCode?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">{{'master.Action.No_Data' | translate}}
                                         </td>
                                     </tr>
                                 </tbody>

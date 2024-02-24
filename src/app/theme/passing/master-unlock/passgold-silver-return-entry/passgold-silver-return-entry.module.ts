@@ -13,6 +13,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { PassgoldSilverReturnEntryComponent } from './passgold-silver-return-entry.component';
 import { GoldSilverReturnEntryModule } from "../../../transaction/gold-silver-return-entry/gold-silver-return-entry.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -21,7 +24,16 @@ import { GoldSilverReturnEntryModule } from "../../../transaction/gold-silver-re
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    GoldSilverReturnEntryModule
+    GoldSilverReturnEntryModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
+    
   ],
   exports: [PassgoldSilverReturnEntryComponent],
   declarations: [PassgoldSilverReturnEntryComponent],
@@ -33,3 +45,8 @@ import { GoldSilverReturnEntryModule } from "../../../transaction/gold-silver-re
   ],
 })
 export class PassGoldSilverReturnEntryModule {}
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

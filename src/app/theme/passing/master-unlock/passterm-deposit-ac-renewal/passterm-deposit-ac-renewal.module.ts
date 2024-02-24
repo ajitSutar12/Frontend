@@ -13,6 +13,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { PasstermDepositAcRenewalComponent } from './passterm-deposit-ac-renewal.component';
 import { TermDepositeAcRenewalModule } from "../../../transaction/term-deposite-ac-renewal/term-deposite-ac-renewal.module";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -21,7 +24,15 @@ import { TermDepositeAcRenewalModule } from "../../../transaction/term-deposite-
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    TermDepositeAcRenewalModule
+    TermDepositeAcRenewalModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [PasstermDepositAcRenewalComponent],
   declarations: [PasstermDepositAcRenewalComponent],
@@ -33,3 +44,7 @@ import { TermDepositeAcRenewalModule } from "../../../transaction/term-deposite-
   ],
 })
 export class PassTermDepoistAcRenewalModule {}
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

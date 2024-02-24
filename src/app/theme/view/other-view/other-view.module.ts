@@ -19,7 +19,7 @@ import { GraphLoanDepositPositionComponent } from './graph-loan-deposit-position
 import { ComparitiveGraphLoanDepositPositionComponent } from './comparitive-graph-loan-deposit-position/comparitive-graph-loan-deposit-position.component';
 import { CdRationAnalysisComponent } from './cd-ration-analysis/cd-ration-analysis.component';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,8 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -53,6 +55,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
     InterestPaidHistoryModule,
+
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
 
   ],
   providers: [
@@ -76,3 +87,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   // exports: [InterestPaidHistoryComponent]
 })
 export class OtherViewModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

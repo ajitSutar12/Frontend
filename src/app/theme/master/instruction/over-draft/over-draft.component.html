@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Over Draft</h5>
+                <h5>{{'master.Over_Draft.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card-block">
@@ -17,18 +17,18 @@
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                         #branchcode (focus)="onFocus(branchcode)" [selectOnTab]='true'
                                         [virtualScroll]="true" (change)="getBranch()" autofocus
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'master.Over_Draft.Branch' | translate}}">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Branch<sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">{{'master.Over_Draft.Branch' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class='alert alert-danger'>
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -38,19 +38,19 @@
                                     <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="acno"
                                         [virtualScroll]="true" (change)="getSchemeAcNO($event)"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Over_Draft.Scheme' | translate}}"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">{{'master.Over_Draft.Scheme' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class='alert alert-danger'>
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -59,21 +59,21 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="ngscheme"
                                         (change)="getBankAcno($event)" formControlName="AC_NO" bindLabel="label"
-                                        [virtualScroll]="true" title="Compulsory Selection" placeholder="Account Number"
+                                        [virtualScroll]="true" title="Compulsory Selection" placeholder="{{'master.Over_Draft.Account_Number' | translate}}"
                                         [ngClass]="{'form-submitted': formSubmitted}" required #AC_NO
                                         (focus)="onFocus(AC_NO)" [selectOnTab]='true'>
 
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_NO">Account Number<sub class="required"> * </sub></label>
+                                    <label for="AC_NO">{{'master.Over_Draft.Account_Number' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class='alert alert-danger'>
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                                             <input (change)="OpenLink(1)" type="radio"
                                                                 name="radioOverdraft" formControlName="radioOverdraft"
                                                                 value="PeriodicallyOverDraft" checked="true">
-                                                            <i class="helper"></i>Periodically Over Draft
+                                                            <i class="helper"></i>{{'master.Over_Draft.Periodically_Over_Draft' | translate}}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -107,7 +107,7 @@
                                                             <input (change)="OpenLink(2)" type="radio"
                                                                 name="radioOverdraft" formControlName="radioOverdraft"
                                                                 value="TemporaryOverDraft">
-                                                            <i class="helper"></i>Temporary Over Draft
+                                                            <i class="helper"></i>{{'master.Over_Draft.Temporary_Over_Draft' | translate}}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -132,17 +132,20 @@
                                                             (focus)="selectAllContent($event)"
                                                             (keyup)="getDecimal($event)"
                                                             (focusout)="getDecimalPoint($event)">
-                                                        <label for="Over">Over Draft Amount<sub
+                                                        <label for="Over">{{'master.Over_Draft.Over_Draft_Amount' | translate}}<sub
                                                                 class="required">*</sub></label>
                                                     </span>
                                                 </div>
                                                 <div class="form-group form-primary form-static-label"
                                                     *ngIf="angForm.controls['AC_SODAMT'].invalid && (angForm.controls['AC_SODAMT'].dirty || angForm.controls['AC_SODAMT'].touched)"
                                                     class='alert alert-danger'>
-                                                    <div
-                                                        *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required">
-                                                        This field is required and Input allowed only . 0-9
+                                                    <div>
+
+                                                      <!-- <div *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required"> -->
+                                                        <!-- This field is required and Input allowed only . 0-9 -->{{'master.Validation.Val_Receipt' | translate}}
+
                                                     </div>
+
                                                 </div>
                                             </div>
                                            
@@ -152,11 +155,11 @@
                                                         <input type="text" name="To" class="form-control"
                                                             style="text-align: right;"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            placeholder=" " id="Over1" pattern="^[0-9]+$" maxlength="3"
+                                                            placeholder=" " id="Over1" pattern="^^[0-9\u0966-\u096F]*$" maxlength="3"
                                                             title="Input allowed only  0-9" formControlName="AC_ODDAYS"
                                                             [required]="periodoverdraft" (change)="getODDate()"
                                                             (focus)="selectAllContent($event)">
-                                                        <label for="Over1">OD period in days<sub
+                                                        <label for="Over1">{{'master.Over_Draft.OD_period_in_days' | translate}}<sub
                                                                 class="required">*</sub></label>
                                                     </span>
                                                 </div>
@@ -165,7 +168,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['AC_ODDAYS'].errors?.pattern || angForm.controls['AC_ODDAYS'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
+                                                        <!-- This field is required and Input allowed only 0-9 -->{{'master.Validation.Val_Receipt' | translate}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,7 +187,7 @@
                                                             (bsValueChange)="getODDays()"
                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                             bsDatepicker>
-                                                        <label for="Date">OD Till Date <sub
+                                                        <label for="Date">{{'master.Over_Draft.OD_Till_Date' | translate}} <sub
                                                                 class="required">*</sub></label>
                                                     </span>
                                                 </div>
@@ -192,7 +195,7 @@
                                                     *ngIf="angForm.controls['AC_ODDATE'].invalid && (angForm.controls['AC_ODDATE'].dirty || angForm.controls['AC_ODDATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['AC_ODDATE'].errors?.required">
-                                                        Enter Valid Date
+                                                        <!-- Enter Valid Date -->{{'master.Validation.Val_Date' | translate}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,16 +214,16 @@
                                                         (focus)="selectAllContent($event)" (keyup)="getDecimal($event)"
                                                         (focusout)="getDecimalPoint($event)"
                                                         title="Input allowed only  0-9" formControlName="AC_ODAMT">
-                                                    <label for="To">Over Draft Amount <sub
+                                                    <label for="To">{{'master.Over_Draft.Over_Draft_Amount' | translate}} <sub
                                                             class="required">*</sub></label>
                                                 </span>
                                             </div>
                                             <div class="form-group form-primary form-static-label"
                                                 *ngIf="angForm.controls['AC_ODAMT'].invalid && (angForm.controls['AC_ODAMT'].dirty || angForm.controls['AC_ODAMT'].touched)"
                                                 class="alert alert-danger">
-                                                <div
-                                                    *ngIf="angForm.controls['AC_ODAMT'].errors?.pattern || angForm.controls['AC_ODAMT'].errors?.required">
-                                                    This field is required and Input allowed only 0-9
+                                                <div>
+                                                   <!-- <div *ngIf="angForm.controls['AC_ODAMT'].errors?.pattern || angForm.controls['AC_ODAMT'].errors?.required"> -->
+                                                    <!-- This field is required and Input allowed only 0-9 -->{{'master.Validation.Val_Receipt' | translate}}
                                                 </div>
                                             </div>
                                         </div>
@@ -231,11 +234,11 @@
                     </div>
                     <div class="col-sm">
                         <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
-                            appTheme (keydown.Tab)="focus()">Submit</button>
+                            appTheme (keydown.Tab)="focus()">{{'master.Action.Submit' | translate}}</button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                            *ngIf="updateShow">Update</button>&nbsp;
+                            *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>&nbsp;
                         <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                            *ngIf="newbtnShow">Cancel</button>
+                            *ngIf="newbtnShow">{{'master.Action.Cancel' | translate}}</button>
                     </div>
                 </form>
             </div>

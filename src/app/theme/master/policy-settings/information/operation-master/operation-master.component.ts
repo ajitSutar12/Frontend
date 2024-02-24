@@ -11,6 +11,7 @@ import { OperationService } from './operation-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -74,7 +75,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private operationService: OperationService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
 
   }
 
@@ -129,14 +130,14 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Operation_Code.Action')
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Operation_Code.Operation_Code'),
           data: 'CODE'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Operation_Code.Description'),
           data: 'NAME'
         },
 
@@ -162,7 +163,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
       'NAME': formVal.NAME,
     }
     this.operationService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -196,7 +197,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
     data['id'] = this.updateID;
 
     this.operationService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -216,8 +217,8 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete operation master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.delete_operation')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -228,8 +229,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.operationService.deleteData(id).subscribe(data1 => {
           this.operation = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -241,8 +241,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

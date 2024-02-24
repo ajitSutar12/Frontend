@@ -29,6 +29,9 @@ import { InstallmentMethodService } from '../../../../shared/dropdownService/ins
       multi: true
     }],
   declarations: [LoanInstallmentInquiryComponent],
-  exports: [LoanInstallmentInquiryComponent]
+  exports: [LoanInstallmentInquiryComponent],
 })
+
 export class LoanInstallmentInquiryModule { }
+
+

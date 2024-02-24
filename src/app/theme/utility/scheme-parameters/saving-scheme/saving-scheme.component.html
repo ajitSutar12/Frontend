@@ -2,9 +2,9 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Saving Scheme Settings</h5>
+        <h5>{{'Utility.Utility1.T9' | translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
         </h6>
       </div>
       <div class="card-block">
@@ -18,7 +18,7 @@
                     placeholder=" " id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     (focusout)="checkDuplicate($event)" pattern="^[0-9]+$" maxlength="3" minlength="3" min="101"
                     max="150" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus>
-                  <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
+                  <label for="S_APPL">{{'Utility.Utility1.Scheme_Code' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -32,7 +32,7 @@
                     angForm.controls['S_APPL'].errors?.min || 
                     angForm.controls['S_APPL'].errors?.max
                   ">
-                  This field is required and valid range 101 to 150
+                  <!-- This field is required and valid range 101 to 150 -->
                 </div>
 
 
@@ -45,7 +45,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
-                  <label for="S_NAME">Description<sub class="required">* </sub></label>
+                  <label for="S_NAME">{{'Utility.Utility1.Description' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -57,8 +57,8 @@
                     angForm.controls['S_NAME'].errors?.pattern ||
                     angForm.controls['S_NAME'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_SHNAME" />
-                  <label for="S_SHNAME">Short Name<sub class="required">* </sub></label>
+                  <label for="S_SHNAME">{{'Utility.Utility1.Short_Name' | translate}}<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -85,12 +85,11 @@
                     angForm.controls['S_SHNAME'].errors?.pattern ||
                     angForm.controls['S_SHNAME'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
-
 
           </div>
           <div class="row">
@@ -105,18 +104,18 @@
                   <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
-                    placeholder="GL Account Number">
+                    placeholder="{{'Utility.Utility1.Interest_GL_Acc' | translate}}">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
+                  <label for="S_GLACNO">{{'Utility.Utility1.Interest_GL_Acc' | translate}}<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
                 *ngIf="angForm.controls['S_GLACNO'].invalid && (angForm.controls['S_GLACNO'].dirty || angForm.controls['S_GLACNO'].touched)"
                 class="alert alert-danger">
                 <div *ngIf=" angForm.controls['S_GLACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
             </div>
@@ -131,18 +130,18 @@
                   <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl"
                     formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
-                    [selectOnTab]='true' required placeholder="Interest GL Account">
+                    [selectOnTab]='true' required placeholder="{{'Utility.Utility1.Interest_GL_Acc' | translate}}">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
+                  <label for="S_INT_ACNO">{{'Utility.Utility1.GL_Acc_Num' | translate}}<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label"
                 *ngIf="angForm.controls['S_INT_ACNO'].invalid && (angForm.controls['S_INT_ACNO'].dirty || angForm.controls['S_INT_ACNO'].touched)"
                 class="alert alert-danger">
                 <div *ngIf=" angForm.controls['S_INT_ACNO'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                 </div>
               </div>
 
@@ -157,35 +156,33 @@
                     <h6>
                       <a (click)="OpenLink(1)" routerLinkActive="active" routerLink="/utility/schemeParameters"
                         [ngClass]="{ isActive: interestApplicableTrue }" class="text-right f-w-600"
-                        id="pointer">Interest Applicable</a>
+                        id="pointer">{{'Utility.Utility1.Interest_AppliCable' | translate}}</a>
                     </h6>
                   </li>
                   <li>
                     <h6>
                       <a (click)="OpenLink(2)" routerLinkActive="active" routerLink="/utility/schemeParameters"
                         [ngClass]="{ isActive: standingInstructionTrue }" class="text-right f-w-600"
-                        id="pointer">Standing Instruction</a>
+                        id="pointer">{{'Utility.Utility1.Standing_Instru' | translate}}</a>
                     </h6>
                   </li>
                   <li>
                     <h6>
                       <a (click)="OpenLink(3)" routerLinkActive="active" routerLink="/utility/schemeParameters"
-                        [ngClass]="{ isActive: chequeBookMinBalTrue }" class="text-right f-w-600" id="pointer">Cheque
-                        Book Minimum Balance</a>
+                        [ngClass]="{ isActive: chequeBookMinBalTrue }" class="text-right f-w-600" id="pointer">{{'Utility.Utility1.Cheque_Book_Mini_Balance' | translate}}</a>
                     </h6>
                   </li>
                   <li>
                     <h6>
                       <a (click)="OpenLink(4)" routerLinkActive="active" routerLink="/utility/schemeParameters"
-                        [ngClass]="{ isActive: balanceEntryAllowTrue }" class="text-right f-w-600" id="pointer">Balance
-                        Entry Allow</a>
+                        [ngClass]="{ isActive: balanceEntryAllowTrue }" class="text-right f-w-600" id="pointer">{{'Utility.Utility1.Balance_Entry_All' | translate}}</a>
                     </h6>
                   </li>
                   <li>
                     <h6>
                       <a (click)="OpenLink(5)" routerLinkActive="active" routerLink="/utility/schemeParameters"
                         [ngClass]="{ isActive: overdraftIntApplicableTrue }" class="text-right f-w-600"
-                        id="pointer">Overdraft Interest Applicable
+                        id="pointer">{{'Utility.Utility1.Overdraft_Applicable' | translate}}
                       </a>
                     </h6>
                   </li>
@@ -197,7 +194,7 @@
               <div *ngIf="interestApplicableTrue">
                 <div class="card">
                   <div class="card-header">
-                    <h5>Interest Applicable</h5>
+                    <h5>{{'Utility.Utility1.Interest_AppliCable' | translate}}</h5>
                   </div>
                   <div class="card-block">
                     <div class="row">
@@ -206,7 +203,7 @@
                           <div class=" border-checkbox-group border-checkbox-group-primary">
                             <input class="border-checkbox" type="checkbox" id="S_INT_APPLICABLE"
                               formControlName="S_INT_APPLICABLE" (click)="isIntrestApplicable($event)" />
-                            <label class="border-checkbox-label" for="S_INT_APPLICABLE">Is Interest Applicable ?</label>
+                            <label class="border-checkbox-label" for="S_INT_APPLICABLE">{{'Utility.Utility1.Is_I_App' | translate}}</label>
                           </div>
                         </div>
                       </div>
@@ -217,8 +214,8 @@
                             ">
                             <input class="border-checkbox" type="checkbox" id="POST_TO_INDIVIDUAL_AC"
                               formControlName="POST_TO_INDIVIDUAL_AC" disabled />
-                            <label class="border-checkbox-label" for="POST_TO_INDIVIDUAL_AC">Is Post Interest to Account
-                              ?</label>
+                            <label class="border-checkbox-label" for="POST_TO_INDIVIDUAL_AC">{{'Utility.Utility1.Post_Interest' | translate}}
+                            </label>
                           </div>
                         </div>
                       </div>
@@ -233,9 +230,7 @@
                             ">
                             <input class="border-checkbox" type="checkbox" id="IS_DAYBASE_INT_CALCULATION"
                               formControlName="IS_DAYBASE_INT_CALCULATION" disabled />
-                            <label class="border-checkbox-label" for="IS_DAYBASE_INT_CALCULATION">Is Day Base Interest
-                              Calculation
-                              ?
+                            <label class="border-checkbox-label" for="IS_DAYBASE_INT_CALCULATION">{{'Utility.Utility1.Base_Interest' | translate}}
                             </label>
                           </div>
                         </div>
@@ -251,7 +246,7 @@
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58)" name="S_PRODUCT_DAY_BASE"
                               pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                               (change)="isProductDayBase(S_PRODUCT_DAY_BASE)" disabled />
-                            <label for="S_PRODUCT_DAY_BASE">Product Base Start Day
+                            <label for="S_PRODUCT_DAY_BASE">{{'Utility.Utility1.Pro_Base_Start' | translate}}
                             </label>
                           </span>
                         </div>
@@ -267,7 +262,7 @@
                                 ?.min ||
                               angForm.controls['S_PRODUCT_DAY_BASE'].errors?.max
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -278,7 +273,7 @@
                               <input type="radio" id="S_PRODUCT_DAY_BASE_MONTH_BEGIN" value="MB"
                                 name="S_PRODUCT_DAY_BASE" formControlName="S_PRODUCT_DAY_BASE"
                                 [checked]="S_PRODUCT_DAY_BASE == 0" disabled />
-                              <i class="helper"></i>Month Begin<span class="required">
+                              <i class="helper"></i>{{'Utility.Utility1.Month_Begin' | translate}}<span class="required">
                               </span>
                             </label>
                           </div>
@@ -286,7 +281,7 @@
                             <label class="inputRadio">
                               <input type="radio" id="S_PRODUCT_DAY_BASE_MONTH_END" value="ME" name="S_PRODUCT_DAY_BASE"
                                 formControlName="S_PRODUCT_DAY_BASE" [checked]="S_PRODUCT_DAY_BASE == 0" disabled />
-                              <i class="helper"></i>Month End
+                              <i class="helper"></i>{{'Utility.Utility1.Month_End' | translate}}
                             </label>
                           </div>
                         </div>
@@ -303,7 +298,7 @@
                               name="S_PRODUCT_DAY_BASE_END" max="31" (change)="
                                 isProductDayBaseEndDay(S_PRODUCT_DAY_BASE_END)
                               " disabled />
-                            <label for="S_PRODUCT_DAY_BASE_END">Product Base End Day</label>
+                            <label for="S_PRODUCT_DAY_BASE_END">{{'Utility.Utility1.Pro_Base_End' | translate}}</label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -319,7 +314,7 @@
                               angForm.controls['S_PRODUCT_DAY_BASE_END'].errors
                                 ?.max
                             ">
-                            Input allowed only 0-9
+                            <!-- Input allowed only 0-9 -->{{'Utility.Validation.Val_Reason' | translate}}
                           </div>
                         </div>
                       </div>
@@ -330,7 +325,7 @@
                               <input type="radio" id="S_PRODUCT_DAY_BASE_END_MONTH_BEGIN" value="MB"
                                 name="S_PRODUCT_DAY_BASE_END" formControlName="S_PRODUCT_DAY_BASE_END"
                                 [checked]="S_PRODUCT_DAY_BASE_END == 0" disabled />
-                              <i class="helper"></i>Month Begin
+                              <i class="helper"></i>{{'Utility.Utility1.Month_Begin' | translate}}
                             </label>
                           </div>
                           <div class="radio radio-inline">
@@ -338,7 +333,7 @@
                               <input type="radio" id="S_PRODUCT_DAY_BASE_END_MONTH_END" name="S_PRODUCT_DAY_BASE_END"
                                 value="ME" formControlName="S_PRODUCT_DAY_BASE_END"
                                 [checked]="S_PRODUCT_DAY_BASE_END == 0" disabled />
-                              <i class="helper"></i>Month End
+                              <i class="helper"></i>{{'Utility.Utility1.Month_End' | translate}}
                             </label>
                           </div>
                         </div>
@@ -354,7 +349,7 @@
                               max="100" id="MIN_INT_LIMIT" (focusout)="getDecimalPoint($event)"
                               (keyup)="getDecimal($event)" title="Input allowed only . 0-9"
                               formControlName="MIN_INT_LIMIT" disabled />
-                            <label for="MIN_INT_LIMIT">Minimum Interest Amount</label>
+                            <label for="MIN_INT_LIMIT">{{'Utility.Utility1.Minimum_Interest_Amount' | translate}}</label>
                           </span>
                         </div>
                         <div class="form-group form-primary form-static-label" *ngIf="
@@ -376,7 +371,7 @@
 
               <div *ngIf="standingInstructionTrue">
                 <div class="card-header">
-                  <h5>Standing Instruction</h5>
+                  <h5>{{'Utility.Utility1.Standing_Instru' | translate}}</h5>
                 </div>
                 <div class="card-block">
                   <div class="row">
@@ -386,16 +381,14 @@
                         ">
                         <input class="border-checkbox" type="checkbox" id="STAND_INSTRUCTION_ALLOW"
                           formControlName="STAND_INSTRUCTION_ALLOW" />
-                        <label class="border-checkbox-label" for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
-                          Applicable ?</label>
+                        <label class="border-checkbox-label" for="STAND_INSTRUCTION_ALLOW">{{'Utility.Utility1.Standing_Instru_Applicable' | translate}}</label>
                       </div>
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" id="IS_INSTRUCTION_UPTO_MATURITY"
                           formControlName="IS_INSTRUCTION_UPTO_MATURITY" />
-                        <label class="border-checkbox-label" for="IS_INSTRUCTION_UPTO_MATURITY">Is Standing Instruction
-                          STOP after Matured ?</label>
+                        <label class="border-checkbox-label" for="IS_INSTRUCTION_UPTO_MATURITY">{{'Utility.Utility1.Stop_After_Matured' | translate}}</label>
                       </div>
                     </div>
                   </div>
@@ -408,7 +401,7 @@
                             class="form-control" placeholder=" " maxlength="2" id="ROUNDOFF_FACTOR" required=""
                             pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
                             title="Input allowed only  0-9" formControlName="ROUNDOFF_FACTOR" />
-                          <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise<sub class="required">*
+                          <label for="ROUNDOFF_FACTOR">{{'Utility.Utility1.interest_Round' | translate}}<sub class="required">*
                             </sub></label>
                         </span>
                       </div>
@@ -422,8 +415,8 @@
                               ?.pattern ||
                             angForm.controls['ROUNDOFF_FACTOR'].errors?.required
                           ">
-                          This field is required and Input allowed only 0-9
-                          (Space)
+                          <!-- This field is required and Input allowed only 0-9
+                          (Space) -->{{'Utility.Validation.Val_Reason' | translate}}
                         </div>
                       </div>
                     </div>
@@ -433,7 +426,7 @@
 
               <div *ngIf="chequeBookMinBalTrue">
                 <div class="card-header">
-                  <h5>Cheque Book Min. Bal.</h5>
+                  <h5>{{'Utility.Utility1.Cheque_Book_Mini_Balance' | translate}}</h5>
                 </div>
                 <div class="card-block">
                   <div class="row">
@@ -445,7 +438,7 @@
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 ." formControlName="CHEQUEBOOK_MIN_BAL" />
-                          <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance<sub class="required">*
+                          <label for="CHEQUEBOOK_MIN_BAL">{{'Utility.Utility1.Cheque_Book_Mini' | translate}}<sub class="required">*
                             </sub></label>
                         </span>
                       </div>
@@ -460,7 +453,7 @@
                             angForm.controls['CHEQUEBOOK_MIN_BAL'].errors
                               ?.required
                           ">
-                          This field is required and Input allowed only . 0-9(After decimal only 2 digits allowed)
+                          <!-- This field is required and Input allowed only . 0-9(After decimal only 2 digits allowed) -->{{'Utility.Validation.Val_Receipt' | translate}}
                         </div>
                       </div>
                     </div>
@@ -470,7 +463,7 @@
 
               <div *ngIf="balanceEntryAllowTrue">
                 <div class="card-header">
-                  <h5>Balance Entry Allow</h5>
+                  <h5>{{'Utility.Utility1.Balance' | translate}}</h5>
                 </div>
                 <div class="card-block">
                   <div class="row">
@@ -480,16 +473,15 @@
                         ">
                         <input class="border-checkbox" type="checkbox" id="BALANCE_ADD_APPLICABLE"
                           formControlName="BALANCE_ADD_APPLICABLE" />
-                        <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">Is Balance Entry Allowed
-                          ?</label>
+                        <label class="border-checkbox-label" for="BALANCE_ADD_APPLICABLE">{{'Utility.Utility1.Balance_Entry_All' | translate}}
+                          </label>
                       </div>
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" id="DORMANT_FLAG_APPLICABLE"
                           formControlName="DORMANT_FLAG_APPLICABLE" />
-                        <label class="border-checkbox-label" for="DORMANT_FLAG_APPLICABLE">Is Allow Dormant Flag
-                          Updation ?</label>
+                        <label class="border-checkbox-label" for="DORMANT_FLAG_APPLICABLE">{{'Utility.Utility1.Dormant_flag' | translate}}</label>
                       </div>
                     </div>
                   </div>
@@ -502,7 +494,7 @@
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 . (Space)" formControlName="MIN_BAL_FOR_INT" />
-                          <label for="MIN_BAL_FOR_INT">Minimum Balance for Interest ?<sub class="required">*
+                          <label for="MIN_BAL_FOR_INT">{{'Utility.Utility1.Minimum_Balance_For_Interest' | translate}}<sub class="required">*
                             </sub></label>
                         </span>
                       </div>
@@ -515,8 +507,8 @@
                           angForm.controls['MIN_BAL_FOR_INT'].errors?.pattern ||
                           angForm.controls['MIN_BAL_FOR_INT'].errors?.required
                         ">
-                          This field is required and Input allowed only 0-9 .
-                          (Space)
+                          <!-- This field is required and Input allowed only 0-9 .
+                          (Space) -->{{'Utility.Validation.Val_Reason' | translate}}
                         </div>
                       </div>
                     </div>
@@ -526,7 +518,7 @@
 
               <div *ngIf="overdraftIntApplicableTrue">
                 <div class="card-header">
-                  <h5>Overdraft Interest Applicable</h5>
+                  <h5>{{'Utility.Utility1.Overdraft' | translate}}</h5>
                 </div>
                 <div class="card-block">
                   <div class="row">
@@ -537,8 +529,7 @@
                           ">
                           <input class="border-checkbox" type="checkbox" id="OVERDRAFT_INTEREST_APPLICABLE"
                             formControlName="OVERDRAFT_INTEREST_APPLICABLE" />
-                          <label class="border-checkbox-label" for="OVERDRAFT_INTEREST_APPLICABLE">Is Overdraft Interest
-                            Applicable ?</label>
+                          <label class="border-checkbox-label" for="OVERDRAFT_INTEREST_APPLICABLE">{{'Utility.Utility1.Overdraft_Applicable' | translate}}</label>
                         </div>
                       </div>
                     </div>
@@ -552,7 +543,7 @@
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 . (Space)" formControlName="OVERDRAFT_INTEREST_RATE" />
-                          <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate ?<sub class="required">*
+                          <label for="OVERDRAFT_INTEREST_RATE">{{'Utility.Utility1.Overdraft_Rate' | translate}}<sub class="required">*
                             </sub></label>
                         </span>
 
@@ -568,8 +559,8 @@
                           angForm.controls['OVERDRAFT_INTEREST_RATE'].errors
                             ?.required
                         ">
-                          This field is required and Input allowed only 0-9 .
-                          (Space)
+                          <!-- This field is required and Input allowed only 0-9 .
+                          (Space) -->{{'Utility.Validation.Val_Reason' | translate}}
                         </div>
                       </div>
                     </div>
@@ -588,12 +579,12 @@
                 <div class="col-sm m-b-20">
                   <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
                     (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
-                    Submit
+                    {{'Utility.Action.Submit' | translate}}
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                    Update</button>&nbsp;
+                    {{'Utility.Action.Update' | translate}}</button>&nbsp;
                   <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                    Cancel
+                    {{'Utility.Action.Cancel' | translate}}
                   </button>
                 </div>
               </div>
@@ -659,7 +650,7 @@
                 </tbody>
                 <tbody *ngIf="savingscheme?.length == 0">
                   <tr>
-                    <td colspan="6" class="no-data-available">No data!</td>
+                    <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
                   </tr>
                 </tbody>
                 <tfoot #filters class="filters">

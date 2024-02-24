@@ -8,7 +8,7 @@ import { TransactionCashModeService } from '../../../shared/elements/transaction
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
 import { SchemeTypeService } from '../../../shared/elements/scheme-type.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { OwnBranchMasterComponent } from '../../master/policy-settings/information/own-branch-master/own-branch-master.component';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -25,6 +25,8 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { ThemeModule } from '../../theme.module'
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -42,7 +44,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule,
     ReactiveFormsModule,
     ThemeModule,
-    Iframe5Module
+    Iframe5Module,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   declarations: [VoucherEntryComponent],
   exports: [VoucherEntryComponent],
@@ -54,3 +64,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },]
 })
 export class VoucherEntryModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

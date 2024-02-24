@@ -5,7 +5,7 @@ import { BatchVoucherRoutingModule } from './batch-voucher-routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { StatementTypeService } from '../../../shared/elements/statement-type.service';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -14,6 +14,8 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { CompanyGroupMasterDropdownService } from 'src/app/shared/dropdownService/company-group-master-dropdown.service';
 import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { ThemeModule } from '../../theme.module'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +27,16 @@ import { ThemeModule } from '../../theme.module'
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     SharedModule,
-    ThemeModule
+    ThemeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+  loader:{
+    provide:TranslateLoader,
+    useFactory:HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
+
   ],
   providers: [StatementTypeService, OwnbranchMasterService, CompanyGroupMasterDropdownService, MultiVoucherService, {
     provide: HTTP_INTERCEPTORS,
@@ -37,3 +48,7 @@ import { ThemeModule } from '../../theme.module'
 
 })
 export class BatchVoucherModule { }
+
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

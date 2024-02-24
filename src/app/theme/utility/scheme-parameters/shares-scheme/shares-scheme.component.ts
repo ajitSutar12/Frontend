@@ -13,6 +13,7 @@ import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-m
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -108,7 +109,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     public sharesSchemeService: SharesSchemeService,
     private acMasterDropdownService: ACMasterDropdownService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { }
+    private config: NgSelectConfig,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -155,37 +156,37 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Utility.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: 'Type',
+          title: this.translate.instant('Utility.Utility1.Type'),
           data: 'S_ACNOTYPE'
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('Utility.Utility1.Scheme_Code'),
           data: 'S_APPL'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('Utility.Utility1.Description'),
           data: 'S_NAME'
         },
         {
-          title: 'Short Name',
+          title:this.translate.instant('Utility.Utility1.Short_Name'),
           data: 'S_SHNAME'
         },
         {
-          title: 'GL Account Number',
+          title: this.translate.instant('Utility.Utility1.GL_Acc_Num'),
           data: 'S_GLACNO'
         },
         {
-          title: 'Member Type',
+          title:this.translate.instant('Utility.Utility1.Member_type'),
           data: 'MEMBER_TYPE'
         },
         {
-          title: 'Is Auto Account Number Show ?',
+          title: this.translate.instant('Utility.Utility1.Auto_account'),
           data: 'IS_AUTO_NO'
         },
         // {
@@ -318,7 +319,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.sharesSchemeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
@@ -373,7 +374,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     data['BALANCE_ADD_APPLICABLE'] = (data.BALANCE_ADD_APPLICABLE == true ? '1' : '0')
     data['INT_ROUND_OFF'] = (data.INT_ROUND_OFF == true ? '1' : '0')
     this.sharesSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload();
       });
@@ -401,7 +402,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
+      title: `${this.translate.instant('Swal_Msg.bank_master_data')}`,
       text: "Do you want to delete bank master data.",
       icon: 'warning',
       showCancelButton: true,
@@ -413,8 +414,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.sharesSchemeService.deleteData(id).subscribe(data1 => {
           this.shareScheme = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -426,8 +426,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -481,12 +480,12 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.sharesSchemeService.duplicatecheck(obj).subscribe(data => {
           if (data.length != 0) {
             this.angForm.controls['S_APPL'].reset()
-            Swal.fire('Oops', 'This scheme Code is already exists', 'error')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.scheme_Code')}`, 'error')
           }
         })
       } else {
         this.angForm.controls['S_APPL'].reset()
-        Swal.fire('Oops', 'Please enter the scheme code within 901 to 999 this range', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.901_to_999_this_range')}`, 'error')
       }
     }
   }
@@ -508,7 +507,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
       ele.target.value = 0
 
     }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { MasterUnlockService } from './master-unlock.service'
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-master-unlock',
   templateUrl: './master-unlock.component.html',
@@ -50,7 +52,8 @@ export class MasterUnlockComponent implements OnInit {
   issueNewShare: any = 0;
   lockerRent: any = 0;
   dtExportButtonOptions: any = {};
-  constructor(private _service: MasterUnlockService) { }
+  constructor(private _service: MasterUnlockService,private translate:TranslateService) {
+    this.translate.setDefaultLang(environment.setLang) }
 
   ngOnInit(): void {
     this.mySubscription = interval(100).subscribe((x => {
