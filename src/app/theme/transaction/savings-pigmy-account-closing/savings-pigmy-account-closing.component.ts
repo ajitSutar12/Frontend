@@ -136,17 +136,17 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngBranchCode = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.angForm.patchValue({
-        'BRANCH_CODE': result.branch.id
-      })
-      this.ngBranchCode = result.branch.id
-    }
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH_CODE'].enable()
+    //   this.ngBranchCode = result.branch.id
+    // }
+    // else {
+    this.angForm.controls['BRANCH_CODE'].disable()
+    this.angForm.patchValue({
+      'BRANCH_CODE': result.branch.id
+    })
+    this.ngBranchCode = result.branch.id
+    // }
 
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -229,17 +229,17 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['BRANCH_CODE'].enable()
-      this.ngBranchCode = result.branch.id
-    }
-    else {
-      this.angForm.controls['BRANCH_CODE'].disable()
-      this.angForm.patchValue({
-        'BRANCH_CODE': result.branch.id
-      })
-      this.ngBranchCode = result.branch.id
-    }
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['BRANCH_CODE'].enable()
+    //   this.ngBranchCode = result.branch.id
+    // }
+    // else {
+    this.angForm.controls['BRANCH_CODE'].disable()
+    this.angForm.patchValue({
+      'BRANCH_CODE': result.branch.id
+    })
+    this.ngBranchCode = result.branch.id
+    // }
   }
 
 
@@ -466,7 +466,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         this.accountedit = null
         return
-      } 
+      }
       else if (data[0].ISLIEN == true) {
         Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
         this.accountedit = null
