@@ -13,15 +13,41 @@ export class YearEndComponent implements OnInit {
   sysparadetails: any;
   remark: boolean = false;
   interval;
+  modalClass: string = 'modalHide';
   ngOnInit(): void {
 
   }
   //// Day End 
   async dayend() {
     let data1: any = localStorage.getItem('user');
-    let result = JSON.parse(data1);
-    this._service.yearEnd({ branch: result.branch.id }).subscribe(async data => {
-      Swal.fire('Success', 'Year ended Successfully', 'success')
+    let branch = JSON.parse(data1);
+    this._service.yearEnd({ branch: branch.branch.id, flag: 0 }).subscribe(async data => {
+      if (data.flag == 1) {
+        Swal.fire({
+          title: '',
+          text: data.msg,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.modalClass = 'modalShow';
+            this._service.yearEnd({ branch: branch.branch.id, flag: 1 }).subscribe(async data1 => {
+              this.modalClass = 'modalHide';
+              Swal.fire('success', data1.msg, 'success')
+            })
+          }
+          else if (result.dismiss === Swal.DismissReason.cancel) {
+            this.modalClass = 'modalHide';
+            Swal.fire("Cancelled", "Year end overwrite cancelled", "warning");
+          }
+        })
+      } else {
+        this.modalClass = 'modalHide';
+        Swal.fire('success', data.msg, 'success')
+      }
     }, err => {
       console.log(err?.error?.message)
     })
