@@ -1038,9 +1038,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.rejectShow = false;
       }
       else if (data.SYSCHNG_LOGIN == null && data.status == 1) {
-        this.unapproveShow = false
+        this.unapproveShow = false;
         this.showButton = false;
-        this.updateShow = true;
+        this.updateShow = false;  //vasim change teomporary show
         this.newbtnShow = true;
         this.approveShow = true;
         this.rejectShow = true;
