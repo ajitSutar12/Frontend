@@ -243,17 +243,17 @@ export class IssueNewSharesComponent implements OnInit {
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.ngForm.controls['BRANCH_CODE'].enable()
-      this.selectedBranch = result.branch.id
-    }
-    else {
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.ngForm.controls['BRANCH_CODE'].enable()
+    //   this.selectedBranch = result.branch.id
+    // }
+    // else {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngForm.patchValue({
         'BRANCH_CODE': result.branch.id
       })
       this.selectedBranch = result.branch.id
-    }
+    // }
   }
 
   getMemberDetail(event) {
