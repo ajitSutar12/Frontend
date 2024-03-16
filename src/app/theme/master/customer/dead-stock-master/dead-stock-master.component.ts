@@ -178,6 +178,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
+        let data: any = localStorage.getItem('user');
+        let result = JSON.parse(data);
+        let branchCode = result.branch.id;
+        dataTableParameters['branchCode'] = branchCode;
         dataTableParameters.columns.forEach((element) => {
           if (element.search.value != "") {
             let string = element.search.value;
