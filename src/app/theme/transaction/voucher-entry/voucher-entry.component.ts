@@ -490,8 +490,8 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom , 
-      branch : this.branchCODE
+      date: addInFrom,
+      branch: this.branchCODE
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -757,7 +757,7 @@ export class VoucherEntryComponent implements OnInit {
     // let lastdate = Number(rowData[0]) - 1;
     // // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
     // this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
-    this.IntersetHeadDate  = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
+    this.IntersetHeadDate = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
 
     this._service.getHeadDetails(obj).subscribe(data => {
       // debugger
@@ -1144,7 +1144,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
       date: addInFrom,
-      branch : this.branchCODE
+      branch: this.branchCODE
 
     }
 
@@ -2613,7 +2613,7 @@ export class VoucherEntryComponent implements OnInit {
         scheme: this.Submitscheme.S_APPL,
         acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
         date: addInFrom,
-        branch : this.branchCODE
+        branch: this.branchCODE
 
       }
       this._service.getpigmychartBalance(obj).subscribe(data2 => {
