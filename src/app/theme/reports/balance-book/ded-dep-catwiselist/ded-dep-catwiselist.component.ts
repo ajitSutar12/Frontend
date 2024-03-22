@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgSelectConfig } from "@ng-select/ng-select";
-import { FormGroup,FormBuilder, Validators, FormControl,} from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl, } from "@angular/forms";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { DepriciationCatDropdownMasterService } from "../../../../shared/dropdownService/depriciation-category-master-dropdown.service";
@@ -35,13 +35,14 @@ export class DedDepCatwiselistComponent implements OnInit {
   defaultDate: any;
   maxDate: Date;
   minDate: Date;
-//iframe
+  //iframe
   formSubmitted = false;
   showRepo: boolean = false;
   clicked: boolean = false;
   iframeurl: any = " ";
   url = environment.base_url;
   report_url = environment.report_url;
+  dates
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +55,8 @@ export class DedDepCatwiselistComponent implements OnInit {
     private deadstockmasterService: DeadstockmasterService
   ) {
     this.defaultDate = moment().format("DD/MM/YYYY");
+    // this.dates = moment().format('DD/MM/YYYY');
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -63,14 +66,14 @@ export class DedDepCatwiselistComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
     //branch List
-    this._ownbranchmasterservice .getOwnbranchList() .pipe(first()) .subscribe((data) => {
-        this.branchOption = data;
-      });
-      //depriciation category
-    this.DepriciationCatDropdownMaster.getDepriciationMasterList() .pipe(first()) .subscribe((data) => {
-        this.DeprCategoryoption = data;
-      });
-      //starting and ending code
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe((data) => {
+      this.branchOption = data;
+    });
+    //depriciation category
+    this.DepriciationCatDropdownMaster.getDepriciationMasterList().pipe(first()).subscribe((data) => {
+      this.DeprCategoryoption = data;
+    });
+    //starting and ending code
     this.http.get(this.url + "/dead-stock-master").subscribe((data) => {
       this.startingacc = data;
       this.endingacc = data;
@@ -80,11 +83,11 @@ export class DedDepCatwiselistComponent implements OnInit {
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      DEPR_CATEGORY: ["", [Validators.pattern, Validators.required]],
-      Ending_Account: ["", [Validators.pattern, Validators.required]],
-      ITEM_TYPE: ["", [Validators.pattern, Validators.required]],
+      DEPR_CATEGORY: [""],
+      // Ending_Account: [""],
+      // ITEM_TYPE: ["", [Validators.pattern, Validators.required]],
       FROM_DATE: ["", [Validators.pattern, Validators.required]],
-      radio: new FormControl("none"),
+      radio: new FormControl(''),
     });
     let data: any = localStorage.getItem("user");
     let result = JSON.parse(data);
@@ -98,7 +101,7 @@ export class DedDepCatwiselistComponent implements OnInit {
   }
   src: any;
   view(event) {
-    
+
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -109,26 +112,40 @@ export class DedDepCatwiselistComponent implements OnInit {
     if (this.ngForm.valid) {
       let obj = this.ngForm.value;
       this.showRepo = true;
-      let startDate = moment(obj.FROM_DATE).format("DD/MM/YYYY");
-      var sdate = moment(obj.FROM_DATE).startOf("quarter").format("DD/MM/YYYY");
-      let Rstartingacc = obj.FROM_AC_NO;
-      let Rendingacc = obj.TO_AC_NO;
+
+
+      let Date: any;
+      if (this.defaultDate == obj.FROM_DATE) {
+        Date = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        Date = moment(obj.FROM_DATE).format("DD/MM/YYYY");
+      };
+
+
       let branch = obj.BRANCH_CODE;
       let Rdio = obj.radio;
-      let Rdiosort = obj.radio_sort;
-      let start = obj.ITEM_TYPE;
-      let end = obj.Ending_Account;
-      let depcat = obj.DEPR_CATEGORY;
+      let allCat = obj.allCat;
+      
+      let flag;
+      if (obj.radio == 'Category') {
+        flag = 0;
+      } else if (obj.radio == 'all') {
+        flag = 1;
+      } else {
+        flag = 2; 
+      }
 
-      this.iframeurl =  this.report_url +  "examples/BalanceList.php?startDate='" +  startDate +  "'&Rdio='" +
-        Rdio + "'&scheme='" + "'&sdate='" + sdate + "'&branch='" + branch +"'&Rstartingacc='" + Rstartingacc +
-        "'&Rendingacc='" +Rendingacc +"'&Rdiosort='" +Rdiosort +"&bankName=" +bankName +"'start='" +  start +
-        "end='" + end + "'depcat='" + depcat;
+     
+
+      this.iframeurl = this.report_url + "examples/deadstockdepriCategory.php?startDate='" + Date + "'&branch='" + branch + "'&branchName='" + branchName + "'&radio=" + Rdio + "'&bankName='" + bankName + "'&flag=" + flag +  "&getCategoryNo=" + this.getCategoryNo + "&getCategoryName='" + this.getCategoryName + "'";
+
+      console.log(this.iframeurl)
+
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(
         this.iframeurl
       );
 
-    
+
     } else {
       Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
         () => {
@@ -144,12 +161,31 @@ export class DedDepCatwiselistComponent implements OnInit {
 
   // Reset Function
   resetForm() {
-    // this.createForm()
-    this.ngForm.controls.DEPR_CATEGORY.reset();
-    this.ngForm.controls.ITEM_TYPE.reset();
-    this.ngForm.controls.Ending_Account.reset();
-    // this.ngForm.controls.TO_AC_NO.reset();
     this.showRepo = false;
+    this.ngForm.controls.DEPR_CATEGORY.reset();
+    // this.ngForm.controls.FROM_DATE.reset();
+    this.ngForm.controls.radio.reset();
     this.clicked = false;
   }
+
+  isShowCategory: boolean = false
+  formVal
+  showCategory() {
+    this.isShowCategory = true
+  }
+  hideCategory() {
+    this.isShowCategory = false
+  }
+  hideCategoryAll(){
+    this.isShowCategory = false
+
+  }
+
+  getCategoryNo
+  getCategoryName
+  getCategory(event) {
+    this.getCategoryNo = event.value
+    this.getCategoryName = event.label
+  }
+
 }

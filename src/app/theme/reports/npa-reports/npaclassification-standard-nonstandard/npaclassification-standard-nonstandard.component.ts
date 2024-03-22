@@ -43,7 +43,11 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
   showLoading:boolean = false;
   transferSchemeDetails: any;
   tScheme
-  
+  nasf
+  AC_TYPE: any;
+  AC_ACNOTYPE: any;
+  base_url = environment.base_url;
+
    //date
   todate: any = null
   bsValue = new Date();
@@ -52,6 +56,7 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
     minDate: Date;
     report_url = environment.report_url;
     branchName: any;
+  glDetails: Object;
   
     constructor(
       private fb: FormBuilder,
@@ -59,6 +64,7 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
+      private http: HttpClient,
      
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -118,15 +124,37 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
   
     getTransferAccountList(event) {
       this.transferSchemeDetails = event
-      this.tScheme = event.name
-    
+      this.tScheme = event.label
+      this.AC_ACNOTYPE = event.name
+      this.AC_TYPE = event.value
+  
+      let data1: any = localStorage.getItem('user');
+      let result1 = JSON.parse(data1);
+      let BRANCH_CODE = result1.branch.id;
+      let obj1 = {
+        // date: moment(this.fordate).format('DD/MM/YYYY')
+        AC_TYPE: this.AC_TYPE,
+        BRANCH_CODE: this.ngbranch,
+        // branch_code: this.ngbranch,
+      }
+  
+      console.log(obj1)
+      // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
+      // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
+      // this.http.post('http://192.168.1.113:7276/npa-classification-master/data', obj1).subscribe((data) => {
+        this.http.post( this.base_url +'/npa-classification-master/data',obj1).subscribe((data: any[]) => {
+        this.glDetails = data
+  
+        console.log(this.glDetails)
+      })
+  
     }
    
     createForm() {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
-        START_DATE: ['', [Validators.required]],
+        NPA_Date: [''],
         OD_TEMP: [''],
        
       });
@@ -177,6 +205,8 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
       let branch = obj.BRANCH_CODE;
       let TDate = obj.START_DATE;
   
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
       let schemeName = this.tScheme;
       let flag =obj.OD_TEMP;
       if(branch == 0){
@@ -187,7 +217,7 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
     //   this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'"
     // console.log(this.iframe5url);
   
-      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE="+scheme+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+TDate+"'"
+      this.iframe5url=this.report_url+ "examples/NPA_Standard_NonStandard.php?AC_TYPE="+scheme+"&BRANCH_CODE="+branch+"&FLAG="+flag+"&'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+npaDate+"'"
       this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 
  

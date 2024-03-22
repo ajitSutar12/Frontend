@@ -1,9 +1,9 @@
 $menu-title: #448aff, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f, #000, #999, #fff;
 $header-theme: #448aff, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f;
-$box-bg-color: #448aff, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f;
+$box-bg-color: purple, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f;
 $left-navbar-theme: #37474f;
 $left-navbar-light-theme: #fff;
-$active-item: #448aff, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f, #11c788, #FF5252, #ff784f, #38a9f9, #038f9e, #39ADB5;
+$active-item:  purple, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f, #11c788, #FF5252, #ff784f, #38a9f9, #038f9e, #39ADB5;
 $icon-color: #448aff, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f, #7C4DFF, #FF5370;
 
 .pcoded {
@@ -1305,7 +1305,7 @@ $icon-color: #448aff, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f, #7C4DFF, #FF5
 
             &[pcoded-header-position="fixed"] {
                 position: fixed;
-                z-index: 1028;
+                z-index: 1100;
             }
 
             &[pcoded-header-position="absolute"] {
@@ -3639,6 +3639,7 @@ body {
                             li:hover {
                                 >a {
                                     color: $value !important;
+                                    background-color: #e5a5e5;
                                 }
                             }
 
