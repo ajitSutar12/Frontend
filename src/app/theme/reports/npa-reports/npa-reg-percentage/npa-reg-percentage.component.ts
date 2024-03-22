@@ -39,6 +39,7 @@ export class NpaRegPercentageComponent implements OnInit {
   Selection: boolean = false;
   isChecked: boolean = true;
   url = environment.base_url;
+  base_url = environment.base_url;
 
   //fromgroup
   ngForm: FormGroup
@@ -60,7 +61,7 @@ export class NpaRegPercentageComponent implements OnInit {
   transferSchemeDetails: any;
   tScheme
 
-  radioValue: string = 'betamt';
+  radioValue: string = 'allacc';
   //date
   todate: any = null
   bsValue = new Date();
@@ -73,9 +74,9 @@ export class NpaRegPercentageComponent implements OnInit {
   glDetails: any;
   fordate: Date;
   branchno: any;
-  AC_TYPE:any;
+  AC_TYPE: any;
   AC_ACNOTYPE: any;
-  npa_per='1'
+  npa_per = '1'
   reportDate: any;
   constructor(
     private fb: FormBuilder,
@@ -96,6 +97,7 @@ export class NpaRegPercentageComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm()
+    this.getTransferAccountList(event)
     //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
@@ -103,11 +105,10 @@ export class NpaRegPercentageComponent implements OnInit {
 
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }
     })
-
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
@@ -161,23 +162,24 @@ export class NpaRegPercentageComponent implements OnInit {
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.AC_ACNOTYPE = event.name
-    this.AC_TYPE=event.value
+    this.AC_TYPE = event.value
 
     let data1: any = localStorage.getItem('user');
     let result1 = JSON.parse(data1);
     let BRANCH_CODE = result1.branch.id;
     let obj1 = {
       // date: moment(this.fordate).format('DD/MM/YYYY')
-      AC_TYPE:this.AC_TYPE, 
-      BRANCH_CODE: BRANCH_CODE,
+      AC_TYPE: this.AC_TYPE,
+      BRANCH_CODE: this.ngbranch,
       // branch_code: this.ngbranch,
     }
-   
+
     console.log(obj1)
     // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
     // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-      this.http.post('http://localhost:7276/npa-classification-master/data' ,obj1).subscribe((data) => {
-    this.glDetails = data
+    // this.http.post('http://192.168.1.113:7276/npa-classification-master/data', obj1).subscribe((data) => {
+      this.http.post(this.base_url +'/npa-classification-master/data',obj1).subscribe((data: any[]) => {
+      this.glDetails = data
 
       console.log(this.glDetails)
     })
@@ -192,9 +194,9 @@ export class NpaRegPercentageComponent implements OnInit {
       from: [''],
       to: [''],
       NPA_Date: [''],
-      OD_TEMP: ['betamt'],
-      npa_per:['1'],
-      checkboxValue:['']
+      OD_TEMP: [''],
+      npa_per: ['1'],
+      checkboxValue: ['']
     });
 
   }
@@ -212,16 +214,17 @@ export class NpaRegPercentageComponent implements OnInit {
       "REPORT_DATE": this.reportDate
     }
 
-    this.http.post('http://localhost:7276/npa-classification-master/percentage', obj).subscribe((data) => {
+    // this.http.post('http://192.168.1.113:7276/npa-classification-master/percentage', obj).subscribe((data) => {
+      this.http.post( this.base_url +'/npa-classification-master/percentage',obj).subscribe((data: any[]) => {
       this.glDetails = data
-      this.percentZero=data[0].NPA_PERCENTAGE,
-      this.percentTen=data[1].NPA_PERCENTAGE,
-      this.percentFive=data[2].NPA_PERCENTAGE,
-      this.percentTwenty=data[3].NPA_PERCENTAGE,
-     
-      
+      this.percentZero = data[0].NPA_PERCENTAGE,
+        this.percentTen = data[1].NPA_PERCENTAGE,
+        this.percentFive = data[2].NPA_PERCENTAGE,
+        this.percentTwenty = data[3].NPA_PERCENTAGE,
 
-      console.log(this.glDetails)
+
+
+        console.log(this.glDetails)
     })
   }
   view(event) {
@@ -232,52 +235,63 @@ export class NpaRegPercentageComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
     this.branchno = userData.branch.CODE
-    if (this.radioValue === 'allacc' ) {
+    if (this.radioValue === 'allacc') {
       // if (this.ngForm.valid) {
-        this.showRepo = true;
-        let obj = this.ngForm.value
-        
-        let scheme = obj.Scheme_code
-        let branch = obj.BRANCH_CODE;
-        let AC_ACNOTYPE = this.AC_ACNOTYPE;
-        let REPORT_DATE=obj.NPA_Date;
-        let npaDate = obj.NPA_Date.REPORT_DATE;
-        let flag = obj.npa_per;
-        let flag1=obj.checkboxValue;
-      if(flag == true){
+      this.showRepo = true;
+      let obj = this.ngForm.value
+
+      let scheme = obj.Scheme_code
+      let branch = obj.BRANCH_CODE;
+      let AC_ACNOTYPE = this.AC_ACNOTYPE;
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
+      let flag = obj.npa_per;
+      let flag1 = obj.checkboxValue;
+      if (flag == true) {
         flag = 1
       }
-      if(flag1==true){
-        flag1 =1
+      if (flag1 == true) {
+        flag1 = 1
       }
-        //  let startingcode= obj.Starting_Account;
-        // let endingcode =obj.Ending_Account;
-        this.iframe5url = this.report_url + "examples/transactionless.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Npa_Date='" + npaDate + "'&percentZero='"+this.percentZero+"'&percentTen='"+this.percentTen+"'&percentFive='"+this.percentFive+"'&percentTwenty='"+this.percentTwenty+ "'&AC_TYPE='" + scheme + "'&ACNOTYPE='" + AC_ACNOTYPE + "'&FLAG=" + flag  + "&FLAG1=" + flag1  +  "&BRANCH_CODE='" + this.ngbranch + "'"
-        console.log(this.iframe5url);
-        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      if (branch == 0) {
+        this.branchName = 'Consolidate';
       }
+      //  let startingcode= obj.Starting_Account;
+      // let endingcode =obj.Ending_Account;
+      this.iframe5url = this.report_url + "examples/transactionless.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Npa_Date='" + npaDate + "'&percentZero='" + this.percentZero + "'&percentTen='" + this.percentTen + "'&percentFive='" + this.percentFive + "'&percentTwenty='" + this.percentTwenty + "'&AC_TYPE='" + scheme + "'&ACNOTYPE='" + AC_ACNOTYPE + "'&FLAG=" + flag + "&FLAG1=" + flag1 + "&BRANCH_CODE='" + this.ngbranch + "'"
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
     // }
-    else if(this.radioValue == 'betamt' || this.radioValue === 'betbal'){
- // if (this.ngForm.valid) {
-  this.showRepo = true;
-  let obj = this.ngForm.value
-  let scheme = obj.Scheme_code
-  let branch = obj.BRANCH_CODE;
-  let AC_ACNOTYPE = this.AC_ACNOTYPE;
-  let REPORT_DATE=obj.NPA_Date;
-  let npaDate = obj.NPA_Date.REPORT_DATE;
-  let from =obj.from
-  let to=obj.to;
+    else if (this.radioValue == 'betamt' || this.radioValue === 'betbal') {
+      // if (this.ngForm.valid) {
+      this.showRepo = true;
+      let obj = this.ngForm.value
+      let scheme = obj.Scheme_code
+      let branch = obj.BRANCH_CODE;
+      let AC_ACNOTYPE = this.AC_ACNOTYPE;
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
+      let from = obj.from
+      let to = obj.to;
 
-  this.iframe5url = this.report_url + "examples/nparegister1.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Npa_Date='" + npaDate + "'&AC_TYPE='" + scheme + "'&percentZero='"+this.percentZero+"'&percentTen='"+this.percentTen+"'&percentFive='"+this.percentFive+"'&percentTwenty='"+this.percentTwenty+"'&ACNOTYPE='" + AC_ACNOTYPE + "'&From=" + from  + "&To=" + to  +  "&BRANCH_CODE='" + this.ngbranch + "'"
-  console.log(this.iframe5url);
-  this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      let flag;
+      if (this.radioValue == 'betamt') {
+        flag = 0;
+      }
+      else if (this.radioValue == 'betbal') {
+        flag = 1
+      }
+
+      this.iframe5url = this.report_url + "examples/nparegister1.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Npa_Date='" + npaDate + "'&AC_TYPE='" + scheme + "'&percentZero='" + this.percentZero + "'&percentTen='" + this.percentTen + "'&percentFive='" + this.percentFive + "'&percentTwenty='" + this.percentTwenty + "'&ACNOTYPE='" + AC_ACNOTYPE + "'&From=" + from + "&To=" + to + "&BRANCH_CODE='" + this.ngbranch + "'&radioValue='" + this.radioValue + "'&flagRadio=" + flag + "";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
 
-      else {
-        Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
-      }
-    
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
+
   }
   close() {
     this.resetForm()

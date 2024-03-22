@@ -61,6 +61,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  base_url = environment.base_url;
   branchName: any;
   city: any;
   InterestArr: [];
@@ -93,10 +94,9 @@ export class CitiwiseNpaRegComponent implements OnInit {
 
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }
-    })
+      }    })
 
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -163,14 +163,15 @@ export class CitiwiseNpaRegComponent implements OnInit {
     let obj1 = {
       // date: moment(this.fordate).format('DD/MM/YYYY')
       AC_TYPE: this.AC_TYPE,
-      BRANCH_CODE: BRANCH_CODE,
+      BRANCH_CODE: this.ngbranch,
       // branch_code: this.ngbranch,
     }
 
     console.log(obj1)
     // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
     // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-    this.http.post('http://localhost:7276/npa-classification-master/data', obj1).subscribe((data) => {
+    // this.http.post('http://192.168.1.113:7276/npa-classification-master/data', obj1).subscribe((data) => {
+      this.http.get(this.base_url +'/npa-classification-master/data').subscribe((data: any[]) => {
       this.glDetails = data
 
       // console.log(this.glDetails)
@@ -197,7 +198,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
       "REPORT_DATE": this.reportDate
     }
 
-    this.http.post('http://localhost:7276/npa-classification-master/percentage', obj).subscribe((data) => {
+    this.http.post(this.base_url +'/npa-classification-master/percentage', obj).subscribe((data) => {
       this.glDetails = data
       this.percentZero=data[0].NPA_PERCENTAGE,
       this.percentTen=data[1].NPA_PERCENTAGE,
@@ -323,7 +324,10 @@ export class CitiwiseNpaRegComponent implements OnInit {
       {
         flag=0
       }
-         this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName+"'&AC_TYPE='"+ scheme+"'&Npa_Date='"+npaDate+"'&percentZero='"+this.percentZero+"'&percentTen='"+this.percentTen+"'&percentFive='"+this.percentFive+"'&percentTwenty='"+this.percentTwenty+"'&ACNOTYPE='"+schemeName+"'&BRANCH_CODE='"+branch+"'&FROM='"+FROMCT+"'&flag="+flag+"&TO='"+TOCT+"'";
+      if(branch == 0){
+         this.branchName='Consolidate';
+      }
+         this.iframe5url=this.report_url+ "examples/citywiseNPA.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName+"'&AC_TYPE='"+ scheme+"'&Npa_Date='"+npaDate+"'&percentZero='"+this.percentZero+"'&percentTen='"+this.percentTen+"'&percentFive='"+this.percentFive+"'&percentTwenty='"+this.percentTwenty+"'&ACNOTYPE='"+schemeName+"'&BRANCH_CODE='"+this.ngbranch+"'&FROM='"+FROMCT+"'&flag="+flag+"&TO='"+TOCT+"'";
       console.log(this.iframe5url); 
        this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 

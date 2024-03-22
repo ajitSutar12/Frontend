@@ -116,14 +116,14 @@
                   A/c Close /Rent</a><span class="badge badge-secondary badgeAlign"
                   [ngClass]="{'blink_me': lockerRent>0}">{{lockerRent}}</span></h6>
             </li>
-            <li>
+            <!-- <li>
               <h6> <a (click)="OpenLink(29)" routerLinkActive="active" class="text-right f-w-600" id="pointer"
                   routerLink="/passing/masterUnlock" [ngClass]="{'isActive': deprciationProcessTrue}">16.
                   Deadstock Depreciation
                   Process</a><span class="badge badge-secondary badgeAlign"
                   [ngClass]="{'blink_me': deprciationProcess>0}">{{deprciationProcess}}</span>
               </h6>
-            </li>
+            </li> -->
           </ul>
           <!-- </perfect-scrollbar>  -->
         </div>
@@ -168,9 +168,9 @@
       <div *ngIf="lockeraccloserentTrue">
         <app-locker-ac-close-rent></app-locker-ac-close-rent>
       </div>
-      <div *ngIf="deprciationProcessTrue">
+      <!-- <div *ngIf="deprciationProcessTrue">
         <app-depreciation-passing></app-depreciation-passing>
-      </div>
+      </div> -->
       <div *ngIf="shareTransferTrue">
         <app-transfer-shares></app-transfer-shares>
       </div>
