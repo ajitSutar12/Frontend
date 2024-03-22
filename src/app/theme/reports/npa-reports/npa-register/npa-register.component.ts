@@ -44,6 +44,8 @@ export class NpaRegisterComponent implements OnInit {
   ngbranch: any = null;
   scode: any = null;
   //ngfor
+  base_url = environment.base_url;
+
   scheme: any[];
   branchOption: any[];
   clicked: boolean = false;
@@ -51,17 +53,19 @@ export class NpaRegisterComponent implements OnInit {
   showLoading: boolean = false;
   transferSchemeDetails: any;
   tScheme
-
+  glDetails: any;
   //date
   todate: any = null
   bsValue = new Date();
-
+  AC_TYPE: any;
+  AC_ACNOTYPE: any;
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
   OD_TEMP = "0";
-
+  reportDate: any;
+  nasf: any
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +73,7 @@ export class NpaRegisterComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+    private http: HttpClient,
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -138,22 +143,49 @@ export class NpaRegisterComponent implements OnInit {
     }
   }
 
-  getTransferAccountList(event) {
-    this.transferSchemeDetails = event
-    this.tScheme = event.label
+  // getTransferAccountList(event) {
+  //   this.transferSchemeDetails = event
+  //   this.tScheme = event.label
 
-  }
+  // }
 
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["", [Validators.required]],
       // START_DATE: ['', [Validators.required]],
-      END_DATE: ['', [Validators.required]],
+      NPA_Date: [''],
       OD_TEMP: ['1'],
  
 
     });
+
+  }
+  getTransferAccountList(event) {
+    this.transferSchemeDetails = event
+    this.tScheme = event.label
+    this.AC_ACNOTYPE = event.name
+    this.AC_TYPE = event.value
+
+    let data1: any = localStorage.getItem('user');
+    let result1 = JSON.parse(data1);
+    let BRANCH_CODE = result1.branch.id;
+    let obj1 = {
+      // date: moment(this.fordate).format('DD/MM/YYYY')
+      AC_TYPE: this.AC_TYPE,
+      BRANCH_CODE: this.ngbranch,
+      // branch_code: this.ngbranch,
+    }
+
+    console.log(obj1)
+    // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
+    // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
+    // this.http.post('http://192.168.1.113:7276/npa-classification-master/data', obj1).subscribe((data) => {
+      this.http.post (this.base_url +'/npa-classification-master/data', obj1).subscribe((data: any[]) => {
+      this.glDetails = data
+
+      console.log(this.glDetails)
+    })
 
   }
 
@@ -204,8 +236,9 @@ export class NpaRegisterComponent implements OnInit {
 
       let schemeName = this.tScheme
       let flag = obj.OD_TEMP;
-      let date=obj.END_DATE;
-
+      // let date=event.REPORT_DATE;
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
       // this.iframe5url = this.report_url + "examples/transactionless.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_TYPE='" + scheme + "'&ACNOTYPE='" + schemeName + "' &BRANCH_CODE='" + branch + "'";
@@ -213,7 +246,7 @@ export class NpaRegisterComponent implements OnInit {
       if(branch == 0){
         this.branchName='Consolidate';
      }
-      this.iframe5url = this.report_url + "examples/Npa_register.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BranchName='"+ this.branchName+ "&date='"+ date  +"'&schemeCode='" +scheme+ "'&bankName='"+bankName+"'";
+      this.iframe5url = this.report_url + "examples/Npa_register.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BranchName='"+ this.branchName+ "&date='"+ npaDate  +"'&schemeCode='" +scheme+ "'&bankName='"+bankName+"'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

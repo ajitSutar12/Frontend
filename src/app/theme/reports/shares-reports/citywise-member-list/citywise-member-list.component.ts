@@ -60,6 +60,7 @@ export class CitywiseMemberListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  FormGroup: any;
 
   constructor(
     private fb: FormBuilder,
@@ -84,6 +85,8 @@ export class CitywiseMemberListComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
+
+
 
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -138,7 +141,9 @@ export class CitywiseMemberListComponent implements OnInit {
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["", [Validators.required]],
       START_DATE: ['', [Validators.required]],
-      AC_CTCODE: ['', [Validators.required]],
+      AC_CTCODE: [''],
+      allCityCheckbox: [''],
+
     });
 
   }
@@ -163,6 +168,7 @@ export class CitywiseMemberListComponent implements OnInit {
       let scheme = obj.Scheme_code
 
       let branch = obj.BRANCH_CODE;
+      let flag = obj.allCityCheckbox;
 
       let schemeName = this.tScheme
       let cityCode = obj.AC_CTCODE;
@@ -177,11 +183,19 @@ export class CitywiseMemberListComponent implements OnInit {
         let toDate = moment(date, 'DD/MM/YYYY')
         obj['START_DATE'] = date
       }
+      let flagchecked
+      if (flag == false) {
+        flagchecked = 0;
+      }
+      else if (flag == true) {
+        flagchecked = 1;
+      }
+
 
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&branch_code='"+  this.ngbranch  +"'&CITY_CODE='" + cityCode + "'";
+      this.iframe5url = this.report_url + "examples/citywise_mem.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&branch_code='" + this.ngbranch + "'&CITY_CODE='" + cityCode + "'&flag=" + flagchecked + "";
       // this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='BHAIRAVNATH_CO-OPERATIVE_PATHSANTHA'&Branch='MIDC,SHIROLI'&branch_code=1&edate='01/12/2022'&AC_TYPE='1'&CITY_CODE='1'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
@@ -189,10 +203,7 @@ export class CitywiseMemberListComponent implements OnInit {
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
-  }
-  close() {
-    this.resetForm()
-
+    
   }
 
   isReceivedTds($event) {
@@ -206,6 +217,13 @@ export class CitywiseMemberListComponent implements OnInit {
     }
   }
 
+  close() {
+    this.resetForm()
+
+  }
+
+ 
+
 
   onLoad() {
     this.showLoading = false;
@@ -213,6 +231,10 @@ export class CitywiseMemberListComponent implements OnInit {
   }
   resetForm() {
     this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.allCityCheckbox.reset();
+    this.ngForm.controls.AC_CTCODE.reset();
+
+
 
     this.showRepo = false;
     this.clicked = false;
@@ -224,6 +246,18 @@ export class CitywiseMemberListComponent implements OnInit {
     this.ngbranch = event.value
     this.branchName = event.branchName
   }
+
+  isHide: boolean = true
+  getCheck(event) {
+    if (this.ngForm.controls.allCityCheckbox.value) {
+      this.isHide = false
+    }
+    else {
+      this.isHide = true
+    }
+  }
+
+
 }
 
 

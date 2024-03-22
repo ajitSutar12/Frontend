@@ -84,7 +84,7 @@ export class PassbookIssueComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'TD' || scheme.name == 'SB' || scheme.name == 'LN' || scheme.name == 'CC' || scheme.name == 'SH');
+        return (scheme.name == 'TD' || scheme.name == 'SB' || scheme.name == 'LN' || scheme.name == 'CA' || scheme.name == 'CC' || scheme.name == 'SH');
       });
       this.scheme = filtered;
 
@@ -172,6 +172,11 @@ export class PassbookIssueComponent implements OnInit {
           this.startAcNo = data;
         })
         break;
+        case 'CA':
+          this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+            this.startAcNo = data;
+          })
+          break;
     }
   }
 

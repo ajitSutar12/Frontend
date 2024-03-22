@@ -39,6 +39,7 @@ export class NpaRegPercentageComponent implements OnInit {
   Selection: boolean = false;
   isChecked: boolean = true;
   url = environment.base_url;
+  base_url = environment.base_url;
 
   //fromgroup
   ngForm: FormGroup
@@ -96,6 +97,7 @@ export class NpaRegPercentageComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm()
+    this.getTransferAccountList(event)
     //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
@@ -175,7 +177,8 @@ export class NpaRegPercentageComponent implements OnInit {
     console.log(obj1)
     // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
     // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-    this.http.post('http://localhost:7276/npa-classification-master/data', obj1).subscribe((data) => {
+    // this.http.post('http://192.168.1.113:7276/npa-classification-master/data', obj1).subscribe((data) => {
+      this.http.post(this.base_url +'/npa-classification-master/data',obj1).subscribe((data: any[]) => {
       this.glDetails = data
 
       console.log(this.glDetails)
@@ -211,7 +214,8 @@ export class NpaRegPercentageComponent implements OnInit {
       "REPORT_DATE": this.reportDate
     }
 
-    this.http.post('http://localhost:7276/npa-classification-master/percentage', obj).subscribe((data) => {
+    // this.http.post('http://192.168.1.113:7276/npa-classification-master/percentage', obj).subscribe((data) => {
+      this.http.post( this.base_url +'/npa-classification-master/percentage',obj).subscribe((data: any[]) => {
       this.glDetails = data
       this.percentZero = data[0].NPA_PERCENTAGE,
         this.percentTen = data[1].NPA_PERCENTAGE,
