@@ -1479,9 +1479,9 @@ export class AccountEnquiryComponent implements OnInit {
       for (let ele of this.productViewArr) {
         this.productTotal = Number(this.productTotal) + Number(ele['amount'])
       }
-      // this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
-      //   this.loanreceivedInterest = data
-      // })
+      this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+        this.loanreceivedInterest = data
+      })
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
