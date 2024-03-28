@@ -1017,6 +1017,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.columnShowButton = true
 
     this.termLoanService.getFormData(id).subscribe(data => {
+      
       this.createForm()
       this.tempbankacno = data.BANKACNO
       this.accountedit = data.BANKACNO

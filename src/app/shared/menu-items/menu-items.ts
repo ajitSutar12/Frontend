@@ -333,6 +333,11 @@ const MENUITEMS1 = [
               //   id: 44
               // },
               {
+                  state: 'recoveryFlag',
+                  name: 'Recovery Flag Updation',
+                  id: 358
+                },
+              {
                 state: 'notingCharges',
                 name: 'Noting Charges',
                 id: 45
@@ -3141,6 +3146,11 @@ const MENUITEMS = [
               //   name: 'Accountwise Document Acceptance',
               //   id: 44
               // },
+              {
+                state: 'recoveryFlag',
+                name: 'Recovery Flag Updation',
+                id: 358
+              },
               {
                 state: 'notingCharges',
                 name: 'Noting Charges',
