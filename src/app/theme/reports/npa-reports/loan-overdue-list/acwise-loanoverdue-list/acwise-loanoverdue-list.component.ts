@@ -285,7 +285,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
-
+    // let bankacno;
+    // if (this.selectedItems) {
+    //     bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+    // } else {
+      
+    // }
     if (this.ngForm.valid) {
 
       this.showRepo = true;
@@ -379,7 +384,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   close() {
     this.resetForm()
-    this.selectedItems = null;
+    this.selectedItems = [];
 
   }
 
