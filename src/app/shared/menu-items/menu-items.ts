@@ -855,11 +855,11 @@ const MENUITEMS1 = [
             name: 'Unapprove',
             id: 135
           },
-           {
-              state: 'neftPassing',
-              name: 'NEFT/RTGS Transaction Passing',
-              id: 354
-            },
+          {
+            state: 'neftPassing',
+            name: 'NEFT/RTGS Transaction Passing',
+            id: 354
+          },
         ]
       },
       {
@@ -2120,6 +2120,11 @@ const MENUITEMS1 = [
             state: 'dataBackup',
             name: 'Data Backup',
             id: 327
+          },
+          {
+            state: 'monthly recovery process',
+            name: 'Monthly recovery process',
+            id: 357
           },
         ]
       },
@@ -4935,6 +4940,11 @@ const MENUITEMS = [
             state: 'dataBackup',
             name: 'Data Backup',
             id: 327
+          },
+          {
+            state: 'monthly recovery process',
+            name: 'Monthly recovery process',
+            id: 357
           },
         ]
       },
