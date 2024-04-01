@@ -1261,32 +1261,44 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   //new CODE
-  viewImagePreview(ele,id) { 
+  isPdf: boolean = false
+  viewImagePreview(ele, id) {
     if (this.selectedImgArrayDetails.length !== 0) {
-      for (let [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
         let jsonObj = value;
         Object.keys(jsonObj).forEach(key => {
           if (id == key) {
             let selectedImage = jsonObj[key];
             if (selectedImage.startsWith('data:image')) {
-              // If it's an image, display in image tag
               this.isImgPreview = true;
+              this.isPdf = false;
               this.selectedImagePreview = selectedImage;
               this.urlMap = '';
             } else if (selectedImage.startsWith('data:application/pdf')) {
-              // If it's a PDF, display in iframe
               this.isImgPreview = false;
+              this.isPdf = true; 
+              this.selectedImagePreview = '';
+              this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
+            } else if (selectedImage.toLowerCase().endsWith('.jpg') || selectedImage.toLowerCase().endsWith('.png') || selectedImage.toLowerCase().endsWith('.jpeg')) {
+              this.isImgPreview = true;
+              this.isPdf = false;
+              this.selectedImagePreview = selectedImage;
+              this.urlMap = '';
+            } else if (selectedImage.toLowerCase().endsWith('.pdf')) {
+              this.isImgPreview = false;
+              this.isPdf = true; 
               this.selectedImagePreview = '';
               this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
             } else {
-              // Handle other types of content here
               this.isImgPreview = false;
+              this.isPdf = false; 
               this.selectedImagePreview = '';
               this.urlMap = '';
             }
             throw 'Break';
           } else {
             this.isImgPreview = false;
+            this.isPdf = false; 
             this.selectedImagePreview = '';
             this.urlMap = '';
           }
@@ -1294,6 +1306,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     } else {
       this.isImgPreview = false;
+      this.isPdf = false; 
       this.selectedImagePreview = '';
       this.urlMap = '';
     }

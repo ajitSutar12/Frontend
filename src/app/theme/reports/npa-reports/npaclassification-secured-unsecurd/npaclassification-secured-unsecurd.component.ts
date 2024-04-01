@@ -117,6 +117,23 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
         this.branchName = result.branch.NAME
   
       }
+      let data1: any = localStorage.getItem('user');
+      let result1 = JSON.parse(data1);
+      let BRANCH_CODE = result1.branch.id;
+      let obj1 = {
+        // date: moment(this.fordate).format('DD/MM/YYYY')
+        BRANCH_CODE: this.ngbranch,
+        // branch_code: this.ngbranch,
+      }
+  
+      console.log(obj1)
+      // this.http.post('http://192.168.1.113:7276/npa-classification-master/getdt', obj1).subscribe((data) => {
+        this.http.post(this.base_url +'/npa-classification-master/getdt', obj1).subscribe((data) => {
+        this.glDetails = data
+  
+        console.log(this.glDetails)
+      })
+  
     }
   
     getTransferAccountList(event) {
@@ -223,23 +240,5 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       this.ngbranch = event.value
       this.branchName = event.branchName
       let data1: any = localStorage.getItem('user');
-      let result1 = JSON.parse(data1);
-      let BRANCH_CODE = result1.branch.id;
-      let obj1 = {
-        // date: moment(this.fordate).format('DD/MM/YYYY')
-        BRANCH_CODE: this.ngbranch,
-        // branch_code: this.ngbranch,
-      }
-  
-      console.log(obj1)
-      // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
-      // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-      // this.http.post('http://192.168.1.113:7276/npa-classification-master/getdt', obj1).subscribe((data) => {
-        this.http.post( this.base_url +'/npa-classification-master/getdt',obj1).subscribe((data: any[]) => {
-        this.glDetails = data
-  
-        console.log(this.glDetails)
-      })
-  
     }
   }
