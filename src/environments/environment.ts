@@ -22,7 +22,7 @@ export const environment = {
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
   //VADGAON_SARAF 
-  // base_url: 'http://103.174.87.104:7796',  //CBS  natepute server
+  // base_url: 'http://103.174.87.104:7797',  //CBS  vadgaon server
   // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
   // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
 

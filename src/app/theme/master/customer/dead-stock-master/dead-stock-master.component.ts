@@ -507,6 +507,11 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           // ITEM_TYPE: data.ITEM_TYPE,
           ITEM_CODE: data.ITEM_CODE,
           ITEM_NAME: data.ITEM_NAME,
+          // OP_BALANCE:data.OP_BALANCE,
+          OP_QUANTITY:data.OP_QUANTITY,
+          PURCHASE_RATE:data.PURCHASE_RATE,
+          PURCHASE_OP_QUANTITY:data.PURCHASE_OP_QUANTITY,
+          PURCHASE_VALUE:data.PURCHASE_VALUE,
           PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
           // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
           GL_ACNO: Number(data.GL_ACNO),
@@ -566,6 +571,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     }
     data['PURCHASE_VALUE'] = this.firstnumber * this.secondnumber
     this.deadstockmasterService.updateData(data).subscribe(() => {
+      console.log(data)
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.ngOnInit()
       this.showButton = true;
