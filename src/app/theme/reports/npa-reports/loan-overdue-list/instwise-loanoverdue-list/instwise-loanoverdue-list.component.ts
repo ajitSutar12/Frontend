@@ -16,17 +16,17 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./instwise-loanoverdue-list.component.scss']
 })
 export class InstwiseLoanoverdueListComponent implements OnInit {
-  angForm : FormGroup;
+  angForm: FormGroup;
   iframe5url: any = '';
 
   @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
   url = environment.base_url;
-  
+
   showRepo: boolean = false;
   showLoading: boolean = false;
- 
+
   report_url = environment.report_url;
-  formSubmitted: boolean =false;
+  formSubmitted: boolean = false;
   fromdate: any;
   todate: any;
   clicked: boolean = false;
@@ -63,11 +63,16 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchCode = data;
-      
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
+        this.branchCode.push({ value: '0', label: 'Consolidate' })
+      }
+
     })
 
-     // Scheme Code
-     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (schemeCode) {
         return (schemeCode.name == 'LN' || schemeCode.name == 'CC' || schemeCode.name == 'DS');
@@ -92,9 +97,9 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
     }
 
   }
-  getscheme(event){
+  getscheme(event) {
     this.tscheme = event.value
-    
+
 
   }
 
@@ -103,28 +108,29 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
 
   }
 
-  createForm(){
+  createForm() {
     this.angForm = this.fb.group({
-      branch: ['',[Validators.required]],
-      scheme: ['',[Validators.required]],
-      date: ['',[Validators.required]],
+      branch: ['', [Validators.required]],
+      scheme: ['', [Validators.required]],
+      date: ['', [Validators.required]],
       checkActive1: [false],
       checkActive2: [false],
-    
+
     });
   }
 
+  getBranch
+  getbranch(event) {
+    this.getBranch = event.branchName
+  }
   view(event) {
     console.log("hello");
-    
-
-
     event.preventDefault();
     this.formSubmitted = true;
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
-    let branchName = userData.branch.NAME;
+    // let branchName = userData.branch.NAME;
 
 
     if (this.angForm.valid) {
@@ -149,17 +155,19 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
         let tDate = moment(date, 'DD/MM/YYYY')
         obj['END_DATE'] = date
       }
-     
-    
 
-      
 
-  
-     
+
+
+
+
+
       let scheme = obj.scheme;
       let branchs = obj.branch;
-      let schemeName =this.tscheme
-    
+      let date =  moment(obj.date).format('DD/MM/YYYY');
+      // let branchCode = obj.BRANCH_CODE
+      let schemeName = this.tscheme
+
       let Dates = moment(obj.date).format('DD/MM/YYYY');
 
       let flag = obj.checkActive1;
@@ -174,12 +182,14 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
       }
 
       // this.iframe5url = this.report_url + "examples/AccountWiseLoanOverDueList.php?AC_TYPE=" + schemeName + "&BRANCH_CODE=" + branch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + flags + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&date1='" + Dates + "'&bankName='" + bankName + "'";
+      let branchName = userData.branch.NAME
+      if (branchs == 0) {
+        this.getBranch = 'Consolidate';
+      }
+
+      this.iframe5url = this.report_url + "examples/InstallmentWiseOverDue.php?AC_TYPE=" + schemeName + "&BRANCH_CODE=" + this.ngbranch + "&FLAG=" + flag + "&BranchName='" + this.getBranch + "'&schemeCode='" + scheme + "&bankName='" + bankName + "'&date='" + date + "'";
 
 
-      
-      this.iframe5url = this.report_url + "examples/InstallmentWiseOverDue.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+  this.ngbranch+"&FLAG="+flag+"&BranchName='"+branchName+"'&schemeCode='"+scheme+"&bankName='"+bankName+"'";
-
-    
 
 
       console.log(this.iframe5url);
@@ -197,13 +207,13 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
     // this.angForm.controls.END_DATE.reset();
     this.fromAc = null;
     this.toAc = null;
-    this.selectedItems=null;
+    this.selectedItems = null;
 
     this.showRepo = false;
     this.clicked = false;
   }
 
-close() {
+  close() {
     this.resetForm()
     // this.selectedItems =null;
 

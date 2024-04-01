@@ -264,19 +264,19 @@ export class VoucherEntryComponent implements OnInit {
 
   isShow: boolean = false
   submitbtnshow: boolean = true
-  // printData(data: any) {
-  //   this.isShow = true
-  //   this.submitbtnshow = false
-  //   let obj = data
-  //   let branch = obj.BRANCH_CODE
-  //   let voucherNo = obj.TRAN_NO
-  //   let voucherType = obj.TRAN_SOURCE_TYPE
-  //   let tran_type = obj.TRAN_TYPE
-  //   this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
-  //   // console.log(this.iframe5url);
-  //   this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-  //   this.showRepo = true
-  // }
+  printData(data: any) {
+    this.isShow = true
+    this.submitbtnshow = false
+    let obj = data
+    let branch = obj.BRANCH_CODE
+    let voucherNo = obj.TRAN_NO
+    let voucherType = obj.TRAN_SOURCE_TYPE
+    let tran_type = obj.TRAN_TYPE
+    this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&date='" + obj.TRAN_DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tran_type + "'&Branch='" + branch + "'&branchcode=" + branch + "";
+    // console.log(this.iframe5url);
+    this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    this.showRepo = true
+  }
 
   close() {
     this.isShow = false
@@ -490,8 +490,8 @@ export class VoucherEntryComponent implements OnInit {
     let obj = {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-      date: addInFrom , 
-      branch : this.branchCODE
+      date: addInFrom,
+      branch: this.branchCODE
     }
 
     this._service.getledgerbalance(obj).subscribe(data => {
@@ -612,7 +612,7 @@ export class VoucherEntryComponent implements OnInit {
             cancelButtonText: 'OK'
           }).then((result) => {
             if (result.isConfirmed == true) {
-              // this.printData(data);
+              this.printData(data);
             }
           });
           this.angForm.controls['temp_over_draft'].reset()
@@ -757,7 +757,7 @@ export class VoucherEntryComponent implements OnInit {
     // let lastdate = Number(rowData[0]) - 1;
     // // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
     // this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
-    this.IntersetHeadDate  = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
+    this.IntersetHeadDate = moment(this.date, 'DD/MM/YYYY').subtract(1, 'days').format('DD/MM/YYYY');
 
     this._service.getHeadDetails(obj).subscribe(data => {
       // debugger
@@ -1144,7 +1144,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
       date: addInFrom,
-      branch : this.branchCODE
+      branch: this.branchCODE
 
     }
 
@@ -2613,7 +2613,7 @@ export class VoucherEntryComponent implements OnInit {
         scheme: this.Submitscheme.S_APPL,
         acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
         date: addInFrom,
-        branch : this.branchCODE
+        branch: this.branchCODE
 
       }
       this._service.getpigmychartBalance(obj).subscribe(data2 => {

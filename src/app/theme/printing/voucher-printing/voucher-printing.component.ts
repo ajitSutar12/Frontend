@@ -86,7 +86,7 @@ export class VoucherPrintingComponent implements OnInit {
     // { label: 'Cancellation', value: 'CN' },
     { label: 'Voucher', value: 'VC' },
     { label: 'Multi-Voucher', value: 'MV' },
-    // { label: 'Deposit Closing', value: 'DC' },
+    { label: 'Deposit Closing', value: 'DC' },
     // { label: 'Renewal', value: 'RW' },
     // { label: 'Shares Issue', value: 'SHI' },
     // { label: 'SharesTransfer', value: 'SHT' },

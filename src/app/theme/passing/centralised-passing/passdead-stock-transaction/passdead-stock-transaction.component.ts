@@ -50,6 +50,93 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
   // deadStockTransactionData: any = {};
   ngOnInit(): void {
 
+    // this.dtExportButtonOptions = {
+    //   pagingType: 'full_numbers',
+    //   paging: true,
+    //   pageLength: 10,
+    //   serverSide: true,
+    //   processing: true,
+    //   ajax: (dataTableParameters: any, callback) => {
+    //     dataTableParameters.minNumber = dataTableParameters.start + 1;
+    //     dataTableParameters.maxNumber =
+    //       dataTableParameters.start + dataTableParameters.length;
+    //     let datatableRequestParam: any;
+    //     this.page = dataTableParameters.start / dataTableParameters.length;
+
+    //     dataTableParameters.columns.forEach(element => {
+    //       if (element.search.value != '') {
+    //         let string = element.search.value;
+    //         this.filterData[element.data] = string;
+    //       } else {
+    //         let getColumnName = element.data;
+    //         let columnValue = element.value;
+    //         if (this.filterData.hasOwnProperty(element.data)) {
+    //           let value = this.filterData[getColumnName];
+    //           if (columnValue != undefined || value != undefined) {
+    //             delete this.filterData[element.data];
+    //           }
+    //         }
+    //       }
+    //     });
+    //     let data: any = localStorage.getItem('user');
+    //     let result = JSON.parse(data);
+    //     let branchCode = result.branch.id;
+
+    //     dataTableParameters['branchCode'] = branchCode;
+    //     dataTableParameters['filterData'] = this.filterData;
+    //     // this.mySubscription = interval(1000).subscribe((x => {
+    //       console.log(this.url + '/deadstock-purchase/Tranpassing')
+    //     this.http
+    //       .post<DataTableResponse>(
+    //         this.url + '/deadstock-purchase/Tranpassing',
+    //         dataTableParameters
+    //       ).subscribe(resp => {
+    //         this.deadStockTransactionData = resp.data;
+    //         console.log(this.deadStockTransactionData)
+    //         callback({
+    //           recordsTotal: resp.recordsTotal,
+    //           recordsFiltered: resp.recordsTotal,
+    //           data: []
+    //         });
+    //       });
+    //     // }));
+    //   },
+    //   columnDefs: [{
+    //     targets: '_all',
+    //     defaultContent: ""
+    //   }],
+    //   columns: [
+    //     {
+    //       title: 'Action',
+    //     },
+    //     {
+    //       title: 'Record Number ',
+    //       data: 'TRAN_NO'
+    //     },
+    //     {
+    //       title: 'Amount',
+    //       data: 'TRAN_AMOUNT'
+    //     },
+
+    //     {
+    //       title: 'Supplier Name ',
+    //       data: 'TRAN_SUPPLIER_NAME'
+    //     },
+    //     {
+    //       title: 'Narration',
+    //       data: 'NARRATION'
+    //     },
+
+    //     {
+    //       title: 'Entry Type',
+    //       data: 'TRAN_ENTRY_TYPE'
+    //     },
+
+    //   ],
+    //   dom: 'Blrtip',
+
+    // };
+  
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
       paging: true,
@@ -85,12 +172,15 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         // this.mySubscription = interval(1000).subscribe((x => {
+          console.log(this.url + '/deadstock-purchase/Tranpassing')
+
         this.http
           .post<DataTableResponse>(
             this.url + '/deadstock-purchase/Tranpassing',
             dataTableParameters
           ).subscribe(resp => {
             this.deadStockTransactionData = resp.data;
+            console.log('table data', this.deadStockTransactionData)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,
@@ -116,10 +206,10 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
           data: 'TRAN_AMOUNT'
         },
 
-        // {
-        //   title: 'Supplier Name ',
-        //   data: 'TRAN_SUPPLIER_NAME'
-        // },
+        {
+          title: 'Supplier Name ',
+          data: 'TRAN_SUPPLIER_NAME'
+        },
         {
           title: 'Narration',
           data: 'NARRATION'

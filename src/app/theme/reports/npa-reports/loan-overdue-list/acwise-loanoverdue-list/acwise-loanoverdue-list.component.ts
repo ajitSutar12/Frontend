@@ -66,6 +66,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   branchName: any;
   obj: any[];
 
+
   Accode: any;
   memFrom: any;
   memTo: any;
@@ -89,7 +90,11 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   tab1: string;
   tab2: string;
   VScheme: any;
-  selectedItemsString: any;
+  // selectedItemsString: any;
+  isShow: boolean = true
+  @ViewChild('ctdTabset') ctdTabset;
+  id: any;
+
 
   constructor(
     private fb: FormBuilder,
@@ -114,8 +119,15 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    })
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' },
+          this.isShow = false
+        )
+      }
 
+    })
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
@@ -148,6 +160,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       this.ngForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
       this.branchName = result.branch.NAME
+      this.switchNgBTab('Basic')
 
     }
 
@@ -158,13 +171,16 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     this.transferSchemeDetails = event
     this.tScheme = event.name
     this.VScheme = event.value
- 
+
     // this.selectedItems =null;
     console.log(this.tScheme);
     // this.getTable();
     this.getintroduce();
-    
 
+
+  }
+  switchNgBTab(id: string) {
+    this.ctdTabset.select(id);
   }
   getAccountList(event) {
     this.acno = event.bankacno
@@ -228,11 +244,11 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   }
 
-
+  accArray: string[]
   checkInterestFlag(id: any, bankacno: any, flag: any) {
     let isIntUpdate: boolean = false
     if (flag.target.checked) {
-      this.selectedItems.push(bankacno);
+      this.selectedItems.push({"id" : bankacno});
       console.log(this.selectedItems);
     }
     else {
@@ -253,11 +269,15 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   }
 
 
-
-
+  selectedArrayItem: any[]
   view(event) {
 
-
+    // this.selectedArrayItem = this.selectedArrayItem.map(item => ({ id: this.selectedItems }))
+    // this.accArray = this.selectedItems
+    // let bankacno
+    // bankacno = this.selectedItems.map(item => ({ id: this.selectedItems }))
+    let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+    console.log(this.selectedItems);
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -265,7 +285,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
-
+    // let bankacno;
+    // if (this.selectedItems) {
+    //     bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+    // } else {
+      
+    // }
     if (this.ngForm.valid) {
 
       this.showRepo = true;
@@ -291,17 +316,17 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       // const selectedItemsString = Array.isArray(this.selectedItems)
       //   ? this.selectedItems.join(',')
       //   : String(this.selectedItems);
-    
+
       let halfCircleBracketArray = this.selectedItems
         .toString()
         .replace(/\[/g, '(')
         .replace(/\]/g, ')');
-    
-      let list = halfCircleBracketArray; 
-      console.log(halfCircleBracketArray);
-      
 
-  
+      let list = halfCircleBracketArray;
+      console.log(halfCircleBracketArray);
+
+
+
       let minvalue = obj.Min_save;
       let maxvalue = obj.Max_save;
       let scheme = obj.Scheme_code;
@@ -310,22 +335,38 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       let Acno1 = this.acno;
       let Acno2 = this.acno2;
       let Dates = obj.END_DATE;
+      let flag = obj.npa_per;
+      if (flag == true) {
+        flag = 1;
+      }
+      else {
+        flag = 0;
+      }
+
+      // let flag = obj.checkboxValue;
+      // if (flag == true) {
+      //   flag = '1'
+      // } else {
+      //   flag = '0'
+      // }
 
       let flags = this.tab1;
+      let tabValue
       if (flags == 'Selective') {
-        flags = '1'
+        tabValue = 1;
 
 
       } else {
-        flags = '0'
+        tabValue = 0;
 
 
       }
 
-      this.iframe5url = this.report_url + "examples/AccountWiseLoanOverDueList.php?AC_TYPE=" + schemeName + "&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + flags + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&date1='" + Dates + "'&bankName='" + bankName + "'";
 
-
-    
+      if (branch == 0) {
+        this.branchName = 'Consolidate';
+      }
+      this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
 
 
       console.log(this.iframe5url);
@@ -335,24 +376,30 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
-  close() {
-    this.resetForm()
-    this.selectedItems =null;
 
-  }
   onLoad() {
     this.showLoading = false;
 
   }
+
+  close() {
+    this.resetForm()
+    this.selectedItems = [];
+
+  }
+
   resetForm() {
     this.ngForm.controls.Scheme_code.reset();
     // this.ngForm.controls.BRANCH_CODE.reset();
     this.ngForm.controls.Max_save.reset();
     this.ngForm.controls.Min_save.reset();
     this.ngForm.controls.END_DATE.reset();
+    this.ngForm.controls.FROM_AC.reset();
+    this.ngForm.controls.TO_AC.reset();
+
     this.fromAc = null;
     this.toAc = null;
-    this.selectedItems=null;
+    this.selectedItems = null;
 
     this.showRepo = false;
     this.clicked = false;

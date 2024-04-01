@@ -10,7 +10,7 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-1"><label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -31,14 +31,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Depriciation Category <sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-12 col-md-2" *ngIf="isShowCategory"> <label for="scheme">Depriciation
+                                Category <sub class="required">*</sub></label></div>
+                        <div class="col-sm-2" *ngIf="isShowCategory">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
-                                        formControlName="DEPR_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                        placeholder="Depriciation Category">
+                                        (change)="getCategory($event)" formControlName="DEPR_CATEGORY" bindLabel="label"
+                                        title="Compulsory Selection" placeholder="Depriciation Category">
                                         <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -52,9 +52,29 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                        class="form-control" [(ngModel)]="defaultDate" appButton minlength="10"
+                                        maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate" formControlName="FROM_DATE" required bsDatepicker />
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['FROM_DATE'].invalid && (ngForm.controls['FROM_DATE'].dirty || ngForm.controls['FROM_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="ngForm.controls['FROM_DATE'].errors?.pattern || ngForm.controls['FROM_DATE'].errors?.required || ngForm.controls['FROM_DATE'].errors?.maxlength">
+                                    This is required Field .Input Date in format DD/MM/YYYY
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="Starting Code">Starting Code<sub
                                     class="required">*</sub></label>
                         </div>
@@ -122,23 +142,30 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
                     <div class="row">
                         <div class="col-sm">
                             <div class="form-radio">
 
-                                <div class="radio radio-inline">
+                                <div class="radio radio-inline" (click)="showCategory()">
                                     <label>
-                                        <input type="radio" name="radio" value="none" formControlName="radio"
-                                            [checked]="true">
-                                        <i class="helper"></i>Detail</label>
+                                        <input type="radio" name="radio" value="Category" formControlName="radio"
+                                            [checked]="true" required>
+                                        <i class="helper"></i>Categorywise</label>
+                                </div>
+                                <div class="radio radio-inline" (click)="hideCategoryAll()">
+                                    <label>
+                                        <input type="radio" name="radio" value="allCat" formControlName="radio"
+                                            [checked]="true" required>
+                                        <i class="helper"></i>All Categorywise</label>
                                 </div>
 
 
-                                <div class="radio radio-inline">
+                                <div class="radio radio-inline" (click)="hideCategory()">
                                     <label>
-                                        <input type="radio" name="radio" value="blank line" formControlName="radio">
-                                        <i class="helper"></i>Summary</label>
+                                        <input type="radio" name="radio" value="all" formControlName="radio" required>
+                                        <i class="helper"></i>All</label>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
                                     ngForm.controls['radio'].invalid &&
@@ -149,6 +176,7 @@
                                         This field is required
                                     </div>
                                 </div>
+                                
                             </div>
 
                         </div>
@@ -171,7 +199,7 @@
                                     <div class="card-header">
                                         <h5>Report Frame</h5>
                                         <div *ngIf="showRepo">
-                                           
+
                                             <app-iframe [url]='iframeurl' (load)="onLoad()"></app-iframe>
                                         </div>
 

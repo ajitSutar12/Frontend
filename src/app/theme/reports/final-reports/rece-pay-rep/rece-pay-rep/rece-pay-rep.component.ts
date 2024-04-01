@@ -76,7 +76,7 @@ export class RecePayRepComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      TRANSCATION: new FormControl ('None'),
+      // TRANSCATION: new FormControl ('None'),
       PRINT:["",],
       PENAL:["",],
     });
@@ -114,11 +114,11 @@ export class RecePayRepComponent implements OnInit {
       };
 
       let branched = obj.BRANCH_CODE;
-      let tran = obj.TRANSCATION;
+      // let tran = obj.TRANSCATION;
       let print = obj.PRINT;
       let penal = obj.PENAL;
 
-      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+this.ngbranch+"&tran="+tran+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
+      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+this.ngbranch+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

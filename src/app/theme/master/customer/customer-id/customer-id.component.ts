@@ -834,6 +834,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             this.selectedImgArrayDetails.push(selectedObj);
           }
           this.customerDoc = DocArr
+          // this. viewImagePreview(id)
         })
       }
       else {
@@ -1233,30 +1234,85 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     closemodal.click();
 
   }
+  // viewImagePreview(ele, id) {
+  //   if (this.selectedImgArrayDetails.length != 0) {
+  //     for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+  //       let jsonObj = value;
+  //       Object.keys(jsonObj).forEach(key => {
+  //         if (id == key) {
+  //           this.isImgPreview = true
+  //           this.selectedImagePreview = jsonObj[key];
+  //           this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+  //           throw 'Break';
+  //         }
+  //         else {
+  //           this.isImgPreview = false
+  //           this.selectedImagePreview = ''
+  //         }
+  //       });
+  //     }
+  //   }
+  //   else {
+  //     this.isImgPreview = false
+  //     this.selectedImagePreview = ''
+  //   }
+
+  // }
+
+
+  //new CODE
+  isPdf: boolean = false
   viewImagePreview(ele, id) {
-    if (this.selectedImgArrayDetails.length != 0) {
+    if (this.selectedImgArrayDetails.length !== 0) {
       for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
         let jsonObj = value;
         Object.keys(jsonObj).forEach(key => {
           if (id == key) {
-            this.isImgPreview = true
-            this.selectedImagePreview = jsonObj[key];
-            this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedImagePreview);
+            let selectedImage = jsonObj[key];
+            if (selectedImage.startsWith('data:image')) {
+              this.isImgPreview = true;
+              this.isPdf = false;
+              this.selectedImagePreview = selectedImage;
+              this.urlMap = '';
+            } else if (selectedImage.startsWith('data:application/pdf')) {
+              this.isImgPreview = false;
+              this.isPdf = true; 
+              this.selectedImagePreview = '';
+              this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
+            } else if (selectedImage.toLowerCase().endsWith('.jpg') || selectedImage.toLowerCase().endsWith('.png') || selectedImage.toLowerCase().endsWith('.jpeg')) {
+              this.isImgPreview = true;
+              this.isPdf = false;
+              this.selectedImagePreview = selectedImage;
+              this.urlMap = '';
+            } else if (selectedImage.toLowerCase().endsWith('.pdf')) {
+              this.isImgPreview = false;
+              this.isPdf = true; 
+              this.selectedImagePreview = '';
+              this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
+            } else {
+              this.isImgPreview = false;
+              this.isPdf = false; 
+              this.selectedImagePreview = '';
+              this.urlMap = '';
+            }
             throw 'Break';
-          }
-          else {
-            this.isImgPreview = false
-            this.selectedImagePreview = ''
+          } else {
+            this.isImgPreview = false;
+            this.isPdf = false; 
+            this.selectedImagePreview = '';
+            this.urlMap = '';
           }
         });
       }
+    } else {
+      this.isImgPreview = false;
+      this.isPdf = false; 
+      this.selectedImagePreview = '';
+      this.urlMap = '';
     }
-    else {
-      this.isImgPreview = false
-      this.selectedImagePreview = ''
-    }
-
   }
+
+
   checkCustomer() {
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {

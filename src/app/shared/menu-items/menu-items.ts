@@ -93,7 +93,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Master',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 5,
         children: [
           {
@@ -333,6 +333,11 @@ const MENUITEMS1 = [
               //   id: 44
               // },
               {
+                  state: 'recoveryFlag',
+                  name: 'Recovery Flag Updation',
+                  id: 358
+                },
+              {
                 state: 'notingCharges',
                 name: 'Noting Charges',
                 id: 45
@@ -506,7 +511,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Transaction',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-money',
         id: 75,
         children: [
           {
@@ -796,11 +801,41 @@ const MENUITEMS1 = [
         ]
       },
       {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'NEFT / RTGS ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+        ]
+      },
+      {
         state: 'passing',
         short_label: 'D',
         name: 'Passing',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-check-square-o',
         id: 132,
         children: [
           {
@@ -820,6 +855,11 @@ const MENUITEMS1 = [
             name: 'Unapprove',
             id: 135
           },
+           {
+              state: 'neftPassing',
+              name: 'NEFT/RTGS Transaction Passing',
+              id: 354
+            },
         ]
       },
       {
@@ -827,7 +867,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'View',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-tag',
         id: 136,
         children: [
           {
@@ -900,7 +940,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Printing',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-print',
         id: 347,
         children: [
           {
@@ -954,7 +994,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Reports',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-file-text-o',
         id: 148,
         children: [
           // {
@@ -1501,7 +1541,12 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 343,
               },
-
+              {
+                state: 'loanduecertificate',
+                name: 'Loan Due Certificate',
+                type: 'sub',
+                id: 355,
+              },
 
             ],
 
@@ -1515,6 +1560,13 @@ const MENUITEMS1 = [
             type: 'sub',
             id: 243,
             children: [
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue Reports',
+                type: 'sub',
+                id: 252,
+
+              },
               {
                 state: 'npaRegister',
                 name: 'NPA Register',
@@ -1551,23 +1603,17 @@ const MENUITEMS1 = [
               },
               {
                 state: 'classificationsecnpa',
-                name: 'NPA Classification -Secured Or Unsecured.PNG',
+                name: 'NPA Classification -Secured Or Unsecured',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-                name: 'NPA Classification -Standard Or Non Standard.PNG',
+                name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
               },
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue List',
-                type: 'sub',
-                id: 252,
 
-              },
 
             ],
           },
@@ -1726,11 +1772,11 @@ const MENUITEMS1 = [
             icon: 'icon-home',
             id: 278,
             children: [
-              // {
-              //   state: 'schemeWisedepoaccount',
-              //   name: 'SchemeWise Deposit Account Details',
-              //   id: 279
-              // },
+              {
+                state: 'loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
+                id: 356
+              },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
@@ -1823,7 +1869,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Utility',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 293,
         children: [
 
@@ -2014,7 +2060,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Process',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-cogs',
         id: 346,
         children: [
           {
@@ -2043,6 +2089,11 @@ const MENUITEMS1 = [
                 state: 'pigmyDayEnd',
                 name: 'pigmy Day End',
                 id: 298
+              },
+              {
+                state: 'yearEnd',
+                name: 'Year End',
+                id: 299
               },
             ]
           },
@@ -2103,7 +2154,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Hot Key',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-key',
         id: 339
       },
       {
@@ -2111,7 +2162,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Sign Out',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-sign-out',
         id: 340
       },
       // {
@@ -2856,7 +2907,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Master',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 5,
         children: [
           {
@@ -3096,6 +3147,11 @@ const MENUITEMS = [
               //   id: 44
               // },
               {
+                state: 'recoveryFlag',
+                name: 'Recovery Flag Updation',
+                id: 358
+              },
+              {
                 state: 'notingCharges',
                 name: 'Noting Charges',
                 id: 45
@@ -3269,7 +3325,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Transaction',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-money',
         id: 75,
         children: [
           {
@@ -3559,11 +3615,41 @@ const MENUITEMS = [
         ]
       },
       {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'NEFT / RTGS ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+        ]
+      },
+      {
         state: 'passing',
         short_label: 'D',
         name: 'Passing',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-check-square-o',
         id: 132,
         children: [
           {
@@ -3583,6 +3669,11 @@ const MENUITEMS = [
             name: 'Unapprove',
             id: 135
           },
+          {
+            state: 'neftPassing',
+            name: 'NEFT/RTGS Transaction Passing',
+            id: 354
+          },
         ]
       },
       {
@@ -3590,7 +3681,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'View',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-book',
         id: 136,
         children: [
           {
@@ -3663,7 +3754,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Printing',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-print',
         id: 347,
         children: [
           {
@@ -3717,7 +3808,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Reports',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-file-text-o',
         id: 148,
         children: [
           // {
@@ -4264,7 +4355,12 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 343,
               },
-
+              {
+                state: 'loanduecertificate',
+                name: 'Loan Due Certificate',
+                type: 'sub',
+                id: 355,
+              },
 
             ],
 
@@ -4278,6 +4374,13 @@ const MENUITEMS = [
             type: 'sub',
             id: 243,
             children: [
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue Reports',
+                type: 'sub',
+                id: 252,
+
+              },
               {
                 state: 'npaRegister',
                 name: 'NPA Register',
@@ -4314,23 +4417,17 @@ const MENUITEMS = [
               },
               {
                 state: 'classificationsecnpa',
-                name: 'NPA Classification -Secured Or Unsecured.PNG',
+                name: 'NPA Classification -Secured Or Unsecured',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-                name: 'NPA Classification -Standard Or Non Standard.PNG',
+                name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
               },
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue List',
-                type: 'sub',
-                id: 252,
 
-              },
 
 
             ],
@@ -4490,11 +4587,11 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 278,
             children: [
-              // {
-              //   state: 'schemeWisedepoaccount',
-              //   name: 'SchemeWise Deposit Account Details',
-              //   id: 279
-              // },
+              {
+                state: 'loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
+                id: 356
+              },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
@@ -4587,7 +4684,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Utility',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 293,
         children: [
 
@@ -4778,7 +4875,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Process',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-tasks',
         id: 346,
         children: [
           {
@@ -4807,6 +4904,11 @@ const MENUITEMS = [
                 state: 'pigmyDayEnd',
                 name: 'pigmy Day End',
                 id: 298
+              },
+              {
+                state: 'yearEnd',
+                name: 'Year End',
+                id: 299
               },
             ]
           },
@@ -4867,7 +4969,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Hot Key',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-key',
         id: 339
       },
       {
@@ -4875,7 +4977,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Sign Out',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-sign-out',
         id: 340
       },
       // {

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 // export class LoanOverdueListComponent {
 
 // }
- export class LoanOverdueListComponent implements OnInit {
+export class LoanOverdueListComponent implements OnInit {
 
   loanoverdueTrue: boolean = true;
   accountwiseTrue: boolean = false;
@@ -27,11 +27,31 @@ import { Router } from '@angular/router';
   compareODTrue: boolean = false;
   ddrelODTrue: boolean = false;
   ddrelODPerfoTrue: boolean = false;
-
+  schemeloanoverdueincredecre: boolean = false;
+  duebalancesummary: boolean = false;
+  clerkWiseRecoveryOverDueList: boolean = false;
+  loanPeriodWiseAmountList: boolean = false;
+  overDuePercentageSummaryReport: boolean = false;
+  otherRecInstallWiseLoanOverdue: boolean = false;
+  summaryperiodwiselist: boolean = false;
+  directorAndDirectorsRelativesReport: boolean = false;
+  cityWiseLoanOverdue:boolean=false;
 
   constructor(private_router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  isShow: boolean = true
+  isHide: boolean = true
+
+  hideShow() {
+    this.isShow = false
+    this.isHide = true
+  }
+  hideShow1() {
+    this.isShow = true
+    this.isHide = false
   }
 
   OpenLink(val) {
@@ -40,286 +60,333 @@ import { Router } from '@angular/router';
       this.loanoverdueTrue = true;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
       this.loanduelistbetnTrue = false;
       this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+     
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+this.cityWiseLoanOverdue=false;
+
 
     }
     else if (val == 2) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = true;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
       this.loanduelistbetnTrue = false;
       this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+    
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
 
     }
     else if (val == 3) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = true;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
       this.loanduelistbetnTrue = false;
       this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+      
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
 
     }
     else if (val == 4) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = true;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
-      this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
+      this.directorrecommendedTrue = true;
       this.loanduelistbetnTrue = false;
       this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+      
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
 
     }
     else if (val == 5) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = true;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
-      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTrue = true;
       this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+     
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
 
     }
     else if (val == 6) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = true;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
       this.loanduelistbetnTrue = false;
-      this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+      this.loanduelistbetnTwoOpenTrue = true;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+  
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
 
     }
-    // else if (val == 7) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = true;
-    //   this.directorrecommendedTrue = false;
-    //   this.duePeriodlTrue = false;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = false;
-    //   this.recIntTrue = false;
-    //   this.compareODTrue = false;
-    //   this.ddrelODTrue = false;
-    //   this.ddrelODPerfoTrue = false;
+    else if (val == 7) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
 
-    // }
-    // else if (val == 8) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = false;
-    //   this.directorrecommendedTrue = true;
-    //   this.duePeriodlTrue = false;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = false;
-    //   this.recIntTrue = false;
-    //   this.compareODTrue = false;
-    //   this.ddrelODTrue = false;
-    //   this.ddrelODPerfoTrue = false;
+      this.duebalancesummary = true;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+      
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
 
-    // }
-    // else if (val == 9) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = false;
-    //   this.directorrecommendedTrue = false;
-    //   this.duePeriodlTrue = true;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = false;
-    //   this.recIntTrue = false;
-    //   this.compareODTrue = false;
-    //   this.ddrelODTrue = false;
-    //   this.ddrelODPerfoTrue = false;
 
-    // }
+    }
+    else if (val == 8) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = true;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+   
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
+
+    }
+    else if (val == 9) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = true;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+  
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
+
+    }
     else if (val == 10) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
-      this.loanduelistbetnTrue = true;
+      this.loanduelistbetnTrue = false;
       this.loanduelistbetnTwoOpenTrue = false;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = true;
+      this.overDuePercentageSummaryReport = false;
+  
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
+
     }
     else if (val == 11) {
       this.loanoverdueTrue = false;
       this.accountwiseTrue = false;
       this.installmentwiseTrue = false;
-      this.otherreceiveInstallTrue = false;
-      this.citiwiselorTrue = false;
-      this.recoveryClerkTrue = false;
-      this.directorlorTrue = false;
       this.directorrecommendedTrue = false;
-      this.duePeriodlTrue = false;
       this.loanduelistbetnTrue = false;
-      this.loanduelistbetnTwoOpenTrue = true;
-      this.lreceivedueTrue = false;
-      this.recIntTrue = false;
-      this.compareODTrue = false;
-      this.ddrelODTrue = false;
-      this.ddrelODPerfoTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = true;
+  
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
 
     }
-    // else if (val == 12) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = false;
-    //   this.directorrecommendedTrue = false;
-    //   this.duePeriodlTrue = false;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = true;
-    //   this.recIntTrue = false;
-    //   this.compareODTrue = false;
-    //   this.ddrelODTrue = false;
-    //   this.ddrelODPerfoTrue = false;
+    else if (val == 12) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
 
-    // }
-    // else if (val == 13) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = false;
-    //   this.directorrecommendedTrue = false;
-    //   this.duePeriodlTrue = false;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = false;
-    //   this.recIntTrue = true;
-    //   this.compareODTrue = false;
-    //   this.ddrelODTrue = false;
-    //   this.ddrelODPerfoTrue = false;
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+     
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = true;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
 
-    // }
-    // else if (val == 14) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = false;
-    //   this.directorrecommendedTrue = false;
-    //   this.duePeriodlTrue = false;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = false;
-    //   this.recIntTrue = false;
-    //   this.compareODTrue = true;
-    //   this.ddrelODTrue = false;
-    //   this.ddrelODPerfoTrue = false;
+    }
 
-    // }
-    // else if (val == 15) {
-    //   this.loanoverdueTrue = false;
-    //   this.accountwiseTrue = false;
-    //   this.installmentwiseTrue = false;
-    //   this.otherreceiveInstallTrue = false;
-    //   this.citiwiselorTrue = false;
-    //   this.recoveryClerkTrue = false;
-    //   this.directorlorTrue = false;
-    //   this.directorrecommendedTrue = false;
-    //   this.duePeriodlTrue = false;
-    //   this.loanduelistbetnTrue = false;
-    //   this.loanduelistbetnTwoOpenTrue = false;
-    //   this.lreceivedueTrue = false;
-    //   this.recIntTrue = false;
-    //   this.compareODTrue = false;
-    //   this.ddrelODTrue = true;
-    //   this.ddrelODPerfoTrue = false;
+    else if (val == 13) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+      
+      this.otherRecInstallWiseLoanOverdue = true;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
 
-    // }
+    }
+
+    ///////////////////////////////////
+    else if (val == 14) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+    
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=false;
+
+
+    }
+    else if (val == 15) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+      
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = true;
+      this.cityWiseLoanOverdue=false;
+
+    }
+    else if (val == 16) {
+      this.loanoverdueTrue = false;
+      this.accountwiseTrue = false;
+      this.installmentwiseTrue = false;
+      this.directorrecommendedTrue = false;
+      this.loanduelistbetnTrue = false;
+      this.loanduelistbetnTwoOpenTrue = false;
+      this.duebalancesummary = false;
+      this.schemeloanoverdueincredecre = false;
+      this.clerkWiseRecoveryOverDueList = false;
+      this.loanPeriodWiseAmountList = false;
+      this.overDuePercentageSummaryReport = false;
+
+      this.otherRecInstallWiseLoanOverdue = false;
+      this.summaryperiodwiselist = false;
+      this.directorAndDirectorsRelativesReport = false;
+      this.cityWiseLoanOverdue=true;
+ 
+    }
     // else if (val == 16) {
     //   this.loanoverdueTrue = false;
     //   this.accountwiseTrue = false;

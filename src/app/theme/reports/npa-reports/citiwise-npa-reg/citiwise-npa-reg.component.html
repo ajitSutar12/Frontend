@@ -48,7 +48,6 @@
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event)">
-                                            [(ngModel)]="scode" (change)="($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
@@ -88,7 +87,7 @@
                             <div class="col-sm-12 col-md-2"> <label for=" Date">NPA DATE<sub
                                 class="required">*</sub></label>
                     </div>
-                    <div class="col-sm-2 col-md-4">
+                    <div class="col-sm-2 col-md-2">
                         <div class="form-group form-primary form-static-label">
                             <span class="border-lable-flt">
                                 <ng-select formControlName="NPA_Date" [(ngModel)]="nasf"

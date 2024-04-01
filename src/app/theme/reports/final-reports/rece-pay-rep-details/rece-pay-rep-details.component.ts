@@ -94,38 +94,90 @@ export class RecePayRepDetailsComponent implements OnInit {
     }
   }
 
+  // view(event) {
+  //   event.preventDefault();
+
+  //   let userData = JSON.parse(localStorage.getItem('user'));
+  //   let bankName = userData.branch.syspara.BANK_NAME;
+  //   let branchName = userData.branch.NAME;
+
+  //   if (this.angForm.valid) {
+
+  //      this.showRepo = true;
+  //     let obj = this.angForm.value
+  //     let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
+  //     // let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+  //     let end1date:any;
+  //     if (this.todate == obj.END_DATE) {
+  //       end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  //     }else{ 
+  //       end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+  //     };
+
+  //     let branched = obj.BRANCH_CODE;
+  //     let tran = obj.TRANSCATION;
+  //     let print = obj.PRINT;
+  //     let penal = obj.PENAL;
+
+  //     this.iframeurl = this.report_url+"examples/Receiptdetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"&print="+print+"&penal="+penal+ "'&BRANCH_CODE='"+this.ngbranch+"&bankName=" + bankName + "";
+  //     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+
+  //   }
+  //   else {
+  //     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  //   }
+
+  // }
+
   view(event) {
     event.preventDefault();
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
+   
 
     if (this.angForm.valid) {
 
-       this.showRepo = true;
+      this.showRepo = true;
       let obj = this.angForm.value
+
+      let flag
+      if (obj.PRINT == true && obj.PENAL == true) {
+        flag = 0
+      }
+      else if (obj.PRINT == true) {
+        flag = 1
+      }
+      else if (obj.PENAL == true ) {
+        flag = 2
+      }
+      else {
+        flag = 3
+      }
+
       let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-      let end1date:any;
+      let end1date: any;
       if (this.todate == obj.END_DATE) {
-        end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        end1date = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        end1date = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-      let branched = obj.BRANCH_CODE;
+      let branchCode = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
       let print = obj.PRINT;
       let penal = obj.PENAL;
 
-      this.iframeurl = this.report_url+"examples/Receiptdetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"&print="+print+"&penal="+penal+ "'&BRANCH_CODE='"+this.ngbranch+"&bankName=" + bankName + "";
+      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + branchName + "&flag=" + flag + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -135,7 +187,7 @@ export class RecePayRepDetailsComponent implements OnInit {
   // Reset Function
   resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.showRepo = false;
     this.clicked=false;
   }
