@@ -87,7 +87,7 @@ clicked:boolean=false;
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
       let branched1 = obj.BRANCH_CODE;
 
-      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate='" + stardate +"'&endate='"+endate+"'&branched1='"+this.ngbranch+"'&bankName='" + bankName + "'&branchName='" + branchName + "'";
+      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate=" + stardate +"&endate="+endate+"&branched1="+this.ngbranch+"&bankName='" + bankName + "'&branchName='" + branchName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

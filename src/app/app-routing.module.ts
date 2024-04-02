@@ -143,6 +143,10 @@ const routes: Routes = [
         path: 'printing',
         loadChildren: () => import('./theme/printing/printing.module').then(m =>m.PrintingModule)
       },
+      {
+        path: 'neftRtgs',
+        loadChildren: () => import('./theme/neft-rtgs/neft-rtgs.module').then(m =>m.NeftRtgsModule)
+      },
     ]
   },
   {

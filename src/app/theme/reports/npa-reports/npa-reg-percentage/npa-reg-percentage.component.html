@@ -47,7 +47,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)    ">
+                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
@@ -64,11 +64,11 @@
                             </div>
 
 
-                            
+
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for=" Date"> Date<sub
+                            <!--  <div class="col-sm-12 col-md-2"> <label for=" Date"> Date<sub
                                 class="required">*</sub></label>
                     </div>
                     <div class="col-sm-12 col-md-4">
@@ -76,8 +76,8 @@
                             <span class="border-lable-flt">
                                 <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                    [(ngModel)]="fordate" formControlName="END_DATE" appButton minlength="8"
-                                    maxlength="10"(change)="getnpa($event)"
+                                    [(ngModel)]="todate" formControlName="END_DATE" appButton minlength="8"
+                                    maxlength="10"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                     bsDatepicker>
                             </span>
@@ -90,7 +90,7 @@
                                 This field is required
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                             <div class="col-sm-12 col-md-2"> <label for=" Date">NPA DATE<sub
                                         class="required">*</sub></label>
@@ -98,9 +98,11 @@
                             <div class="col-sm-2 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select formControlName="NPA_Date" [(ngModel)]="nasf" (change)="getnpa($event)">
+                                        <ng-select formControlName="NPA_Date" [(ngModel)]="nasf"
+                                            (change)="getDate($event)">
+                                            
                                             <ng-option *ngFor="let values of glDetails" [value]="values">
-                                                {{values.id}} {{values.label}} </ng-option>
+                                                {{values.REPORT_DATE}} </ng-option>
                                         </ng-select>
 
                                     </span>
@@ -111,30 +113,37 @@
                         <div class="row">
                             <div class="col-sm-12 col-md">
                                 <div class="form-radio">
-                                    <div class="radio radio-inline">
+                                 
+                                    <!-- <div class="radio radio-inline">
                                         <label>
-                                            <input type="radio" name="All_Ac" formControlName="All_AC" value="slf"
-                                                [checked]="" [(ngModel)]="Selection">
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="allacc" [(ngModel)]="radioValue"
+                                                [checked]="true" (change)="percentageDetail($event)">
                                             <i class="helper"></i>All Account </label>
-                                    </div>
+                                    </div> -->
                                     <div class="radio radio-inline">
                                         <label>
-                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="optio"
-                                                [(ngModel)]="radioValue" [checked]="true">
-                                            <i class="helper"></i>In Beetween Saction Amount </label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="betamt"
+                                                [(ngModel)]="radioValue">
+                                            <i class="helper"></i>In Beetween Sanction Amount </label>
 
                                     </div>
                                     <div class="radio radio-inline">
                                         <label>
                                             <input type="radio" name="OD_TEMP" [(ngModel)]="radioValue"
-                                                formControlName="OD_TEMP" value="option1">
+                                                formControlName="OD_TEMP" value="betbal">
                                             <i class="helper"></i>In Beetween Balance</label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="allacc" [(ngModel)]="radioValue"
+                                                 (change)="percentageDetail($event)">
+                                            <i class="helper"></i>All Account </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="col-md-8" [hidden]="!radioValue">
+
+                        <div class="col-md-8" [hidden]="(radioValue === 'allacc')">
 
                             <div class="row border mx-5">
 
@@ -151,9 +160,9 @@
                                     <div class="col-md-10">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="" name="enpa" id="enpa"
-                                                    class="form-control" formControlName="Standard" appButton
-                                                    minlength="10" maxlength="10">
+                                                <input type="text" placeholder="" name="from" id="from"
+                                                    class="form-control" formControlName="from" appButton
+                                                   >
                                             </span>
                                         </div>
                                     </div>
@@ -164,9 +173,9 @@
                                     <div class="col-md-10">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" placeholder="" name="enpa" id="enpa"
-                                                    class="form-control" formControlName="Non_Standard" appButton
-                                                    minlength="10" maxlength="10">
+                                                <input type="text" placeholder="" name="to" id="to"
+                                                    class="form-control" formControlName="to" appButton
+                                                    >
                                             </span>
                                         </div>
                                     </div>
@@ -175,22 +184,22 @@
 
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-3">
+                        <div class="row" >
+                            <div class="col-md-3" [hidden]="radioValue !== 'allacc'">
                                 <div class="checkbox checkbox-primary">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="npa_per"
-                                            formControlName="npa_per">
+                                         formControlName="npa_per" >
                                         <label class="border-checkbox-label" for="npa_per">Print NPA Standard Account
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3" [hidden]="radioValue !== 'allacc'">
                                 <div class="checkbox checkbox-primary">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue"
-                                            formControlName="checkboxValue">
+                                         formControlName="checkboxValue" >
                                         <label class="border-checkbox-label" for="checkboxValue">Print Only Process NPA
                                             Account
                                         </label>

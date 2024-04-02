@@ -82,7 +82,7 @@ export class BnkTrialBalComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      TRANSCATION: new FormControl('None'),
+      // TRANSCATION: new FormControl('None'),
     });
 
     let data: any = localStorage.getItem('user');
@@ -132,9 +132,8 @@ export class BnkTrialBalComponent implements OnInit {
       let endDate = moment(toDate).format('DD/MM/YYYY')
 
       let branched = obj.BRANCH_CODE;
-      let tran = obj.TRANSCATION;
 
-      this.iframeurl = this.report_url + "examples/TrialBal.php?startdate='" + startdate + "'&endDate='" + endDate + "'&branched=" + this.ngbranch + "&tran=" + tran + "&branchName=" + this.branchName + "&bankName=" + bankName + "";
+      this.iframeurl = this.report_url + "examples/TrialBal.php?startdate='" + startdate + "'&endDate='" + endDate + "'&branched=" + this.branchCode + "&branchName=" + this.branchName + "&bankName=" + bankName + "";
       console.log(this.iframeurl)
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

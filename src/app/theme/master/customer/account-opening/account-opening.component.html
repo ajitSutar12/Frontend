@@ -11,7 +11,7 @@
             <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm"> 
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
@@ -42,7 +42,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngBank" id="INVEST_BANK"
@@ -65,7 +65,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                       
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="ngBranch" id="INVEST_BRANCH"
@@ -87,9 +91,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
+
+                        <div class="col-sm-7">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -99,6 +102,9 @@
                                 </span>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                       
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -168,7 +174,7 @@
                         <div class="col-sm-2">
                             <h6>Deposit Period:</h6>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_MONTHS"
@@ -189,7 +195,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_DAYS"
@@ -210,7 +216,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme appButton minlength="10" maxlength="10" type="text"
@@ -234,7 +240,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="AC_SCHMAMT" class="form-control" placeholder=" "
@@ -277,7 +283,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MATUAMT" class="form-control" placeholder=" "
@@ -296,7 +302,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appButton minlength="10" maxlength="10" placeholder="dd/mm/yyyy"

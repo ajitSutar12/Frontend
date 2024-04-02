@@ -102,14 +102,14 @@ export class SharesTransferComponent implements OnInit {
     })
     let user: any = localStorage.getItem('user');
     let result = JSON.parse(user);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['branch_code'].enable()
-      this.selectedBranch = result.branch.id
-    }
-    else {
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['branch_code'].enable()
+    //   this.selectedBranch = result.branch.id
+    // }
+    // else {
       this.angForm.controls['branch_code'].disable()
       this.selectedBranch = result.branch.id
-    }
+    // }
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       this.scheme = data
@@ -179,17 +179,17 @@ export class SharesTransferComponent implements OnInit {
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['branch_code'].enable()
-      this.selectedBranch = result.branch.id
-    }
-    else {
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['branch_code'].enable()
+    //   this.selectedBranch = result.branch.id
+    // }
+    // else {
       this.angForm.controls['branch_code'].disable()
       this.angForm.patchValue({
         'branch_code': result.branch.id
       })
       this.selectedBranch = result.branch.id
-    }
+    // }
     this.systemParameter.getFormData(1).subscribe(data => {
       this.Issue_date = data.CURRENT_DATE;
       this.logDate = data.CURRENT_DATE;

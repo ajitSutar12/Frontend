@@ -276,17 +276,17 @@ export class TermDepositAccountClosingComponent implements OnInit {
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.angForm.controls['branch_code'].enable()
-      this.selectedBranch = result.branch.id
-    }
-    else {
+    // if (result.RoleDefine[0].Role.id == 1) {
+    //   this.angForm.controls['branch_code'].enable()
+    //   this.selectedBranch = result.branch.id
+    // }
+    // else {
       this.angForm.controls['branch_code'].disable()
       this.angForm.patchValue({
         'branch_code': result.branch.id
       })
       this.selectedBranch = result.branch.id
-    }
+    // }
   }
 
   getschemename
@@ -883,7 +883,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
         break;
 
-        case 'GL':
+      case 'GL':
         this.schemeAccountNoService.getGeneralLedgerListForClosing().subscribe(data => {
           this.schemeACNo = data;
         })
@@ -1274,7 +1274,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       this._TDService.postData(dataToSend).subscribe(data => {
         // this.getVoucherData();
-        Swal.fire('Success!', 'Account Closed Successfully !', 'success');
+        const successMessage = `Account Closed Successfully ! <b> Please Note Voucher Number </b> <br> ${data.TRAN_NO}`; 
+        Swal.fire('Success!', successMessage, 'success');
         this.transferTotalAmount = 0
         this.multigrid = []
         this.customerImg = 'assets/images/nouser.png';

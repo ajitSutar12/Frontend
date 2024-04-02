@@ -108,12 +108,10 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.getschemename = this.accSchemeName
     this.getAccountlist()
     this.accountedit = this.accAcNo
-    this.bankacno = this.accAcNo
     this.fromdate = this.accFromDate
     this.todate = this.accToDate
     this.accountEvent = this.accountEvent
     this.changeAccountDetails(this.accountEvent)
-    this.bankacno = this.accAcNo
     this.getLedgerTransactionsDeatils()
     this.angForm.controls['BRANCH_CODE'].disable()
     this.angForm.controls['AC_TYPE'].disable()
@@ -256,7 +254,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL' || scheme.name == 'CA')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL'|| scheme.name == 'CA')
       });
       this.scheme = allscheme;
     })
@@ -264,7 +262,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-
+  
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()

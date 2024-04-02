@@ -64,7 +64,7 @@ export class BalanceSheetComponent implements OnInit {
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
       if (result.branchId == 1) {
-        this.branchOption.push({ value: '0', label: 'Consolidate' })
+        this.branchOption.push({ value: '100', label: 'Consolidate' })
       }
     });
 

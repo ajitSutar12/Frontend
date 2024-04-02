@@ -38,28 +38,28 @@
                                 </div>
 
                                 <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
-                                    class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                        [(ngModel)]="dates" formControlName="DATE" appButton minlength="8"
-                                        maxlength="10"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['DATE'].invalid && (ngForm.controls['DATE'].dirty || ngForm.controls['DATE'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="ngForm.controls['DATE'].errors?. maxlength || ngForm.controls['DATE'].errors?. minlength || ngForm.controls['DATE'].errors?.required">
-                                    This field is required
+                                            class="required">*</sub></label>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                                [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                                [(ngModel)]="dates" formControlName="DATE" appButton minlength="8"
+                                                maxlength="10"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                bsDatepicker>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['DATE'].invalid && (ngForm.controls['DATE'].dirty || ngForm.controls['DATE'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="ngForm.controls['DATE'].errors?. maxlength || ngForm.controls['DATE'].errors?. minlength || ngForm.controls['DATE'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-1">
                                     <label for="vtype">Source Type<sub class="required">*</sub></label>
@@ -82,16 +82,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1" *ngIf="show">
                                     <label for="TranType">Transaction Type<sub class="required">*
                                         </sub></label>
                                 </div>
-                                <div class="col-sm-2 col-md-2">
+                                <div class="col-sm-2 col-md-2" *ngIf="show">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select bindValue="value" bindLabel="label" [(ngModel)]="tranType" formControlName="TRAN_TYPE" (change)="getType1($event)">
+                                            <ng-select bindValue="value" bindLabel="label" [(ngModel)]="tranType"
+                                                formControlName="TRAN_TYPE" (change)="getType1($event)">
                                                 <ng-option *ngFor="let values of ttypes" [value]="values">
-                                                    {{values.label}}</ng-option> 
+                                                    {{values.label}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -104,33 +105,53 @@
                                     </div>
                                 </div>
 
-                             
+
 
                             </div>
 
                             <div class="row">
 
                                 <div class="col-sm-2 col-md-1"> <label for="VOUCHER_NO">Voucher Number<sub
-                                    class="required">*</sub></label>
-                        </div>
-                        <div class="col-sm-2 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select bindValue="TRAN_NO"   [(ngModel)]="voucherNo" (change)="getType2($event)"
-                                        formControlName="VOUCHER_NO">
-                                        <ng-option *ngFor="let values of glDetails" [value]="values">
-                                            {{values.TRAN_NO}}</ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['VOUCHER_NO'].invalid && (ngForm.controls['VOUCHER_NO'].dirty || ngForm.controls['VOUCHER_NO'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="ngForm.controls['VOUCHER_NO'].errors?.required">
-                                    This field is required 
+                                            class="required">*</sub></label>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="col-sm-2 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select bindValue="TRAN_NO" [(ngModel)]="voucherNo"
+                                                (change)="getType2($event)" formControlName="VOUCHER_NO">
+                                                <ng-option *ngFor="let values of glDetails" [value]="values">
+                                                    {{values.TRAN_NO}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['VOUCHER_NO'].invalid && (ngForm.controls['VOUCHER_NO'].dirty || ngForm.controls['VOUCHER_NO'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="ngForm.controls['VOUCHER_NO'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3" *ngIf="hide">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="drcr" value="Debit" formControlName="drcr"
+                                                    [checked]="true">
+                                                <i class="helper"></i>Debit </label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="drcr" value="Credit" formControlName="drcr">
+                                                <i class="helper"></i>Credit </label>
+                                        </div>
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="drcr" value="Both" formControlName="drcr">
+                                                <i class="helper"></i>Both </label>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 

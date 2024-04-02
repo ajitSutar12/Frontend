@@ -101,7 +101,7 @@
                                             <!-- <a [routerLink]="['/dashboard/default']"><button type="button" class="btn btn-primary btn-md btn-block waves-light text-center m-b-20" mdbRippleRadius><b>Sign in</b></button></a> -->
                                             <button
                                                 class="btn btn-primary btn-md btn-block waves-light text-center m-b-20"
-                                                (click)="login()" mdbRippleRadius>
+                                                (click)="login()" mdbRippleRadius [disabled]="isUserBlocked">
                                                 <b style="color: white;">Sign in</b>
                                             </button>
                                         </div>
@@ -128,8 +128,8 @@
                                         <h5 style="text-align:center;margin-top: 5px;position: sticky;">Compserv Systems
                                         </h5>
                                         <h5 style="float:right" class="prod-logo"><b><span
-                                                    style="color:black">Pat</span>
-                                                <span style="color:#f7ba12">seva</span></b></h5>
+                                                    style="color:purple">Pat</span>
+                                                <span style="color:#e87006">seva</span></b></h5>
                                     </div>
 
                                 </div>

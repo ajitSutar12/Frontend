@@ -252,7 +252,8 @@
                                     <span class="border-lable-flt" autofocus>
                                         <ng-select appTheme bindValue="value" [(ngModel)]="ngCast" id="AC_CAST"
                                             bindLabel="label" #cast (focus)="onFocus(cast)" [selectOnTab]='true'
-                                            [virtualScroll]="true" formControlName="AC_CAST"   [dropdownPosition]="'bottom'">
+                                            [virtualScroll]="true" formControlName="AC_CAST"
+                                            [dropdownPosition]="'bottom'">
                                             <ng-option *ngFor="let values of castMaster" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -263,35 +264,35 @@
                         </div>
                         <div class="col-sm-2">
                             <!-- <div class="city"> -->
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt" autofocus>
-                                        <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
-                                            #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true'
-                                            [virtualScroll]="true" bindLabel="label" formControlName="AC_OCODE"
-                                            placeholder="Occupation" [dropdownPosition]="'bottom'">
-                                            <ng-option *ngFor="let values of occupation" [value]="values">
-                                                {{values.label}} </ng-option>
-                                        </ng-select>
-                                        <label for="AC_OCODE">Occupation</label>
-                                    </span>
-                                </div>
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngoccupation" id="AC_OCODE"
+                                        #AC_OCODE (focus)="onFocus(AC_OCODE)" [selectOnTab]='true'
+                                        [virtualScroll]="true" bindLabel="label" formControlName="AC_OCODE"
+                                        placeholder="Occupation" [dropdownPosition]="'bottom'">
+                                        <ng-option *ngFor="let values of occupation" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AC_OCODE">Occupation</label>
+                                </span>
+                            </div>
                             <!-- </div> -->
                         </div>
                         <div class="col-sm-2">
 
                             <!-- <div class="city"> -->
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt" autofocus>
-                                        <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG"
-                                            bindLabel="label" #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)"
-                                            [selectOnTab]='true' [virtualScroll]="true" formControlName="AC_RISKCATG"
-                                            placeholder="Risk Category">
-                                            <ng-option *ngFor="let values of risk" [value]="values">
-                                                {{values.label}} </ng-option>
-                                        </ng-select>
-                                        <label for="AC_RISKCATG">Risk Category </label>
-                                    </span>
-                                </div>
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt" autofocus>
+                                    <ng-select appTheme bindValue="value" [(ngModel)]="ngRisk" id="AC_RISKCATG"
+                                        bindLabel="label" #AC_RISKCATG (focus)="onFocus(AC_RISKCATG)"
+                                        [selectOnTab]='true' [virtualScroll]="true" formControlName="AC_RISKCATG"
+                                        placeholder="Risk Category">
+                                        <ng-option *ngFor="let values of risk" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                    <label for="AC_RISKCATG">Risk Category </label>
+                                </span>
+                            </div>
                             <!-- </div> -->
                         </div>
                         <div class="col-sm-2">
@@ -466,18 +467,18 @@
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
                                         placeholder="City" required>
 
-                                        </ng-select>
-                                        <label for="AC_CTCODE">City<sub class="required">*
-                                            </sub></label>
-                                    </span>
+                                    </ng-select>
+                                    <label for="AC_CTCODE">City<sub class="required">*
+                                        </sub></label>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_CTCODE'].errors?.required">
+                                    This field is required.
                                 </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['AC_CTCODE'].invalid && (angForm.controls['AC_CTCODE'].dirty || angForm.controls['AC_CTCODE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_CTCODE'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
+                            </div>
                             <!-- </div> -->
                         </div>
                         <div class="col-sm-3">
@@ -827,14 +828,30 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <div class="app-modal-body">
+                                                    <!-- <div class="app-modal-body">
                                                         <perfect-scrollbar>
                                                             <div *ngIf="isImgPreview" class='embed-responsive'
                                                                 style='padding-bottom:60%'>
-                                                                <!-- <embed [src]="urlMap" /> -->
                                                                 <iframe [src]="urlMap"></iframe>
                                                             </div>
                                                             <p *ngIf="!isImgPreview">No File For Preview</p>
+                                                        </perfect-scrollbar>
+                                                    </div> -->
+
+                                                    <div class="app-modal-body">
+                                                        <perfect-scrollbar>
+                                                            <div *ngIf="isImgPreview && (selectedImagePreview.startsWith('data:image') || selectedImagePreview.toLowerCase().endsWith('.jpg') || selectedImagePreview.toLowerCase().endsWith('.jpeg') || selectedImagePreview.toLowerCase().endsWith('.png'))"
+                                                                class='embed-responsive' style='padding-bottom:60%;'>
+                                                                <img [src]="selectedImagePreview"
+                                                                    style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0;">
+                                                            </div>
+                                                            <div *ngIf="isPdf || (isImgPreview && (selectedImagePreview.startsWith('data:application/pdf') || selectedImagePreview.toLowerCase().endsWith('.pdf')))"
+                                                                class='embed-responsive' style='padding-bottom:60%;'>
+                                                                <iframe [src]="urlMap"></iframe>
+                                                            </div>
+
+
+                                                            <p *ngIf="!isImgPreview && !isPdf">No File For Preview</p>
                                                         </perfect-scrollbar>
                                                     </div>
 

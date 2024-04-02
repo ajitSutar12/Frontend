@@ -25,13 +25,18 @@ const routes: Routes = [
         loadChildren: () => import('./pigmy-day-end/pigmy-day-end.module').then(m => m.PigmyDayEndModule)
       },
       {
+        path: 'yearEnd',
+        loadChildren: () => import('./year-end/year-end.module').then(m => m.YearEndModule)
+      },
+
+      {
         path: 'FinalDayEnd',
         component: DayEndFinalComponent
       },
-      {
-        path: 'yearEnd',
-        component: YearEndComponent
-      }
+      // {
+      //   path: 'yearEnd',
+      //   component: YearEndComponent
+      // }
     ]
   },
 ];

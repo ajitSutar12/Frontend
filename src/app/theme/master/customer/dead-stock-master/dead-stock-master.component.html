@@ -187,7 +187,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" "
                                         id="OP_BALANCE" maxlength="13" title="Input allowed only  0-9"
-                                        style="text-align: right;" (keyup)="getDecimal($event)"
+                                        style="text-align: right;" 
                                         (focusout)="getDecimalPoint($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" (focus)="selectAllContent($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
@@ -234,7 +234,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="Account" class="form-control" placeholder=" "
                                         id="PURCHASE_RATE" value="" pattern="\d{1,5}(\.\d{2})?"
-                                        (change)="getPurchaseValue()" (keyup)="getDecimal($event)"
+                                        (change)="getPurchaseValue()" 
                                         (focusout)="getDecimalPoint($event)" title="Input allowed only  0-9"
                                         maxlength="8" style="text-align: right;"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
@@ -365,9 +365,9 @@
                                 *ngIf="newbtnShow">
                                 Cancel
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData();ITEM_TYPE.focus()"
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();ITEM_TYPE.focus()"
                                 *ngIf="updateShow">
-                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
+                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                 (click)="reject();ITEM_TYPE.focus()">
                                 Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -422,7 +422,7 @@
                                             {{data.DEPR_CATEGORY === ''? '-' : data.DEPR_CATEGORY}}</td>
                                         <td class="td_right"
                                             [ngClass]="data.PURCHASE_QUANTITY === '' ? 'td_center' : 'td_right'">
-                                            {{data.PURCHASE_QUANTITY === ''? '-' : data.PURCHASE_QUANTITY}}</td>
+                                            {{data.PURCHASE_OP_QUANTITY === ''? '-' : data.PURCHASE_OP_QUANTITY}}</td>
                                         <td class="td_right"
                                             [ngClass]="data.PURCHASE_RATE === '' ? 'td_center' : 'td_right'">
                                             {{data.PURCHASE_RATE === ''? '-' : data.PURCHASE_RATE}}</td>
