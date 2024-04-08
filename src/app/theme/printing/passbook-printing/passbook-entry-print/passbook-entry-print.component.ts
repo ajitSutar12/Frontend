@@ -177,7 +177,7 @@ export class PassbookEntryPrintComponent implements OnInit {
           this.firstno = null
         })
         break;
-        case 'CC':
+        case 'CA':
           this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
             this.introducerACNo = data;
             this.firstno = null

@@ -875,7 +875,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.filteredMenuListData = [];
   }
 
-  modalClose: boolean = true
+  modalClose: boolean = false
   closeMarquee() {
     this.modalClose = false
   }
