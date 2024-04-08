@@ -136,7 +136,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <!-- <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
@@ -144,6 +144,106 @@
                                         [(ngModel)]="fullname" value="{{lname + ' ' + fname + ' ' + mname}}"
                                         formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name</label>
+                                </span>
+                            </div>
+                        </div> -->
+
+                        <div class="col-sm-4" *ngIf="isable">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+                                        pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
+                                        [disabled]="isFullNameDisabled" [(ngModel)]="fullname"
+                                        [value]="lname + ' ' + fname + ' ' + mname" formControlName="AC_NAME" disabled>
+                                    <label for="AC_NAME">Full Name</label>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4" *ngIf="isapplicable">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+                                        pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
+                                        [disabled]="isFullNameDisabled" [(ngModel)]="fullname"
+                                        [value]="lname + ' ' + fname + ' ' + mname + ' '+fullname + ' '"
+                                        formControlName="AC_NAME">
+                                    <label for="AC_NAME">Full Name</label>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="isapplicable">
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="PROP_NAME" class="form-control" placeholder=" "
+                                        id="PROP_NAME" pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase"
+                                        formControlName="PROP_NAME">
+                                    <label for="PROP_NAME">Proprietor/Chairman Name</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="REG_NO" class="form-control"
+                                        pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                        style="text-transform:uppercase;"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                        placeholder=" " title=" Input allowed only  0-9" maxlength="22" minlength=" 22"
+                                        id="REG_NO" formControlName="REG_NO">
+                                    <label for="REG_NO">Registration No.</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="REG_DATE"
+                                        id="REG_DATE" class="form-control " minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" #REG_DATE="bsDatepicker"
+                                        (keydown.Tab)="REG_DATE.hide()" placement="left" #REG_DATE
+                                        formControlName="REG_DATE" [bsValue]="bsValue" bsDatepicker required>
+                                    <label for="REG_DATE">Registration Date</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="GST_NO" class="form-control " placeholder=" "
+                                        pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                        style="text-transform:uppercase;"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                        id="GST_NO" maxlength="15" minlength="15" formControlName="GST_NO">
+                                    <label for=" GST_NO">GST Number</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="TAN_NO" class="form-control " placeholder=" "
+                                        pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                        style="text-transform:uppercase;"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                        id="TAN_NO" maxlength="11" minlength="11" formControlName="TAN_NO">
+                                    <label for=" TAN_NO">TAN Number</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="COP_NO" class="form-control " placeholder=" "
+                                        pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
+                                        style="text-transform:uppercase;"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
+                                        minlength="22" maxlength="22" id="COP_NO" formControlName="COP_NO">
+                                    <label for=" COP_NO">Corporate Identity Number </label>
                                 </span>
                             </div>
                         </div>

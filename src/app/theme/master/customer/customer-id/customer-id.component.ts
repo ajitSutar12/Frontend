@@ -87,6 +87,12 @@ interface CustomerMaster {
   FORM_TYPE: string;
   TDS_RATE: number;
   TDS_LIMIT: number;
+  COP_NO: string;
+  TAN_NO: number;
+  GST_NO: number;
+  REG_NO: number;
+  REG_DATE:string;
+  PROP_NAME: string;
 }
 
 @Component({
@@ -340,6 +346,26 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "AC_PANNO",
         },
         {
+          title: "GST Number",
+          data: "GST_NO",
+        },
+        {
+          title: "TAN Number",
+          data: "TAN_NO",
+        },
+        {
+          title: "Registration Number",
+          data: "REG_NO",
+        },
+        {
+          title: "Registration Date",
+          data: "REG_DATE",
+        },
+        {
+          title: "Proprietor Name",
+          data: "PROP_NAME",
+        },
+        {
           title: "Birth Date",
           data: "AC_BIRTH_DT",
         },
@@ -498,7 +524,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       FORM_TYPE: [""],
       TDS_RATE: ["", [Validators.pattern]],
       TDS_LIMIT: ["", [Validators.pattern]],
-      BRANCH_CODE: []
+      BRANCH_CODE: [],
+      PROP_NAME: [""],
+      REG_NO: [""],
+      REG_DATE:[""],
+      GST_NO: [""],
+      TAN_NO: [""],
+      COP_NO: [""],
     });
     this.documentUpload()
   }
@@ -508,6 +540,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     // debugger
     let birthdate
     let submitdate
+    let regdate
+
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -565,6 +599,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'TDS_RATE': formVal.TDS_RATE,
         'TDS_LIMIT': formVal.TDS_LIMIT,
         'Document': this.imageObject,
+        'GST_NO': formVal.GST_NO,
+        'TAN_NO': formVal.TAN_NO,
+        'REG_NO': formVal.REG_NO,
+        'REG_DATE': (formVal.REG_DATE == '' || formVal.REG_DATE == 'Invalid date') ? regdate = '' : regdate = moment(formVal.REG_DATE).format('DD/MM/YYYY'),
+
+        'PROP_NAME': formVal.PROP_NAME,
+        'COP_NO': formVal.COP_NO,
         BRANCH_CODE: branchCode
       }
 
@@ -762,6 +803,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           M_NAME: data.M_NAME,
           L_NAME: data.L_NAME,
           AC_NAME: data.AC_NAME,
+          PROP_NAME:data.PROP_NAME,
+          REG_NO:data.REG_NO,
+          REG_DATE:data.REG_DATE,
+          GST_NO:data.GST_NO,
+          TAN_NO:data.TAN_NO,
+          COP_NO:data.COP_NO,
           F_NAME_REG: data.F_NAME_REG,
           M_NAME_REG: data.M_NAME_REG,
           L_NAME_REG: data.L_NAME_REG,
@@ -870,6 +917,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_ADD_REG'] = data.AC_ADD_REG
     data['BRANCH_CODE'] = branchCode
     data['AC_PANNO'] = data.AC_PANNO
+    data['COP_NO']=data.COP_NO
+    data['TAN_NO']=data.TAN_NO
+    data['GST_NO']=data.GST_NO
+    data['REG_NO']=data.REG_NO
+    data['REG_DATE']=data.REG_DATE
+    data['PROP_NAME']=data.PROP_NAME
 
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
@@ -1489,5 +1542,20 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  isapplicable: boolean = false
+  isable: boolean = true
+
+  notApplicable(event) {
+    if (event.value == 'PROF.' || event.value == 'ADV.' || event.value == 'DR.' || event.value == 'MANDAL' || event.value == 'M/S') {
+      this.isapplicable = true
+      this.isable = false
+    }
+    else {
+      this.isapplicable = false
+      this.isable = true
+      this.angForm.controls['AC_NAME'].reset()
+    }
   }
 }

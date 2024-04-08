@@ -74,7 +74,8 @@ export class RecoveryFlagUpdationComponent implements OnInit {
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
       TO_AC: ['', [Validators.required]],
-      BRANCH: ['', [Validators.required]]
+      BRANCH: ['', [Validators.required]],
+      TAMT:['']
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -223,6 +224,8 @@ export class RecoveryFlagUpdationComponent implements OnInit {
   }
   //update checkbox status in array
   checkInterestFlag(id, acno, flag) {
+
+    let List = this.angForm.value
     let isIntUpdate: boolean = false
     if (flag.target.checked) {
       isIntUpdate = true
@@ -233,8 +236,9 @@ export class RecoveryFlagUpdationComponent implements OnInit {
     if (this.InterestArr.length != 0) {
       if (this.InterestArr.some(item => item.AC_NO === acno)) {
         this.InterestArr.forEach((element) => {
-          if (element.AC_NO == acno) {
+          if (element.AC_NO != acno) {
             element['IS_POST_INT_AC'] = isIntUpdate
+            element['AMOUNT'] = List.TAMT
           }
         })
       }
@@ -242,16 +246,20 @@ export class RecoveryFlagUpdationComponent implements OnInit {
         var object = {
           AC_NO: acno,
           id: id,
-          IS_POST_INT_AC: isIntUpdate
+          IS_POST_INT_AC: isIntUpdate,
+          AMOUNT: List.TAMT
         }
         this.InterestArr.push(object)
+        console.log(this.InterestArr)
       }
     }
     else {
       var object = {
         AC_NO: acno,
         id: id,
-        IS_POST_INT_AC: isIntUpdate
+        IS_POST_INT_AC: isIntUpdate,
+        AMOUNT: List.TAMT
+
       }
       this.InterestArr.push(object)
     }
@@ -296,13 +304,9 @@ export class RecoveryFlagUpdationComponent implements OnInit {
   updateSelectedSchemeIds() {
     this.selectedIds = this.InterestArr.filter(item => item.IS_POST_INT_AC).map(item => item.id);
     console.log(this.selectedIds);
-    console.log("alll",this.selectedIds);
+    console.log("all",this.selectedIds);
 
   }
-
-
-
-
 
 
   //submit method for update records
@@ -310,7 +314,7 @@ export class RecoveryFlagUpdationComponent implements OnInit {
     if (this.InterestArr.length != 0) {
       const dataToSend = {
         'AC_TYPE': this.getschemename,
-        'InterestArr': this.InterestArr
+        'InterestArr': this.InterestArr,
       };
 
       this._service.postData(dataToSend).subscribe(

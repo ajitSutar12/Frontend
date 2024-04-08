@@ -20,7 +20,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [YearEndComponent],
   imports: [
     CommonModule,
-    YearEndRoutingModule,
+    YearEndRoutingModule, 
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule, 
