@@ -31,7 +31,8 @@ export class DirectorwiseNpaRegComponent implements OnInit {
     @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
   formSubmitted = false;  
   Accschemeno:any =new Array(                           );
-
+  base_url = environment.base_url;
+  nasf
   
   //fromgroup
   ngForm:FormGroup
@@ -65,6 +66,8 @@ export class DirectorwiseNpaRegComponent implements OnInit {
   introducerACNo: any;
   director: any[];
   directors: any[];
+  glDetails: any;
+  AC_TYPE: any;
   
     constructor(
       private fb: FormBuilder,
@@ -73,6 +76,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private directorMasterDropdown: DirectorMasterDropdownService,
       private sanitizer: DomSanitizer,
+      private http: HttpClient,
      
     ) {
       this.todate = moment().format('DD/MM/YYYY');
@@ -89,7 +93,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
 
@@ -141,7 +145,24 @@ export class DirectorwiseNpaRegComponent implements OnInit {
     getTransferAccountList(event) {
       this.transferSchemeDetails = event
       this.tScheme = event.name
+      this.AC_TYPE=event.value
+      let data1: any = localStorage.getItem('user');
+      let result1 = JSON.parse(data1);
+      let BRANCH_CODE = result1.branch.id;
+      let obj1 = {
+        // date: moment(this.fordate).format('DD/MM/YYYY')
+        AC_TYPE:this.AC_TYPE, 
+        BRANCH_CODE: this.ngbranch,
+        // branch_code: this.ngbranch,
+      }
+     
+
+      // this.http.post('http://192.168.1.113:7276/npa-classification-master/data' ,obj1).subscribe((data) => {
+        this.http.post(this.base_url +'/npa-classification-master/data',obj1).subscribe((data: any[]) => {
+        this.glDetails = data
     
+          console.log(this.glDetails)
+        })
     }
     getIntroducer() {
       this.obj1 = [this.ngbranch, this.scode]
@@ -178,7 +199,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
         BRANCH_CODE: ['', [Validators.required]],
         Scheme_code: ["",[ Validators.required]],
         Start_DATE: ['', [Validators.required]],
-        END_DATE: ['', [Validators.required]],
+        // END_DATE: ['', [Validators.required]],
         Acno: ['', [Validators.required]],
         Anac: ['', [Validators.required]],
        
@@ -223,20 +244,21 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       let tDate = moment(date, 'DD/MM/YYYY')
       obj['END_DATE']=date 
      }
-  
+    let Start_DATE = obj.Start_DATE.REPORT_DATE;
     let scheme = obj.Scheme_code
-  
-      let branch = obj.BRANCH_CODE;
-  
-      let schemeName = this.tScheme
-  
+    let branch = obj.BRANCH_CODE;
+    let schemeName = this.tScheme
+  let startdir=obj.Acno
+  let enddir=obj.Anac
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
       // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
    
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
 
-
-    this.iframe5url=this.report_url+ "examples/RecommandedByDirectowiseNPARegisterReport.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+this.ngbranch+"&FLAG=0&BranchName='"+this. branchName+"'&date='31/03/2024'&SDate='31/03/2021'&EDate='31/03/2022'&SSDate='31/03/2023'&EEDate='31/03/2024'&schemeCode='1'&bankName='Bhairavnat'";
+    this.iframe5url=this.report_url+ "examples/RecommandedByDirectowiseNPARegisterReport.php?AC_TYPE="+scheme+"&BRANCH_CODE="+this.ngbranch+"&BranchName="+this.branchName+"&startdir="+startdir+"&enddir="+enddir+"&NPA_DATE='"+Start_DATE+"'&bankName='"+bankName+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }

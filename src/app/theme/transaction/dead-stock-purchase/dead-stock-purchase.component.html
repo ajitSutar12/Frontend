@@ -201,7 +201,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">Transfer Account Number<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_NO">Transfer To Account Number<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
@@ -364,8 +364,8 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                            id="Rate" formControlName="Rate" (keyup)="getAmount()" appTheme
-                                            (focus)="selectAllContent($event)" maxlength="15"
+                                            id="Rate" formControlName="Rate" (keyup)="getAmount();getDecimal($event)" appTheme
+                                            (focus)="selectAllContent($event)" (focusout)="getDecimalPoint($event);" maxlength="15"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     </span>
                                 </div>

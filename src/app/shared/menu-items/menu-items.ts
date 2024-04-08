@@ -93,7 +93,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Master',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 5,
         children: [
           {
@@ -333,6 +333,11 @@ const MENUITEMS1 = [
               //   id: 44
               // },
               {
+                  state: 'recoveryFlag',
+                  name: 'Recovery Flag Updation',
+                  id: 358
+                },
+              {
                 state: 'notingCharges',
                 name: 'Noting Charges',
                 id: 45
@@ -506,7 +511,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Transaction',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-money',
         id: 75,
         children: [
           {
@@ -664,50 +669,8 @@ const MENUITEMS1 = [
           //   name: 'Cashier',
           //   id: 104
           // },
-          {
-            state: 'passbookPrinting',
-            name: 'Passbook Printing',
-            short_label: 'D',
-            type: 'sub',
-            id: 105,
-            children: [
-              {
-                state: 'passbookIssue',
-                name: 'Passbook Issue',
-                id: 106
-              },
-              {
-                state: 'passbookEntryPrint',
-                name: 'Passbook Entry Print',
-                id: 107
-              }
-            ]
-          },
-          {
-            state: 'termDepositReceiptPrinting',
-            name: 'Term Deposit Receipt Printing',
-            // short_label: 'D',
-            // type: 'sub',
-            id: 108,
-            // children: [
-            //   {
-            //     state: 'depositReceiptPrint',
-            //     name: 'Deposit Receipt Print',
-            //     id: 109
-            //   },
-            // ]
-          },
-          {
-            state: 'voucherPrint',
-            name: 'Voucher Printing',
-            id: 110,
 
-          },
-          {
-            state: 'goldSilverReceipt',
-            name: 'Gold/Silver Receipt Print',
-            id: 344
-          },
+
           {
             state: 'goldsilverreturnentry',
             name: 'Gold/Silver Return Entry',
@@ -838,11 +801,41 @@ const MENUITEMS1 = [
         ]
       },
       {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'NEFT / RTGS ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+        ]
+      },
+      {
         state: 'passing',
         short_label: 'D',
         name: 'Passing',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-check-square-o',
         id: 132,
         children: [
           {
@@ -862,6 +855,11 @@ const MENUITEMS1 = [
             name: 'Unapprove',
             id: 135
           },
+           {
+              state: 'neftPassing',
+              name: 'NEFT/RTGS Transaction Passing',
+              id: 354
+            },
         ]
       },
       {
@@ -869,7 +867,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'View',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-tag',
         id: 136,
         children: [
           {
@@ -928,15 +926,75 @@ const MENUITEMS1 = [
             id: 147
 
           },
+          // {
+          //   state: 'lockerView',
+          //   name: 'Locker View',
+          //   id: 348
+
+          // },
         ],
 
+      },
+      {
+        state: 'printing',
+        short_label: 'D',
+        name: 'Printing',
+        type: 'sub',
+        icon: 'fa fa-print',
+        id: 347,
+        children: [
+          {
+            state: 'voucherPrint',
+            name: 'Voucher Printing',
+            id: 110,
+
+          },
+          {
+            state: 'termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
+            // short_label: 'D',
+            // type: 'sub',
+            id: 108,
+            // children: [
+            //   {
+            //     state: 'depositReceiptPrint',
+            //     name: 'Deposit Receipt Print',
+            //     id: 109
+            //   },
+            // ]
+          },
+          {
+            state: 'goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
+            id: 344
+          },
+          {
+            state: 'passbookPrinting',
+            name: 'Passbook Printing',
+            short_label: 'D',
+            type: 'sub',
+            id: 105,
+            children: [
+              {
+                state: 'passbookIssue',
+                name: 'Passbook Issue',
+                id: 106
+              },
+              {
+                state: 'passbookEntryPrint',
+                name: 'Passbook Entry Print',
+                id: 107
+              }
+            ]
+          }
+        ]
       },
       {
         state: 'reports',
         short_label: 'D',
         name: 'Reports',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-file-text-o',
         id: 148,
         children: [
           // {
@@ -1403,13 +1461,13 @@ const MENUITEMS1 = [
             type: 'sub',
             id: 230,
             children: [
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue List',
-                type: 'sub',
-                id: 231,
+              // {
+              //   state: 'loanoverduelist',
+              //   name: 'Loan Overdue List',
+              //   type: 'sub',
+              //   id: 231,
 
-              },
+              // },
               {
                 state: 'loansecurityreport',
                 name: 'Loan Security Reports',
@@ -1483,7 +1541,12 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 343,
               },
-
+              {
+                state: 'loanduecertificate',
+                name: 'Loan Due Certificate',
+                type: 'sub',
+                id: 355,
+              },
 
             ],
 
@@ -1492,11 +1555,18 @@ const MENUITEMS1 = [
 
           {
             state: 'npaReports',
-            name: 'NPA Reports',
+            name: 'NPA & Overdue Reports',
             short_label: 'D',
             type: 'sub',
             id: 243,
             children: [
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue Reports',
+                type: 'sub',
+                id: 252,
+
+              },
               {
                 state: 'npaRegister',
                 name: 'NPA Register',
@@ -1533,16 +1603,17 @@ const MENUITEMS1 = [
               },
               {
                 state: 'classificationsecnpa',
-                name: 'NPA Classification -Secured Or Unsecured.PNG',
+                name: 'NPA Classification -Secured Or Unsecured',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-                name: 'NPA Classification -Standard Or Non Standard.PNG',
+                name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
               },
+
 
             ],
           },
@@ -1701,11 +1772,11 @@ const MENUITEMS1 = [
             icon: 'icon-home',
             id: 278,
             children: [
-              // {
-              //   state: 'schemeWisedepoaccount',
-              //   name: 'SchemeWise Deposit Account Details',
-              //   id: 279
-              // },
+              {
+                state: 'loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
+                id: 356
+              },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
@@ -1798,38 +1869,10 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Utility',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 293,
         children: [
-          {
-            state: 'dayBegin',
-            name: 'Day Begin',
-            id: 294
-          },
-          {
-            state: 'dayEnd',
-            name: 'Day End',
-            short_label: 'D',
-            type: 'sub',
-            id: 295,
-            children: [
-              {
-                state: 'counterWorkDayEnd',
-                name: 'Day End Handover',
-                id: 296
-              },
-              {
-                state: 'FinalDayEnd',
-                name: 'Day End',
-                id: 297
-              },
-              {
-                state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
-                id: 298
-              },
-            ]
-          },
+
           // {
           //   state: 'backDatedDO',
           //   name: 'Back Dated Day Open',
@@ -1840,11 +1883,7 @@ const MENUITEMS1 = [
           //   name: 'Receipt Printing Designing',
           //   id: 300
           // },
-          {
-            state: 'holiday',
-            name: 'Holiday',
-            id: 301
-          },
+
           {
             state: 'interestPosting',
             name: 'Interest Posting',
@@ -1870,11 +1909,7 @@ const MENUITEMS1 = [
               },
             ]
           },
-          {
-            state: 'processACM',
-            name: 'Process And Calculation Menu',
-            id: 306
-          },
+
           {
             state: 'pigmyMachineProcess',
             name: 'Pigmy Machine Process',
@@ -1885,6 +1920,12 @@ const MENUITEMS1 = [
             name: 'Pigmy App Process',
             id: 308
           },
+          {
+            state: 'monthRecProc',
+            name: 'Monthly Recovery Process',
+            id: 357
+          },
+          
           {
             state: 'whatsappmessages',
             name: 'Whatsapp Messages',
@@ -1920,11 +1961,7 @@ const MENUITEMS1 = [
             id: 313
           },
 
-          // {
-          //   state: 'changePassword',
-          //   name: 'Change Password',
-          //   id: 314
-          // },
+
           {
             state: 'roleDefination',
             name: 'Role Defination',
@@ -1985,11 +2022,7 @@ const MENUITEMS1 = [
           //   name: 'Remind Me',
           //   id: 326
           // },
-          {
-            state: 'dataBackup',
-            name: 'Data Backup',
-            id: 327
-          },
+
           {
             state: 'pataSevaSupportR',
             name: 'PataSeva Support Register',
@@ -2029,6 +2062,74 @@ const MENUITEMS1 = [
         ]
       },
       {
+        state: 'process',
+        short_label: 'D',
+        name: 'Process',
+        type: 'sub',
+        icon: 'fa fa-cogs',
+        id: 346,
+        children: [
+          {
+            state: 'dayBegin',
+            name: 'Day Begin',
+            id: 294
+          },
+          {
+            state: 'dayEnd',
+            name: 'Day End',
+            short_label: 'D',
+            type: 'sub',
+            id: 295,
+            children: [
+              {
+                state: 'counterWorkDayEnd',
+                name: 'Day End Handover',
+                id: 296
+              },
+              {
+                state: 'FinalDayEnd',
+                name: 'Day End',
+                id: 297
+              },
+              {
+                state: 'pigmyDayEnd',
+                name: 'pigmy Day End',
+                id: 298
+              },
+              {
+                state: 'yearEnd',
+                name: 'Year End',
+                id: 299
+              },
+            ]
+          },
+
+          {
+            state: 'holiday',
+            name: 'Holiday',
+            id: 301
+          },
+
+
+          {
+            state: 'processACM',
+            name: 'Process And Calculation Menu',
+            id: 306
+          },
+
+          {
+            state: 'deadStockP',
+            name: 'Dead Stock Process',
+            id: 309
+          },
+          {
+            state: 'dataBackup',
+            name: 'Data Backup',
+            id: 327
+          },
+        ]
+      },
+      {
         state: 'windows',
         short_label: 'D',
         name: 'Windows',
@@ -2059,7 +2160,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Hot Key',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-key',
         id: 339
       },
       {
@@ -2067,7 +2168,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Sign Out',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-sign-out',
         id: 340
       },
       // {
@@ -2812,7 +2913,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Master',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 5,
         children: [
           {
@@ -3052,6 +3153,11 @@ const MENUITEMS = [
               //   id: 44
               // },
               {
+                state: 'recoveryFlag',
+                name: 'Recovery Flag Updation',
+                id: 358
+              },
+              {
                 state: 'notingCharges',
                 name: 'Noting Charges',
                 id: 45
@@ -3225,7 +3331,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Transaction',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-money',
         id: 75,
         children: [
           {
@@ -3289,7 +3395,6 @@ const MENUITEMS = [
             name: 'Share Transaction',
             id: 87
           },
-
 
           {
             state: 'locker',
@@ -3384,50 +3489,8 @@ const MENUITEMS = [
           //   name: 'Cashier',
           //   id: 104
           // },
-          {
-            state: 'passbookPrinting',
-            name: 'Passbook Printing',
-            short_label: 'D',
-            type: 'sub',
-            id: 105,
-            children: [
-              {
-                state: 'passbookIssue',
-                name: 'Passbook Issue',
-                id: 106
-              },
-              {
-                state: 'passbookEntryPrint',
-                name: 'Passbook Entry Print',
-                id: 107
-              }
-            ]
-          },
-          {
-            state: 'termDepositReceiptPrinting',
-            name: 'Term Deposit Receipt Printing',
-            // short_label: 'D',
-            // type: 'sub',
-            id: 108,
-            // children: [
-            //   {
-            //     state: 'depositReceiptPrint',
-            //     name: 'Deposit Receipt Print',
-            //     id: 109
-            //   },
-            // ]
-          },
-          {
-            state: 'voucherPrint',
-            name: 'Voucher Printing',
-            id: 110,
 
-          },
-          {
-            state: 'goldSilverReceipt',
-            name: 'Gold/Silver Receipt Print',
-            id: 344
-          },
+
           {
             state: 'goldsilverreturnentry',
             name: 'Gold/Silver Return Entry',
@@ -3558,11 +3621,41 @@ const MENUITEMS = [
         ]
       },
       {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'NEFT / RTGS ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+        ]
+      },
+      {
         state: 'passing',
         short_label: 'D',
         name: 'Passing',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-check-square-o',
         id: 132,
         children: [
           {
@@ -3582,6 +3675,11 @@ const MENUITEMS = [
             name: 'Unapprove',
             id: 135
           },
+          {
+            state: 'neftPassing',
+            name: 'NEFT/RTGS Transaction Passing',
+            id: 354
+          },
         ]
       },
       {
@@ -3589,7 +3687,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'View',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-book',
         id: 136,
         children: [
           {
@@ -3648,15 +3746,75 @@ const MENUITEMS = [
             id: 147
 
           },
+          // {
+          //   state: 'lockerView',
+          //   name: 'Locker View',
+          //   id: 348
+
+          // },
         ],
 
+      },
+      {
+        state: 'printing',
+        short_label: 'D',
+        name: 'Printing',
+        type: 'sub',
+        icon: 'fa fa-print',
+        id: 347,
+        children: [
+          {
+            state: 'voucherPrint',
+            name: 'Voucher Printing',
+            id: 110,
+
+          },
+          {
+            state: 'termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
+            // short_label: 'D',
+            // type: 'sub',
+            id: 108,
+            // children: [
+            //   {
+            //     state: 'depositReceiptPrint',
+            //     name: 'Deposit Receipt Print',
+            //     id: 109
+            //   },
+            // ]
+          },
+          {
+            state: 'goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
+            id: 344
+          },
+          {
+            state: 'passbookPrinting',
+            name: 'Passbook Printing',
+            short_label: 'D',
+            type: 'sub',
+            id: 105,
+            children: [
+              {
+                state: 'passbookIssue',
+                name: 'Passbook Issue',
+                id: 106
+              },
+              {
+                state: 'passbookEntryPrint',
+                name: 'Passbook Entry Print',
+                id: 107
+              }
+            ]
+          }
+        ]
       },
       {
         state: 'reports',
         short_label: 'D',
         name: 'Reports',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-file-text-o',
         id: 148,
         children: [
           // {
@@ -3734,6 +3892,7 @@ const MENUITEMS = [
                 name: ' Subsidary Summery ',
                 id: 342
               },
+
             ]
           },
           //
@@ -4122,13 +4281,13 @@ const MENUITEMS = [
             type: 'sub',
             id: 230,
             children: [
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue List',
-                type: 'sub',
-                id: 231,
+              // {
+              //   state: 'loanoverduelist',
+              //   name: 'Loan Overdue List',
+              //   type: 'sub',
+              //   id: 231,
 
-              },
+              // },
               {
                 state: 'loansecurityreport',
                 name: 'Loan Security Reports',
@@ -4202,6 +4361,12 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 343,
               },
+              {
+                state: 'loanduecertificate',
+                name: 'Loan Due Certificate',
+                type: 'sub',
+                id: 355,
+              },
 
             ],
 
@@ -4210,11 +4375,18 @@ const MENUITEMS = [
 
           {
             state: 'npaReports',
-            name: 'NPA Reports',
+            name: 'NPA & Overdue Reports',
             short_label: 'D',
             type: 'sub',
             id: 243,
             children: [
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue Reports',
+                type: 'sub',
+                id: 252,
+
+              },
               {
                 state: 'npaRegister',
                 name: 'NPA Register',
@@ -4251,16 +4423,18 @@ const MENUITEMS = [
               },
               {
                 state: 'classificationsecnpa',
-                name: 'NPA Classification -Secured Or Unsecured.PNG',
+                name: 'NPA Classification -Secured Or Unsecured',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-                name: 'NPA Classification -Standard Or Non Standard.PNG',
+                name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
               },
+
+
 
             ],
           },
@@ -4419,11 +4593,11 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 278,
             children: [
-              // {
-              //   state: 'schemeWisedepoaccount',
-              //   name: 'SchemeWise Deposit Account Details',
-              //   id: 279
-              // },
+              {
+                state: 'loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
+                id: 356
+              },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
@@ -4516,38 +4690,10 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Utility',
         type: 'sub',
-        icon: 'icon-home',
+        icon: 'fa fa-university',
         id: 293,
         children: [
-          {
-            state: 'dayBegin',
-            name: 'Day Begin',
-            id: 294
-          },
-          {
-            state: 'dayEnd',
-            name: 'Day End',
-            short_label: 'D',
-            type: 'sub',
-            id: 295,
-            children: [
-              {
-                state: 'counterWorkDayEnd',
-                name: 'Day End Handover',
-                id: 296
-              },
-              {
-                state: 'FinalDayEnd',
-                name: 'Day End',
-                id: 297
-              },
-              {
-                state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
-                id: 298
-              },
-            ]
-          },
+
           // {
           //   state: 'backDatedDO',
           //   name: 'Back Dated Day Open',
@@ -4558,11 +4704,7 @@ const MENUITEMS = [
           //   name: 'Receipt Printing Designing',
           //   id: 300
           // },
-          {
-            state: 'holiday',
-            name: 'Holiday',
-            id: 301
-          },
+
           {
             state: 'interestPosting',
             name: 'Interest Posting',
@@ -4588,11 +4730,7 @@ const MENUITEMS = [
               },
             ]
           },
-          {
-            state: 'processACM',
-            name: 'Process And Calculation Menu',
-            id: 306
-          },
+
           {
             state: 'pigmyMachineProcess',
             name: 'Pigmy Machine Process',
@@ -4602,6 +4740,11 @@ const MENUITEMS = [
             state: 'pigmyAppProcess',
             name: 'Pigmy App Process',
             id: 308
+          },
+          {
+            state: 'monthRecProc',
+            name: 'Monthly Recovery Process',
+            id: 357
           },
           {
             state: 'whatsappmessages',
@@ -4638,11 +4781,7 @@ const MENUITEMS = [
             id: 313
           },
 
-          // {
-          //   state: 'changePassword',
-          //   name: 'Change Password',
-          //   id: 314
-          // },
+
           {
             state: 'roleDefination',
             name: 'Role Defination',
@@ -4703,11 +4842,7 @@ const MENUITEMS = [
           //   name: 'Remind Me',
           //   id: 326
           // },
-          {
-            state: 'dataBackup',
-            name: 'Data Backup',
-            id: 327
-          },
+
           {
             state: 'pataSevaSupportR',
             name: 'PataSeva Support Register',
@@ -4747,6 +4882,74 @@ const MENUITEMS = [
         ]
       },
       {
+        state: 'process',
+        short_label: 'D',
+        name: 'Process',
+        type: 'sub',
+        icon: 'fa fa-tasks',
+        id: 346,
+        children: [
+          {
+            state: 'dayBegin',
+            name: 'Day Begin',
+            id: 294
+          },
+          {
+            state: 'dayEnd',
+            name: 'Day End',
+            short_label: 'D',
+            type: 'sub',
+            id: 295,
+            children: [
+              {
+                state: 'counterWorkDayEnd',
+                name: 'Day End Handover',
+                id: 296
+              },
+              {
+                state: 'FinalDayEnd',
+                name: 'Day End',
+                id: 297
+              },
+              {
+                state: 'pigmyDayEnd',
+                name: 'pigmy Day End',
+                id: 298
+              },
+              {
+                state: 'yearEnd',
+                name: 'Year End',
+                id: 299
+              },
+            ]
+          },
+
+          {
+            state: 'holiday',
+            name: 'Holiday',
+            id: 301
+          },
+
+
+          {
+            state: 'processACM',
+            name: 'Process And Calculation Menu',
+            id: 306
+          },
+
+          {
+            state: 'deadStockP',
+            name: 'Dead Stock Process',
+            id: 309
+          },
+          {
+            state: 'dataBackup',
+            name: 'Data Backup',
+            id: 327
+          },
+        ]
+      },
+      {
         state: 'windows',
         short_label: 'D',
         name: 'Windows',
@@ -4777,7 +4980,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Hot Key',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-key',
         id: 339
       },
       {
@@ -4785,7 +4988,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Sign Out',
         type: 'link',
-        icon: 'icon-home',
+        icon: 'fa fa-sign-out',
         id: 340
       },
       // {

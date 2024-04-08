@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Year End</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="ngForm">
+                <div class="card-block">
+
+                    <div class="row">
+                        <div class="col-sm-2 col-md-1"> <label for="AC_BRANCH">Branch Code<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="Branch" bindValue="value" bindLabel="label"
+                                        [(ngModel)]="ngbranch" placeholder="Branch" (change)="getBranch($event)">
+                                        <ng-option *ngFor="let values of branchOption" [value]="values">
+                                            {{values.label}} </ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['Branch'].invalid && (ngForm.controls['Branch'].dirty || ngForm.controls['Branch'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['Branch'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div> -->
+
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-2"> <label for=" Date"> Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="Date" [(ngModel)]="dateY" bindValue="DATE"
+                                        bindLabel="DATE" (change)="getDate($event)">
+                                        <ng-option *ngFor="let values of ydate" [value]="values">
+                                            {{values.DATE}} </ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="com-sm-3">
+                            <button class="btn btn-outline-primary btn-sm" (click)="dayend()">Year
+                                End</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <label *ngIf="remark" style="color:red">*Please Don't Refresh Page</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            
+        </div>
+    </div>
+</div>
+<div [class]="modalClass"><!-- Place at bottom of page --> </div>

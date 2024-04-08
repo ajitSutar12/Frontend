@@ -101,7 +101,7 @@ input[type="checkbox"]:focus {
     // height: 3em;
 }
 
-#editbutton {
+#editre {
     // z-index: 1000;
     left: 45px;
     position: relative;
@@ -124,7 +124,7 @@ input[type="checkbox"]:focus {
     text-align: center;
     font-size: 12px;
     cursor: pointer;
-    color: rgb(56, 91, 234);
+    color:#ea7815;
 }
 
 #deletebutton {
@@ -154,7 +154,7 @@ input[type="checkbox"]:focus {
 }
 
 .btn-outline-primary {
-    color: #0764ff;
+    color: #ea7815;
     background-color: transparent;
     float: right;
     margin-right: 5px;
@@ -176,7 +176,7 @@ input[type="checkbox"]:focus {
     border-bottom: 2px solid #0275d8;
     border-top-left-radius: 0.2rem !important;
     border-top-right-radius: 0.2rem !important;
-    background-color: #448aff;
+    background-color: #ea7815;
 }
 
 .nav-tabs {
@@ -269,7 +269,8 @@ th {
 }
 
 .btn-outline-primary {
-    background-color: #448aff;
+   
+    background:#ea7815;
     // border-color: #448aff;
     color: white;
     // background-image: linear-gradient(#8d1b54, #ddb4c2);
@@ -441,7 +442,9 @@ ng-select>div>div.single>div.toggle {
 }
 
 .card .card-header {
-    background-color: #6e91cc;
+    // background-color: #6e91cc;
+    background:purple;
+
     border-bottom: none;
     padding: 2px;
     position: relative;
@@ -505,13 +508,16 @@ ng-select>div>div.single>div.toggle {
 
 
 .pcoded .pcoded-header[header-theme="theme1"] {
-    background: #448aff; // background-image: linear-gradient(to right, #8d1b54, #cb90a5);
+    // background:#094585 ;
+    background:linear-gradient(to bottom, #f5ad42 -18%, #ea7815 127%);
+
+    ; // background-image: linear-gradient(to right, #8d1b54, #cb90a5);
 }
 
 .pcoded .pcoded-header[header-theme="theme1"] .input-group-addon,
 .pcoded .pcoded-header[header-theme="theme1"] a {
     // color: black;
-    color: white
+    color: purple;
 }
 
 // .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
@@ -522,12 +528,15 @@ ng-select>div>div.single>div.toggle {
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a {
     // background: #448aff;
     // color: black !important;
-    background: #448aff;
+    // background: #448aff;
+    background:linear-gradient(to bottom, #f5ad42 -18%, #ea7815 127%)
+    ;
+
     color: #fff !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a .pcoded-micon {
-    color: white !important;
+    color: rgb(255, 255, 255) !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a:after {
@@ -538,12 +547,18 @@ ng-select>div>div.single>div.toggle {
 .pcoded[fream-type="theme1"] .main-menu .main-menu-header:before {
     // background: #448aff;
     //  background: RGB(217 231 248/80%) !important;
-    background: rgba(68, 138, 255, 0.5);
+     // background: rgba(23, 60, 122, 0.5);
+    // background: rgb(109, 2, 45);
+    // background: rgba(114, 215, 63, 0.875);
+    // background: rgba(114, 215, 63, 0.875);
+    background: rgba(227, 11, 227, 0.5);
+
+
 }
 
 // .table.dataTable[class*="table-"] thead th {
 //     background-color: #8d1b54;
-//     color: white;
+//     color: white;f
 // }
 
 //Zebra-striping /
@@ -552,7 +567,8 @@ ng-select>div>div.single>div.toggle {
         // background-color: transparentize($primary-color,0.97);
         // background-color: #f8eef3;
         // background-color: #dae7f6;
-        background-color: #d0ddf3;
+        background-color:rgb(243, 214, 243);
+        ;
     }
 }
 
@@ -610,7 +626,9 @@ ng-select>div>div.single>div.value {
     //         #b8cfee 51%,
     //         #cbddf3);
     // // background: rgba(68, 138, 255, 0.5);
-    background: #6e91cc;
+    // background: #6e91cc;
+    background:purple;
+
     color: white;
     // text-transform: capitalize;
     // background-image: -webkit-linear-gradient(top,
@@ -646,7 +664,7 @@ ng-select>div>div.single>div.value {
 .btn-outline-primary:disabled {
     // color: WHITE;
     // background-color: transparent;
-    background-color: #448aff;
+    background-color: #ea7815;
     color: white !important;
     border-color: black;
     float: right;
@@ -790,7 +808,7 @@ ng-select>div>div.single>div.value {
 
 thead td {
     // background-color: #448aff;
-    background: #6e91cc;
+   background:purple;
     // background-image: -webkit-linear-gradient(top,
     //         #dae7f6,
     //         #cddef3 45%,
@@ -924,7 +942,8 @@ input[type="file" i]::-webkit-file-upload-button {
     // color: #333;
     // background-color: #e0e6ef;
     color: #fdf9f9;
-    background-color: #88b1ed;
+    // background-color: #88b1ed;
+    background-color:rgb(206, 102, 206);
 }
 
 .inputRadio:focus-within {
@@ -1011,4 +1030,7 @@ tr:hover {
     overflow-y: scroll;
     overflow-x: hidden;
 
+}
+.swal2-title {
+    position: static !important
 }

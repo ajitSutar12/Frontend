@@ -265,7 +265,7 @@ export class UserProfileComponent implements OnInit {
     updateObject['id'] = user.id;
 
     this._userService.updateUser(updateObject).subscribe(data => {
-      debugger
+      
       Swal.fire('Success!', 'Profile update successfully please login again', 'success');
       console.log(data)
 
@@ -292,7 +292,7 @@ export class UserProfileComponent implements OnInit {
       //   // }
       // })
       this._userService.editlocal(data.id).subscribe(data => {
-        debugger
+        
         // localStorage.setItem('token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data));
         // if (data.user) {

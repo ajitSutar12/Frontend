@@ -25,6 +25,7 @@ export class BasicLoginComponent implements OnInit {
   bankname = null
   currentDate
   maxAttempts = 3
+  isUserBlocked: boolean = false;
   constructor(private router: Router, private http: HttpClient, private _authService: AuthService) { }
 
   ngOnInit() {
@@ -100,23 +101,60 @@ export class BasicLoginComponent implements OnInit {
       this.failedLoginAttempts[this.mobileno] = 0;
     }, err => {
 
+      // if (err.error.statusCode == 401) {
+      //   this.incrementFailedLoginAttempts(this.mobileno);
+      //   let loginAttempts = this.getFailedLoginAttempts(this.mobileno);
+      //   if (loginAttempts >= this.maxAttempts) {
+      //     this._authService.updateinactiveUser(dataObject).subscribe(data => { })
+      //     Swal.fire('OOPs', 'User blocked...Please contact to Admin', 'error')
+      //     this.failedLoginAttempts[this.mobileno] = 0;
+      //   }
+      //   else
+      //     Swal.fire({
+      //       title: '',
+      //       text: "Your access denied",
+      //       icon: 'error',
+      //       confirmButtonColor: '#229954',
+      //       confirmButtonText: 'OK'
+      //     })
+      // } else if (err.error.statusCode == 400) {
+      //   Swal.fire({
+      //     title: '',
+      //     text: err.error.message,
+      //     icon: 'error',
+      //     confirmButtonColor: '#229954',
+      //     confirmButtonText: 'OK'
+      //   })
+      // } else {
+      //   Swal.fire({
+      //     title: '',
+      //     text: "Please Check Your Username And Password",
+      //     icon: 'error',
+      //     confirmButtonColor: '#229954',
+      //     confirmButtonText: 'OK'
+      //   })
+      // }
+
       if (err.error.statusCode == 401) {
         this.incrementFailedLoginAttempts(this.mobileno);
         let loginAttempts = this.getFailedLoginAttempts(this.mobileno);
-        if (loginAttempts >= this.maxAttempts) {
-          this._authService.updateinactiveUser(dataObject).subscribe(data => { })
-          Swal.fire('OOPs', 'User blocked...Please contact to Admin', 'error')
-          this.failedLoginAttempts[this.mobileno] = 0;
+        if(loginAttempts >3) {
+            this._authService.updateinactiveUser(dataObject).subscribe(data => { })
+            Swal.fire('OOPs', 'User blocked...Please contact to Admin', 'error')
+            this.failedLoginAttempts[this.mobileno] = 0;
+            this.isUserBlocked = true;
         }
-        else
+        else{
           Swal.fire({
             title: '',
-            text: "Your access denied",
+            text: "Password is incorrect",
             icon: 'error',
             confirmButtonColor: '#229954',
             confirmButtonText: 'OK'
           })
-      } else if (err.error.statusCode == 400) {
+        }
+      } 
+       else if (err.error.statusCode == 400) {
         Swal.fire({
           title: '',
           text: err.error.message,
@@ -124,7 +162,17 @@ export class BasicLoginComponent implements OnInit {
           confirmButtonColor: '#229954',
           confirmButtonText: 'OK'
         })
-      } else {
+      } 
+      else if(err.error.statusCode == 500){
+        Swal.fire({
+          title: '',
+          text: "Please check your username",
+          icon: 'error',
+          confirmButtonColor: '#229954',
+          confirmButtonText: 'OK'
+        })
+      }
+      else {
         Swal.fire({
           title: '',
           text: "Please Check Your Username And Password",

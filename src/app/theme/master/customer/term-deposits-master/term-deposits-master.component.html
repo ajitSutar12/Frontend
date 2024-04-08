@@ -585,18 +585,88 @@
                                                                 <div
                                                                     class="border-checkbox-group border-checkbox-group-primary">
                                                                     <input type="checkbox" class="border-checkbox"
-                                                                        id="REQ_RENEW" formControlName="REQ_RENEW">
+                                                                        (click)="getrenewtype($event)" id="REQ_RENEW"
+                                                                        formControlName="REQ_RENEW">
                                                                     <label class="border-checkbox-label"
                                                                         for="REQ_RENEW">Is Auto Renewal Required
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-sm-1" style="float: right; margin-top: 6px;"
+                                                        <!-- <div class="col-sm-1" style="float: right; margin-top: 6px;"
                                                             *ngIf="!showRDagent">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('addressTab')">Next
                                                             </button>
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="row" *ngIf="showrenewdetails">
+                                                        <div class="col-sm-4">
+                                                            Renew type: <div class="form-radio">
+                                                                <div class="radio radio-inline">
+                                                                    <label class="inputRadio">
+                                                                        <input type="radio" name="RENEW_TYPE"
+                                                                            (change)="getrenewtransfertype($event.target.value)"
+                                                                            formControlName="RENEW_TYPE" value="1">
+                                                                        <i class="helper"></i>Transfer </label>
+                                                                </div>
+                                                                <div class="radio radio-inline">
+                                                                    <label class="inputRadio">
+                                                                        <input type="radio" name="RENEW_TYPE"
+                                                                            (change)="getrenewtransfertype($event.target.value)"
+                                                                            formControlName="RENEW_TYPE" value="2">
+                                                                        <i class="helper"></i>Account transfer </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm" *ngIf="showrenewacctr">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select appTheme id="RENEW_TYPE_SCHEME"
+                                                                        bindValue="value"
+                                                                        formControlName="RENEW_TYPE_SCHEME"
+                                                                        bindLabel="label" [virtualScroll]="true"
+                                                                        (change)="getSavingAccountTransferlist()"
+                                                                        title="Compulsory Selection" #RENEW_TYPE_SCHEME
+                                                                        (focus)="onFocus(RENEW_TYPE_SCHEME)"
+                                                                        [selectOnTab]='true'
+                                                                        [(ngModel)]="ngrenewtypescheme"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        placeholder="Account Transfer Scheme">
+                                                                        <ng-option
+                                                                            *ngFor="let values of renewtypescheme"
+                                                                            [value]="values">
+                                                                            {{values.id}}
+                                                                            {{values.label}}</ng-option>
+                                                                    </ng-select>
+                                                                    <label for="RENEW_TYPE_SCHEME">Account Transfer
+                                                                        Scheme<sub class="required"> * </sub></label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm" *ngIf="showrenewacctr">
+                                                            <div class="form-group form-primary form-static-label">
+                                                                <span class="border-lable-flt">
+                                                                    <ng-select appTheme id="RENEW_TYPE_ACCOUNTNO"
+                                                                        bindValue="bankacno"
+                                                                        formControlName="RENEW_TYPE_ACCOUNTNO"
+                                                                        bindLabel="label" [virtualScroll]="true"
+                                                                        title="Compulsory Selection"
+                                                                        #RENEW_TYPE_ACCOUNTNO
+                                                                        (focus)="onFocus(RENEW_TYPE_ACCOUNTNO)"
+                                                                        [selectOnTab]='true'
+                                                                        [(ngModel)]="ngrenewtypeaccountno"
+                                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                                        placeholder="Account Number">
+                                                                        <ng-option
+                                                                            *ngFor="let values of renewtypeaccountno"
+                                                                            [value]="values">
+                                                                            {{values.label}} {{values.name}}</ng-option>
+                                                                    </ng-select>
+                                                                    <label for="RENEW_TYPE_ACCOUNTNO">Transfer Account
+                                                                        number<sub class="required"> * </sub></label>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="row" *ngIf="showRDagent">
@@ -617,7 +687,7 @@
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="AGENT_BRANCH">Agent Branch</label>
+                                                                    <label for="AGENT_BRANCH">Agent Branch</label> 
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -637,8 +707,7 @@
                                                                             [value]="values">
                                                                             {{values.label}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="AGENT_ACTYPE">Agent Scheme<sub
-                                                                            class="required"> * </sub></label>
+                                                                    <label for="AGENT_ACTYPE">Agent Scheme</label>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -658,11 +727,13 @@
                                                                             {{values.label}}
                                                                             {{values.name}}</ng-option>
                                                                     </ng-select>
-                                                                    <label for="AGENT_ACNO">Agent Code <sub
-                                                                            class="required"> * </sub></label>
+                                                                    <label for="AGENT_ACNO">Agent Code </label>
                                                                 </span>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm"></div>
                                                         <div class="col-sm-1" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
                                                                 (click)="switchNgBTab('addressTab')">Next

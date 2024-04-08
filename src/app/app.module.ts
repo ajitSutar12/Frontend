@@ -27,6 +27,7 @@ import { DatatablekitComponent } from './datatablekit/datatablekit.component';
 import { GlobalErrorHandler } from './app.service';
 import { ShortcutKeyModule } from './theme/shortcut-key/shortcut-key.module';
 import { MinusPipe } from './minus.pipe';
+import { HighlighterPipe } from './layout/admin/highlighter.pipe';
 // import { ShortcutKeyComponent } from './theme/shortcut-key/shortcut-key.component';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MinusPipe } from './minus.pipe';
     StrictNumberOnlyDirective,
     DatatablekitComponent,
     MinusPipe,
+    HighlighterPipe,
     // ShortcutKeyComponent
 
   ],

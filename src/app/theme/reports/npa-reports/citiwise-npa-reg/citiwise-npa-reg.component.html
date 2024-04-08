@@ -48,7 +48,6 @@
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getTransferAccountList($event)">
-                                            [(ngModel)]="scode" (change)="($event)">
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}} </ng-option>
                                         </ng-select>
@@ -63,7 +62,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1"> <label for="START_DATE">NPA Date<sub class="required">*</sub></label>
+                            <!-- <div class="col-md-1"> <label for="START_DATE">NPA Date<sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -84,9 +83,25 @@
                                         This field is required.
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">NPA DATE<sub
+                                class="required">*</sub></label>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+                        <div class="form-group form-primary form-static-label">
+                            <span class="border-lable-flt">
+                                <ng-select formControlName="NPA_Date" [(ngModel)]="nasf"
+                                    (change)="getDate($event);" >
+                                    
+                                    <ng-option *ngFor="let values of glDetails" [value]="values">
+                                        {{values.REPORT_DATE}} </ng-option>
+                                </ng-select>
 
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Report Date<sub
+                            </span>
+                        </div>
+
+                    </div>
+                            <!-- <div class="col-sm-12 col-md-1"> <label for=" Date">Report Date<sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -108,7 +123,7 @@
                                         This field is required
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                            <div class="row">
                            
@@ -163,7 +178,7 @@
                             <div class="col-sm">
                                 <div class="checkbox checkbox-primary">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
-                                        <input type="checkbox" class="border-checkbox" id="npa_per"
+                                        <input type="checkbox" class="border-checkbox" id="npa_per" (change)="percentageDetail($event)"
                                             formControlName="npa_per">
                                         <label class="border-checkbox-label" for="npa_per">Percentwise NPA Report
                                             </label>

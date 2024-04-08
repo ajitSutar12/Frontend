@@ -87,16 +87,16 @@
                     </div>
                   </div>
                 </li>
-                <!-- <li class="ripple">
+                 <li class="ripple">
                   <div class="media">
                     <div class="media-body">
-                      <h5 class="notification-user">Some Text</h5>
-                      <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                      <span class="notification-time">30 minutes ago</span>
+                      <!-- <h5 class="notification-user" >Some Text</h5> -->
+                      <p class="notification-msg" (click)="openModal()">Remainder</p>
+                      <!-- <span class="notification-time">30 minutes ago</span> -->
                     </div>
                   </div>
                 </li>
-                <li class="ripple">
+              <!--  <li class="ripple">
                   <div class="media">
                     <div class="media-body">
                       <h5 class="notification-user">Some Text</h5>
@@ -285,9 +285,22 @@
       </div>
     </nav>
 
+
     <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
       <!-- ////////////////////////////////////////////////////////////////////////////// -->
-
+     <div *ngIf='router.url==="/dashboard/default"'>
+      <div id="ofBar" *ngIf="modalClose" >
+        <div class="message alert">
+          <marquee behavior="scroll" direction="up" scrollamount="1">
+            <label class="text"><b>
+                {{newsContent}}
+              </b>
+            </label>
+          </marquee>
+        </div>
+        <a id="close-bar" (click)="closeMarquee()">×</a>
+      </div>
+    </div>
       <!--  -->
       <div class="pcoded-wrapper">
         <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
@@ -295,6 +308,7 @@
           sub-item-theme="theme2" active-item-style="style0" [attr.pcoded-header-position]="pcodedHeaderPosition"
           [attr.pcoded-navbar-position]="pcodedSidebarPosition" [style.top]="headerFixedTop"
           [style.height]="sidebarFixedNavHeight" (mouseleave)="hoverOutsideSidebar()">
+
 
           <perfect-scrollbar [style.max-width]="'235px'" [style.max-height]="sidebarFixedHeight" [config]="config"
             [ngClass]="perfectDisable">
@@ -309,15 +323,46 @@
                   </div>
                 </div>
               </div>
+              <div class="top-search-bar" (click)="onSearchBarClick()">
+                <div class="search-container">
+                  <input #searchInput type="text" [(ngModel)]="searchTerm" (keyup)="performSearch()"
+                    (blur)="onSearchBlur()" (focusout)="onSearchBlur()" placeholder="Search" class="search-input" />
+                  <i class="fa fa-search"></i>
+                </div>
+              </div>
+
+              <ul class="searchinput" *ngIf="showMenu">
+                <li *ngFor="let menuItem of filteredMenuListData">
+                  <a [routerLink]="['/', menuItem.state]" class="ripple" (click)="resetSearchInput(searchInput)">
+                    <span class="pcoded-mtext" [innerHTML]="menuItem.name | highlighter: searchTerm"></span>
+                  </a>
+                  <ul *ngIf="menuItem.filteredChildren && menuItem.filteredChildren.length > 0">
+                    <li *ngFor="let submenu of menuItem.filteredChildren">
+                      <a [routerLink]="['/', menuItem.state, submenu.state]" (click)="resetSearchInput(searchInput)">
+                        <span class="pcoded-mtext" [innerHTML]="submenu.name | highlighter: searchTerm"></span>
+                      </a>
+                      <ul *ngIf="submenu.filteredChildren && submenu.filteredChildren.length > 0">
+                        <li *ngFor="let subsubmenu of submenu.filteredChildren">
+                          <a [routerLink]="['/', menuItem.state, submenu.state, subsubmenu.state]"
+                            (click)="resetSearchInput(searchInput)">
+                            <span class="pcoded-mtext" [innerHTML]="subsubmenu.name | highlighter: searchTerm"></span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+
 
               <perfect-scrollbar style="max-width: 600px; max-height: 600px;">
                 <div *ngFor="let asideItems of menuItems.getAll();let i = index" class="d-color">
                   <div class="pcoded-navigation-label" [attr.menu-title-theme]="menuTitleTheme">{{asideItems.label}}
                   </div>
-                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title=""
-                    [attr.item-border]="itemBorder" [attr.item-border-style]="itemBorderStyle"
-                    [attr.subitem-border]="subItemBorder" *ngFor="let asideItem of menuListData" appAccordionLink
-                    group="{{asideItem.state}}">
+                  <ul class="pcoded-item pcoded-left-item {{asideItem.class}}" title="" [attr.item-border]="itemBorder"
+                    [attr.item-border-style]="itemBorderStyle" [attr.subitem-border]="subItemBorder"
+                    *ngFor="let asideItem of menuListData" appAccordionLink group="{{asideItem.state}}">
 
                     <li [routerLinkActive]="['active']" *ngIf="asideItem.type === 'external'" appAccordionLink
                       group="{{asideItem.state}}">
@@ -379,6 +424,7 @@
                                 target="{{asideChildren.target ? '_blank' : '_self'}}">
                                 <div class="ripple menu-ripple"></div>
                                 <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
+                                <i class="fa fa-square" style="font-size:10px"></i>&nbsp;
                                 <span class="pcoded-mtext">{{ asideChildren.name }} </span>
                                 <span *ngFor="let asideChildrenBadge of asideChildren.badge"
                                   class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
@@ -394,6 +440,7 @@
                                 appAccordionToggle>
                                 <div class="ripple menu-ripple"></div>
                                 <span class="pcoded-micon"><i class="icon-direction-alt"></i></span>
+                                <i class="fa fa-square" style="font-size:10px;"></i>&nbsp;
                                 <span class="pcoded-mtext">{{ asideChildren.name }}</span>
                                 <span *ngFor="let asideChildrenBadge of asideChildren.badge"
                                   class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
@@ -409,6 +456,7 @@
 
                                         <div class="ripple menu-ripple"></div>
                                         <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
+                                        <i class="fa fa-circle" style="font-size:10px"></i>&nbsp;
                                         <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
                                         <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge"
                                           class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
@@ -498,13 +546,15 @@
   <div>
     <span class="text-muted">
       <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-9">
           <!-- <marquee behavior="scroll" direction="left" scrollamount="5">
-            <label class="text"><b>Tomorrow there will be holiday to bank.........</b>
+            <label class="text"><b>
+                {{newsContent}}
+              </b>
             </label>
           </marquee> -->
         </div>
-        <div class="col-md-5">
+        <div class="col-md-3">
           <h6 style="color:black; font-size: 13px; float: right;">Branch: {{barnchName}} Today Date: {{currentDate}}
           </h6>
         </div>

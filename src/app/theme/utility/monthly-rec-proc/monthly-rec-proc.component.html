@@ -1,0 +1,169 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Monthly Recovery Process</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
+                                        class="required">*</sub></label> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                            placeholder="Scheme Code" [(ngModel)]="scode">
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.id}} {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-2"> <label for=" raf">Recovery ACTYPE Field<sub
+                                        class="required">*</sub></label> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="REC_ACTYPEFIELD" bindValue="value" bindLabel="label"
+                                            placeholder="Recovery Actype Field" [(ngModel)]="recac">
+                                            <ng-option *ngFor="let values of recactype" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['REC_ACTYPEFIELD'].invalid && (ngForm.controls['REC_ACTYPEFIELD'].dirty || ngForm.controls['REC_ACTYPEFIELD'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['REC_ACTYPEFIELD'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for=" raf">Recovery ACNO Field<sub
+                                        class="required">*</sub></label> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="REC_ACNOFIELD" bindValue="value" bindLabel="label"
+                                            placeholder="Recovery Acno Field" [(ngModel)]="recacno">
+                                            <ng-option *ngFor="let values of recaccno" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['REC_ACNOFIELD'].invalid && (ngForm.controls['REC_ACNOFIELD'].dirty || ngForm.controls['REC_ACNOFIELD'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['REC_ACNOFIELD'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" raf">Recovery INST Field<sub
+                                class="required">*</sub></label> </div>
+                    <div class="col-sm-3">
+                        <div class="form-group form-primary form-static-label">
+                            <span class="border-lable-flt">
+                                <ng-select formControlName="REC_INSTFIELD" bindValue="value" bindLabel="label"
+                                    placeholder="Recovery Acno Field" [(ngModel)]="recinst">
+                                    <ng-option *ngFor="let values of recinstno" [value]="values">
+                                        {{values.label}} </ng-option>
+                                </ng-select>
+
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                            *ngIf="ngForm.controls['REC_INSTFIELD'].invalid && (ngForm.controls['REC_INSTFIELD'].dirty || ngForm.controls['REC_INSTFIELD'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="ngForm.controls['REC_INSTFIELD'].errors?.required">
+                                This field is required
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for=" raf">Recovery INTINST Field<sub
+                                        class="required">*</sub></label> </div>
+                            <div class="col-sm-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="REC__INT_INSTFIELD" bindValue="value" bindLabel="label"
+                                            placeholder="Recovery IntInst Field" [(ngModel)]="recinstf">
+                                            <ng-option *ngFor="let values of recinstfield" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['REC__INT_INSTFIELD'].invalid && (ngForm.controls['REC__INT_INSTFIELD'].dirty || ngForm.controls['REC__INT_INSTFIELD'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['REC__INT_INSTFIELD'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" raf">Recovery BALANCE Field<sub
+                                class="required">*</sub></label> </div>
+                    <div class="col-sm-3">
+                        <div class="form-group form-primary form-static-label">
+                            <span class="border-lable-flt">
+                                <ng-select formControlName="REC_BALANCE_FIELD" bindValue="value" bindLabel="label"
+                                    placeholder="Recovery Acno Field" [(ngModel)]="recbalf">
+                                    <ng-option *ngFor="let values of recbalfield" [value]="values">
+                                        {{values.label}} </ng-option>
+                                </ng-select>
+
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                            *ngIf="ngForm.controls['REC_BALANCE_FIELD'].invalid && (ngForm.controls['REC_BALANCE_FIELD'].dirty || ngForm.controls['REC_BALANCE_FIELD'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="ngForm.controls['REC_BALANCE_FIELD'].errors?.required">
+                                This field is required
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                    (click)="view($event); clicked = true ">Submit</button>
+
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
+                        </div> -->
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -44,7 +44,7 @@
                             <button class="btn btn-outline-primary btn-sm" (click)="submit()">Unpass</button>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="canceldata()">Cancel</button>
                         </div>
                     </div>
                     <div class="row">
@@ -56,7 +56,6 @@
                                         <td class="td_right">Scheme</td>
                                         <td>Scheme Code</td>
                                         <td>Unpass</td>
-                                        <td>Delete</td>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of tableData">
@@ -65,9 +64,8 @@
                                             <td><input type="checkbox"
                                                     (click)="AddData(item.TRAN_ACTYPE,item.TRAN_ACNOTYPE,$event)"></td>
                                             <!-- <td><input type="checkbox" (click)="DeleteData(item.TRAN_ACTYPE,item.TRAN_ACNOTYPE)"></td> -->
-                                            <td>-</td>
                                         </tr>
-                                        <tr *ngIf="showMsg">
+                                        <tr *ngIf="tableData.length==0">
                                             <td colspan="12" class="no-data-available" style="text-align: center;">
                                                 No data!
                                             </td>
