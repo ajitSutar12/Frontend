@@ -39,6 +39,8 @@ export class PassbookEntryPrintComponent implements OnInit {
   //iframe
   formSubmitted = false;
   clicked: boolean = false;
+  clicke: boolean = true;
+
   showRepo: boolean = false;
   //api
   url = environment.base_url;
@@ -51,6 +53,8 @@ export class PassbookEntryPrintComponent implements OnInit {
   introducerACNo: any;
   firstno
   bankAcno
+
+  passbookhistorypayload
   // for dropdown ng module
   ngbranch: any = null;
   ngcust: any = null;
@@ -83,7 +87,7 @@ export class PassbookEntryPrintComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'TD' || scheme.name == 'SB' || scheme.name == 'LN');
+        return (scheme.name == 'TD' || scheme.name == 'SB' || scheme.name == 'LN' || scheme.name == 'CA');
       });
       this.scheme = filtered;
 
@@ -173,6 +177,12 @@ export class PassbookEntryPrintComponent implements OnInit {
           this.firstno = null
         })
         break;
+        case 'CA':
+          this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+            this.introducerACNo = data;
+            this.firstno = null
+          })
+          break;
 
 
     }
@@ -229,9 +239,22 @@ export class PassbookEntryPrintComponent implements OnInit {
       else if (this.getschemename == 'SB' || this.getschemename == 'CA' || this.getschemename == 'TD') {
         flag = 1
       }
-      this.iframe5url = this.report_url + "examples/passbookprintnew1.php?AC_NO='" + this.bankAcno + "'&flag=" + flag + "&AC_ACNOTYPE='" + this.getschemename + "'&AC_TYPE='" + this.scode + "'&PS_LINES_PRINTED='" +ps_lines_printed+ "'"; 
+   
+     let print =  {
+        AC_ACNOTYPE:   this.getschemename ,
+        AC_NO: this.bankAcno ,
+        AC_TYPE: this.scode
+     }
+
+     this.http.post(this.url + '/voucher/fetchpassbookprint', print).subscribe(response => {
+      this.passbookhistorypayload = response
+     })
+
+      this.iframe5url = this.report_url + "examples/passbookprintnew.php?AC_NO='" + this.bankAcno + "'&flag=" + flag + "&AC_ACNOTYPE='" + this.getschemename + "'&AC_TYPE='" + this.scode +"'&PS_LINES_PRINTED="+ps_lines_printed;
+
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      this.clicke = false
 
     }
     else {
@@ -239,9 +262,28 @@ export class PassbookEntryPrintComponent implements OnInit {
     }
 
   }
+  printYesno(event){
+    if(event.target.value == '1')
+    {
+      this.http.post(this.url + '/voucher/updatepassbookprint',this.passbookhistorypayload).subscribe(response => {
+   if (response == 1)
+        Swal.fire('Success!', 'Passbook Printed Successfully', 'success').then(() => { this.clicke = true });
+      else
+      Swal.fire('Warning!', 'No record Found', 'warning');
+
+
+       })
+
+    }else{
+      Swal.fire('Info!', 'Passbook Print Cancelled', 'info');
+
+    }
+
+  }
 
   close() {
     this.resetForm()
+    this.clicke = true
   }
 
   // Reset Function

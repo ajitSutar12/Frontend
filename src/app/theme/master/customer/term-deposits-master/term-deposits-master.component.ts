@@ -1745,6 +1745,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiJointAC = data.jointAccounts
       //get attorney to edit
       this.multiAttorney = data.powerOfAttorney
+      this.openingDate=data.AC_OPDATE
 
       this.ngCategory = data.AC_CATG
       this.ngOperation = data.AC_OPR_CODE
@@ -1796,7 +1797,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_SHORT_NAME': data.AC_SHORT_NAME,
         'AC_AGE': data.AC_AGE,
         'REF_ACNO': data.REF_ACNO,
-        'AC_OPDATE': data.AC_OPDATE,
+        // 'AC_OPDATE': data.AC_OPDATE,
         'AC_RENEW_DATE': data.AC_RENEW_DATE,
         'AC_EXPDT': data.AC_EXPDT,
         // 'AC_CATG': data.AC_CATG,
@@ -1822,7 +1823,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'PG_COMM_TYPE': data.PG_COMM_TYPE,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
         'AC_INTRATE': data.AC_INTRATE,
-        RENEW_TYPE: (data?.RENEW_TYPE).toString()
+        RENEW_TYPE: (data?.RENEW_TYPE).toString(),
+        'AC_OPDATE': data.AC_OPDATE,
+
       })
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
@@ -1856,6 +1859,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     data['IS_DISCOUNTED_INT_RATE'] = (data.IS_DISCOUNTED_INT_RATE == true ? '1' : '0')
     data['REQ_RENEW'] = (data.REQ_RENEW == true ? '1' : '0')
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
+
     // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
     // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),
 
@@ -1863,20 +1867,26 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
-      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY'))
+      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate 
+        //, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY') //Vasim Temperory 20-03-2024
+        )
     } else {
       data['AC_OPDATE'] = this.openingDate
     }
 
 
     if (this.updatecheckdata.AC_ASON_DATE != data.AC_ASON_DATE) {
-      (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY'))
+      (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE
+        //, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY') //Vasim Temperory 20-03-2024
+        )
     } else {
       data['AC_ASON_DATE'] = data.AC_ASON_DATE
     }
 
-    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) {
-      (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT, data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY'))
+    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) { 
+      (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT
+        , data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY') 
+      )
     } else {
       data['AC_EXPDT'] = data.AC_EXPDT
     }

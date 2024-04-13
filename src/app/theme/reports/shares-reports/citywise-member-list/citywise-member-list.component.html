@@ -17,8 +17,8 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                        (change)="getBranch($event)"
-                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch">
+                                            (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                            placeholder="Branch">
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
                                         </ng-select>
@@ -56,20 +56,20 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-1">
+                            <div class="col-md-1" *ngIf="isHide">
                                 <label for="AC_CTCODE">City<sub class="required">*
                                     </sub></label>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-sm-2" *ngIf="isHide">
                                 <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
+                                    <span class="border-lable-flt" >
                                         <ng-select id="AC_CTCODE" [items]="city" bindValue="id" [(ngModel)]="ngCity"
-                                            bindLabel="CITY_NAME" formControlName="AC_CTCODE"
-                                            title="Compulsory Selection" #City (focus)="onFocus(City)"
-                                            [selectOnTab]='true' [virtualScroll]="true"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="City" required>
-
-                                        </ng-select>
+                                        bindLabel="CITY_NAME" formControlName="AC_CTCODE"
+                                        title="Compulsory Selection" #City (focus)="onFocus(City)"
+                                        [selectOnTab]='true' [virtualScroll]="true" 
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="City">
+                                    </ng-select>
+                                    
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
@@ -81,33 +81,45 @@
                                 </div>
                             </div>
 
-                           
+
 
                         </div>
                         <div class="row">
                             <div class="col-md-2"> <label for="START_DATE"> Date
-                                <sub class="required">*</sub></label>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
-                                        class="form-control" [(ngModel)]="dates" [bsValue]="bsValue"
-                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        formControlName="START_DATE" appButton minlength="10" maxlength="10"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
-                                </span>
+                                    <sub class="required">*</sub></label>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['START_DATE'].invalid && (ngForm.controls['START_DATE'].dirty || ngForm.controls['START_DATE'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                    This field is required.
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
+                                            class="form-control" [(ngModel)]="dates" [bsValue]="bsValue"
+                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            formControlName="START_DATE" appButton minlength="10" maxlength="10"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['START_DATE'].invalid && (ngForm.controls['START_DATE'].dirty || ngForm.controls['START_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
+                                        This field is required.
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
+                            <!-- Checkbox for all city -->
+                            <div class="col-md-3">
+                                <div class="checkbox checkbox-primary">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input type="checkbox" class="border-checkbox" id="allCityCheckbox"
+                                            formControlName="allCityCheckbox"(change)="getCheck($event)">
+                                        <label class="border-checkbox-label" for="allCityCheckbox">All City</label>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="row">

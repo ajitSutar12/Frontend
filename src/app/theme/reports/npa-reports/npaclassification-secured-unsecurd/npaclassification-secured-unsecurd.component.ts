@@ -29,7 +29,8 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     iframe5url:any='';
     @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
   formSubmitted = false;
-  
+  base_url = environment.base_url;
+
   //fromgroup
   ngForm:FormGroup
    // for dropdown ng module
@@ -44,7 +45,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
   showLoading:boolean = false;
   transferSchemeDetails: any;
   tScheme
-  
+  nasf
    //date
   todate: any = null
   bsValue = new Date();
@@ -53,6 +54,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     minDate: Date;
     report_url = environment.report_url;
     branchName: any;
+  glDetails: any;
   
     constructor(
       private fb: FormBuilder,
@@ -60,7 +62,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
-     
+      private http: HttpClient,
     ) {
       this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
@@ -115,6 +117,23 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
         this.branchName = result.branch.NAME
   
       }
+      let data1: any = localStorage.getItem('user');
+      let result1 = JSON.parse(data1);
+      let BRANCH_CODE = result1.branch.id;
+      let obj1 = {
+        // date: moment(this.fordate).format('DD/MM/YYYY')
+        BRANCH_CODE: this.ngbranch,
+        // branch_code: this.ngbranch,
+      }
+  
+      console.log(obj1)
+      // this.http.post('http://192.168.1.113:7276/npa-classification-master/getdt', obj1).subscribe((data) => {
+        this.http.post(this.base_url +'/npa-classification-master/getdt', obj1).subscribe((data) => {
+        this.glDetails = data
+  
+        console.log(this.glDetails)
+      })
+  
     }
   
     getTransferAccountList(event) {
@@ -127,7 +146,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       this.ngForm = this.fb.group({
         BRANCH_CODE: ['', [Validators.required]],
         // Scheme_code: ["",[ Validators.required]],
-        START_DATE: ['', [Validators.required]],
+        NPA_Date: [''],
         npa_per: [''],
        
       });
@@ -179,6 +198,8 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     let Dates = obj.START_DATE;
     let branch = obj.BRANCH_CODE;
       // let branch = '1';
+      let REPORT_DATE = obj.NPA_Date;
+      let npaDate = obj.NPA_Date.REPORT_DATE;
       let flag = obj.npa_per;
       if(flag == true){
         flag = '1'
@@ -190,7 +211,7 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
       if(branch == 0){
         this.branchName='Consolidate';
      }
-      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+Dates+"'";
+      this.iframe5url=this.report_url+ "examples/NPA_Secured_Unsecured.php?BRANCH_CODE="+this.ngbranch+"&FLAG="+flag+"&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&PRINT_DATE='"+npaDate+"'";
     console.log(this.iframe5url); 
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
@@ -218,5 +239,6 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     getBranch(event) {
       this.ngbranch = event.value
       this.branchName = event.branchName
+      let data1: any = localStorage.getItem('user');
     }
   }

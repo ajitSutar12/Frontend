@@ -17,7 +17,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedbranch" #scheme formControlName="branch"
-                                        bindValue="value" bindLabel="label">
+                                        bindValue="value" bindLabel="label" (change)="getbranch($event)">
                                         <ng-option *ngFor="let item of branchCode" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
@@ -87,7 +87,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                        formControlName="tdate" appButton minlength="10" maxlength="10"
+                                        formControlName="tdate" appButton minlength="10" maxlength="10" 
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -129,7 +129,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="maxinst"
+                                        id="INSTALLMENT_NO" maxlength="4" formControlName="maxinst"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                                 </span>
                             </div>

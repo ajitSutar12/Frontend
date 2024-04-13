@@ -124,7 +124,7 @@
                             </div>
 
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf=isShow>
                             <div class="col-md-12">
                                 <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont" (tabChange)="onTabChange($event)">
                                     <!-- start of basic tab -->
@@ -196,7 +196,7 @@
                                                         </div>
                                                         <div class="col-sm" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('address')">Next
+                                                                (click)="switchNgBTab('Selective')">Next
                                                             </button>
                                                         </div>
 
@@ -207,7 +207,7 @@
                                     </ngb-tab>
                                     <!-- end of basic tab -->
                                     <!-- start of Address tab -->
-                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
+                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective" >
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -254,8 +254,8 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm col-md-6">
+                        <div class="row" >
+                            <div class="col-sm col-md-3">
                                 <div class="checkbox checkbox-primary ">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue" value="1"
@@ -265,7 +265,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm col-md-6">
+                            <div class="col-sm col-md-4">
                                 <div class="checkbox checkbox-primary ">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="npa_per" value="0"
@@ -278,17 +278,16 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="cosl-md-9"></div>
+                        <div class="row justify-content-end">
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
                                     (click)="view($event); clicked = true ">View</button>
-
                             </div>
                             <div class="col-md-1">
                                 <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
