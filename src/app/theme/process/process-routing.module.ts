@@ -31,11 +31,15 @@ const routes: Routes = [
       },
       {
         path: 'processACM',
-        loadChildren:()=> import('./process-acm/process-acm.module').then(m=>m.ProcessACMModule)
+        loadChildren: () => import('./process-acm/process-acm.module').then(m => m.ProcessACMModule)
+      },
+      {
+        path: 'monthly recovery process',
+        loadChildren: () => import('./recovery-processing/recovery-processing.module').then(m => m.RecoveryProcessingModule)
       },
     ]
   }
-  ];
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
