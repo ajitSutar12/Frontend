@@ -24,7 +24,7 @@ export const environment = {
   //VADGAON_SARAF 
   // base_url: 'http://103.174.87.104:7797',  //CBS  vadgaon server
   // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
-  sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
+  // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
 
  //Jijamata Arjunwada
   // base_url: 'http://103.174.87.104:7274',
@@ -34,7 +34,7 @@ export const environment = {
   // //SHIVPRASAD NATEPUTE
   // base_url: 'http://103.174.87.104:7275',  //CBS  natepute server
   // report_url: 'http://103.174.87.104/SHIVPRASADNATEPUTE/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
+  sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
 
 
   // //VENKATESH 

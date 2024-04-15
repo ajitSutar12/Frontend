@@ -13,6 +13,9 @@ import {NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MonthlyRecPostingComponent } from './monthly-rec-posting/monthly-rec-posting.component';
+import { MonthlyRecProcessComponent } from './monthly-rec-process/monthly-rec-process.component';
+import { EditMonthlyProcessComponent } from './edit-monthly-process/edit-monthly-process.component';
 
 @NgModule({
   imports: [
@@ -28,7 +31,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule
 
   ],
-  declarations: [RecoveryProcessingComponent],
+  declarations: [RecoveryProcessingComponent, MonthlyRecPostingComponent, MonthlyRecProcessComponent, EditMonthlyProcessComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

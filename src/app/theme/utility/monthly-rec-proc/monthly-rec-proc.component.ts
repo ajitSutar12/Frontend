@@ -10,7 +10,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 })
 export class MonthlyRecProcComponent implements OnInit { 
 
-  ngForm : FormGroup
+  ngForm : FormGroup 
   scheme: any[];
   scode
   recac
@@ -83,11 +83,13 @@ export class MonthlyRecProcComponent implements OnInit {
   createForm() {
     this.ngForm = this.fb.group({
       Scheme_code: ["",[ Validators.required]],
+      SEQ_NO: ["",[ Validators.required]],
       REC_ACTYPEFIELD: ["",[ Validators.required]],
       REC_ACNOFIELD: ["",[ Validators.required]],
       REC_INSTFIELD: ["",[ Validators.required]],
       REC__INT_INSTFIELD: ["",[ Validators.required]],
       REC_BALANCE_FIELD: ["",[ Validators.required]],
+      ISAPPLY: [""],
       
     });
    
