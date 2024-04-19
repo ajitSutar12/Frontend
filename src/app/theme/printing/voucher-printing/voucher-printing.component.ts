@@ -185,6 +185,7 @@ export class VoucherPrintingComponent implements OnInit {
       VOUCHER_NO: ['', [Validators.required]],
       VOUCHER_TYPE: ['', [Validators.required]],
       TRAN_TYPE: [''],
+      DC_NO: [''],
       drcr: new FormControl('Debit'),
     });
   }
@@ -226,7 +227,7 @@ export class VoucherPrintingComponent implements OnInit {
         break;
 
       case 'LN':
-        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => { 
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
           this.introducerACNo = data;
           this.firstno = null
           this.lastno = null
@@ -297,11 +298,13 @@ export class VoucherPrintingComponent implements OnInit {
     this.formSubmitted = true;
 
     let userData = JSON.parse(localStorage.getItem('user'));
+    let code = userData.branch.CODE
+
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
     // let branch = userData.branch.CODE;
-this.voucherNo
-    if (this.ngForm.valid) {
+    this.voucherNo
+    // if (this.ngForm.valid) {
       let obj = this.ngForm.value
       this.showRepo = true;
 
@@ -320,7 +323,9 @@ this.voucherNo
       // let branch = obj.BRANCH_CODE
       let voucherNo = obj.VOUCHER_NO
       let voucherType = obj.VOUCHER_TYPE
-      let tranType = obj.TRAN_TYPE 
+      let tranType = obj.TRAN_TYPE
+
+     
 
       let drcrtype
       if (obj.drcr === 'Debit') {
@@ -336,22 +341,35 @@ this.voucherNo
       // console.log(this.iframe5url);
       // this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
+      let type
+      if (obj.VOUCHER_TYPE === 'MV') {
+        type = 4
+      }
+      else if (obj.VOUCHER_TYPE === 'DC') {
+        type = 5
+      }
+
       if (voucherType == 'VC') {
         this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tranType + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'";
         console.log(this.iframe5url);
         this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
       }
       else if (voucherType == 'MV') {
-        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "";
+        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "&type=" + type + "";
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      }
+      else if (voucherType == 'DC') {
+        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "&type=" + type + "&code=" + code + "";
         console.log(this.iframe5url);
         this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
       }
 
 
-    }
-    else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
-    }
+    // }
+    // else {
+    //   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    // }
 
   }
   close() {
@@ -362,6 +380,7 @@ this.voucherNo
   reset() {
     this.ngForm.controls.VOUCHER_NO.reset();
     this.ngForm.controls.VOUCHER_TYPE.reset();
+    this.ngForm.controls.DC_NO.reset();
     this.ngForm.controls.TRAN_TYPE.reset();
 
     this.showRepo = false;
@@ -373,43 +392,85 @@ this.voucherNo
     this.branchName = event.branchName
   }
 
-  
+
   hide: boolean = false
   show: boolean = true
+  isdepoClose: boolean = false
   getType(event) {
+
     this.vtype = event.value
     if (this.vtype == 'MV') {
       this.show = false
       this.hide = true
+      this.isdepoClose = false
+
       this.getType1(event);
+    }
+    else if (this.vtype == 'DC') {
+      this.show = true
+      // this.hide = false
+      this.hide = true
+      this.isdepoClose = true
+
+      // this.getType1(event);
+      // this.tranList()
+    }
+    else if (this.vtype == 'VC') {
+      this.show = true
+      this.hide = false
+      // this.hide = true
+      this.isdepoClose = false
+
+      // this.getType1(event);
+      // this.tranList()
     }
     else {
       this.show = true
       this.hide = false
     }
+    this.ngForm.controls.VOUCHER_NO.reset();
+    this.ngForm.controls.TRAN_TYPE.reset();
+
   }
+
+  // tranList() {
+
+  //   let userData = JSON.parse(localStorage.getItem('user'));
+
+
+  //   let obj = {
+  //     'TRAN_SOURCE_TYPE': 'DC',
+  //     'BRANCH_CODE': userData.id,
+  //     'TRAN_DATE': this.sdate
+  //   }
+
+  //   // this.http.post('http://192.168.1.157:4771/voucher/tranList', obj).subscribe(data => {
+
+  //   // })
+  // }
 
   getType2(event) {
     this.voucherNo = event.TRAN_NO
-  
+
   }
 
   trType
-  getType1(event){
+  sdate
+  getType1(event) {
     this.tranType = event.value
     let userData = JSON.parse(localStorage.getItem('user'));
 
-   let  sdate 
+    // let sdate
     if (this.dates == userData.branch.syspara.CURRENT_DATE) {
-      sdate = userData.branch.syspara.CURRENT_DATE
+      this.sdate = userData.branch.syspara.CURRENT_DATE
     }
     else {
       let date = moment(this.dates).format('DD/MM/YYYY');
       let tDate = moment(date, 'DD/MM/YYYY')
-      sdate = date
+      this.sdate = date
     }
 
-    
+
     //for voucher Number
 
     if (this.vtype == 'MV') {
@@ -423,14 +484,15 @@ this.voucherNo
       type: this.vtype,
       branch: this.ngbranch,
       tran_type: this.tranType,
-      date : sdate
-    
+      date: this.sdate
+
 
     }
+    // this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
     this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
       this.glDetails = data
       console.log(this.glDetails)
-    }) 
+    })
   }
 }
 

@@ -9,7 +9,7 @@ export class RecoveryProcessingComponent implements OnInit {
 
   monthlyrecoveryProcess = true;
   monthlyrecoveryPosting = false;
-
+  editrecoveryPosting  = false;
   constructor() { }
 
   OpenLink(val) {
@@ -17,18 +17,22 @@ export class RecoveryProcessingComponent implements OnInit {
     if (val == 1) {
       this.monthlyrecoveryProcess = true;
       this.monthlyrecoveryPosting = false;
+      this.editrecoveryPosting  = false;
+
      
     }
     if (val == 2) {
       this.monthlyrecoveryProcess = false;
       this.monthlyrecoveryPosting = true;
+      this.editrecoveryPosting  = false;
+
      
     }
-    // if (val == 3) {
-    //   this.monthlyrecoveryProcess = false;
-    //   this.monthlyrecoveryPosting = true;
-    //   this.CalculateInterestPassingTrue = false;
-    // }
+    if (val == 3) {
+      this.monthlyrecoveryProcess = false;
+      this.monthlyrecoveryPosting = false;
+      this.editrecoveryPosting = true;
+    }
   
   }
 

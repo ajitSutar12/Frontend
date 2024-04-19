@@ -24,7 +24,12 @@
                                         [ngClass]="{'isActive': monthlyrecoveryPosting}"
                                      routerLinkActive="active" class="text-right f-w-600" id="pointer">Monthly recovery Posting</a></h6>
                             </li>  
-
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(3)"
+                                    routerLink="/process/recovery-processing/"
+                                        [ngClass]="{'isActive': editrecoveryPosting}"
+                                     routerLinkActive="active" class="text-right f-w-600" id="pointer">Edit recovery Process</a></h6>
+                            </li>   -->
                             
                                                  
                         </ul>
@@ -35,14 +40,15 @@
     </div>
     <div class="col-sm-9">
         <div class="card-block">
+           
             <div *ngIf="monthlyrecoveryProcess">
-                <app-recovery-processing></app-recovery-processing>
+                <app-monthly-rec-process></app-monthly-rec-process>
             </div>
             <div *ngIf="monthlyrecoveryPosting">
                 <app-monthly-rec-posting></app-monthly-rec-posting>
             </div>
-            <!-- <div *ngIf="CalculateInterestUnpassingTrue">
-                <app-calculate-interest-unpassing></app-calculate-interest-unpassing>
+            <!-- <div *ngIf="editrecoveryPosting">
+                <app-edit-monthly-process></app-edit-monthly-process>
             </div> -->
                        
         </div>

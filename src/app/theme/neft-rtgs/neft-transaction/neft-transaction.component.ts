@@ -15,7 +15,7 @@ export class NeftTransactionComponent implements OnInit {
 
   angForm: FormGroup
   ngbranch
-  branchOption: unknown;
+  branchOption: any;
   ngbank
   fname = "";
   ifscname = "";

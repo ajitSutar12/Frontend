@@ -503,6 +503,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_OPR_CODE: ['', [Validators.required]],
       AC_INTCATA: ['', [Validators.required]],
       AC_RECOMMEND_BY: ['', [Validators.required]],
+      IS_REQUIRED_AUTOMAILER: [true],
       AC_PANNO: ['',],
       // AC_IS_RECOVERY: [false],
       AC_REF_RECEIPTNO: [''],
@@ -1533,7 +1534,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.onCloseModal();
   }
 
-
+  IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
   submit() {
     // console.log(this.receiptNo);
@@ -1617,6 +1618,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'IS_DISCOUNTED_INT_RATE': (formVal.IS_DISCOUNTED_INT_RATE == true ? '1' : '0'),
         'REQ_RENEW': (formVal.REQ_RENEW == true ? '1' : '0'),
         'AC_RECOMMEND_BY': formVal.AC_RECOMMEND_BY,
+        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
         //temp address 
         AC_ADDFLAG: formVal.AC_ADDFLAG,
         AC_ADDTYPE: this.addType,
@@ -1859,6 +1861,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     data['IS_DISCOUNTED_INT_RATE'] = (data.IS_DISCOUNTED_INT_RATE == true ? '1' : '0')
     data['REQ_RENEW'] = (data.REQ_RENEW == true ? '1' : '0')
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
+    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
 
     // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
     // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),

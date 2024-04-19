@@ -1,21 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-monthly-rec-process',
-//   templateUrl: './monthly-rec-process.component.html',
-//   styleUrls: ['./monthly-rec-process.component.scss']
-// })
-// export class MonthlyRecProcessComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
-
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { NgSelectConfig } from '@ng-select/ng-select';
@@ -42,14 +24,6 @@ import { TransactionCashModeService } from '../../../../shared/elements/transact
 import { TransactionTransferModeService } from '../../../../shared/elements/transaction-transfer-mode.service';
 import { SavingMasterService } from '../../../master/customer/saving-master/saving-master.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
-
-// @Component({
-//   selector: 'app-recovery-processing',
-//   templateUrl: './recovery-processing.component.html',
-//   styleUrls: ['./recovery-processing.component.scss'],
-//   providers: [SalaryDMasterdropdownService, SubSalaryDMasterdropdownService,SchemeCodeDropdownService,SharesSchemeService,SchemeTypeDropdownService,SavingMasterService,TransactionCashModeService,TransactionTransferModeService,ACMasterDropdownService,OwnbranchMasterService,SchemeAccountNoService]
-// })
-// export class RecoveryProcessingComponent implements OnInit {
 
 
 @Component({
@@ -127,7 +101,8 @@ export class MonthlyRecProcessComponent implements OnInit {
   headData: any;
   headShow: boolean = false;
   branchCode:any;
-  
+  branchOption: any;
+
   selectedScheme: any;
   allScheme = new Array()//from schme master
   introducerACNo
@@ -143,7 +118,7 @@ export class MonthlyRecProcessComponent implements OnInit {
   Other_1_Account : any = null;
   branch_code: any[]//from ownbranchmaster
   Other_2_Accountlist : any = null;
-  
+  ngbranch
  // dropdown variables
  ngscheme: any = null
   //Scheme type variable
@@ -162,10 +137,10 @@ export class MonthlyRecProcessComponent implements OnInit {
     private SchemeCodeDropdownService: SchemeCodeDropdownService,
     private sharesSchemeService: SharesSchemeService,
     private schemeTypeDropdown: SchemeTypeDropdownService,
-    private savingMasterService: SavingMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ACMasterDropdownService: ACMasterDropdownService,
-    private ownbranchMasterService: OwnbranchMasterService,
+    // private ownbranchMasterService: OwnbranchMasterService,
     private http: HttpClient,
     public OwnbranchMasterService: OwnbranchMasterService,) {
     this.maxDate = new Date();
@@ -193,6 +168,12 @@ export class MonthlyRecProcessComponent implements OnInit {
       })
 
     }
+
+     //branchOption
+     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+
 //SubSalaryDropDown
     this.subSalaryDMasterdropdownService.getSubSalaryDMasterList().pipe(first()).subscribe(data => {
       this.sub_salary_div = data;
@@ -256,11 +237,14 @@ export class MonthlyRecProcessComponent implements OnInit {
       this.OwnbranchMasterDropdown = data;
     })
     
+    
 
   }
 //processing validators
   createForm() {
     this.angForm = this.fb.group({
+
+      BRANCH_CODE: ['', [Validators.required]],
       ACNOTYPE: ['', [Validators.required]],
       SUB_SALARYDIVISION_CODE: ['', [Validators.required]],
       AC_SALARYDIVISION_CODE: ['', [Validators.required]],
@@ -325,6 +309,34 @@ getIntroducers() {
   }
 }
 
+submit(){
+  var FormVal = this.angForm.value;
+  const obj = {
+
+    ac_type: 5,
+    branch: 2,
+    salarydiv: 1,
+    subsalarydiv: null,
+    processYear: 2024,
+    processMonth: 3,
+    flag: 1,
+    date: '24/08/2023',
+    T_OTHER1AMT: 10,
+    T_OTHER1ACNO: 2,
+    T_OTHER2AMT: 20,
+    T_OTHER2ACNO: 3,
+    listtype: 1 
+
+  }
+
+  this.http.post(this.url + '/MonthlyRecovery/process', obj).subscribe(data => {
+
+    Swal.fire(
+      'success', "Data Submitted Successfully!!", 'success'
+    );
+  })
+  
+}
 
 //get account no according scheme
 getAccountList() {

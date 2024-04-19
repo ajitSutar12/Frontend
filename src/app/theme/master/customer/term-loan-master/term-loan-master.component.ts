@@ -607,6 +607,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_CAST: [''],
       AC_OCODE: [''],
       AC_ADDFLAG: [true],
+      IS_REQUIRED_AUTOMAILER: [true],
       AC_ADDTYPE: ['P'],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
@@ -667,7 +668,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   getSchemeCode(value) {
     this.schemeCode = value.name
   }
-
+  IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
   submit(event) {
     this.formSubmitted = true;
@@ -769,6 +770,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_COREG_AMT': formVal.AC_COREG_AMT,
         'AC_RESO_NO': formVal.AC_RESO_NO,
         'AC_REMARK': formVal.AC_REMARK,
+        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
         'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
         AC_ADDFLAG: formVal.AC_ADDFLAG,
         AC_ADDTYPE: this.addType,
@@ -1161,6 +1163,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
     data['IS_AGGRI_LOAN'] = (data.IS_AGGRI_LOAN == true ? '1' : '0')
+    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
 
 
     let date

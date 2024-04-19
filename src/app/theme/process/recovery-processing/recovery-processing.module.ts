@@ -16,7 +16,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MonthlyRecPostingComponent } from './monthly-rec-posting/monthly-rec-posting.component';
 import { MonthlyRecProcessComponent } from './monthly-rec-process/monthly-rec-process.component';
 import { EditMonthlyProcessComponent } from './edit-monthly-process/edit-monthly-process.component';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { RecoveryProcessingService } from './recovery-processing.service'
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -32,11 +38,16 @@ import { EditMonthlyProcessComponent } from './edit-monthly-process/edit-monthly
 
   ],
   declarations: [RecoveryProcessingComponent, MonthlyRecPostingComponent, MonthlyRecProcessComponent, EditMonthlyProcessComponent],
-  providers:[{
+  providers:[
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    },
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  },],
+  },SchemeCodeDropdownService,RecoveryProcessingService],
   schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RecoveryProcessingModule { }
