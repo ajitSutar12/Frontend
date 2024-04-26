@@ -37,6 +37,10 @@ const routes: Routes = [
         path: 'monthly recovery process',
         loadChildren: () => import('./recovery-processing/recovery-processing.module').then(m => m.RecoveryProcessingModule)
       },
+      {
+        path: 'yearEndBranchwise',
+        loadChildren: () => import('./year-end-branchwise/year-end-branchwise.module').then(m => m.YearEndBranchwiseModule)
+      },
     ]
   }
 ];

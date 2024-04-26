@@ -43,7 +43,7 @@ const routes: Routes = [
       },
       {
         path: 'memberView',
-        loadChildren: () => import('./member-view/member-view.module').then(m => m.GeneralLedgerModule)
+        loadChildren: () => import('./member-view/member-view.module').then(m => m.MemberViewModule)
       },
       {
         path: 'memberLiablityView',

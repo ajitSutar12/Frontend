@@ -985,6 +985,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     })
   }
+  setMaturityDate() {
+    this.schemedata(this.selectedValue)
+    this.angForm.patchValue({
+      AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
+    })
+  }
   CheckmonthDays() {
 
     this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
@@ -2593,12 +2599,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  setMaturityDate() {
-    this.schemedata(this.selectedValue)
-    this.angForm.patchValue({
-      AC_MATUAMT: this.angForm.controls['AC_SCHMAMT'].value == '' || this.angForm.controls['AC_SCHMAMT'].value == null ? 0 : this.angForm.controls['AC_SCHMAMT'].value
-    })
-  }
+ 
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {

@@ -15,12 +15,13 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" #branchcode [virtualScroll]="true"
+                                        [selectOnTab]='true' autofocus>
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
+
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -37,10 +38,11 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="">
-                                        <ng-option *ngFor="let values of scheme" [value]="values">
-                                            {{values.label}}</ng-option>
+                                        formControlName="AC_TYPE" title="Compulsory Selection"
+                                        (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of schemeArray" [value]="values">
+                                            {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                                     </ng-select>
 
                                 </span>
@@ -55,68 +57,66 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="WARRENT_DATE">Div.Warrent Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="NPA_DATE">NPA Dates <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="WARRENT_DATE" bindValue="WARRENT_DATE" [(ngModel)]="ngwarrentDate"
-                                        formControlName="WARRENT_DATE" bindLabel="WARRENT_DATE"
-                                        title="Compulsory Selection" required placeholder="Warrent Date">
-                                        <ng-option *ngFor="let values of warrentDate" [value]="values">
-                                            {{values.WARRENT_DATE}} ({{values.DIV_FROM_YEAR}}-{{values.DIV_TO_YEAR}})
-                                        </ng-option>
+                                    <ng-select id="NPA_DATE" bindValue="value" [(ngModel)]="npaProcessDate"
+                                        (change)="getNPADate($event)" formControlName="NPA_DATE"
+                                        placeholder="NPA Processed Dates">
+                                        <ng-option *ngFor="let values of npaDates" [value]="values">
+                                            {{values.REPORT_DATE}} </ng-option>
                                     </ng-select>
-
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['WARRENT_DATE'].invalid && (angForm.controls['WARRENT_DATE'].dirty || angForm.controls['WARRENT_DATE'].touched)"
+                                *ngIf="angForm.controls['NPA_DATE'].invalid && (angForm.controls['NPA_DATE'].dirty || angForm.controls['NPA_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['WARRENT_DATE'].errors?.required">
+                                <div *ngIf="angForm.controls['NPA_DATE'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_ACC">From Account<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                    <ng-select id="FROM_ACC" bindValue="value" [(ngModel)]="fromAccNo"
+                                        (change)="getFromAcc($event)" formControlName="FROM_ACC"
+                                        placeholder="From Account">
+                                        <ng-option *ngFor="let values of fromAcc" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
+                                *ngIf="angForm.controls['FROM_ACC'].invalid && (angForm.controls['FROM_ACC'].dirty || angForm.controls['FROM_ACC'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
+                                <div *ngIf="angForm.controls['FROM_ACC'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="TO_ACC">To Account<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                        class="form-control" [(ngModel)]="todate" (bsValueChange)="checkDate($event)"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
-                                        formControlName="TO_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                    <ng-select id="TO_ACC" bindValue="value" [(ngModel)]="npaProcessDate"
+                                        (change)="getToAcc($event)" formControlName="TO_ACC" placeholder="To Account">
+                                        <ng-option *ngFor="let values of toAcc" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
+                                *ngIf="angForm.controls['TO_ACC'].invalid && (angForm.controls['TO_ACC'].dirty || angForm.controls['TO_ACC'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
+                                <div *ngIf="angForm.controls['TO_ACC'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
@@ -124,63 +124,106 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button type="submit" class="btn btn-outline-primary btn-sm">Update</button>
-                            <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                (click)="update()">Update</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                (click)="cancel()">Cancel</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                (click)="toggleEditing()">Edit</button>
                         </div>
                     </div>
-                    <div class="row">
+
+
+
+
+                    <div class="row" *ngIf="isTableShow">
                         <div class="col-sm-12">
                             <div class="col-12">
-                                <div class="table-responsive">
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                     <table datatable>
-                                        <thead>
+                                        <thead style="position: sticky; top: 0;">
                                             <td>Serial Number</td>
                                             <td>Account Number</td>
                                             <td>Account Name</td>
                                             <td>NPA Class</td>
-                                            <td class="td_right">NPA Provision</td>
+                                            <td>Edited NPA Class</td>
+                                            <td>NPA Provision</td>
                                             <td>NPA Percentage</td>
-                                            <td class="td_right">To Be Recovered</td>
-
+                                            <td>To Be Recovered</td>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <ng-select id="NPA_CLASS" [items]="npaClass" name="type"
-                                                        bindLabel="label" formControlName="NPA_CLASS"
-                                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                                        [(ngModel)]="ngnpaclass" placeholder="Transaction Type"
-                                                        required>
-                                                    </ng-select>
+                                            <tr *ngFor="let data of tableData; let i=index">
+                                                <td class="td_center">{{ i+1 }}</td>
+                                                <td class="td_center">{{data.AC_NO}}</td>
+                                                <td contenteditable="true">{{ data.AC_NAME }}
                                                 </td>
+                                                <td>{{ data.NPA_CLASS}}</td>
                                                 <td>
-                                                    <input>
+
+                                                    <!-- <ng-select [(ngModel)]="data.NPA_CLASS"
+                                                        (change)="onCellChange($event, data, 'NPA_CLASS')">
+                                                        <ng-option *ngFor="let npa of npaClass" [value]="npa.id">{{
+                                                            npa.label }}</ng-option>
+                                                    </ng-select> -->
+
+                                                    <ng-container *ngIf="!isEditing; else editMode">
+                                                        {{ data.NPA_CLASS }}
+                                                    </ng-container>
+                                                    <ng-template #editMode>
+                                                        <ng-select [(ngModel)]="data.NPA_CLASS"
+                                                            (change)="onCellChange($event, data, 'NPA_CLASS')"
+                                                            placeholder="Edit NPA CLASS">
+                                                            <ng-option *ngFor="let npa of npaClass" [value]="npa.id">{{
+                                                                npa.label }}</ng-option>
+                                                        </ng-select>
+                                                    </ng-template>
+
+
+
                                                 </td>
-                                                <td>
-                                                    <input>
-                                                </td>
-                                                <td>
-                                                    <input>
-                                                </td>
+                                                <td class="td_right" contenteditable="true"
+                                                    (blur)="onCellChange($event, data, 'NPA_PROVISION_AMT')">{{
+                                                    data.NPA_PROVISION_AMT }}</td>
+                                                <td class="td_right" contenteditable="true"
+                                                    (blur)="onCellChange($event, data, 'NPA_PERCENTAGE')">{{
+                                                    data.NPA_PERCENTAGE }}</td>
+                                                <td class="td_right" contenteditable="true"
+                                                    (blur)="onCellChange($event, data, 'TOBE_RECOVER_AMT')">{{
+                                                    data.TOBE_RECOVER_AMT }}</td>
+
+
                                             </tr>
                                         </tbody>
-                                        <!-- <tbody>
+                                        <tbody *ngIf="tableData.length === 0">
                                             <tr>
-                                                <td class="no-data-available" style="text-align: center;">
+                                                <td class="no-data-available" colspan="7" style="text-align: center;">
                                                     No data!
                                                 </td>
                                             </tr>
-                                        </tbody> -->
+                                        </tbody>
                                     </table>
                                 </div>
+                                <!-- <div class="pagination-container text-right mt-3">
+                                    <button class="pagination-button mr-2" [disabled]="currentPage == 1"
+                                        (click)="onPageChange(currentPage - 1)">
+                                        Previous
+                                    </button>
+                                    <span class="pagination-info">{{ currentPage }} / {{ totalPages }}</span>
+                                    <button type="button" class="pagination-button ml-2"
+                                        [disabled]="currentPage == totalPages" (click)="onPageChange(currentPage + 1)">
+                                        Next
+                                    </button>
+
+                                </div> -->
                             </div>
                         </div>
                     </div>
 
+
+
+
                 </div>
+
             </form>
         </div>
     </div>

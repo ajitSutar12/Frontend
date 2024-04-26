@@ -63,7 +63,12 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    });
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }    })
+   
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -126,10 +131,13 @@ export class BnkTrialBaldetailComponent implements OnInit {
       };
 
       var sdate = moment(obj.START_DATE).startOf('quarter').format('DD/MM/YYYY');
-      let branched = obj.BRANCH_CODE;
+      let branch = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
       let preViousStartdate = moment(obj.START_DATE).subtract(1, "days").format('DD/MM/YYYY');
-      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + this.ngbranch + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + this.branchCode + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
+      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + this.ngbranch + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + branch + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
