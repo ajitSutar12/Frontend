@@ -13,7 +13,7 @@ export const environment = {
    report_url: 'http://localhost/phpjasper/', //report folder local path
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
-  sitename: 'http://localhost:4200', 
+  // sitename: 'http://localhost:4200', 
 
 
  //Jijamata Arjunwada
