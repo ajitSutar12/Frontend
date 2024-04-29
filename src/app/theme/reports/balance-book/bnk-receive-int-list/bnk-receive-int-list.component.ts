@@ -115,7 +115,7 @@ export class BnkReceiveIntListComponent implements OnInit {
   }
 
   view(event) {
-    debugger
+    
     event.preventDefault();
     this.formSubmitted = true;
 

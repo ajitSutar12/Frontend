@@ -670,6 +670,8 @@ export class AccountEnquiryComponent implements OnInit {
     }
   }
 
+  
+
   //get account details
   getAccountDetails(event) {
     this.viewView(event)

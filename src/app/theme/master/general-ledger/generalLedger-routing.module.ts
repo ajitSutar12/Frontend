@@ -27,9 +27,13 @@ const routes: Routes = [
       path: 'gl-report-linking',
       loadChildren: () => import('./gl-report-linking/gl-report-linking.module').then(m => m.GlReportLinkingModule)
     },
-    {
+       {
       path: 'budget-master',
       loadChildren: () => import('./budget-master/budgest-master.module').then(m => m.BudgetMasterModule)
+    },
+    {
+      path: 'budget-view',
+      loadChildren: () => import('./budget-view/budget-view.module').then(m => m.BudgetViewModule)
     },
   ]
   }

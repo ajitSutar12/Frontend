@@ -48,7 +48,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select class="sticky-drpodown" appTheme bindValue="value" [(ngModel)]="ngTitle"
                                         id="AC_TITLE" bindLabel="label" formControlName="AC_TITLE"
-                                        title="Compulsory Selection" [virtualScroll]="true"
+                                        title="Compulsory Selection" [virtualScroll]="true" (change)="notApplicable($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="" #AC_TITLE
                                         (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus>
 

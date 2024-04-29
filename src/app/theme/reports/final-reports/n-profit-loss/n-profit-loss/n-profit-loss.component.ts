@@ -28,6 +28,7 @@ clicked:boolean=false;
   //Dropdown option variable
   ngbranch
   branchOption: any;
+  branchName: string;
 
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -45,10 +46,9 @@ clicked:boolean=false;
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
-        this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }
-    })
+    if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      this.branchOption.push({ value: '0', label: 'Consolidate' })
+    }    })
 
   }
   createForm() {
@@ -85,9 +85,11 @@ clicked:boolean=false;
       let obj = this.angForm.value
       let stardate = moment(obj.START_DATE).format('DD/MM/YYYY');
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
-      let branched1 = obj.BRANCH_CODE;
-
-      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate=" + stardate +"&endate="+endate+"&branched1="+this.ngbranch+"&bankName='" + bankName + "'&branchName='" + branchName + "'";
+      let branch = obj.BRANCH_CODE;
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
+      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate=" + stardate +"&endate="+endate+"&branched1="+this.ngbranch+"&bankName='" + bankName + "'&branchName='" + this.branchName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

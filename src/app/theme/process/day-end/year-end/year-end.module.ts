@@ -12,6 +12,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DayEndService } from '../day-end.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -24,6 +25,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule, 
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
   ],
   providers:[  SchemeCodeDropdownService,
     OwnbranchMasterService,DayEndService ,

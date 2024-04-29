@@ -54,7 +54,7 @@ export class DeadStockTransactionComponent implements OnInit {
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-
+  transferBranches:any[];
   //Transaction type variable
   ngtransactiontype: any = null
   transactiontype = [
@@ -63,8 +63,11 @@ export class DeadStockTransactionComponent implements OnInit {
     { id: 'G', label: 'Gain' },
     { id: 'L', label: 'Loss' },
     { id: 'D', label: 'Depriciation' },
-    { id: 'T', label: 'Transfer' }
+    { id: 'T', label: 'Transfer' },
+    { id: 'BT', label: 'Branch_Transfer' },
   ]
+  isShow:boolean=true
+  isShowBranchDropdown:boolean=false
   schemeACNo: any[];
   scheme: any[];
   ACMasterDropdown: any;
@@ -84,6 +87,7 @@ export class DeadStockTransactionComponent implements OnInit {
   Resolution: boolean = false
   GLAccount: boolean = false
   itemArr = []
+    selectedValue
   ngItem: any = null
   OP_BALANCE
   deadstockDetailAmount = {}
@@ -99,7 +103,7 @@ export class DeadStockTransactionComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
   ) {
-
+    this.selectedValue=null
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -114,6 +118,7 @@ export class DeadStockTransactionComponent implements OnInit {
       this.minDate = this.maxDate
       this.logDate = data.CURRENT_DATE
     })
+    this.transferBranches = [];
   }
 
   dtExportButtonOptions: any = {};
@@ -140,6 +145,8 @@ export class DeadStockTransactionComponent implements OnInit {
     })
 
     this.http.get(this.url + '/deadstock-purchase/itemList').subscribe((data) => {
+    // this.http.get('http://192.168.1.195:7276/deadstock-purchase/itemList').subscribe((data) => {
+
       this.itemcode = data
     })
 
@@ -147,6 +154,7 @@ export class DeadStockTransactionComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
+      TRANSFER_BRANCH_CODE:[''],
       TRAN_DATE: [''],
       TRAN_YEAR: [''],
       TRANSACTION_TYPE: ['', [Validators.required]],
@@ -179,10 +187,17 @@ export class DeadStockTransactionComponent implements OnInit {
     }
   }
 
+  filteredBranchOptions: any[]; 
+  selectedBranch: any; 
 
-  getBranch() {
+  getBranch(event:any) {
+    console.log(event)
     this.getIntroducer()
+    
+     this.selectedValue =event
   }
+  selBranch:any[]
+
 
   schemechange(event) {
     this.getschemename = event.name
@@ -203,7 +218,9 @@ export class DeadStockTransactionComponent implements OnInit {
         break;
 
       case 'GL':
-        this.http.get<any>(this.url + '/gl-account-master/').subscribe(data => {
+        // this.http.get<any>('http://192.168.1.195:7276/gl-account-master/').subscribe(data => {
+        this.http.get<any>(this.url+'/gl-account-master/').subscribe(data => {
+
           this.schemeACNo = data;
         })
         // this.schemeAccountNoService.getGeneralLedgerList1(this.obj).pipe(first()).subscribe(data => {
@@ -244,7 +261,17 @@ export class DeadStockTransactionComponent implements OnInit {
   }
   tranType
   radioDeadStock
+   
   changetransaction() {
+    let btvale=this.angForm.value
+    if(btvale.TRANSACTION_TYPE.id =='BT'){
+      this.isShow = false
+      this.isShowBranchDropdown = true; 
+    }
+    else{
+      this.isShow=true
+       this.isShowBranchDropdown = false; 
+    }
     this.tranType = this.ngtransactiontype.label
     if (this.ngtransactiontype.label == 'Sales') {
       this.angForm.patchValue({
@@ -274,6 +301,7 @@ export class DeadStockTransactionComponent implements OnInit {
       RESOLUTION_DATE: '',
     })
 
+   
   }
 
 
@@ -418,7 +446,9 @@ export class DeadStockTransactionComponent implements OnInit {
   getItemDetails(event) {
     let obj = [event.ITEM_CODE, event.ITEM_TYPE, event.id]
     this.OP_BALANCE = event.OP_BALANCE
+    // this.http.get('http://192.168.1.195:7276/deadstock-purchase/amount/' + obj).subscribe((data) => {
     this.http.get(this.url + '/deadstock-purchase/amount/' + obj).subscribe((data) => {
+
       this.deadstockDetailAmount['totalAmt'] = data['totalAmt']
       let rate = (this.deadstockDetailAmount['totalAmt'] / event.PURCHASE_QUANTITY)
       this.angForm.patchValue({
@@ -451,6 +481,41 @@ export class DeadStockTransactionComponent implements OnInit {
     let billDate
     let chequeDate
     // if (this.itemArr.length != 0) {
+      let btvale=this.angForm.value
+      if(btvale.TRANSACTION_TYPE.id =='BT'){
+        const formVal = this.angForm.value
+        const dataToSend = {
+          itemArr: this.itemArr,
+          BRANCH_CODE: this.ngBranchCode,
+          TRAN_DATE: formVal.TRAN_DATE,
+          TRAN_YEAR: formVal.TRAN_YEAR,
+          RESO_DATE: (formVal.RESOLUTION_DATE == '' || formVal.RESOLUTION_DATE == 'Invalid date' || formVal.RESOLUTION_DATE == null || formVal.RESOLUTION_DATE == undefined) ? billDate = '' : billDate = moment(formVal.RESOLUTION_DATE).format('DD/MM/YYYY'),
+          DEAD_STOCK: this.radioDeadStock,
+          // DEAD_STOCK: formVal.DEAD_STOCK,
+          // AC_TYPE: formVal.AC_TYPE,
+          TRANSFER_BRANCH: formVal.TRANSFER_BRANCH_CODE,
+          RESO_NO: formVal.RESOLUTION_NUM,
+          NARRATION: formVal.NARRATION,
+          Total_AMT: formVal.Total_AMT,
+          USER: result.USER_NAME,
+          // ACNOTYPE: this.getschemename,
+          // GL_ACNO: this.GL_ACNO,
+          tranType: this.tranType,
+          depTotal: this.depTotal
+        }
+        this.http.post<any>(this.url + '/deadstock-purchase/TranInsertTransfer' ,dataToSend ).subscribe(
+        // this.http.post('http://192.168.1.195:7276/deadstock-purchase/TranInsertTransfer', dataToSend)
+        // .subscribe(
+          (data) => {
+            Swal.fire("Success!", "Data Updated Successfully !", "success");
+            this.formSubmitted = false
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+else{
     if (this.angForm.controls['Total_AMT'].value > 0) {
       const formVal = this.angForm.value
       const dataToSend = {
@@ -472,6 +537,7 @@ export class DeadStockTransactionComponent implements OnInit {
         tranType: this.tranType,
         depTotal: this.depTotal
       }
+
       this._service.postData(dataToSend).subscribe(
         (data) => {
           Swal.fire("Success!", "Data Updated Successfully !", "success");
@@ -484,10 +550,12 @@ export class DeadStockTransactionComponent implements OnInit {
       this.resetForm()
       this.itemArr = []
     }
+    
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
+}
   updateData() {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -621,6 +689,9 @@ export class DeadStockTransactionComponent implements OnInit {
       }
       else if (data.TRAN_ENTRY_TYPE == 'TRF') {
         this.tranType = 'Transfer'
+      }
+      else if (data.TRAN_ENTRY_TYPE == 'BRTRF') {
+        this.tranType = 'Branch_Transfer'
       }
       this.getIntroducer()
       this.angForm.patchValue({

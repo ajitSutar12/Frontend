@@ -128,6 +128,11 @@ const MENUITEMS1 = [
                 name: 'Budget Allocation Master',
                 id: 11
               },
+              {
+                state: 'budget-view',
+                name: 'Budget View',
+                id: 359
+              },
             ]
 
           },
@@ -855,11 +860,11 @@ const MENUITEMS1 = [
             name: 'Unapprove',
             id: 135
           },
-           {
-              state: 'neftPassing',
-              name: 'NEFT/RTGS Transaction Passing',
-              id: 354
-            },
+          {
+            state: 'neftPassing',
+            name: 'NEFT/RTGS Transaction Passing',
+            id: 354
+          },
         ]
       },
       {
@@ -926,12 +931,12 @@ const MENUITEMS1 = [
             id: 147
 
           },
-          // {
-          //   state: 'lockerView',
-          //   name: 'Locker View',
-          //   id: 348
+          {
+            state: 'lockerView',
+            name: 'Locker View',
+            id: 348
 
-          // },
+          },
         ],
 
       },
@@ -2127,6 +2132,17 @@ const MENUITEMS1 = [
             name: 'Data Backup',
             id: 327
           },
+          {
+            state: 'monthly recovery process',
+            name: 'Monthly recovery process',
+            id: 360
+          },
+          {
+            state: 'yearEndBranchwise',
+            name: 'Year End BranchWise',
+            id: 361
+          },
+
         ]
       },
       {
@@ -2948,6 +2964,11 @@ const MENUITEMS = [
                 name: 'Budget Allocation Master',
                 id: 11
               },
+              {
+                state: 'budget-view',
+                name: 'Budget View',
+                id: 359
+              },
             ]
 
           },
@@ -3746,12 +3767,12 @@ const MENUITEMS = [
             id: 147
 
           },
-          // {
-          //   state: 'lockerView',
-          //   name: 'Locker View',
-          //   id: 348
+          {
+            state: 'lockerView',
+            name: 'Locker View',
+            id: 348
 
-          // },
+          },
         ],
 
       },
@@ -4946,6 +4967,16 @@ const MENUITEMS = [
             state: 'dataBackup',
             name: 'Data Backup',
             id: 327
+          },
+          {
+            state: 'monthly recovery process',
+            name: 'Monthly recovery process',
+            id: 360
+          },
+          {
+            state: 'yearEndBranchwise',
+            name: 'Year End BranchWise',
+            id: 361
           },
         ]
       },

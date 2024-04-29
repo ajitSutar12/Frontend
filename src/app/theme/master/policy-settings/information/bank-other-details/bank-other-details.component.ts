@@ -50,7 +50,9 @@ interface BankOtherDetails {
   SBI_BANKCODE: string;
   GST_NO: string;
   IFSC_CODE: string;
-  IBT_TRAN: boolean
+  IBT_TRAN: boolean;
+  GMAIL_PASSWORD:any;
+  GMAIL_USER:string;
 
 }
 
@@ -264,6 +266,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       PHONE_OFFICE: ['', [Validators.pattern]],
       MOB_NUM: ['', [Validators.pattern, Validators.required]],
       EMAIL: ['', [Validators.pattern, Validators.required]],
+      GMAIL_USER: ['', [Validators.pattern, Validators.required]],
+      GMAIL_PASSWORD: ['', [Validators.pattern, Validators.required]],
       SBI_BANKCODE: ['', [Validators.pattern, Validators.required]],
       GST_NO: ['', [Validators.pattern]],
       IFSC_CODE: ['', [Validators.pattern]],
@@ -297,6 +301,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           'PHONE_OFFICE': formVal.PHONE_OFFICE,
           'MOB_NUM': formVal.MOB_NUM,
           'EMAIL': formVal.EMAIL,
+          'GMAIL_USER': formVal.GMAIL_USER,
+          'GMAIL_PASSWORD': formVal.GMAIL_PASSWORD,
           'SBI_BANKCODE': formVal.SBI_BANKCODE,
           'GST_NO': formVal.GST_NO,
           'IFSC_CODE': formVal.IFSC_CODE,
@@ -354,6 +360,8 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         'PHONE_OFFICE': data.PHONE_OFFICE,
         'MOB_NUM': data.MOB_NUM,
         'EMAIL': data.EMAIL,
+        'GMAIL_USER': data.GMAIL_USER,
+        'GMAIL_PASSWORD': data.GMAIL_PASSWORD,
         'SBI_BANKCODE': data.SBI_BANKCODE,
         'GST_NO': data.GST_NO,
         'IFSC_CODE': data.IFSC_CODE,
