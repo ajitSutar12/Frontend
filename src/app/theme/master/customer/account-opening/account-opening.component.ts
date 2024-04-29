@@ -640,169 +640,332 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       AC_EXPDT: expiryDate
     })
   }
+  // CheckmonthDays() {
 
-  CheckmonthDays() {
-
-    this._termDepositScheme.getFormData(this.code).subscribe(data => {
-      if (data.UNIT_OF_PERIOD == "B") {
-        this.angForm.controls['AC_MONTHS'].enable()
-        this.angForm.controls['AC_DAYS'].enable()
-        if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
-          this.angForm.controls['AC_MONTHS'].reset()
-          this.angForm.controls['AC_DAYS'].reset()
-        }
-      }
-      else if (data.UNIT_OF_PERIOD == "D") {
-        this.angForm.patchValue({
-          AC_MONTHS: ''
-        })
-        this.angForm.controls['AC_MONTHS'].disable()
-        this.angForm.controls['AC_DAYS'].enable()
-        if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
-          this.angForm.controls['AC_DAYS'].reset()
-        }
-      }
-      else if (data.UNIT_OF_PERIOD == "M") {
-        this.angForm.patchValue({
-          AC_DAYS: '',
-        })
-        this.angForm.controls['AC_MONTHS'].enable()
-        this.angForm.controls['AC_DAYS'].disable()
-        if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-          Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
-          this.angForm.controls['AC_MONTHS'].reset()
-        }
-      }
-
-
-      if (data.UNIT_OF_PERIOD == "B" && data.IS_AUTO_PERIOD_CALCULATE == '1') {
-        this.angForm.controls['AC_MONTHS'].enable()
-        this.angForm.controls['AC_DAYS'].enable()
-        if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-          Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
-          this.angForm.controls['AC_MONTHS'].reset()
-          this.angForm.controls['AC_DAYS'].reset()
-        }
-      }
-
-      var date1 = this.angForm.controls['AC_ASON_DATE'].value;
-      let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
-      let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
-      this.expiryDate = expiryDate
-      this.angForm.patchValue({
-        AC_EXPDT: expiryDate
-      })
+  //   this._termDepositScheme.getFormData(this.code).subscribe(data => {
+  //     if (data.UNIT_OF_PERIOD == "B") {
+  //       this.angForm.controls['AC_MONTHS'].enable()
+  //       this.angForm.controls['AC_DAYS'].enable()
+  //       if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //         Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+  //         this.angForm.controls['AC_MONTHS'].reset()
+  //         this.angForm.controls['AC_DAYS'].reset()
+  //       }
+  //     }
+  //     else if (data.UNIT_OF_PERIOD == "D") {
+  //       this.angForm.patchValue({
+  //         AC_MONTHS: ''
+  //       })
+  //       this.angForm.controls['AC_MONTHS'].disable()
+  //       this.angForm.controls['AC_DAYS'].enable()
+  //       if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //         Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+  //         this.angForm.controls['AC_DAYS'].reset()
+  //       }
+  //     }
+  //     else if (data.UNIT_OF_PERIOD == "M") {
+  //       this.angForm.patchValue({
+  //         AC_DAYS: '',
+  //       })
+  //       this.angForm.controls['AC_MONTHS'].enable()
+  //       this.angForm.controls['AC_DAYS'].disable()
+  //       if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
+  //         Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+  //         this.angForm.controls['AC_MONTHS'].reset()
+  //       }
+  //     }
 
 
-      if (data.MULTIPLE_OF_DAYS != null) {
-        if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
-          Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
-        }
-      }
-      if (data.MULTIPLE_OF_MONTH != null) {
-        if ((Number((this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
-          Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
-        }
-      }
-    })
-  }
-  monthDays() {
-    if (this.code != null) {
-      this._termDepositScheme.getFormData(this.code).subscribe(data => {
-        if (this.angForm.controls['AC_EXPDT'].value != null && this.angForm.controls['AC_EXPDT'].value != '') {
-          var date1 = this.angForm.controls['AC_ASON_DATE'].value;
-          var date2 = this.angForm.controls['AC_EXPDT'].value;
-          var b = moment(date1, "DD-MM-YYYY");
-          var a = moment(date2, "DD-MM-YYYY");
-          var bd = moment(date1, "DD-MM-YYYY");
-          var ab = moment(date2, "DD-MM-YYYY");
-          var months = a.diff(b, 'months');
-          var days = a.diff(b, 'days');
-          b.add(months, 'months');
+  //     if (data.UNIT_OF_PERIOD == "B" && data.IS_AUTO_PERIOD_CALCULATE == '1') {
+  //       this.angForm.controls['AC_MONTHS'].enable()
+  //       this.angForm.controls['AC_DAYS'].enable()
+  //       if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //         Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+  //         this.angForm.controls['AC_MONTHS'].reset()
+  //         this.angForm.controls['AC_DAYS'].reset()
+  //       }
+  //     }
 
-          var Diffmonths = ab.diff(bd, 'months');
-          bd.add(months, 'months');
+  //     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+  //     let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
+  //     let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+  //     this.expiryDate = expiryDate
+  //     this.angForm.patchValue({
+  //       AC_EXPDT: expiryDate
+  //     })
 
-          var Diffdays = ab.diff(bd, 'days');
 
-          if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
-            this.angForm.patchValue({
-              AC_MONTHS: months,
-              AC_DAYS: Diffdays,
-            })
-          }
-          else {
-            if (data.UNIT_OF_PERIOD == "B") {
-              this.angForm.controls['AC_MONTHS'].enable()
-              this.angForm.controls['AC_DAYS'].enable()
-              this.angForm.patchValue({
-                AC_MONTHS: months,
-                AC_DAYS: Diffdays,
-              })
-              if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-                Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
-                this.angForm.controls['AC_MONTHS'].reset()
-                this.angForm.controls['AC_DAYS'].reset()
-                this.angForm.controls['AC_EXPDT'].reset()
-              }
-              else {
-                this.angForm.patchValue({
-                  AC_MONTHS: months,
-                  AC_DAYS: Diffdays
-                })
-              }
-            }
-            else if (data.UNIT_OF_PERIOD == "D") {
-              this.angForm.patchValue({
-                AC_MONTHS: '',
-                AC_DAYS: days,
-              })
-              this.angForm.controls['AC_MONTHS'].disable()
-              this.angForm.controls['AC_DAYS'].enable()
-              if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
-                Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
-                this.angForm.controls['AC_DAYS'].reset()
-                this.angForm.controls['AC_EXPDT'].reset()
-              }
-            }
-            else if (data.UNIT_OF_PERIOD == "M") {
-              this.angForm.patchValue({
-                AC_DAYS: '',
-                AC_MONTHS: months,
-              })
-              this.angForm.controls['AC_MONTHS'].enable()
-              this.angForm.controls['AC_DAYS'].disable()
-              if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
-                Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
-                this.angForm.controls['AC_MONTHS'].reset()
-                this.angForm.controls['AC_EXPDT'].reset()
-              }
-            }
-          }
-        }
-      })
-      let obj = {
-        scheme: this.code,
-        // AC_INTCATA: this.ngIntCategory,
-        days: Number(this.angForm.controls['AC_DAYS'].value),
-        month: Number(this.angForm.controls['AC_MONTHS'].value)
-      }
-      this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
-        // debugger
-        let int: any;
-        if (this.angForm.controls['AC_INTRATE'].value != '' && data == 0) {
-          int = this.angForm.controls['AC_INTRATE'].value;
-        } else {
-          int = data
-        }
-        this.angForm.patchValue({
-          AC_INTRATE: int
-        })
-      })
-    }
+  //     if (data.MULTIPLE_OF_DAYS != null) {
+  //       if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
+  //         Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+  //       }
+  //     }
+  //     if (data.MULTIPLE_OF_MONTH != null) {
+  //       if ((Number((this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
+  //         Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+  //       }
+  //     }
+  //   })
+  //   this.monthDays()
+  // }
+  // monthDays() {
+  //   if (this.code != null) {
+  //     this._termDepositScheme.getFormData(this.code).subscribe(data => {
+  //       if (this.angForm.controls['AC_EXPDT'].value != null && this.angForm.controls['AC_EXPDT'].value != '') {
+  //         var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+  //         var date2 = this.angForm.controls['AC_EXPDT'].value;
+  //         var b = moment(date1, "DD-MM-YYYY");
+  //         var a = moment(date2, "DD-MM-YYYY");
+  //         var bd = moment(date1, "DD-MM-YYYY");
+  //         var ab = moment(date2, "DD-MM-YYYY");
+  //         var months = a.diff(b, 'months');
+  //         var days = a.diff(b, 'days');
+  //         b.add(months, 'months');
 
-  }
+  //         var Diffmonths = ab.diff(bd, 'months');
+  //         bd.add(months, 'months');
+
+  //         var Diffdays = ab.diff(bd, 'days');
+
+  //         if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
+  //           this.angForm.patchValue({
+  //             AC_MONTHS: months,
+  //             AC_DAYS: Diffdays,
+  //           })
+  //         }
+  //         else {
+  //           if (data.UNIT_OF_PERIOD == "B") {
+  //             this.angForm.controls['AC_MONTHS'].enable()
+  //             this.angForm.controls['AC_DAYS'].enable()
+  //             this.angForm.patchValue({
+  //               AC_MONTHS: months,
+  //               AC_DAYS: Diffdays,
+  //             })
+  //             if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //               Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+  //               this.angForm.controls['AC_MONTHS'].reset()
+  //               this.angForm.controls['AC_DAYS'].reset()
+  //               this.angForm.controls['AC_EXPDT'].reset()
+  //             }
+  //             else {
+  //               this.angForm.patchValue({
+  //                 AC_MONTHS: months,
+  //                 AC_DAYS: Diffdays
+  //               })
+  //             }
+  //           }
+  //           else if (data.UNIT_OF_PERIOD == "D") {
+  //             this.angForm.patchValue({
+  //               AC_MONTHS: '',
+  //               AC_DAYS: days,
+  //             })
+  //             this.angForm.controls['AC_MONTHS'].disable()
+  //             this.angForm.controls['AC_DAYS'].enable()
+  //             if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //               Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+  //               this.angForm.controls['AC_DAYS'].reset()
+  //               this.angForm.controls['AC_EXPDT'].reset()
+  //             }
+  //           }
+  //           else if (data.UNIT_OF_PERIOD == "M") {
+  //             this.angForm.patchValue({
+  //               AC_DAYS: '',
+  //               AC_MONTHS: months,
+  //             })
+  //             this.angForm.controls['AC_MONTHS'].enable()
+  //             this.angForm.controls['AC_DAYS'].disable()
+  //             if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
+  //               Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+  //               this.angForm.controls['AC_MONTHS'].reset()
+  //               this.angForm.controls['AC_EXPDT'].reset()
+  //             }
+  //           }
+  //         }
+  //       }
+  //     })
+  //     let obj = {
+  //       scheme: this.code,
+  //       // AC_INTCATA: this.ngIntCategory,
+  //       days: Number(this.angForm.controls['AC_DAYS'].value),
+  //       month: Number(this.angForm.controls['AC_MONTHS'].value)
+  //     }
+  //     this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
+  //       // debugger
+  //       let int: any;
+  //       if (this.angForm.controls['AC_INTRATE'].value != '' && data == 0) {
+  //         int = this.angForm.controls['AC_INTRATE'].value;
+  //       } else {
+  //         int = data
+  //       }
+  //       this.angForm.patchValue({
+  //         AC_INTRATE: int
+  //       })
+  //     })
+  //   }
+
+  // }
+  // CheckmonthDays() {
+
+  //   this._termDepositScheme.getFormData(this.code).subscribe(data => {
+  //     if (data.UNIT_OF_PERIOD == "B") {
+  //       this.angForm.controls['AC_MONTHS'].enable()
+  //       this.angForm.controls['AC_DAYS'].enable()
+  //       if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //         Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+  //         this.angForm.controls['AC_MONTHS'].reset()
+  //         this.angForm.controls['AC_DAYS'].reset()
+  //       }
+  //     }
+  //     else if (data.UNIT_OF_PERIOD == "D") {
+  //       this.angForm.patchValue({
+  //         AC_MONTHS: ''
+  //       })
+  //       this.angForm.controls['AC_MONTHS'].disable()
+  //       this.angForm.controls['AC_DAYS'].enable()
+  //       if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //         Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+  //         this.angForm.controls['AC_DAYS'].reset()
+  //       }
+  //     }
+  //     else if (data.UNIT_OF_PERIOD == "M") {
+  //       this.angForm.patchValue({
+  //         AC_DAYS: '',
+  //       })
+  //       this.angForm.controls['AC_MONTHS'].enable()
+  //       this.angForm.controls['AC_DAYS'].disable()
+  //       if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
+  //         Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+  //         this.angForm.controls['AC_MONTHS'].reset()
+  //       }
+  //     }
+
+
+  //     if (data.UNIT_OF_PERIOD == "B" && data.IS_AUTO_PERIOD_CALCULATE == '1') {
+  //       this.angForm.controls['AC_MONTHS'].enable()
+  //       this.angForm.controls['AC_DAYS'].enable()
+  //       if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //         Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + "and " + data.MIN_DAYS, "error");
+  //         this.angForm.controls['AC_MONTHS'].reset()
+  //         this.angForm.controls['AC_DAYS'].reset()
+  //       }
+  //     }
+
+  //     var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+  //     let expiryT = moment(date1, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_DAYS'].value), 'days').format('DD/MM/YYYY')
+  //     let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+  //     this.expiryDate = expiryDate
+  //     this.angForm.patchValue({
+  //       AC_EXPDT: expiryDate
+  //     })
+
+
+  //     if (data.MULTIPLE_OF_DAYS != null) {
+  //       if ((Number((this.angForm.controls['AC_DAYS'].value)) % Number((data.MULTIPLE_OF_DAYS))) != 0) {
+  //         Swal.fire("Days Should Be Multiple Of " + data.MULTIPLE_OF_DAYS, "error");
+  //       }
+  //     }
+  //     if (data.MULTIPLE_OF_MONTH != null) {
+  //       if ((Number((this.angForm.controls['AC_MONTHS'].value)) % Number((data.MULTIPLE_OF_MONTH))) != 0) {
+  //         Swal.fire("Month Should Be Multiple Of " + data.MULTIPLE_OF_MONTH, "error");
+  //       }
+  //     }
+  //   })
+  // }
+  // monthDays() {
+  //   if (this.code != null) {
+  //     this._termDepositScheme.getFormData(this.code).subscribe(data => {
+  //       if (this.angForm.controls['AC_EXPDT'].value != null && this.angForm.controls['AC_EXPDT'].value != '') {
+  //         var date1 = this.angForm.controls['AC_ASON_DATE'].value;
+  //         var date2 = this.angForm.controls['AC_EXPDT'].value;
+  //         var b = moment(date1, "DD-MM-YYYY");
+  //         var a = moment(date2, "DD-MM-YYYY");
+  //         var bd = moment(date1, "DD-MM-YYYY");
+  //         var ab = moment(date2, "DD-MM-YYYY");
+  //         var months = a.diff(b, 'months');
+  //         var days = a.diff(b, 'days');
+  //         b.add(months, 'months');
+
+  //         var Diffmonths = ab.diff(bd, 'months');
+  //         bd.add(months, 'months');
+
+  //         var Diffdays = ab.diff(bd, 'days');
+
+  //         if (data.IS_AUTO_PERIOD_CALCULATE == '1') {
+  //           this.angForm.patchValue({
+  //             AC_MONTHS: months,
+  //             AC_DAYS: Diffdays,
+  //           })
+  //         }
+  //         else {
+  //           if (data.UNIT_OF_PERIOD == "B") {
+  //             this.angForm.controls['AC_MONTHS'].enable()
+  //             this.angForm.controls['AC_DAYS'].enable()
+  //             this.angForm.patchValue({
+  //               AC_MONTHS: months,
+  //               AC_DAYS: Diffdays,
+  //             })
+  //             if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH) && Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //               Swal.fire("Month And Days Must Be Geater Than " + data.MIN_MONTH + " Month and " + data.MIN_DAYS + " Days", "error");
+  //               this.angForm.controls['AC_MONTHS'].reset()
+  //               this.angForm.controls['AC_DAYS'].reset()
+  //               this.angForm.controls['AC_EXPDT'].reset()
+  //             }
+  //             else {
+  //               this.angForm.patchValue({
+  //                 AC_MONTHS: months,
+  //                 AC_DAYS: Diffdays
+  //               })
+  //             }
+  //           }
+  //           else if (data.UNIT_OF_PERIOD == "D") {
+  //             this.angForm.patchValue({
+  //               AC_MONTHS: '',
+  //               AC_DAYS: days,
+  //             })
+  //             this.angForm.controls['AC_MONTHS'].disable()
+  //             this.angForm.controls['AC_DAYS'].enable()
+  //             if (Number(this.angForm.controls['AC_DAYS'].value) < Number(data.MIN_DAYS)) {
+  //               Swal.fire("Days Must Be Geater Than " + data.MIN_DAYS + ' Days', "error");
+  //               this.angForm.controls['AC_DAYS'].reset()
+  //               this.angForm.controls['AC_EXPDT'].reset()
+  //             }
+  //           }
+  //           else if (data.UNIT_OF_PERIOD == "M") {
+  //             this.angForm.patchValue({
+  //               AC_DAYS: '',
+  //               AC_MONTHS: months,
+  //             })
+  //             this.angForm.controls['AC_MONTHS'].enable()
+  //             this.angForm.controls['AC_DAYS'].disable()
+  //             if (Number(this.angForm.controls['AC_MONTHS'].value) < Number(data.MIN_MONTH)) {
+  //               Swal.fire("Month Must Be Geater Than " + data.MIN_MONTH + ' Months', "error");
+  //               this.angForm.controls['AC_MONTHS'].reset()
+  //               this.angForm.controls['AC_EXPDT'].reset()
+  //             }
+  //           }
+  //         }
+  //       }
+  //     })
+  //     let obj = {
+  //       scheme: this.code,
+  //       // AC_INTCATA: this.ngIntCategory,
+  //       days: Number(this.angForm.controls['AC_DAYS'].value),
+  //       month: Number(this.angForm.controls['AC_MONTHS'].value)
+  //     }
+  //     this.http.post(this.url + '/term-deposits-master/getInterestRate', obj).subscribe(data => {
+  //       // debugger
+  //       let int: any;
+  //       if (this.angForm.controls['AC_INTRATE'].value != '' && data == 0) {
+  //         int = this.angForm.controls['AC_INTRATE'].value;
+  //       } else {
+  //         int = data
+  //       }
+  //       this.angForm.patchValue({
+  //         AC_INTRATE: int
+  //       })
+  //     })
+  //   }
+
+  // }
   
 } 

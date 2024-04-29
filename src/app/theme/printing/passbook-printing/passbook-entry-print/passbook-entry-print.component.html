@@ -1,0 +1,175 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Passbook Print</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="ngForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                        (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                        placeholder="">
+                                        <ng-option *ngFor="let values of branchOption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for=" Date">Scheme Code<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                        [(ngModel)]="scode" (change)="getIntro($event);getTransferAccountList($event)">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.id}} {{values.label}} </ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Account No.<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <ng-select id="cdropdown" [(ngModel)]="firstno" formControlName="FIRST_NO"
+                                        bindValue="AC_NO" bindLabel="AC_NO" (change)="getAcno($event)"
+                                        placeholder=" From A/c No">
+                                        <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                            {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['FIRST_NO'].invalid && (ngForm.controls['FIRST_NO'].dirty || ngForm.controls['FIRST_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="ngForm.controls['FIRST_NO'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"> <label for="START_DATE">Starting Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue" appButton
+                                        minlength="10" maxlength="10" [maxDate]="maxDate" disabled
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="START_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['START_DATE'].invalid && (ngForm.controls['START_DATE'].dirty || ngForm.controls['START_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2"> <label for="">Number of lines printed<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="PS_LINES_PRINTED"
+                                        class="form-control" placeholder=" "
+                                        [ngClass]="{'form-submitted': formSubmitted}" appTheme
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        id="PS_LINES_PRINTED" required="" pattern="^[0-9]+$" maxlength="4" disabled
+                                        title="Input allowed only  0-9" formControlName="PS_LINES_PRINTED" />
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2"> <label for="">Number of lines on single page<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" style="text-align: right;" name="LINES_PER_PASSBOOKPAGE"
+                                        class="form-control" placeholder=" "
+                                        [ngClass]="{'form-submitted': formSubmitted}" appTheme
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                        id="LINES_PER_PASSBOOKPAGE" required="" pattern="^[0-9]+$" maxlength="4" disabled
+                                        title="Input allowed only  0-9" formControlName="LINES_PER_PASSBOOKPAGE" />
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-sm-12 col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                (click)="view($event); clicked = true ">View</button>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="">Passbook Printed Successfully ?</label>
+                </div>
+                        <div class="col-sm-12 col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" value="1" [disabled]="clicke"
+                                (click)="printYesno($event) ">Yes</button>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value = "2" [disabled]="clicke"
+                                (click)="printYesno($event)">No</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe5 [url]='iframe5url'></app-iframe5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

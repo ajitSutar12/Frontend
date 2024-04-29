@@ -79,7 +79,7 @@ export class EditInterestCalculationComponent implements OnInit {
     })
 
     this._service.interestDate().subscribe((data) => {
-      debugger
+      // debugger
       this.warrentDate = data
       console.log(this.warrentDate)
     })
@@ -96,6 +96,11 @@ export class EditInterestCalculationComponent implements OnInit {
       AC_TYPE: ['', [Validators.required]],
       FROM_AC: ['', [Validators.required]],
       TO_AC: ['', [Validators.required]],
+      normalint: [],
+      overdraftint: [],
+      overdueint: [],
+      penalint: [],
+      recpayint: [],
     });
   }
   getIntDetails(event) {
@@ -225,6 +230,32 @@ export class EditInterestCalculationComponent implements OnInit {
       }
       this._service.interestTranData(object).subscribe(data => {
         this.InterestTableData = data;
+        let AMOUNT = 0
+        let RECPAY_INT_AMOUNT = 0
+        let PENAL_INT_AMOUNT = 0
+        let ODUE_INT_AMOUNT = 0
+        let OD_INT_AMOUNT = 0
+        this.InterestTableData.sort(function (a: any, b: any) {
+          a['sortColumn'] = a.TRAN_ACNO == null || a.TRAN_ACNO == "" ? a.BANKACNO : a.TRAN_ACNO
+          b['sortColumn'] = b.TRAN_ACNO == null || b.TRAN_ACNO == "" ? b.BANKACNO : b.TRAN_ACNO
+          let p = Number(a['sortColumn']);
+          let q = Number(b['sortColumn']);
+          return (p < q) ? -1 : ((p > q) ? 1 : 0)
+        });
+        for (let ent of (data)) {
+          AMOUNT = AMOUNT + Number(ent['TRAN_AMOUNT'])
+          RECPAY_INT_AMOUNT = RECPAY_INT_AMOUNT + Number(ent['RECPAY_INT_AMOUNT'])
+          PENAL_INT_AMOUNT = PENAL_INT_AMOUNT + Number(ent['PENAL_INT_AMOUNT'])
+          OD_INT_AMOUNT = OD_INT_AMOUNT + Number(ent['OD_INT_AMOUNT'])
+          ODUE_INT_AMOUNT = ODUE_INT_AMOUNT + Number(ent['ODUE_INT_AMOUNT'])
+        }
+        this.angForm.patchValue({
+          normalint: (AMOUNT).toFixed(2),
+          overdraftint: OD_INT_AMOUNT.toFixed(2),
+          overdueint: ODUE_INT_AMOUNT.toFixed(2),
+          penalint: PENAL_INT_AMOUNT.toFixed(2),
+          recpayint: RECPAY_INT_AMOUNT.toFixed(2)
+        })
         this.showButton = false;
         this.submitData = true;
       }, err => {

@@ -51,8 +51,12 @@ const routes: Routes = [
     {
       path:'pigmyagentchange',
       loadChildren: () => import('./pigmyagentchange/pigmyagentchange.module').then(m=>m.PigmyagentchangeModule)
-    }
+    },
    
+    {
+      path:'recoveryFlag',
+      loadChildren: () => import('./recovery-flag-updation/recovery-flag-updation.module').then(m=>m.RecoveryFlagUpdationModule)
+    }
    
    
   ]

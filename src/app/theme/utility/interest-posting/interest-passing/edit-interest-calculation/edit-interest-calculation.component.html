@@ -191,7 +191,7 @@
                             <label style="text-align: center;padding-inline: initial;">Normal Interest</label>
                             <span class="border-lable-flt">
                                 <input type="text" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                    title="Input allowed only 0-9" maxlength="12"
+                                    title="Input allowed only 0-9" maxlength="12" formControlName="normalint"  style="text-align:right"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                             </span>
                         </div>
@@ -199,7 +199,7 @@
                             <label style="text-align: center;padding-inline: initial;">Recble/Payable</label>
                             <span class="border-lable-flt">
                                 <input type="text" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                    title="Input allowed only 0-9" maxlength="12"
+                                    title="Input allowed only 0-9" maxlength="12" formControlName="recpayint" style="text-align:right"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                             </span>
 
@@ -208,7 +208,7 @@
                             <label style="text-align: center;padding-inline: initial;">Penal Interest</label>
                             <span class="border-lable-flt">
                                 <input type="text" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                    title="Input allowed only 0-9" maxlength="12"
+                                    title="Input allowed only 0-9" maxlength="12" formControlName="penalint" style="text-align:right"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                             </span>
 
@@ -218,7 +218,7 @@
                             <label style="text-align: center;padding-inline: initial;">OverDue Interest</label>
                             <span class="border-lable-flt">
                                 <input type="text" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                    title="Input allowed only 0-9" maxlength="12"
+                                    title="Input allowed only 0-9" maxlength="12" formControlName="overdueint" style="text-align:right"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                             </span>
 
@@ -227,7 +227,7 @@
                             <label style="text-align: center;padding-inline: initial;">OverDraft Interest</label>
                             <span class="border-lable-flt">
                                 <input type="text" class="form-control" placeholder=" " pattern="\d{1,20}(\.\d{2})?"
-                                    title="Input allowed only 0-9" maxlength="12"
+                                    title="Input allowed only 0-9" maxlength="12" formControlName="overdraftint" style="text-align:right"
                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                             </span>
                         </div>

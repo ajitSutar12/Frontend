@@ -1,46 +1,85 @@
-<!--Member Ledger View  -->
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Member Ledger View</h5>
+                <h5>Member View</h5>
                 <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="selectedMemno" #scheme formControlName="memNo"
-                                        bindValue="bankacno" bindLabel="NAME">
-                                        <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                            {{item.label}} {{item.name}}</ng-option>
+                                    <!-- <ng-select></ng-select> -->
+                                    <ng-select formControlName="scheme_code" bindValue="value"
+                                        (change)="getSchemCode($event)" [(ngModel)]="ngIntroducer" bindLabel="label">
+                                        <ng-option *ngFor="let values of schemeList" [value]="values"
+                                            placeholder="Scheme Code">
+                                            {{values.label}}</ng-option>
+
                                     </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
+                                *ngIf="angForm.controls['scheme_code'].invalid && (angForm.controls['scheme_code'].dirty || angForm.controls['scheme_code'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['memNo'].errors?.required">
+                                <div *ngIf="angForm.controls['scheme_code'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
 
                         </div>
-
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Employee No<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
                                     class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <!-- <ng-select></ng-select> -->
+                                    <ng-select [(ngModel)]="selectedMemno" #scheme formControlName="memNo"
+                                        (change)="accountNumber($event);secondtableData()" bindValue="bankacno">
+                                        <ng-option *ngFor="let item of accountArray" [value]="item">
+                                            {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['memNo'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div> -->
+
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="empNo"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                    <input type="text" name="AC_NAME" class="form-control" placeholder="Account Name"
+                                        id="AC_NAME" formControlName="AC_NAME" [(ngModel)]="name" disabled>
+                                </span>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Employee No<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="empNo" class="form-control" placeholder=" " id="empNo"
+                                        maxlength="10" formControlName="empNo"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        disabled>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -52,114 +91,310 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-2"> <label for="Date_of_Birth">Date of Birth<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date_of_Birth" id="Date_of_Birth"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                        formControlName="Date_of_Birth" appButton minlength="10" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker disabled>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Date_of_Birth'].invalid && (angForm.controls['Date_of_Birth'].dirty || angForm.controls['Date_of_Birth'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Date_of_Birth'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="Date">Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                        class="form-control" [(ngModel)]="todate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" appButton
+                                        minlength="10" maxlength="10" [maxDate]="maxDate" formControlName="END_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                    This field is required.
+                                </div>
+                            </div> -->
+                        </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Total Loan Amount<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Salary Division/Sub Division<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="tlAmt"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                    <input type="text" name="Division" class="form-control" placeholder=" "
+                                        id="Division" maxlength="10" formControlName="Division"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        disabled>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['tlAmt'].invalid && (angForm.controls['tlAmt'].dirty || angForm.controls['tlAmt'].touched)"
+                                *ngIf="angForm.controls['Division'].invalid && (angForm.controls['Division'].dirty || angForm.controls['Division'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['tlAmt'].errors?.pattern || angForm.controls['tlAmt'].errors?.required || angForm.controls['tlAmt'].errors?.maxlength">
+                                    *ngIf="angForm.controls['Division'].errors?.pattern || angForm.controls['Division'].errors?.required || angForm.controls['Division'].errors?.maxlength">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Total Deposit Amount<sub
+                        <div class="col-sm-12 col-md-2"> <label for="JoiningDate">Joining Date<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="tdAmt"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="JoiningDate" id="JoiningDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                        formControlName="Joiningdate" appButton minlength="10" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker disabled>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['tdAmt'].invalid && (angForm.controls['tdAmt'].dirty || angForm.controls['tdAmt'].touched)"
+                                *ngIf="angForm.controls['Joiningdate'].invalid && (angForm.controls['Joiningdate'].dirty || angForm.controls['Joiningdate'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['tdAmt'].errors?.pattern || angForm.controls['tdAmt'].errors?.required || angForm.controls['tdAmt'].errors?.maxlength">
+                                <div *ngIf="angForm.controls['Joiningdate'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="RetairmentDate">Retirement Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="RetairmentDate"
+                                        id="RetairmentDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        class="form-control" formControlName="Retairmentdate" appButton minlength="10"
+                                        maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker disabled>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Retairmentdate'].invalid && (angForm.controls['Retairmentdate'].dirty || angForm.controls['Retairmentdate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Retairmentdate'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Total Interest On Loan<sub
-                                    class="required">*</sub></label>
+                        <!-- Loan Table -->
+                        <div class="col-md-6">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact">
+                                    <thead style="text-align: center;">
+                                        <td>Account Number</td>
+                                        <td>Scheme Name</td>
+                                        <td>Installment</td>
+                                        <td>Balance</td>
+                                        <td>Interest Amount</td>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of tableArray">
+                                            <td>{{ data.BANKACNO }}</td>
+                                            <td>{{ data.S_NAME }}</td>
+                                            <td style="text-align: right;">{{ data.AC_INSTALLMENT }}</td>
+                                            <td style="text-align: right;">{{ data.LEDGER_BAL }}</td>
+                                            <td style="text-align: right;">{{ data.loanIntamount }}</td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr *ngIf="tableArray.length===0">
+                                            <td class="no-data-available" colspan="5" style="text-align: center;">No
+                                                Data!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- Deposit Table -->
+                        <div class="col-md-6">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact">
+                                    <thead style="text-align: center;">
+                                        <td>Account Number</td>
+                                        <td>Scheme Name</td>
+                                        <td>Installment</td>
+                                        <td>Balance</td>
+                                        <td>Credit/Debit</td>
+                                        <td>Interest Amount</td>
+                                      
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let data of depositTableArray">
+                                            <td>{{ data.BANKACNO }}</td>
+                                            <td>{{ data.S_NAME }}</td>
+                                            <td style="text-align: right;">{{ data.INSTALLMENT }}</td>
+                                            <td style="text-align: right;">{{ data.LEDGERBALANCE }}</td>
+                                            <!-- <td style="text-align: right;">{{ data.LEDGERBALANCE_TYPE }}</td> -->
+                                            <td style="text-align: right;">{{ data.depoIntamount }}</td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tbody>
+                                        <tr *ngIf="depositTableArray.length===0">
+                                            <td class="no-data-available" colspan="5" style="text-align: center;">No
+                                                Data!</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="Loan_Amount">Total Loan Amount</label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="tlAmt" class="form-control" placeholder=" " id="tlAmt"
+                                        maxlength="10" formControlName="tlAmt"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        [(ngModel)]="totalBalance">
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="Deposit_Amount">Total Deposit Amount</label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="tioLoan"
+                                    <input type="text" name="tdAmt" class="form-control" placeholder=" " id="tdAmt"
+                                        maxlength="10" formControlName="tdAmt"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        [(ngModel)]="totalDepositCal">
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-2"> <label for="Interest_On_Loan">Total Interest On Loan
+                            </label>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="tioLoan" class="form-control" placeholder=" " id="tioLoan"
+                                        maxlength="10" formControlName="tioLoan" [(ngModel)]="loanIntRate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['tioLoan'].invalid && (angForm.controls['tioLoan'].dirty || angForm.controls['tioLoan'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['tioLoan'].errors?.pattern || angForm.controls['tioLoan'].errors?.required || angForm.controls['tioLoan'].errors?.maxlength">
-                                    This field is required.
-                                </div>
-                            </div>
+
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Total Interest On Deposit<sub
-                                    class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="Interest_On_Deposit">Total Interest On Deposit
+                            </label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
                                         id="INSTALLMENT_NO" maxlength="10" formControlName="tioDep"
+                                        [(ngModel)]="depoIntRate"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['tioDep'].invalid && (angForm.controls['tioDep'].dirty || angForm.controls['tioDep'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['tioDep'].errors?.pattern || angForm.controls['tioDep'].errors?.required || angForm.controls['tioDep'].errors?.maxlength">
-                                    This field is required.
-                                </div>
-                            </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="Date">Date<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="Interest_On_Deposit">Total Loan
+                            </label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="totalloan" class="form-control" placeholder=""
+                                        id="totalloan" formControlName="totalloan" [(ngModel)]="GTot"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="Differ" class="form-control" placeholder="" id="Differ"
+                                        formControlName="Differ" [(ngModel)]="diffLoanAndDepo"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span>
+                            </div>
+
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="row"> -->
+                        <div class="col-sm-12 col-md-2"> <label for="Interest_On_Deposit">Total Deposit
+                            </label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                        formControlName="date" appButton minlength="10" maxlength="10"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                    <input type="text" name="DTot" class="form-control" placeholder="" id="DTot"
+                                        formControlName="DTot" [(ngModel)]="DTot"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['date'].errors?.required">
-                                    This field is required.
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" (click)="View()">
+                                View
+                            </button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <!-- <app-iframe1 [url]='iframe1url'></app-iframe1> -->
+                                    <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
                                 </div>
                             </div>
                         </div>

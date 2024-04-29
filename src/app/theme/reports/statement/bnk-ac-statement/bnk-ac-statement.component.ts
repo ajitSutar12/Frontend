@@ -72,6 +72,7 @@ export class BnkAcStatementComponent implements OnInit {
   introducerACNo
 
   fileUrl = this.url + 'examples/AccountStatement1.php'
+  name: any;
 
 
   constructor(
@@ -180,6 +181,8 @@ export class BnkAcStatementComponent implements OnInit {
   }
   getIntTranscus(event) { 
     this.getbankAcNo =  event.bankacno
+    this.name = event.name
+
   }
 
   getIntTrans1(event) {
@@ -199,7 +202,8 @@ export class BnkAcStatementComponent implements OnInit {
     switch (this.getschemename) {
       
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getTermDepositMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -207,7 +211,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
       case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getSavingMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -215,7 +220,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
       case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => { 
+          this.schemeAccountNoService.getDisputeLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -231,7 +237,8 @@ export class BnkAcStatementComponent implements OnInit {
           })
           break;
           case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getCurrentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
             this.ngAcnoFrom = null
             this.introducerACNo = data;
@@ -239,7 +246,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
         case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getTermLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
             this.ngAcnoFrom = null
             this.introducerACNo = data;
@@ -247,7 +255,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
         case 'DS':
-          this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          // this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+            this.schemeAccountNoService.getDisputeLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
             this.introducerACNo = data;
             this.ngAcnoFrom = null
             this.introducerACNo = data;
@@ -255,7 +264,8 @@ export class BnkAcStatementComponent implements OnInit {
           })
           break;
           case 'CC':
-            this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getCashCreditMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
               this.ngAcnoFrom = null
               this.introducerACNo = data;
@@ -264,7 +274,8 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'GS':
-            this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getAnamatMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -273,7 +284,8 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'PG':
-            this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getPigmyAccountMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
               this.ngAcnoFrom = null
               this.introducerACNo = data;
@@ -282,7 +294,8 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'AG':
-            this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getPigmyAgentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -291,7 +304,9 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'IV':
-            this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getInvestmentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+
               this.introducerACNo = data;
               this.ngAcnoFrom = null
               this.introducerACNo = data;
@@ -301,66 +316,7 @@ export class BnkAcStatementComponent implements OnInit {
 
     }
   }
- //load acno according start and end acno
-//  loadAcno() {
-//   this.memFrom = this.angForm.controls['AC_NOFrom'].value
-//   // this.memTo = this.angForm.controls['AC_NOTo'].value
-//   this.branch = this.angForm.controls['BRANCH'].value
-//   if (this.angForm.controls['AC_NOFrom'].value < this.angForm.controls['AC_NOTo'].value) {
-//     this.mem = [this.memFrom, this.memTo, this.branch]
-//     if (this.getschemename == 'SB') {
-//       this.http.get(this.url + '/saving-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'SH') {
-//       this.http.get(this.url + '/share-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'LN') {
-//       this.http.get(this.url + '/term-loan-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'CC') {
-//       this.http.get(this.url + '/cash-credit-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'DS') {
-//       this.http.get(this.url + '/dispute-loan-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'TD') {
-//       this.http.get(this.url + '/term-deposits-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'AG') {
-//       this.http.get(this.url + '/pigmy-agent-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'GL') {
-//       this.http.get(this.url + '/gl-account-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'IV') {
-//       this.http.get(this.url + '/investment/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'CA') {
-//       this.http.get(this.url + '/current-account-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'PG') {
-//       this.http.get(this.url + '/pigmy-account-master/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//     else if (this.getschemename == 'GS') {
-//       this.http.get(this.url + '/anamat-gsm/balUpdate/' + this.mem).subscribe((data) => {
-//       });
-//     }
-//   }
-//   else {
-//     Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
-//   }
-// }
+
 
 end(){
   this.startfrom = this.angForm.controls['FROM_DATE'].value
@@ -406,9 +362,9 @@ View(event) {
     // let print = obj.PRINT_ACCOUNT;
     // let printclose = obj.PRINT_CLOSED;
 
-    this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+this.ngBranchCode+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + "'&AC_ACNOTYPE='" +this.getschemename + "'";
+    // this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+this.ngBranchCode+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + "'&AC_ACNOTYPE='" +this.getschemename + "'";
     
-    
+    this.iframeurl = this.report_url + "examples/accountStatement2.php?&fromdate='" + stadate + "'&todate='" + edate + "'&fromacc=" + fromacc + "&AC_ACNOTYPE='" + this.getschemename + "&branchName='" + branchName + "'&bankName='" + bankName + "'&name='" + this.name + "'";
 
     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

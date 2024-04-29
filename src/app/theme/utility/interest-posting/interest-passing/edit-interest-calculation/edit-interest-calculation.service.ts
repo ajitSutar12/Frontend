@@ -69,4 +69,8 @@ export class EditInterestCalculationService {
   createVoucher(data): Observable<any> {
     return this.http.post(this.url + '/voucher/createVoucherPassingInterest', data);
   }
+
+  deleteVoucher(data): Observable<any> {
+    return this.http.post(this.url + '/voucher/deleteInterestEntry', data);
+  }
 }

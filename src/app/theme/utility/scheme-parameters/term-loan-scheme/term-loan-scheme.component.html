@@ -1098,10 +1098,11 @@
                           <span class="border-lable-flt">
                             <input appTheme style="text-align: right;" type="text" name="IS_OVERDUE_ON_INSTALLMENT"
                               class="form-control" placeholder=" "
-                              (keypress)="($event.charCode >= 48 && $event.charCode <= 51)" max="4" maxlength="1"
+                              (keypress)="($event.charCode >= 48 && $event.charCode <= 51)" max="7" maxlength="1"
                               id="IS_OVERDUE_ON_INSTALLMENT" pattern="^[0-9]+$" title="Input allowed only  0-9"
                               formControlName="IS_OVERDUE_ON_INSTALLMENT" required />
-                            <label for="IS_OVERDUE_ON_INSTALLMENT">Overdue Rule Code (0-1-2-3)<sub class="required"> *
+                            <label for="IS_OVERDUE_ON_INSTALLMENT">Overdue Rule Code (0-1-2-3-4-7)<sub class="required">
+                                *
                               </sub></label>
                           </span>
                         </div>

@@ -88,6 +88,8 @@ export class PassdeadStockPurchaseComponent implements OnInit ,AfterViewInit{
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
         // this.mySubscription = interval(1000).subscribe((x => {
+          console.log(this.url + '/deadstock-purchase/passing')
+
         this.http
           .post<DataTableResponse>(
             this.url + '/deadstock-purchase/passing',

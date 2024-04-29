@@ -45,14 +45,14 @@ export class InterestPassingComponent implements OnInit {
       this.EditOverdueInterestReceivableAmountTrue=false;
 
     }
-    // if (val == 5) {
-    //   this.EditInterestCalculationTrue = false;
-    //   this.CalculateInterestPassingTrue = false;
-    //   // this.CalculateInterestUnpassingTrue = false;
-    //   this.CalculateInterestDeletionTrue = true;    
-    //   this.EditOverdueInterestReceivableAmountTrue=false;
+    if (val == 5) {
+      this.EditInterestCalculationTrue = false;
+      this.CalculateInterestPassingTrue = false;
+      this.CalculateInterestUnpassingTrue = false;
+      this.CalculateInterestDeletionTrue = true;    
+      this.EditOverdueInterestReceivableAmountTrue=false;
 
-    // }
+    }
   }
 
   ngOnInit(): void {

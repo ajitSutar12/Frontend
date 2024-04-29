@@ -482,11 +482,12 @@ sort_by_key(array: any, key: any) {
         'SUBMISSION_DATE': (data.SUBMISSION_DATE == 'Invalid date' || data.SUBMISSION_DATE == '' || data.SUBMISSION_DATE == null) ? submissiondate = '' : submissiondate = data.SUBMISSION_DATE,
 
         RECEIPT_NO: data.RECEIPT_NO,
+                DEPO_AC_NO: data.DEPO_AC_NO,
         DEPOSIT_AMT: data.DEPOSIT_AMT,
         REMARK: data.REMARK,
         MATURITY_DATE: data.MATURITY_DATE,
         MARGIN: data.MARGIN,
-        LEDGER_Bal: data.LEDGER_Bal,
+        LEDGER_Bal: data.LEDGER_BAL,
         AC_INTRNAME: data.AC_INTRNAME,
       });
     });

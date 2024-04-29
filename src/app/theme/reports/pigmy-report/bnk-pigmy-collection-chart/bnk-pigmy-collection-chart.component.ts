@@ -177,7 +177,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
  
   src: any;
   view(event) {
-    debugger
+    
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -204,7 +204,7 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     // his.src = this.sanitizer.bypassSecurityTrustResourceUrl(url);
 
       
-   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branch='"+ branch +"'&ChartNo='" + ChartNo +"'&schemeAccountNo='" + Scheme_acc +"'&bankName=" + bankName + " &branchName='" + this.branchName + "'" ;
+   this.iframe5url=this.report_url+"examples/PigmyAgentwiseCollection.php?date='" + date + "'&scheme='" + scheme + "'&branch='"+ this.ngbranch +"'&ChartNo='" + ChartNo +"'&schemeAccountNo='" + Scheme_acc +"'&bankName=" + bankName + " &branchName='" + this.branchName + "'" ;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
    
   }

@@ -4,7 +4,9 @@ import {DefaultComponent} from './default.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', 
+    component: DefaultComponent, 
+
     data: {
       title: 'Default',
       status: false

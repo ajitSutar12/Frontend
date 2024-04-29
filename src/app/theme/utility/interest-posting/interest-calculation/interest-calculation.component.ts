@@ -15,6 +15,7 @@ import { CurrentSchemeService } from './interest-calculation.service';
 import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 import { async } from 'rxjs/internal/scheduler/async';
+import * as moment from 'moment';
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -130,7 +131,6 @@ export class InterestCalculationComponent implements OnInit {
     this.selectedSchemeData = this.schemeDataList.filter(c => c.S_ACNOTYPE == code)
   }
   submit() {
-    debugger
     var FormValue = this.angForm.value;
     if (FormValue.INT_CAL == "") {
       Swal.fire("Oops...", "Please choose any option for Interest Calculation", "error");
@@ -142,6 +142,7 @@ export class InterestCalculationComponent implements OnInit {
       } else {
         this.modalClass = 'modalShow';
         this.showButton = false;
+        let datetobind = moment(FormValue.INT_UPTO_DATE, 'DD/MM/YYYY')
         let apiObj = {
           option: 0,
           obj: {
@@ -149,7 +150,7 @@ export class InterestCalculationComponent implements OnInit {
           },
           schemeType: FormValue.AC_TYPE,
           branch_code: FormValue.BRANCH,
-          date: FormValue.INT_UPTO_DATE
+          date: moment(datetobind).format('DD/MM/YYYY')
         }
 
         //Send Data for Interest Calculation Scheme Wise;

@@ -51,6 +51,12 @@ const routes: Routes = [
         loadChildren: () => import('./npaclassification-standard-nonstandard/npaclassification-standard-nonstandard.module').then(m => m.NpaclassificationStandardNonstandardModule)
 
       },
+
+      {
+        path:'loanoverduelist',
+        loadChildren: () => import('./loan-overdue-list/loan-overdue-list.module').then(m =>m.LoanOverdueListModule)
+      },
+
     ]
   }
 ];

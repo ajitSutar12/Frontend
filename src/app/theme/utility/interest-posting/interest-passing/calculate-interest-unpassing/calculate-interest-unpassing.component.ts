@@ -33,7 +33,7 @@ export class CalculateInterestUnpassingComponent implements OnInit {
   selectedDivToYear: any;
   showMsg: boolean = true;
 
-  tableData: any;
+  tableData: any = [];
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
@@ -48,7 +48,6 @@ export class CalculateInterestUnpassingComponent implements OnInit {
     })
 
     this._service.interestDate().subscribe((data) => {
-      debugger
       this.warrentDate = data
       console.log(this.warrentDate)
     })
@@ -123,5 +122,9 @@ export class CalculateInterestUnpassingComponent implements OnInit {
     }
   }
 
+  canceldata() {
+    this.AddDataList = []
+    this.tableData = []
+  }
 }
 

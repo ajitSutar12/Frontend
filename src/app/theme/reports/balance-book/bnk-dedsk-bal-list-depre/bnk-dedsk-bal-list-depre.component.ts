@@ -132,9 +132,10 @@ debugger
       let startingcode = obj.Starting_Account;
       let endingcode = obj.Ending_Account;
 
+      let branchName = userData.branch.NAME
 
 
-      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branch=" +  this.ngbranch  + "&startingcode=" + startingcode + "&endingcode=" + endingcode + "&bankName=" + bankName + "";
+      this.iframeurl = this.report_url +"examples/BnkDeadbalDepr.php?date='" + date + "'&branch=" +  this.ngbranch  + "&startingcode=" + startingcode + "&endingcode=" + endingcode + "&bankName=" + bankName + "&branchName="+branchName+"";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

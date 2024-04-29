@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Year End Brach Wise</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <!-- <div class="col-md-1"> <label for="END_DATE">Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                        class="form-control" [(ngModel)]="todate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" appButton
+                                        minlength="10" maxlength="10" [maxDate]="maxDate" formControlName="END_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+
+                        </div> -->
+
+                        <div class="col-sm-12 col-md-2"> <label for=" Date">DATE<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-2 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="END_DATE" (change)="getTableDate($event)">
+                                        <ng-option  *ngFor="let value of Tabledata" [value]="value">
+                                            {{ value.DATE}} </ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-striped table-bordered table-hover compact">
+                <thead>
+                    <td>Sr.No.</td>
+                    <td>Branch Name</td>
+                    <td>Year End Status</td>
+                    <td>Head Office Transfer</td>
+                    <td>Profit & Loss A/C Transfer</td>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t1 of TableResponse ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{ t1.NAME }}</td>
+                        <td>
+                            <span class="label label-danger" *ngIf="t1.STATUS == 0">Not year End</span>
+                            <!-- <span class="label label-warning" *ngIf="t1.STATUS == 1">Processing...</span> -->
+                            <span class="label label-success" *ngIf="t1.STATUS == 1">year Ended</span>
+                        </td>
+                        <td>{{ t1.flg === 'head office transfer' ? t1.amt: ' ' }}</td>
+                        <td > {{ t1.flg === 'profit and loss a/c transfer' ? ' ': t1.amt }}</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+        </div>
+    </div>
+</div>

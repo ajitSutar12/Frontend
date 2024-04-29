@@ -1,0 +1,230 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Npa Marking</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select bindValue="value" bindLabel="label" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" #branchcode [virtualScroll]="true"
+                                        [selectOnTab]='true' autofocus>
+                                        <ng-option *ngFor="let values of branch_code" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" title="Compulsory Selection"
+                                        (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="Scheme">
+                                        <ng-option *ngFor="let values of schemeArray" [value]="values">
+                                            {{values.S_APPL}} {{values.S_NAME}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="NPA_DATE">NPA Dates <sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="NPA_DATE" bindValue="value" [(ngModel)]="npaProcessDate"
+                                        (change)="getNPADate($event)" formControlName="NPA_DATE"
+                                        placeholder="NPA Processed Dates">
+                                        <ng-option *ngFor="let values of npaDates" [value]="values">
+                                            {{values.REPORT_DATE}} </ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['NPA_DATE'].invalid && (angForm.controls['NPA_DATE'].dirty || angForm.controls['NPA_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['NPA_DATE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_ACC">From Account<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="FROM_ACC" bindValue="value" [(ngModel)]="fromAccNo"
+                                        (change)="getFromAcc($event)" formControlName="FROM_ACC"
+                                        placeholder="From Account">
+                                        <ng-option *ngFor="let values of fromAcc" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FROM_ACC'].invalid && (angForm.controls['FROM_ACC'].dirty || angForm.controls['FROM_ACC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FROM_ACC'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="TO_ACC">To Account<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="TO_ACC" bindValue="value" [(ngModel)]="npaProcessDate"
+                                        (change)="getToAcc($event)" formControlName="TO_ACC" placeholder="To Account">
+                                        <ng-option *ngFor="let values of toAcc" [value]="values">
+                                            {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['TO_ACC'].invalid && (angForm.controls['TO_ACC'].dirty || angForm.controls['TO_ACC'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['TO_ACC'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                (click)="update()">Update</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                (click)="cancel()">Cancel</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                (click)="toggleEditing()">Edit</button>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row" *ngIf="isTableShow">
+                        <div class="col-sm-12">
+                            <div class="col-12">
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                    <table datatable>
+                                        <thead style="position: sticky; top: 0;">
+                                            <td>Serial Number</td>
+                                            <td>Account Number</td>
+                                            <td>Account Name</td>
+                                            <td>NPA Class</td>
+                                            <td>Edited NPA Class</td>
+                                            <td>NPA Provision</td>
+                                            <td>NPA Percentage</td>
+                                            <td>To Be Recovered</td>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of tableData; let i=index">
+                                                <td class="td_center">{{ i+1 }}</td>
+                                                <td class="td_center">{{data.AC_NO}}</td>
+                                                <td contenteditable="true">{{ data.AC_NAME }}
+                                                </td>
+                                                <td>{{ data.NPA_CLASS}}</td>
+                                                <td>
+
+                                                    <!-- <ng-select [(ngModel)]="data.NPA_CLASS"
+                                                        (change)="onCellChange($event, data, 'NPA_CLASS')">
+                                                        <ng-option *ngFor="let npa of npaClass" [value]="npa.id">{{
+                                                            npa.label }}</ng-option>
+                                                    </ng-select> -->
+
+                                                    <ng-container *ngIf="!isEditing; else editMode">
+                                                        {{ data.NPA_CLASS }}
+                                                    </ng-container>
+                                                    <ng-template #editMode>
+                                                        <ng-select [(ngModel)]="data.NPA_CLASS"
+                                                            (change)="onCellChange($event, data, 'NPA_CLASS')"
+                                                            placeholder="Edit NPA CLASS">
+                                                            <ng-option *ngFor="let npa of npaClass" [value]="npa.id">{{
+                                                                npa.label }}</ng-option>
+                                                        </ng-select>
+                                                    </ng-template>
+
+
+
+                                                </td>
+                                                <td class="td_right" contenteditable="true"
+                                                    (blur)="onCellChange($event, data, 'NPA_PROVISION_AMT')">{{
+                                                    data.NPA_PROVISION_AMT }}</td>
+                                                <td class="td_right" contenteditable="true"
+                                                    (blur)="onCellChange($event, data, 'NPA_PERCENTAGE')">{{
+                                                    data.NPA_PERCENTAGE }}</td>
+                                                <td class="td_right" contenteditable="true"
+                                                    (blur)="onCellChange($event, data, 'TOBE_RECOVER_AMT')">{{
+                                                    data.TOBE_RECOVER_AMT }}</td>
+
+
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="tableData.length === 0">
+                                            <tr>
+                                                <td class="no-data-available" colspan="7" style="text-align: center;">
+                                                    No data!
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- <div class="pagination-container text-right mt-3">
+                                    <button class="pagination-button mr-2" [disabled]="currentPage == 1"
+                                        (click)="onPageChange(currentPage - 1)">
+                                        Previous
+                                    </button>
+                                    <span class="pagination-info">{{ currentPage }} / {{ totalPages }}</span>
+                                    <button type="button" class="pagination-button ml-2"
+                                        [disabled]="currentPage == totalPages" (click)="onPageChange(currentPage + 1)">
+                                        Next
+                                    </button>
+
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

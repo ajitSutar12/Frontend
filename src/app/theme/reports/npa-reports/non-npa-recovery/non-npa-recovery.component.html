@@ -38,7 +38,7 @@
                             <div class="col-sm-12 col-md-1"> <label for=" Date">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-2 col-md-2">
+                            <div class="col-sm-2 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -57,33 +57,27 @@
                                     </div>
                                 </div>
                             </div>
-                            
 
-                            <div class="col-sm-12 col-md-1"> <label for=" Date"> Date<sub
+
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">NPA DATE<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-2">
-                                <div class="form-group input-group">
+                            <div class="col-sm-2 col-md-2">
+                                <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                            [(ngModel)]="todate" formControlName="END_DATE" appButton minlength="8"
-                                            maxlength="10"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker>
+                                        <ng-select formControlName="NPA_Date" [(ngModel)]="nasf"
+                                           >
+
+                                            <ng-option *ngFor="let values of glDetails" [value]="values">
+                                                {{values.REPORT_DATE}} </ng-option>
+                                        </ng-select>
+
                                     </span>
                                 </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="ngForm.controls['END_DATE'].invalid && (ngForm.controls['END_DATE'].dirty || ngForm.controls['END_DATE'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="ngForm.controls['END_DATE'].errors?. maxlength || ngForm.controls['END_DATE'].errors?. minlength || ngForm.controls['END_DATE'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
-                       
+
                         <div class="row">
                             <div class="col-sm">
                                 <div class="checkbox checkbox-primary">

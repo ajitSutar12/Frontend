@@ -425,6 +425,46 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <label for="GMAIL_USER">User<sub class="required">*</sub></label>
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" name="GMAIL_USER" class="form-control" placeholder=" "
+                                        required id="GMAIL_USER" formControlName="GMAIL_USER">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['GMAIL_USER'].invalid && (angForm.controls['GMAIL_USER'].dirty || angForm.controls['GMAIL_USER'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['GMAIL_USER'].errors?.required">This field is required</div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-12 col-md-3">
+                            <label for="GMAIL_PASSWORD">Password<sub class="required">*</sub></label>
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="password" name="GMAIL_PASSWORD" class="form-control"
+                                        placeholder=" "
+                                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                        title="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+                                        required id="GMAIL_PASSWORD" formControlName="GMAIL_PASSWORD">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['GMAIL_PASSWORD'].invalid && (angForm.controls['GMAIL_PASSWORD'].dirty || angForm.controls['GMAIL_PASSWORD'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['GMAIL_PASSWORD'].errors?.pattern || angForm.controls['GMAIL_PASSWORD'].errors?.required">
+                                    This field is required and must be at least 8 characters long, contain at least
+                                    one uppercase letter, one lowercase letter, one number, and one special
+                                    character</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-sm-4">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">

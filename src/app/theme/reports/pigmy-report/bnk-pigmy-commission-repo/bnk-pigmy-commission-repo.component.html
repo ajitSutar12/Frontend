@@ -37,7 +37,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="schemeCode" (change)="getIntro($event)">
+                                        [(ngModel)]="schemeCode" (change)="getIntro($event);getAgentName($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -57,7 +57,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_acc" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="startingAccount">
+                                        [(ngModel)]="startingAccount" (change)="getAgentName($event)">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -137,11 +137,11 @@
                                 </div>
 
 
-                                <div class="radio radio-inline">
+                                <!-- <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio" value="Application" formControlName="radio">
                                         <i class="helper"></i>Application </label>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
                                 ngForm.controls['radio'].invalid &&

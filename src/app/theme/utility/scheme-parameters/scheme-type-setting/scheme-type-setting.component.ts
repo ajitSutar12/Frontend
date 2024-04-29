@@ -254,6 +254,8 @@ export class SchemeTypeSettingComponent
       S_SPECIAL_INSTRUCTION: [],
       S_SUB_PRINT: [],
       S_FREEZE_APPLICABLE: [],
+      IS_REQUIRED_AUTOMAILER: [true],
+
     });
   }
   // Method to insert data into database through NestJS
@@ -277,6 +279,8 @@ export class SchemeTypeSettingComponent
       S_SPECIAL_INSTRUCTION: (formVal.S_SPECIAL_INSTRUCTION == true ? '1' : '0'),
       S_SUB_PRINT: (formVal.S_SUB_PRINT == true ? '1' : '0'),
       S_FREEZE_APPLICABLE: (formVal.S_FREEZE_APPLICABLE ? '1' : '0'),
+      IS_REQUIRED_AUTOMAILER: (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
+
     };
     this.schemetypeservice.postData(dataToSend).subscribe(
       (data1) => {
@@ -338,6 +342,7 @@ export class SchemeTypeSettingComponent
     data['S_SPECIAL_INSTRUCTION'] = (data.S_SPECIAL_INSTRUCTION == true ? '1' : '0')
     data['S_SUB_PRINT'] = (data.S_SUB_PRINT == true ? '1' : '0')
     data['S_FREEZE_APPLICABLE'] = (data.S_FREEZE_APPLICABLE ? '1' : '0')
+    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
 
 
 
