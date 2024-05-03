@@ -241,6 +241,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.ngBranchCode = result.branch.id
     // }
   }
+  
 
 
 

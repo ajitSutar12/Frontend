@@ -42,7 +42,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Date" [(ngModel)]="dateY" bindValue="DATE"
-                                        bindLabel="DATE" (change)="getDate($event)">
+                                        bindLabel="DATE" (change)="getDate($event);secondtableData();calculateTotals()">
                                         <ng-option *ngFor="let values of ydate" [value]="values">
                                             {{values.DATE}} </ng-option>
                                     </ng-select>
@@ -52,10 +52,10 @@
 
                         </div>
 
-                    </div>
+                    <!-- </div>
 
-                    <div class="row">
-                        <div class="com-sm-3">
+                    <div class="row"> -->
+                        <div class="com-md-3">
                             <button class="btn btn-outline-primary btn-sm" (click)="dayend()">Year
                                 End</button>
                         </div>
@@ -72,4 +72,69 @@
         </div>
     </div>
 </div>
-<div [class]="modalClass"><!-- Place at bottom of page --> </div>
+<div [class]="modalClass"></div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Year Ending Entries</h5>
+            </div>
+            <form>
+                <div class="col-md-12">
+                    <div class="solid">
+
+                        <table class="table table-bordered table-hover compact fixed-size-table" style=" width: 100%;" *ngIf="showTable">
+                            <thead style="text-align: center;">
+                                <td style="width: 150px;">Code</td>
+                                <td style="width: 500px;"style="text-align: left;"> Account Name</td>
+                                <td >Debit</td>
+                                <td >Credit</td>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let data of TableArray;let last = last" [class.highlight]=" data === lastRowIndex">
+                                    <td>{{data.TRAN_ACNO}} </td>
+                                    <td style="text-align: left;">{{ data.AC_NAME }}</td>
+                                    <td *ngIf="data.TRAN_DRCR === 'D'">{{ data.TRAN_AMOUNT}}</td>        
+                                    <td *ngIf="data.TRAN_DRCR === 'C'"></td>                          
+                                    <td *ngIf="data.TRAN_DRCR === 'C'" >{{ data.TRAN_AMOUNT}}</td>
+                                    <td *ngIf="data.TRAN_DRCR === 'D'"></td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+<div class="row" *ngIf="showTable">
+    <div class="col-sm-12 col-md-6">
+        <!-- <button type="button" class="btn btn-primary btn-sm">Ok</button> -->
+    </div>
+    <div class="col-sm-12 col-md-1">
+        <label class="form-group">Total Debit</label>
+    </div>
+    <div class="col-sm-12 col-md-2">
+        
+            <span class="border-lable-flt">
+                <input type="text" class="form-control" 
+                    formControlName="Tb" value="{{ totalDebit1 }}" disabled>
+    
+        </span>
+    </div>
+    <div class="col-sm-12 col-md-1">
+        <label class="form-group">Total credit</label>
+    </div>
+    <div class="col-sm-12 col-md-2">
+        <span class="border-lable-flt">
+            <input type="text" class="form-control" 
+                formControlName="Tc" value="{{ totalCredit1 }}" disabled>
+
+    </span>
+    </div>
+
+</div>
+</form>
+</div>
+</div>
+</div>
+

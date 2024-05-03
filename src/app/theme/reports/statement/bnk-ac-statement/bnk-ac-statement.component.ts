@@ -202,7 +202,8 @@ export class BnkAcStatementComponent implements OnInit {
     switch (this.getschemename) {
       
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getTermDepositMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -210,7 +211,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
       case 'SB':
-        this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getSavingMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -218,7 +220,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
       case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => { 
+          this.schemeAccountNoService.getDisputeLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -234,7 +237,8 @@ export class BnkAcStatementComponent implements OnInit {
           })
           break;
           case 'CA':
-        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getCurrentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
             this.ngAcnoFrom = null
             this.introducerACNo = data;
@@ -242,7 +246,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
         case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.schemeAccountNoService.getTermLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
             this.ngAcnoFrom = null
             this.introducerACNo = data;
@@ -250,7 +255,8 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
         case 'DS':
-          this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          // this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+            this.schemeAccountNoService.getDisputeLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
             this.introducerACNo = data;
             this.ngAcnoFrom = null
             this.introducerACNo = data;
@@ -258,7 +264,8 @@ export class BnkAcStatementComponent implements OnInit {
           })
           break;
           case 'CC':
-            this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getCashCreditMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
               this.ngAcnoFrom = null
               this.introducerACNo = data;
@@ -267,7 +274,8 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'GS':
-            this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getAnamatSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getAnamatMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -276,7 +284,8 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'PG':
-            this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getPigmyAccountMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
               this.ngAcnoFrom = null
               this.introducerACNo = data;
@@ -285,7 +294,8 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'AG':
-            this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getPigmyAgentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
               this.introducerACNo = data;
           this.ngAcnoFrom = null
           this.introducerACNo = data;
@@ -294,7 +304,9 @@ export class BnkAcStatementComponent implements OnInit {
             break;
     
           case 'IV':
-            this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+            // this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+              this.schemeAccountNoService.getInvestmentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+
               this.introducerACNo = data;
               this.ngAcnoFrom = null
               this.introducerACNo = data;

@@ -2676,7 +2676,8 @@ export class VoucherEntryComponent implements OnInit {
         var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
 
         // let value = open + pass + data2;
-        let value = open + pass + this.pigmyamount;
+        // let value = open + pass + this.pigmyamount;
+        let value = open + pass ;
         if (value < 0) {
           this.ClearBalance = Math.abs(value).toFixed(2)
           this.typeclearbal = 'Dr'

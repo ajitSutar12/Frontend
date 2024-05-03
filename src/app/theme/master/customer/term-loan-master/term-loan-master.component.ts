@@ -150,6 +150,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   itemsPerPage = 10;
   totalItems: any;
   currentJustify = 'start';
+
+  showData: boolean = false;
+
   active = 1;
   activeKeep = 1;
   // Variables for search 
@@ -576,6 +579,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.characters = options;
     });
 
+    this.getData();
+
+
   };
 
   // Create form Method
@@ -607,6 +613,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       AC_CAST: [''],
       AC_OCODE: [''],
       AC_ADDFLAG: [true],
+      IS_REQUIRED_AUTOMAILER: [true],
       AC_ADDTYPE: ['P'],
       AC_THONO: ['', [Validators.pattern]],
       AC_TWARD: ['', [Validators.pattern]],
@@ -667,7 +674,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   getSchemeCode(value) {
     this.schemeCode = value.name
   }
-
+  IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
   submit(event) {
     this.formSubmitted = true;
@@ -769,6 +776,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_COREG_AMT': formVal.AC_COREG_AMT,
         'AC_RESO_NO': formVal.AC_RESO_NO,
         'AC_REMARK': formVal.AC_REMARK,
+        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
         'AC_RESO_DATE': (formVal.AC_RESO_DATE == '' || formVal.AC_RESO_DATE == 'Invalid date') ? resodate = '' : resodate = moment(formVal.AC_RESO_DATE).format('DD/MM/YYYY'),
         AC_ADDFLAG: formVal.AC_ADDFLAG,
         AC_ADDTYPE: this.addType,
@@ -843,7 +851,50 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
   }
+  getdata
+  getData() {
+    this.http.get(this.url + '/dispute-loan-master', {}).subscribe((data: any) => {
+      this.getdata = data;
+      let acNo = data[0].AC_NO;
+      this.DISPUTEDATA(acNo);
 
+    });
+
+  }
+
+  loanmaster
+  DISPUTEDATA(acNo: string) {
+
+    let obj = { AC_NO: acNo };
+    this.http.post(this.url + '/dispute-loan-master/getACNO', obj)
+      .subscribe((data: any) => {
+        this.loanmaster = data
+        if (data.STATUS == 1) {
+          this.showData = true;
+          this.angForm.patchValue({
+            CASE_SUITE_DATE: data.CASE_SUITE_DATE,
+            COURT_INT_RATE: data.COURT_INT_RATE,
+            COURT_INSTALLMENT: data.COURT_INSTALLMENT,
+            COURT_ORDER_DATE: data.COURT_ORDER_DATE,
+            SUITE_AMT: data.SUITE_AMT,
+            COURT_RESULT_DATE: data.COURT_RESULT_DATE,
+            BRANCH_CODE: data.BRANCH_CODE,
+            RECOVERABLE_AMT: data.RECOVERABLE_AMT,
+            INT_CALC_DATE: data.INT_CALC_DATE,
+            RECOVERABLE_INT: data.RECOVERABLE_INT,
+            COURT_CASE_NO: data.COURT_CASE_NO,
+            REF_OLD_AC_TYPE: data.REF_OLD_AC_TYPE,
+            REF_OLD_AC_NO: data.REF_OLD_AC_NO,
+            ADVOCATE: data.ADVOCATE,
+            LOAN_STAGE: data.LOAN_STAGE,
+            COURT: data.COURT,
+          });
+        } else {
+          this.showData = false;
+          this.angForm.reset();
+        }
+      });
+  }
   // Reset Function
   resetForm() {
     this.switchNgBTab('Basic')
@@ -1003,7 +1054,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // }
 
   // Method For New Button
-  
+
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
@@ -1017,7 +1068,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.columnShowButton = true
 
     this.termLoanService.getFormData(id).subscribe(data => {
-      
+
       this.createForm()
       this.tempbankacno = data.BANKACNO
       this.accountedit = data.BANKACNO
@@ -1091,10 +1142,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.angForm.controls['AC_DIRECTOR_RELATION'].reset();
       }
       this.sanctionAmt = Number(data.AC_SANCTION_AMOUNT).toFixed(2)
-      this.openingDate=data.AC_OPDATE
+      this.openingDate = data.AC_OPDATE
       this.sanctionDate = (data.AC_SANCTION_DATE == 'Invalid date' || data.AC_SANCTION_DATE == '' || data.AC_SANCTION_DATE == null) ? sanctiondate = '' : sanctiondate = data.AC_SANCTION_DATE,
         this.drawingPower = Number(data.AC_DRAWPOWER_AMT).toFixed(2)
-      this.ngexpiry = data.AC_EXPIRE_DATE 
+      this.ngexpiry = data.AC_EXPIRE_DATE
       // == 'Invalid date' || data.AC_EXPIRE_DATE == '' || data.AC_EXPIRE_DATE == null) ? expirydate = '' : expirydate = data.AC_EXPIRE_DATE,
       this.intRate = data.AC_INTRATE
       this.repay = data.AC_REPAYMODE
@@ -1127,9 +1178,11 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           AC_COREG_AMT: data.AC_COREG_AMT,
           AC_RESO_NO: data.AC_RESO_NO,
         })
+      this.DISPUTEDATA(this.getdata[0].AC_NO)
+
     })
   }
-  
+
   addNewData() {
     this.angForm.controls['AC_TYPE'].enable()
     this.showButton = true;
@@ -1161,6 +1214,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     data['SecurityData'] = this.multiSecurity
     data['id'] = this.updateID;
     data['IS_AGGRI_LOAN'] = (data.IS_AGGRI_LOAN == true ? '1' : '0')
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
 
 
     let date
@@ -2229,6 +2283,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         // var expiryDate = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(days, 'd').format('DD/MM/YYYY');
         let expiryT = moment(this.angForm.controls['AC_OPEN_OLD_DATE'].value).add(days, 'd').format('DD/MM/YYYY')
         let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+
         this.tempexpiryDate = expiryDate
         this.angForm.patchValue({
           AC_EXPIRE_DATE: expiryDate
@@ -2250,7 +2305,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           var date = full[0].split(/\//);
           var newDate = date[1] + '/' + date[0] + '/' + date[2]
           var k = new Date(newDate);
-          var expiryDate = moment(k).add(days, 'd').format('DD/MM/YYYY');
+          var expiryT = moment(k).add(days, 'd').format('DD/MM/YYYY');
+          let expiryDate = moment(expiryT, 'DD/MM/YYYY').add(Number(this.angForm.controls['AC_MONTHS'].value), 'months').format('DD/MM/YYYY')
+
           this.tempexpiryDate = expiryDate
           this.angForm.patchValue({
             AC_EXPIRE_DATE: expiryDate

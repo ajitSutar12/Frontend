@@ -65,7 +65,7 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
       this.branchCode = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id == 1) {
         this.branchCode.push({ value: '0', label: 'Consolidate' })
       }
 

@@ -39,6 +39,7 @@ export class RecePayRepDetailsComponent implements OnInit {
  report_url = environment.report_url;
  iframeurl: any = ' ';
  clicked:boolean=false;
+  branchName: string;
 
 
   constructor(  private fb: FormBuilder,
@@ -57,7 +58,12 @@ export class RecePayRepDetailsComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    });
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }    
+    })
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -171,8 +177,10 @@ export class RecePayRepDetailsComponent implements OnInit {
       let tran = obj.TRANSCATION;
       let print = obj.PRINT;
       let penal = obj.PENAL;
-
-      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + branchName + "&flag=" + flag + "";
+      if(branchCode == 0){
+        this.branchName='Consolidate';
+     }
+      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + this.branchName + "&flag=" + flag + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

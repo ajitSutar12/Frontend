@@ -315,6 +315,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.getIntroducer()
   }
 
+  
+
   //get account no according scheme for introducer
   getIntroducer() {
     this.introducerACNo = [];
