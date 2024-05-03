@@ -896,6 +896,16 @@ export class AccountEnquiryComponent implements OnInit {
           this.transactionData = data
           this.PIGMY_ACTYPE = data.pigmyScheme
           this.introducerName = data.introducer
+
+          let obj = [
+            this.ngscheme,
+            this.bankacno,
+            this.getschemename
+          ]
+          this.lienInfoArr = []
+          this.http.get<any>(this.url + '/ledger-view/lienInformaionView/' + obj).subscribe((data) => {
+            this.lienInfoArr = data
+          })
         }
         this.modalClass = 'modalHide';
       }, (error) => {
@@ -1625,6 +1635,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.customerIDArr = data
       })
     }
+    
   }
   selectedImagePreview: any;
   documentUrl = this.url + '/'
