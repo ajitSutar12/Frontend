@@ -51,7 +51,7 @@ export class ProfitLossAccountComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
 
@@ -99,9 +99,11 @@ export class ProfitLossAccountComponent implements OnInit {
         date = moment(this.fromdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-      let branch_code = obj.BRANCH_CODE;
-
-      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch_code + "&bankName=" + bankName + "" + "'&branchCode="+this.ngbranch+ "&branchName=" + this.branchName;
+      let branch = obj.BRANCH_CODE;
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
+      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch + "&bankName=" + bankName + "" + "'&branchCode="+this.ngbranch+ "&branchName=" + this.branchName;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

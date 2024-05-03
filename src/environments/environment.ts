@@ -9,7 +9,7 @@ export const environment = {
   // Localhost
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
+  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
 
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
@@ -24,7 +24,7 @@ export const environment = {
   //VADGAON_SARAF 
   // base_url: 'http://103.174.87.104:7797',  //CBS  vadgaon server
   // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
-  sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
+  // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
 
  //Jijamata Arjunwada
   // base_url: 'http://103.174.87.104:7274',

@@ -623,6 +623,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       AC_PHNO: [''],
       AC_MOBNO: [''],
       AC_EMAIL: [''],
+      IS_REQUIRED_AUTOMAILER: [true],
 
 
       AC_INTROBRANCH: ['', [Validators.pattern]],
@@ -670,7 +671,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
     }
   }
-
+  IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
   submit(event) {
     event.preventDefault();
@@ -730,6 +731,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_OPDATE': temdate,
         'AC_NAME': formVal.AC_NAME,
         'AC_SCHMAMT': formVal.AC_SCHMAMT,
+        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
         'REF_ACNO': formVal.REF_ACNO,
         'AC_IS_RECOVERY': (formVal.AC_IS_RECOVERY == true ? '1' : '0'),
         //temp address 
@@ -975,6 +977,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
+    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+
     data['id'] = this.updateID;
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == '1' ? 1 : 0)
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {

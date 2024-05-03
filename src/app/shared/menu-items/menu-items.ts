@@ -128,6 +128,11 @@ const MENUITEMS1 = [
                 name: 'Budget Allocation Master',
                 id: 11
               },
+              {
+                state: 'budget-view',
+                name: 'Budget View',
+                id: 359
+              },
             ]
 
           },
@@ -926,12 +931,12 @@ const MENUITEMS1 = [
             id: 147
 
           },
-          // {
-          //   state: 'lockerView',
-          //   name: 'Locker View',
-          //   id: 348
+          {
+            state: 'lockerView',
+            name: 'Locker View',
+            id: 348
 
-          // },
+          },
         ],
 
       },
@@ -2130,8 +2135,14 @@ const MENUITEMS1 = [
           {
             state: 'monthly recovery process',
             name: 'Monthly recovery process',
-            id: 357
+            id: 360
           },
+          {
+            state: 'yearEndBranchwise',
+            name: 'Year End BranchWise',
+            id: 361
+          },
+
         ]
       },
       {
@@ -2953,6 +2964,11 @@ const MENUITEMS = [
                 name: 'Budget Allocation Master',
                 id: 11
               },
+              {
+                state: 'budget-view',
+                name: 'Budget View',
+                id: 359
+              },
             ]
 
           },
@@ -3751,12 +3767,12 @@ const MENUITEMS = [
             id: 147
 
           },
-          // {
-          //   state: 'lockerView',
-          //   name: 'Locker View',
-          //   id: 348
+          {
+            state: 'lockerView',
+            name: 'Locker View',
+            id: 348
 
-          // },
+          },
         ],
 
       },
@@ -4955,7 +4971,12 @@ const MENUITEMS = [
           {
             state: 'monthly recovery process',
             name: 'Monthly recovery process',
-            id: 357
+            id: 360
+          },
+          {
+            state: 'yearEndBranchwise',
+            name: 'Year End BranchWise',
+            id: 361
           },
         ]
       },
