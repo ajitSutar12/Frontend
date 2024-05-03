@@ -1,43 +1,176 @@
-<!-- <div class="row">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h5>Locker View</h5>
-                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
-                </h6>
             </div>
-            <form  [formGroup]="angForm" novalidate>
-                <div class="card-block">
-                    <div class="solid">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="LOCKER">Locker Size<sub class="required">*</sub></label>
-                            </div>
-                           <div class="col-sm-12 col-md-2">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select appTheme id="LOCKER_SIZE" bindValue="value" [(ngModel)]="ngLockerSize"
-                                            formControlName="LOCKER_SIZE" bindLabel="label" title="Compulsory Selection"
-                                            [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
-                                            [selectOnTab]='true' autofocus>
-                                            <ng-option *ngFor="let values of branchOption" [value]="values">
-                                                {{values.label}}</ng-option>
-                                        </ng-select>
-
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['LOCKER_SIZE'].invalid && (angForm.controls['LOCKER_SIZE'].dirty || angForm.controls['LOCKER_SIZE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['LOCKER_SIZE'].errors?.required">
-                                        This field is required.
-                                    </div>
-                                </div>
-                            </div> -->
-                        <!-- </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
-</div> -->
+</div>
+
+
+<div class="horizontal-container">
+    <div class="horizontal-item" *ngFor="let data of lockerViewArray">
+        <div class="card" style="width: 250px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="z-depth-top-0">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="lblCls">Rent</label>
+                            </div>
+                            <div class="form-group">
+                                <label>{{data.RENT}}</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <div class="form-group">
+                                <label class="lblCls">Deposit</label>
+                            </div>
+                            <div class="form-group">
+                                <label>{{data.RENT}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4" style="text-align: center;">
+                                    <div class="form-group">
+                                        <label class="lblCls" style="font-size: large;">Size</label>
+                                    </div>
+                                    <div class="row">
+                                        <!-- <div class="col-sm-2"></div> -->
+                                        <div class="col-sm-12" style="text-align: center;">
+                                            <div class="form-group">
+                                                <label>{{data.SIZE_NAME}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="ui-widgets" (click)="lockerView(data.SIZE_SR_NO);openModal()">
+                        <div class="ui-values">Available: <br>
+                            <span>{{ data.availableCount }}</span>
+                        </div>
+                        <div class="ui-labels"></div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" style="text-align: center;">
+                                        <label class="lblCls">Total {{data.totalCount}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" style="text-align: center;">
+                                        <label class="lblCls" [(ngModel)]="rentedCount">Rented: {{ data.rentedCount
+                                            }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngFor="let data of lockerCountCard">
+    <div class="card">
+        <div class="z-depth-top-0">
+            <table>
+                <tr>
+                    <th>Rack No. {{data}}</th>
+                    <ng-container *ngFor="let value of lockerCount.slice(0, 25); let i = index">
+                        <td [style.background-color]="getCellColor(data.toString(), value.toString())">{{ value }}
+                        </td>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <td></td>
+                    <ng-container *ngFor="let value of lockerCount.slice(25, 50); let i = index">
+                        <td [style.background-color]="getCellColor(highlightedRackNo, value.toString())">{{ value }}
+                        </td>
+                    </ng-container>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+</div>
+
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" style="font-size: small;">
+                <div class="col-sm-12">
+                    <div class="card-block">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead style="position: sticky; top: 0; background-color: #f8f9fa;">
+                                    <tr>
+                                        <th>Account Name</th>
+                                        <th>Rack No.</th>
+                                        <th>Locker No.</th>
+                                        <th>LK Account Number</th>
+                                        <th>Opening Date</th>
+                                        <th>Expire Date</th>
+                                        <th>Scheme Name</th>
+                                        <th>TD Account Number</th>
+                                        <th>Deposit Amount</th>
+                                        <!-- <th>Ledger Balance</th> -->
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let data of lockerData">
+                                        <td>{{data.AC_NAME}}</td>
+                                        <td>{{data.RACK_NO}}</td>
+                                        <td>{{data.DP_LOCKER_NO}}</td>
+                                        <td>{{data.AC_NO}}</td>
+                                        <td>{{data.AC_OPDATE}}</td>
+                                        <td>{{data.ACEXPDT}}</td>
+                                        <td>{{data.S_NAME}}</td>
+                                        <td>{{data.TD_ACNO}}</td>
+                                        <td>{{data.AC_SCHMAMT }}</td>
+                                        <!-- <td>{{data.ledgerbalance}}</td> -->
+                                       
+
+                                    </tr>
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        (click)="closeModal()">Cancel</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

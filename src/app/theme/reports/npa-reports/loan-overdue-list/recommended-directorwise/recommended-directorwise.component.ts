@@ -103,7 +103,7 @@ export class RecommendedDirectorwiseComponent implements OnInit {
       this.branchOption = data;   
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    
 

@@ -46,6 +46,10 @@ const routes: Routes = [
         loadChildren: () => import('./pigmy-app-process/pigmy-app-process.module').then(m => m.PigmyAppProcessModule)
       },
       {
+        path: 'monthRecProc',
+        loadChildren: () => import('./monthly-rec-proc/monthly-rec-proc.module').then(m => m.MonthlyRecProcModule)
+      },
+      {
         path: 'whatsappmessages',
         loadChildren: () => import('./send-message/send-message.module').then(m => m.SendMessageModule)
       },
@@ -148,7 +152,8 @@ const routes: Routes = [
       {
         path: 'recAmtTrToGL',
         loadChildren: () => import('./recurring-attg/recurring-attg.module').then(m => m.RecurringAttgModule)
-      }
+      },
+     
     ]
   }
 ];

@@ -1,0 +1,56 @@
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Recovery Process </h5>
+                
+            </div>
+            <div class="card-block">
+                <div class="col-md-12">
+                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+
+                        <ul class="basic-list">
+                            <li>
+                                <h6> <a (click)="OpenLink(1)"
+                                    routerLink="/process/recovery-processing/"
+                                        [ngClass]="{'isActive': monthlyrecoveryProcess}"
+                                     routerLinkActive="active" class="text-right f-w-600" id="pointer">Monthly Recovery Process </a></h6>
+                            </li>
+
+                            <li>
+                                <h6> <a (click)="OpenLink(2)"
+                                    routerLink="/process/recovery-processing/"
+                                        [ngClass]="{'isActive': monthlyrecoveryPosting}"
+                                     routerLinkActive="active" class="text-right f-w-600" id="pointer">Monthly recovery Posting</a></h6>
+                            </li>  
+                            <!-- <li>
+                                <h6> <a (click)="OpenLink(3)"
+                                    routerLink="/process/recovery-processing/"
+                                        [ngClass]="{'isActive': editrecoveryPosting}"
+                                     routerLinkActive="active" class="text-right f-w-600" id="pointer">Edit recovery Process</a></h6>
+                            </li>   -->
+                            
+                                                 
+                        </ul>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="card-block">
+           
+            <div *ngIf="monthlyrecoveryProcess">
+                <app-monthly-rec-process></app-monthly-rec-process>
+            </div>
+            <div *ngIf="monthlyrecoveryPosting">
+                <app-monthly-rec-posting></app-monthly-rec-posting>
+            </div>
+            <!-- <div *ngIf="editrecoveryPosting">
+                <app-edit-monthly-process></app-edit-monthly-process>
+            </div> -->
+                       
+        </div>
+    </div>
+</div>

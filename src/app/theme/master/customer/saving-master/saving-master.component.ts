@@ -623,6 +623,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_PANNO: [''],
       AC_ADHARNO: [''],
       // AC_SCHMAMT: ['', [Validators.pattern]],
+      IS_REQUIRED_AUTOMAILER: [true],
       AC_IS_RECOVERY: [0],
       //Address
       AC_ADDFLAG: [true],
@@ -795,7 +796,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_INTRNAME: value.name
     })
   }
-
+  is_reqired_auto
   // Method to insert data into database through NestJS
   submit(event) {
     let temdate
@@ -857,6 +858,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TAREA: formVal.AC_TAREA,
         AC_TCTCODE: formVal.AC_TCTCODE,
         AC_TPIN: formVal.AC_TPIN,
+        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
+
         //minor and introducer
         'AC_MINOR': (formVal.AC_MINOR == true ? '1' : '0'),
         'AC_MBDATE': formVal.AC_MBDATE,
@@ -1092,6 +1095,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
+    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
     data['id'] = this.updateID;
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')

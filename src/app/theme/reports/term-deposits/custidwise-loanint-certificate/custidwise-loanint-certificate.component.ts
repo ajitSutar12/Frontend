@@ -111,7 +111,7 @@ getTransferAccountList(event) {
 end() {}
 src: any;
 view(event) {
-  debugger
+  
   event.preventDefault();
   this.formSubmitted = true;
 

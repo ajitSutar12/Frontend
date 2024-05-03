@@ -1,4 +1,3 @@
-<p>recovery-flag-updation works!</p>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -138,7 +137,8 @@
                                                     <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
                                                         data.AC_NAME}}</td>
                                                     <td><input type="text" class="form-control" formControlName="TAMT"
-                                                        focusout="getDecimalPoint($event)" (keyup)="getDecimal($event)">
+                                                        (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
+                                                        (change)="checkInterestFlag(data.id,data.AC_NO,$event)">
                                                     </td>
                                                     <td class="td_center">
                                                         <input type="checkbox" class="border-checkbox"

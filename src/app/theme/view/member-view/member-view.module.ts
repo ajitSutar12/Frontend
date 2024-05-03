@@ -7,12 +7,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { MemberViewComponent } from './member-view.component';
-import { MemberViewRoutingModule } from './member-view-routing.module'
+import { MemberViewRoutingModule } from './member-view-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
+import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -25,6 +29,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
+    Iframe5Module,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
   ],
@@ -34,7 +39,10 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
     useClass: UserAuthInterceptor,
     multi: true
   },
-  SchemeAccountNoService,
+  SchemeCodeDropdownService,
+    SchemeAccountNoService,
+    SchemeTypeDropdownService,
+    SystemMasterParametersService
 ]
 })
-export class GeneralLedgerModule { }
+export class MemberViewModule { }

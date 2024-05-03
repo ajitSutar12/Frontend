@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 // import { BackupDataComponent } from './backup-data/backup-data.component';
 import { BackupDataComponent } from './../process/backup-data/backup-data.component';
+import { MonthlyRecProcComponent } from './monthly-rec-proc/monthly-rec-proc.component';
 
 @NgModule({
   declarations: [],
