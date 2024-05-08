@@ -3,16 +3,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Member Guranter Details</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h5>Member Liability View</h5>
+                <h6 style="float: right;"><sub class="required">* </sub> Required Fields</h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for=""> Scheme Code<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedshScheme" #scheme formControlName="scheme"
@@ -33,13 +33,13 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member No.<sub
+                        <div class="col-sm-12 col-md-2"> <label for="">Customer<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedmemNo" #scheme formControlName="memNo"
-                                        bindValue="bankacno" bindLabel="NAME">
+                                        bindValue="bankacno" bindLabel="NAME" (change)="getIntro1($event);">
                                         <ng-option *ngFor="let item of introducerACNo" [value]="item">
                                             {{item.label}} {{item.name}}</ng-option>
                                     </ng-select>
@@ -54,16 +54,61 @@
                             </div>
 
                         </div>
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub class="required">*</sub></label></div>
+                        <div class="col-sm-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                    [(ngModel)]="fromdate" [bsValue]="bsValue"  class="form-control"  appButton minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  [maxDate]="maxDate"
+                                        formControlName="FROM_DATE"
+                                        required bsDatepicker />
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        
+
                     </div>
-
                     <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="PRINT_CUSTID"
+                                        formControlName="PRINT_CUSTID">
+                                    <label class="border-checkbox-label" for="PRINT_CUSTID">Print Close Accounts?
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                (click)="view($event); clicked = true ">View</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="isShow">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
-
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
-
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
-
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                    <app-iframe5 [url]='iframe5url' ></app-iframe5>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

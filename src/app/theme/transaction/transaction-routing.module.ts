@@ -125,6 +125,10 @@ const routes: Routes = [
       //   path: 'goldSilverReceipt',
       //   loadChildren: () => import('./gold-silver-receipt-print/gold-silver-receipt-print.module').then(m => m.GoldSilverReceiptPrintModule)
       // },
+      {
+        path: 'ddtransaction',
+        loadChildren: () => import('./dd-transaction/dd-transaction.module').then(m => m.DdTransactionModule)
+      },
     ]
   }
 ];

@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -67,6 +67,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   obj: any[];
 
 
+
   Accode: any;
   memFrom: any;
   memTo: any;
@@ -94,6 +95,11 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   isShow: boolean = true
   @ViewChild('ctdTabset') ctdTabset;
   id: any;
+
+  // selectedItemsString: any;
+  // isShow: boolean = true
+  // @ViewChild('ctdTabset') ctdTabset;
+  // id: any;
 
 
   constructor(
@@ -126,6 +132,14 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
           this.isShow = false
         )
       }
+
+      // let data1: any = localStorage.getItem('user');
+      // let result = JSON.parse(data1);
+      // if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
+      //   this.branchOption.push({ value: '0', label: 'Consolidate' },
+      //     this.isShow = false
+      //   )
+      // }
 
     })
     // Scheme Code
@@ -161,6 +175,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       this.ngbranch = result.branch.id
       this.branchName = result.branch.NAME
       this.switchNgBTab('Basic')
+      this.switchNgBTab('Basic')
 
     }
 
@@ -172,16 +187,19 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     this.tScheme = event.name
     this.VScheme = event.value
 
+
     // this.selectedItems =null;
     console.log(this.tScheme);
     // this.getTable();
     this.getintroduce();
 
 
+
   }
   switchNgBTab(id: string) {
     this.ctdTabset.select(id);
   }
+
   getAccountList(event) {
     this.acno = event.bankacno
     console.log(this.Accode);
@@ -245,6 +263,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   }
 
   accArray: string[]
+  // accArray: string[]
   checkInterestFlag(id: any, bankacno: any, flag: any) {
     let isIntUpdate: boolean = false
     if (flag.target.checked) {
@@ -270,6 +289,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
 
   selectedArrayItem: any[]
+  // selectedArrayItem: any[]
   view(event) {
 
     // this.selectedArrayItem = this.selectedArrayItem.map(item => ({ id: this.selectedItems }))
@@ -292,6 +312,13 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       
     // }
     if (this.ngForm.valid) {
+      // let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+      let bankacno;
+      // if (this.selectedItems) {
+        bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+      // } else {
+
+      // }
 
       this.showRepo = true;
       let obj = this.ngForm.value
@@ -316,6 +343,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       // const selectedItemsString = Array.isArray(this.selectedItems)
       //   ? this.selectedItems.join(',')
       //   : String(this.selectedItems);
+
 
       let halfCircleBracketArray = this.selectedItems
         .toString()

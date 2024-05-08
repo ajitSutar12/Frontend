@@ -121,6 +121,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.angForm.controls['AC_OPDATE'].disable()
     this.angForm.controls['AMOUNT'].disable()
   }
+  isOpen: boolean = false
   changeAccountDetails(event) {
     this.tableData = []
     this.transactions = null
@@ -145,6 +146,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.AC_OPDATE,
       AMOUNT: maturedAmount
     })
+
+
     this.opendate = event.AC_OPDATE
     this.accountOpenDate = moment(event.AC_OPDATE, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
@@ -254,7 +257,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL'|| scheme.name == 'CA')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL' || scheme.name == 'CA')
       });
       this.scheme = allscheme;
     })
@@ -262,7 +265,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-  
+
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
@@ -300,6 +303,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   schemechange(event) {
+    this.acCloseDate = null
+    this.isOpen = false
+    this.freezeac = false
     this.getschemename = event.name
     this.ngscheme = event.value
     this.schemeACNo = null
@@ -401,7 +407,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.bankacno = event.bankacno
     this.dormantac = event.dormant
     this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
-    this.acCloseDate = event.acClose == null || event.acClose == '' ? '' : event.acClose
+    this.acCloseDate = event.acClose == null || event.acClose == '' ? null : event.acClose
     this.freezeac = event.freez == null || event.freez == '' ? false : true
     this.freezStataus = event.freez == null || event.freez == '' ? '' : event.freez
     let autoMaturedPayableAmt = event.autoMaturedPayableAmt == undefined ? 0 : event.autoMaturedPayableAmt
@@ -411,7 +417,23 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.opendate,
       AMOUNT: maturedAmount
     })
+    if (this.acCloseDate != null) {
+      this.acCloseDate = event.acClose
+      this.isOpen = false
+      this.freezeac = false
 
+    }
+    else if (this.freezeac == true) {
+      this.acCloseDate = null
+      this.isOpen = false
+      this.freezeac = true
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+      this.freezeac = false
+
+    }
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
   }

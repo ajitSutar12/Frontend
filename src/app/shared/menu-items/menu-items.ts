@@ -356,6 +356,16 @@ const MENUITEMS1 = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 47
+              },
+              {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
+              },
+              {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
               }
             ]
 
@@ -764,11 +774,11 @@ const MENUITEMS1 = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -803,6 +813,7 @@ const MENUITEMS1 = [
             name: 'Inward Register',
             id: 131
           },
+
         ]
       },
       {
@@ -935,6 +946,12 @@ const MENUITEMS1 = [
             state: 'lockerView',
             name: 'Locker View',
             id: 348
+
+          },
+          {
+            state: 'memberguaranterdetail',
+            name: 'Member Guaranter Detail',
+            id: 368
 
           },
         ],
@@ -1629,6 +1646,36 @@ const MENUITEMS1 = [
           //   name: 'Nottice',
           //   id: 252
           // },
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 364
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 366
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 367
+                    },
+                  ]
+                },
           // //
           // {
           //   state: 'Report_Frame',
@@ -3192,6 +3239,10 @@ const MENUITEMS = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 47
+              }, {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
               }
             ]
 
@@ -3600,11 +3651,11 @@ const MENUITEMS = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -3771,6 +3822,12 @@ const MENUITEMS = [
             state: 'lockerView',
             name: 'Locker View',
             id: 348
+
+          },
+          {
+            state: 'memberguaranterdetail',
+            name: 'Member Guaranter Detail',
+            id: 368
 
           },
         ],
@@ -4466,6 +4523,36 @@ const MENUITEMS = [
           //   name: 'Nottice',
           //   id: 252
           // },
+{
+          state: 'nottice',
+                name: 'Nottice',
+                short_label: 'D',
+                type: 'sub',
+                icon: 'icon-home',
+                id: 362,
+                children: [
+                  {
+                    state: 'noticereport',
+                    name: 'Notice Report',
+                    id: 364
+                  },
+                  {
+                    state: 'noticeformat',
+                    name: 'Notice Format',
+                    id: 365
+                  },
+                  {
+                    state: 'blankNotice',
+                    name: 'Blank Notice Format',
+                    id: 366
+                  },
+                  {
+                    state: 'showNotice',
+                    name: 'Get Notice Format',
+                    id: 367
+                  },
+                ]
+              },
           // //
           // {
           //   state: 'Report_Frame',

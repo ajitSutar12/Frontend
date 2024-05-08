@@ -71,7 +71,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
                                                 class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-10">
+                                    <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select appTheme id="AC_NO" bindValue="AC_NO"
@@ -102,6 +102,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
+                                        *ngIf="isOpen">Open Account </div>
+                                    <div class="col-sm-3 col-md-2" style="float: right;" *ngIf="acCloseDate">
+                                        <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="DATE">Date<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -153,7 +160,8 @@
                                     <div class="col-sm-3 col-md-3" *ngIf="dormantac">
                                         <div><label style="color: #1e5bc5">Dormant Account</label></div>
                                     </div>
-                                    <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="!acCloseDate"></div>
+                                    <div class="col-sm-3 col-md-3" style="float: right; color: rgb(14 168 14);"
+                                        *ngIf="isOpen">Account Open</div>
                                     <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="acCloseDate">
                                         <div><label style="color: red; font-size: 13px;">Account Closed On:
                                                 {{acCloseDate}}</label></div>

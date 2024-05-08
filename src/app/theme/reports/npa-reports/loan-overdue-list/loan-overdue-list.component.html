@@ -7,9 +7,11 @@
 </div>
 <div class="row">
     <div class="col-sm-3" *ngIf="isShow">
+    <div class="col-sm-3" *ngIf="isShow">
         <div class="card">
             <!-- <div class="card-header">
                 <h5>Loan Overdue List</h5>
+            </div> -->
             </div> -->
             <div class="card-block">
                 <div class="col-md-12">
@@ -22,6 +24,7 @@
                                         class="text-right f-w-600" id="pointer" (click)="hideShow()">1. Accountwise Loan
                                         Overdue Report</a></h6>
                             </li>
+
 
                             <li>
                                 <h6> <a (click)="OpenLink(3)" routerLink="/reports/loan-reports/loan-overdue-list"

@@ -41,6 +41,7 @@ import{OtherRecInstallWiseLoanOverdueComponent } from './other-rec-install-wise-
 import{SummaryperiodwiseloanoverduelistComponent } from './summaryperiodwiseloanoverduelist/summaryperiodwiseloanoverduelist.component';
 import{DirectorAndDirectorsRelativesOverduePerformComponent } from './director-and-directors-relatives-overdue-perform/director-and-directors-relatives-overdue-perform.component';
 import { CitywiseLoanoverdueComponent } from './citywise-loanoverdue/citywise-loanoverdue.component';
+import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
 // import { CitywiseLoanoverdueComponent } from './citywise-loanoverdue/citywise-loanoverdue.component';
 
 
@@ -83,6 +84,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeTypeDropdownService,
     DepositLoanInterestRateEditChangeService,
     DirectorMasterDropdownService,
+    cityMasterService
     
    
   ],

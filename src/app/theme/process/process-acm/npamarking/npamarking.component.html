@@ -160,11 +160,7 @@
                                                 <td>{{ data.NPA_CLASS}}</td>
                                                 <td>
 
-                                                    <!-- <ng-select [(ngModel)]="data.NPA_CLASS"
-                                                        (change)="onCellChange($event, data, 'NPA_CLASS')">
-                                                        <ng-option *ngFor="let npa of npaClass" [value]="npa.id">{{
-                                                            npa.label }}</ng-option>
-                                                    </ng-select> -->
+
 
                                                     <ng-container *ngIf="!isEditing; else editMode">
                                                         {{ data.NPA_CLASS }}
@@ -203,27 +199,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <div class="pagination-container text-right mt-3">
-                                    <button class="pagination-button mr-2" [disabled]="currentPage == 1"
-                                        (click)="onPageChange(currentPage - 1)">
-                                        Previous
-                                    </button>
-                                    <span class="pagination-info">{{ currentPage }} / {{ totalPages }}</span>
-                                    <button type="button" class="pagination-button ml-2"
-                                        [disabled]="currentPage == totalPages" (click)="onPageChange(currentPage + 1)">
-                                        Next
-                                    </button>
 
-                                </div> -->
                             </div>
                         </div>
                     </div>
-
-
-
-
                 </div>
-
             </form>
         </div>
     </div>

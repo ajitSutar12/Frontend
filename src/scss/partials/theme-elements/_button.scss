@@ -206,9 +206,9 @@
     &.active:focus,
     &.active:hover {
         background: transparent;
-        color: #0275d8;
+        color: #6d022d;
         text-align: center;
-        border-bottom: 1px solid #0275d8;
+        border-bottom: 1px solid #6d022d;
     }
 }
 /**====== Basic-Buttons css Start ======**/
@@ -280,6 +280,7 @@
 
     &:hover {
         @include buttons-hover(theme-color(success, hover), theme-color(success, hover));
+        background-color: #6d022d;
     }
 
     &:active {
