@@ -11,30 +11,7 @@ export const environment = {
   //Localhost
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
-
-  // sitename: 'http://localhost:4200', 
-
-
- //Jijamata Arjunwada
-  // base_url: 'http://103.174.87.104:7274',
-  // report_url: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/REPORTS/', 
-  // sitename: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/CBS'
-
-  // //SHIVPRASAD NATEPUTE
-  // base_url: 'http://103.174.87.104:7275',  //CBS  natepute server
-  // report_url: 'http://103.174.87.104/SHIVPRASADNATEPUTE/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
-
-  //VADGAON_SARAF 
-  // base_url: 'http://103.174.87.104:7796',  //CBS  natepute server
-  // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
-  // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
-
-  // //VENKATESH 
-  // base_url: 'http://103.174.87.104:7276',  
-  // report_url: 'http://103.174.87.104/VENKATESH/REPORTS/', 
-  // sitename: 'http://103.174.87.104/VENKATESH/CBS'
+  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
 
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
@@ -46,11 +23,48 @@ export const environment = {
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
+  //VADGAON_SARAF 
+  // base_url: 'http://103.174.87.104:7797',  //CBS  vadgaon server
+  // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
+  // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
+
+ //Jijamata Arjunwada
+  // base_url: 'http://103.174.87.104:7274',
+  // report_url: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/REPORTS/', 
+  // sitename: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/CBS'
+
+  // //SHIVPRASAD NATEPUTE
+  // base_url: 'http://103.174.87.104:7275',  //CBS  natepute server
+  // report_url: 'http://103.174.87.104/SHIVPRASADNATEPUTE/REPORTS/', 
+  // sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
+
+
+  // //VENKATESH 
+  // base_url: 'http://103.174.87.104:7276',  
+  // report_url: 'http://103.174.87.104/VENKATESH/REPORTS/', 
+  // sitename: 'http://103.174.87.104/VENKATESH/CBS'
+
+
+
+  // //TESTSIDHANERLI 
+  // base_url: 'http://103.174.87.104:4771',  
+  // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
+  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
+  
+  // //TESTSIDHANERLI 
+  // base_url: 'http://103.174.87.104:4771',  
+  // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
+  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
+
 // //VITTHALDHARASHIV 
   // base_url: 'http://103.174.87.104:7277',  
   // report_url: 'http://103.174.87.104/VITTHALDHARASHIV/REPORTS/', 
   // sitename: 'http://103.174.87.104/VITTHALDHARASHIV/CBS' 
 
+   // //DEMO COMPSERV 
+  // base_url: 'http://103.174.87.104:7278',  
+  // report_url: 'http://103.174.87.104/COMPSERV/REPORTS/', 
+  // sitename: 'http://103.174.87.104/COMPSERV/CBS'
 };
 
 /*
