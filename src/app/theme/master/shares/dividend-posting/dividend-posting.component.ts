@@ -84,6 +84,7 @@ export class DividendPostingComponent implements OnInit {
   ngwarrentDate: any
 
   private dataSub: Subscription = null;
+  setLang:any;
 
   constructor(private fb: FormBuilder,
     private translate:TranslateService,
@@ -92,7 +93,11 @@ export class DividendPostingComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private _service: DividendPostingService,
     private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
-      this.translate.setDefaultLang(environment.setLang);
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
   }
 
   ngOnInit(): void {

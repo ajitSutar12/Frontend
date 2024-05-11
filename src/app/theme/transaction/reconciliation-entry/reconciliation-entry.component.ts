@@ -82,6 +82,7 @@ export class ReconciliationEntryComponent implements OnInit {
   ngBranchCode: any = null
   showTable: boolean = false
   modalClass: string = 'modalHide';
+  setLang:any;
 
   constructor(
     private translate:TranslateService,
@@ -92,7 +93,7 @@ export class ReconciliationEntryComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
-    this.translate.setDefaultLang(environment.setLang);
+    
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -101,6 +102,8 @@ export class ReconciliationEntryComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
   }

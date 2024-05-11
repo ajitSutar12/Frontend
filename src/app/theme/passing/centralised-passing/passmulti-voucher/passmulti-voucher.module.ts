@@ -16,6 +16,7 @@ import { MultiVoucherModule } from "../../../transaction/multi-voucher/multi-vou
 import { HttpClient } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
   ],
   exports: [PassmultiVoucherComponent],
   declarations: [PassmultiVoucherComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

@@ -49,6 +49,7 @@ maxDate: Date;
   obj: any;
   transferSchemeDetails: any;
   tScheme
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -60,7 +61,6 @@ maxDate: Date;
     private sanitizer: DomSanitizer,
     
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -77,6 +77,8 @@ maxDate: Date;
   //date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.dates = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {

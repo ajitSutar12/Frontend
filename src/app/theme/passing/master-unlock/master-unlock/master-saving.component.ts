@@ -78,6 +78,7 @@ export class MasterSavingComponent implements OnInit {
   // Store data from backend
   savingMaster: SavingMaster[];
   savingData: any;
+  setLang:any;
   // constructor(private http: HttpClient, private fb: FormBuilder,) { }
   constructor(
     private http: HttpClient, private fb: FormBuilder,
@@ -86,7 +87,11 @@ export class MasterSavingComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang) }
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      }) }
   
   ngOnInit(): void {
     this.createForm()

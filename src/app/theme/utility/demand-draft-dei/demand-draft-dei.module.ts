@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     })
 
   ],
-  providers:[SelectOptionService,
+  providers:[SelectOptionService,SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -56,7 +56,7 @@ export class ServiceChargesListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -67,7 +67,6 @@ export class ServiceChargesListComponent implements OnInit {
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -102,6 +101,8 @@ export class ServiceChargesListComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');

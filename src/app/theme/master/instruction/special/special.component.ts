@@ -97,6 +97,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
   updateID: any;
   ngacno: any = null
   ngexecuteon: any = null
+  setLang:any;
+
   constructor(private fb: FormBuilder, private datePipe: DatePipe, public exucuteOnService: ExucuteOnService,
     private schemeAccountNoService: SchemeAccountNoService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -111,6 +113,8 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

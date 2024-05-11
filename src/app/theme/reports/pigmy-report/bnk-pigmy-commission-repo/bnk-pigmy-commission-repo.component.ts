@@ -65,7 +65,7 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
   characters: Array<IOption>;
   selectedCharacter = "3";
   timeLeft = 5;
-
+  setLang:any;
   private dataSub: Subscription = null;
   //Scheme type variable
   schemeList
@@ -89,8 +89,12 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang)
-    this.maxDate = new Date();
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+          this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())

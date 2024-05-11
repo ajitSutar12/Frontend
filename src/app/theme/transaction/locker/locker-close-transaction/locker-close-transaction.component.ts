@@ -48,11 +48,17 @@ export class LockerCloseTransactionComponent implements OnInit {
   selectedTransScheme: any = null
 
   values
+  setLang:any;
 
-  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private schemeAccountNoService: SchemeAccountNoService,
+  constructor(private http: HttpClient, private config: NgSelectConfig,
+     private systemParameter: SystemMasterParametersService, 
+     private fb: FormBuilder, 
+     private _ownbranchmasterservice: OwnbranchMasterService, 
+     private schemeCodeDropdownService: SchemeCodeDropdownService, 
+     private schemeAccountNoService: SchemeAccountNoService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang) }
+     }
 
   ngOnInit(): void {
     this.createForm()
@@ -89,6 +95,8 @@ export class LockerCloseTransactionComponent implements OnInit {
       this.angForm.patchValue({
         TRAN_DATE: data.CURRENT_DATE
       })
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
 

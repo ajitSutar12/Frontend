@@ -55,6 +55,7 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
   ngbranch: any;
   branchName: any;
   allscheme: any[];
+  setLang:any;
   // scheme: any[];
   constructor(
     private fb: FormBuilder,
@@ -67,7 +68,6 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -128,6 +128,8 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

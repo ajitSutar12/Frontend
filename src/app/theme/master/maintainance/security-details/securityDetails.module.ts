@@ -130,6 +130,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     S2Service,
     SecurityCodeService,
     VoucherEntryService,
+    SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

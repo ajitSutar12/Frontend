@@ -56,7 +56,7 @@ export class BnkPayIntListComponent implements OnInit {
       label : 'PG',
       value : 'PG'
     }]
-
+    setLang:any;
   constructor(  
     private translate:TranslateService,  private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -65,8 +65,12 @@ export class BnkPayIntListComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
     ) { 
-      this.translate.setDefaultLang(environment.setLang);
-      this.date = moment().format('DD/MM/YYYY');
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+     this.date = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

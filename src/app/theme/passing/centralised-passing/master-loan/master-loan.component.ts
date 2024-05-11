@@ -6,6 +6,7 @@ import { TermLoanMasterComponent } from '../../../master/customer/term-loan-mast
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 class DataTableResponse {
   data: any[];
@@ -88,8 +89,18 @@ export class MasterLoanComponent implements OnInit,AfterViewInit {
   // Store data from backend
   termLoanMaster: TermLoanMaster[];
   loanData: any;
-  constructor(private http: HttpClient,private translate:TranslateService,) {
-    this.translate.setDefaultLang(environment.setLang);
+
+  setLang:any;
+  constructor(
+    private http: HttpClient,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
    }
 
 

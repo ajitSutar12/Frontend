@@ -89,6 +89,8 @@ export class IssueNewSharesComponent implements OnInit {
   resolutionDate: any
   closeShow: boolean = false;
   logDate
+  setLang:any;
+
   constructor(private fb: FormBuilder,
     private translate:TranslateService,
     private _service: VoucherEntryService,
@@ -97,11 +99,15 @@ export class IssueNewSharesComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
-  ) {
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
-    this.translate.setDefaultLang(environment.setLang);
+   
 
   }
 

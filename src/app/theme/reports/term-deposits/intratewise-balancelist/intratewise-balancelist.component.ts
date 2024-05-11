@@ -40,6 +40,7 @@ export class IntratewiseBalancelistComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = " ";
+  setLang:any;
   constructor(
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
@@ -48,8 +49,11 @@ export class IntratewiseBalancelistComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.defaultDate = moment().format("DD/MM/YYYY");
     this.maxDate = new Date();
     this.minDate = new Date();

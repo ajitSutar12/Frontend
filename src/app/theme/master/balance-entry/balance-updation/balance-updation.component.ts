@@ -139,6 +139,7 @@ export class BalanceUpdationComponent implements OnInit {
   public data: any[];
   public cols: any[];
   public totalRecords;
+  setLang:any;
 
 
   constructor(
@@ -162,6 +163,8 @@ export class BalanceUpdationComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

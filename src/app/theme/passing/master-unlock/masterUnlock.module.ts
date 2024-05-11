@@ -31,6 +31,7 @@ import { CentralisedPassingModule } from '../centralised-passing/centralisedPass
 // import { HttpLoaderFactory } from '../../master/instruction/interest-instruction/interest-instruction.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -74,7 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   declarations: [MasterUnlockComponent],
-  providers: [{
+  providers: [SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -235,6 +235,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   nextButton: boolean = true
   resetexpirydate: any
   imageObject = new Array();
+  setLang:any;
+
   constructor(
     private http: HttpClient,
     private LockerMasterService: LockerMasterService,
@@ -256,7 +258,6 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private translate:TranslateService
     ) {
-      this.translate.setDefaultLang(environment.setLang)
     this.maxDate = new Date();
     this.minDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -270,6 +271,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

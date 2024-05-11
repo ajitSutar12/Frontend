@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-backup-data',
@@ -12,7 +13,15 @@ import Swal from 'sweetalert2';
 export class BackupDataComponent implements OnInit {
   url = environment.base_url;
   modalClass: string = 'modalHide';
-  constructor(private http: HttpClient,private translate:TranslateService) { this.translate.setDefaultLang(environment.setLang);}
+  setLang:any;
+  constructor(private http: HttpClient,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })}
 
   showButton = true
   showDButton = false

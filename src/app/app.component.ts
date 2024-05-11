@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   site = environment.sitename
   siteUrl: string;
 
- 
+  
   constructor(private router: Router, private _hotkeysService: HotkeysService, private _authService: AuthService,){}
   ngOnInit() {
     

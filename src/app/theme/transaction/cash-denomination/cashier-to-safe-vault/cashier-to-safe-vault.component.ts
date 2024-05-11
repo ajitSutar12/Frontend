@@ -45,10 +45,15 @@ export class CashierToSafeVaultComponent implements OnInit {
     { currency: 1,    qty: 0, total: 0  },
   ]
 
+  setLang:any;
 
   dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,private _service: CashDenominationService,private translate:TranslateService,
-    ) {this.translate.setDefaultLang(environment.setLang); }
+    ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({

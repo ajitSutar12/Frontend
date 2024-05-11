@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-accept-d',
@@ -53,11 +54,19 @@ export class AcceptDComponent implements OnInit {
   ]
   glDetails: any;
   cashier_list: any;
+  setLang:any;
+
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: CashDenominationService,private translate:TranslateService
-  ) {  this.translate.setDefaultLang(environment.setLang);}
+    private _service: CashDenominationService,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) {  this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })}
 
   ngOnInit(): void {
     // debugger

@@ -20,6 +20,7 @@ import { BankMasterService } from '../../../shared/dropdownService/bank-Master-d
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -171,6 +172,8 @@ export class VoucherEntryComponent implements OnInit {
   loginUser: any;
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
+  setLang:any;
+
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -184,10 +187,16 @@ export class VoucherEntryComponent implements OnInit {
     private _bankmasterService: BankMasterService,
     private fb: FormBuilder,
     private router: Router,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);

@@ -49,7 +49,7 @@ export class LoanProjectionComponent implements OnInit {
   ];
   TDS_RATE: number;
   todate: any;
-
+  setLang:any;
   constructor(
     private repayModeService: RepayModeService,
     private installmentMethodService: InstallmentMethodService,
@@ -58,7 +58,7 @@ export class LoanProjectionComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private translate:TranslateService
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
+   
     this.resolutionDate = new Date();
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -67,6 +67,8 @@ export class LoanProjectionComponent implements OnInit {
       this.resolutionDate = this.resolutionDate._d
       this.maxDate = this.maxDate._d
       this.minDate = this.minDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

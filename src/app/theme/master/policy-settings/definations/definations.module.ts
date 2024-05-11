@@ -157,7 +157,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SystemMasterParametersService,
     SchemeCodeDropdownService,
     TermemeDepositeSchMasterDropdownService,
-
+    SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

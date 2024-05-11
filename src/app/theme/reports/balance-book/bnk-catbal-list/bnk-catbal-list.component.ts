@@ -51,6 +51,8 @@ obj: any;
  report_url = environment.report_url;
   
  ngbranch: any = null;
+
+ setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -64,7 +66,11 @@ obj: any;
     private systemParameter:SystemMasterParametersService,
     
   ) {
-    this.translate.setDefaultLang(environment.setLang);
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
    
    }
 

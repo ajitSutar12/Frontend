@@ -60,20 +60,25 @@ export class LockerRentTransactionsComponent implements OnInit {
   transferSchemeDetails: any;
   isRent: boolean;
   isTransfer: boolean;
+  setLang:any;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
+  constructor(private http: HttpClient,
+     private fb: FormBuilder, 
+     private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang)
+    
 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.TransactionDate = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.LOG_DATE = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);

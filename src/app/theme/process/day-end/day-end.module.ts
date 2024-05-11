@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DayEndFinalComponent } from './day-end-final/day-end-final.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 
@@ -28,7 +29,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 })
   ],
   declarations: [ DayEndComponent, DayEndFinalComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

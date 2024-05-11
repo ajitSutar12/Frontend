@@ -43,6 +43,7 @@ export class BalanceSheetComponent implements OnInit {
   balSheetdataset: [];
   allFilters: any;
   branchName
+  setLang:any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
@@ -52,7 +53,6 @@ export class BalanceSheetComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
 
     this.fromdate = moment().format('DD/MM/YYYY');
@@ -77,6 +77,8 @@ export class BalanceSheetComponent implements OnInit {
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       
       this.fromdate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     let data: any = localStorage.getItem('user');

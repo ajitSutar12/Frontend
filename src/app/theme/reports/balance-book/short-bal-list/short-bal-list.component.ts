@@ -40,7 +40,7 @@ export class ShortBalListComponent implements OnInit {
   //dropdown
   branchOption: any[];
   scheme: any[];
-
+  setLang:any;
   constructor(    private fb: FormBuilder,
     private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -50,7 +50,7 @@ export class ShortBalListComponent implements OnInit {
 
     )
      {  
-      this.translate.setDefaultLang(environment.setLang);
+      
       
      this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -68,6 +68,8 @@ export class ShortBalListComponent implements OnInit {
       //display date
       this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
         this.defaultDate = data.CURRENT_DATE;
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
       });
           // Scheme Code
   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {

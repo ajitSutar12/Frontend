@@ -13,6 +13,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { HolidayService } from './holiday.service'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin
@@ -37,7 +38,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 })
   ],
   declarations: [HolidayComponent],
-  providers: [{
+  providers: [SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

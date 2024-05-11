@@ -274,6 +274,8 @@ export class CashCreditMasterComponent implements OnInit {
   approveShow: boolean = false;
   unapproveShow: boolean = false;
 
+  setLang:any;
+
   logDate
   repayModeOption: Array<IOption> = this.repayModeService.getPLAYER_twoCharacters();
   installment: Array<IOption> = this.installmentMethodService.getPLAYER_TWOCharacters();
@@ -323,7 +325,6 @@ export class CashCreditMasterComponent implements OnInit {
   guarantordate: any
   maxDate: any
   minDate: any
-
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -357,7 +358,6 @@ export class CashCreditMasterComponent implements OnInit {
     private translate:TranslateService
   ) {
 
-    this.translate.setDefaultLang(environment.setLang);
 
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
@@ -366,6 +366,8 @@ export class CashCreditMasterComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

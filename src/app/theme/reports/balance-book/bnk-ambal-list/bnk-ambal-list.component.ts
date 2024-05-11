@@ -44,7 +44,7 @@ export class BnkAmbalListComponent implements OnInit {
   endingacc: any[];
   startingacc: any[];
   formSubmitted = false;
-
+  setLang:any;
   constructor( private fb: FormBuilder,
     private translate:TranslateService,
      private config: NgSelectConfig,
@@ -57,7 +57,6 @@ export class BnkAmbalListComponent implements OnInit {
 
      private sanitizer: DomSanitizer,
      ) {
-      this.translate.setDefaultLang(environment.setLang);
       this.defaultDate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -75,6 +74,8 @@ export class BnkAmbalListComponent implements OnInit {
   //display defalut date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.defaultDate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
     // Scheme Code
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {

@@ -12,11 +12,14 @@ import { MasterCardRoutingModule } from './master-card-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 
@@ -32,10 +35,17 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [MasterCardComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
@@ -45,3 +55,7 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
 ]
 })
 export class MasterCardModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

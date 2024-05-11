@@ -71,7 +71,7 @@ export class NpaRegPercentageComponent implements OnInit {
     branchName: any;
   glDetails: any;
   fordate: Date;
-  
+  setLang:any;
     constructor(
       private fb: FormBuilder,
       private _ownbranchmasterservice: OwnbranchMasterService,
@@ -82,7 +82,6 @@ export class NpaRegPercentageComponent implements OnInit {
      
       private translate:TranslateService
       ) {
-      this.translate.setDefaultLang(environment.setLang)
       
       this.todate = moment().format('31/03/2024');
       this.fordate = new Date('31/03/2024');
@@ -135,7 +134,9 @@ export class NpaRegPercentageComponent implements OnInit {
     this.todate = data.CURRENT_DATE
     
     this.fromdate = moment(`31/03/${year - 1}`, "DD/MM/YYYY")
-    this.fromdate = this.fromdate._d
+    this.fromdate = this.fromdate._d 
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
     
     let data: any = localStorage.getItem('user');

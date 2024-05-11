@@ -321,6 +321,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   selectedImgArrayDetails = [];
   urlMap: SafeResourceUrl
   maxDate
+  setLang:any;
+
   constructor(
     private http: HttpClient,
     private termLoanService: TermLoanService,
@@ -355,7 +357,6 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private translate:TranslateService
     ) {
   
-      this.translate.setDefaultLang(environment.setLang);
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
     }
@@ -363,6 +364,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-master.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -33,7 +34,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   ],
   declarations: [GlReportMasterComponent],
   
-  providers:[glTypeService,ReportTMasterDropdownService,GlAccountsMasterService,{
+  providers:[glTypeService,ReportTMasterDropdownService,GlAccountsMasterService,SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

@@ -95,6 +95,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   actype
   branch_code
   ngBranch: any = null;
+  setLang:any;
 
   constructor(
     private fb: FormBuilder,
@@ -115,6 +116,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

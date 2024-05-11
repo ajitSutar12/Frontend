@@ -86,16 +86,20 @@ export class GlReportLinkingComponent implements OnInit {
 
   // bsValue
   maxDate: any;
+  setLang:any;
+
   constructor(private http: HttpClient, private fb: FormBuilder,
     private reportTypeDropdown: ReportTMasterDropdownService,
     // private schemeAccountNoService: SchemeAccountNoService,
     private glLinkingMasterService: GlAccountsMasterService,
     private systemParameter: SystemMasterParametersService,private translate:TranslateService
 
-  ) {this.translate.setDefaultLang(environment.setLang);
+  ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

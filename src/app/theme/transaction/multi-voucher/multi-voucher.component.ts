@@ -18,6 +18,7 @@ import { BankMasterService } from '../../../shared/dropdownService/bank-Master-d
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -160,6 +161,8 @@ export class MultiVoucherComponent implements OnInit {
   unapproveShow: boolean = false;
   loginUser: any;
   modalClass: string = 'modalHide';
+  setLang:any;
+
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -174,11 +177,17 @@ export class MultiVoucherComponent implements OnInit {
     private router: Router,
     private _CustomerIdService: CustomerIdService,
     private _ACMasterDropdownService: ACMasterDropdownService,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
     if (this.childMessage != undefined) {
 

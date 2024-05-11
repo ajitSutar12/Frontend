@@ -15,6 +15,7 @@ import { HttpClient } from '@angular/common/http'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 // Handling datatable data
 class DataTableResponse {
@@ -89,6 +90,7 @@ export class GlAccountsMasterComponent implements OnInit {
   filterData = {};
   statementCodeData: any;
   recall: any;
+  setLang:any;
 
   selectedAccount = 'Adam';
   accounts = [
@@ -109,7 +111,15 @@ export class GlAccountsMasterComponent implements OnInit {
     private http: HttpClient,
     private glAccountsMasterService: GlAccountsMasterService,
     private statement: StatementCodeDropdownService,
-    private fb: FormBuilder,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
+    private fb: FormBuilder,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })
 
     // 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {

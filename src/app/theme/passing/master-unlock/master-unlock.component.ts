@@ -3,6 +3,7 @@ import { interval, Subscription } from 'rxjs';
 import { MasterUnlockService } from './master-unlock.service'
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-master-unlock',
   templateUrl: './master-unlock.component.html',
@@ -52,8 +53,16 @@ export class MasterUnlockComponent implements OnInit {
   issueNewShare: any = 0;
   lockerRent: any = 0;
   dtExportButtonOptions: any = {};
-  constructor(private _service: MasterUnlockService,private translate:TranslateService) {
-    this.translate.setDefaultLang(environment.setLang) }
+  setLang:any;
+  constructor(private _service: MasterUnlockService,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) }
 
   ngOnInit(): void {
     this.mySubscription = interval(100).subscribe((x => {

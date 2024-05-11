@@ -53,6 +53,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
   approveShow: boolean = false;
   unapproveShow: boolean = false;
   logDate
+  setLang:any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -64,7 +65,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
+    
 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -72,6 +73,8 @@ export class GoldSilverReturnEntryComponent implements OnInit {
       this.minDate = this.maxDate
       this.ngreturndate = data.CURRENT_DATE
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);

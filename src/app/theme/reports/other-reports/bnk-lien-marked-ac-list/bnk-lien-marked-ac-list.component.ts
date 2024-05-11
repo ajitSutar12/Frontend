@@ -36,6 +36,7 @@ minDate: Date;
  clicked:boolean=false;
  iframe5url: any = '';
   branchName: any;
+  setLang:any;
  constructor(private fb: FormBuilder,
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -46,7 +47,6 @@ minDate: Date;
     private translate:TranslateService
   
 ) {
-  this.translate.setDefaultLang(environment.setLang) ;
   this.defaultDate = moment().format('DD/MM/YYYY');
   this.maxDate = new Date();
   this.minDate = new Date();
@@ -72,6 +72,8 @@ minDate: Date;
       //display defalut date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.defaultDate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);

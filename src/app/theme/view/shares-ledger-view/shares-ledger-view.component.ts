@@ -82,6 +82,8 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
   @Input() accSchemeName: any;
   @Input() accountEvent: any;
   showView: boolean = true
+
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -92,11 +94,12 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

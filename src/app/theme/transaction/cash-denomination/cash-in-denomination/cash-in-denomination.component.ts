@@ -65,6 +65,7 @@ export class CashInDenominationComponent implements OnInit {
   cashier_list: any;
   SelectedBranch: any;
   branch_list: any;
+  setLang:any;
 
 
   constructor(
@@ -76,7 +77,7 @@ export class CashInDenominationComponent implements OnInit {
 
     private _service: CashierUmService,private translate:TranslateService
 
-  ) { this.translate.setDefaultLang(environment.setLang);
+  ) { 
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -86,6 +87,8 @@ export class CashInDenominationComponent implements OnInit {
       this.trandate = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

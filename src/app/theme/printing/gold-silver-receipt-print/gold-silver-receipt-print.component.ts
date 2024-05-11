@@ -60,7 +60,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
   showRepo: boolean;
   getbankAcNo1: any;
   clicked: boolean = false;
-
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder, private http: HttpClient,
@@ -71,13 +71,14 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
     private systemParameter: SystemMasterParametersService, private sanitizer: DomSanitizer,
 
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
       this.ngreturndate = data.CURRENT_DATE
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
   }

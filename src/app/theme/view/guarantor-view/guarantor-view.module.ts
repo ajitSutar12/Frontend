@@ -5,8 +5,11 @@ import { GuarantorViewComponent } from './guarantor-view.component';
 import { GuarantorViewRoutingModule } from './guarantor-view-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -14,13 +17,24 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     CommonModule,
     GuarantorViewRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [GuarantorViewComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },]
 })
 export class GuarantorViewModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

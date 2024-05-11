@@ -43,6 +43,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
   branchOption: any;
   iframeurl: any = ' ';
   branchName
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -54,7 +55,6 @@ export class BnkTrialBaldetailComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -72,6 +72,8 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

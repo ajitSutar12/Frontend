@@ -17,6 +17,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -41,7 +42,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 })
   ],
   declarations: [SharesCCTSComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

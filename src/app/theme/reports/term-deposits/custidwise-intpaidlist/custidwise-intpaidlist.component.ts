@@ -41,6 +41,7 @@ ngForm: FormGroup;
   // for dropdown ng module
     ngbranch: any = null;
     ngcust: any = null;
+    setLang:any;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
@@ -50,8 +51,11 @@ ngForm: FormGroup;
     private translate:TranslateService
 
     ) {  
-      
-      this.translate.setDefaultLang(environment.setLang) ;
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
 
       this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -82,6 +86,7 @@ ngForm: FormGroup;
     //for starting and ending date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+
     });
   
     this.systemParameter.getFormData(1).subscribe(data => {

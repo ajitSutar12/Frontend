@@ -57,7 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
   ],
   providers: [
-    SystemMasterParametersService,
+    SystemMasterParametersService,SystemMasterParametersService,
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,

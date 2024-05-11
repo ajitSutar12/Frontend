@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
 
-  setLang : 'ma',
+  // setLang : 'ma',
 
   //Localhost
   base_url: 'http://localhost:7276',

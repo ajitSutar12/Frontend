@@ -116,17 +116,20 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   DESCRIPTION
   filterArray: any[];
   gridData: any;
+  setLang:any;
 
   constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private acMasterDropdownService: ACMasterDropdownService,
     private _service: NotingChargesService,
-    private http: HttpClient,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
+    private http: HttpClient,private translate:TranslateService) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

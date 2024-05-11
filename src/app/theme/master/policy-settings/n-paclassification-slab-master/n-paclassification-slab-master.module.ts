@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +36,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 })
   ],
   declarations: [NPAClassificationSlabMasterComponent],
-  providers: [npcslabMasterService, {
+  providers: [npcslabMasterService,SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

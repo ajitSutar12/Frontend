@@ -16,6 +16,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
   ],
   declarations: [AmtTransferTransactionComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

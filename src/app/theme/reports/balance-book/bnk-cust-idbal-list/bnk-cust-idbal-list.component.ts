@@ -48,6 +48,8 @@ export class BnkCustIDBalListComponent implements OnInit {
     maxDate: Date;
     minDate: Date;
     bsValue = new Date();
+
+    setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -59,7 +61,6 @@ export class BnkCustIDBalListComponent implements OnInit {
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter:SystemMasterParametersService,
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -79,6 +80,8 @@ export class BnkCustIDBalListComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.defaultDate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');

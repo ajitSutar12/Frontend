@@ -14,6 +14,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/shares-master.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-dividend-transfer-entry',
@@ -56,14 +57,21 @@ export class DividendTransferEntryComponent implements OnInit {
   object: any
   getschemename: any
   getscheme
+  setLang:any;
 
   constructor(private fb: FormBuilder, private config: NgSelectConfig,
     private _schemeAccountNoService: SchemeAccountNoService,
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private _ownbranchMasterService: OwnbranchMasterService,
     private _shareMasterService: ShareMasterService,
-    private translate:TranslateService,) {
-      this.translate.setDefaultLang(environment.setLang);
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
 
   }

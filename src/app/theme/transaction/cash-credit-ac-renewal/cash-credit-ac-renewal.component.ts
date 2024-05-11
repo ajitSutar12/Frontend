@@ -87,6 +87,7 @@ export class CashCreditAcRenewalComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
+  setLang:any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -99,7 +100,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
     private config: NgSelectConfig,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang)
 
     if (this.childMessage != undefined) {
 
@@ -114,6 +114,8 @@ export class CashCreditAcRenewalComponent implements OnInit {
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

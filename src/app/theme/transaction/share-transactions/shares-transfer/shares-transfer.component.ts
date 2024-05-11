@@ -78,11 +78,24 @@ export class SharesTransferComponent implements OnInit {
   ];
 
   dtExportButtonOptions: any = {};
-  constructor(private http: HttpClient, public glMasterService: glMasterService, private fb: FormBuilder, private schemeAccountNoService: SchemeAccountNoService, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, private systemParameter: SystemMasterParametersService, private translate:TranslateService,) {
+  setLang:any;
+
+  constructor(private http: HttpClient,
+     public glMasterService: glMasterService, private fb: FormBuilder,
+      private schemeAccountNoService: SchemeAccountNoService,
+       private _ownbranchmasterservice: OwnbranchMasterService, 
+    private schemeCodeDropdownService: SchemeCodeDropdownService, 
+    private systemParameter: SystemMasterParametersService,
+     private translate:TranslateService,) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
-    this.translate.setDefaultLang(environment.setLang);
+    
   }
   showButton: boolean = true;
   updateShow: boolean = false;

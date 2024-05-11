@@ -206,7 +206,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   filenotuploaded: boolean = true
   FinYear = '';
   autofacus: boolean = false;
-
+  setLang: any;
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -222,16 +222,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     // private language:LanguageService
-    private translate:TranslateService
+    private translate: TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang);
 
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+
       // if (this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY'))
       // {
       //   this.el.nativeElement.className = "form-control ng-untouched ng-valid"
@@ -465,9 +467,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MEMBTYPE: [""],
       AC_MEMBNO: [""],
       AC_TITLE: ["", [Validators.required]],
-      F_NAME: ["", [ Validators.required]],
-      M_NAME: ["", [ Validators.required]],
-      L_NAME: ["", [ Validators.required]],
+      F_NAME: ["", [Validators.required]],
+      M_NAME: ["", [Validators.required]],
+      L_NAME: ["", [Validators.required]],
       AC_TITLE_REG: [""],
       F_NAME_REG: [""],
       M_NAME_REG: [""],
@@ -892,7 +894,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               if (id.id != this.updateID) {
                 Swal.fire({
                   icon: 'info',
-                  title: `${this.translate.instant('Swal_Msg.Adhar')}`+ id.AC_NO,
+                  title: `${this.translate.instant('Swal_Msg.Adhar')}` + id.AC_NO,
                 })
                 // this.angForm.controls['AC_ADHARNO'].reset();
               }
@@ -923,7 +925,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
     data['FIN_YEAR'] = this.ngfinyear
     this.customerIdService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Update')}`, "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -941,7 +943,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title:`${this.translate.instant('Swal_Msg.Sure')}`,
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
       text: `${this.translate.instant('Swal_Msg.Authority')}`,
       icon: "warning",
       showCancelButton: true,
@@ -1087,7 +1089,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       const fileSize = selectedFile.size; // in bytes
       const maxSize = 2 * 1024 * 1024; // 2MB (adjust as needed)
       if (fileSize > maxSize) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`,`${this.translate.instant('Swal_Msg.Exceede')}` , 'info');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Exceede')}`, 'info');
         // Clear the file input to prevent submission
         event.target.value = null;
       }
@@ -1421,7 +1423,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
-    
+
   }
 
   onOpen(select: NgSelectComponent) {

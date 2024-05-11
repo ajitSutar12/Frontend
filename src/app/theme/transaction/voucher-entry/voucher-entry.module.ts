@@ -27,6 +27,7 @@ import { ThemeModule } from '../../theme.module'
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -56,7 +57,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [VoucherEntryComponent],
   exports: [VoucherEntryComponent],
-  providers: [TransactionCashModeService, BankMasterService, CustomerIdService, ACMasterDropdownService, TransactionTransferModeService, SchemeTypeService, OwnbranchMasterService, SchemeCodeDropdownService, SavingMasterService,
+  providers: [TransactionCashModeService, BankMasterService,
+     CustomerIdService, ACMasterDropdownService, 
+     TransactionTransferModeService, SchemeTypeService, 
+     OwnbranchMasterService, SchemeCodeDropdownService,
+      SavingMasterService,SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

@@ -55,7 +55,7 @@ maxDate: Date;
   report_url = environment.report_url;
   branchName: any;
   bankName: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -65,7 +65,6 @@ maxDate: Date;
     private translate:TranslateService
    
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -93,6 +92,8 @@ maxDate: Date;
  
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.dates = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   });
 
 })

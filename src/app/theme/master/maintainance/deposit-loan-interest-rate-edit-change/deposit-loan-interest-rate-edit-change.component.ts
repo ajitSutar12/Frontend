@@ -51,6 +51,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   branch
   InterestRate: string
   gridData: any;
+  setLang:any;
 
   modalClass: string = 'modalHide';
   constructor(private fb: FormBuilder, private _SchemeCodeDropdown: SchemeCodeDropdownService,
@@ -61,6 +62,8 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.minDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.minDate = this.minDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

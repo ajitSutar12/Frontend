@@ -104,6 +104,7 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
 
   bankAcno
   actype
+  setLang:any;
 
   constructor(private fb: FormBuilder,
     private freezeAccountService: freezeAccountService,
@@ -119,6 +120,8 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

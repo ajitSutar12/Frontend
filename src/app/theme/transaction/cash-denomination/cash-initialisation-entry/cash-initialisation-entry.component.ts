@@ -64,6 +64,7 @@ export class CashInitialisationEntryComponent implements OnInit {
   nonotes: any = 0;
   total1: any = 0;
   ans: string;
+  setLang:any;
 
   
   constructor(private fb: FormBuilder, 
@@ -73,7 +74,11 @@ export class CashInitialisationEntryComponent implements OnInit {
     private _services: CashDenominationService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang)
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
   
   }
 

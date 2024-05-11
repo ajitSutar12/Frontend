@@ -99,7 +99,7 @@ export class VoucherPrintingComponent implements OnInit {
     { label: 'Loss', value: 'LOS' },
     { label: 'Transfer', value: 'TRE' },
   ]
-
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -115,7 +115,6 @@ export class VoucherPrintingComponent implements OnInit {
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -151,6 +150,8 @@ export class VoucherPrintingComponent implements OnInit {
     })
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.dates = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     //display defalut date

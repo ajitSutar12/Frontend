@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -17,13 +19,19 @@ export class MasterCardComponent implements OnInit {
 
   iframe5url: any = '';
   showRepo: boolean = false;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private _schemeService: SchemeAccountNoService
+    private _schemeService: SchemeAccountNoService,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
 
-  ) { }
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })}
 
   //ngmodel variables
   selectedScheme

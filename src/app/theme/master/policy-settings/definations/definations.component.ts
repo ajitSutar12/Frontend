@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import{environment} from '../../../../../environments/environment'
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-definations',
   templateUrl: './definations.component.html',
@@ -22,10 +23,18 @@ export class DefinationsComponent implements OnInit {
   tdsinterestrateTrue: boolean = false;
   sizeslabwarTrue: boolean = false;
 
+  setLang:any;
 
-  constructor(private_router: Router, private translate:TranslateService) {
+  constructor(private_router: Router, private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) {
     
-    this.translate.setDefaultLang(environment.setLang);
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
 
   }
   ngOnInit(): void {

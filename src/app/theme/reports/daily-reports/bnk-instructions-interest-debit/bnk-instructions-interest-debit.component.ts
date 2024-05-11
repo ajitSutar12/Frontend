@@ -77,7 +77,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   success:any;
   failure:any;
   branchName: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -89,7 +89,6 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -107,6 +106,8 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

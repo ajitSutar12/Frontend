@@ -56,7 +56,7 @@ export class BnkReceiveIntListComponent implements OnInit {
     label : 'Investment',
     value : 'IV'
   }]
- 
+  setLang:any;
    constructor(    private fb: FormBuilder,
     private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -65,7 +65,6 @@ export class BnkReceiveIntListComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
     ) { 
-      this.translate.setDefaultLang(environment.setLang);
       this.date = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
     this.minDate = new Date();
@@ -91,6 +90,8 @@ export class BnkReceiveIntListComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.date = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
   // validations for ngForm

@@ -94,6 +94,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+  setLang:any;
 
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
@@ -105,7 +106,11 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
    }
 

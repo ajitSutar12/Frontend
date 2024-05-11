@@ -23,6 +23,7 @@ import { EditoverdueInterestReceivableAmountComponent } from './editoverdue-inte
 import { EditInterestCalculationComponent } from './edit-interest-calculation/edit-interest-calculation.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -45,7 +46,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 }) 
     
   ],
-  providers: [SchemeAccountNoService,SchemeCodeDropdownService,OwnbranchMasterService,
+  providers: [SchemeAccountNoService,SchemeCodeDropdownService,OwnbranchMasterService,SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

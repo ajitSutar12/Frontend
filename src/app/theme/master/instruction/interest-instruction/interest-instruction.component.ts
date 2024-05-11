@@ -117,6 +117,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   cashTrue: boolean = true;
   transferTrue: boolean = false;
   formSubmitted = false;
+  setLang:any;
 
   constructor(private fb: FormBuilder, public frequencyService: FrequencyService,
     public executionDayService: ExecutionDayService,
@@ -315,6 +316,8 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       })
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

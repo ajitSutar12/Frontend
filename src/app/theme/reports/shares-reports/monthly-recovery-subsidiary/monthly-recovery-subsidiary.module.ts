@@ -16,6 +16,7 @@ import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/sal
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     })
   ],
   declarations: [MonthlyRecoverySubsidiaryComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

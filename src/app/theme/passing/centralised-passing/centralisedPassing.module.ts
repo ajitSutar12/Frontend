@@ -56,6 +56,7 @@ import { IssueNewShareModule } from './issue-new-share/issue-new-share.module';
 import { RentLockerModule } from './rent-locker/rent-locker.module'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -105,7 +106,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   declarations: [CentralisedPassingComponent],
   exports: [CentralisedPassingComponent],
-  providers: [{
+  providers: [SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

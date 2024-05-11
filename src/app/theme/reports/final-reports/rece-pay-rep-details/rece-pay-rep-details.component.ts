@@ -40,7 +40,7 @@ export class RecePayRepDetailsComponent implements OnInit {
  report_url = environment.report_url;
  iframeurl: any = ' ';
  clicked:boolean=false;
-
+ setLang:any;
 
   constructor(  private fb: FormBuilder,
     private sanitizer: DomSanitizer,
@@ -50,7 +50,6 @@ export class RecePayRepDetailsComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -66,6 +65,8 @@ export class RecePayRepDetailsComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

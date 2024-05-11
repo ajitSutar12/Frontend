@@ -46,6 +46,7 @@ defaultDate: any
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = ' ';
+  setLang:any;
   constructor(   
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
@@ -56,7 +57,6 @@ defaultDate: any
     public SchemeTypes: SchemeTypeDropdownService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang)
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -80,6 +80,8 @@ defaultDate: any
 //display date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.defaultDate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
   }
    //For Starting account and Ending Account dropdown

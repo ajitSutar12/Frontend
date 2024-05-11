@@ -5,6 +5,7 @@ import { interval, Subscription } from 'rxjs';
 import { CentralisedPassingService } from './centralised-passing.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-centralised-passing',
@@ -76,11 +77,18 @@ export class CentralisedPassingComponent implements OnInit {
   issueNewShares: any = 0;
   membershipCancel: any = 0;
   lockerRentTran: any = 0;
+  setLang:any;
 
 
 
-  constructor(private _router: Router, private _service: CentralisedPassingService, private translate:TranslateService,) {
-    this.translate.setDefaultLang(environment.setLang);
+  constructor(private _router: Router, private _service: CentralisedPassingService, 
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService,) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
   }
   ngOnInit(): void {
     this.mySubscription = interval(1000).subscribe((x => {

@@ -69,6 +69,8 @@ export class MembershipCancellationComponent implements OnInit {
   narrationList: any;
   particularss
   logDate: any;
+  setLang:any;
+
   constructor(
     private translate:TranslateService,
     private http: HttpClient,
@@ -85,6 +87,8 @@ export class MembershipCancellationComponent implements OnInit {
       this.maxDate = this.maxDate._d
       this.Issue_date = data.CURRENT_DATE
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);

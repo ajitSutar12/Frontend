@@ -60,6 +60,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
   id: any;
   Cust_ID: any[] //customer id from idmaster
   newcustid: any = null;
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -70,8 +71,12 @@ export class BnkDedskBalListDepreComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private deadstockmasterService: DeadstockmasterService
   ) {
-    this.translate.setDefaultLang(environment.setLang);
-    this.date = moment().format('DD/MM/YYYY');
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+        this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

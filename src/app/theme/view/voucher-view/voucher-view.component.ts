@@ -42,6 +42,7 @@ export class VoucherViewComponent implements OnInit {
   branch_code: any[];
 
   ngdate: any = null
+  setLang:any;
 
   constructor(
     private translate:TranslateService,
@@ -50,13 +51,14 @@ export class VoucherViewComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate._d
       this.tranDate = data.CURRENT_DATE
       this.ngdate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

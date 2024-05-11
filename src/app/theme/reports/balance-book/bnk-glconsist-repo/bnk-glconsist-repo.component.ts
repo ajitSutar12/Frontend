@@ -37,7 +37,7 @@ export class BnkGLConsistRepoComponent implements OnInit {
   bsValue = new Date();
   allSchemeCode: any;
   report_url = environment.report_url;
-
+  setLang:any;
   constructor(private fb: FormBuilder,
     private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -45,7 +45,6 @@ export class BnkGLConsistRepoComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private voucherservice: VoucherEntryService,
     private sanitizer: DomSanitizer,) {
-      this.translate.setDefaultLang(environment.setLang);
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -68,6 +67,8 @@ export class BnkGLConsistRepoComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.defaultDate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     this.voucherservice.getSchemeCodeList().subscribe(data => {

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-dead-stock-p',
   templateUrl: './dead-stock-p.component.html',
@@ -15,8 +16,13 @@ export class DeadStockPComponent implements OnInit {
   //api 
   url = environment.base_url;
   angForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private http: HttpClient,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+  setLang:any;
+  constructor(private fb: FormBuilder, private http: HttpClient,    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {

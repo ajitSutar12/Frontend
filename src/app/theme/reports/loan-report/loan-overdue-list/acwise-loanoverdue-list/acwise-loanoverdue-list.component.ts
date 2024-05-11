@@ -91,7 +91,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   tab2: string;
   VScheme: any;
   selectedItemsString: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -105,7 +105,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang)
 
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -139,6 +138,8 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');

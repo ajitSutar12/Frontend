@@ -60,7 +60,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     TransferToGLbyClosingACComponent,
     PayrolldatatransferComponent,
     PayrollexportfileprocessComponent, ChargesPostingComponent],
-  providers: [OwnbranchMasterService, SystemMasterParametersService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService, SavingMasterService, {
+  providers: [OwnbranchMasterService, SystemMasterParametersService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService, SavingMasterService, SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

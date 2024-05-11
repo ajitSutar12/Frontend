@@ -54,7 +54,7 @@ export class InterestListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -62,8 +62,12 @@ export class InterestListComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,private translate:TranslateService
   ) {
-    this.translate.setDefaultLang(environment.setLang);
-    this.dates = moment().format('DD/MM/YYYY');
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+        this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

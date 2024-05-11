@@ -23,6 +23,7 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     ShareSchemeDropdownService,
     CustomerIdService,
     SchemeAccountNoService,
+    SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

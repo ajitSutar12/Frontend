@@ -54,17 +54,19 @@ export class CashOutDenominationComponent implements OnInit {
 
   ]
   Scheme: unknown;
+  setLang:any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
-    private config: NgSelectConfig, private systemParameter: SystemMasterParametersService,
+    private config: NgSelectConfig, 
+    private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private _service: CashDenominationService,
+    
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
-
+   
 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -73,6 +75,8 @@ export class CashOutDenominationComponent implements OnInit {
       this.trandate = data.CURRENT_DATE;
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

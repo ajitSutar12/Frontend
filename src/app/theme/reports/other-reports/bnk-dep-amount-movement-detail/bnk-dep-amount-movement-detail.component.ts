@@ -50,6 +50,7 @@ export class BnkDepAmountMovementDetailComponent implements OnInit {
        { id: 2, value: "Details" },
        { id: 3, value: "Subsidairy Grouping" },
      ];
+     setLang:any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -57,8 +58,12 @@ export class BnkDepAmountMovementDetailComponent implements OnInit {
     private sanitizer: DomSanitizer,   
       public router: Router, private translate:TranslateService )
       {  
-        this.translate.setDefaultLang(environment.setLang) ;
-        this.todate = moment().format('DD/MM/YYYY');
+        this.systemParameter.getFormData(1).subscribe(data => {
+    
+          this.setLang = data.SET_LANGUAGE
+          this.translate.setDefaultLang(this.setLang);
+        })
+                this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);

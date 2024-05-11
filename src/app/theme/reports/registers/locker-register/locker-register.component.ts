@@ -63,6 +63,7 @@ export class LockerRegisterComponent implements OnInit {
    report_url = environment.report_url;
    iframe5url: any = ' ';
   branchName: any;
+  setLang:any;
   constructor(    private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
@@ -70,7 +71,6 @@ export class LockerRegisterComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public SchemeTypes: SchemeTypeDropdownService, private translate:TranslateService)
      {  
-      this.translate.setDefaultLang(environment.setLang) ;
 
       this.todate = moment().format('DD/MM/YYYY');
      this.maxDate = new Date();
@@ -95,6 +95,8 @@ export class LockerRegisterComponent implements OnInit {
       //display date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.todate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   });
 //for starting and ending date
   this.systemParameter.getFormData(1).subscribe(data => {

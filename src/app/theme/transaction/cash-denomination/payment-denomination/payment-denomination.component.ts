@@ -8,6 +8,7 @@ import { userInfo } from 'os';
 import Swal from 'sweetalert2';
 import { CashDenominationService } from '../cash-denomination.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-payment-denomination',
   templateUrl: './payment-denomination.component.html',
@@ -36,6 +37,8 @@ export class PaymentDenominationComponent implements OnInit {
 
   totalCash :any = 0;
   cashierName : any;
+  setLang:any;
+
   currencyData =[
     { currency: 2000, qty: "", total: 0, available: 0 },
     { currency: 1000, qty: "", total: 0, available: 0 },
@@ -56,8 +59,14 @@ export class PaymentDenominationComponent implements OnInit {
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: CashDenominationService,private translate:TranslateService
-  ) {this.translate.setDefaultLang(environment.setLang);
+    private _service: CashDenominationService,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })
    }
 
   ngOnInit(): void {

@@ -27,7 +27,7 @@ export class DayBeginComponent implements OnInit {
   ngdate: any = null
   dtExportButtonOptions: any = {};
   daybeginProcess: boolean = false;
-
+  setLang:any;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +36,11 @@ export class DayBeginComponent implements OnInit {
     private _service: DayBeginService,
     private _authService: AuthService,private translate:TranslateService
 
-  ) { this.translate.setDefaultLang(environment.setLang);}
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })}
 
   ngOnInit(): void {
     this.createForm()

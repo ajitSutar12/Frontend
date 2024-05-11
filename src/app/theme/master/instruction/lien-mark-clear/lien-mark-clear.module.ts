@@ -13,6 +13,7 @@ import { LienMarkClearComponent } from './lien-mark-clear.component'
 // import { HttpLoaderFactory } from '../over-draft/over-draft.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -32,7 +33,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     })
   ],
   declarations: [LienMarkClearComponent],
-  providers: [{
+  providers: [SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

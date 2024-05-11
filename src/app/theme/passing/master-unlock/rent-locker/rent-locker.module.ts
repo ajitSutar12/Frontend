@@ -15,6 +15,7 @@ import { LockerRentTransactionModule } from '../../../transaction/locker/locker-
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     })
   ],
   exports: [RentLockerComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

@@ -10,9 +10,12 @@ import { MemberViewComponent } from './member-view.component';
 import { MemberViewRoutingModule } from './member-view-routing.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -27,9 +30,17 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [MemberViewComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
@@ -38,3 +49,6 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 ]
 })
 export class GeneralLedgerModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

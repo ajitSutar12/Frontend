@@ -62,7 +62,7 @@ export class LcdRenewalListComponent implements OnInit {
   report_url = environment.report_url;
   director: any[];
   branchName: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -73,7 +73,11 @@ export class LcdRenewalListComponent implements OnInit {
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang)
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

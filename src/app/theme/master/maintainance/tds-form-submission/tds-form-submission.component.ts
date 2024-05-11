@@ -54,6 +54,7 @@ export class TDSFormSubmissionComponent implements OnInit {
   Cust_ID: any[] //customer id from idmaster
   ngfinyear: any = null
   dtElement: any;
+  setLang:any;
 
   constructor(
     private fb: FormBuilder,
@@ -62,11 +63,13 @@ export class TDSFormSubmissionComponent implements OnInit {
     private TDSformsubmission: TDSFormSubmissionService,
     private customerID: CustomerIDMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
+    private config: NgSelectConfig,private translate:TranslateService) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

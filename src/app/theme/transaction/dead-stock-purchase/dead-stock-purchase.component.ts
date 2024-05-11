@@ -93,6 +93,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   unapproveShow: boolean = false;
   Tamount: any = 0;
   billDateMax
+  setLang:any;
 
 
   constructor(
@@ -103,9 +104,10 @@ export class DeadStockPurchaseComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private translate:TranslateService
+    private translate:TranslateService,
+    
     ) {
-    this.translate.setDefaultLang(environment.setLang)
+   
  
     if (this.childMessage != undefined) {
 
@@ -121,6 +123,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.billDateMax = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.billDateMax = this.billDateMax._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

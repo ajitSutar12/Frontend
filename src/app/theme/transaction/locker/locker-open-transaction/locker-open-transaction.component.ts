@@ -43,11 +43,22 @@ export class LockerOpenTransactionComponent implements OnInit {
   ngacno: any = null
   transferAccountDetails
   selectedTransScheme: any = null
-  constructor(private http: HttpClient, private config: NgSelectConfig, private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private schemeCodeDropdownService: SchemeCodeDropdownService, 
+  setLang:any;
+
+  constructor(private http: HttpClient, private config: NgSelectConfig,
+     private systemParameter: SystemMasterParametersService, 
+     private fb: FormBuilder, private _ownbranchmasterservice:
+      OwnbranchMasterService,
+       private schemeCodeDropdownService: SchemeCodeDropdownService, 
     private schemeAccountNoService: SchemeAccountNoService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang) }
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+    }
   ngOnInit(): void {
     this.createForm()
     let user = JSON.parse(localStorage.getItem('user'));

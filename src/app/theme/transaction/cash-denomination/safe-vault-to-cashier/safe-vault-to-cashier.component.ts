@@ -52,9 +52,11 @@ export class SafeVaultToCashierComponent implements OnInit {
 
   dtExportButtonOptions: any = {};
   // available: number;
+  setLang:any;
+
   constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private _service: CashDenominationService, private _services: CashierUmService,  private translate:TranslateService,
-  ) {  this.translate.setDefaultLang(environment.setLang);}
+  ) { }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({
@@ -68,6 +70,8 @@ export class SafeVaultToCashierComponent implements OnInit {
       this.angForm.patchValue({
         TRAN_DATE: data.CURRENT_DATE
       })
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     let user = JSON.parse(localStorage.getItem('user'));
     this._service.getOwnbranchList().subscribe(data => {

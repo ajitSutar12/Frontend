@@ -118,6 +118,8 @@ export class DividendCalculationComponent implements OnInit {
   branch_code
   ngBranch
   tablelist
+  setLang:any;
+
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -134,10 +136,11 @@ export class DividendCalculationComponent implements OnInit {
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
 
-      this.translate.setDefaultLang(environment.setLang);
+     
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate, this.minDate = this.maxDate._d
-
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
 

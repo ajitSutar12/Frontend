@@ -51,6 +51,7 @@ export class BnkNomineeListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -61,7 +62,6 @@ export class BnkNomineeListComponent implements OnInit {
 
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -87,6 +87,8 @@ export class BnkNomineeListComponent implements OnInit {
 
       this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
         this.dates = data.CURRENT_DATE;
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
       });
 
     })

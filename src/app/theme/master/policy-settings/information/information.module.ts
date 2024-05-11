@@ -107,6 +107,7 @@ import { BankOtherDetailsComponent } from './bank-other-details/bank-other-detai
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 
@@ -193,6 +194,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     cityMasterService,
     VoucherEntryService,
     AllAccountDropdownService,
+    SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

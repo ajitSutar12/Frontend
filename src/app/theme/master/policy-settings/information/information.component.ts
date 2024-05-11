@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -47,10 +48,16 @@ export class InformationComponent implements OnInit {
   subsalarydivisionTrue: boolean = false;
   riskCategoryTrue: boolean = false;
   bankotherdetailsTrue:boolean=false;
+  setLang:any;
 
 
-  constructor(private_router: Router, private translate:TranslateService) {
-    this.translate.setDefaultLang(environment.setLang);
+  constructor(private_router: Router, private translate:TranslateService,private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
 
 
   }

@@ -6,6 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { MultiVoucherComponent } from 'src/app/theme/transaction/multi-voucher/multi-voucher.component';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 class DataTableResponse {
@@ -48,8 +49,15 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
   // Store data from backend
   multiVoucher: MultiVoucher[];
   savingData: any;
-  constructor(private http: HttpClient,private translate:TranslateService) {
-    this.translate.setDefaultLang(environment.setLang) }
+  setLang:any;
+  constructor(private http: HttpClient,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      }) }
 
 
   multiVoucherData: any = {};

@@ -61,6 +61,7 @@ export class PassbookIssueComponent implements OnInit {
   tScheme: any;
   obj: any[];
   startAcNo: any[];
+  setLang:any;
   constructor(private fb: FormBuilder,
     private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -69,12 +70,16 @@ export class PassbookIssueComponent implements OnInit {
     public customerIdService: CustomerIdService, private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private sanitizer: DomSanitizer) {
-      this.translate.setDefaultLang(environment.setLang);
       this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {
@@ -99,6 +104,7 @@ export class PassbookIssueComponent implements OnInit {
     //for starting and ending date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

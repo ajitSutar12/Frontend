@@ -152,6 +152,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   logDate
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -164,7 +165,6 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private translate:TranslateService
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -174,6 +174,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -49,6 +49,7 @@ export class DepreciationPassingComponent implements OnInit {
   itemArr = []
   drepreciationData
   totalAmt: number = 0
+  setLang:any;
 
   constructor(private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
@@ -58,6 +59,8 @@ export class DepreciationPassingComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

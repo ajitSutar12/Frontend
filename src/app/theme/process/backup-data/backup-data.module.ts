@@ -7,10 +7,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
   declarations: [BackupDataComponent],
+  providers:[SystemMasterParametersService,],
   imports: [
     CommonModule,
     BackupDataRoutingModule,

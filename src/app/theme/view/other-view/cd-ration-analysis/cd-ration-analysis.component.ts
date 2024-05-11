@@ -45,6 +45,8 @@ export class CdRationAnalysisComponent implements OnInit {
   show: boolean = false;
   cdratiototal: number;
   ngbranch_code
+
+  setLang:any;
   // dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private _service: EditInterestCalculationService, private http: HttpClient,
@@ -52,10 +54,11 @@ export class CdRationAnalysisComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private translate:TranslateService
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

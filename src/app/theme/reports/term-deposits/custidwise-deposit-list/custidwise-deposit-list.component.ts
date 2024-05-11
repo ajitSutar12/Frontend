@@ -50,6 +50,7 @@ ngForm: FormGroup;
    iframe5url: any = ' ';
   introducerACNo: any;
   ngIntroducer: any;
+  setLang:any;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
@@ -57,7 +58,6 @@ ngForm: FormGroup;
 
     public customerIdService: CustomerIdService,
     private sanitizer: DomSanitizer , private translate:TranslateService) {this.todate = moment().format('DD/MM/YYYY');
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -77,6 +77,8 @@ ngForm: FormGroup;
   //for starting and ending date
    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.todate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   });
 
   this.systemParameter.getFormData(1).subscribe(data => {

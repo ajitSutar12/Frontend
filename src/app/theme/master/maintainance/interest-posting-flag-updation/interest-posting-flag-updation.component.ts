@@ -10,6 +10,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-interest-posting-flag-updation',
   templateUrl: './interest-posting-flag-updation.component.html',
@@ -44,11 +45,20 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   filterArray: any[];
   gridData: any;
   modalClass: string = 'modalHide';
+  setLang:any;
+
   constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
     private _service: InterestPostingFlagUpdationService,
-    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {  this.translate.setDefaultLang(environment.setLang);}
+    private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {  
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })}
   ngOnInit(): void {
     this.createForm();
     this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {

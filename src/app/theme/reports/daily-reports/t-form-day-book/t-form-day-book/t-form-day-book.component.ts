@@ -47,11 +47,11 @@ export class TFormDayBookComponent implements OnInit {
     { id: 1, value: "Summary" },
     { id: 2, value: "Details" },
   ];
+  setLang:any;
   constructor(private fb: FormBuilder, private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,
     public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang) 
     this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -69,6 +69,8 @@ export class TFormDayBookComponent implements OnInit {
     //get date from syspara current_date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.date = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     let data: any = localStorage.getItem('user');

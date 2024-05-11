@@ -104,6 +104,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   getschemename: any
   INT_RATESHOW = 0
   isHideForSaving: boolean = true
+  setLang:any;
+
   constructor(
     private translate:TranslateService,
     // public NarrationService: NarrationService,
@@ -117,12 +119,16 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     private _CustomerIdService: CustomerIdService,
     private _service: SavingPigmyAccountClosingService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
     
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
     }
-    this.translate.setDefaultLang(environment.setLang);
+   
   }
 
   ngOnInit(): void {

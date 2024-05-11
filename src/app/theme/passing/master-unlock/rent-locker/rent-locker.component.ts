@@ -6,6 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { LockerRentTransactionsComponent } from '../../../transaction/locker/locker-rent-transactions/locker-rent-transactions.component';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -50,8 +51,15 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
   // Store data from backend
   rentLocker: rentLocker[];
   savingData: any;
-  constructor(private http: HttpClient,private translate:TranslateService) {
-    this.translate.setDefaultLang(environment.setLang) }
+  setLang:any;
+  constructor(private http: HttpClient,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      }) }
 
   rentLockerData: any
 

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,15 +19,20 @@ export class MonthlyRecoverySubsidiaryComponent implements OnInit {
 
   iframe5url: any = '';
   showRepo: boolean = false;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private salaryDMasterdropdownService: SalaryDMasterdropdownService,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
   ) 
   {
-    this.translate.setDefaultLang(environment.setLang) ;
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
   }

@@ -62,7 +62,7 @@ export class BnkGlAcStatementComponent implements OnInit {
   edate: any = null
   maxDate: Date;
   minDate: Date;
-
+  setLang:any;
   bsValue = new Date();
   branchName: any;
   constructor(
@@ -76,7 +76,6 @@ export class BnkGlAcStatementComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -103,6 +102,8 @@ export class BnkGlAcStatementComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-instwise-loanoverdue-list',
@@ -37,14 +38,20 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
   ngForm: FormGroup
   ngbranch: any = null;
   branchName: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private translate:TranslateService
-  ) { this.translate.setDefaultLang(environment.setLang) ;}
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })}
 
   //checkbox variable
   isIsRestrictTransactionEntry: boolean = false;

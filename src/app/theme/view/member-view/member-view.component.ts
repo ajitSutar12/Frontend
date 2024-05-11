@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-member-view',
@@ -11,12 +14,18 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 export class MemberViewComponent implements OnInit {
   angForm : FormGroup;
   obj: any[];
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
-    private _schemeService: SchemeAccountNoService
+    private _schemeService: SchemeAccountNoService,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
 
-  ) { }
+  ) {this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  }) }
 
   //ngfor variables
   introducerACNo

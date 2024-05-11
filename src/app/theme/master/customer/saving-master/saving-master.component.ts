@@ -244,6 +244,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('ctdTabset') ctdTabset;
   ngappointeddate: any
   ngexpiryddate: any
+  setLang:any;
 
   constructor(
     private http: HttpClient,
@@ -267,7 +268,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ) {
 
-    this.translate.setDefaultLang(environment.setLang);
 
     if (this.childMessage != undefined) {
 
@@ -279,6 +279,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

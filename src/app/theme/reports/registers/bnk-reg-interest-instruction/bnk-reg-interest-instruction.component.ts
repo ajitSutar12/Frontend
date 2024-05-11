@@ -39,6 +39,7 @@ export class BnkRegInterestInstructionComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -48,8 +49,11 @@ export class BnkRegInterestInstructionComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

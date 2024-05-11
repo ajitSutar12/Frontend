@@ -16,6 +16,7 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { ThemeModule } from '../../theme.module'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +39,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 })
 
   ],
-  providers: [StatementTypeService, OwnbranchMasterService, CompanyGroupMasterDropdownService, MultiVoucherService, {
+  providers: [StatementTypeService, OwnbranchMasterService, CompanyGroupMasterDropdownService, MultiVoucherService,SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

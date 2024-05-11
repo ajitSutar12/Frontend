@@ -58,7 +58,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   todate: any;
   fromdate: moment.Moment;
   bankacno: any;
-
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -75,7 +75,6 @@ export class BnkLNamtStatementComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.translate.setDefaultLang(environment.setLang);
   }
 
   ngOnInit(): void {
@@ -105,6 +104,8 @@ export class BnkLNamtStatementComponent implements OnInit {
       
       this.startingdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.startingdate = this.startingdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
    
   }

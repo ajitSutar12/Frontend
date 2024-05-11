@@ -112,6 +112,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
   getschemename: any
   ngBranchCode: any = null
   updatecheckdata: any
+  setLang:any;
 
   constructor(
     private fb: FormBuilder,
@@ -122,7 +123,12 @@ export class MoratoriumperiodmasterComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private_router: Router,
     private config: NgSelectConfig,
-    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang);
+    private ownbranchMasterService: OwnbranchMasterService,private translate:TranslateService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -321,6 +327,7 @@ export class MoratoriumperiodmasterComponent implements OnInit {
       this.angForm.patchValue({
         'TRAN_DATE': data.CURRENT_DATE,
       })
+      
     })
   }
 

@@ -142,7 +142,9 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   ngDepre: any = null
   ngGlAC: any = null
   maxDate: any;
-  purValue: any
+  purValue: any;
+  setLang:any;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -153,7 +155,6 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private systemParameter: SystemMasterParametersService,
     private translate:TranslateService
     ) {
-      this.translate.setDefaultLang(environment.setLang)
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
     }
@@ -163,6 +164,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

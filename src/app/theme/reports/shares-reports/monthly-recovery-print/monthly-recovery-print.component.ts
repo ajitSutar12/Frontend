@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { first } from 'rxjs/operators';
 import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -19,13 +20,19 @@ export class MonthlyRecoveryPrintComponent implements OnInit {
 
   iframe5url: any = '';
   showRepo: boolean = false;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private salaryDMasterdropdownService: SalaryDMasterdropdownService,
     private _schemeService: SchemeAccountNoService,
+    private systemParameter: SystemMasterParametersService,
+
     private translate:TranslateService
-  ) {      this.translate.setDefaultLang(environment.setLang) ;
+  ) {      this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  });
   }
 
 

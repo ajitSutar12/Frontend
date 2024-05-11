@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {SelectOptionService} from '../../../shared/elements/select-option.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
@@ -74,9 +75,14 @@ export class DemandDraftDEIComponent implements OnInit {
     {value: 'Samon', id: 33},
     {value: 'John Doe', id:  34}
   ];
-  constructor(public selectOptionService: SelectOptionService ,  private translate:TranslateService,) {
-    this.translate.setDefaultLang(environment.setLang);
-   }
+  setLang:any;
+  constructor(public selectOptionService: SelectOptionService ,    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService,) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })   }
 
  
 

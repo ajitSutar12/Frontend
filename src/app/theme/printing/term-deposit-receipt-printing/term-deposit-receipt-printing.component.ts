@@ -67,7 +67,7 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
   ngbranch: any;
   branchName: any;
   getbankAcNo: any;
-
+  setLang:any;
   constructor(  
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -81,7 +81,11 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
     private sanitizer: DomSanitizer,    private systemParameter:SystemMasterParametersService,
 
   ) {
-    this.translate.setDefaultLang(environment.setLang);
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
    }
 
   ngOnInit(): void {

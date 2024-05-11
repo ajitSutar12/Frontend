@@ -45,6 +45,7 @@ clicked:boolean=false;
   Cust_ID: any[] //customer id from idmaster
   newcustid: any = null;
   defaultDate: any;
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -59,8 +60,11 @@ clicked:boolean=false;
 
   ) {
 
-    this.translate.setDefaultLang(environment.setLang) ;
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

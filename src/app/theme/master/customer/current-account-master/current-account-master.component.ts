@@ -252,6 +252,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   nextButton: boolean = true
   resetexpirydate: any
   imageObject = new Array();
+  setLang:any;
+
   constructor(
     private http: HttpClient,
     private currentAccountMasterService: CurrentAccountMasterService,
@@ -273,7 +275,6 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
     ) {
 
-      this.translate.setDefaultLang(environment.setLang);
     this.maxDate = new Date();
     this.minDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -287,6 +288,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

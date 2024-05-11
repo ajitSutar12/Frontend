@@ -17,6 +17,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 // import { HttpLoaderFactory } from "../masterUnlock.module";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 @NgModule({
   imports: [
@@ -37,7 +38,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
   ],
   exports: [PassmultiVoucherComponent],
   declarations: [PassmultiVoucherComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

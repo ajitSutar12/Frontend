@@ -63,7 +63,7 @@ showLoading:boolean = false;
 clicked:boolean=false;
 iframe5url:any='';
 report_url = environment.report_url;
-
+setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -78,7 +78,6 @@ report_url = environment.report_url;
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
 
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -98,6 +97,8 @@ report_url = environment.report_url;
       this.schemetype = schemetype;
       this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
         this.dates = data.CURRENT_DATE;
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
       });
 
     })

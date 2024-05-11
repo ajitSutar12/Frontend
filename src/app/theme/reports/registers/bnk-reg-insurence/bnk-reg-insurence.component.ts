@@ -55,6 +55,7 @@ export class BnkRegInsurenceComponent implements OnInit {
     { id: 2, name: "Operation" },
     { id: 2, name: "Interest Category" },
   ];
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -66,8 +67,11 @@ export class BnkRegInsurenceComponent implements OnInit {
     private translate:TranslateService
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());

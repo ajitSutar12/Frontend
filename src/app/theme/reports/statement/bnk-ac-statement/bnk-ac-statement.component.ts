@@ -74,7 +74,7 @@ export class BnkAcStatementComponent implements OnInit {
 
   fileUrl = this.url + 'examples/AccountStatement1.php'
   name: any;
-
+  setLang:any;
 
   constructor(
     private translate:TranslateService,
@@ -93,7 +93,6 @@ export class BnkAcStatementComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.translate.setDefaultLang(environment.setLang);
   }
 
   ngOnInit(): void {
@@ -115,6 +114,8 @@ export class BnkAcStatementComponent implements OnInit {
     // debugger
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

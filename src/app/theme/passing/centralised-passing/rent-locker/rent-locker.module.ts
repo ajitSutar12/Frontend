@@ -12,6 +12,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -36,7 +37,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       }
     })
   ],
-  providers: [{
+  providers: [SystemMasterParametersService,{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
   },]

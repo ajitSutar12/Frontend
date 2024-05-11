@@ -256,6 +256,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
+
+  setLang:any;
+
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -281,7 +284,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
     ) {
 
-      this.translate.setDefaultLang(environment.setLang);
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -294,6 +296,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

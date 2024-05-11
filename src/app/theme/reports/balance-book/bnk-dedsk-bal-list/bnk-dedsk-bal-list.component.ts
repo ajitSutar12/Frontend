@@ -69,7 +69,7 @@ id: any;
 Cust_ID: any[] //customer id from idmaster
 newcustid: any = null;
   branchName: any;
-
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -81,7 +81,6 @@ newcustid: any = null;
     private deadstockmasterService:DeadstockmasterService,
     private systemParameter:SystemMasterParametersService,
   ) {
-    this.translate.setDefaultLang(environment.setLang);
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -98,6 +97,8 @@ newcustid: any = null;
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.dates = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
 

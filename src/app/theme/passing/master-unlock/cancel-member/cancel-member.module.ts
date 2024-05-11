@@ -14,6 +14,7 @@ import { MembershipCancellationModule } from '../../../transaction/share-transac
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   declarations: [CancelMemberComponent],
@@ -34,7 +35,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     })
   ],
   exports: [CancelMemberComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

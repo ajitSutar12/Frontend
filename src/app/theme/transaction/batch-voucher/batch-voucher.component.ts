@@ -14,6 +14,7 @@ import { userInfo } from 'os';
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -58,6 +59,7 @@ export class BatchVoucherComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   showImportDiv: boolean = false;
+  setLang:any;
 
   constructor(
     private fb: FormBuilder,
@@ -65,10 +67,16 @@ export class BatchVoucherComponent implements OnInit {
     private _service: BatchVoucherService,
     private CompanyGroupMasterDropdownService: CompanyGroupMasterDropdownService,
     private _multiService: MultiVoucherService,
-    private translate:TranslateService
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
 
   ) {
-    this.translate.setDefaultLang(environment.setLang) ;
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
     if (this.childMessage != undefined) {
 

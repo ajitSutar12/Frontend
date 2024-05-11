@@ -67,6 +67,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = ' ';
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -80,7 +81,11 @@ export class BnkPigmyBlankChartComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private translate:TranslateService
     ) {
-    this.translate.setDefaultLang(environment.setLang) 
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })      
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);

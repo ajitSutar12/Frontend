@@ -54,7 +54,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
  report_url = environment.report_url;
  iframe1url: any = ' ';
   scheme_code: any;
-
+  setLang:any;
  constructor(
    private fb: FormBuilder,
    private http: HttpClient,
@@ -69,7 +69,6 @@ export class BnkSubsidaryDetailComponent implements OnInit {
 
 
  ) {
-  this.translate.setDefaultLang(environment.setLang) ;
 
    this.fromdate = moment().format('DD/MM/YYYY'); 
    this.maxDate = new Date();
@@ -90,6 +89,8 @@ export class BnkSubsidaryDetailComponent implements OnInit {
   //get date from syspara current_date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.fromdate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
 
     // this.systemParameter.getFormData(1).subscribe(data => {

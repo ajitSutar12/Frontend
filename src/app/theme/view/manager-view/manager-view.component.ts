@@ -90,6 +90,7 @@ export class ManagerViewComponent implements OnInit {
   glDetails: any;
   ehead
   eheadt
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private fb: FormBuilder,
@@ -100,13 +101,15 @@ export class ManagerViewComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
   ) {
-    this.translate.setDefaultLang(environment.setLang);
+   
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       // this.maxDate = this.maxDate.subtract(1, "days");
       this.maxDate = this.maxDate._d
       this.date = data.CURRENT_DATE
       this.checkDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

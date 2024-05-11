@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-cashier-um',
@@ -16,8 +17,13 @@ export class CashierUMComponent implements OnInit {
   userData : any;
   angForm: FormGroup;
   checkFlag : boolean = true;
-
-  constructor(private _service : CashierUmService,private fb: FormBuilder,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+  setLang:any;
+  constructor(private _service : CashierUmService,private fb: FormBuilder,    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({

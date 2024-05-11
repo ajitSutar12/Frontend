@@ -4,6 +4,7 @@ import { DayEndService } from '../day-end.service';
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -15,7 +16,13 @@ export class CounterWorkDayEndComponent implements OnInit {
   ngdate: any;
   ngbdate
   systemInfo: any;
-  constructor(private _services: DayEndService,private translate:TranslateService) {  this.translate.setDefaultLang(environment.setLang);}
+  setLang:any;
+  constructor(private _services: DayEndService,    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {  this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })}
 
   ngOnInit(): void {
     this._services.getSysparaDetails().subscribe(data => {

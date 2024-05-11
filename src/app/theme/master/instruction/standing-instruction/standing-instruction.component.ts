@@ -113,6 +113,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
   allscheme
   debitScheme
   isCreditSetting: boolean = false
+  setLang:any;
 
   constructor(private fb: FormBuilder, public frequencyService: FrequencyService,
     public executionDayService: ExecutionDayService,
@@ -122,7 +123,7 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public router: Router,
     private datePipe: DatePipe, private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang)
+     
 }
 
   ngOnInit(): void {
@@ -279,6 +280,8 @@ export class StandingInstructionComponent implements OnInit, AfterViewInit, OnDe
       })
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

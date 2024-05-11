@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-locker-view',
@@ -8,7 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class LockerViewComponent implements OnInit {
 
   dtExportButtonOptions: any = {};
-  constructor() { }
+  setLang:any;
+  constructor( private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+     }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {

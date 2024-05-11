@@ -57,6 +57,7 @@ Types = [
   { id: 2, value: "Details" },
   { id: 3, value: "Subsidairy Grouping" },
 ];
+setLang:any;
 constructor(   private fb: FormBuilder,
   private _ownbranchmasterservice: OwnbranchMasterService,
   public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -64,7 +65,6 @@ constructor(   private fb: FormBuilder,
   private sanitizer: DomSanitizer,   
     public router: Router, private translate:TranslateService )
     {  
-      this.translate.setDefaultLang(environment.setLang) ;
       this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -100,6 +100,8 @@ constructor(   private fb: FormBuilder,
     //display date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
   //for starting and ending date
     this.systemParameter.getFormData(1).subscribe(data => {

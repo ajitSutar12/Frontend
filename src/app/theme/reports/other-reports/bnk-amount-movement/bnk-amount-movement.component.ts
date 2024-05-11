@@ -47,6 +47,7 @@ export class BnkAmountMovementComponent implements OnInit {
      //dropdown
      branchOption: any[];
      scheme: any[];
+     setLang:any;
   constructor(   private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -54,7 +55,6 @@ export class BnkAmountMovementComponent implements OnInit {
     private sanitizer: DomSanitizer,   
       public router: Router,  private translate:TranslateService )
       {  
-        this.translate.setDefaultLang(environment.setLang) ;
         this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -89,6 +89,8 @@ export class BnkAmountMovementComponent implements OnInit {
     //display date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
   //for starting and ending date
     this.systemParameter.getFormData(1).subscribe(data => {

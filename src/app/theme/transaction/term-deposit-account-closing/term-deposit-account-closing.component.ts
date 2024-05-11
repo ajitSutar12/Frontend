@@ -153,6 +153,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   logDate
+  setLang:any;
+
   constructor(public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -168,7 +170,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,     private translate:TranslateService
     ) {
-      this.translate.setDefaultLang(environment.setLang) ;
+      
 
     if (this.childMessage != undefined) {
 
@@ -182,6 +184,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

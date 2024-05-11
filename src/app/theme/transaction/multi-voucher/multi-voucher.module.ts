@@ -52,7 +52,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  }, SystemMasterParametersService, BankMasterService, VoucherEntryService, CustomerIdService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, SchemeTypeService, SchemeCodeDropdownService, SavingMasterService, ACMasterDropdownService]
+  }, SystemMasterParametersService, BankMasterService, VoucherEntryService, CustomerIdService, OwnbranchMasterService, MultiVoucherService, SchemeAccountNoService, TransactionCashModeService,
+   TransactionTransferModeService, SchemeTypeService, 
+   SchemeCodeDropdownService, SavingMasterService,SystemMasterParametersService,
+    ACMasterDropdownService]
 })
 export class MultiVoucherModule { }
 

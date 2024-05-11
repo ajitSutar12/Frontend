@@ -8,6 +8,7 @@ import { interval, Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { HolidayService } from './holiday.service'
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-holiday',
   templateUrl: './holiday.component.html',
@@ -22,8 +23,13 @@ export class HolidayComponent implements OnInit, OnDestroy {
   calendarOptions: CalendarOptions;
   mySubscription: Subscription
   getDataSubscription: Subscription
-
-  constructor(private http: HttpClient, private _holiday: HolidayService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+  setLang:any;
+  constructor(private http: HttpClient, private _holiday: HolidayService,    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })}
 
   onDateClick(res) {
     if (this.datesArr.find(ob => ob['start'] === res.dateStr)) {

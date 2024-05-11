@@ -12,6 +12,7 @@ import { environment } from "../../../../environments/environment";
 import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-send-message',
   templateUrl: './send-message.component.html',
@@ -37,11 +38,17 @@ export class SendMessageComponent implements OnInit {
   url = environment.base_url;
   showexcel: boolean = false
   formexcelData: any[] = [];
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,private translate:TranslateService)
-   { this.translate.setDefaultLang(environment.setLang);}
+    private http: HttpClient,    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService)
+   { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })  }
 
   ngOnInit(): void {
     this.createForm();

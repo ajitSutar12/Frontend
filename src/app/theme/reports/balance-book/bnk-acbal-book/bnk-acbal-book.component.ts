@@ -66,6 +66,7 @@ export class BnkACBalBookComponent implements OnInit {
   master: any;
 
   schemeType
+  setLang:any;
   constructor(
     private translate:TranslateService,
     private http: HttpClient,
@@ -82,8 +83,12 @@ export class BnkACBalBookComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private config: NgSelectConfig,
     public router: Router,) {
-      this.translate.setDefaultLang(environment.setLang);
-    this.defaultDate = moment().format('DD/MM/YYYY');
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+          this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

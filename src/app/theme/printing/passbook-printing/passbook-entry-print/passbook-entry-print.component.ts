@@ -59,6 +59,7 @@ export class PassbookEntryPrintComponent implements OnInit {
   scheme: any[];
   transferSchemeDetails: any;
   tScheme: any;
+  setLang:any;
   constructor(private fb: FormBuilder,
     private translate:TranslateService,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -68,7 +69,11 @@ export class PassbookEntryPrintComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private http: HttpClient,
     private sanitizer: DomSanitizer) {
-      this.translate.setDefaultLang(environment.setLang);
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -95,6 +100,7 @@ export class PassbookEntryPrintComponent implements OnInit {
     //for starting and ending date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+     
       this.ngForm.patchValue({
         LINES_PER_PASSBOOKPAGE: data.LINES_PER_PASSBOOKPAGE
       })

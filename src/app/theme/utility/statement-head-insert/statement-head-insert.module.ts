@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 })
   ],
   declarations: [StatementHeadInsertComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

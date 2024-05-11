@@ -25,6 +25,7 @@ export class PigmyDayEndComponent implements OnInit {
   ngdate: any = null
   loginDetails: any;
   dtExportButtonOptions: any = {};
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -32,7 +33,11 @@ export class PigmyDayEndComponent implements OnInit {
     private _service: DayEndService,
     private http: HttpClient,private translate:TranslateService
 
-  ) { this.translate.setDefaultLang(environment.setLang)}
+  ) { this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })}
 
 
   ngOnInit(): void {

@@ -16,6 +16,7 @@ import { DeadStockTransactionModule } from "../../../transaction/dead-stock-tran
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
   ],
   exports: [PassdeadStockTransactionComponent],
   declarations: [PassdeadStockTransactionComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

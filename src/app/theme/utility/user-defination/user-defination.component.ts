@@ -126,6 +126,7 @@ export class UserDefinationComponent implements OnInit {
   selectedRoleName: string;
 
   maxDate
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -135,10 +136,12 @@ export class UserDefinationComponent implements OnInit {
     , private systemParameter: SystemMasterParametersService,
     private translate:TranslateService
 
-  ) { this.translate.setDefaultLang(environment.setLang);
+  ) { 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d    
+      this.maxDate = this.maxDate._d   
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang); 
     })
     }
 

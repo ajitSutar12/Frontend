@@ -18,6 +18,7 @@ import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-security-details',
@@ -75,6 +76,8 @@ export class SecurityDetailsComponent implements OnInit {
   private dataSub: Subscription = null;
   schemeACNo: any;
   getscheme: any;
+  setLang:any;
+
   constructor(
     private fb: FormBuilder,
     private_router: Router,
@@ -86,8 +89,14 @@ export class SecurityDetailsComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private _voucher: VoucherEntryService,
+    private systemParameter: SystemMasterParametersService,
 
-    private config: NgSelectConfig,private translate:TranslateService) {  this.translate.setDefaultLang(environment.setLang);}
+    private config: NgSelectConfig,private translate:TranslateService) {  
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })}
   ngOnInit(): void {
     this.createForm()
     let data: any = localStorage.getItem('user');

@@ -17,6 +17,7 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 })
   ],
   declarations: [SchemeATEComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

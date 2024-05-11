@@ -18,6 +18,7 @@ import { ShareMasterService } from 'src/app/theme/master/customer/shares-master/
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 
@@ -42,7 +43,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     })
   ],
   declarations: [DividendTransferEntryComponent],
-  providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService,ShareMasterService, {
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService,ShareMasterService,SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

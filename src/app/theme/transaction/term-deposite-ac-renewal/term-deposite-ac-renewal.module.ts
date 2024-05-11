@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { ThemeModule } from '../../theme.module'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -53,6 +54,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     MultiVoucherService,
     SavingMasterService,
     TermDepositeAcRenewalService,
+    SystemMasterParametersService,
     DatePipe
   ]
 })

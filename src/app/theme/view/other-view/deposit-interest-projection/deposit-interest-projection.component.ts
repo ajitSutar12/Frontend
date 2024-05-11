@@ -40,6 +40,7 @@ export class DepositInterestProjectionComponent implements OnInit {
   i: number;
   resultData: any;
   modalClass: string = 'modalHide';
+  setLang:any;
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private _termDepositScheme: TermDepositSchemeService,
@@ -51,10 +52,12 @@ export class DepositInterestProjectionComponent implements OnInit {
     this.dates = moment().format('DD/MM/YYYY');
     // this.maxDate = new Date();
     // this.maxDate.setDate(this.maxDate.getDate())
-    this.translate.setDefaultLang(environment.setLang) ;
+  
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -15,6 +15,7 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   ],
   declarations: [CustomerViewComponent],
   exports: [CustomerViewComponent],
-  providers: [CustomerIDMasterDropdownService, LegderViewService, CustomerIdService, OwnbranchMasterService, {
+  providers: [CustomerIDMasterDropdownService, LegderViewService, CustomerIdService, OwnbranchMasterService,SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true

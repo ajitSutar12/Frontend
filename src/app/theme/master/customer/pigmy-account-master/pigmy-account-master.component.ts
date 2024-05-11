@@ -234,6 +234,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   maxDate: any
   AGENTBRANCH: any = null
   Recommended: any[]
+  setLang:any;
 
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
@@ -254,7 +255,6 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private datePipe: DatePipe,
     private translate:TranslateService
     ) {
-      this.translate.setDefaultLang(environment.setLang)
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -264,6 +264,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
