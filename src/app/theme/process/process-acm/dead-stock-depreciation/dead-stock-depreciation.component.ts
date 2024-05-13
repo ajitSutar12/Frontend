@@ -44,6 +44,7 @@ export class DeadStockDepreciationComponent implements OnInit {
   itemArr = []
   drepreciationData
   totalAmt: number = 0
+  setLang: any;
 
   constructor(private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
@@ -53,6 +54,8 @@ export class DeadStockDepreciationComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.ngtransactiondate = this.maxDate._d
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+
     })
   }
 
@@ -66,7 +69,8 @@ export class DeadStockDepreciationComponent implements OnInit {
       this.branchOption = data;
       this.selectedBranch = user.branchId;
     });
-    this.translate.setDefaultLang(environment.setLang);
+    this.translate.setDefaultLang(this.setLang  
+    );
   }
   createForm() {
     this.angForm = this.fb.group({

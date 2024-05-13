@@ -73,13 +73,18 @@ export class PigmyMachineProcessComponent implements OnInit {
   filterData = {};
   dtTrigger: Subject<any> = new Subject<any>();
   formSubmitted: boolean = false
+  setLang: any;
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private http: HttpClient,
-    private translate:TranslateService) { this.translate.setDefaultLang(environment.setLang)}
+    private translate:TranslateService) { 
+      this.systemParameter.getFormData(1).subscribe(data => {
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+    })      }
 
   ngOnInit(): void {
     this.createForm()

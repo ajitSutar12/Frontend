@@ -106,7 +106,7 @@ export class SpecialComponent implements OnInit, AfterViewInit, OnDestroy {
     private http: HttpClient,
     private _special: specialservice,
     private config: NgSelectConfig,private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang)
+      // this.translate.setDefaultLang(environment.setLang)
     this.maxDate = new Date();
     this.minDate = new Date();
     this.systemParameter.getFormData(1).subscribe(data => {

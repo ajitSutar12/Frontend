@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-share-transactions',
@@ -17,8 +18,13 @@ export class ShareTransactionsComponent implements OnInit {
   foundpaymenttransactionTrue = false;
   openingsharesteTrue = false;
   rebitintresttransactionTrue = false;
-  constructor(private_router: Router,  private translate:TranslateService,) {
-    this.translate.setDefaultLang(environment.setLang);
+  setLang: any;
+  constructor(private_router: Router,  private translate:TranslateService,private systemParameter: SystemMasterParametersService) {
+    // this.translate.setDefaultLang(environment.setLang);
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+  }) 
   }
   ngOnInit(): void {
   }

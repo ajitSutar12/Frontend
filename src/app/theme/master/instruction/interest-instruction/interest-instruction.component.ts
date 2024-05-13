@@ -127,7 +127,11 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public router: Router,
     private datePipe: DatePipe,private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang) }
+      this.systemParameter.getFormData(1).subscribe(data => {
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+    })  
+       }
 
   ngOnInit(): void {
     this.createForm();

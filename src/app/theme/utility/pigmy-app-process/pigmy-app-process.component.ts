@@ -80,12 +80,17 @@ export class PigmyAppProcessComponent implements OnInit {
   showloader: boolean = false
   showProBar: boolean = false
   completedCount = 0
+  setLang: any;
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private http: HttpClient,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang                ) }
+    private http: HttpClient,private translate:TranslateService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+    })      }
 
   ngOnInit(): void {
     this.createForm()

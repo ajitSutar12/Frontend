@@ -107,7 +107,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang)
+      // this.translate.setDefaultLang(environment.setLang)
 
       // this.maxDate = new Date();
     // this.minDate = new Date();

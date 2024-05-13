@@ -58,7 +58,7 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
     private http: HttpClient, private _schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private _interestRateChange: DepositLoanInterestRateEditChangeService,private translate:TranslateService) { this.translate.setDefaultLang(environment.setLang);
+    private _interestRateChange: DepositLoanInterestRateEditChangeService,private translate:TranslateService) { 
     this.systemParameter.getFormData(1).subscribe(data => {
       this.minDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.minDate = this.minDate._d

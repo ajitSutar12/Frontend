@@ -153,8 +153,10 @@ export class BalanceUpdationComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private config: NgSelectConfig,
      private translate:TranslateService) {
-      this.translate.setDefaultLang(environment.setLang)
-
+      this.systemParameter.getFormData(1).subscribe(data => {
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+    })  
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

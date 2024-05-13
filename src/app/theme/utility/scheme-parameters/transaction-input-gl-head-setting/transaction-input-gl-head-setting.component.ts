@@ -14,6 +14,7 @@ import { first } from 'rxjs/operators';
 import { TranscationInputSettingService } from './transaction-input-gl-head-setting.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../system-master-parameters/system-master-parameters.service';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -136,8 +137,15 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
 
   //filter variable
   filterData = {};
+  setLang: any;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService, private _transInput: TranscationInputSettingService,private translate:TranslateService) {this.translate.setDefaultLang(environment.setLang); }
+  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService,    private systemParameter: SystemMasterParametersService,
+     private _transInput: TranscationInputSettingService,private translate:TranslateService) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+  })
+   }
 
   ngOnInit(): void {
     this.createForm()
