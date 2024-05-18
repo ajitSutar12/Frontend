@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 
@@ -22,6 +23,7 @@ class DataTableResponse {
 })
 export class DdTransactionComponent implements OnInit {
 
+  url = environment.base_url
   angForm: FormGroup;
   branch_code
   ngBranchCode = null
@@ -71,7 +73,7 @@ export class DdTransactionComponent implements OnInit {
     })
 
 
-    this.http.get('http://192.168.1.195:7276/dd-change-printing/getData').subscribe((data) => {
+    this.http.get(this.url + '/dd-change-printing/getData').subscribe((data) => {
       this.bankArray = data
       this.cityArray = data
     })
@@ -84,7 +86,7 @@ export class DdTransactionComponent implements OnInit {
     //   serverSide: true,
     //   processing: true,
     //   ajax: (dataTableParameters: any, callback) => {
-    //     this.http.get('http://192.168.1.195:7276/dd-change-printing').subscribe((data: any[]) => {
+    //     this.http.get(this.url +'/dd-change-printing').subscribe((data: any[]) => {
     //       this.tableData = data;
     //       callback({ data: data });
     //     });
@@ -118,7 +120,7 @@ export class DdTransactionComponent implements OnInit {
         this.page = dataTableParameters.start / dataTableParameters.length;
 
         dataTableParameters.columns.forEach(element => {
-   
+
           if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
@@ -126,7 +128,7 @@ export class DdTransactionComponent implements OnInit {
             let getColumnName = element.data;
             let columnValue = element.value;
             if (this.filterData.hasOwnProperty(element.data)) {
-           
+
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {
                 delete this.filterData[element.data];
@@ -136,7 +138,7 @@ export class DdTransactionComponent implements OnInit {
         });
         dataTableParameters['filterData'] = this.filterData;
         this.http
-          .get<DataTableResponse>('http://192.168.1.195:7276/dd-change-printing' ).subscribe(resp => {
+          .get<DataTableResponse>(this.url + '/dd-change-printing').subscribe(resp => {
             this.tableData = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -251,7 +253,7 @@ export class DdTransactionComponent implements OnInit {
         'OFFICER_CODE': USER_CODE,
       }
 
-      this.http.post('http://192.168.1.195:7276/dd-change-printing/insert', obj).subscribe((data) => {
+      this.http.post(this.url + '/dd-change-printing/insert', obj).subscribe((data) => {
         Swal.fire('Success', 'Data submitted successfully', 'success');
       })
     }

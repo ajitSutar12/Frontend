@@ -211,9 +211,6 @@ export class AccountEnquiryComponent implements OnInit {
   }
   IS_WEEKLY_REPAY
   schemechange(event) {
-
-    this.acCloseDate = null
-    this.isOpen = false
     this.schemeACNo = null
     this.accountedit = null
     this.getschemename = event.name
@@ -673,10 +670,9 @@ export class AccountEnquiryComponent implements OnInit {
     }
   }
 
-
+  
 
   //get account details
-  isOpen: boolean = false
   getAccountDetails(event) {
     this.viewView(event)
 
@@ -766,15 +762,6 @@ export class AccountEnquiryComponent implements OnInit {
       this.freezeac = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? false : true
       this.freezStataus = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? '' : event.AC_FREEZE_STATUS
       let maturedAmount = Number(event.autoMaturedPayableAmt) + Number(event.autoMaturedIntrestAmt)
-
-      if (this.acCloseDate != null) {
-        this.acCloseDate = event.AC_CLOSEDT
-        this.isOpen = false
-      }
-      else {
-        this.acCloseDate = null
-        this.isOpen = true
-      }
       this.angForm.patchValue({
         AC_CLOSEDT: event.closeDate,
         AMOUNT: maturedAmount,
@@ -1504,9 +1491,9 @@ export class AccountEnquiryComponent implements OnInit {
       for (let ele of this.productViewArr) {
         this.productTotal = Number(this.productTotal) + Number(ele['amount'])
       }
-      // this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
-      //   this.loanreceivedInterest = data
-      // })
+      this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+        this.loanreceivedInterest = data
+      })
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
@@ -1648,7 +1635,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.customerIDArr = data
       })
     }
-
+    
   }
   selectedImagePreview: any;
   documentUrl = this.url + '/'

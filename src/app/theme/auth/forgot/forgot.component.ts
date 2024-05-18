@@ -17,8 +17,7 @@ export class ForgotComponent implements OnInit {
   contactNo: any
   angForm: FormGroup;
   url = environment.base_url
-
-
+  
   constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {

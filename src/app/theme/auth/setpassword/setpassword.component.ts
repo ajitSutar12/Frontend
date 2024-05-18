@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { NgPasswordValidatorOptions } from "ng-password-validator";
 import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -23,7 +22,6 @@ export class SetpasswordComponent implements OnInit {
   confirmPassword: any;
   username: any;
   toastr: any;
-  url = environment.base_url
 
 
   constructor(private _authService: AuthService, private router: Router, private http: HttpClient) { }
@@ -86,7 +84,7 @@ export class SetpasswordComponent implements OnInit {
         'username': this.username
       }
 
-      this.http.post(this.url + '/user-defination/confirmpasswordreset', setpassword).subscribe(data => {
+      this.http.post('http://192.168.1.128:7276/user-defination/confirmpasswordreset', setpassword).subscribe(data => {
         Swal.fire('Success!', 'Password Reset Successfully', 'success');
         this.router.navigate(['/auth/login/simple']);
 

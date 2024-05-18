@@ -58,7 +58,13 @@
                                     </div>
                                 </div>
                             </div>
-                            
+                            <div class="col-sm" *ngIf="dormantac">
+                                <div><label style="color: #1e5bc5">Dormant Account</label></div>
+                            </div>
+                            <div class="col-sm" *ngIf="acclosedon">
+                                <div><label style="color: red; font-size: 15px;">Account Closed On:
+                                        {{acCloseDate}}</label></div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
@@ -82,15 +88,6 @@
                                         This field is required.
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm" *ngIf="dormantac">
-                                <div><label style="color: #1e5bc5">Dormant Account</label></div>
-                            </div>
-                            <div class="col-sm" style="float: right; color: rgb(14 168 14);"
-                            *ngIf="isOpen">Account Open</div>
-                            <div class="col-sm" *ngIf="acclosedon">
-                                <div><label style="color: red; font-size: 15px;">Account Closed On:
-                                        {{acCloseDate}}</label></div>
                             </div>
                             <div class="col-sm" *ngIf="freezeac">
                                 <div><label style="color: #1e5bc5">Freez

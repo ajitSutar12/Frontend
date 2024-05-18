@@ -181,7 +181,7 @@ export class RecePayRepDetailsComponent implements OnInit {
       if(branchCode == 0){
         this.branchName='Consolidate';
      }
-      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + branchName + "&flag=" + flag + "";
+      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + this.branchName + "&flag=" + flag + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

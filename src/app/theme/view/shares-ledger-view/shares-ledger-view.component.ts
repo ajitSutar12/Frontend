@@ -350,8 +350,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
 
 
   schemechange(event) {
-    this.acCloseDate = null
-    this.isOpen = false
+
     this.getschemename = event.name
     this.ngscheme = event.value
     this.getAccountlist()
@@ -398,7 +397,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
 
   }
 
-  isOpen: boolean = false
+
   //get account details
   getAccountDetails(event) {
     this.showLoader = false
@@ -423,7 +422,7 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
     this.bankacno = event.bankacno
     this.dormantac = event.dormant
     this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
-    this.acCloseDate = event.acClose == null || event.acClose == '' ? null: event.acClose
+    this.acCloseDate = event.acClose == null || event.acClose == '' ? '' : event.acClose
     this.freezeac = event.freez == null || event.freez == '' ? false : true
     this.freezStataus = event.freez == null || event.freez == '' ? '' : event.freez
     let maturedAmount = Number(event.autoMaturedPayableAmt) + Number(event.autoMaturedIntrestAmt)
@@ -431,24 +430,6 @@ export class SharesLedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.opendate,
       AMOUNT: maturedAmount
     })
-    if (this.acCloseDate != null) {
-      this.acCloseDate = event.acClose
-      this.isOpen = false
-      this.freezeac = false
-
-    }
-    else if (this.freezeac == true) {
-      this.acCloseDate = null
-      this.isOpen = false
-      this.freezeac = true
-    }
-    else {
-      this.acCloseDate = null
-      this.isOpen = true
-      this.freezeac = false
-
-    }
-
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
   }
