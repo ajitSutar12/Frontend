@@ -7,17 +7,17 @@ export const environment = {
 
   
   // Localhost
-  base_url: 'http://localhost:7276',
+  // base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
+  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS',
 
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
   // report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
+  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' ,
 
   // //TESTSIDHANERLI 
-  // base_url: 'http://103.174.87.104:4771',  
+  base_url: 'http://103.174.87.104:4771',  
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 

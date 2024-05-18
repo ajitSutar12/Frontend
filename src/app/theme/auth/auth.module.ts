@@ -6,6 +6,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { AuthGuard } from './auth.guard';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptorServices } from './auth.interceptor.service';
+import { SetpasswordComponent } from './setpassword/setpassword.component';
 
 @NgModule({
   imports: [

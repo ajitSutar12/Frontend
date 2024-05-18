@@ -776,8 +776,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
+  extractImageName(url: any): string {
+    let parts = url.split('/');
+    return parts[parts.length - 1];
+  }
   customerDoc
   //Method for append data into fields
+  file = null
   editClickHandler(id) {
     this.autofacus = false;
     this.showButton = false;
@@ -879,6 +884,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             this.selectedImagePreview = selectedObj[id];
             this.imageObject.push(selectedObj)
             this.selectedImgArrayDetails.push(selectedObj);
+            let url = Object.values(selectedObj)[0]; 
+            this.file = this.extractImageName(url);
+            this.customerDoc.push({'name':this.file})
           }
           this.customerDoc = DocArr
           // this. viewImagePreview(id)
@@ -1365,7 +1373,6 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
   checkCustomer() {
     this.customerIdService.getData().subscribe(data => {
       if (data?.length != 0) {
@@ -1525,7 +1532,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
-    
+
   }
 
   onOpen(select: NgSelectComponent) {

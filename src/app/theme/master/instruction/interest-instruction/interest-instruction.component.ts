@@ -947,6 +947,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     this.TODate == this.angForm.controls['NEXT_EXE_DATE'].value ? dataToSend['NEXT_EXE_DATE'] = this.TODate : dataToSend['NEXT_EXE_DATE'] = moment(this.angForm.controls['NEXT_EXE_DATE'].value).format('DD/MM/YYYY')
 
     this.newTDCustomerEvent.emit(dataToSend);
+    this.resetForm()
   }
 
   onCloseModal() {

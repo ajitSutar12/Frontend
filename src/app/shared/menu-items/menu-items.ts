@@ -764,11 +764,11 @@ const MENUITEMS1 = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -803,6 +803,7 @@ const MENUITEMS1 = [
             name: 'Inward Register',
             id: 131
           },
+
         ]
       },
       {
@@ -3600,11 +3601,11 @@ const MENUITEMS = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
