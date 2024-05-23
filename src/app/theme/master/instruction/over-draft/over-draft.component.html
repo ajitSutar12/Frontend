@@ -78,164 +78,281 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-block">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <ul class="basic-list">
-                                    <li>
-                                        <h6>
-                                            <a routerLinkActive="active" class="text-right f-w-600" id="pointer">
-                                                <div class="form-radio">
-                                                    <div class="radio radio-inline">
-                                                        <label class="inputRadio">
-                                                            <input (change)="OpenLink(1)" type="radio"
-                                                                name="radioOverdraft" formControlName="radioOverdraft"
-                                                                value="PeriodicallyOverDraft" checked="true">
-                                                            <i class="helper"></i>Periodically Over Draft
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </h6>
-                                    </li>
-                                    <li>
-                                        <h6>
-                                            <a routerLinkActive="active" class="text-right f-w-600" id="pointer">
-                                                <div class="form-radio">
-                                                    <div class="radio radio-inline">
-                                                        <label class="inputRadio">
-                                                            <input (change)="OpenLink(2)" type="radio"
-                                                                name="radioOverdraft" formControlName="radioOverdraft"
-                                                                value="TemporaryOverDraft">
-                                                            <i class="helper"></i>Temporary Over Draft
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </h6>
-                                    </li>
-                                </ul>
+
+                    <div class="row">
+                        <div class="col-sm-4" *ngIf="isShow">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" name="odSanctionBy" class="form-control "
+                                        placeholder=" " id="odSanctionBy" required pattern="^[A-Za-z\s]+$"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || $event.charCode === 32"
+                                        [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="odSanction"
+                                        title="Input allowed only A-Z" formControlName="odSanctionBy">
+                                    <label for="odSanctionBy">O.D. Sanction By<sub class="required">* </sub></label>
+                                </span>
                             </div>
-                            <div class="col-sm-9">
-                                <div class="card-block">
-                                    <div *ngIf="PeriodicallyOverDraftTrue">
-                                        <div class="row">
-                                          
-                                            <div class="col-sm">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="To" class="form-control"
-                                                            style="text-align: right;" #PeriodicAmount
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                            placeholder=" " id="Over" maxlength="8"
-                                                            title="Input allowed only  0-9" formControlName="AC_SODAMT"
-                                                            (focus)="selectAllContent($event)"
-                                                            (keyup)="getDecimal($event)"
-                                                            (focusout)="getDecimalPoint($event)">
-                                                        <label for="Over">Over Draft Amount<sub
-                                                                class="required">*</sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['AC_SODAMT'].invalid && (angForm.controls['AC_SODAMT'].dirty || angForm.controls['AC_SODAMT'].touched)"
-                                                    class='alert alert-danger'>
-                                                    <div
-                                                        *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required">
-                                                        This field is required and Input allowed only . 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                           
-                                            <div class="col-sm">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input type="text" name="To" class="form-control"
-                                                            style="text-align: right;"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                            placeholder=" " id="Over1" pattern="^[0-9]+$" maxlength="3"
-                                                            title="Input allowed only  0-9" formControlName="AC_ODDAYS"
-                                                            [required]="periodoverdraft" (change)="getODDate()"
-                                                            (focus)="selectAllContent($event)">
-                                                        <label for="Over1">OD period in days<sub
-                                                                class="required">*</sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['AC_ODDAYS'].invalid && (angForm.controls['AC_ODDAYS'].dirty || angForm.controls['AC_ODDAYS'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div
-                                                        *ngIf="angForm.controls['AC_ODDAYS'].errors?.pattern || angForm.controls['AC_ODDAYS'].errors?.required">
-                                                        This field is required and Input allowed only 0-9
-                                                    </div>
-                                                </div>
-                                            </div>
-                                           
-                                            <div class="col-sm">
-                                                <div class="form-group input-group">
-                                                    <span class="border-lable-flt">
-                                                        <input appButton minlength="10" maxlength="10" type="text"
-                                                            placeholder="dd/mm/yyyy" name="AC_ODDATE" id="AC_ODDATE"
-                                                            class="form-control"
-                                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                            [minDate]="maxDate" maxlength="10"
-                                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                                            [required]="periodoverdraft" #AC_ODDATE="bsDatepicker"
-                                                            (keydown.Tab)="AC_ODDATE.hide()" formControlName="AC_ODDATE"
-                                                            (bsValueChange)="getODDays()"
-                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                            bsDatepicker>
-                                                        <label for="Date">OD Till Date <sub
-                                                                class="required">*</sub></label>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group form-primary form-static-label"
-                                                    *ngIf="angForm.controls['AC_ODDATE'].invalid && (angForm.controls['AC_ODDATE'].dirty || angForm.controls['AC_ODDATE'].touched)"
-                                                    class="alert alert-danger">
-                                                    <div *ngIf="angForm.controls['AC_ODDATE'].errors?.required">
-                                                        Enter Valid Date
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['odSanctionBy'].invalid && (angForm.controls['odSanctionBy'].dirty || angForm.controls['odSanctionBy'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['odSanctionBy'].errors?.pattern || angForm.controls['odSanctionBy'].errors?.required">
+                                    This field is required and Input allowed only A-Z
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="card-block">
+                        <div class="row"> -->
+                        <div class="col-sm-3">
+                            <!-- <ul class="basic-list">
+                                    <li> -->
+                            <!-- <h6> -->
+                            <a routerLinkActive="active" id="pointer">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input (change)="OpenLink(1)" type="radio" name="radioOverdraft"
+                                                formControlName="radioOverdraft" value="PeriodicallyOverDraft"
+                                                checked="true">
+                                            <i class="helper"></i>Periodically Over Draft
+                                        </label>
                                     </div>
                                 </div>
-                                <div *ngIf="TemporaryOverDraftTrue">
+                            </a>
+                        </div>
+                        <div class="col-sm-3">
+
+                            <!-- </h6> -->
+                            <!-- </li>
+                                    <li> -->
+                            <!-- <h6> -->
+                            <a routerLinkActive="active" id="pointer">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input (change)="OpenLink(2)" type="radio" name="radioOverdraft"
+                                                formControlName="radioOverdraft" value="TemporaryOverDraft">
+                                            <i class="helper"></i>Temporary Over Draft
+                                        </label>
+                                    </div>
+                                </div>
+                            </a>
+                            <!-- </h6> -->
+                            <!-- </li>
+                                </ul> -->
+                        </div>
+                        <div class="col-sm-2">
+                            <!-- <ul class="basic-list">
+                                    <li> -->
+                            <!-- <h6> -->
+                            <a routerLinkActive="active" id="pointer">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label class="inputRadio">
+                                            <input (change)="OpenLink(3)" type="radio" name="radioOverdraft"
+                                                formControlName="radioOverdraft" value="revoke" checked="true">
+                                            <i class="helper"></i>Release
+                                        </label>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="card-block">
+                                <div *ngIf="PeriodicallyOverDraftTrue">
                                     <div class="row">
-                                        <div class="col-sm-5">
+
+                                        <div class="col-sm">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input type="text" name="To" class="form-control" placeholder=" "
-                                                        id="To" maxlength="8" #tempAmount
-                                                        (keypress)="($event.charCode >=  48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                                        [required]="TemporaryOverDraftTrue"
+                                                    <input type="text" name="To" class="form-control"
+                                                        style="text-align: right;" #PeriodicAmount
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                        placeholder=" " id="Over" maxlength="8"
+                                                        title="Input allowed only  0-9" formControlName="AC_SODAMT"
                                                         (focus)="selectAllContent($event)" (keyup)="getDecimal($event)"
-                                                        (focusout)="getDecimalPoint($event)"
-                                                        title="Input allowed only  0-9" formControlName="AC_ODAMT">
-                                                    <label for="To">Over Draft Amount <sub
+                                                        (focusout)="getDecimalPoint($event)">
+                                                    <label for="Over">Over Draft Amount<sub
                                                             class="required">*</sub></label>
                                                 </span>
                                             </div>
                                             <div class="form-group form-primary form-static-label"
-                                                *ngIf="angForm.controls['AC_ODAMT'].invalid && (angForm.controls['AC_ODAMT'].dirty || angForm.controls['AC_ODAMT'].touched)"
+                                                *ngIf="angForm.controls['AC_SODAMT'].invalid && (angForm.controls['AC_SODAMT'].dirty || angForm.controls['AC_SODAMT'].touched)"
+                                                class='alert alert-danger'>
+                                                <div
+                                                    *ngIf="angForm.controls['AC_SODAMT'].errors?.pattern || angForm.controls['AC_SODAMT'].errors?.required">
+                                                    This field is required and Input allowed only . 0-9
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input type="text" name="To" class="form-control"
+                                                        style="text-align: right;"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                        placeholder=" " id="Over1" pattern="^[0-9]+$" maxlength="3"
+                                                        title="Input allowed only  0-9" formControlName="AC_ODDAYS"
+                                                        [required]="periodoverdraft" (change)="getODDate()"
+                                                        (focus)="selectAllContent($event)">
+                                                    <label for="Over1">OD period in days<sub
+                                                            class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['AC_ODDAYS'].invalid && (angForm.controls['AC_ODDAYS'].dirty || angForm.controls['AC_ODDAYS'].touched)"
                                                 class="alert alert-danger">
                                                 <div
-                                                    *ngIf="angForm.controls['AC_ODAMT'].errors?.pattern || angForm.controls['AC_ODAMT'].errors?.required">
+                                                    *ngIf="angForm.controls['AC_ODDAYS'].errors?.pattern || angForm.controls['AC_ODDAYS'].errors?.required">
                                                     This field is required and Input allowed only 0-9
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm">
+                                            <div class="form-group input-group">
+                                                <span class="border-lable-flt">
+                                                    <input appButton minlength="10" maxlength="10" type="text"
+                                                        placeholder="dd/mm/yyyy" name="AC_ODDATE" id="AC_ODDATE"
+                                                        class="form-control"
+                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                        [minDate]="maxDate" maxlength="10"
+                                                        [ngClass]="{'form-submitted': formSubmitted}"
+                                                        [required]="periodoverdraft" #AC_ODDATE="bsDatepicker"
+                                                        (keydown.Tab)="AC_ODDATE.hide()" formControlName="AC_ODDATE"
+                                                        (bsValueChange)="getODDays()"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                        bsDatepicker>
+                                                    <label for="Date">OD Till Date <sub class="required">*</sub></label>
+                                                </span>
+                                            </div>
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['AC_ODDATE'].invalid && (angForm.controls['AC_ODDATE'].dirty || angForm.controls['AC_ODDATE'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['AC_ODDATE'].errors?.required">
+                                                    Enter Valid Date
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div *ngIf="TemporaryOverDraftTrue">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="To" class="form-control" placeholder=" "
+                                                    id="To" maxlength="8" #tempAmount
+                                                    (keypress)="($event.charCode >=  48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                    [required]="TemporaryOverDraftTrue"
+                                                    (focus)="selectAllContent($event)" (keyup)="getDecimal($event)"
+                                                    (focusout)="getDecimalPoint($event)" title="Input allowed only  0-9"
+                                                    formControlName="AC_ODAMT">
+                                                <label for="To">Over Draft Amount <sub class="required">*</sub></label>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['AC_ODAMT'].invalid && (angForm.controls['AC_ODAMT'].dirty || angForm.controls['AC_ODAMT'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="angForm.controls['AC_ODAMT'].errors?.pattern || angForm.controls['AC_ODAMT'].errors?.required">
+                                                This field is required and Input allowed only 0-9
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row" *ngIf="isRevoke">
+
+                                <div class="col-sm-4">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select appTheme id="odDate"  [(ngModel)]="od_Date"
+                                                formControlName="odDate" title="Compulsory Selection"
+                                                placeholder="OD Date">
+                                                <ng-option *ngFor="let values of odDate" [value]="values">
+                                                    {{values.AC_ODDATE}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{values.AC_ODAMT}}</ng-option>
+                                            </ng-select>
+                                            <label for="odDate">OD Date<sub class="required"> * </sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['odDate'].invalid && (angForm.controls['odDate'].dirty || angForm.controls['odDate'].touched)"
+                                        class='alert alert-danger'>
+                                        <div *ngIf="angForm.controls['odDate'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input appButton minlength="10" maxlength="10" type="text"
+                                                placeholder="dd/mm/yyyy" name="REVOKE_DATE" id="REVOKE_DATE"
+                                                class="form-control" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                [minDate]="maxDate" maxlength="10"
+                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                [required]="periodoverdraft" #REVOKE_DATE="bsDatepicker"
+                                                (keydown.Tab)="REVOKE_DATE.hide()" formControlName="REVOKE_DATE"
+                                                (bsValueChange)="getODDays()"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                bsDatepicker>
+                                            <label for="Date">Release Date <sub class="required">*</sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['REVOKE_DATE'].invalid && (angForm.controls['REVOKE_DATE'].dirty || angForm.controls['REVOKE_DATE'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['REVOKE_DATE'].errors?.required">
+                                            Enter Valid Date
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input appTheme type="text" name="odreleasedby" class="form-control "
+                                                placeholder=" " id="odreleasedby" required pattern="^[A-Za-z\s]+$"
+                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || $event.charCode === 32"
+                                                [ngClass]="{'form-submitted': formSubmitted}" [(ngModel)]="odRelease"
+                                                title="Input allowed only A-Z" formControlName="odreleasedby">
+                                            <label for="odreleasedby">O.D. Released By<sub class="required">* </sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['odreleasedby'].invalid && (angForm.controls['odreleasedby'].dirty || angForm.controls['odreleasedby'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['odreleasedby'].errors?.pattern || angForm.controls['odreleasedby'].errors?.required">
+                                            This field is required and Input allowed only A-Z
+                                        </div>
+                                    </div>
+                                </div>
+        
+
+                            </div>
                         </div>
+                        <!-- </div>
+                    </div> -->
                     </div>
+
                     <div class="col-sm">
-                        <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="showButton"
+                        <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()" *ngIf="isShow"
                             appTheme (keydown.Tab)="focus()">Submit</button>
                         <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
                             *ngIf="updateShow">Update</button>&nbsp;
                         <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
                             *ngIf="newbtnShow">Cancel</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="update()"
+                             *ngIf="isHide">update</button>
                     </div>
                 </form>
             </div>

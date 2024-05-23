@@ -84,16 +84,20 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   PeriodicallyOverDraftTrue: boolean = true;
   TemporaryOverDraftTrue: boolean = false;
   periodoverdraft: boolean = false
+  isRevoke: boolean = false
 
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = true;
   page: number;
+  odSanction
 
   bankAcno
   actype
   branch_code
   ngBranch: any = null;
+  isShow: boolean = true;
+  isHide: boolean = false
 
   constructor(
     private fb: FormBuilder,
@@ -115,8 +119,12 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  odDate
   ngOnInit(): void {
     this.createForm();
+
+
+
     // Fetching Server side data
 
     // this.dtExportButtonOptions = {
@@ -202,6 +210,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.required]],
+      odDate: [""],
       AC_TYPE: ["", [Validators.required]],
       AC_NO: ["", [Validators.required]],
       radioOverdraft: ["PeriodicallyOverDraft", [Validators.required]],
@@ -209,6 +218,10 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_ODAMT: ["", [Validators.pattern,]],
       AC_ODDAYS: [0, [Validators.pattern,]],
       AC_ODDATE: [""],
+      REVOKE_DATE: [""],
+      odSanctionBy: ["", [Validators.pattern, Validators.required]],
+      odreleasedby: ["", [Validators.pattern]],
+
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -227,6 +240,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   submit() {
+    this.isHide = false
+    this.isShow = true
     const formVal = this.angForm.value;
     if (formVal.BRANCH_CODE == "" || formVal.BRANCH_CODE == null) {
       Swal.fire("Warning!", "Please Select Branch!", "warning");
@@ -247,7 +262,7 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
       this.formSubmitted = true;
       let odDate = moment(formVal.AC_ODDATE, 'DD/MM/YYYY')
       let odDatet = moment(odDate).format('DD/MM/YYYY')
-      const dataToSend = {
+      let dataToSend = {
         AC_TYPE: this.actype,
         ACTYPE: this.ac_type,
         AC_NO: formVal.AC_NO,
@@ -255,7 +270,8 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_SODAMT: formVal.AC_SODAMT,
         AC_ODAMT: formVal.AC_ODAMT,
         AC_ODDAYS: formVal.AC_ODDAYS,
-        AC_ODDATE: this.PeriodicallyOverDraftTrue == true ? odDatet : null
+        AC_ODDATE: this.PeriodicallyOverDraftTrue == true ? odDatet : null,
+        SANCTION_BY: formVal.odSanctionBy
       };
       this._overdraft.postData(dataToSend).subscribe(
         (data1) => {
@@ -391,7 +407,6 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
           AC_ODDAYS: data[0]?.AC_ODDAYS,
           AC_ODDATE: data[0]?.AC_ODDATE,
         })
-        debugger
         if (data[0].AC_SODAMT != 0 && data[0].AC_SODAMT != null && data[0].AC_ODDAYS != 0) {
           this.angForm.patchValue({
             radioOverdraft: 'PeriodicallyOverDraft'
@@ -424,6 +439,17 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
         this.TemporaryOverDraftTrue = false
       }
     })
+
+
+    let obj = {
+      'scheme': this.ac_type,
+      'ac_no': this.bankAcno
+    }
+
+    this.http.post(this.url + '/over-draft/getoddates', obj).subscribe((data) => {
+      this.odDate = data
+    })
+
   }
 
   /**
@@ -492,20 +518,43 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
 
   OpenLink(val) {
     if (val == 1) {
+      this.isHide = false
+      this.isShow = true
       this.PeriodicallyOverDraftTrue = true;
       this.periodoverdraft = true
       this.TemporaryOverDraftTrue = false;
+      this.isRevoke = false;
       this.angForm.controls['AC_ODAMT'].reset()
+      this.angForm.controls['REVOKE_DATE'].reset()
+      this.angForm.controls['odDate'].reset()
       // this.PeriodicAmount.nativeElement.focus();
     }
     else if (val == 2) {
+      this.isHide = false
+      this.isShow = true
       this.angForm.controls['AC_SODAMT'].reset()
       this.PeriodicallyOverDraftTrue = false;
       this.periodoverdraft = false
+      this.isRevoke = false
       this.TemporaryOverDraftTrue = true;
       this.angForm.controls['AC_ODDAYS'].reset()
       this.angForm.controls['AC_ODDATE'].reset()
+      this.angForm.controls['REVOKE_DATE'].reset()
+      this.angForm.controls['odDate'].reset()
       this.tempAmount.nativeElement.focus();
+    }
+    else if (val == 3) {
+      this.isHide = true
+      this.isShow = false
+      this.angForm.controls['AC_SODAMT'].reset()
+      this.PeriodicallyOverDraftTrue = false;
+      this.periodoverdraft = false
+      this.TemporaryOverDraftTrue = false;
+      this.isRevoke = true;
+      this.angForm.controls['AC_ODDAYS'].reset()
+      this.angForm.controls['AC_ODDATE'].reset()
+      this.angForm.controls['AC_ODAMT'].reset()
+
     }
   }
 
@@ -554,9 +603,39 @@ export class OverDraftComponent implements OnInit, AfterViewInit, OnDestroy {
     this.schemeACNo = null
   }
 
-  addNewData()
-  {
+  addNewData() {
     this.resetForm();
+  }
+
+  odRelease
+  update() {
+    this.isHide = true
+    this.isShow = false
+    let formVal = this.angForm.value
+
+    let relDate = moment(formVal.REVOKE_DATE, 'DD/MM/YYYY')
+    let releasedDate = moment(relDate).format('DD/MM/YYYY')
+
+
+    let obj = {
+      AC_TYPE: this.actype,
+      ACTYPE: this.ac_type,
+      AC_NO: this.bankAcno,
+      BANKACNO: this.bankAcno,
+      REALESE_BY: formVal.odreleasedby,
+      RELEASE_DATE: releasedDate,
+      AC_ODDATE: formVal.odDate.AC_ODDATE,
+      AC_ODAMT: formVal.odDate.AC_ODAMT,
+
+    }
+
+    this.http.put(this.url + '/over-draft/update', obj).subscribe(data => {
+
+      // console.log(data)
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      this.resetForm();
+
+    })
   }
 
 }

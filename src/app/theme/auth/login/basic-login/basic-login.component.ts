@@ -62,13 +62,53 @@ export class BasicLoginComponent implements OnInit {
         // window.open('/dashboard/default', "_blank", "toolbar=yes,scrollbars=yes,fullscreen=1,resizable=yes,top=00,left=1000,width=5000,height=1000");
         let userData: any = localStorage.getItem('user');
         let result = JSON.parse(userData);
+
         let object = {
           USERID: userid,
           BRANCH_CODE: result.branchId
         }
         this._authService.findOutLogin(object).subscribe(login => {
           if (login) {
-            this.router.navigate(['/dashboard/default']);
+
+            Swal.fire({
+              title: 'Enter OTP',
+              html: `
+                    <input type="text" id="otp" maxlength="6" pattern="[0-9]{9}" class="swal2-input" placeholder="Enter OTP">
+                  `,
+              confirmButtonText: 'Submit',
+              focusConfirm: false,
+
+              preConfirm: () => {
+                const otp = (Swal.getPopup()!.querySelector('#otp') as HTMLInputElement).value;
+                if (data.otp != otp) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Invalid OTP. Please try again.',
+                  });
+                }
+                else {
+                  return otp;
+
+                }
+              }
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: 'OTP Verified Successfully!',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    this.router.navigate(['/dashboard/default']);
+                  }
+                });
+              }
+            });
+
+            // this.router.navigate(['/dashboard/default']);
+
+
           }
           else {
             this.router.navigate(['/user/profile']);
@@ -138,13 +178,13 @@ export class BasicLoginComponent implements OnInit {
       if (err.error.statusCode == 401) {
         this.incrementFailedLoginAttempts(this.mobileno);
         let loginAttempts = this.getFailedLoginAttempts(this.mobileno);
-        if(loginAttempts >3) {
-            this._authService.updateinactiveUser(dataObject).subscribe(data => { })
-            Swal.fire('OOPs', 'User blocked...Please contact to Admin', 'error')
-            this.failedLoginAttempts[this.mobileno] = 0;
-            this.isUserBlocked = true;
+        if (loginAttempts > 3) {
+          this._authService.updateinactiveUser(dataObject).subscribe(data => { })
+          Swal.fire('OOPs', 'User blocked...Please contact to Admin', 'error')
+          this.failedLoginAttempts[this.mobileno] = 0;
+          this.isUserBlocked = true;
         }
-        else{
+        else {
           Swal.fire({
             title: '',
             text: "Password is incorrect",
@@ -153,8 +193,8 @@ export class BasicLoginComponent implements OnInit {
             confirmButtonText: 'OK'
           })
         }
-      } 
-       else if (err.error.statusCode == 400) {
+      }
+      else if (err.error.statusCode == 400) {
         Swal.fire({
           title: '',
           text: err.error.message,
@@ -162,8 +202,8 @@ export class BasicLoginComponent implements OnInit {
           confirmButtonColor: '#229954',
           confirmButtonText: 'OK'
         })
-      } 
-      else if(err.error.statusCode == 500){
+      }
+      else if (err.error.statusCode == 500) {
         Swal.fire({
           title: '',
           text: "Please check your username",

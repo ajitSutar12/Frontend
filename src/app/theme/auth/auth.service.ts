@@ -25,6 +25,7 @@ export class AuthService {
       headers: httpHeaders
     };
     return this.http.post<any>(this.base_url + '/auth/login', article, options);
+    // return this.http.post<any>('http://192.168.1.157:7276/app/auth/login', article, options);
   }
 
   resetPassword(data: any): Observable<any> {
@@ -48,6 +49,7 @@ export class AuthService {
   }
   findOutLogin(data: any): Observable<any> {
     return this.http.post<any>(this.base_url + '/user-defination/findLogin', data);
+    // return this.http.post<any>('http://192.168.1.157:7276/user-defination/findLogin', data);
   }
 
   showNotificationuserwise(data: any): Observable<any> {
