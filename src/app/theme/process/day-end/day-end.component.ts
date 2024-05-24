@@ -11,16 +11,13 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 export class DayEndComponent implements OnInit {
   setLang: any;
  
-
+// setLang:any;
   constructor(private translate:TranslateService,    private systemParameter: SystemMasterParametersService,
-  ) {
+  ) {this.systemParameter.getFormData(1).subscribe(data => {
     
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  })
    }
 
   ngOnInit(): void {

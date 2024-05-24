@@ -137,15 +137,13 @@ export class TransactionInputGlHeadSettingComponent implements OnInit, AfterView
 
   //filter variable
   filterData = {};
-  setLang: any;
-
-  constructor(private http: HttpClient, private fb: FormBuilder, private acmaster: ACMasterDropdownService,    private systemParameter: SystemMasterParametersService,
-     private _transInput: TranscationInputSettingService,private translate:TranslateService) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-  })
-   }
+  setLang:any;
+  constructor(private http: HttpClient,private systemParameter: SystemMasterParametersService, private fb: FormBuilder, private acmaster: ACMasterDropdownService, private _transInput: TranscationInputSettingService,private translate:TranslateService) 
+  {this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  }) }
 
   ngOnInit(): void {
     this.createForm()

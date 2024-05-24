@@ -55,7 +55,7 @@ export class DeadStockDepreciationComponent implements OnInit {
       this.ngtransactiondate = this.maxDate._d
       this.maxDate = this.maxDate._d
       this.setLang = data.SET_LANGUAGE
-
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -125,6 +125,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     OverdraftInterestPostService,
     ACMasterDropdownService,
     SystemMasterParametersService,
+    SystemMasterParametersService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,

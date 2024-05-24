@@ -114,7 +114,6 @@ export class FreezeAccountComponent implements OnInit, AfterViewInit, OnDestroy 
     private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
     private config: NgSelectConfig,private translate:TranslateService) {
-      // this.translate.setDefaultLang(environment.setLang)
     this.setdate()
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')

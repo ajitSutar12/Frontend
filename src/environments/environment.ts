@@ -9,9 +9,9 @@ export const environment = {
   // setLang : 'ma',
 
   //Localhost
-  // base_url: 'http://localhost:7276',
-  //  report_url: 'http://localhost/phpjasper/', //report folder local path
-  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
+  // base_url: 'http://192.168.1.165:7276',
+   report_url: 'http://localhost/phpjasper/', //report folder local path
+  sitename: 'http://103.174.87.104/SIDHANERLI/CBS' ,
 
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
@@ -20,8 +20,8 @@ export const environment = {
 
   // //TESTSIDHANERLI 
   base_url: 'http://103.174.87.104:4771',  
-  report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
-  sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
+  // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
+  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
   //VADGAON_SARAF 
   // base_url: 'http://103.174.87.104:7797',  //CBS  vadgaon server

@@ -29,7 +29,7 @@ export class SystemMasterParametersService {
   // For append data
   getFormData(id: any): Observable<any> {
     return this.http.get(this.url + '/system-master-parameters/' + id).pipe(catchError(this.handleError));
-    // return this.http.get('http://192.168.1.128:7266/system-master-parameters/' + id).pipe(catchError(this.handleError));
+    // return this.http.get('http://192.168.1.165:7266/system-master-parameters/' + id).pipe(catchError(this.handleError));
 
   }
   //Updation Operation

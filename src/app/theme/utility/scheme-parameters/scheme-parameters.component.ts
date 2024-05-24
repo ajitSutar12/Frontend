@@ -32,12 +32,13 @@ export class SchemeParametersComponent implements OnInit {
   payrollsettings = false;
   setLang: any;
 
-
-  constructor(private_router: Router, private systemParameter: SystemMasterParametersService,private translate:TranslateService) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-  })  }
+  // setLang:any;
+  constructor(private_router: Router,private translate:TranslateService,private systemParameter: SystemMasterParametersService,) {this.systemParameter.getFormData(1).subscribe(data => {
+    
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  }) 
+  }
   ngOnInit(): void {
   }
 
