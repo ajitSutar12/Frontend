@@ -207,6 +207,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   FinYear = '';
   autofacus: boolean = false;
   setLang: any;
+  // public languages: string[] = ['en','ma'];
   constructor(
     private http: HttpClient,
     private customerIdService: CustomerIdService,
@@ -232,7 +233,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.setLang = data.SET_LANGUAGE
+
+      // this.translate.addLangs(this.languages);
+      // this.translate.use(this.setLang)
       this.translate.setDefaultLang(this.setLang);
+      // this.translate.setDefaultLang('ma');
 
       // if (this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY'))
       // {

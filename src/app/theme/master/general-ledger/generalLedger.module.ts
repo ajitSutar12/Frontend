@@ -12,9 +12,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-// export function createTranslateLoader(http: HttpClient) {
-//   return new TranslateHttpLoader(http, './assets/i18n/app/', '.json');
-// }
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/app/', '.json');
+}
 
 @NgModule({
   imports: [

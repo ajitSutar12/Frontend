@@ -44,6 +44,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              "src/assets/i18n",
               "src/amcharts",
               "src/fake-data"
             ],
@@ -132,7 +133,8 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/i18n"
             ],
             "styles": [
               "src/styles.scss"
