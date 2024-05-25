@@ -140,9 +140,9 @@ export class BnkTrialBalComponent implements OnInit {
       if(branch == 0){
         this.branchName='Consolidate';
      }
-      this.iframeurl = this.report_url + "examples/TrialBal.php?startdate='" + startdate + "'&endDate='" + endDate + "'&branched=" + this.branchCode + "&branchName=" + this.branchName + "&bankName=" + bankName + "";
+      this.iframeurl = this.report_url + "examples/TrialBal1.php?startdate='" + startdate + "'&endDate='" + endDate + "'&branched=" + this.branchCode + "&branchName=" + this.branchName + "&bankName=" + bankName + "";
       console.log(this.iframeurl)
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
 
     }
     else {

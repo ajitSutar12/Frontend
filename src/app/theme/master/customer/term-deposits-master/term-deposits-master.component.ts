@@ -255,6 +255,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
+  branchOption: any[];
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -316,6 +317,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
           }
         });
+
+        this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+          this.branchOption = data;
+        })
         let data: any = localStorage.getItem('user');
         let result = JSON.parse(data);
         let branchCode = result.branch.id;

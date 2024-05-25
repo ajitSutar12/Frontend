@@ -30,7 +30,15 @@ const routes: Routes = [
       {
         path: 'lock-screen',
         loadChildren: () => import('./lock-screen/lock-screen.module').then(m => m.LockScreenModule)
-      }
+      },
+      {
+        path: 'otpform',
+        loadChildren: () => import('./otpform/otpform.module').then(m => m.OtpformModule),
+      },
+      {
+        path: 'setpassword',
+        loadChildren: () => import('./setpassword/setpassword.module').then(m => m.SetpasswordModule),
+      },
     ]
   }
 ];

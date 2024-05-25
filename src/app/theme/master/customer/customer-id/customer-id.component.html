@@ -883,7 +883,9 @@
                                                                                 class="form-control"
                                                                                 [id]="'file'+indexOfelement"
                                                                                 accept="application/pdf,image/x-png,image/jpeg"
-                                                                                (change)="fileChangeEvent($event, indexOfelement,data.DOCUMENT_CODE)" />
+                                                                                [(ngMode)]="file"
+                                                                                (change)="fileChangeEvent($event, indexOfelement,data.DOCUMENT_CODE)">
+                                                                            <!-- <span>{{data.name}}</span> -->
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -934,7 +936,9 @@
                                                                 style='padding-bottom:60%'>
                                                                 <iframe [src]="urlMap"></iframe>
                                                             </div>
-                                                            <p *ngIf="!isImgPreview">No File For Preview</p>
+
+
+                                                            <p *ngIf="!isImgPreview && !isPdf">No File For Preview</p>
                                                         </perfect-scrollbar>
                                                     </div> -->
 
@@ -1049,6 +1053,21 @@
                                             <td class="td_right"
                                                 [ngClass]="data.AC_PANNO === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_PANNO === ''? '-' : data.AC_PANNO}} </td>
+                                            <td class="td_right"
+                                                [ngClass]="data.GST_NO === '' ? 'td_center' : 'td_right'">
+                                                {{data.GST_NO === ''? '-' : data.GST_NO}} </td>
+                                            <td class="td_right"
+                                                [ngClass]="data.TAN_NO === '' ? 'td_center' : 'td_right'">
+                                                {{data.TAN_NO === ''? '-' : data.TAN_NO}} </td>  
+                                            <td class="td_right"
+                                                [ngClass]="data.REG_NO === '' ? 'td_center' : 'td_right'">
+                                                {{data.REG_NO === ''? '-' : data.REG_NO}} </td> 
+                                            <td class="td_right"
+                                                [ngClass]="data.REG_DATE === '' ? 'td_center' : 'td_right'">
+                                                {{data.REG_DATE === ''? '-' : data.REG_DATE}} </td>   
+                                            <td class="td_right"
+                                                [ngClass]="data.PROP_NAME === '' ? 'td_center' : 'td_right'">
+                                                {{data.PROP_NAME === ''? '-' : data.PROP_NAME}} </td>  
                                             <td class="td_center"
                                                 [ngClass]="data.AC_BIRTH_DT === '' ? 'td_center' : 'td_center'">
                                                 {{data.AC_BIRTH_DT === ''? '-' : data.AC_BIRTH_DT}}</td>
@@ -1081,6 +1100,11 @@
                                             <th><input type="text" class="form-control" name="AC_RISKCATG"></th>
                                             <th><input type="text" class="form-control" name="AC_ADHARNO"></th>
                                             <th><input type="text" class="form-control" name="AC_PANNO"></th>
+                                            <th><input type="text" class="form-control" name="GST_NO"></th>
+                                            <th><input type="text" class="form-control" name="TAN_NO"></th>
+                                            <th><input type="text" class="form-control" name="REG_NO"></th>
+                                            <th><input type="text" class="form-control" name="REG_DATE"></th>
+                                            <th><input type="text" class="form-control" name="PROP_NAME"></th>
                                             <th><input type="text" class="form-control" name="AC_BIRTH_DT"></th>
 
                                             <th><input type="text" class="form-control" name="AC_MOBILENO"> </th>

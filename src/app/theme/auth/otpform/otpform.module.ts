@@ -1,20 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ForgotComponent } from './forgot.component';
-import {ForgotRoutingModule} from './forgot-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
+
+import { OtpformRoutingModule } from './otpform-routing.module';
+import { OtpformComponent } from './otpform.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
+
 @NgModule({
+  declarations: [OtpformComponent],
   imports: [
     CommonModule,
-    ForgotRoutingModule,
+    OtpformRoutingModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [ForgotComponent],
+  exports:[OtpformComponent],
   providers:[AuthService]
 })
-export class ForgotModule { }
+export class OtpformModule { }

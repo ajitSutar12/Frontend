@@ -1,28 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { NgPasswordValidatorOptions } from "ng-password-validator";
 import { AuthService } from '../auth.service';
-import { NgPasswordValidatorOptions } from 'ng-password-validator';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
-  selector: 'app-resetpassword',
-  templateUrl: './resetpassword.component.html',
-  styleUrls: ['./resetpassword.component.scss']
+  selector: 'app-setpassword',
+  templateUrl: './setpassword.component.html',
+  styleUrls: ['./setpassword.component.scss']
 })
-export class ResetpasswordComponent implements OnInit {
+export class SetpasswordComponent implements OnInit {
   inputValue: string;
-  options: NgPasswordValidatorOptions = {
-    placement: "bottom",
-    "animation-duration": 500
-  };
+  // options: NgPasswordValidatorOptions = {
+  //   placement: "bottom",
+  //   "animation-duration": 500
+  // };
   currentPassword: any;
   newPassword: any;
   confirmPassword: any;
   username: any;
   toastr: any;
+  url = environment.base_url
 
 
-  constructor(private _authService: AuthService, private router: Router) { }
+  constructor(private _authService: AuthService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
@@ -60,22 +64,12 @@ export class ResetpasswordComponent implements OnInit {
       Swal.fire("Warning!", "Please enter confirm password!", "warning");
 
     }
-    // alert ("Please enter confirm password");
 
-    // If Not same return False.    
     else if (password1 != password2) {
       Swal.fire("Warning!", "Password did not match: Please try again...!", "warning");
     }
 
-    // If same return True.
-    // else{
-    //   Swal.fire("Success!", "Password Match!", "success");
-
-    //     // alert("Password Match: Welcome to GeeksforGeeks!")
-
-    // }
   }
-
   //reset password
   resetpassword() {
     if (this.currentPassword == '') {
@@ -85,14 +79,14 @@ export class ResetpasswordComponent implements OnInit {
       Swal.fire('Oops!', 'Your password not matched', 'error');
     } else {
 
-      let resetpassword = {
-        'currentPassword': this.currentPassword,
+      let setpassword = {
+        // 'currentPassword': this.currentPassword,
         'newPassword': this.newPassword,
         'confirmPassword': this.confirmPassword,
         'username': this.username
       }
 
-      this._authService.resetPassword(resetpassword).subscribe(data => {
+      this.http.post(this.url + '/user-defination/confirmpasswordreset', setpassword).subscribe(data => {
         Swal.fire('Success!', 'Password Reset Successfully', 'success');
         this.router.navigate(['/auth/login/simple']);
 
@@ -103,3 +97,4 @@ export class ResetpasswordComponent implements OnInit {
     }
   }
 }
+
