@@ -58,7 +58,12 @@ export const environment = {
   // base_url: 'http://103.174.87.104:7279',  
   // report_url: 'http://103.174.87.104/TRIMURTIDONGAON/REPORTS/', 
   // sitename: 'http://103.174.87.104/TRIMURTIDONGAON/CBS'
-};
+
+     // DATTAPARGAON
+  // base_url: 'http://103.174.87.104:7280',  
+  // report_url: 'http://103.174.87.104/DATTAPARGAON/REPORTS/', 
+  // sitename: 'http://103.174.87.104/DATTAPARGAON/CBS'
+// };
 
 /*
  * For easier debugging in development mode, you can import the following file
@@ -68,3 +73,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+}

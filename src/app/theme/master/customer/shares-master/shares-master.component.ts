@@ -395,13 +395,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.Cust_ID = data;
       console.log(this.Cust_ID);
-      
+
     })
 
     this.schemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
-      this.scheme = data 
+      this.scheme = data
       console.log(this.scheme);
-      
+
       this.schemeCode = data[0].value
     })
 
@@ -1031,6 +1031,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   tempbranch: any
   updatecheckdata: any
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -1045,6 +1047,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.AC_OPDATE = true
     this.ShareMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1292,7 +1296,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_BRANCH'] = this.branch_codeList
     data['AC_RESNO'] = data.AC_RESNO
     // data['SUB_SALARYDIVISION_CODE'] = this.sub_salary_divList
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
     data['DIV_TRANSFER_BRANCH'] = this.ngBranchCode
     data['DIV_TRANSFER_ACTYPE'] = this.ngDivACType
     data['DIV_TRANSFER_ACNOTYPE'] = this.getschemename
@@ -1668,11 +1672,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.ShareMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Share Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Shares Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1690,11 +1697,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.ShareMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Share Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Shares Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -1845,11 +1855,14 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       LOG_DATE: this.logDate
     }
     this.ShareMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

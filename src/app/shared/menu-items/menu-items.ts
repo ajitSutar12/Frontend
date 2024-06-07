@@ -495,6 +495,12 @@ const MENUITEMS1 = [
                 name: 'Dividend Transfer Posting',
                 id: 72
               },
+
+              {
+                state: 'generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
+                id: 367
+              },
             ]
 
           },
@@ -3360,6 +3366,11 @@ const MENUITEMS = [
                 state: 'dividendTransferPosting',
                 name: 'Dividend Transfer Posting',
                 id: 72
+              },
+              {
+                state: 'generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
+                id: 367
               },
             ]
 

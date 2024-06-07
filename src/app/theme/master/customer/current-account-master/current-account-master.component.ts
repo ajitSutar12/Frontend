@@ -791,7 +791,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+  name:any
+  ac_no:any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -799,6 +800,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.controls['AC_TYPE'].disable()
     this.currentAccountMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -2000,11 +2003,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       user: user.id
     }
     this.currentAccountMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Current Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Current Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2020,11 +2026,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       user: user.id
     }
     this.currentAccountMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Current Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Current Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -2067,11 +2076,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       LOG_DATE: this.logDate
     }
     this.currentAccountMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

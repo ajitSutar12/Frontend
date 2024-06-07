@@ -908,7 +908,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -917,6 +918,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let opdate
     this.savingMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1095,7 +1098,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
     data['id'] = this.updateID;
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
@@ -1974,11 +1977,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.savingMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Saving Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Saving Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1996,11 +2002,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.savingMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Saving Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Saving Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -2043,11 +2052,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       LOG_DATE: this.logDate
     }
     this.savingMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
