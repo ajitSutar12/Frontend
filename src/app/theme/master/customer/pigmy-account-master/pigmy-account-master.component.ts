@@ -1147,6 +1147,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   AC_OPDATE: any
   updatecheckdata: any
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -1157,6 +1159,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     let exdate
     this.PigmyAccountMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1845,11 +1849,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.PigmyAccountMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Pigmy Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Pigmy Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1867,11 +1874,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.PigmyAccountMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Pigmy Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Pigmy Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -1915,11 +1925,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       LOG_DATE: this.logDate
     }
     this.PigmyAccountMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

@@ -720,7 +720,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -728,6 +729,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.controls['AC_TYPE'].disable()
     this.LockerMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -997,7 +1000,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   disableForm(id) {
-    this.editClickHandler(id,0)
+    this.editClickHandler(id, 0)
   }
 
   onCloseModal() {
@@ -1502,11 +1505,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.LockerMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1522,11 +1528,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.LockerMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1586,11 +1595,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       LOG_DATE: this.logDate
     }
     this.LockerMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

@@ -385,13 +385,13 @@
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" id="STAND_INSTRUCTION_ALLOW"
-                          formControlName="STAND_INSTRUCTION_ALLOW" />
+                          formControlName="STAND_INSTRUCTION_ALLOW"  (change)="isApplicable($event)"                          />
                         <label class="border-checkbox-label" for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
                           Applicable ?</label>
                       </div>
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
-                        ">
+                        " *ngIf="isShow">
                         <input class="border-checkbox" type="checkbox" id="IS_INSTRUCTION_UPTO_MATURITY"
                           formControlName="IS_INSTRUCTION_UPTO_MATURITY" />
                         <label class="border-checkbox-label" for="IS_INSTRUCTION_UPTO_MATURITY">Is Standing Instruction
@@ -400,7 +400,7 @@
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row" *ngIf="isShow">
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
@@ -449,7 +449,7 @@
                             </sub></label>
                         </span>
                       </div>
-                      <div class="form-group form-primary form-static-label" *ngIf="
+                      <!-- <div class="form-group form-primary form-static-label" *ngIf="
                           angForm.controls['CHEQUEBOOK_MIN_BAL'].invalid &&
                           (angForm.controls['CHEQUEBOOK_MIN_BAL'].dirty ||
                             angForm.controls['CHEQUEBOOK_MIN_BAL'].touched)
@@ -462,7 +462,7 @@
                           ">
                           This field is required and Input allowed only . 0-9(After decimal only 2 digits allowed)
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -586,7 +586,7 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
-                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid"
+                  <button class="btn btn-outline-primary btn-sm btn-submit" 
                     (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>

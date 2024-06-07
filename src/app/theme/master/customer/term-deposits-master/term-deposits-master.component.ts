@@ -255,6 +255,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
+  branchOption: any[];
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -316,6 +317,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
           }
         });
+
+        this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+          this.branchOption = data;
+        })
         let data: any = localStorage.getItem('user');
         let result = JSON.parse(data);
         let branchCode = result.branch.id;
@@ -574,7 +579,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
 
-      AGENT_BRANCH: [], 
+      AGENT_BRANCH: [],
       AGENT_ACTYPE: [],
       AGENT_ACNO: [],
 
@@ -1700,6 +1705,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
   updatecheckdata: any
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     // debugger
@@ -1708,6 +1715,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let asondate
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       console.log(data);
 
       this.createForm()
@@ -1753,7 +1762,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiJointAC = data.jointAccounts
       //get attorney to edit
       this.multiAttorney = data.powerOfAttorney
-      this.openingDate=data.AC_OPDATE
+      this.openingDate = data.AC_OPDATE
 
       this.ngCategory = data.AC_CATG
       this.ngOperation = data.AC_OPR_CODE
@@ -1867,7 +1876,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     data['IS_DISCOUNTED_INT_RATE'] = (data.IS_DISCOUNTED_INT_RATE == true ? '1' : '0')
     data['REQ_RENEW'] = (data.REQ_RENEW == true ? '1' : '0')
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
 
     // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
     // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),
@@ -1876,9 +1885,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
-      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate 
+      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate
         //, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY') //Vasim Temperory 20-03-2024
-        )
+      )
     } else {
       data['AC_OPDATE'] = this.openingDate
     }
@@ -1887,14 +1896,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (this.updatecheckdata.AC_ASON_DATE != data.AC_ASON_DATE) {
       (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE
         //, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY') //Vasim Temperory 20-03-2024
-        )
+      )
     } else {
       data['AC_ASON_DATE'] = data.AC_ASON_DATE
     }
 
-    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) { 
+    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) {
       (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT
-        , data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY') 
+        , data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY')
       )
     } else {
       data['AC_EXPDT'] = data.AC_EXPDT
@@ -2599,7 +2608,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
- 
+
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {
@@ -2895,11 +2904,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.TermDepositMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Term Deposit Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Term Deposit Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2917,12 +2929,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.TermDepositMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Term Deposit Account rejected successfully',
-        'success'
-      );
-
+      Swal.fire({
+        icon: 'success',
+        title: 'Term Deposit Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -3006,11 +3020,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       LOG_DATE: this.logDate
     }
     this.TermDepositMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Term Deposit Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

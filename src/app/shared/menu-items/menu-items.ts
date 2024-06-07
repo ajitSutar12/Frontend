@@ -495,6 +495,12 @@ const MENUITEMS1 = [
                 name: 'Dividend Transfer Posting',
                 id: 72
               },
+
+              {
+                state: 'generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
+                id: 367
+              },
             ]
 
           },
@@ -1548,7 +1554,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
+                name: 'No Due Certificate',
                 type: 'sub',
                 id: 355,
               },
@@ -1636,6 +1642,36 @@ const MENUITEMS1 = [
           //   id: 253
           // },
           //
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 363
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 364
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 366
+                    },
+                  ]
+                },
           {
             state: 'PigmyReport',
             name: 'Pigmy Report',
@@ -3331,6 +3367,11 @@ const MENUITEMS = [
                 name: 'Dividend Transfer Posting',
                 id: 72
               },
+              {
+                state: 'generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
+                id: 367
+              },
             ]
 
           },
@@ -4384,7 +4425,7 @@ const MENUITEMS = [
               },
               {
                 state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
+                name: 'No Due Certificate',
                 type: 'sub',
                 id: 355,
               },
@@ -4473,6 +4514,36 @@ const MENUITEMS = [
           //   id: 253
           // },
           //
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 363
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 364
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 366
+                    },
+                  ]
+                },
           {
             state: 'PigmyReport',
             name: 'Pigmy Report',

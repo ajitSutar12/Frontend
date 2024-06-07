@@ -733,5 +733,14 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       behavior: 'smooth' 
     });
   }
-  
+  isShow: boolean = false
+  isApplicable(event) {
+    let ev = this.angForm.value
+    if (ev.STAND_INSTRUCTION_ALLOW == true) {
+      this.isShow = true
+    }
+    else {
+      this.isShow = false
+    }
+  }
 }

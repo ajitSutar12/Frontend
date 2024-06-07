@@ -513,11 +513,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+name:any
+ac_no:any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     this.anamatGSMService.getFormData(id).subscribe((data) => {
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -690,11 +693,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.anamatGSMService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Anamat Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Anamat Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -713,11 +719,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.anamatGSMService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Anamat Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Anamat Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -756,11 +765,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       LOG_DATE: this.logDate
     }
     this.anamatGSMService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: LoanDueCertificateComponent ,
     data: {
-      title: 'Loan Expired List ',
+      title: 'No Due Certificate ',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false
