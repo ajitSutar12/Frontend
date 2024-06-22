@@ -161,7 +161,9 @@ export class VoucherEntryComponent implements OnInit {
   signture = 'assets/images/nosignature.png';
   Customer_Name
   Customer_Pan_No = '---'
+  Customer_Adhar_No = '---'
   Customer_Contact_No = '---'
+
   Status
   maxDate: Date;
   minDate: Date;
@@ -649,6 +651,8 @@ export class VoucherEntryComponent implements OnInit {
           this.Status = '0'
           this.Customer_Pan_No = '---'
           this.Customer_Contact_No = '---'
+          this.Customer_Adhar_No = '---'
+
           this.headShow = false;
           this.maturityamt = 0
           this.depositamt = 0
@@ -1091,6 +1095,8 @@ export class VoucherEntryComponent implements OnInit {
         this.Customer_Name = data.AC_NAME
         this.Customer_Pan_No = data.AC_PANNO
         this.Customer_Contact_No = data.AC_MOBILENO
+        this.Customer_Adhar_No = data.AC_ADHARNO
+
         this.Status = this.submitCustomer.IS_DORMANT
         if (data.custdocument.length != 0) {
           data.custdocument.forEach(element => {
@@ -1115,6 +1121,8 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowDocuments = false
       this.Customer_Name = null
       this.Customer_Pan_No = null
+      this.Customer_Adhar_No = null
+
       this.Customer_Contact_No = null
       this.Status = this.submitCustomer.IS_DORMANT
     }

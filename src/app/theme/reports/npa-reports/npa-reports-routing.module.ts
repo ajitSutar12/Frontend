@@ -12,6 +12,10 @@ const routes: Routes = [
   },
   children:[
     {
+        path: 'banksDirectorsAndRelativesOverdue',
+        loadChildren: () => import('./banks-directors-and-relatives-overdue/banks-directors-and-relatives-overdue.module').then(m => m.BanksDirectorsAndRelativesOverdueModule)
+      },
+    {
         path: 'npaRegPercentage',
         loadChildren: () => import('./npa-reg-percentage/npa-reg-percentage.module').then(m => m.NpaRegPercentageModule)
       },
@@ -56,6 +60,7 @@ const routes: Routes = [
         path:'loanoverduelist',
         loadChildren: () => import('./loan-overdue-list/loan-overdue-list.module').then(m =>m.LoanOverdueListModule)
       },
+    
 
     ]
   }

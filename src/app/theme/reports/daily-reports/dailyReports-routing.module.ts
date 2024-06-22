@@ -74,6 +74,10 @@ const routes: Routes = [
         path: 'SubsidiarySummery',
         loadChildren: () => import('./sbsidiary-summery/sbsidiary-summery.module').then(m => m.SbsidiarySummeryModule)
       },
+      {
+        path: 'IBTSystemVoucher',
+        loadChildren: () => import('./ibt-system-vouchers/ibt-system-vouchers.module').then(m => m.IbtSystemVouchersModule)
+      },
     ]
   }
 ];

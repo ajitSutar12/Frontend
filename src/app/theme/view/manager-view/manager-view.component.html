@@ -160,7 +160,7 @@
 
                                 <div class="col-xl-4 col-md-4">
                                     <div class="card">
-                                        <div class="card-footer bg-c-purple">
+                                        <div class="card-footer bg-c-green">
                                             <div class="row align-items-left">
                                                 <div class="col-12">
                                                     <i class="fa fa-folder-open-o text-white f-16"> Cash Opening
@@ -361,10 +361,13 @@
                                 </div>
 
                             </div>
-                            <div class="row mx-4" style="margin-top: 40px;">
-                                <button type="button" class="btn btn-primary btn-sm" *ngIf="allpdetails"
-                                    (click)="AllPendingDetails();modalLarge.show()" [disabled]="disableBtn"><i
-                                        class="fa fa-globe" aria-hidden="true"></i>
+
+                            <div class="row mx-4 my-3 justify-content-center">
+                                <div class="d-flex">
+                            <!-- <div class="row mx-4" style="margin-top: 40px;"> -->
+                                <button type="button"  class="btn btn-primary btn-sm" *ngIf="allpdetails"
+                                    (click)="AllPendingDetails();modalLarge.show()" [disabled]="disableBtn"  >
+                                    <i class="fa fa-globe" aria-hidden="true"></i>
                                     All</button>
 
                                 <button type="button" class="btn btn-success btn-sm" *ngIf="cashpd"
@@ -386,6 +389,7 @@
                                     (click)="DayScrollPendingDetails();modalLarge.show()"><i class="fa fa-sun-o"
                                         aria-hidden="true"></i>
                                     Day Scroll</button>
+                                    </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4"></div>

@@ -1,1 +1,41 @@
-<p>calculator works!</p>
+<div class="container">
+  <h1 class="text-center mb-4">Calculator</h1>
+  <div class="calculator border p-4 rounded">
+    <input id="expression" type="text" placeholder="Enter Value" class="form-control mb-3" [(ngModel)]="expression" (keyup.enter)="calculate()">
+    <div class="buttons">
+      <div class="row mb-1">
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('7')">7</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('8')">8</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('9')">9</button></div>
+        <div class="col-3"><button class="btn btn-warning btn-lg w-100 raised" (click)="append('+')">+</button></div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('4')">4</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('5')">5</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('6')">6</button></div>
+        <div class="col-3"><button class="btn btn-warning btn-lg w-100 raised" (click)="append('-')">-</button></div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('1')">1</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('2')">2</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('3')">3</button></div>
+        <div class="col-3"><button class="btn btn-warning btn-lg w-100 raised" (click)="append('*')">×</button></div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-3"><button class="btn btn-warning btn-lg w-100 raised" (click)="append('.')">.</button></div>
+        <div class="col-3"><button class="btn btn-secondary btn-lg w-100 raised" (click)="append('0')">0</button></div>
+        <div class="col-3"><button class="btn btn-warning btn-lg w-100 raised" (click)="append('%')">%</button></div>
+        <div class="col-3"><button class="btn btn-warning btn-lg w-100 raised" (click)="append('/')">÷</button></div>
+
+      </div>
+      <div class="row mb-1">
+
+        <div class="col-6"><button class="btn btn-info btn-lg w-100 raised" (click)="calculate()">=</button></div>
+        <div class="col-6"><button class="btn btn-info btn-lg w-100 raised" (click)="clear()">Clear</button>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

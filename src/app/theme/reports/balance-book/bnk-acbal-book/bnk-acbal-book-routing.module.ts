@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkACBalBookComponent,
     data: {
-      title: 'Account Statement',
+      title: 'Account Bal Book',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

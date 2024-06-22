@@ -6,7 +6,7 @@ const routes: Routes = [ {
   path: '',
   component: BalConCertificateComponent ,
   data: {
-    title: 'Account Statement',
+    title: 'Balance Confirmation Certificate',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

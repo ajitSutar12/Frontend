@@ -6,7 +6,7 @@ const routes: Routes = [ {
   path: '',
   component: PigmyHandbookComponent ,
   data: {
-    title: 'Pigmy Balance Book',
+    title: 'Pigmy Hand Book',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

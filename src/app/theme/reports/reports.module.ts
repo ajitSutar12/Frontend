@@ -25,6 +25,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { IframecomponentModule } from './iframecomponent/iframecomponent.module';
 import { SharesReportsComponent } from './shares-reports/shares-reports.component';
 import { MisReportsComponent } from './mis-reports/mis-reports.component';
+import { StatisticalReportsComponent } from './statistical-reports/statistical-reports.component';
 
 @NgModule({
   declarations: [],

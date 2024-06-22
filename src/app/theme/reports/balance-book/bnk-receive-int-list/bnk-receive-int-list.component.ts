@@ -144,7 +144,7 @@ export class BnkReceiveIntListComponent implements OnInit {
   let PrintClosedAcPrintReceivablePenalInterestDetailscounts =obj.Print_Receivable_Penal_Interest_Details;
   let PrintOverdueInterest =obj.Print_Overdue_Interest;
   
-this.iframeurl=this.report_url+ "examples/ReceivableInterestBal.php?Date='" + Date + "'&scheme=" 
+this.iframeurl=this.report_url+ "examples/ReceivableBal.php?Date='" + Date + "'&scheme=" 
                 + scheme + "&branch="+this.ngbranch+"&PrintClosedAccounts='"+PrintClosedAccounts +"'&PrintPenalInterestDetails='"+PrintPenalInterestDetails
                 +"'&PrintClosedAcPrintReceivablePenalInterestDetailscounts='"+PrintClosedAcPrintReceivablePenalInterestDetailscounts+"'&PrintOverdueInterest='"
                 +PrintOverdueInterest+"&bankName=" + bankName + "&branchName="+branchName+"'";

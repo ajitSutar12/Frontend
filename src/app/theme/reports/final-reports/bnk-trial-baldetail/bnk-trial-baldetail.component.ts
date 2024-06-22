@@ -114,6 +114,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchId = userData.branch.CODE;
     let branchName = userData.branch.NAME;
 
     if (this.angForm.valid) {
@@ -137,7 +138,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
         this.branchName='Consolidate';
      }
       let preViousStartdate = moment(obj.START_DATE).subtract(1, "days").format('DD/MM/YYYY');
-      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + this.ngbranch + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + branch + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
+      this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + this.ngbranch + "&branchId=" + this.branchCode + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + branch + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

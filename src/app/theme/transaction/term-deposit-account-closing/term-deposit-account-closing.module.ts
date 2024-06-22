@@ -25,6 +25,8 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service';
 // import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component';
 import { ThemeModule } from '../../theme.module'
+import { BankMasterService } from 'src/app/shared/dropdownService/bank-Master-dropdown.service';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -46,6 +48,8 @@ import { ThemeModule } from '../../theme.module'
       multi: true
     }, TermDepositAccountClosingService, SystemMasterParametersService, OwnbranchMasterService, MultiVoucherService, 
     CustomerIdService, SchemeAccountNoService, TransactionCashModeService, TransactionTransferModeService, 
-    SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,]
+    SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,BankMasterService,ACMasterDropdownService]
 })
 export class TermDepositAccountClosingModule { }
+
+

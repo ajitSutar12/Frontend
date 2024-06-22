@@ -11,6 +11,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
 import { RepayModeService } from 'src/app/shared/dropdownService/repay-mode.service';
 import { CityMasterComponent } from '../../master/policy-settings/information/city-master/city-master.component';
+import { BanksDirectorsAndRelativesOverdueComponent } from './banks-directors-and-relatives-overdue/banks-directors-and-relatives-overdue.component';
 
 
 @NgModule({

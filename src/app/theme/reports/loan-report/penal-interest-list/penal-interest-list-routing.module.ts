@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: PenalInterestListComponent ,
     data: {
-      title: 'T Loan/Cash Credit Report ',
+      title: 'Received & Penal Int List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

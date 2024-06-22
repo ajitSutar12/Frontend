@@ -1297,7 +1297,10 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['DIV_TRANSFER_ACTYPE'] = this.ngDivACType
     data['DIV_TRANSFER_ACNOTYPE'] = this.getschemename
     data['DIV_TRANSFER_ACNO'] = this.ngDivACNO
+
+    
     this.ShareMasterService.updateData(data).subscribe(() => {
+
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;

@@ -71,6 +71,10 @@ const routes: Routes = [
         path: 'misReports',
         loadChildren: () => import('./mis-reports/mis-reports.module').then(m => m.MisReportsModule)
       },
+      {
+        path: 'statisticalReports',
+        loadChildren: () => import('./statistical-reports/statistical-reports.module').then(m => m.StatisticalReportsModule)
+      },
       
       {
         path: 'finalReports',

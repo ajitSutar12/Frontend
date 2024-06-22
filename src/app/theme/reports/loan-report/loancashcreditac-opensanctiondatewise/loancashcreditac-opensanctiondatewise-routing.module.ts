@@ -6,7 +6,7 @@ const routes: Routes = [ {
   path: '',
   component:LoancashcreditacOpensanctiondatewiseComponent  ,
   data: {
-    title: 'LienMark Clear Reports ',
+    title: 'Loan Cash/CR Acc Open/Sanction Date',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: false

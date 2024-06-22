@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  NpaAnalysisReportComponent,
     data: {
-      title: 'Transaction Amount Movement',
+      title: 'NPA Analysis Report',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -128,11 +128,7 @@ const MENUITEMS1 = [
                 name: 'Budget Allocation Master',
                 id: 11
               },
-              {
-                state: 'budget-view',
-                name: 'Budget View',
-                id: 359
-              },
+             
             ]
 
           },
@@ -937,6 +933,11 @@ const MENUITEMS1 = [
             id: 348
 
           },
+          {
+            state: 'budget-view',
+            name: 'Budget View',
+            id: 362
+          },
         ],
 
       },
@@ -1076,6 +1077,11 @@ const MENUITEMS1 = [
                 state: 'SubsidiarySummery',
                 name: ' Subsidary Summery ',
                 id: 342
+              },
+              {
+                state: 'IBTSystemVoucher',
+                name: ' IBT System Voucher ',
+                id: 359
               },
 
             ]
@@ -1547,11 +1553,30 @@ const MENUITEMS1 = [
                 id: 343,
               },
               {
-                state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
+                state: 'reductionStatementForLoan',
+                name: 'Reduction Statement For Loan',
                 type: 'sub',
-                id: 355,
+                id: 360,
               },
+              {
+                state: 'loanInformationDetails',
+                name: 'Loan Information Details',
+                type: 'sub',
+                id: 361,
+              },
+              {
+                state: 'stagewiseDisputeloandetailslist',
+                name: 'Stagewise Dispute loan details list',
+                type: 'sub',
+                id: 364,
+              },
+              {
+                state: 'Disputeloandetailslist',
+                name: 'Dispute loan details list',
+                type: 'sub',
+                id: 365,
+              },
+
 
             ],
 
@@ -1617,6 +1642,12 @@ const MENUITEMS1 = [
                 name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
+              },
+              {
+                state: 'banksDirectorsAndRelativesOverdue',
+                name: 'Banks Directors & Relatives Overdue',
+                // type: 'sub',
+                id: 363,
               },
 
 
@@ -1787,6 +1818,79 @@ const MENUITEMS1 = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 346
+              },
+              {
+                state: 'overdueIncreaseDecrease',
+                name: 'overdue Increase Decrease Report',
+                id: 347
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 348
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 349
+              },
+              {
+                state: 'dailyVouchersInformation',
+                name: 'Daily Vouchers Information Report',
+                id: 350
+              },
+              {
+                state: 'slr',
+                name: 'SLR Report',
+                id: 351
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                id: 352
+              },
+              {
+                state: 'loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
+                id: 353
+              },
+              {
+                state: 'depositBalanceInTowDates',
+                name: 'Deposit Balance In Tow Dates Report',
+                id: 354
+              },
+              {
+                state: 'averageMonthlyPositionDrCr',
+                name: 'Average Monthly Position Debit Credit Report',
+                id: 355
+              },
+              
+              
+            ]
+          },
+          {
+            state: 'statisticalReports',
+            name: 'Statistical Returns',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 356,
+            children: [
+              {
+                state: 'memberTypewiseDepositClassification',
+                name: 'Member Typewise Deposit Classifications',
+                id: 357
+              },
+              {
+                state: 'schemewiseCreditLoanAmtBet2dates',
+                name: 'Scheme Wise Credit Loan Amt Bet2 Dates',
+                id: 358
+              },
+              
             ]
           },
           //
@@ -2964,11 +3068,7 @@ const MENUITEMS = [
                 name: 'Budget Allocation Master',
                 id: 11
               },
-              {
-                state: 'budget-view',
-                name: 'Budget View',
-                id: 359
-              },
+             
             ]
 
           },
@@ -3773,6 +3873,11 @@ const MENUITEMS = [
             id: 348
 
           },
+          {
+            state: 'budget-view',
+            name: 'Budget View',
+            id: 362
+          },
         ],
 
       },
@@ -3913,7 +4018,11 @@ const MENUITEMS = [
                 name: ' Subsidary Summery ',
                 id: 342
               },
-
+              {
+                state: 'IBTSystemVoucher',
+                name: 'IBT System Voucher',
+                id: 359
+              },
             ]
           },
           //
@@ -4383,10 +4492,28 @@ const MENUITEMS = [
                 id: 343,
               },
               {
-                state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
+                state: 'reductionStatementForLoan',
+                name: 'Reduction Statement For Loan',
                 type: 'sub',
-                id: 355,
+                id: 360,
+              },
+              {
+                state: 'loanInformationDetails',
+                name: 'Loan Information Details',
+                type: 'sub',
+                id: 361,
+              },
+              {
+                state: 'stagewiseDisputeloandetailslist',
+                name: 'Stagewise Dispute loan details list',
+                type: 'sub',
+                id: 364,
+              },
+              {
+                state: 'Disputeloandetailslist',
+                name: 'Dispute loan details list',
+                type: 'sub',
+                id: 365,
               },
 
             ],
@@ -4454,7 +4581,12 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 251,
               },
-
+              {
+                state: 'banksDirectorsAndRelativesOverdue',
+                name: 'Banks Directors & Relatives Overdue',
+                // type: 'sub',
+                id: 363,
+              },
 
 
             ],
@@ -4624,6 +4756,78 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 346
+              },
+              {
+                state: 'overdueIncreaseDecrease',
+                name: 'overdue Increase Decrease Report',
+                id: 347
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 348
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 349
+              },
+              {
+                state: 'dailyVouchersInformation',
+                name: 'Daily Vouchers Information Report',
+                id: 350
+              },
+              {
+                state: 'slr',
+                name: 'SLR Report',
+                id: 351
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                id: 352
+              },
+              {
+                state: 'loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
+                id: 353
+              },
+              {
+                state: 'depositBalanceInTowDates',
+                name: 'Deposit Balance In Tow Dates Report',
+                id: 354
+              },
+              {
+                state: 'averageMonthlyPositionDrCr',
+                name: 'Average Monthly Position Debit Credit Report',
+                id: 355
+              },
+             
+            ]
+          },
+          {
+            state: 'statisticalReports',
+            name: 'Statistical Returns',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 356,
+            children: [
+              {
+                state: 'memberTypewiseDepositClassification',
+                name: 'Member Typewise Deposit Classifications',
+                id: 357
+              },
+              {
+                state: 'schemewiseCreditLoanAmtBet2dates',
+                name: 'Scheme Wise Credit Loan Amt Bet2 Dates',
+                id: 358
+              },
+              
             ]
           },
           //

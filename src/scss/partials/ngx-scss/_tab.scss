@@ -231,14 +231,14 @@
     }
     .nav-tabs .nav-link.active {
       border: none;
-      border-bottom: 4px solid $color-blue;
+      border-bottom: 4px solid $color-red;
     }
     &.md-below-tabs {
       display: block;
       .nav-tabs .nav-link.active {
         border: none;
         border-bottom: 4px solid transparent;
-        border-top: 4px solid $color-blue;
+        border-top: 4px solid $color-red;
       }
     }
     &.md-right-tabs, &.md-left-tabs {

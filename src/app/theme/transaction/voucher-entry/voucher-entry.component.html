@@ -793,11 +793,16 @@
                                                         1? 'Inactive' :
                                                         'Active'}}</span>
                                                 </li>
-
                                                 <li class="mb-75" *ngIf="Customer_Pan_No">
                                                     <span class="fw-bolder me-25">PAN ID:</span>
                                                     <span>{{Customer_Pan_No}}</span>
                                                 </li>
+
+                                                <li class="mb-75" *ngIf="Customer_Adhar_No">
+                                                    <span class="fw-bolder me-25">ADHAR NO:</span>
+                                                    <span>{{Customer_Adhar_No}}</span>
+                                                </li>
+
                                                 <li class="mb-75" *ngIf="Customer_Contact_No">
                                                     <span class="fw-bolder me-25">Contact:</span>
                                                     <span>+91 {{Customer_Contact_No}}</span>

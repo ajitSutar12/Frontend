@@ -23,7 +23,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     SharedModule
 
   ],
-  declarations: [StatementComponent],
+  declarations: [StatementComponent ],
   providers:[SystemMasterParametersService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

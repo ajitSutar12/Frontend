@@ -195,7 +195,7 @@ export class CitywiseMemberListComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/citywise_mem.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&branch_code='" + this.ngbranch + "'&CITY_CODE='" + cityCode + "'&flag=" + flagchecked + "";
+      this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='" + bankName + "'&Branch='" + this.branchName + "'&edate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&branch_code='" + this.ngbranch + "'&CITY_CODE='" + cityCode + "'&flag=" + flagchecked + "";
       // this.iframe5url = this.report_url + "examples/citywise_member_list.php?&BankName='BHAIRAVNATH_CO-OPERATIVE_PATHSANTHA'&Branch='MIDC,SHIROLI'&branch_code=1&edate='01/12/2022'&AC_TYPE='1'&CITY_CODE='1'"
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  SharesReturnRegisterComponent,
     data: {
-      title: 'Membership Cancellation(Shares Return)',
+      title: 'Membership Cancellation',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

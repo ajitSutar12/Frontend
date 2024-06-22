@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkGLConsistRepoComponent,
     data: {
-      title: 'Account Statement',
+      title: 'Scheme-GL Consistancy',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

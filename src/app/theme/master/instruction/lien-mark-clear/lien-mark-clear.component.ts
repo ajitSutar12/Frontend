@@ -23,7 +23,7 @@ class DataTableResponse {
 }
 // For fetching values from backend
 interface LienMaster {
-  AC_NO: number
+  AC_NO: number;
   DEPO_AC_TYPE: string;
   DEPO_AC_NO: number;
   // SECU_CODE: number;
@@ -166,7 +166,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         },
         {
           title: 'Loan Ac No',
-          data: 'AC_TYPE'
+          data: 'AC_NO'
         },
         {
           title: 'Loan Os Balance',
@@ -196,9 +196,10 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       DEPOSIT_AMT: [''],
       RECEIPT_NO: [''],
       IS_LIEN_MARK_CLEAR: [''],
-      AC_TYPE: [''],
+      AC_NO: [''],
       BALANCE_OF_LOAN_ACCOUNT: [''],
       AC_EXPIRE_DATE: [''],
+      AC_TYPE:['']
     });
   }
 
@@ -233,7 +234,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       DEPOSIT_AMT: formVal.DEPOSIT_AMT,
       RECEIPT_NO: formVal.RECEIPT_NO,
       IS_LIEN_MARK_CLEAR: formVal.IS_LIEN_MARK_CLEAR,
-      AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
       BALANCE_OF_LOAN_ACCOUNT: formVal.BALANCE_OF_LOAN_ACCOUNT,
       AC_EXPIRE_DATE: formVal.AC_EXPIRE_DATE,
 
@@ -252,12 +253,13 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     this.resetForm();
 
   }
-
+  actype
   //function for edit button clicked
   editClickHandler(id: any): void {
     this.showButton = false;
     this.updateShow = true;
     this._lien.getFormData(id).subscribe((data) => {
+      this.actype=data.AC_TYPE
       this.updateID = data.id;
       this.angForm.setValue({
         DEPO_AC_TYPE: data.DEPO_AC_TYPE,
@@ -267,7 +269,8 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         DEPOSIT_AMT: data.DEPOSIT_AMT,
         RECEIPT_NO: data.RECEIPT_NO,
         IS_LIEN_MARK_CLEAR: data.IS_LIEN_MARK_CLEAR == '0' ? false : true,
-        AC_TYPE: data.AC_NO,
+        AC_NO: data.AC_NO,
+        AC_TYPE: data.AC_TYPE,
         BALANCE_OF_LOAN_ACCOUNT: data.BALANCE_OF_LOAN_ACCOUNT,
         AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
 
@@ -314,6 +317,9 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     let data = this.angForm.value;
     data["id"] = this.updateID;
     data['IS_LIEN_MARK_CLEAR'] = data.IS_LIEN_MARK_CLEAR == false ? '0' : '1'
+    data['AC_TYPE']=data.AC_TYPE;
+    data['AC_NO']=data.AC_NO;
+    data['AC_TYPE']=this.actype;
     this._lien.updateData(data).subscribe(() => {
       Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;

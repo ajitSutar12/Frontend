@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkLienMarkedAcListComponent,
     data: {
-      title: 'LeinMark Clear Reports ',
+      title: 'LeinMark Account list',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

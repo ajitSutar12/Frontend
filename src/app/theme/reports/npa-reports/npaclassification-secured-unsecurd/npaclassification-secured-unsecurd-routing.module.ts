@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  NpaclassificationSecuredUnsecurdComponent,
     data: {
-      title: 'Transaction Amount Movement',
+      title: 'NPA classification Secured',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

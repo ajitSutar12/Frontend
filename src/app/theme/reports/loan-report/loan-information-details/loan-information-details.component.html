@@ -1,0 +1,311 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Loan Information Details</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+                        <div class="solid">
+
+                            <div class="row">
+
+                                <div class="col-md-1"> <label for="Branch">Branch <sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                                formControlName="BRANCH_CODE" bindLabel="label" placeholder="Branch"
+                                                (change)="getBranch()">
+                                                <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1"> <label for="Scheme Code">Scheme Code<sub
+                                            class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                                [(ngModel)]="schemeCode" (change)="getIntro($event)"
+                                                placeholder="Scheme Code">
+                                                <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
+                                                    {{values.label}} </ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-1"> <label for="Starting Account">Account No<sub
+                                            class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select formControlName="Starting_Account" bindValue="value"
+                                                (change)="AddAddress($event)" bindLabel="label"
+                                                [(ngModel)]="startingAccount" placeholder="Starting Account">
+                                                <ng-option *ngFor="let values of startingacc" [value]="values">
+                                                    {{values.label}} {{values.name}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['Starting_Account'].invalid && (ngForm.controls['Starting_Account'].dirty || ngForm.controls['Starting_Account'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="ngForm.controls['Starting_Account'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12"></div>
+                            <div class="col-12"></div><br>
+
+
+
+                            <div class="main" id="cust">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-8">
+                                        <div style="border: 1px solid black; padding: 10px;">
+                                            <div formControlName="customer"
+                                                style="border: 1px solid black; padding: 10px; display: grid; grid-template-columns: 35% 32.5% 32.5%;">
+                                                <div style="text-align: left;"></div>
+                                                <div style="text-align: right;">Photo</div>
+                                                <div style="text-align: right;">Signature</div>
+
+                                                <ng-container *ngFor="let detail of lndetails">
+                                                    <div style="text-align: left;">Scheme</div>
+                                                    <div style="text-align: left;">{{ detail?.S_NAME }}</div>
+                                                    <div></div>
+
+                                                    <div style="text-align: left;">A/C No</div>
+                                                    <div style="text-align: left;">{{ detail?.AC_NO }}</div>
+                                                    <div></div>
+
+                                                    <div style="text-align: left;">A/C Name</div>
+                                                    <div style="text-align: left;">{{ detail.AC_NAME }}</div>
+                                                    <div></div>
+
+                                                    <div style="text-align: left;">A/C Open Date</div>
+                                                    <div style="text-align: left;">{{ detail.AC_OPDATE }}</div>
+                                                    <div></div>
+
+                                                    <div style="text-align: left;">A/C Sanction DATE</div>
+                                                    <div style="text-align: left;">{{ detail.AC_SANCTION_DATE }}</div>
+
+                                                    <div style="text-align: left;">A/C Sanction Amount</div>
+                                                    <div style="text-align: left;">{{ detail.AC_SANCTION_AMOUNT }}</div>
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </ng-container>
+                                            </div>
+
+                                            <div style="border-top: 1px solid black; padding-top: 10px;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <textarea id="Address" name="Address" class="form-control"
+                                                            formControlName="address"
+                                                            style="height: 120px; margin-right: 30px;"
+                                                            [(ngModel)]="objString"></textarea>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div *ngIf="glDetails" class="card"
+                                                            style="width: 150px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-right: 20px;">
+                                                            <div class="z-depth-top-0">
+                                                                <div class="card-body">
+                                                                    <img [src]="imgPath" alt="Uploaded Image"
+                                                                        height="100" width="100" formControlName="img">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="card"
+                                                            style="width: 150px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                                            <div class="z-depth-top-0">
+                                                                <div class="card-body">
+                                                                    <img [src]="signPath" alt="Uploaded Image"
+                                                                        height="100" width="100" formControlName="sign">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6" style="border: 1px solid black; padding: 10px;">
+                                        <!-- CO_BORROWERS -->
+                                        <div class="row">
+                                            <ng-container *ngFor="let data1 of borrower; let i=index;">
+                                                <div class="col-md-12">
+                                                    <h5>Co Borrower {{ i + 1 }}</h5>
+                                                    <label for="Address">Address</label>
+                                                    <div class="row">
+
+                                                        <div class="col-md-6">
+                                                            <textarea formControlName="coborrower"
+                                                                style="width: 100%; height: 120px; margin-right: 30px; white-space: pre-line; padding-right: 10px; text-align: left;"
+                                                                readonly>
+                                                            {{ '&nbsp;&nbsp; ID : ' + data1.CAC_CUSTID + ',\n' +
+                                                             '&nbsp;&nbsp; CoBorrower_Name : ' + data1.AC_NAME + ',\n' +
+                                                               '&nbsp;&nbsp; City Name : ' + data1.CITY_NAME + ',\n' +
+                                                               '&nbsp;&nbsp; Address : ' + data1.ADDRESS + ',\n' +
+                                                               '&nbsp;&nbsp; Mobile No. : ' + data1.MOBILE_NO }}
+                                                        </textarea>
+
+
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <div class="card"
+                                                                style="width: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-right: 10px;">
+                                                                <div class="z-depth-top-0">
+                                                                    <div class="card-body">
+                                                                        <img [src]="bimg" alt="Uploaded Image"
+                                                                            height="100" width="100"
+                                                                            formControlName="co_img">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="card"
+                                                                style="width: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-right: 10px;">
+                                                                <div class="z-depth-top-0">
+                                                                    <div class="card-body">
+                                                                        <img [src]="bsign" alt="Uploaded Image"
+                                                                            height="100" width="100"
+                                                                            formControlName="co_img">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                        <!-- GUARANTERS -->
+                                        <div class="row">
+                                            <ng-container *ngFor="let data2 of data2Array; let i=index;">
+                                                <div class="col-md-12">
+                                                    <h5>Guaranter{{ i + 1 }}</h5>
+                                                    <label for="Address">Address</label>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <textarea formControlName="Guaranter"
+                                                                style="width: 100%; height: 120px; margin-right: 30px; white-space: pre-line; padding-left: 20px;"
+                                                                readonly>
+                                                            {{ '&nbsp;&nbsp; ID : ' + data2.GAC_CUSTID + ',\n' +
+                                                             '&nbsp;&nbsp; Guaranter_Name : ' + data2.GNAME + ',\n' +
+                                                               '&nbsp;&nbsp; City Name : ' + data2.CITY_NAME + ',\n' +
+                                                               '&nbsp;&nbsp; Address : ' + data2.ADDRESS + ',\n' +
+                                                               '&nbsp;&nbsp; Mobile No. : ' + data2.AC_MOBILENO }}
+                                                        </textarea>
+
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="card"
+                                                                style="width: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-right: 10px;">
+                                                                <div class="z-depth-top-0">
+                                                                    <div class="card-body">
+                                                                        <img [src]="gimg" alt="Uploaded Image"
+                                                                            height="100" width="100"
+                                                                            formControlName="Gimg">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="card"
+                                                                style="width: 140px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-right: 10px;">
+                                                                <div class="z-depth-top-0">
+                                                                    <div class="card-body">
+                                                                        <img [src]="gsign" alt="Uploaded Image"
+                                                                            height="100" width="100"
+                                                                            formControlName="Gimg">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row"></div>
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                    [disabled]="clicked" (click)="View($event); clicked = true  ">View</button>
+
+                            </div>
+                            <!-- <div class="col-md-1">
+
+                                <button type="button" class="btn btn-outline-primary btn-sm btn-submit"
+                                    (click)="printTextArea()">Print</button>
+                            </div> -->
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                    </div>
+                                    <div *ngIf="showRepo">
+                                        <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

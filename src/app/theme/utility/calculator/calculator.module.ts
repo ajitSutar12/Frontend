@@ -6,13 +6,16 @@ import { CalculatorRoutingModule } from './calculator-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   imports: [
     CommonModule,
     CalculatorRoutingModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    
   ],
   declarations: [CalculatorComponent],
   providers:[{

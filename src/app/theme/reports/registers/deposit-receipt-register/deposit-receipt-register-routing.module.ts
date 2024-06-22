@@ -6,7 +6,7 @@ const routes: Routes = [  {
   path: '',
   component:  DepositReceiptRegisterComponent,
   data: {
-    title: 'T deposit Receipt',
+    title: 'Term deposit Receipt',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

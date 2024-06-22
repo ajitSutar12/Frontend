@@ -1105,12 +1105,14 @@ export class MultiVoucherComponent implements OnInit {
     this.submitScheme = data.scheme;
     this.submitTranMode = data.tran_mode;
     this.bank = data.bank;
+    this.totalAmt=data.total_amt
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
       amt: Number(data.amt).toFixed(2),
+      total_amt: Number (data.total_amt).toFixed(2),
+
       // particulars: data.NARRATION,
-      total_amt: data.total_amt
     })
     // this.changeMode(data.tran_mode);
     this.headData = []

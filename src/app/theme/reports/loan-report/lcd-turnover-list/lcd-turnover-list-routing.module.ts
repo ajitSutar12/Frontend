@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: LcdTurnoverListComponent ,
     data: {
-      title: 'Citywise  Balance Report ',
+      title: 'Loan Cash Cr Turnover List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

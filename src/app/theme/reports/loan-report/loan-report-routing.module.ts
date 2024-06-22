@@ -66,9 +66,25 @@ children:[
     loadChildren: () => import('./loan-expired-list/loan-expired-list.module').then(m => m.LoanExpiredListModule)
   },
   {
-    path: 'loanduecertificate',
-    loadChildren: () => import('./loan-due-certificate/loan-due-certificate.module').then(m => m.LoanDueCertificateModule)
+    path: 'reductionStatementForLoan',
+    loadChildren: () => import('./reduction-statement-for-loan/reduction-statement-for-loan.module').then(m => m.ReductionStatementForLoanModule)
   },
+  {
+    path: 'loanInformationDetails',
+    loadChildren: () => import('./loan-information-details/loan-information-details.module').then(m => m.LoanInformationDetailsModule)
+  },
+  {
+    path: 'stagewiseDisputeloandetailslist',
+    loadChildren: () => import('./stagewise-deposit-loan-details-list/stagewise-deposit-loan-details-list.module').then(m => m.StagewiseDepositLoanDetailsListModule)
+  },
+ 
+  {
+    path: 'Disputeloandetailslist',
+    loadChildren: () => import('./disput-loan-detail-list/disput-loan-detail-list.module').then(m => m.DisputLoanDetailListModule)
+  },
+ 
+
+ 
 ]
 }
 ];

@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkPayIntListComponent,
     data: {
-      title: 'Account Statement',
+      title: 'Payable Interest List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -6,7 +6,7 @@ const routes: Routes = [ {
   path: '',
   component:  DedDepCatwiselistComponent,
   data: {
-    title: 'Account Statement',
+    title: 'Deadstock Depriciation Cat-List',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

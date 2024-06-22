@@ -57,6 +57,10 @@ const routes: Routes = [
         path: 'lockerView',
         loadChildren: () => import('./locker-view/locker-view.module').then(m => m.LockerViewModule)
       },
+      {
+        path: 'budget-view',
+        loadChildren: () => import('./budget-view/budget-view.module').then(m => m.BudgetViewModule)
+      },
     ]
   }
 ];

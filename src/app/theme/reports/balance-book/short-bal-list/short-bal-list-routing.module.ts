@@ -6,7 +6,7 @@ const routes: Routes = [{
   path: '',
   component: ShortBalListComponent ,
   data: {
-    title: 'Account Statement',
+    title: 'Short Balance List',
     icon: 'icon-home',
     caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
     status: true

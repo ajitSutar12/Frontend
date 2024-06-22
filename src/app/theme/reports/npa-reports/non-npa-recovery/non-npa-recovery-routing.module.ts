@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
   component:  NonNpaRecoveryComponent,
     data: {
-      title: 'Transaction Amount Movement',
+      title: 'TO be Recovery For NOn NPA Recovery',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

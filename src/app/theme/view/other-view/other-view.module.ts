@@ -37,42 +37,41 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { Iframe5Module } from "../../reports/pigmy-report/iframe5/iframe5.module";
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
 
 @NgModule({
-  imports: [
-    PerfectScrollbarModule,
-    CommonModule,
-    OtherViewRoutingModule,
-    SharedModule,
-    DataTablesModule,
-    BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot(),
-    FormsModule, ReactiveFormsModule,
-    NgSelectModule,
-    InterestPaidHistoryModule,
-
-  ],
-  providers: [
-    {
-
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-
-    },
-    SchemeAccountNoService, DatePipe, OtherViewService, SchemeCodeDropdownService, TermDepositSchemeService, OwnbranchMasterService, RepayModeService, InstallmentMethodService, SystemMasterParametersService,
-    TermDepositMasterService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: UserAuthInterceptor,
-      multi: true
-    },],
-  declarations: [OtherViewComponent,
-    //  InterestPaidHistoryComponent,
-    BudgetViewComponent, DepositLoanAnalysisComponent, RatioAnalysisComponent, ChequeBookDetailsComponent, DepositInterestProjectionComponent, UnclearChequeComponent, LoanProjectionComponent, LoanInstallmentInquiryComponent, MemberGuarantorViewComponent, LockerViewComponent, GraphLoanDepositPositionComponent, ComparitiveGraphLoanDepositPositionComponent, CdRationAnalysisComponent, PipePipe
-  ],
-  // exports: [InterestPaidHistoryComponent]
+    providers: [
+        {
+            provide: PERFECT_SCROLLBAR_CONFIG,
+            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+        },
+        SchemeAccountNoService, DatePipe, OtherViewService, SchemeCodeDropdownService, TermDepositSchemeService, OwnbranchMasterService, RepayModeService, InstallmentMethodService, SystemMasterParametersService,
+        TermDepositMasterService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: UserAuthInterceptor,
+            multi: true
+        },
+    ],
+    declarations: [OtherViewComponent,
+        //  InterestPaidHistoryComponent,
+        BudgetViewComponent, DepositLoanAnalysisComponent, RatioAnalysisComponent, ChequeBookDetailsComponent, DepositInterestProjectionComponent, UnclearChequeComponent, LoanProjectionComponent, LoanInstallmentInquiryComponent, MemberGuarantorViewComponent, LockerViewComponent, GraphLoanDepositPositionComponent, ComparitiveGraphLoanDepositPositionComponent, CdRationAnalysisComponent, PipePipe
+    ],
+    imports: [
+        PerfectScrollbarModule,
+        CommonModule,
+        OtherViewRoutingModule,
+        SharedModule,
+        DataTablesModule,
+        BsDatepickerModule.forRoot(),
+        DatepickerModule.forRoot(),
+        FormsModule, ReactiveFormsModule,
+        NgSelectModule,
+        InterestPaidHistoryModule,
+        Iframe5Module
+    ]
 })
 export class OtherViewModule { }

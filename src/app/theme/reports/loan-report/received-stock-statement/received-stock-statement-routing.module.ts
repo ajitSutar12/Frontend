@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ReceivedStockStatementComponent ,
     data: {
-      title: 'Citywise Loan  Report ',
+      title: 'Received Stock Statement',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

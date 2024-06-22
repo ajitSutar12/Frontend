@@ -302,3 +302,15 @@ label {
   padding-bottom: 0px;
   padding-top: 4px;
 }
+.movable-text {
+  white-space: nowrap;
+}
+
+.movable-text {
+  animation: marquee 15s linear infinite; /* Adjusted duration */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); } 
+}

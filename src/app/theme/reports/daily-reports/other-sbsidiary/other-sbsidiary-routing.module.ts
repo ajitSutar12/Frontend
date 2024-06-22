@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  OtherSbsidiaryComponent,
     data: {
-      title: 'Subsidiary Summery',
+      title: ' Other Subsidiary',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

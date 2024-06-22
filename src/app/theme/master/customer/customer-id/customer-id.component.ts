@@ -698,7 +698,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngTitlereg = null
     this.ngfinyear = null
     this.ngSubmitDate = null
-    this.fullname = null
+    this.fullname = ''
     this.lname = ''
     this.fname = ''
     this.mname = ''
@@ -719,7 +719,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
-    this.fullname = null
+    this.fullname = ''
     this.lname = ''
     this.fname = ''
     this.mname = ''

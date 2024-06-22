@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: RecoveryCwBalanceComponent ,
     data: {
-      title: 'Citywise Loan Report ',
+      title: 'Recovery Clerk Bal-List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

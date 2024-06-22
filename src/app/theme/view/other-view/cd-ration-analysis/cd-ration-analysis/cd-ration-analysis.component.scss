@@ -1,0 +1,71 @@
+.required {
+    color: red;
+ }
+
+ .card-block
+ {
+    width: 100%;
+    height: 210px;
+ }
+ .tabcontent {
+   width: 100%;
+   height: 300px;
+   //  margin-top: 10px;
+   margin: 0px;
+   overflow: auto;
+   // overflow-y: scroll;
+   // overflow-x: hidden;
+}
+.tabcontent::-webkit-scrollbar {
+   width: 0px;
+   background: transparent; /* make scrollbar transparent */
+} 
+hr
+{
+   margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+// .modalShow {
+//    display:    block;
+//    position:   fixed;
+//    z-index:    1000;
+//    top:        0;
+//    left:       0;
+//    height:     100%;
+//    width:      100%;
+//    background: rgba( 255, 255, 255, .8 )
+//    url('https://i.stack.imgur.com/FhHRx.gif')
+//    50% 50%
+//    no-repeat;
+// }
+
+// .modalHide{
+//    display:    none;
+//    position:   fixed;
+//    z-index:    1000;
+//    top:        0;
+//    left:       0;
+//    height:     100%;
+//    width:      100%;
+//    background: rgba( 255, 255, 255, .8 )
+//    url('https://i.stack.imgur.com/FhHRx.gif')
+//    50% 50%
+//    no-repeat;
+// }
+.blink {
+   animation: blinker 1s linear infinite;
+   background:rgb(255, 255, 3);
+   color:rgb(109, 100, 100);
+    width:100px;
+   font-weight:bold;
+   position: absolute;
+   top: 230px;
+   right: 20px;
+ }
+ 
+ @keyframes blinker {
+   50% {
+     opacity: 0;
+   }
+ }

@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DRecbMonthlyListComponent ,
     data: {
-      title: ' Receivable monthWise List ',
+      title: 'Director Recommanded Monthly Loan-List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: false

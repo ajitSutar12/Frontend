@@ -6,7 +6,7 @@ const routes: Routes = [
     path: '',
     component:  BnkOtherBalListComponent,
     data: {
-      title: 'Account Statement',
+      title: 'Demo UI',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
