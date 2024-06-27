@@ -63,10 +63,10 @@ export class BalanceSheetComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
-        this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
-    
+      if (result.branchId == 1) {
+        this.branchOption.push({ value: '100', label: 'Consolidate' })
+      }
+    });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       
@@ -118,7 +118,7 @@ export class BalanceSheetComponent implements OnInit {
         date = moment(this.fromdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-      let branch = obj.BRANCH_CODE;
+      let branch_code = obj.BRANCH_CODE;
 
 
 
@@ -132,9 +132,7 @@ export class BalanceSheetComponent implements OnInit {
 
           this.balSheetdataset = data;
           console.log(this.balSheetdataset);
-          if(branch == 0){
-            this.branchName='Consolidate';
-         }
+
           this.iframeurl = this.report_url + "examples/BalanceSheet.php?&date=" + date + "&branch_code=" + this.ngbranch + "&bankName=" + bankName + "&branchName=" + this.branchName;
           console.log(this.iframeurl);
           this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);

@@ -129,6 +129,10 @@ const routes: Routes = [
         path: 'ddtransaction',
         loadChildren: () => import('./dd-transaction/dd-transaction.module').then(m => m.DdTransactionModule)
       },
+      {
+        path: 'trialbalance',
+        loadChildren: () => import('./trial-balance/trial-balance.module').then(m => m.TrialBalanceModule)
+      },
     ]
   }
 ];

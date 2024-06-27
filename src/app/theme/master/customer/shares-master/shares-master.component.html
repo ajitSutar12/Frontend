@@ -488,19 +488,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            <div class="col-sm-3">
-                                                                <div class="checkbox checkbox-primary">
-                                                                  <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                    <input type="checkbox" class="border-checkbox" id="IS_REQUIRED_AUTOMAILER"
-                                                                      formControlName="IS_REQUIRED_AUTOMAILER">
-                                                                    <label class="border-checkbox-label" for="IS_REQUIRED_AUTOMAILER">Is AutoMailer
-                                                                      Required
-                                                                    </label>
-                                  
-                                                                  </div>
-                                                                </div>
-                                                              </div>
                                                         </div>
                                                         <ng-container *ngIf="!tempAddress">
                                                             <div class="row">
@@ -1285,8 +1272,7 @@
                                                                                             placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
-                                                                                            minlength="10"
-                                                                                            maxlength="10"
+                                                                                            minlength="10" maxlength="10"
                                                                                             [(ngModel)]="ngnomineedate"
                                                                                             [minDate]="maxDate"
                                                                                             class="form-control"
@@ -1650,7 +1636,7 @@
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
-                                                                                                (click)="delNominee(indexOfelement)"
+                                                                                                (click)="delNominee(indexOfelement,data)"
                                                                                                 placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>

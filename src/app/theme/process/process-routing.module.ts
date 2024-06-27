@@ -31,19 +31,11 @@ const routes: Routes = [
       },
       {
         path: 'processACM',
-        loadChildren: () => import('./process-acm/process-acm.module').then(m => m.ProcessACMModule)
-      },
-      {
-        path: 'monthly recovery process',
-        loadChildren: () => import('./recovery-processing/recovery-processing.module').then(m => m.RecoveryProcessingModule)
-      },
-      {
-        path: 'yearEndBranchwise',
-        loadChildren: () => import('./year-end-branchwise/year-end-branchwise.module').then(m => m.YearEndBranchwiseModule)
+        loadChildren:()=> import('./process-acm/process-acm.module').then(m=>m.ProcessACMModule)
       },
     ]
   }
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

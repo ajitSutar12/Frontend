@@ -1694,8 +1694,26 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.resetNominee()
   }
 
-  delNominee(id) {
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
+
+  
+  delNominee(id, data) {
     this.multiNominee.splice(id, 1)
+    // console.log(data)
+
+    this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+    })
+
+  }
+  delJointAc(id,data) {
+    this.multiJointAC.splice(id, 1)
+
+    this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+    })
   }
 
   resetNominee() {
@@ -1820,9 +1838,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.jointID = null

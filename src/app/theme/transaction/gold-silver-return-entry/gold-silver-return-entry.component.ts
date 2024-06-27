@@ -99,14 +99,14 @@ export class GoldSilverReturnEntryComponent implements OnInit {
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH'].enable()
-    //   this.ngBranchCode = result.branch.id
-    // }
-    // else {
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
       this.angForm.controls['BRANCH'].disable()
       this.ngBranchCode = result.branch.id
-    // }
+    }
   }
 
   getBranch(event) {

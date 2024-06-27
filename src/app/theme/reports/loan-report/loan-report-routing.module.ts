@@ -65,10 +65,6 @@ children:[
     path: 'loanExpiredList',
     loadChildren: () => import('./loan-expired-list/loan-expired-list.module').then(m => m.LoanExpiredListModule)
   },
-  {
-    path: 'loanduecertificate',
-    loadChildren: () => import('./loan-due-certificate/loan-due-certificate.module').then(m => m.LoanDueCertificateModule)
-  },
 ]
 }
 ];

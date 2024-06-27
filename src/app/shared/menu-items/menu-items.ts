@@ -93,7 +93,7 @@ const MENUITEMS1 = [
         short_label: 'D',
         name: 'Master',
         type: 'sub',
-        icon: 'fa fa-university',
+        icon: 'icon-home',
         id: 5,
         children: [
           {
@@ -127,11 +127,6 @@ const MENUITEMS1 = [
                 state: 'budget-master',
                 name: 'Budget Allocation Master',
                 id: 11
-              },
-              {
-                state: 'budget-view',
-                name: 'Budget View',
-                id: 359
               },
             ]
 
@@ -337,11 +332,6 @@ const MENUITEMS1 = [
               //   name: 'Accountwise Document Acceptance',
               //   id: 44
               // },
-              {
-                  state: 'recoveryFlag',
-                  name: 'Recovery Flag Updation',
-                  id: 358
-                },
               {
                 state: 'notingCharges',
                 name: 'Noting Charges',
@@ -803,37 +793,12 @@ const MENUITEMS1 = [
             name: 'Inward Register',
             id: 131
           },
+          {
+            state: 'trialbalance',
+            name: 'Trial Balance',
+            id: 349
+          },
 
-        ]
-      },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
         ]
       },
       {
@@ -860,11 +825,6 @@ const MENUITEMS1 = [
             state: 'unapprove',
             name: 'Unapprove',
             id: 135
-          },
-          {
-            state: 'neftPassing',
-            name: 'NEFT/RTGS Transaction Passing',
-            id: 354
           },
         ]
       },
@@ -1547,12 +1507,7 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 343,
               },
-              {
-                state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
-                type: 'sub',
-                id: 355,
-              },
+
 
             ],
 
@@ -1566,13 +1521,6 @@ const MENUITEMS1 = [
             type: 'sub',
             id: 243,
             children: [
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue Reports',
-                type: 'sub',
-                id: 252,
-
-              },
               {
                 state: 'npaRegister',
                 name: 'NPA Register',
@@ -1609,17 +1557,23 @@ const MENUITEMS1 = [
               },
               {
                 state: 'classificationsecnpa',
-                name: 'NPA Classification -Secured Or Unsecured',
+                name: 'NPA Classification -Secured Or Unsecured.PNG',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-                name: 'NPA Classification -Standard Or Non Standard',
+                name: 'NPA Classification -Standard Or Non Standard.PNG',
                 type: 'sub',
                 id: 251,
               },
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue List',
+                type: 'sub',
+                id: 252,
 
+              },
 
             ],
           },
@@ -1778,11 +1732,11 @@ const MENUITEMS1 = [
             icon: 'icon-home',
             id: 278,
             children: [
-              {
-                state: 'loanBalanceBetTwoDates',
-                name: 'Loan Balance Bet Two Dates Report',
-                id: 356
-              },
+              // {
+              //   state: 'schemeWisedepoaccount',
+              //   name: 'SchemeWise Deposit Account Details',
+              //   id: 279
+              // },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
@@ -1926,12 +1880,6 @@ const MENUITEMS1 = [
             name: 'Pigmy App Process',
             id: 308
           },
-          {
-            state: 'monthRecProc',
-            name: 'Monthly Recovery Process',
-            id: 357
-          },
-          
           {
             state: 'whatsappmessages',
             name: 'Whatsapp Messages',
@@ -2102,11 +2050,6 @@ const MENUITEMS1 = [
                 name: 'pigmy Day End',
                 id: 298
               },
-              {
-                state: 'yearEnd',
-                name: 'Year End',
-                id: 299
-              },
             ]
           },
 
@@ -2133,17 +2076,6 @@ const MENUITEMS1 = [
             name: 'Data Backup',
             id: 327
           },
-          {
-            state: 'monthly recovery process',
-            name: 'Monthly recovery process',
-            id: 360
-          },
-          {
-            state: 'yearEndBranchwise',
-            name: 'Year End BranchWise',
-            id: 361
-          },
-
         ]
       },
       {
@@ -2930,7 +2862,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Master',
         type: 'sub',
-        icon: 'fa fa-university',
+        icon: 'icon-home',
         id: 5,
         children: [
           {
@@ -2964,11 +2896,6 @@ const MENUITEMS = [
                 state: 'budget-master',
                 name: 'Budget Allocation Master',
                 id: 11
-              },
-              {
-                state: 'budget-view',
-                name: 'Budget View',
-                id: 359
               },
             ]
 
@@ -3174,11 +3101,6 @@ const MENUITEMS = [
               //   name: 'Accountwise Document Acceptance',
               //   id: 44
               // },
-              {
-                state: 'recoveryFlag',
-                name: 'Recovery Flag Updation',
-                id: 358
-              },
               {
                 state: 'notingCharges',
                 name: 'Noting Charges',
@@ -3640,35 +3562,10 @@ const MENUITEMS = [
             name: 'Inward Register',
             id: 131
           },
-        ]
-      },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
           {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
+            state: 'trialbalance',
+            name: 'Trial Balance',
+            id: 349
           },
         ]
       },
@@ -3697,11 +3594,6 @@ const MENUITEMS = [
             name: 'Unapprove',
             id: 135
           },
-          {
-            state: 'neftPassing',
-            name: 'NEFT/RTGS Transaction Passing',
-            id: 354
-          },
         ]
       },
       {
@@ -3709,7 +3601,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'View',
         type: 'sub',
-        icon: 'fa fa-book',
+        icon: 'fa fa-tag',
         id: 136,
         children: [
           {
@@ -4383,12 +4275,7 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 343,
               },
-              {
-                state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
-                type: 'sub',
-                id: 355,
-              },
+
 
             ],
 
@@ -4402,13 +4289,6 @@ const MENUITEMS = [
             type: 'sub',
             id: 243,
             children: [
-              {
-                state: 'loanoverduelist',
-                name: 'Loan Overdue Reports',
-                type: 'sub',
-                id: 252,
-
-              },
               {
                 state: 'npaRegister',
                 name: 'NPA Register',
@@ -4445,17 +4325,23 @@ const MENUITEMS = [
               },
               {
                 state: 'classificationsecnpa',
-                name: 'NPA Classification -Secured Or Unsecured',
+                name: 'NPA Classification -Secured Or Unsecured.PNG',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-                name: 'NPA Classification -Standard Or Non Standard',
+                name: 'NPA Classification -Standard Or Non Standard.PNG',
                 type: 'sub',
                 id: 251,
               },
+              {
+                state: 'loanoverduelist',
+                name: 'Loan Overdue List',
+                type: 'sub',
+                id: 252,
 
+              },
 
 
             ],
@@ -4615,11 +4501,11 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 278,
             children: [
-              {
-                state: 'loanBalanceBetTwoDates',
-                name: 'Loan Balance Bet Two Dates Report',
-                id: 356
-              },
+              // {
+              //   state: 'schemeWisedepoaccount',
+              //   name: 'SchemeWise Deposit Account Details',
+              //   id: 279
+              // },
               {
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
@@ -4764,11 +4650,6 @@ const MENUITEMS = [
             id: 308
           },
           {
-            state: 'monthRecProc',
-            name: 'Monthly Recovery Process',
-            id: 357
-          },
-          {
             state: 'whatsappmessages',
             name: 'Whatsapp Messages',
             id: 345
@@ -4908,7 +4789,7 @@ const MENUITEMS = [
         short_label: 'D',
         name: 'Process',
         type: 'sub',
-        icon: 'fa fa-tasks',
+        icon: 'fa fa-cogs',
         id: 346,
         children: [
           {
@@ -4938,11 +4819,6 @@ const MENUITEMS = [
                 name: 'pigmy Day End',
                 id: 298
               },
-              {
-                state: 'yearEnd',
-                name: 'Year End',
-                id: 299
-              },
             ]
           },
 
@@ -4968,16 +4844,6 @@ const MENUITEMS = [
             state: 'dataBackup',
             name: 'Data Backup',
             id: 327
-          },
-          {
-            state: 'monthly recovery process',
-            name: 'Monthly recovery process',
-            id: 360
-          },
-          {
-            state: 'yearEndBranchwise',
-            name: 'Year End BranchWise',
-            id: 361
           },
         ]
       },

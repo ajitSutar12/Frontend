@@ -61,7 +61,6 @@ export class CitiwiseNpaRegComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
-  base_url = environment.base_url;
   branchName: any;
   city: any;
   InterestArr: [];
@@ -94,7 +93,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
 
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
 
@@ -170,8 +169,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
     console.log(obj1)
     // let queryParams = `?AC_TYPE=${encodeURIComponent(this.AC_TYPE)}&BRANCH_CODE=${encodeURIComponent(BRANCH_CODE)}`;
     // this.http.post<any>(this.url + '/npa-classification-master/dropdown ', obj1).subscribe((data) => {
-    // this.http.post('http://192.168.1.113:7276/npa-classification-master/data', obj1).subscribe((data) => {
-      this.http.get(this.base_url +'/npa-classification-master/data').subscribe((data: any[]) => {
+    this.http.post('http://localhost:7276/npa-classification-master/data', obj1).subscribe((data) => {
       this.glDetails = data
 
       // console.log(this.glDetails)
@@ -198,7 +196,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
       "REPORT_DATE": this.reportDate
     }
 
-    this.http.post(this.base_url +'/npa-classification-master/percentage', obj).subscribe((data) => {
+    this.http.post('http://localhost:7276/npa-classification-master/percentage', obj).subscribe((data) => {
       this.glDetails = data
       this.percentZero=data[0].NPA_PERCENTAGE,
       this.percentTen=data[1].NPA_PERCENTAGE,

@@ -87,7 +87,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
       FROM_DATE: ["", [Validators.pattern, Validators.required]],
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       Scheme_code: ["", [Validators.pattern, Validators.required]],
-      Scheme_acc: [""],
+      Scheme_acc: ["", [Validators.pattern, Validators.required]],
     });
 
     let data: any = localStorage.getItem('user');
@@ -144,8 +144,7 @@ export class BnkPigmyBlankChartComponent implements OnInit {
  
  
        case 'AG':
-        //  this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + this.obj).subscribe(data => {
+         this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
            this.startingacc = data;
            this.startingAccount = null
          })
@@ -193,29 +192,9 @@ export class BnkPigmyBlankChartComponent implements OnInit {
   }
   
 }
-acCloseDate
-isOpen
-acclosedon: boolean = false
-getAccountDetails(event) {
-  this.acCloseDate = event.acClose == null || event.acClose == '' ? null: event.acClose
-  this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
-  if (this.acCloseDate != null) {
-    this.acCloseDate = event.acClose
-    this.isOpen = false
-  }
-  else {
-    this.acCloseDate = null
-    this.isOpen = true
-  }
-}
-schemechange(event) {
 
-  this.acCloseDate = null
-  this.isOpen = false
-}
 close(){
   this.resetForm()
-  this.isOpen = false
 }
 
 // Reset Function

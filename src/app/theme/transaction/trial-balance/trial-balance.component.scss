@@ -1,0 +1,41 @@
+/* Table styles */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pagination-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.pagination-info {
+    margin: 0 10px;
+    font-weight: bold;
+}
+.td_right {
+    text-align: right;
+}
+.td_center {
+    text-align: center;
+}
+
+
+

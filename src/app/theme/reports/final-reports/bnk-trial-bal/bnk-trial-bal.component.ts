@@ -61,12 +61,7 @@ export class BnkTrialBalComponent implements OnInit {
   ngOnInit(): void {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-      let data1: any = localStorage.getItem('user');
-      let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
-        this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
-    
+    });
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
     });
@@ -87,7 +82,7 @@ export class BnkTrialBalComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      // TRANSCATION: new FormControl('None'),
+      TRANSCATION: new FormControl('None'),
     });
 
     let data: any = localStorage.getItem('user');
@@ -136,11 +131,10 @@ export class BnkTrialBalComponent implements OnInit {
       let toDate = moment(this.angForm.controls['END_DATE'].value, 'DD/MM/YYYY')
       let endDate = moment(toDate).format('DD/MM/YYYY')
 
-      let branch = obj.BRANCH_CODE;
-      if(branch == 0){
-        this.branchName='Consolidate';
-     }
-      this.iframeurl = this.report_url + "examples/TrialBal.php?startdate='" + startdate + "'&endDate='" + endDate + "'&branched=" + this.branchCode + "&branchName=" + this.branchName + "&bankName=" + bankName + "";
+      let branched = obj.BRANCH_CODE;
+      let tran = obj.TRANSCATION;
+
+      this.iframeurl = this.report_url + "examples/TrialBal.php?startdate='" + startdate + "'&endDate='" + endDate + "'&branched=" + this.ngbranch + "&tran=" + tran + "&branchName=" + this.branchName + "&bankName=" + bankName + "";
       console.log(this.iframeurl)
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

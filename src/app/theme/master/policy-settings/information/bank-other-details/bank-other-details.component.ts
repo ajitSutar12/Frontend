@@ -53,6 +53,10 @@ interface BankOtherDetails {
   IBT_TRAN: boolean;
   GMAIL_PASSWORD:any;
   GMAIL_USER:string;
+  INSTA_LINK:any;
+  FACEBOOK:any;
+  LINKEDIN:any;
+  YOUTUBE:any;
 
 }
 
@@ -240,6 +244,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           title: 'Email',
           data: 'EMAIL'
         },
+       
 
 
       ],
@@ -272,7 +277,13 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       GST_NO: ['', [Validators.pattern]],
       IFSC_CODE: ['', [Validators.pattern]],
       IBT_TRAN: [false],
-      ATM_GLACNO: [null]
+      ATM_GLACNO: [null],
+      INSTA_LINK: [''],
+      FACEBOOK: [''],
+      LINKEDIN: [''],
+      YOUTUBE: [''],
+      SLIDEIMG: [''],
+      QR: [''],
     });
   }
 
@@ -376,6 +387,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     data['id'] = this.updateID;
     data['IBT_TRAN'] = (data.IBT_TRAN == true ? '1' : '0')
 
+
     this.bankDetails.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
@@ -430,4 +442,60 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       behavior: 'smooth'
     });
   }
+
+  
+  selectedImage: File | null = null;
+
+  // constructor(private http: HttpClient) { }
+
+  onFileSelected(event: any) {
+    this.selectedImage = event.target.files[0];
+    this.onUpload()
+  }
+
+  onUpload() {
+    if (!this.selectedImage) return;
+
+    let reader = new FileReader();
+    reader.onload = () => {
+      let base64Image = reader.result as string;
+      let imageType = this.selectedImage.type;
+
+      let obj = {
+        'IMAGE_TYPE': imageType,
+        'data': base64Image
+      }
+
+
+      // Send Base64 image to backend
+      this.http.post<any>('http://192.168.1.121:7267/customer-app/uploadImages', obj).subscribe(
+        response => {
+          console.log('Image uploaded successfully:', response);
+        },
+        error => {
+          console.error('Error uploading image:', error);
+        }
+      );
+    };
+
+    reader.readAsDataURL(this.selectedImage);
+  }
+
+  path
+  showImage() {
+    let obj = {}
+    this.http.post<any>('http://192.168.1.121:7267/customer-app/getImage', obj).subscribe(
+      response => {
+        // this.path=response[0].PATH
+        this.path = 'http://192.168.1.121:7267/' + response[0].PATH;
+        console.log('Image uploaded successfully:', response);
+        console.log('Image uploaded successfully:', this.path);
+
+
+      }
+    );
+
+  }
+
+
 }

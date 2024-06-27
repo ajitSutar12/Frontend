@@ -87,7 +87,7 @@ export class DedDepCatwiselistComponent implements OnInit {
       // Ending_Account: [""],
       // ITEM_TYPE: ["", [Validators.pattern, Validators.required]],
       FROM_DATE: ["", [Validators.pattern, Validators.required]],
-      radio: new FormControl('all'),
+      radio: new FormControl(''),
     });
     let data: any = localStorage.getItem("user");
     let result = JSON.parse(data);
@@ -124,20 +124,22 @@ export class DedDepCatwiselistComponent implements OnInit {
 
       let branch = obj.BRANCH_CODE;
       let Rdio = obj.radio;
-      let allCat = obj.allCat;
-      
-      let flag;
+
+
+      // this.iframeurl = this.report_url + "examples/deadstockdepriCategory.php?startDate='" + Date + "'&Rdio='" +
+      //   Rdio + "'&scheme='" + "'&sdate='" + sdate + "'&branch='" + branch + "'&Rstartingacc='" + Rstartingacc +
+      //   "'&Rendingacc='" + Rendingacc + "'&Rdiosort='" + Rdiosort + "&bankName=" + bankName + "'&branchName=" + branchName + "'start='" + start +
+      //   "end='" + end + "'depcat='" + depcat;
+
+      let flag
       if (obj.radio == 'Category') {
-        flag = 0;
-      } else if (obj.radio == 'all') {
-        flag = 1;
-      } else {
-        flag = 2; 
+        flag = 0
+      }
+      else {
+        flag = 1
       }
 
-     
-
-      this.iframeurl = this.report_url + "examples/deadstockdepriCategory.php?startDate='" + Date + "'&branch='" + branch + "'&branchName='" + branchName + "'&radio=" + Rdio + "'&bankName='" + bankName + "'&flag=" + flag +  "&getCategoryNo=" + this.getCategoryNo + "&getCategoryName='" + this.getCategoryName + "'";
+      this.iframeurl = this.report_url + "examples/deadstockdepriCategory.php?startDate='" + Date + "'&branch='" + branch + "'&branchName='" + branchName + "'&radio=" + Rdio + "'&bankName='" + bankName + "'&flag=" + flag + "&getCategoryNo=" + this.getCategoryNo + "&getCategoryName='" + this.getCategoryName + "'";
 
       console.log(this.iframeurl)
 
@@ -175,10 +177,6 @@ export class DedDepCatwiselistComponent implements OnInit {
   }
   hideCategory() {
     this.isShowCategory = false
-  }
-  hideCategoryAll(){
-    this.isShowCategory = false
-
   }
 
   getCategoryNo

@@ -17,10 +17,6 @@ const routes: Routes = [
         path: 'unapprove',
         loadChildren: () => import('./master-unlock/masterUnlock.module').then(m => m.MasterUnlockModule)
       },
-      {
-        path: 'neftPassing',
-        loadChildren: () => import('./rtgs-neft-passing/rtgs-neft-passing.module').then(m => m.RtgsNeftPassingModule)
-      },
     ]
   }
 ];

@@ -111,7 +111,7 @@
                                         class="form-control" placeholder=" "
                                         [ngClass]="{'form-submitted': formSubmitted}" appTheme
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="PS_LINES_PRINTED" required="" pattern="^[0-9]+$" maxlength="4" disabled
+                                        id="PS_LINES_PRINTED" required="" pattern="^[0-9]+$" maxlength="4"
                                         title="Input allowed only  0-9" formControlName="PS_LINES_PRINTED" />
                                 </span>
                             </div>
@@ -126,7 +126,7 @@
                                         class="form-control" placeholder=" "
                                         [ngClass]="{'form-submitted': formSubmitted}" appTheme
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                        id="LINES_PER_PASSBOOKPAGE" required="" pattern="^[0-9]+$" maxlength="4" disabled
+                                        id="LINES_PER_PASSBOOKPAGE" required="" pattern="^[0-9]+$" maxlength="4"
                                         title="Input allowed only  0-9" formControlName="LINES_PER_PASSBOOKPAGE" />
                                 </span>
                             </div>
@@ -141,18 +141,6 @@
                         <div class="col-sm-12 col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"
                                 (click)="close()">Close</button>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2"> <label for="">Passbook Printed Successfully ?</label>
-                </div>
-                        <div class="col-sm-12 col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" value="1" [disabled]="clicke"
-                                (click)="printYesno($event) ">Yes</button>
-                        </div>
-                        <div class="col-sm-12 col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value = "2" [disabled]="clicke"
-                                (click)="printYesno($event)">No</button>
                         </div>
                     </div>
                     <div class="row">

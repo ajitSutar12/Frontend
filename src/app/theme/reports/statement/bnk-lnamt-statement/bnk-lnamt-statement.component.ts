@@ -29,17 +29,17 @@ export class BnkLNamtStatementComponent implements OnInit {
   endingdate: any = null
 
   ngForm: FormGroup;
-  iframe2url:any='';
-  clicked:boolean=false;
+  iframe2url: any = '';
+  clicked: boolean = false;
   //api
   url = environment.base_url;
   report_url = environment.report_url;
   formSubmitted = false;
-     //account
-     memFrom
-     memTo
-     branch
-     mem:any
+  //account
+  memFrom
+  memTo
+  branch
+  mem: any
 
   //dropdown
   scheme: any[];
@@ -53,7 +53,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   startingAccount: any = null;
   EndingAccount: any = null;
 
-  showRepo:boolean=false;
+  showRepo: boolean = false;
   todate: any;
   fromdate: moment.Moment;
   bankacno: any;
@@ -99,11 +99,11 @@ export class BnkLNamtStatementComponent implements OnInit {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.endingdate = data.CURRENT_DATE
-      
+
       this.startingdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.startingdate = this.startingdate._d
     })
-   
+
   }
 
   // validations for ngForm
@@ -116,7 +116,7 @@ export class BnkLNamtStatementComponent implements OnInit {
       Starting_Date: ['', [Validators.required]],
       Ending_Date: ['', [Validators.required]],
       Print_Closed_Account: [''],
-       });
+    });
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -138,6 +138,8 @@ export class BnkLNamtStatementComponent implements OnInit {
     this.getIntroducer()
   }
   getIntro(event) {
+    this.acCloseDate = null
+    this.isOpen = false
     this.getschemename = event.name
     this.getIntroducer()
   }
@@ -153,7 +155,8 @@ export class BnkLNamtStatementComponent implements OnInit {
 
 
       case 'LN':
-        this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+        this.http.get<any>(this.url + '/term-loan-master/balUpdate/' + this.obj).subscribe(data => {
           this.startingacc = data;
           this.startingAccount = null
           this.endingacc = data;
@@ -161,7 +164,8 @@ export class BnkLNamtStatementComponent implements OnInit {
         })
         break;
       case 'CC':
-        this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+        this.http.get<any>(this.url + '/cash-credit-master/balUpdate/' + this.obj).subscribe(data => {
           this.startingacc = data;
           this.startingAccount = null
           this.endingacc = data;
@@ -169,7 +173,8 @@ export class BnkLNamtStatementComponent implements OnInit {
         })
         break;
       case 'DS':
-        this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+        this.http.get<any>(this.url + '/dispute-loan-master/balUpdate/' + this.obj).subscribe(data => {
           this.startingacc = data;
           this.startingAccount = null
           this.endingacc = data;
@@ -180,66 +185,75 @@ export class BnkLNamtStatementComponent implements OnInit {
     }
   }
 
-  
-  getacdetails(event){
+  acCloseDate
+  isOpen: boolean = false
+  getacdetails(event) {
     this.bankacno = event.bankacno
-    
-    
+
+    if (event.AC_CLOSEDT != null) {
+      this.acCloseDate = event.AC_CLOSEDT
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
+
   }
 
   src: any;
   View(event) {
-     debugger
-     event.preventDefault();
-     this.formSubmitted = true;
+    debugger
+    event.preventDefault();
+    this.formSubmitted = true;
 
-     let userData = JSON.parse(localStorage.getItem('user'));
-     let bankName = userData.branch.syspara.BANK_NAME;
-     let branchName = userData.branch.NAME
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
-     if(this.ngForm.valid){
- 
+    if (this.ngForm.valid) {
+
       this.showRepo = true;
-     let obj = this.ngForm.value
-     let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
-    //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
+      let obj = this.ngForm.value
+      let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
+      //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
 
-     let endDate:any;
+      let endDate: any;
       if (this.endingdate == obj.Ending_Date) {
-        endDate = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        endDate = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        endDate = moment(this.endingdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        endDate = moment(this.endingdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-     var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY'); 
-     let branch = obj.BRANCH_CODE;
-      let startingcode= obj.Starting_Account;
-    //  let endingcode =obj.Ending_Account;
-     let PrintEveryAccountonNewPage=obj.Print_Every_Account_on_New_Page;
-     let PrintClosedAccount=obj.Print_Closed_Account;
-     let PrintAddedPenalInterest=obj.Print_Added_Penal_Interest;
-     let PrintConciseReporteme=obj.Print_Concise_Report;
-     let scheme=obj.Scheme_code;
-  
- 
-    this.iframe2url=this.report_url+"examples/LoanStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branch='"+this.ngbranch+"'&sdate='"+sdate+"'&startingcode='"+this.bankacno +"'&endingcode='"+ this.bankacno +"'&scheme= "+scheme+
-                    " &PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
-    this.iframe2url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
-    
-   }
-   else {
-     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-   }
-   
- }
-   //load acno according start and end acno
-   loadAcno() {
+      var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY');
+      let branch = obj.BRANCH_CODE;
+      let startingcode = obj.Starting_Account;
+      //  let endingcode =obj.Ending_Account;
+      let PrintEveryAccountonNewPage = obj.Print_Every_Account_on_New_Page;
+      let PrintClosedAccount = obj.Print_Closed_Account;
+      let PrintAddedPenalInterest = obj.Print_Added_Penal_Interest;
+      let PrintConciseReporteme = obj.Print_Concise_Report;
+      let scheme = obj.Scheme_code;
+
+
+      this.iframe2url = this.report_url + "examples/LoanStatement.php?startDate='" + startDate + "'&endDate='" + endDate + "'&branch='" + this.ngbranch + "'&sdate='" + sdate + "'&startingcode='" + this.bankacno + "'&endingcode='" + this.bankacno + "'&scheme= " + scheme +
+        " &PrintEveryAccountonNewPage= '" + PrintEveryAccountonNewPage + "' &PrintClosedAccount= '" + PrintClosedAccount + "'&PrintAddedPenalInterest= '" + PrintAddedPenalInterest + "' &PrintConciseReporteme= '" + PrintConciseReporteme + "' &bankName=" + bankName + "";
+      this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
+
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+
+  }
+  //load acno according start and end acno
+  loadAcno() {
     this.memFrom = this.ngForm.controls['Starting_Account'].value
     this.memTo = this.ngForm.controls['Ending_Account'].value
     this.branch = this.ngForm.controls['BRANCH_CODE'].value
     if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
       this.mem = [this.memFrom, this.memTo, this.branch]
-     
+
       if (this.getschemename == 'LN') {
         this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
         });
@@ -252,25 +266,25 @@ export class BnkLNamtStatementComponent implements OnInit {
         this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
         });
       }
-     
-    
+
+
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
 
-  close(){
+  close() {
     this.resetForm()
-    }
-  
-    resetForm() {
-      // this.createForm()
-      // this.ngForm.controls.BRANCH_CODE.reset();
-      this.ngForm.controls.Scheme_code.reset();
-      this.ngForm.controls.Starting_Account.reset();
-      // this.ngForm.controls.Ending_Account.reset();
-      this.showRepo = false;
-      this.clicked=false;
-    }
+  }
+
+  resetForm() {
+    // this.createForm()
+    // this.ngForm.controls.BRANCH_CODE.reset();
+    this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Starting_Account.reset();
+    // this.ngForm.controls.Ending_Account.reset();
+    this.showRepo = false;
+    this.clicked = false;
+  }
 }

@@ -52,7 +52,7 @@ export class MultiVoucherService {
   getFormData(id): Observable<any> {
     console.log(id, 'id')
     // return this.http.post(this.url + '/voucher/editMulti', id);
-    return this.http.post(this.url + "/voucher/editMulti/", id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + "/voucher/editMulti/" + id).pipe(catchError(this.handleError));
 
   }
 

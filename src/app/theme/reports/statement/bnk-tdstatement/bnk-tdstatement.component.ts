@@ -22,7 +22,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ['./bnk-tdstatement.component.scss'],
   providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService]
 })
-export class BnkTDStatementComponent implements OnInit{
+export class BnkTDStatementComponent implements OnInit {
   //date
   maxDate: Date;
   minDate: Date;
@@ -30,17 +30,17 @@ export class BnkTDStatementComponent implements OnInit{
   endingdate: any = null
 
   ngForm: FormGroup;
-  iframe5url:any='';
-  clicked:boolean=false;
+  iframe5url: any = '';
+  clicked: boolean = false;
   //api
   url = environment.base_url;
   report_url = environment.report_url;
   formSubmitted = false;
-     //account
-     memFrom
-     memTo
-     branch
-     mem:any
+  //account
+  memFrom
+  memTo
+  branch
+  mem: any
 
   //dropdown
   scheme: any[];
@@ -57,9 +57,11 @@ export class BnkTDStatementComponent implements OnInit{
   getbankAcNo1: any;
   getbankAcNo2: any;
 
-  showRepo:boolean=false;
+  showRepo: boolean = false;
   todate: any;
   fromdate: moment.Moment;
+  acCloseDate: any;
+  isOpen: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -94,6 +96,8 @@ export class BnkTDStatementComponent implements OnInit{
 
     });
 
+  
+
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.endingdate = data.CURRENT_DATE;
     });
@@ -102,11 +106,11 @@ export class BnkTDStatementComponent implements OnInit{
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.endingdate = data.CURRENT_DATE
-      
+
       this.startingdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.startingdate = this.startingdate._d
     })
-   
+
   }
 
   // validations for ngForm
@@ -144,14 +148,26 @@ export class BnkTDStatementComponent implements OnInit{
     this.getIntroducer()
   }
   getIntro(event) {
+     this.acCloseDate = null
+    this.isOpen = false
     this.getschemename = event.name
     this.getIntroducer()
   }
   getAcno1(event) {
-    this.getbankAcNo1 =  event.bankacno
+    this.getbankAcNo1 = event.bankacno
+
+    if (event.AC_CLOSEDT != null) {
+      this.acCloseDate = event.AC_CLOSEDT
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
+
   }
   getAcno2(event) {
-    this.getbankAcNo2 =  event.bankacno
+    this.getbankAcNo2 = event.bankacno
   }
 
   getIntroducer() {
@@ -164,7 +180,8 @@ export class BnkTDStatementComponent implements OnInit{
 
 
       case 'TD':
-        this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.http.get<any>(this.url + '/term-deposits-master/balUpdate/' + this.obj).subscribe(data => {
           this.startingacc = data;
           this.startingAccount = null
           this.endingacc = data;
@@ -193,56 +210,56 @@ export class BnkTDStatementComponent implements OnInit{
 
   src: any;
   View(event) {
-     debugger
-     event.preventDefault();
-     this.formSubmitted = true;
+    debugger
+    event.preventDefault();
+    this.formSubmitted = true;
 
-     let userData = JSON.parse(localStorage.getItem('user'));
-     let bankName = userData.branch.syspara.BANK_NAME;
-     let branchName = userData.branch.NAME
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
-     if(this.ngForm.valid){
- 
+    if (this.ngForm.valid) {
+
       this.showRepo = true;
-     let obj = this.ngForm.value
-     let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
-    //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
+      let obj = this.ngForm.value
+      let startDate = moment(obj.Starting_Date).format('DD/MM/YYYY');
+      //  let endDate = moment(obj.Ending_Date).format('DD/MM/YYYY');
 
-     let endDate:any;
+      let endDate: any;
       if (this.endingdate == obj.Ending_Date) {
-        endDate = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        endDate = moment(this.endingdate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        endDate = moment(this.endingdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        endDate = moment(this.endingdate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-     var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY'); 
-     let branch = obj.BRANCH_CODE;
-     
-    let startingcode= this.getbankAcNo1;
-     let endingcode =this.getbankAcNo2;
+      var sdate = moment(obj.Starting_Date).subtract(1, "day").format('DD/MM/YYYY');
+      let branch = obj.BRANCH_CODE;
 
-     let PrintEveryAccountonNewPage=obj.Print_Every_Account_on_New_Page;
-     let PrintClosedAccount=obj.Print_Closed_Account;
-     let PrintAddedPenalInterest=obj.Print_Added_Penal_Interest;
-     let PrintConciseReporteme=obj.Print_Concise_Report;
-     let scheme=this.getschemename;
-     let schemeCode=obj.Scheme_code;
+      let startingcode = this.getbankAcNo1;
+      let endingcode = this.getbankAcNo2;
 
-  
- 
-    this.iframe5url=this.report_url+"examples/TermDepositeStatement.php?startDate='" + startDate +"'&endDate='"+endDate+ "'&branchName='"+branchName+"'&branch='"+this.ngbranch+"'&sdate='"+sdate+"'&startingcode="+startingcode +"&scheme= '"+scheme+"'&schemeCode= "+schemeCode+
-    "&PrintEveryAccountonNewPage= '"+PrintEveryAccountonNewPage+"' &PrintClosedAccount= '"+PrintClosedAccount+"'&PrintAddedPenalInterest= '"+PrintAddedPenalInterest+"' &PrintConciseReporteme= '"+PrintConciseReporteme+"' &bankName=" + bankName + "";
-    console.log( this.iframe5url);
+      let PrintEveryAccountonNewPage = obj.Print_Every_Account_on_New_Page;
+      let PrintClosedAccount = obj.Print_Closed_Account;
+      let PrintAddedPenalInterest = obj.Print_Added_Penal_Interest;
+      let PrintConciseReporteme = obj.Print_Concise_Report;
+      let scheme = this.getschemename;
+      let schemeCode = obj.Scheme_code;
 
 
-    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
-    
-   }
-   else {
-         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
-        }
-   
- }
+
+      this.iframe5url = this.report_url + "examples/TermDepositeStatement.php?startDate='" + startDate + "'&endDate='" + endDate + "'&branchName='" + branchName + "'&branch='" + this.ngbranch + "'&sdate='" + sdate + "'&startingcode=" + startingcode + "&scheme= '" + scheme + "'&schemeCode= " + schemeCode +
+        "&PrintEveryAccountonNewPage= '" + PrintEveryAccountonNewPage + "' &PrintClosedAccount= '" + PrintClosedAccount + "'&PrintAddedPenalInterest= '" + PrintAddedPenalInterest + "' &PrintConciseReporteme= '" + PrintConciseReporteme + "' &bankName=" + bankName + "";
+      console.log(this.iframe5url);
+
+
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    }
+
+  }
   //  //load acno according start and end acno
   //  loadAcno() {
   //   this.memFrom = this.ngForm.controls['Starting_Account'].value
@@ -250,7 +267,7 @@ export class BnkTDStatementComponent implements OnInit{
   //   this.branch = this.ngForm.controls['BRANCH_CODE'].value
   //   if (this.ngForm.controls['Starting_Account'].value < this.ngForm.controls['Ending_Account'].value) {
   //     this.mem = [this.memFrom, this.memTo, this.branch]
-     
+
   //     if (this.getschemename == 'LN') {
   //       this.http.get(this.url + '/term-loan-master/scheme/' + this.mem).subscribe((data) => {
   //       });
@@ -263,25 +280,25 @@ export class BnkTDStatementComponent implements OnInit{
   //       this.http.get(this.url + '/dispute-loan-master/scheme/' + this.mem).subscribe((data) => {
   //       });
   //     }
-     
-    
+
+
   //   }
   //   else {
   //     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   //   }
   // }
 
-  close(){
+  close() {
     this.resetForm()
-    }
-  
-    resetForm() {
-      // this.createForm()
-      // this.ngForm.controls.BRANCH_CODE.reset();
-      this.ngForm.controls.Scheme_code.reset();
-      this.ngForm.controls.Starting_Account.reset();
-      // this.ngForm.controls.Ending_Account.reset();
-      this.showRepo = false;
-      this.clicked=false;
-    }
+  }
+
+  resetForm() {
+    // this.createForm()
+    // this.ngForm.controls.BRANCH_CODE.reset();
+    this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Starting_Account.reset();
+    // this.ngForm.controls.Ending_Account.reset();
+    this.showRepo = false;
+    this.clicked = false;
+  }
 }

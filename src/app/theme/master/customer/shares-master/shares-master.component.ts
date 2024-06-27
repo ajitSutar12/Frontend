@@ -812,7 +812,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_CATG: ['0', [Validators.required]],
       EMP_NO: ['', [Validators.pattern]],
       AC_MEM_BIRTH_DT: [''],
-      IS_REQUIRED_AUTOMAILER: [true],
       // AC_JOIN_DATE: [''],
       // AC_RETIRE_DATE: [''],
       MEMBERSHIP_BY: ['', [Validators.required]],
@@ -905,7 +904,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   getShareScheme(value) {
     this.shareSchemeType = value.name
   }
-  IS_REQUIRED_AUTOMAILER
+
   // Method to insert data into database through NestJS
   submit(event) {
     event.preventDefault();
@@ -995,7 +994,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'DIV_TRANSFER_ACNOTYPE': this.getschemename,
         'DIV_TRANSFER_ACTYPE': formVal.DIV_TRANSFER_ACTYPE,
         'DIV_TRANSFER_ACNO': formVal.DIV_TRANSFER_ACNO,
-        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
         //Nominee 
         'NomineeData': this.multiNominee,
         'Document': this.imageObject
@@ -1292,7 +1290,6 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_BRANCH'] = this.branch_codeList
     data['AC_RESNO'] = data.AC_RESNO
     // data['SUB_SALARYDIVISION_CODE'] = this.sub_salary_divList
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
     data['DIV_TRANSFER_BRANCH'] = this.ngBranchCode
     data['DIV_TRANSFER_ACTYPE'] = this.ngDivACType
     data['DIV_TRANSFER_ACNOTYPE'] = this.getschemename
@@ -1584,8 +1581,12 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetNominee()
   }
 
-  delNominee(id) {
+  delNominee(id,data) {
     this.multiNominee.splice(id, 1)
+
+    this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+    })
   }
 
   resetNominee() {

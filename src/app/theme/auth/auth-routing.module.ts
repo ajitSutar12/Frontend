@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 // import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -30,19 +30,7 @@ const routes: Routes = [
       {
         path: 'lock-screen',
         loadChildren: () => import('./lock-screen/lock-screen.module').then(m => m.LockScreenModule)
-      },
-      {
-        path: 'lock-screen',
-        loadChildren: () => import('./lock-screen/lock-screen.module').then(m => m.LockScreenModule)
-      },
-      {
-        path: 'otpform',
-        loadChildren: () => import('./otpform/otpform.module').then(m => m.OtpformModule),
-      },
-      {
-        path: 'setpassword',
-        loadChildren: () => import('./setpassword/setpassword.module').then(m => m.SetpasswordModule),
-      },
+      }
     ]
   }
 ];

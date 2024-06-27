@@ -320,9 +320,6 @@ export class MultiVoucherComponent implements OnInit {
     // })
   }
 
-
-  
-
   //get account no according scheme for introducer
   submitScheme: any;
   getIntroducer(item, branch) {
@@ -628,6 +625,7 @@ export class MultiVoucherComponent implements OnInit {
       else
         obj['isOverdraftTaken'] = 0
       this.mainMaster.push(obj);
+      // console.log(this.mainMaster)
       this.DayOpBal = 0
 
       this.angForm.controls['temp_over_draft'].reset()
@@ -1110,7 +1108,8 @@ export class MultiVoucherComponent implements OnInit {
       chequeDate: data.chequeDate,
       amt: Number(data.amt).toFixed(2),
       // particulars: data.NARRATION,
-      total_amt: data.total_amt
+      total_amt: data.total_amt,
+      bank: data.bank
     })
     // this.changeMode(data.tran_mode);
     this.headData = []
@@ -1123,7 +1122,7 @@ export class MultiVoucherComponent implements OnInit {
       this.showChequeDetails = true;
     }
     this.showAdd = false;
-    this.showUpdate = false;
+    this.showUpdate = true;
     this.calculateVoucher()
     this.showlgindetails()
     this.SideDetails()
@@ -1495,7 +1494,7 @@ export class MultiVoucherComponent implements OnInit {
   checkSanctionAmountWithAmount() {
     // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
     let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
-    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN') && this.submitScheme.IS_GOLD_LOAN != '1') {
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
       this.SideDetails()
       this.angForm.controls['amt'].reset();
       this.angForm.patchValue({

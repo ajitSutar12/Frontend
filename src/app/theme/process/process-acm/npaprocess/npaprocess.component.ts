@@ -177,7 +177,7 @@ export class NPAProcessComponent implements OnInit {
 
       this.isLoder = true
 
-      this.http.post(this.url+'/voucher/npaprocess', obj).subscribe((response: any) => {
+      this.http.post('http://192.168.1.185:7276/voucher/npaprocess', obj).subscribe((response: any) => {
 
         this.isLoder = false
 
@@ -218,7 +218,7 @@ export class NPAProcessComponent implements OnInit {
     }
 
     //NPA DATE
-    this.http.post(this.url+'/npa-classification-master/data', obj).subscribe((data) => {
+    this.http.post('http://192.168.1.185:7276/npa-classification-master/data', obj).subscribe((data) => {
       this.glDetails = data
     })
   }

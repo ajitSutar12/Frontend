@@ -16,7 +16,6 @@ export class overdraftservice {
   //Insertion Operation
   postData(data: any): Observable<any> {
     return this.http.post(this.url + "/over-draft/insert", data).pipe(
-    // return this.http.post("http://192.168.1.128:7276/over-draft/insert", data).pipe(
       map((res) => res),
       catchError((error) => {
         Swal.fire("Please Input Proper Data !");

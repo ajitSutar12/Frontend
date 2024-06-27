@@ -62,7 +62,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="DOWN"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" placement="left"
                                             class="form-control" [(ngModel)]="dates" formControlName="date"
                                             #date="bsDatepicker" (keydown.Tab)="date.hide()" appButton minlength="8"
                                             maxlength="10"
@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md" id="FORMA" *ngIf="isDeposit">
+                            <div class="col-md" id="FORMA" *ngIf="isDeposit">
                                 <div class="row">
                                     <div class="col-md">
                                         <div class="checkbox checkbox-primary">
@@ -170,7 +170,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
 
                         </div>
                         <div class="row">

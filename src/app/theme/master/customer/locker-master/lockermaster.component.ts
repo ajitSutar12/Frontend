@@ -1410,8 +1410,25 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  delNominee(id) {
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
+
+  delNominee(id, data) {
     this.multiNominee.splice(id, 1)
+    // console.log(data)
+
+    this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+    })
+
+  }
+  delJointAc(id,data) {
+    this.multiJointAC.splice(id, 1)
+
+    this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+    })
   }
 
   resetNominee() {
@@ -1753,9 +1770,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();

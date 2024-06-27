@@ -7,6 +7,8 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DataTablesModule } from 'angular-datatables';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,6 +19,8 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
     NgSelectModule,
     FormsModule, 
     ReactiveFormsModule,
+    HttpClientModule,
+    DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
   ],

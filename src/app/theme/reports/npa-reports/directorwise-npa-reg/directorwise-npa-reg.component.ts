@@ -31,8 +31,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
     @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
   formSubmitted = false;  
   Accschemeno:any =new Array(                           );
-  base_url = environment.base_url;
-  nasf
+
   
   //fromgroup
   ngForm:FormGroup
@@ -93,7 +92,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
 
@@ -157,8 +156,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       }
      
 
-      // this.http.post('http://192.168.1.113:7276/npa-classification-master/data' ,obj1).subscribe((data) => {
-        this.http.post(this.base_url +'/npa-classification-master/data',obj1).subscribe((data: any[]) => {
+      this.http.post('http://localhost:7276/npa-classification-master/data' ,obj1).subscribe((data) => {
         this.glDetails = data
     
           console.log(this.glDetails)

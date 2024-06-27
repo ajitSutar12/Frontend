@@ -1,0 +1,154 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Trial Balance Updation</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            formControlName="BRANCH_CODE" bindLabel="label" (change)="getBranch($event)" placeholder="Branch">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <!-- <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div> -->
+                            </div>
+
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10"
+                                            maxlength="10" class="form-control" [(ngModel)]="formDate"
+                                            formControlName="date"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <!-- <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['date'].invalid && (ngForm.controls['date'].dirty || ngForm.controls['date'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['date'].errors?. maxlength || ngForm.controls['date'].errors?. minlength || ngForm.controls['date'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <button class="btn btn-outline-primary btn-sm" (click)="getDateFuc()">Show
+                                    Table</button>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="accountNumber">Filter by Account Number:</label>
+                            <input type="text" class="form-control" id="accountNumber" formControlName="accountNumber"
+                                (input)="filterTableData()">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="col-12">
+                                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                        <table datatable>
+                                            <thead style="position: sticky; top: 0;">
+                                                <td>Account Number</td>
+                                                <td>Account Name</td>
+                                                <td>Account Type</td>
+                                                <td>Credit</td>
+                                                <td>Debit</td>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of filteredData">
+                                                    <td class="td_center">{{ data.AC_NO }}</td>
+                                                    <td>{{ data.AC_NAME }}</td>
+                                                    <td>{{ data.head_name }}</td>
+                                                    <td class="td_right" contenteditable="true"
+                                                        [(ngModel)]="data.TRAN_AMOUNT"
+                                                        (blur)="onCellChange($event, data, 'TRAN_AMOUNT')">
+                                                        {{ data.TRAN_DRCR === 'C' ? data.TRAN_AMOUNT : '' }}
+                                                    </td>
+                                                    <td class="td_right" contenteditable="true"
+                                                        [(ngModel)]="data.TRAN_AMOUNT"
+                                                        (blur)="onCellChange($event, data, 'TRAN_AMOUNT')">
+                                                        {{ data.TRAN_DRCR === 'D' ? data.TRAN_AMOUNT : '' }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                            <tbody *ngIf="tableData.length === 0">
+                                                <tr>
+                                                    <td class="no-data-available" colspan="5"
+                                                        style="text-align: center;">
+                                                        No data!
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <hr />
+
+                        <div class="row">
+                            <!-- <div class="col-sm-12 col-md-6">
+                            </div> -->
+                            <div class="col-sm-12 col-md-1">
+                                <label class="form-group">Total Debit</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" formControlName="Tb"
+                                        value="{{ totalDebit1 }}" disabled>
+
+                                </span>
+                            </div>
+                            <div class="col-sm-12 col-md-1">
+                                <label class="form-group">Total credit</label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" formControlName="Tc"
+                                        value="{{ totalCredit1 }}" disabled>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm col-md">
+                        <button class="btn btn-outline-primary btn-sm" (click)="update()">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

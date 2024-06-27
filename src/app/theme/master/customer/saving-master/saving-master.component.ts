@@ -531,6 +531,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   customer(event) {
+    this.angForm.controls['AC_MINOR'].reset();
+
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     let branchCode = result.branch.id
@@ -570,6 +572,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     })
+    
   }
 
   //set open date, appointed date and expiry date
@@ -623,7 +626,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_PANNO: [''],
       AC_ADHARNO: [''],
       // AC_SCHMAMT: ['', [Validators.pattern]],
-      IS_REQUIRED_AUTOMAILER: [true],
       AC_IS_RECOVERY: [0],
       //Address
       AC_ADDFLAG: [true],
@@ -796,7 +798,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_INTRNAME: value.name
     })
   }
-  is_reqired_auto
+
   // Method to insert data into database through NestJS
   submit(event) {
     let temdate
@@ -858,8 +860,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_TAREA: formVal.AC_TAREA,
         AC_TCTCODE: formVal.AC_TCTCODE,
         AC_TPIN: formVal.AC_TPIN,
-        'IS_REQUIRED_AUTOMAILER': (formVal.IS_REQUIRED_AUTOMAILER == true ? '1' : '0'),
-
         //minor and introducer
         'AC_MINOR': (formVal.AC_MINOR == true ? '1' : '0'),
         'AC_MBDATE': formVal.AC_MBDATE,
@@ -1095,7 +1095,6 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
     data['id'] = this.updateID;
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
@@ -1406,7 +1405,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.introducerReq = true
       }
       else if (showAge > 18) {
-        this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
+        // this.angForm.controls['AC_MINOR'].setValue(false ? '1' : '0');
         this.angForm.controls['AC_GRDNAME'].disable();
         this.angForm.controls['AC_GRDRELE'].disable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].disable();
@@ -1572,8 +1571,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetNominee()
   }
 
-  delNominee(id) {
+  delNominee(id,data) {
     this.multiNominee.splice(id, 1)
+    this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+    })
   }
 
   resetNominee() {
@@ -1735,8 +1737,11 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  delJointAc(id) {
+  delJointAc(id,data) {
     this.multiJointAC.splice(id, 1)
+    this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+    })
   }
 
   resetJointAC() {
@@ -1911,8 +1916,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  delAttorney(id) {
+  delAttorney(id,data) {
     this.multiAttorney.splice(id, 1)
+
+    this.http.delete(this.url + '/term-deposits-master/powrattrneydelete/' + data.id).subscribe(data => {
+      Swal.fire('', 'Power Of Attorney Deleted Successfully!', 'success');
+    })
   }
 
   resetAttorney() {

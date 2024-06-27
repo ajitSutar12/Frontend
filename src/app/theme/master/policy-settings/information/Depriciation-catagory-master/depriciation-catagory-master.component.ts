@@ -75,7 +75,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   ngBranchCode
   branch_code
   branchCode
-  schemeACNo
+
   constructor(
     private http: HttpClient,
     private depriciationService: DepriciationService,
@@ -161,11 +161,6 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       ],
       dom: 'Blrtip',
     };
-
-    this.http.get<any>(this.url + '/gl-account-master/').subscribe(data => {
-      this.schemeACNo = data;
-    })
-
     // let data: any = localStorage.getItem('user');
     // let result = JSON.parse(data);
     // let branchCode = result.branch.id;

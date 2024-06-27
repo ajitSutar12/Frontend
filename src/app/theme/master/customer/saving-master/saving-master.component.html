@@ -369,20 +369,6 @@
 
                           </div>
                           <div class="row">
-
-                            <div class="col-sm-3">
-                              <div class="checkbox checkbox-primary">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                  <input type="checkbox" class="border-checkbox" id="IS_REQUIRED_AUTOMAILER"
-                                    formControlName="IS_REQUIRED_AUTOMAILER">
-                                  <label class="border-checkbox-label" for="IS_REQUIRED_AUTOMAILER">Is AutoMailer
-                                    Required
-                                  </label>
-
-                                </div>
-                              </div>
-                            </div>
-
                             <!-- <div class="col-sm-2">
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -814,7 +800,7 @@
                               <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                   <input class="border-checkbox" type="checkbox" id="ac_minor" name="AC_MINOR"
-                                    [checked]="MINOR == true" formControlName="AC_MINOR" maxlength="100" disabled />
+                                    formControlName="AC_MINOR" maxlength="100" disabled />
                                   <label class="border-checkbox-label" for="ac_minor">Minor Details</label>
                                 </div>
                               </div>
@@ -836,11 +822,10 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GRDNAME" class="form-control" placeholder=" "
-                                    id="AC_GRDNAME" pattern="^[A-Za-z\./ -]+$" [ngClass]="
-                                      introducerReq === true
-                                        ? 'formSubmitted'
-                                        : ''
-                                    " title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
+                                    id="AC_GRDNAME" pattern="^[A-Za-z\./ -]+$" [ngClass]="{
+                                      'form-submitted': formSubmitted
+                                    }"
+                                     title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
                                     formControlName="AC_GRDNAME" [required]="introducerReq" />
                                   <label for="AC_GRDNAME">Guardian Name</label>
                                 </span>
@@ -866,11 +851,9 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GRDRELE" class="form-control" placeholder=" "
-                                    id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$" [ngClass]="
-                                      introducerReq === true
-                                        ? 'formSubmitted'
-                                        : ''
-                                    " title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="25"
+                                    id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$" [ngClass]="{
+                                      'form-submitted': formSubmitted
+                                    }" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="25"
                                     formControlName="AC_GRDRELE" [required]="introducerReq" />
                                   <label for="AC_GRDRELE">Relation</label>
                                 </span>
@@ -896,11 +879,9 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="SIGNATURE_AUTHORITY" class="form-control" placeholder=" "
-                                    id="SIGNATURE_AUTHORITY" pattern="^[A-Za-z\./ -]+$" [ngClass]="
-                                      introducerReq === true
-                                        ? 'formSubmitted'
-                                        : ''
-                                    " title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
+                                    id="SIGNATURE_AUTHORITY" pattern="^[A-Za-z\./ -]+$" [ngClass]="{
+                                      'form-submitted': formSubmitted
+                                    }" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
                                     formControlName="SIGNATURE_AUTHORITY" />
                                   <label for="SIGNATURE_AUTHORITY">Signature Authority</label>
                                 </span>
@@ -1377,7 +1358,7 @@
                                               " placement="top" ngbTooltip="Edit"></span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="
-                                                delNominee(indexOfelement)
+                                                delNominee(indexOfelement,data)
                                               " placement="right" ngbTooltip="Delete"></span>
                                           </div>
                                         </div>
@@ -1600,7 +1581,7 @@
                                               " placement="top" ngbTooltip="Edit"></span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="
-                                                delJointAc(indexOfelement)
+                                                delJointAc(indexOfelement,data)
                                               " placement="right" ngbTooltip="Delete"></span>
                                           </div>
                                         </div>
@@ -1791,7 +1772,7 @@
                                               " placement="top" ngbTooltip="Edit"></span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="
-                                                delAttorney(indexOfelement)
+                                                delAttorney(indexOfelement,data)
                                               " placement="right" ngbTooltip="Delete"></span>
                                           </div>
                                         </div>

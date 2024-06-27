@@ -111,7 +111,7 @@ ngForm: FormGroup;
     if(this.ngForm.valid){
     let obj = this.ngForm.value
     this.showRepo = true;
-    let startdate =  moment(obj.START_DATE).format('DD/MM/YYYY');
+    let startdate =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
 
     let enddate:any;
     if (this.todate == obj.END_DATE) {

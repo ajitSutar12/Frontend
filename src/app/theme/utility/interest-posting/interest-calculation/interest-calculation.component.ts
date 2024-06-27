@@ -62,6 +62,7 @@ export class InterestCalculationComponent implements OnInit {
   selectedSchemeData: any;
   schemewiseRadio: boolean = true;
   modalClass: string = 'modalHide';
+  daysDifference: number;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -83,6 +84,7 @@ export class InterestCalculationComponent implements OnInit {
 
     this.getSystemParaDate()
     this.createForm();
+
 
     // this.http.get(this.url + '/scheme-parameters/FlagInterest').subscribe((data) => {
     //   this.scheme = data
@@ -124,6 +126,23 @@ export class InterestCalculationComponent implements OnInit {
       AC_TYPE1: ['', [Validators.required]],
 
     });
+
+   
+  }
+
+  ngAfterContentChecked()
+  {
+    this.Dayscalculate()
+  }
+
+  Dayscalculate() {
+    let formVal = this.angForm.value
+
+    let startDate = moment(formVal.INT_UPTO_DATE, 'DD/MM/YYYY');
+    let endDate = moment(formVal.Ledger_Date, 'DD/MM/YYYY');
+
+    this.daysDifference = endDate.diff(startDate, 'days') + 1;
+
   }
 
   getSelectedCodeScheme(ele) {

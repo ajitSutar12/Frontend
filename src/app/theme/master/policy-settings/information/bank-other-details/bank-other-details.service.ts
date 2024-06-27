@@ -17,7 +17,7 @@ export class BankDetails {
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url + '/bank-other-details/insert', data).pipe(map((res) => res),
+    return this.http.post('http://192.168.1.121:7267/bank-other-details/insert', data).pipe(map((res) => res),
     catchError((error) => {
       Swal.fire('Please Input Proper Data !');
       return throwError(error);

@@ -37,7 +37,7 @@ interface deadstockinterface {
   templateUrl: './master-dead-stock.component.html',
   styleUrls: ['./master-dead-stock.component.scss']
 })
-export class MasterDeadStockComponent implements OnInit, AfterViewInit {
+export class MasterDeadStockComponent implements OnInit ,AfterViewInit{
 
   @ViewChild(DeadStockMasterComponent) child: DeadStockMasterComponent;
   @ViewChild('triggerhide') myDiv: ElementRef<HTMLElement>;
@@ -106,9 +106,6 @@ export class MasterDeadStockComponent implements OnInit, AfterViewInit {
           dataTableParameters.start + dataTableParameters.length;
         let datatableRequestParam: any;
         this.page = dataTableParameters.start / dataTableParameters.length;
-        let data1: any = localStorage.getItem('user');
-        let result1 = JSON.parse(data1);
-        dataTableParameters['branchCode'] = result1.branch.id;
         dataTableParameters.columns.forEach((element) => {
           if (element.search.value != "") {
             let string = element.search.value;
@@ -202,7 +199,7 @@ export class MasterDeadStockComponent implements OnInit, AfterViewInit {
   //get saving customer data
   getCurrentData(data) {
     this.deadstockData = data.id;
-    this.child.editClickHandler(data.id, 1);
+    this.child.editClickHandler(data.id,1);
     this.child.DatatableHideShow = false;
     this.child.rejectShow = true;
     this.child.approveShow = true;

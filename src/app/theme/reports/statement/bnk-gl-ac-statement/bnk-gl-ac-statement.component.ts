@@ -147,7 +147,7 @@ export class BnkGlAcStatementComponent implements OnInit {
     this.branchName = event.branchName
 
   }
-  getBranch1(){
+  getBranch1() {
     this.getIntroducer()
 
   }
@@ -180,7 +180,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
   src: any;
   View(event) {
-    
+
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -194,7 +194,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
       let obj = this.angForm.value
       let startdate = moment(obj.START_DATE).format('DD/MM/YYYY');
-      // let enddate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      let enddate1 = moment(obj.END_DATE).format('DD/MM/YYYY');
 
       let enddate: any;
       if (this.todate == obj.END_DATE) {
@@ -211,7 +211,7 @@ export class BnkGlAcStatementComponent implements OnInit {
       let MonthwiseSummary = obj.Month_wise_Summary
       let AC_NO = obj.FROM_AC;
 
-      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + this.ngBranchCode + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "&AC_NO='" + AC_NO +  "'";
+      this.iframe2url = this.report_url + "examples/GLaccStatement.php?startdate='" + startdate + "'&enddate='" + enddate + "'&sdate='" + sdate + "'&branch=" + this.ngBranchCode + "&branchName=" + this.branchName + "&startingcode=" + startingcode + "&endingcode=" + startingcode + " &scheme=" + scheme + " &MonthwiseSummary='" + MonthwiseSummary + "&bankName=" + bankName + "&AC_NO='" + AC_NO + "'";
       this.iframe2url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe2url);
     }
     else {
@@ -253,4 +253,18 @@ export class BnkGlAcStatementComponent implements OnInit {
     this.showRepo = false;
     this.clicked = false;
   }
+
+  daysDifference
+  daysCal() {
+    let formVal = this.angForm.value
+
+    let startDate = moment(formVal.START_DATE, 'DD/MM/YYYY');
+    let endDate = moment(formVal.END_DATE, 'DD/MM/YYYY');
+
+    this.daysDifference = endDate.diff(startDate, 'days') + 1;
+
+  
+  }
+
+
 }

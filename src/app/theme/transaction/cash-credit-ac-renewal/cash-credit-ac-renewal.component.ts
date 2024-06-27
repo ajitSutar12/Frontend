@@ -127,14 +127,14 @@ export class CashCreditAcRenewalComponent implements OnInit {
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH_CODE'].enable()
-    //   this.ngBranchCode = result.branch.id
-    // }
-    // else {
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngBranchCode = result.branch.id
-    // }
+    }
 
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
@@ -180,17 +180,17 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this.angForm.controls['LAST_INTDATE'].disable()
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH_CODE'].enable()
-    //   this.ngBranchCode = result.branch.id
-    // }
-    // else {
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.angForm.patchValue({
         'BRANCH_CODE': result.branch.id
       })
       this.ngBranchCode = result.branch.id
-    // }
+    }
     this.getSystemParaDate()
   }
   addNewData() {
@@ -205,17 +205,17 @@ export class CashCreditAcRenewalComponent implements OnInit {
     this.ngacno = null
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
-    // if (result.RoleDefine[0].Role.id == 1) {
-    //   this.angForm.controls['BRANCH_CODE'].enable()
-    //   this.ngBranchCode = result.branch.id
-    // }
-    // else {
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.angForm.controls['BRANCH_CODE'].enable()
+      this.ngBranchCode = result.branch.id
+    }
+    else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.angForm.patchValue({
         'BRANCH_CODE': result.branch.id
       })
       this.ngBranchCode = result.branch.id
-    // }
+    }
 
   }
 
@@ -427,14 +427,14 @@ export class CashCreditAcRenewalComponent implements OnInit {
         Swal.fire("Success!", "Data Updated Successfully !", "success");
       })
       this.formSubmitted = false
-      // if (result.RoleDefine[0].Role.id == 1) {
-      //   this.angForm.controls['BRANCH_CODE'].enable()
-      //   this.ngBranchCode = result.branch.id
-      // }
-      // else {
+      if (result.RoleDefine[0].Role.id == 1) {
+        this.angForm.controls['BRANCH_CODE'].enable()
+        this.ngBranchCode = result.branch.id
+      }
+      else {
         this.angForm.controls['BRANCH_CODE'].disable()
         this.ngBranchCode = result.branch.id
-      // }
+      }
       this.resetForm()
     }
     else {

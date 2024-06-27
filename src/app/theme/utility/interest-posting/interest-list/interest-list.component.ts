@@ -194,7 +194,7 @@ export class InterestListComponent implements OnInit {
       }
       else if (obj.R_TYPE == 'loan') {
 
-        this.iframe5url = this.report_url + "examples/LoanInterestList1.php?Branchname='" + this.branchName + "'&date='" + obj.date + "'&Branch='" + this.branchName + "'&bankName='" + bankName + "'&schemecode='" + this.scode + "'&branch_code=" + branch + "";
+        this.iframe5url = this.report_url + "examples/LoanInterestList1.php?Branchname='" + this.branchName + "'&date='" + obj.date + "'&Branch='" + bankName + "'&schemecode='" + this.scode + "'&branch_code=" + branch + "";
         console.log(this.iframe5url);
         this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 

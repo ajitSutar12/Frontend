@@ -267,7 +267,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         DEPOSIT_AMT: data.DEPOSIT_AMT,
         RECEIPT_NO: data.RECEIPT_NO,
         IS_LIEN_MARK_CLEAR: data.IS_LIEN_MARK_CLEAR == '0' ? false : true,
-        AC_TYPE: data.AC_NO,
+        AC_TYPE: data.AC_TYPE,
         BALANCE_OF_LOAN_ACCOUNT: data.BALANCE_OF_LOAN_ACCOUNT,
         AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
 

@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-loan-projection',
@@ -55,6 +56,8 @@ export class LoanProjectionComponent implements OnInit {
     private fb: FormBuilder,
     private _services: OtherViewService,
     private systemParameter: SystemMasterParametersService,
+    private sanitizer: DomSanitizer,
+
   ) {
     this.resolutionDate = new Date();
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -118,7 +121,8 @@ export class LoanProjectionComponent implements OnInit {
       })
     }
   }
-
+  iframe5url: any = '';
+  report_url = environment.report_url
   Process() {
     let obj = this.angForm.value;
     obj['user'] = JSON.parse(localStorage.getItem('user'));
@@ -126,11 +130,52 @@ export class LoanProjectionComponent implements OnInit {
     this._services.loanProjection(obj).subscribe(data => {
       this.modalClass = 'modalHide';
       // console.log(data);
-      this.resultData = data.result;
+      this.resultData = data.result
+      console.log(this.resultData)
+      let tableData = []
+
+      let Bal = []
+      let CrAmt = []
+      let Days = []
+      let DrAmt = []
+      let Product = []
+      let totint = []
+
+      this.resultData.forEach(item => {
+        Bal.push(item.Bal);
+        CrAmt.push(item.CrAmt);
+        Days.push(item.Days);
+        DrAmt.push(item.DrAmt);
+        Product.push(item.Product);
+        totint.push(item.totint);
+      });
+
+      let Bal1 = []
+      let CrAmt1 = []
+      let Days1 = []
+      let DrAmt1 = []
+      let Product1 = []
+      let totint1 = []
+
+      Bal1 = Bal.map(Bal => `${Bal}<br/>`);
+      CrAmt1 = CrAmt.map(CrAmt => `${Math.abs(CrAmt)}<br/>`);
+      Days1 = Days.map(Days => `${Days}<br/>`);
+      DrAmt1 = DrAmt.map(DrAmt => `${DrAmt}<br/>`);
+      Product1 = Product.map(Product => `${Math.abs(Product)}<br/>`);
+      totint1 = totint.map(totint => `${totint}<br/>`);
+  
+
+
+      this.iframe5url = "http://localhost/phpjasper/vendor/tecnickcom/tcpdf/examples/loanProjection.php/?&loan='" + obj.LOAN + "'&installNumber=" + obj.INSTALLMENTS + "&AC_REPAYMODE=" + obj.AC_REPAYMODE + "&INSTALLMENT_METHOD=" + obj.INSTALLMENT_METHOD + "&POSTINGMETHOD=" + obj.POSTINGMETHOD + "&TDS_RATE=" + obj.TDS_RATE + "&RESOLUTION_DATE=" + obj.RESOLUTION_DATE + "'&PERIOD=" + obj.PERIOD + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
     }, err => {
       this.modalClass = 'modalHide';
     })
   }
+
+
   close() {
     this.ngOnInit();
     this.resultData = []

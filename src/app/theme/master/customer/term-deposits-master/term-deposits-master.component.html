@@ -733,18 +733,6 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <div class="checkbox checkbox-primary">
-                                                              <div class="border-checkbox-group border-checkbox-group-primary">
-                                                                <input type="checkbox" class="border-checkbox" id="IS_REQUIRED_AUTOMAILER"
-                                                                  formControlName="IS_REQUIRED_AUTOMAILER">
-                                                                <label class="border-checkbox-label" for="IS_REQUIRED_AUTOMAILER">Is AutoMailer
-                                                                  Required
-                                                                </label>
-                              
-                                                              </div>
-                                                            </div>
-                                                          </div>
                                                         <div class="col-sm"></div>
                                                         <div class="col-sm-1" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
@@ -1850,7 +1838,7 @@
                                                                                         <span
                                                                                             class="fa fa-fw fa-trash-o"
                                                                                             id="deletebutton"
-                                                                                            (click)="delNominee(indexOfelement)"
+                                                                                            (click)="delNominee(indexOfelement,data)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Delete"></span>
                                                                                     </div>
@@ -2044,7 +2032,7 @@
                                                                                         <span
                                                                                             class="fa fa-fw fa-trash-o"
                                                                                             id="deletebutton"
-                                                                                            (click)="delJointAc(indexOfelement)"
+                                                                                            (click)="delJointAc(indexOfelement,data)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Delete"></span>
                                                                                     </div>
@@ -2250,7 +2238,7 @@
                                                                                         <span
                                                                                             class="fa fa-fw fa-trash-o"
                                                                                             id="deletebutton"
-                                                                                            (click)="delAttorney(indexOfelement)"
+                                                                                            (click)="delAttorney(indexOfelement,data)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Delete"></span>
                                                                                     </div>

@@ -30,7 +30,6 @@ export class NBalanceSheetComponent implements OnInit {
   ngbranch
   branchOption: any;
   report_url = environment.report_url;
-  branchName: string;
   // showErrorMessage: boolean = false;
   // errorMessage: string = '';
   constructor(private fb: FormBuilder,
@@ -49,9 +48,11 @@ export class NBalanceSheetComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
+      }
+    })
+
   }
 
   // updateEndDate() {
@@ -88,11 +89,9 @@ export class NBalanceSheetComponent implements OnInit {
       let obj = this.angForm.value
       let stardate = moment(obj.START_DATE).format('DD/MM/YYYY');
       let endate = moment(obj.END_DATE).format('DD/MM/YYYY');
-      let branch = obj.BRANCH_CODE;
-      if(branch == 0){
-        this.branchName='Consolidate';
-     }
-      this.iframeurl =  this.report_url + "examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + this.branchName + "'&bankName='" + bankName + "'";
+      let branched1 = obj.BRANCH_CODE;
+
+      this.iframeurl =  this.report_url + "examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + branched1 + "'&bankName='" + bankName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
 
     }

@@ -26,23 +26,23 @@
                                 </div>
 
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="TRAN_NO">Tran No.<sub
+                            <div class="col-sm-12 col-md-2"> <label for="CODE">Tran No.<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="Tran No" name="TRAN_NO" id="TRAN_NO"
-                                            class="form-control" [(ngModel)]="tranNo" formControlName="TRAN_NO"
+                                        <input type="text" placeholder="Tran No" name="CODE" id="CODE"
+                                            class="form-control" [(ngModel)]="tranNo" formControlName="CODE"
                                             pattern="[0-9]*">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['TRAN_NO'].invalid && (angForm.controls['TRAN_NO'].dirty || angForm.controls['TRAN_NO'].touched)"
+                                    *ngIf="angForm.controls['CODE'].invalid && (angForm.controls['CODE'].dirty || angForm.controls['CODE'].touched)"
                                     class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['TRAN_NO'].errors?.required">
+                                    <div *ngIf="angForm.controls['CODE'].errors?.required">
                                         This field is required
                                     </div>
-                                    <div *ngIf="angForm.controls['TRAN_NO'].errors?.pattern">
+                                    <div *ngIf="angForm.controls['CODE'].errors?.pattern">
                                         Please enter only digits (0-9)
                                     </div>
                                 </div>
@@ -51,21 +51,21 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="ISSUE_DATE">Issue Date</label></div>
+                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Issue Date</label></div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="dd/mm/yyyy" name="ISSUE_DATE" id="ISSUE_DATE"
+                                        <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
                                             class="form-control" [(ngModel)]="issueDate" appButton
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="ISSUE_DATE"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="TRAN_DATE"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                             bsDatepicker>
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['ISSUE_DATE'].invalid && (angForm.controls['ISSUE_DATE'].dirty || angForm.controls['ISSUE_DATE'].touched)"
+                                    *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
                                     class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['ISSUE_DATE'].errors?.required">
+                                    <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
@@ -77,9 +77,9 @@
                             <div class="col-sm-12 col-md-7">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="BANK_CODE" bindValue="value" [(ngModel)]="bankCode"
-                                            (change)="getBankCode($event)" formControlName="BANK_CODE"
-                                            title="Compulsory Selection" placeholder="Bank Code">
+                                        <ng-select id="BANK_CODE" [(ngModel)]="bankCode" (change)="getBankCode($event)"
+                                            formControlName="BANK_CODE" title="Compulsory Selection"
+                                            placeholder="Bank Code">
                                             <ng-option *ngFor="let values of bankArray" [value]="values">
                                                 {{values.BANK_CODE}}</ng-option>
                                         </ng-select>
@@ -114,7 +114,7 @@
 
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">City Code<sub
+                            <!-- <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">City Code<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-7">
                                 <div class="form-group form-primary form-static-label">
@@ -128,7 +128,24 @@
                                     </span>
                                 </div>
 
+                            </div> -->
+                            <div class="col-sm-12 col-md-2">
+                                <label for="CITY_CODE">City Code<sub class="required">*</sub></label>
                             </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="CITY_CODE" [(ngModel)]="cityCode" formControlName="CITY_CODE"
+                                            title="Compulsory Selection" (change)="getCityCode($event)"
+                                            placeholder="City Code">
+                                            <ng-option *ngFor="let values of cityArray" [value]="values">
+                                                {{cityCode}}
+                                            </ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                            </div>
+
 
                         </div>
                         <div class="row">
@@ -182,14 +199,14 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
-                                        <input type="text" placeholder="Amount" name="AMOUNT" id="AMOUNT"
-                                            class="form-control" [(ngModel)]="amount" formControlName="AMOUNT">
+                                        <input type="text" placeholder="Amount" name="AMT" id="AMT"
+                                            class="form-control" [(ngModel)]="amount" formControlName="AMT">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['AMOUNT'].invalid && (angForm.controls['AMOUNT'].dirty || angForm.controls['AMOUNT'].touched)"
+                                    *ngIf="angForm.controls['AMT'].invalid && (angForm.controls['AMT'].dirty || angForm.controls['AMT'].touched)"
                                     class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AMOUNT'].errors?.required">
+                                    <div *ngIf="angForm.controls['AMT'].errors?.required">
                                         This field is required
                                     </div>
                                 </div>
@@ -201,60 +218,71 @@
                 <div class="row">
                     <div class="col-sm-8"></div>
                     <div class="col-sm-2">
-                        <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                        <button type="submit" *ngIf="isSubmit" class="btn btn-outline-primary btn-sm" value="submit"
                             (click)="submit()">Submit</button>
 
-                        <button type="reset" class="btn btn-outline-primary btn-sm" value="reset"
-                            (click)="resetForm()">Close</button>
+                        <button type="reset" *ngIf="isCancel" class="btn btn-outline-primary btn-sm" value="reset"
+                            (click)="resetForm()">Cancel</button>
+                        <button type="update" *ngIf="isUpdate" class="btn btn-outline-primary btn-sm" value="update"
+                            (click)="updateData()">Update</button>
                     </div>
                 </div>
 
-                <!-- <div class="row">
-                    <div class="col-12">
-                        <div class="card shadow">
-                            <div class="card-block">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <div class="table-responsive">
-                                            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                                                class="table table-striped table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Tran No</th>
-                                                        <th>Branch No</th>
-                                                        <th>Issue Date</th>
-                                                        <th>Bank Code</th>
-                                                        <th>City Code</th>
-                                                        <th>Draft No</th>
-                                                        <th>Drawn On</th>
-                                                        <th>Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let data of tableData">
-                                                        <td>{{ data.id }}</td>
-                                                        <td>{{ data.CODE }}</td>
-                                                        <td>{{ data.BRANCH_NO }}</td>
-                                                        <td>{{ data.TRAN_DATE }}</td>
-                                                        <td>{{ data.BANK_CODE }}</td>
-                                                        <td>{{ data.CITY_CODE }}</td>
-                                                        <td>{{ data.DRAFT_NO }}</td>
-                                                        <td>{{ data.DRAWN_ON }}</td>
-                                                        <td>{{ data.AMT }}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                class="table table-striped table-bordered table-hover compact">
+                                <tbody *ngIf="tableData?.length != 0">
+                                    <tr *ngFor="let data of tableData">
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
+                                                ngbTooltip="Edit"></span> &nbsp;
+                                            <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                                        </td>
+                                        <td class="td_right">{{ data.id }}</td>
+                                        <td>{{ data.CODE }}</td>
+                                        <td>{{ data.BRANCH_NO }}</td>
+                                        <td>{{ data.TRAN_DATE }}</td>
+                                        <td>{{ data.BANK_CODE }}</td>
+                                        <td>{{ data.CITY_CODE }}</td>
+                                        <td>{{ data.DRAFT_NO }}</td>
+                                        <td>{{ data.DRAWN_ON }}</td>
+                                        <td class="td_right">{{ data.AMT }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="tableData?.length == 0">
+                                    <tr>
+                                        <td colspan="10" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot #filters class="filters">
+                                    <tr class="testing">
+                                        <th class="testing"></th>
+                                        <th><input type="text" class="form-control" name="ID"></th>
+                                        <th><input type="text" class="form-control" name="CODE"></th>
+                                        <th><input type="text" class="form-control" name="BRANCH_NO"></th>
+                                        <th><input type="text" class="form-control" name="TRAN_DATE"></th>
+                                        <th><input type="text" class="form-control" name="BANK_CODE"></th>
+                                        <th><input type="text" class="form-control" name="CITY_CODE"></th>
+                                        <th><input type="text" class="form-control" name="DRAFT_NO"></th>
+                                        <th><input type="text" class="form-control" name="DRAWN_ON"></th>
+                                        <th><input type="text" class="form-control" name="AMT"></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
-                </div> -->
-
-            </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

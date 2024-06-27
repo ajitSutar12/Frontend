@@ -69,14 +69,14 @@ export class OtherRecInstallWiseLoanOverdueComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id == 1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }
     })
 
     // Scheme Code
 
-    this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get(this.url + '/ledger-view/cschem').subscribe((data: any[]) => {
       this.scheme = data
     })
 
@@ -105,7 +105,7 @@ export class OtherRecInstallWiseLoanOverdueComponent implements OnInit {
 
   getCodeDropDown() {
     // this.http.get(this.url + '/recovery-cleark-master').subscribe((data: any[]) => {
-    this.http.get('http://192.168.1.113:7276/recovery-cleark-master').subscribe((data: any[]) => {
+    this.http.get(this.url + '/recovery-cleark-master').subscribe((data: any[]) => {
       this.codeDetails = data
       console.log(data)
 
@@ -114,11 +114,11 @@ export class OtherRecInstallWiseLoanOverdueComponent implements OnInit {
 
   createForm() {
     this.ngForm = this.fb.group({
-      BRANCH_CODE: ['',Validators.required],
+      BRANCH_CODE: ['', Validators.required],
       Scheme_code: [''],
-      START_CODE: ['',Validators.required],
-      END_CODE: ['',Validators.required],
-      date: ['',Validators.required],
+      START_CODE: ['', Validators.required],
+      END_CODE: ['', Validators.required],
+      date: ['', Validators.required],
     });
 
   }
@@ -154,10 +154,10 @@ export class OtherRecInstallWiseLoanOverdueComponent implements OnInit {
         Date = moment(this.dates, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-      
 
-   
-     
+
+
+
       let scheme = obj.Scheme_code
 
       let branch = obj.BRANCH_CODE;
@@ -177,6 +177,7 @@ export class OtherRecInstallWiseLoanOverdueComponent implements OnInit {
   }
 
   close() {
+    -
     this.resetForm()
 
   }
@@ -186,9 +187,9 @@ export class OtherRecInstallWiseLoanOverdueComponent implements OnInit {
   }
   resetForm() {
     this.ngForm.controls.Scheme_code.reset();
-     this.ngForm.controls.date.reset();
-     this.ngForm.controls.START_CODE.reset();
-     this.ngForm.controls.END_CODE.reset();
+    this.ngForm.controls.date.reset();
+    this.ngForm.controls.START_CODE.reset();
+    this.ngForm.controls.END_CODE.reset();
 
     this.showRepo = false;
     this.clicked = false;

@@ -26,19 +26,15 @@ export class LockerViewComponent implements OnInit {
     private http: HttpClient, private systemParameter: SystemMasterParametersService,
 
   ) {
-   {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate._d
     })
   }
-  
-  }
   lockerCountOfCard
   lockerCountCard: any[] = []
   ngOnInit(): void {
-    // this.lockerView(sizeSrNo)
     // this.lockerView(sizeSrNo)
     this.createForm()
     let sendData

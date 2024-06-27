@@ -321,6 +321,8 @@
                                         Update</button>
                                     <button type="button" class="btn btn-outline-primary btn-sm" (click)="find()">
                                         Find CD Ratio</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="print()">
+                                            Print</button>
                                 </div>
                             </div>
                         </div>
@@ -347,11 +349,27 @@
                             <label class="">{{glDetails}} = {{profitloss}} </label>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div>
+                                    <app-iframe5 [url] ='iframe5url'></app-iframe5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
             </form>
         </div>
     </div>
 </div>
 
 
+
 <div [class]="modalClass"></div>
+
+

@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class OverduePercentageSummaryComponent implements OnInit {
 
- 
+
   // Date variables
   todate: any = null;
   fromdate: any = null
@@ -46,7 +46,7 @@ export class OverduePercentageSummaryComponent implements OnInit {
   //   { id: 2, name: "F", value: "summary" },
   // ];
   // for Type
- 
+
 
 
   RADIO: any;
@@ -83,9 +83,10 @@ export class OverduePercentageSummaryComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      } });
+      }
+    });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -103,7 +104,7 @@ export class OverduePercentageSummaryComponent implements OnInit {
   }
   actype
   AddSchemeData() {
-    this.http.get('http://192.168.1.141:4000/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get(this.url + '/ledger-view/cschem').subscribe((data: any[]) => {
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
       if (this.shemeDetails.length > 0) {
         this.actype = this.shemeDetails[0].id; // Assuming id is a property of the first item in the array
@@ -136,7 +137,7 @@ export class OverduePercentageSummaryComponent implements OnInit {
   //   }
   // }
 
-  
+
   selectedSchemeIds: any[] = [];
   // selectedSchemeIds: { [id: string]: boolean } = {};
 
@@ -147,7 +148,7 @@ export class OverduePercentageSummaryComponent implements OnInit {
   //   } else {
   //     this.shemeDetails.forEach(item => item.isSelected = true);
   //     this.updateSelectedSchemeIds();
-      
+
   //   }
   // }
 
@@ -159,11 +160,11 @@ export class OverduePercentageSummaryComponent implements OnInit {
     } else {
       this.shemeDetails.forEach(item => item.isSelected = true);
       this.updateSelectedSchemeIds();
-      
-    
+
+
     }
   }
-  
+
 
 
   // dataObject
@@ -174,28 +175,28 @@ export class OverduePercentageSummaryComponent implements OnInit {
   //   } else {
   //     this.shemeDetails.forEach(item => item.isSelected = true);
   //     this.updateSelectedSchemeIds();
-      
+
   //     this.shemeDetails.forEach(item => {
   //       this.dataObject = {
   //         id: item.id 
 
   //       }; 
-        
+
   //       // console.log(dataObject);
   //     });
   //     console.log(this.dataObject);
   //   }
   // }
-  
+
   unselectAll() {
     this.shemeDetails.forEach(item => item.isSelected = false);
     this.updateSelectedSchemeIds();
   }
-  
+
   areAllSelected() {
     return this.shemeDetails.every(item => item.isSelected);
   }
-  
+
   // updateSelectedSchemeIds() {
   //   this.selectedSchemeIds = this.  shemeDetails.filter(item => item.isSelected).map(item => item.id);
   // }
@@ -204,20 +205,20 @@ export class OverduePercentageSummaryComponent implements OnInit {
   updateSelectedSchemeIds() {
     this.selectedIds = this.shemeDetails.filter(item => item.isSelected).map(item => item.id);
     console.log(this.selectedIds);
-    console.log("alll",this.selectedIds);
+    console.log("alll", this.selectedIds);
 
   }
-  
+
   selectedIds: number[] = [];
 
   toggleSelection(item: any) {
     item.isSelected = !item.isSelected;
 
     if (item.isSelected) {
-     
-      this.selectedIds.push(item.id); 
+
+      this.selectedIds.push(item.id);
     } else {
-      
+
       const index = this.selectedIds.indexOf(item.id);
       if (index !== -1) {
         this.selectedIds.splice(index, 1);
@@ -236,7 +237,7 @@ export class OverduePercentageSummaryComponent implements OnInit {
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
       NEWPAGE: [""],
-      RADIO: new FormControl('detail'), 
+      RADIO: new FormControl('detail'),
       checked: [""],
     });
 
@@ -289,11 +290,11 @@ export class OverduePercentageSummaryComponent implements OnInit {
       let flag = obj.RADIO;
       let schemeid = event.dataObject;
       let myArray = this.selectedIds
-      
-      this.iframe1url = this.report_url + "examples/LoanBalanceBetTwoDates.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + this.ngbranch  + "'&schemeid=" + myArray +  "&flag=" + flag + "&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + branchName + "'";
+
+      this.iframe1url = this.report_url + "examples/LoanBalanceBetTwoDates.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + this.ngbranch + "'&schemeid=" + myArray + "&flag=" + flag + "&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + branchName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-  }
+    }
     else {
       this.formSubmitted = false;
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });

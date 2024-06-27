@@ -31,14 +31,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2" *ngIf="isShowCategory"> <label for="scheme">Depriciation
-                                Category <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2" *ngIf="isShowCategory"> <label for="scheme">Depriciation Category <sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-2" *ngIf="isShowCategory">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre"
-                                        (change)="getCategory($event)" formControlName="DEPR_CATEGORY" bindLabel="label"
-                                        title="Compulsory Selection" placeholder="Depriciation Category">
+                                    <ng-select id="DEPR_CATEGORY" bindValue="value" [(ngModel)]="ngDepre" (change)="getCategory($event)"
+                                        formControlName="DEPR_CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                        placeholder="Depriciation Category">
                                         <ng-option *ngFor="let values of DeprCategoryoption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -154,12 +154,6 @@
                                             [checked]="true" required>
                                         <i class="helper"></i>Categorywise</label>
                                 </div>
-                                <div class="radio radio-inline" (click)="hideCategoryAll()">
-                                    <label>
-                                        <input type="radio" name="radio" value="allCat" formControlName="radio"
-                                            [checked]="true" required>
-                                        <i class="helper"></i>All Categorywise</label>
-                                </div>
 
 
                                 <div class="radio radio-inline" (click)="hideCategory()">
@@ -176,7 +170,6 @@
                                         This field is required
                                     </div>
                                 </div>
-                                
                             </div>
 
                         </div>

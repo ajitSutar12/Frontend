@@ -12,6 +12,7 @@ import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 import { data } from 'jquery';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import Swal from 'sweetalert2';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cd-ration-analysis',
@@ -19,8 +20,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./cd-ration-analysis.component.scss']
 })
 export class CdRationAnalysisComponent implements OnInit {
-
+  iframe1url: any = '';
   url = environment.base_url;
+  iframe5url: any = '';
+  report_url = environment.report_url
+
   public myMath = Math;
   angForm: FormGroup;
   date
@@ -45,7 +49,8 @@ export class CdRationAnalysisComponent implements OnInit {
   cdratiototal: number;
   ngbranch_code
   // dtExportButtonOptions: any = {};
-  constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
+  constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService, private sanitizer: DomSanitizer,
+
     private _service: EditInterestCalculationService, private http: HttpClient,
     private other_service: OtherViewService,
     private systemParameter: SystemMasterParametersService,
@@ -154,81 +159,92 @@ export class CdRationAnalysisComponent implements OnInit {
         branch: result.BRANCH,
         date: date,
         scheme: '980'
-      }
+      };
+
       if (item.acno == data.acno) {
         if (ele.target.checked) {
           if (type == 'Depo') {
-
             item.depo = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.depobal = data;
-              // this.totalFun()    
               this.TabWiseTotal.depo = item.depobal < 0 ? this.TabWiseTotal.depo + Math.abs(item.depobal) : this.TabWiseTotal.depo - Math.abs(item.depobal);
-              this.ActiveTab = 'DEPOSITS'
+              this.ActiveTab = 'DEPOSITS';
               this.totalAmt = this.TabWiseTotal.depo;
-            })
+            });
           } else if (type == 'Loan') {
             item.loan = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.loanbal = data;
               this.TabWiseTotal.loan = this.TabWiseTotal.loan + item.loanbal;
-              // this.totalFun()
               this.ActiveTab = 'LOANS';
               this.totalAmt = this.TabWiseTotal.loan;
-            })
+            });
           } else if (type == 'PartA') {
             item.partA = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.partAbal = data;
               this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA + Math.abs(item.partAbal) : this.TabWiseTotal.partA - Math.abs(item.partAbal);
               this.ActiveTab = 'PART A';
               this.totalAmt = this.TabWiseTotal.partA;
-              // this.totalFun()
-            })
+            });
           } else {
             item.partB = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.partBbal = data;
               this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB + Math.abs(item.partBbal) : this.TabWiseTotal.partB - Math.abs(item.partBbal);
               this.ActiveTab = 'PART B';
               this.totalAmt = this.TabWiseTotal.partB;
-              // this.totalFun()
-            })
+            });
           }
         } else {
           if (type == 'Depo') {
             item.depo = false;
-            // this.totalFun()
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.depo = item.depobal < 0 ? this.TabWiseTotal.depo - Math.abs(item.depobal) : this.TabWiseTotal.depo + Math.abs(item.depobal);
             item.depobal = 0;
-            this.ActiveTab = 'DEPOSITS'
+            this.ActiveTab = 'DEPOSITS';
             this.totalAmt = this.TabWiseTotal.depo;
           } else if (type == 'Loan') {
             item.loan = false;
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.loan = this.TabWiseTotal.loan - item.loanbal;
             item.loanbal = 0;
             this.ActiveTab = 'LOANS';
             this.totalAmt = this.TabWiseTotal.loan;
-            // this.totalFun()
           } else if (type == 'PartA') {
             item.partA = false;
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA - Math.abs(item.partAbal) : this.TabWiseTotal.partA + Math.abs(item.partAbal);
             item.partAbal = 0;
-            // this.totalFun()
             this.ActiveTab = 'PART A';
             this.totalAmt = this.TabWiseTotal.partA;
           } else {
             item.partB = false;
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB - Math.abs(item.partBbal) : this.TabWiseTotal.partB + Math.abs(item.partBbal);
             item.partBbal = 0;
             this.ActiveTab = 'PART B';
             this.totalAmt = this.TabWiseTotal.partB;
-            // this.totalFun()
           }
         }
       }
     }
   }
+  selectedItems = [];
+
+  updateSelectedItems(item, isSelected) {
+    if (isSelected) {
+      this.selectedItems.push(item);
+    } else {
+      this.selectedItems = this.selectedItems.filter(i => i.name !== item.name);
+    }
+  }
+
+
 
   async totalFun() {
     for (let item of this.tableData) {
@@ -285,8 +301,10 @@ export class CdRationAnalysisComponent implements OnInit {
       this.totalAmt = this.TabWiseTotal.partA;
     }
   }
+  branchName
   getbranch(event) {
     this.branch_codeList = event.value;
+    this.branchName = event.branchName
 
   }
 
@@ -296,6 +314,19 @@ export class CdRationAnalysisComponent implements OnInit {
       this.profitloss = Number(data[data.length - 1].head_total)
       // console.log(this.glDetails);
     })
+  }
+
+  print() {
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+
+    const selectedItemsQuery = this.selectedItems.map(item => item.name).join(',');
+    this.iframe5url = this.report_url + "examples/citywiseNPA.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&" + selectedItemsQuery;
+    console.log(this.iframe5url);
+    this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    // this.iframe1url = this.report_url + "examples/citywiseNPA.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&" + selectedItemsQuery;
+    // this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   }
 
 }

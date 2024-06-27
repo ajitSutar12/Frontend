@@ -15,10 +15,6 @@ children:[
     path: 'excessCashBalance',
     loadChildren: () => import('./excess-cash-balance/excess-cash-balance.module').then(m => m.ExcessCashBalanceModule)
   },
-  {
-    path: 'loanBalanceBetTwoDates',
-    loadChildren: () => import('./loan-balance-bet-two-dates/loan-balance-bet-two-dates.module').then(m => m.LoanBalanceBetTwoDatesModule)
-  },
 ]
 }];
 @NgModule({

@@ -18,7 +18,7 @@
                                     <span class="border-lable-flt">
                                         <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch($event)"
+                                            [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
                                             placeholder="Branch" #selectBranch (focus)="onFocus(selectBranch)" appTheme
                                             [selectOnTab]='true' autofocus>
                                             <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -89,7 +89,7 @@
                                         </label>
                                     </div>
                                     <div class="radio radio-inline">
-                                        <label class="inputRadio" *ngIf="isShow">
+                                        <label class="inputRadio">
                                             <input type="radio" formControlName="DEAD_STOCK" id="formC"
                                                 name="DEAD_STOCK" (change)="isFormA(2)" value="FormC">
                                             <i class="helper"></i>Cash
@@ -98,37 +98,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                        <div class="col-md-2" *ngIf="isShowBranchDropdown"> <label for="TRANSFER_BRANCH_CODE">Transfer Branch<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-md-2" *ngIf="isShowBranchDropdown">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="TRANSFER_BRANCH_CODE" bindValue="value"
-                                        formControlName="TRANSFER_BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" 
-                                        placeholder="Transfer Branch" #transferBranch   appTheme
-                                        [selectOnTab]='true' autofocus>
-                                        <ng-option [disabled]="selectedValue.value==values.value" *ngFor="let values of branch_code" [value]="values">
-                                            {{values.label}}</ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TRANSFER_BRANCH_CODE'].invalid && (angForm.controls['TRANSFER_BRANCH_CODE'].dirty || angForm.controls['TRANSFER_BRANCH_CODE'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['TRANSFER_BRANCH_CODE'].errors?.required">
-                                    This field is required.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                         <div class="row" id="FORMA">
                             <div class="col-sm-12">
                                 <div class="row" *ngIf="GLAccount">
-                                    <div class="col-sm-12 col-md-2" *ngIf="isShow"> <label for="AC_TYPE">Transfer GL
-                                            Scheme Code<sub class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-2" *ngIf="isShow">
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Transfer GL Scheme Code<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="schemeedit"
@@ -150,9 +125,9 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2" *ngIf="isShow"> <label for="AC_NO">Transfer GL
-                                            Account Number<sub class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-4" *ngIf="isShow">
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_NO">Transfer GL Account Number<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-4">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select id="AC_NO" bindValue="AC_NO" [(ngModel)]="accountedit"
@@ -184,9 +159,9 @@
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="RESOLUTION_DATE"
                                                     id="RESOLUTION_DATE" class="form-control"
-                                                    [(ngModel)]="ngresolutiondate" appButton minlength="10"
-                                                    maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                                    [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
+                                                    [(ngModel)]="ngresolutiondate" appButton minlength="10" maxlength="10"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                                    [ngClass]="{'form-submitted': formSubmitted}"
                                                     formControlName="RESOLUTION_DATE" appTheme
                                                     #RESOLUTION_DATE="bsDatepicker"
                                                     (keydown.Tab)="RESOLUTION_DATE.hide()"
@@ -291,8 +266,7 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input style="text-align: right;" type="text" class="form-control" name="Rate"
-                                            id="Rate" formControlName="Rate" (focusout)="getDecimalPoint($event);"
-                                            (keyup)="getDecimal($event)" disabled
+                                            id="Rate" formControlName="Rate" (focusout)="getDecimalPoint($event);" (keyup)="getDecimal($event)" disabled
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
                                     </span>
                                 </div>

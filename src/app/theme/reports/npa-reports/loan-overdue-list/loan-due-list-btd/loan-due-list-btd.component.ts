@@ -32,11 +32,9 @@ export class LoanDueListBtdComponent implements OnInit {
   
     clicked: boolean;
     tScheme: any;
-  selectedItems=[];
-  fromAc: any;
-  toAc: any;
-  branchOption: any;
-  branchName: string;
+  fromAc: null;
+  toAc: null;
+  selectedItems: null;
     
   
   
@@ -61,14 +59,8 @@ export class LoanDueListBtdComponent implements OnInit {
   
     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchCode = data;
-      let data1: any = localStorage.getItem('user');
-      let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
-        this.branchCode.push({ value: '0', label: 'Consolidate' })
-      }    
-
+      
     })
-
   
      // Scheme Code
      this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -103,10 +95,7 @@ export class LoanDueListBtdComponent implements OnInit {
     });
   }
   
-  getBranch
-  getbranch(event) {
-    this.getBranch = event.branchName
-  }
+  
   view(event:any) {
       
     event.preventDefault();
@@ -160,22 +149,20 @@ export class LoanDueListBtdComponent implements OnInit {
     // let endingcode =obj.Ending_Account;
     // this.iframe5url=this.report_url+ "examples/transactionless.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&ACNOTYPE='"+ schemeName +"' &BRANCH_CODE='"+branch+"'";
   
-    if (branch == 0) {
-      this.getBranch = 'Consolidate';
-    }
   
-  this.iframe5url=this.report_url+ "examples/LoanOverdeTwoDate.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&BranchName='" + this.getBranch+"'&DATE1='"+sdate+"'&DATE2='"+edate+"'&NUMBER1="+mininstal+"&NUMBER2="+maxinstall+"&schemeCode='"+scheme+"'&BANK='"+bankName+"'";
+  
+  this.iframe5url=this.report_url+ "examples/LoanOverdueBetweenTwoOpenDates.php?AC_TYPE="+schemeName+"&BRANCH_CODE="+branch+"&BRANCH='"+branchName+"'&DATE1='"+sdate+"'&DATE2='"+edate+"'&NUMBER1='"+mininstal+"'&NUMBER2='"+maxinstall+"'&schemeCode='"+scheme+"'&BANK='"+bankName+"'";
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
-}
+  }
 
   close() {
     this.resetForm()
-    this.selectedItems =null;
+    // this.selectedItems =null;
 
   }
   resetForm() {
@@ -195,6 +182,4 @@ export class LoanDueListBtdComponent implements OnInit {
     this.clicked = false;
   }
   }
-  
-  
   

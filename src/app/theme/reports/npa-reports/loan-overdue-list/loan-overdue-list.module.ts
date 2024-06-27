@@ -30,19 +30,11 @@ import {InstwiseLoanoverdueListComponent} from './instwise-loanoverdue-list/inst
 import {LoanDueListBtdComponent} from './loan-due-list-btd/loan-due-list-btd.component';
 import {LoanDueListBtodComponent} from './loan-due-list-btod/loan-due-list-btod.component';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
-import{RecoveryClerkwiseOverdueListComponent } from './recovery-clerkwise-overdue-list/recovery-clerkwise-overdue-list.component';
-
-import{SchemeLoanoverdueIncreDecreComponent } from './scheme-loanoverdue-incre-decre/scheme-loanoverdue-incre-decre.component';
-import{LoanPeriodwiseAmountWiseListComponent } from './loan-periodwise-amount-wise-list/loan-periodwise-amount-wise-list.component';
-import{DuebalancesummaryComponent } from './duebalancesummary/duebalancesummary.component';
-import{OverduePercentSummaryComponent } from './overdue-percent-summary/overdue-percent-summary.component';
-// import{CitywiseLoanoverdueComponent } from './citywise-loanoverdue/citywise-loanoverdue.component';
-import{OtherRecInstallWiseLoanOverdueComponent } from './other-rec-install-wise-loan-overdue/other-rec-install-wise-loan-overdue.component';
-import{SummaryperiodwiseloanoverduelistComponent } from './summaryperiodwiseloanoverduelist/summaryperiodwiseloanoverduelist.component';
-import{DirectorAndDirectorsRelativesOverduePerformComponent } from './director-and-directors-relatives-overdue-perform/director-and-directors-relatives-overdue-perform.component';
-import { CitywiseLoanoverdueComponent } from './citywise-loanoverdue/citywise-loanoverdue.component';
+import { OverduePercentageSummaryComponent } from './overdue-percentage-summary/overdue-percentage-summary.component';
+import { OtherRecInstallWiseLoanOverdueComponent } from './other-rec-install-wise-loan-overdue/other-rec-install-wise-loan-overdue.component';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
-// import { CitywiseLoanoverdueComponent } from './citywise-loanoverdue/citywise-loanoverdue.component';
+import { RecoveryClerkwiseOverdueListComponent } from './recovery-clerkwise-overdue-list/recovery-clerkwise-overdue-list.component';
+import { CitywiseLoanoverdueComponent } from './citywise-loanoverdue/citywise-loanoverdue.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -50,9 +42,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
-  declarations: [LoanOverdueReportComponent,InstwiseLoanoverdueListComponent,LoanDueListBtdComponent,LoanDueListBtodComponent,LoanOverdueListComponent,AcwiseLoanoverdueListComponent,RecommendedDirectorwiseComponent,RecoveryClerkwiseOverdueListComponent,
-    SchemeLoanoverdueIncreDecreComponent, LoanPeriodwiseAmountWiseListComponent,DuebalancesummaryComponent,OverduePercentSummaryComponent,SummaryperiodwiseloanoverduelistComponent,
-    OtherRecInstallWiseLoanOverdueComponent,DirectorAndDirectorsRelativesOverduePerformComponent, CitywiseLoanoverdueComponent],
+  declarations: [LoanOverdueReportComponent,InstwiseLoanoverdueListComponent,LoanDueListBtdComponent,LoanDueListBtodComponent,LoanOverdueListComponent,AcwiseLoanoverdueListComponent,RecommendedDirectorwiseComponent, OverduePercentageSummaryComponent, OtherRecInstallWiseLoanOverdueComponent, RecoveryClerkwiseOverdueListComponent,CitywiseLoanoverdueComponent],
   imports: [
     CommonModule,
     LoanOverdueListRoutingModule,

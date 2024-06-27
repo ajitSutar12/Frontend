@@ -380,7 +380,6 @@ export class VoucherPrintingComponent implements OnInit {
   reset() {
     this.ngForm.controls.VOUCHER_NO.reset();
     this.ngForm.controls.VOUCHER_TYPE.reset();
-    this.ngForm.controls.DC_NO.reset();
     this.ngForm.controls.TRAN_TYPE.reset();
 
     this.showRepo = false;
@@ -489,7 +488,7 @@ export class VoucherPrintingComponent implements OnInit {
 
     }
     // this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
-    this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
+    this.http.post<any>('http://192.168.1.157:4771/voucher/tranList', obj1).subscribe((data) => {
       this.glDetails = data
       console.log(this.glDetails)
     })

@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Matured but Not Paid Between Two Days </h5>
+                <h5>Matured but not paid between two days </h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="ngForm.controls['START_DATE'].invalid && (ngForm.controls['START_DATE'].dirty || ngForm.controls['START_DATE'].touched)"
-                               >
+                                class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
                                     This field is required.
@@ -89,7 +89,7 @@
                                         class="form-control" [(ngModel)]="todate" appButton minlength="10" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                         formControlName="END_DATE" (change)="end()"
+                                        [maxDate]="maxDate" formControlName="END_DATE" (change)="end()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>

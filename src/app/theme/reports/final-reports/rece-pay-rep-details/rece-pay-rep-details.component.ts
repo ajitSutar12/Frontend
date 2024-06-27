@@ -30,16 +30,15 @@ export class RecePayRepDetailsComponent implements OnInit {
   bsValue = new Date();
 
 
- showRepo: boolean = false;
- // Created Form Group
- angForm: FormGroup;
- //Dropdown option variable
- ngbranch
- branchOption: any;
- report_url = environment.report_url;
- iframeurl: any = ' ';
- clicked:boolean=false;
-  branchName: string;
+  showRepo: boolean = false;
+  // Created Form Group
+  angForm: FormGroup;
+  //Dropdown option variable
+  ngbranch
+  branchOption: any;
+  report_url = environment.report_url;
+  iframeurl: any = ' ';
+  clicked: boolean = false;
 
 
   constructor(private fb: FormBuilder,
@@ -59,12 +58,7 @@ export class RecePayRepDetailsComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-      let data1: any = localStorage.getItem('user');
-      let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
-        this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    
-    })
+    });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -100,42 +94,6 @@ export class RecePayRepDetailsComponent implements OnInit {
       this.ngbranch = result.branch.id
     }
   }
-
-  // view(event) {
-  //   event.preventDefault();
-
-  //   let userData = JSON.parse(localStorage.getItem('user'));
-  //   let bankName = userData.branch.syspara.BANK_NAME;
-  //   let branchName = userData.branch.NAME;
-
-  //   if (this.angForm.valid) {
-
-  //      this.showRepo = true;
-  //     let obj = this.angForm.value
-  //     let start2date = moment(obj.START_DATE).format('DD/MM/YYYY');
-  //     // let end1date = moment(obj.END_DATE).format('DD/MM/YYYY');
-
-  //     let end1date:any;
-  //     if (this.todate == obj.END_DATE) {
-  //       end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-  //     }else{ 
-  //       end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-  //     };
-
-  //     let branched = obj.BRANCH_CODE;
-  //     let tran = obj.TRANSCATION;
-  //     let print = obj.PRINT;
-  //     let penal = obj.PENAL;
-
-  //     this.iframeurl = this.report_url+"examples/Receiptdetail.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+branched+"&tran="+tran+"&print="+print+"&penal="+penal+ "'&BRANCH_CODE='"+this.ngbranch+"&bankName=" + bankName + "";
-  //     this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
-
-  //   }
-  //   else {
-  //     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-  //   }
-
-  // }
 
   view(event) {
     event.preventDefault();
@@ -178,10 +136,8 @@ export class RecePayRepDetailsComponent implements OnInit {
       let tran = obj.TRANSCATION;
       let print = obj.PRINT;
       let penal = obj.PENAL;
-      if(branchCode == 0){
-        this.branchName='Consolidate';
-     }
-      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + this.branchName + "&flag=" + flag + "";
+
+      this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + branchName + "&flag=" + flag + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

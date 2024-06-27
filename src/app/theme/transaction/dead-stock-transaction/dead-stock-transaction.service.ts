@@ -17,7 +17,7 @@ export class DeadStockTransactionService {
 
   //Insertion Operation
   postData(data: any): Observable<any> {
-    return this.http.post(this.url +'/deadstock-purchase/TranInsert', data).pipe(map((res) => res),
+    return this.http.post(this.url + '/deadstock-purchase/TranInsert', data).pipe(map((res) => res),
       catchError((error) => {
         Swal.fire('Please Input Proper Data!');
         return throwError(error);
@@ -27,35 +27,35 @@ export class DeadStockTransactionService {
 
   //get narration data
   getNarrationMaster(): Observable<any> {
-    return this.http.get(this.url +'/narration')
+    return this.http.get(this.url + '/narration')
   }
   // For append data
   getFormData(id: any): Observable<any> {
-    return this.http.get(this.url +'/deadstock-purchase/' + id).pipe(catchError(this.handleError));
+    return this.http.get(this.url + '/deadstock-purchase/' + id).pipe(catchError(this.handleError));
   }
   //Updation Operation
   updateData(data): Observable<any> {
-    return this.http.put(this.url +'/deadstock-purchase/tranUpdate', data);
+    return this.http.put(this.url + '/deadstock-purchase/tranUpdate', data);
   }
   //Deletion Operation
   deleteData(id: any): Observable<any> {
-    return this.http.delete(this.url +'/dead-stock-transaction/delete/' + id).pipe(catchError(this.handleError));
+    return this.http.delete(this.url + '/dead-stock-transaction/delete/' + id).pipe(catchError(this.handleError));
   }
 
   //approve master
   approve(data: any): Observable<any> {
-    return this.http.post(this.url +'/deadstock-purchase/DeadstockTranapprove', data).pipe(catchError(this.handleError));
+    return this.http.post(this.url + '/deadstock-purchase/DeadstockTranapprove', data).pipe(catchError(this.handleError));
   }
 
   //unapprove master
   unapprove(data: any): Observable<any> {
-    return this.http.post(this.url +'/deadstock-purchase/unapprove', data).pipe(catchError(this.handleError));
+    return this.http.post(this.url + '/deadstock-purchase/unapprove', data).pipe(catchError(this.handleError));
   }
 
 
   //reject master
   reject(data: any): Observable<any> {
-    return this.http.post(this.url +'/deadstock-purchase/reject', data).pipe(catchError(this.handleError));
+    return this.http.post(this.url + '/deadstock-purchase/reject', data).pipe(catchError(this.handleError));
   }
 
 }

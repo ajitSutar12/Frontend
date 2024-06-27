@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -25,12 +25,10 @@ export class AuthService {
       headers: httpHeaders
     };
     return this.http.post<any>(this.base_url + '/auth/login', article, options);
-    // return this.http.post<any>('http://192.168.1.157:7276/app/auth/login', article, options);
   }
 
   resetPassword(data: any): Observable<any> {
     return this.http.post<any>(this.base_url + '/user-defination/resetpassword', data);
-    // return this.http.post<any>('http://192.168.1.128:7276/user-defination/resetpassword', data);
   }
 
   logout(id: any): Observable<any> {
@@ -49,7 +47,6 @@ export class AuthService {
   }
   findOutLogin(data: any): Observable<any> {
     return this.http.post<any>(this.base_url + '/user-defination/findLogin', data);
-    // return this.http.post<any>('http://192.168.1.157:7276/user-defination/findLogin', data);
   }
 
   showNotificationuserwise(data: any): Observable<any> {
@@ -91,15 +88,5 @@ export class AuthService {
     const payload = { username: result.USER_NAME, sub: result.id, refreshToken };
 
     return this.http.post<any>(this.base_url + `/refresh-token`, payload);
-  }
-
-  private otpSubject = new BehaviorSubject<any>(null);
-
-  setOTP(value: any) {
-    this.otpSubject.next(value);
-  }
-
-  getOTP() {
-    return this.otpSubject.asObservable();
   }
 }

@@ -130,15 +130,15 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" formControlName="BUDGET_MASTER" name="BUDGET_MASTER" value="expenditure"
-                                            id="expenditure"[checked]="true" (change)="Budget($event)">
+                                        <input type="radio" formControlName="BUDGET_MASTER" name="BUDGET_MASTER" value="FormT"
+                                            id="formT">
                                         <i class="helper"></i>Expenditure
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" value="income" formControlName="BUDGET_MASTER" id="income"
-                                            name="BUDGET_MASTER" (change)="BudgetIncome($event)">
+                                        <input type="radio" value="FormC" formControlName="BUDGET_MASTER" id="formC"
+                                            name="BUDGET_MASTER">
                                         <i class="helper"></i>Income
                                     </label>
                                 </div>
@@ -154,36 +154,26 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                      <tr>
-                                        <td>Account Number</td>
-                                        <td>Account Name</td>
-                                        <td>Allocated Budget Amount</td>
-                                      </tr>
+                                        <tr>
+                                            <td>Account Number</td>
+                                            <td>Account Name</td>
+                                            <td>Allocated Budget Amount</td>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of getdatatable">
-                                          <td>{{ item.AC_NO }}</td>
-                                          <td>{{ item.AC_NAME }}</td>
-                                          <td (blur)="onCellChange($event,item,'BUDGET_AMOUNT')" contenteditable="true">
-                                            {{item.BUDGET_AMOUNT}}</td>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <input style="text-align: right;" type="text" class="form-control"
+                                                        name="AMOUNT" id="AMOUNT"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                            </td>
                                         </tr>
-                                      </tbody>
-                                  </table>
-                                  
+                                    </tbody>
+                                </table>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="row"></div>
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="update"
-                                (click)="updateData(item)">Update</button>
-
-                        </div>
-                        <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                         </div>
                     </div>
                 </div>

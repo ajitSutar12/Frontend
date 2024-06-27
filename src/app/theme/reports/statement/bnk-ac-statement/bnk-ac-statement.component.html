@@ -15,7 +15,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        formControlName="BRANCH" bindLabel="label" (change)="getBranch()" 
+                                        formControlName="BRANCH" bindLabel="label" (change)="getBranch()"
                                         placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
@@ -54,16 +54,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2"> <label for="AC_NOFrom">Account No.<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-md-2"> <label for="AC_NOFrom">Account No.<sub class="required">*</sub></label>
+                        </div>
                         <div class="col-sm-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select id="AC_NOFrom" bindValue="value" [(ngModel)]="ngAcnoFrom" [virtualScroll]="true"
-                                        formControlName="AC_NOFrom" bindLabel="label" placeholder="Range Starting Code"
-                                        (change)="getIntTranscus($event)" >
+                                    <ng-select id="AC_NOFrom" [(ngModel)]="ngAcnoFrom"
+                                        [virtualScroll]="true" formControlName="AC_NOFrom" bindLabel="label"
+                                        placeholder="Range Starting Code" (change)="getIntTranscus($event)">
                                         <ng-option *ngFor="let values of introducerACNo" [value]="values">
-                                            {{ values.value }} {{ values.name }}</ng-option>
+                                            {{ values.AC_NO }} {{ values.AC_NAME }}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -75,6 +75,13 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-sm" style="float: right; color: rgb(14 168 14);" *ngIf="isOpen">Account Open
+                        </div>
+                        <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="acCloseDate">
+                            <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
+                        </div>
+
                         <!-- <div class="col-md-2"> <label for="AC_NOFrom"> Ending Account No.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
@@ -142,18 +149,19 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
-                                        class="form-control" [(ngModel)]="fromdate"  [bsValue]="bsValue"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate" 
+                                        class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="FROM_DATE"
                                         appButton minlength="10" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker >
+                                        bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FROM_DATE'].invalid &&
-                                     (angForm.controls['FROM_DATE'].dirty ||angForm.controls['FROM_DATE'].touched) " class="alert alert-danger">
+                                     (angForm.controls['FROM_DATE'].dirty ||angForm.controls['FROM_DATE'].touched) "
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                        This field is required
+                                    This field is required
                                 </div>
 
                             </div>
@@ -165,29 +173,32 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="TO_DATE" id="TO_DATE"
-                                        class="form-control" [(ngModel)]="todate"  [bsValue]="bsValue"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10" maxlength="10"
-                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="TO_DATE"
+                                        class="form-control" [(ngModel)]="todate" [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10"
+                                        maxlength="10" [ngClass]="{'form-submitted': formSubmitted}"
+                                        formControlName="TO_DATE"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TO_DATE'].invalid &&
-                                     (angForm.controls['TO_DATE'].dirty ||angForm.controls['TO_DATE'].touched) " class="alert alert-danger">
+                                     (angForm.controls['TO_DATE'].dirty ||angForm.controls['TO_DATE'].touched) "
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                        This field is required
+                                    This field is required
                                 </div>
- 
+
                             </div>
                         </div>
                     </div>
-                
+
                     <div class="row"></div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
-                            <a [href]="fileUrl" download> <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                         (click)="View($event); clicked = true  " >View</button></a>
+                            <a [href]="fileUrl" download> <button type="submit" class="btn btn-outline-primary btn-sm"
+                                    value="submit" [disabled]="clicked"
+                                    (click)="View($event); clicked = true  ">View</button></a>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>

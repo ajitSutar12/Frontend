@@ -39,7 +39,6 @@ export class RecePayRepComponent implements OnInit {
  iframeurl: any = ' ';
  report_url = environment.report_url;
  clicked:boolean=false;
-  branchName: string;
 
   constructor(  private fb: FormBuilder,
     private sanitizer: DomSanitizer,
@@ -57,12 +56,7 @@ export class RecePayRepComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-      let data1: any = localStorage.getItem('user');
-      let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
-        this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
-    
+    });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -82,7 +76,7 @@ export class RecePayRepComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      // TRANSCATION: new FormControl ('None'),
+      TRANSCATION: new FormControl ('None'),
       PRINT:["",],
       PENAL:["",],
     });
@@ -119,14 +113,12 @@ export class RecePayRepComponent implements OnInit {
         end1date = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-      let branch = obj.BRANCH_CODE;
-      // let tran = obj.TRANSCATION;
+      let branched = obj.BRANCH_CODE;
+      let tran = obj.TRANSCATION;
       let print = obj.PRINT;
       let penal = obj.PENAL;
-      if(branch == 0){
-        this.branchName='Consolidate';
-     }
-      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+this.ngbranch+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
+
+      this.iframeurl = this.report_url+"examples/Receiptconsine.php?start2date='" + start2date +"'&end1date='"+end1date+"'&branched="+this.ngbranch+"&tran="+tran+"&print="+print+"&penal="+penal+"&bankName=" + bankName + " ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

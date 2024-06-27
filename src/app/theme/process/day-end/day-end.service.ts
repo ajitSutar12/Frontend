@@ -71,6 +71,4 @@ export class DayEndService {
   yearEnd(data): Observable<any> {
     return this.http.post(this.url + '/voucher/YearEnd', data);
   }
-
-  
 }

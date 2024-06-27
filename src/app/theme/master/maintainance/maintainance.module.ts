@@ -16,7 +16,6 @@ import {SelectModule} from 'ng-select';
 // import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-// import { RecoveryFlagUpdationComponent } from './recovery-flag-updation/recovery-flag-updation.component';
 
 
 // import { MoratoriumperiodmasterComponent } from './moratoriumperiodmaster/moratoriumperiodmaster.component';
@@ -33,7 +32,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     // FormsModule,
     // ReactiveFormsModule
   ],
-  declarations: [MaintainanceComponent,],
+  declarations: [MaintainanceComponent],
   providers: [SelectOptionService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

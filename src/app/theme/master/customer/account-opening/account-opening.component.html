@@ -8,10 +8,10 @@
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
-            <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm">
+            <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm"> 
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme bindValue="value" [(ngModel)]="code" id="AC_TYPE"
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="AC_NO" class="form-control"
@@ -42,8 +42,6 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -89,7 +87,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
@@ -176,11 +173,11 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_MONTHS"
                                         class="form-control" placeholder=" " id="AC_MONTHS" required pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9" 
+                                        title="Input allowed only 0-9"  (change)="CheckmonthDays()"
                                         (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_MONTHS">
-                                    <label for="AC_MONTHS">Months<sub class="required">*</sub></label>
+                                    <label for="AC_MONTHS">Months<sub class="required">*</sub></label> 
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -197,7 +194,8 @@
                                 <span class="border-lable-flt">
                                     <input appTheme style="text-align: right;" type="text" name="AC_DAYS"
                                         class="form-control" placeholder=" " id="AC_DAYS" required pattern="^[0-9]+$"
-                                        title="Input allowed only 0-9" (ngModelChange)="setMaturityDate()"
+                                        title="Input allowed only 0-9"  (change)="CheckmonthDays()"
+                                        
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_DAYS">
                                     <label for="AC_DAYS">Days <sub class="required">*</sub></label>
@@ -220,7 +218,7 @@
                                         max="{{datemax | date:'yyyy-MM-dd'}}" #date
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_EXPDT"
-                                        #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()"
+                                        #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()" (bsValueChange)="monthDays()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker disabled>
                                     <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label>

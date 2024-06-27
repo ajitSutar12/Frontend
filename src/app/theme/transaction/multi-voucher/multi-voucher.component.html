@@ -375,21 +375,24 @@
                                                 <td>Account NO.</td>
                                                 <td>Transaction Code</td>
                                                 <td style="text-align: right;">Amount</td>
+                                                <td>Particulars</td>
                                             </thead>
                                             <ng-container *ngFor="let item of mainMaster;let in = index;">
                                                 <tr>
                                                     <td><span class="fa fa-plus-circle grab"
-                                                            (click)="showHide(in)"></span>&nbsp; <span
-                                                            class="fa fa-fw fa-edit field-icon grab"
+                                                            (click)="showHide(in)"></span>&nbsp; 
+                                                            <span class="fa fa-fw fa-edit field-icon grab"
                                                             (click)="editVoucher(in)"></span>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-fw fa-trash-o grab"
-                                                            (click)="deleteData(in)"></span></td>
+                                                            
+                                                        <!-- &nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-fw fa-trash-o grab"
+                                                            (click)="deleteData(in)"></span></td> -->
                                                     <td>{{item.scheme_type}}</td>
                                                     <td>{{item.scheme.S_NAME}}</td>
                                                     <td>{{item.scheme_type ==
                                                         'GL'?item.account_no.AC_NO:item.account_no.BANKACNO}}</td>
                                                     <td>{{item.tran_mode.value}}</td>
                                                     <td style="text-align: right;">{{item.total_amt}}</td>
+                                                    <td style="text-align: left;">{{item.particulars}}</td>
                                                 </tr>
                                                 <tr id="{{in}}" [hidden]="true">
                                                     <td></td>

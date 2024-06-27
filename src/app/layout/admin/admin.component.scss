@@ -1,178 +1,99 @@
 .customfooter {
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  height: 30px;
-  width: 100%;
-  background: white;
-  align-items: center;
-  -webkit-box-shadow: 0px -4px 5px 0px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px -4px 5px 0px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px -4px 5px 0px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    background: white;
+    align-items: center;
+    -webkit-box-shadow: 0px -4px 5px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px -4px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -4px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .text {
-  color: rgb(27, 23, 23);
-  font-size: 15px;
-  text-decoration: none;
-  align-items: center;
-  padding-top: 3px;
-  padding-bottom: 2px;
+    color: rgb(27, 23, 23);
+    font-size: 15px;
+    text-decoration: none;
+    align-items: center;
+    padding-top: 3px;
+    padding-bottom: 2px;
 }
 
 .bank {
-  padding-left: 25px;
+    padding-left: 25px;
 }
 
 .disableflag{
-  pointer-events:none !important;
+    pointer-events:none !important;
 }
 
 .disableFlagActive{
-  pointer-events: block !important;
+    pointer-events: block !important;
 }
 
 .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
   
-  position: absolute;
-  z-index: 1;
-  top: -5px;
-  left: 105%;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
-
-
-
-.search-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin: 10px;
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+  
+  
+  
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 10px;
 }
 
 .search-input {
-  padding-left: 30px; 
+    padding-left: 30px; 
 }
 
 .fa-search {
-  position: absolute;
-  left: 5px; 
-  color: #000; 
+    position: absolute;
+    left: 5px; 
+    color: #000; 
 }
 
 .searchinput li {
-  margin-bottom: 5px; 
-  background-color: #fff;
-  color: rgb(151, 151, 228);
-}
-
-.searchinput a {
-  // color: #333; 
-  text-decoration: none;
-  display: block;
-}
-
+    margin-bottom: 5px; 
+    background-color: #fff;
+    color: rgb(151, 151, 228);
+  }
+  
+  .searchinput a {
+    // color: #333; 
+    text-decoration: none;
+    display: block;
+  }
+  
 //   .searchinput a:hover {
 //     background-color: #f0f0f0; 
 //   }
+ 
+  .searchinput ul {
+    padding-left: 20px; 
+  }
 
-.searchinput ul {
-  padding-left: 20px; 
-}
-.alert {
-  line-height: 1.5;
-  background-color: #fae88c;
-  text-align: center; 
-  // width: 70%;
-  // margin: 0 auto;
-  }
-  
-  .message {
-    // padding-top: 30px; 
-    // padding-bottom: 30px;
-    text-align: center; 
-    height: 70px;
-  // border-radius: 2px;
-  display: block;
-  font-size: 10pt;
-  font-weight: bold;
-  margin: 0 0 0px;
-  overflow: hidden;
-  // padding: 10px 10px 10px 35px;
-  position: relative;
-  color: #fae88c;
-  // box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
-  // border: 1px solid rgba(0, 0, 0, .15);
-  // background-color: #ffffff;
-  // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  .alert-close {
-  
-  border-radius: 50%;
-  background-color: #fae88c;
-  color: #000;
-  opacity: .6;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: normal;
-  height: 22px;
-  line-height: 21px;
-  position: absolute;
-  right: 11px;
-  text-align: center;
-  top: 9px;
-  -webkit-transition: color 0.2s ease-in-out;
-  -moz-transition: color 0.2s ease-in-out;
-  -o-transition: color 0.2s ease-in-out;
-  transition: color 0.2s ease-in-out;
-  width: 22px;
-  }
-  #ofBar {
-    background-color: #fae88c;
-    z-index: 999999999;
-    font-size: 16px;
-    color: #333;
-    // padding: 16px 40px;
-    font-weight: 400;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 40px;
-    width: 80%;
-    border-radius: 8px;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 13px 27px -5px rgba(50,50,93,0.25), 0 8px 16px -8px rgba(0,0,0,0.3), 0 -6px 16px -6px rgba(0,0,0,0.025);
-}
-#close-bar {
-  font-size: 17px;
-  opacity: 1;
-  cursor: pointer;
-  background: #faea9a;
-  color: #808080;
-  font-weight: bold;
-  padding-right: 15px;
-}
-// a:not([href]):not([class]), a:not([href]):not([class]):hover {
-//   color: inherit;
-//   text-decoration: none;
-// }

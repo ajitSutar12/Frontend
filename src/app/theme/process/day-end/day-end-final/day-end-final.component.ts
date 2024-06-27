@@ -16,13 +16,15 @@ export class DayEndFinalComponent implements OnInit {
   ngOnInit(): void {
     this._service.getSysparaDetails().subscribe(data => {
       this.sysparadetails = data;
+
       this._service.CheckBranchHandOverReport({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(data => {
         this.branchHandOverList = data;
-        let result = this.branchHandOverList.filter(ele => ele.flag == 1 && ele.admin_status == 0);
-        if (result.length == this.branchHandOverList.length) {
-          this.flagCheck = false;
-        } else {
+
+        let result = this.branchHandOverList.filter(ele => ele.flag == 0 && ele.admin_status == 0);
+        if (result.length != 0) {
           this.flagCheck = true;
+        } else {
+          this.flagCheck = false;
         }
       }, err => {
         console.log(err);
@@ -37,11 +39,11 @@ export class DayEndFinalComponent implements OnInit {
   refresh() {
     this._service.CheckBranchHandOverReport({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(data => {
       this.branchHandOverList = data;
-      let result = this.branchHandOverList.filter(ele => ele.flag == 1 && ele.admin_status == 0);
-      if (result.length == this.branchHandOverList.length) {
-        this.flagCheck = false;
-      } else {
+      let result = this.branchHandOverList.filter(ele => ele.flag == 0 && ele.admin_status == 0);
+      if (result.length != 0) {
         this.flagCheck = true;
+      } else {
+        this.flagCheck = false;
       }
     }, err => {
       console.log(err);
@@ -69,7 +71,7 @@ export class DayEndFinalComponent implements OnInit {
       console.log('interval')
     }, 500);
     this._service.sendBranchData({ date: this.sysparadetails[0].CURRENT_DATE }).subscribe(async data => {
-      Swal.fire('Success', 'Day ended Successfully', 'success')
+Swal.fire('Success', 'Day ended Successfully','success')
     }, err => {
       console.log(err?.error?.message)
     })

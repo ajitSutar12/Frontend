@@ -3,11 +3,9 @@ import { animate, AUTO_STYLE, state, style, transition, trigger } from '@angular
 import { MenuItems } from '../../shared/menu-items/menu-items';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../theme/auth/auth.service';
-// import { DayEndService } from '../../theme/utility/day-end/day-end.service';
+import { DayEndService } from '../../theme/process/day-end/day-end.service';
 import { Observable, interval } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { DayEndService } from 'src/app/theme/process/day-end/day-end.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -191,9 +189,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
   };
   newsContent: string;
-  marqueeElement: any;
-  url=environment.base_url
-  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,public router:Router,
+
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,
     private http: HttpClient) {
     this.animateSidebar = '';
     this.navType = 'st2';
@@ -387,11 +384,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
   notifications
 
-  dataArray: any[]
-
+  dataArray:any[]
+ 
   ngOnInit() {
 
-    this.roleWiseMenuAssign()
+     this.roleWiseMenuAssign()
 
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -439,48 +436,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     //     }
     //   );
     // });
-    const marqueeState = localStorage.getItem('marqueeState');
-    if (marqueeState === 'hidden') {
-      this.newsContent = '';
-    }
-    interval(5000).subscribe(x => {
-      let data1: any = localStorage.getItem('user');
-      let result1 = JSON.parse(data1);
-      let branchcode = result1.branch.id;
-      // this.http.get<any>('http://192.168.1.113:7276/remainder' + branchcode).subscribe(
-        // this.http.get<any>(environment.base_url+branchcode).subscribe(
-          this.http.get<any>(this.url + '/remainder' + branchcode ).subscribe(
-        (apiData) => {
-
-          for (let i = 0; i < apiData.length; i++) {
-            this.newsContent += apiData[i].S_APPL + " " + apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " + apiData[i].AC_MATUAMT + " ";
-            // console.log(this.newsContent);
-          }
-          if (marqueeState !== 'hidden') {
-            localStorage.setItem('marqueeState', 'visible');
-          }
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    });
-
-    document.querySelector('.alert-close')?.addEventListener('click', () => {
-      const messageElement = document.querySelector('.message');
-      if (messageElement) {
-        (messageElement as HTMLElement).style.transition = 'opacity 0.5s';
-        (messageElement as HTMLElement).style.opacity = '0';
-        setTimeout(() => {
-          messageElement.remove();
-        }, 500); // Adjust the duration as needed
-      }
-    });
-
   }
 
 
-
+  
   onResize(event) {
     this.windowWidth = event.target.innerWidth;
     this.setHeaderAttributes(this.windowWidth);
@@ -831,28 +790,28 @@ export class AdminComponent implements OnInit, OnDestroy {
     localStorage.removeItem('user');
   }
 
-  // Menu search options
-  showMenu: boolean = false;
+// Menu search options
+showMenu: boolean = false;
 
-  onSearchBarClick() {
-    this.showMenu = true;
-  }
+    onSearchBarClick() {
+        this.showMenu = true;
+    }
 
-  onSearchBlur() {
-    const inputElement = this.searchInput.nativeElement;
-    inputElement.value = '';
-    setTimeout(() => {
-      this.showMenu = false;
-
-    }, 200);
-  }
+    onSearchBlur() {
+         const inputElement = this.searchInput.nativeElement;
+        inputElement.value = '';
+        setTimeout(() => {
+            this.showMenu = false;
+            
+        }, 200);
+    }
 
   performSearch() {
     const searchTerm = (document.querySelector('.search-input') as HTMLInputElement).value.toLowerCase();
     if (searchTerm.trim() === '') {
       this.filteredMenuListData = [];
       return;
-    }
+  }
     const filterMenus = (menus) => {
       return menus
         .filter(menuItem =>
@@ -875,11 +834,4 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.filteredMenuListData = [];
   }
 
-  modalClose: boolean = false
-  closeMarquee() {
-    this.modalClose = false
-  }
-  openModal(){
-this.modalClose=true
-  }
 }

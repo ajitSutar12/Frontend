@@ -101,7 +101,7 @@ input[type="checkbox"]:focus {
     // height: 3em;
 }
 
-#editre {
+#editbutton {
     // z-index: 1000;
     left: 45px;
     position: relative;
@@ -124,7 +124,7 @@ input[type="checkbox"]:focus {
     text-align: center;
     font-size: 12px;
     cursor: pointer;
-    color:#ea7815;
+    color: rgb(56, 91, 234);
 }
 
 #deletebutton {
@@ -512,7 +512,7 @@ ng-select>div>div.single>div.toggle {
 .pcoded .pcoded-header[header-theme="theme1"] .input-group-addon,
 .pcoded .pcoded-header[header-theme="theme1"] a {
     // color: black;
-    color: purple;
+    color: white
 }
 
 // .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
@@ -528,7 +528,7 @@ ng-select>div>div.single>div.toggle {
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a .pcoded-micon {
-    color: rgb(255, 255, 255) !important;
+    color: white !important;
 }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a:after {
@@ -544,7 +544,7 @@ ng-select>div>div.single>div.toggle {
 
 // .table.dataTable[class*="table-"] thead th {
 //     background-color: #8d1b54;
-//     color: white;f
+//     color: white;
 // }
 
 //Zebra-striping /

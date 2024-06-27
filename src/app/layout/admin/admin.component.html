@@ -87,16 +87,16 @@
                     </div>
                   </div>
                 </li>
-                 <li class="ripple">
+                <!-- <li class="ripple">
                   <div class="media">
                     <div class="media-body">
-                      <!-- <h5 class="notification-user" >Some Text</h5> -->
-                      <p class="notification-msg" (click)="openModal()">Remainder</p>
-                      <!-- <span class="notification-time">30 minutes ago</span> -->
+                      <h5 class="notification-user">Some Text</h5>
+                      <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
+                      <span class="notification-time">30 minutes ago</span>
                     </div>
                   </div>
                 </li>
-              <!--  <li class="ripple">
+                <li class="ripple">
                   <div class="media">
                     <div class="media-body">
                       <h5 class="notification-user">Some Text</h5>
@@ -285,22 +285,9 @@
       </div>
     </nav>
 
-
     <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
       <!-- ////////////////////////////////////////////////////////////////////////////// -->
-     <div *ngIf='router.url==="/dashboard/default"'>
-      <div id="ofBar" *ngIf="modalClose" >
-        <div class="message alert">
-          <marquee behavior="scroll" direction="up" scrollamount="1">
-            <label class="text"><b>
-                {{newsContent}}
-              </b>
-            </label>
-          </marquee>
-        </div>
-        <a id="close-bar" (click)="closeMarquee()">×</a>
-      </div>
-    </div>
+
       <!--  -->
       <div class="pcoded-wrapper">
         <nav id="main_navbar" class="pcoded-navbar" (clickOutside)="onClickedOutsideSidebar($event)"
@@ -325,8 +312,12 @@
               </div>
               <div class="top-search-bar" (click)="onSearchBarClick()">
                 <div class="search-container">
-                  <input #searchInput type="text" [(ngModel)]="searchTerm" (keyup)="performSearch()"
-                    (blur)="onSearchBlur()" (focusout)="onSearchBlur()" placeholder="Search" class="search-input" />
+                  <input #searchInput type="text" [(ngModel)]="searchTerm"
+                  (keyup)="performSearch()"
+                  (blur)="onSearchBlur()"
+                  (focusout)="onSearchBlur()"
+                  placeholder="Search"
+                  class="search-input" />
                   <i class="fa fa-search"></i>
                 </div>
               </div>
@@ -424,7 +415,6 @@
                                 target="{{asideChildren.target ? '_blank' : '_self'}}">
                                 <div class="ripple menu-ripple"></div>
                                 <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
-                                <i class="fa fa-square" style="font-size:10px"></i>&nbsp;
                                 <span class="pcoded-mtext">{{ asideChildren.name }} </span>
                                 <span *ngFor="let asideChildrenBadge of asideChildren.badge"
                                   class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
@@ -440,7 +430,6 @@
                                 appAccordionToggle>
                                 <div class="ripple menu-ripple"></div>
                                 <span class="pcoded-micon"><i class="icon-direction-alt"></i></span>
-                                <i class="fa fa-square" style="font-size:10px;"></i>&nbsp;
                                 <span class="pcoded-mtext">{{ asideChildren.name }}</span>
                                 <span *ngFor="let asideChildrenBadge of asideChildren.badge"
                                   class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
@@ -456,7 +445,6 @@
 
                                         <div class="ripple menu-ripple"></div>
                                         <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
-                                        <i class="fa fa-circle" style="font-size:10px"></i>&nbsp;
                                         <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
                                         <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge"
                                           class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
@@ -547,12 +535,12 @@
     <span class="text-muted">
       <div class="row">
         <div class="col-md-9">
-          <!-- <marquee behavior="scroll" direction="left" scrollamount="5">
+          <marquee behavior="scroll" direction="left" scrollamount="5">
             <label class="text"><b>
                 {{newsContent}}
               </b>
             </label>
-          </marquee> -->
+          </marquee>
         </div>
         <div class="col-md-3">
           <h6 style="color:black; font-size: 13px; float: right;">Branch: {{barnchName}} Today Date: {{currentDate}}
