@@ -25,6 +25,10 @@ const routes: Routes = [
         path: 'goldSilverReceipt',
         loadChildren: () => import('./gold-silver-receipt-print/gold-silver-receipt-print.module').then(m => m.GoldSilverReceiptPrintModule)
       },
+      {
+        path: 'tDReceiptPrinting',
+        loadChildren: () => import('./td-recipt-printing/td-recipt-printing.module').then(m => m.TdReciptPrintingModule)
+      },
     ]
   }
   ];

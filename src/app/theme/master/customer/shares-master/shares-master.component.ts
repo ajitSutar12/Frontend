@@ -696,7 +696,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -747,6 +749,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.openingDate = data.CURRENT_DATE
       this.tempopendate = data.CURRENT_DATE
+      this.opdate = data.CURRENT_DATE
       if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
@@ -1033,6 +1036,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updatecheckdata: any
   name: any
   ac_no: any
+  opdate
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -1083,6 +1087,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
+      this.openingDate = data.AC_OPDATE
       this.schemeCode = data.AC_TYPE
       this.ngCategory = data.AC_CATG
       this.selectmembershipType = data.MEMBERSHIP_BY
@@ -1199,30 +1204,31 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.multiNominee = data.nomineeDetails
       this.ngDeathDate = (data.DEATH_DATE == 'Invalid date' || data.DEATH_DATE == '' || data.DEATH_DATE == null) ? deathdate = '' : deathdate = data.DEATH_DATE,
         // this.joindate = (data.AC_JOIN_DATE == 'Invalid date' || data.AC_JOIN_DATE == '' || data.AC_JOIN_DATE == null) ? joindate = '' : joindate = data.AC_JOIN_DATE,
-        this.angForm.patchValue({
-          AC_ACNOTYPE: data.AC_ACNOTYPE,
-          'AC_NO': data.AC_NO,
-          'EMP_NO': data.EMP_NO,
-          'AC_SREPRESENT': data.AC_SREPRESENT,
-          'BANKACNO': data.BANKACNO,
-          //other controls
-          'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
-          'AC_EXPDT': (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? exdate = '' : exdate = data.AC_EXPDT,
-          'AC_SBNO': data.AC_SBNO,
-          'AC_RESNO': data.AC_RESNO,
-          'AC_RESDT': (data.AC_RESDT == 'Invalid date' || data.AC_RESDT == '' || data.AC_RESDT == null) ? resdate = '' : resdate = data.AC_RESDT,
-          // 'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
-          // 'AC_INSTALLMENT': data.AC_INSTALLMENT,
-          'REF_ACNO': data.REF_ACNO,
-          'AC_NARR': data.AC_NARR,
-          //marathi details
-          'AC_DEV_NAME': data.AC_DEV_NAME,
-          'AC_DEV_WARD': data.AC_DEV_WARD,
-          'AC_DEV_ADD': data.AC_DEV_ADD,
-          'AC_DEV_GALLI': data.AC_DEV_GALLI,
-          'AC_DEV_AREA': data.AC_DEV_AREA,
-          'AC_DEV_CITYCODE': data.AC_DEV_CITYCODE
-        })
+        this.opdate = data.AC_OPDATE
+      this.angForm.patchValue({
+        AC_ACNOTYPE: data.AC_ACNOTYPE,
+        'AC_NO': data.AC_NO,
+        'EMP_NO': data.EMP_NO,
+        'AC_SREPRESENT': data.AC_SREPRESENT,
+        'BANKACNO': data.BANKACNO,
+        //other controls
+        'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+        'AC_EXPDT': (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? exdate = '' : exdate = data.AC_EXPDT,
+        'AC_SBNO': data.AC_SBNO,
+        'AC_RESNO': data.AC_RESNO,
+        'AC_RESDT': (data.AC_RESDT == 'Invalid date' || data.AC_RESDT == '' || data.AC_RESDT == null) ? resdate = '' : resdate = data.AC_RESDT,
+        // 'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
+        // 'AC_INSTALLMENT': data.AC_INSTALLMENT,
+        'REF_ACNO': data.REF_ACNO,
+        'AC_NARR': data.AC_NARR,
+        //marathi details
+        'AC_DEV_NAME': data.AC_DEV_NAME,
+        'AC_DEV_WARD': data.AC_DEV_WARD,
+        'AC_DEV_ADD': data.AC_DEV_ADD,
+        'AC_DEV_GALLI': data.AC_DEV_GALLI,
+        'AC_DEV_AREA': data.AC_DEV_AREA,
+        'AC_DEV_CITYCODE': data.AC_DEV_CITYCODE
+      })
     })
   }
 
@@ -1588,9 +1594,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1870,4 +1876,19 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+
+
+
 }

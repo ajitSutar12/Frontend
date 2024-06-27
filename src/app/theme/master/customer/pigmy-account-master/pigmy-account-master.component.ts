@@ -1353,7 +1353,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -1698,9 +1700,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1824,9 +1826,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.jointID = null
@@ -1940,6 +1942,30 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+  }
+
+  delJointAc(id, data) {
+
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
 }
 
 
