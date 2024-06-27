@@ -69,6 +69,26 @@ children:[
     path: 'loanduecertificate',
     loadChildren: () => import('./loan-due-certificate/loan-due-certificate.module').then(m => m.LoanDueCertificateModule)
   },
+  {
+    path: 'CourtwiseDisputeLoandetail',
+    loadChildren: () => import('./courtwise-dispute-loandetail/courtwise-dispute-loandetail.module').then(m => m.CourtwiseDisputeLoandetailModule)
+  },
+  {
+    path: 'CourtwiseDisputeList',
+    loadChildren: () => import('./courtwise-dispute-loanlist/courtwise-dispute-loanlist.module').then(m => m.CourtwiseDisputeLoanlistModule)
+  },
+  {
+    path: 'DisputeLoanList',
+    loadChildren: () => import('./dispute-loandetails/dispute-loandetails.module').then(m => m.DisputeLoandetailsModule)
+  },
+  {
+    path: 'loanCCACSanctionDatewise',
+    loadChildren: () => import('./loan-cc-ac-open-sanction-datewise/loan-cc-ac-open-sanction-datewise.module').then(m => m.LoanCCACOpenSanctionDatewiseModule)
+  },
+  {
+    path: 'healthCodewise',
+    loadChildren: () => import('./health-codewise-overdue/health-codewise-overdue.module').then(m => m.HealthCodewiseOverdueModule)
+  },
 ]
 }
 ];

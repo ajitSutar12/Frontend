@@ -91,7 +91,7 @@
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.value}}    {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                                 </span>
@@ -121,7 +121,7 @@
                                         #LOCKER_RENT_ACNO (focus)="onFocus(LOCKER_RENT_ACNO)" [selectOnTab]='true'
                                         required placeholder="Locker Rent Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.value}}   {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="LOCKER_RENT_ACNO">Locker Rent Account<sub class="required"> *
                                         </sub></label>
@@ -154,7 +154,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Receivable Locker Rend Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.value}}    {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="LOCKER_RECBL_RENT_ACNO">Receivable Locker Rend Account<sub
                                             class="required"> * </sub></label>

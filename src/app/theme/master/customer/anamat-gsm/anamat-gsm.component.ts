@@ -432,6 +432,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
+      AC_OPDATE: new FormControl({ value: '', disabled: true }),
       AC_ACNOTYPE: ['GS'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
@@ -448,7 +449,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_CTCODE: [''],
       AC_PIN: [''],
       BANKACNO: [''],
-      AC_OPDATE: ['', [Validators.required]],
+      // AC_OPDATE: [''],
       AC_IS_RECOVERY: [],
       DEBIT: new FormControl('DEBIT'),
       AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],

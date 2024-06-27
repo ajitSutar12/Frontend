@@ -60,7 +60,7 @@ export class NoticeFormatComponent implements OnInit {
     // this.Menu = [];
     this.AddSchemeData();
     // this.fetchData();
-    this.fetchAccount();
+    // this.fetchAccount();
     this.drop();
     // this.getNotice(event)
     // this.detail();
@@ -86,7 +86,7 @@ export class NoticeFormatComponent implements OnInit {
   actype
   //get scheme data
   AddSchemeData() {
-    this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get('http://192.168.1.157:7276/ledger-view/cschem').subscribe((data: any[]) => {
       // this.http.get('http://' + this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
 
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
@@ -100,7 +100,7 @@ export class NoticeFormatComponent implements OnInit {
 
   //get notice type
   drop() {
-    this.http.post('http://192.168.1.121:3002/notice/getnoticedata', {}).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/getnoticedata', {}).subscribe(
       (data: any) => {
         console.log(data)
         this.noticeType = data
@@ -142,12 +142,13 @@ export class NoticeFormatComponent implements OnInit {
 
   ///get notice
   fetchData(): void {
-    const dataSend =
+    let obj=this.ngForm.value
+    let dataSend =
     {
-      CODE: 1,
+      'CODE': obj.CODE,
     };
     // console.log(dataSend.CODE)
-    this.http.post('http://192.168.1.121:3002/notice/noticedata', dataSend).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/noticedata', dataSend).subscribe(
       (data: any) => {
         console.log(data)
         this.ngZone.run(() => {
@@ -167,7 +168,7 @@ export class NoticeFormatComponent implements OnInit {
 
   //Account data
   fetchAccount(): void {
-    this.http.get('http://192.168.1.121:3002/notice/getdata').subscribe(
+    this.http.get('http://192.168.1.128:7266/notice/getdata').subscribe(
       (data: any) => {
         this.selectedAccount = data;
         // this.name=data[0].AC_NAME;
@@ -247,7 +248,7 @@ export class NoticeFormatComponent implements OnInit {
       'BRANCH_CODE': BRANCH_CODE
     }
     //get all details of Account 
-    this.http.post('http://192.168.1.121:3002/notice/getalldetailsofloanacc', myObj).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/getalldetailsofloanacc', myObj).subscribe(
       (data: any) => {
         this.accdetails = data;
         const loanDetails = data[0];

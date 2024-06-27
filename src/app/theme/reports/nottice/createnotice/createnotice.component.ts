@@ -72,7 +72,7 @@ export class CreatenoticeComponent implements OnInit {
   actype
   //get scheme data
   AddSchemeData() {
-    this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get('http://192.168.1.157:7276/ledger-view/cschem').subscribe((data: any[]) => {
       // this.http.get(this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
       if (this.shemeDetails.length > 0) {
@@ -86,7 +86,7 @@ export class CreatenoticeComponent implements OnInit {
 
   //get notice type
   drop() {
-    this.http.post('http://192.168.1.121:3002/notice/getnoticedata', {}).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/getnoticedata', {}).subscribe(
       (data: any) => {
         console.log(data)
         this.noticeType = data
@@ -143,7 +143,7 @@ export class CreatenoticeComponent implements OnInit {
       'CODE':  this.CODE,
     };
     // console.log(dataSend.CODE)
-    this.http.post('http://192.168.1.121:3002/notice/noticedata', dataSend).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/noticedata', dataSend).subscribe(
       (data: any) => {
         console.log(data)
         this.ngZone.run(() => {
@@ -157,13 +157,14 @@ export class CreatenoticeComponent implements OnInit {
     );
   }
   submit() {
+    let obj=this.ngForm.value
     let emailData = {
-      CODE: 13,
-      NAME:this.name,
-      textareaContent : this.htmlText
+      'CODE': obj.id,
+      'NAME':this.name,
+      'textareaContent' : this.htmlText
     };
   
-    this.http.post('http://192.168.1.121:3002/notice/insert', emailData)
+    this.http.post('http://192.168.1.128:7266/notice/insert', emailData)
       .subscribe(response => {
         console.log('data sent successfully');
         // Handle success
@@ -210,7 +211,7 @@ export class CreatenoticeComponent implements OnInit {
     let myObj = {
       'BRANCH_CODE': BRANCH_CODE
     }
-    this.http.post('http://192.168.1.121:3002/notice/getalldetailsofloanacc', myObj).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/getalldetailsofloanacc', myObj).subscribe(
       (response) => {
         // this.getQuill(response);
         this.selectedAccount = response;

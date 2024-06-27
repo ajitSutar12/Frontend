@@ -42,7 +42,7 @@
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
                                             [(ngModel)]="scode" (change)="getEvent($event);account()">
                                             <ng-option *ngFor="let values of shemeDetails" [value]="values">
-                                                {{values.S_NAME}} </ng-option>
+                                                {{values.S_APPL}}  {{values.S_NAME}} </ng-option>
                                         </ng-select>
 
                                     </span>

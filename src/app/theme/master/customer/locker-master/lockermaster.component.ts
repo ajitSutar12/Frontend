@@ -184,7 +184,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   allScheme //account type for introducer
   introducerACNo //account no for introducer
   selectedOption = '3';
-  isDisabled = true;
+  // isDisabled = true;
   characters: Array<IOption>;
   selectedCharacter = '3';
   jointID: any = null;
@@ -234,6 +234,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   nextButton: boolean = true
   resetexpirydate: any
   imageObject = new Array();
+  isDisabled: boolean = true;
   constructor(
     private http: HttpClient,
     private LockerMasterService: LockerMasterService,

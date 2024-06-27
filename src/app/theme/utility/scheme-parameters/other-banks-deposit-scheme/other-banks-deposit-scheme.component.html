@@ -99,7 +99,7 @@
                     #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'  [virtualScroll]="true"
                     required placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                     {{values.name}}-{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                 </span>
@@ -127,7 +127,7 @@
                     #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true' [virtualScroll]="true"
                     required placeholder="Interest GL Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.value}}-{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                 </span>
@@ -158,7 +158,7 @@
                     #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true' 
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Receivable Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                    {{values.value}}-{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_RECBL_PYBL_INT_ACNO">Receivable Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -186,7 +186,7 @@
                     #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'   [virtualScroll]="true"
                     placeholder="Penal Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.value}}-{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_PENAL_ACNO">Penal Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -218,7 +218,7 @@
                     #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true' 
                     placeholder="Receivable Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.value}}-{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_RECBL_PENAL_ACNO">Receivable Penal Interest Account <sub class="required"> *
                     </sub></label>
@@ -247,7 +247,7 @@
                     #S_CASH_INT_ACNO (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true'   [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                     {{values.value}}-{{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_CASH_INT_ACNO">Cash Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -1368,7 +1368,7 @@
             <div class="card-footer">
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
-                  <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="angForm.invalid" (click)="submit()"
+                  <button class="btn btn-outline-primary btn-sm btn-submit"  (click)="submit()"
                     *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>

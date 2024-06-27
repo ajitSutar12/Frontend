@@ -65,7 +65,7 @@ export class NoticeReportComponent implements OnInit   {
   }
   actype
   AddSchemeData() {
-    this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get('http://192.168.1.157:7276/ledger-view/cschem').subscribe((data: any[]) => {
     // this.http.get('http://' + this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
 
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
@@ -76,7 +76,7 @@ export class NoticeReportComponent implements OnInit   {
     });
   }
   drop(){
-    this.http.post('http://192.168.1.121:3002/notice/getnoticedata',{}).subscribe(
+    this.http.post('http://192.168.1.128:7266/notice/getnoticedata',{}).subscribe(
       (data: any) => {
         console.log(data )
       this.noticeType = data

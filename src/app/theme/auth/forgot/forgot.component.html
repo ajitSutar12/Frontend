@@ -5,7 +5,7 @@
             <div class="col-sm-12">
                 <!-- Authentication card start -->
 
-                <form class="md-float-material form-material" action="javascript:">
+                <form [formGroup]="angForm" class="md-float-material form-material" action="javascript:">
                     <!-- <div class="text-center">
             <img src="assets/images/logo.png" alt="logo.png">
           </div> -->
@@ -18,13 +18,23 @@
                             </div>
 
                             <div class="form-group form-primary">
-                                <input type="text" name="email-address" class="form-control" required="">
+                                <input type="text" name="email-address" formControlName="email" class="form-control"
+                                    [(ngModel)]="email" required="">
                                 <span class="form-bar"></span>
                                 <label class="float-label">Your Email Address</label>
                             </div>
+                            <div class="form-group form-primary">
+                                <input type="text" name="contactNo" formControlName="contactNo" class="form-control"
+                                    [(ngModel)]="contactNo" required="">
+                                <span class="form-bar"></span>
+                                <label class="float-label">Contact No</label>
+                            </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple">Reset Password</button>
+                                    <button type="button"
+                                        class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple"
+                                        (click)="resetPassWord()">Reset
+                                        Password</button>
                                 </div>
                             </div>
                             <!-- <p class="f-w-600 text-right">Back to <a [routerLink]="['/auth/login/simple']">Login.</a></p> -->

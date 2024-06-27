@@ -91,7 +91,7 @@
     ////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
     window.addEventListener('popstate', function (event) {
 
-        if (window.location.href == 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple') { 
+        if (window.location.href == 'http://103.174.87.104/SIDHANERLI/CBS/auth/login/simple') { 
            
 
             let data = localStorage.getItem('user');
@@ -104,14 +104,14 @@
             }
             $.ajax({
 
-                 url: 'http://103.174.87.104:7275/user-defination/logout',
+                 url: 'http://103.174.87.104:4713/user-defination/logout',
                 method: 'POST',
                 data: obj,
                 success: function (result) { }
             })
             $.ajax({
 
-                 url: 'http://103.174.87.104:7275/user-defination/logoffhistory',
+                 url: 'http://103.174.87.104:4713/user-defination/logoffhistory',
 
               method: 'POST',
                 data: obj,
@@ -169,14 +169,14 @@
                     }
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7275/user-defination/logout',
+                        url: 'http://103.174.87.104:4713/user-defination/logout',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
                     })
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7275/user-defination/logoffhistory',
+                        url: 'http://103.174.87.104:4713/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -191,7 +191,7 @@
             }
             // your function for too long inactivity goes here
 
-            window.location.href = 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple';
+            window.location.href = 'http://103.174.87.104/SIDHANERLI/CBS/auth/login/simple';
             window.close()
         }
 
@@ -210,7 +210,7 @@
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7275/refresh-token',
+                        url: 'http://103.174.87.104:4713/refresh-token',
                         method: 'POST',
                         data: payload,
                         success: function (result) {

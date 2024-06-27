@@ -255,6 +255,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
+  AC_OPDATE: any;
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -495,7 +496,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MEMBTYPE: [''],
       BANKACNO: [''],
       AC_MEMBNO: [''],
-      AC_OPDATE: ['', [Validators.required]],
+      AC_OPDATE: [''],
       REF_ACNO: ['', [Validators.pattern]],
       AC_CAST: ['',],
       AC_OCODE: ['',],
@@ -574,7 +575,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       DATE_APPOINTED: ['', []],
       DATE_EXPIRY: ['', []],
 
-      AGENT_BRANCH: [], 
+      AGENT_BRANCH: [],
       AGENT_ACTYPE: [],
       AGENT_ACNO: [],
 
@@ -672,9 +673,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
+      this.opdate=data.CURRENT_DATE
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
-        AC_ASON_DATE: data.CURRENT_DATE
+        // AC_OPDATE: data.CURRENT_DATE,
+        // AC_ASON_DATE: data.CURRENT_DATE
       })
       if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
@@ -1701,6 +1703,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   updatecheckdata: any
   //Method for append data into fields
+  opdate
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
@@ -1753,7 +1756,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiJointAC = data.jointAccounts
       //get attorney to edit
       this.multiAttorney = data.powerOfAttorney
-      this.openingDate=data.AC_OPDATE
+      this.openingDate = data.AC_OPDATE
 
       this.ngCategory = data.AC_CATG
       this.ngOperation = data.AC_OPR_CODE
@@ -1798,6 +1801,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           this.ngrenewtypeaccountno = data.RENEW_TYPE_ACCOUNTNO
         })
       }
+
+      this.opdate = data.AC_OPDATE
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
@@ -1867,7 +1872,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     data['IS_DISCOUNTED_INT_RATE'] = (data.IS_DISCOUNTED_INT_RATE == true ? '1' : '0')
     data['REQ_RENEW'] = (data.REQ_RENEW == true ? '1' : '0')
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
 
     // (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = data.AC_OPDATE, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY')),
     // (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY')),
@@ -1876,9 +1881,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
 
     if (this.updatecheckdata.AC_OPDATE != this.openingDate) {
-      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate 
+      (this.openingDate == 'Invalid date' || this.openingDate == '' || this.openingDate == null) ? (opdate = '', data['AC_OPDATE'] = opdate) : (opdate = this.openingDate
         //, data['AC_OPDATE'] = moment(opdate).format('DD/MM/YYYY') //Vasim Temperory 20-03-2024
-        )
+      )
     } else {
       data['AC_OPDATE'] = this.openingDate
     }
@@ -1887,14 +1892,14 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     if (this.updatecheckdata.AC_ASON_DATE != data.AC_ASON_DATE) {
       (data.AC_ASON_DATE == 'Invalid date' || data.AC_ASON_DATE == '' || data.AC_ASON_DATE == null) ? (asondate = '', data['AC_ASON_DATE'] = asondate) : (asondate = data.AC_ASON_DATE
         //, data['AC_ASON_DATE'] = moment(asondate).format('DD/MM/YYYY') //Vasim Temperory 20-03-2024
-        )
+      )
     } else {
       data['AC_ASON_DATE'] = data.AC_ASON_DATE
     }
 
-    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) { 
+    if (this.updatecheckdata.AC_EXPDT != data.AC_EXPDT) {
       (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? (maturitydate = '', data['AC_EXPDT'] = maturitydate) : (maturitydate = data.AC_EXPDT
-        , data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY') 
+        , data['AC_EXPDT'] = moment(maturitydate).format('DD/MM/YYYY')
       )
     } else {
       data['AC_EXPDT'] = data.AC_EXPDT
@@ -2599,7 +2604,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
- 
+
   // data scheme master
   schemedata(id) {
     this._termDepositScheme.getFormData(id).subscribe(data => {

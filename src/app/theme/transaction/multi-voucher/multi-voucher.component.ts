@@ -1123,7 +1123,7 @@ export class MultiVoucherComponent implements OnInit {
       this.showChequeDetails = true;
     }
     this.showAdd = false;
-    this.showUpdate = false;
+    this.showUpdate = true;
     this.calculateVoucher()
     this.showlgindetails()
     this.SideDetails()

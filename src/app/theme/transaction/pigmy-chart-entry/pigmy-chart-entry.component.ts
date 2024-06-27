@@ -144,6 +144,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
+        
         this.http
           .post<DataTableResponse>(
             this.url + '/pigmy-chart',
@@ -320,11 +321,21 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     var date = full[0].split(/\//);
     var newDate = date[1] + '/' + date[0] + '/' + date[2]
     var k = new Date(newDate);
-    var expiryDate = moment(k).format('DD.MM.YYYY');
+    var expiryDate = moment(k).format('DD/MM/YYYY');
     let chart = this.angForm.controls['CHART_NO'].value
-    this.mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate, chart]
+    // this.mem = [this.ngschemeCode, this.ngAgentCode, this.ngBranchCode, expiryDate, chart]
+    this.mem =
+    {
+      "actype":this.ngschemeCode,
+      "acno":this.ngAgentCode,
+      "branch":this.ngBranchCode,
+      "trandate": expiryDate,
+      "chartNo":chart
+    } 
     this.dtTrigger.unsubscribe();
-    this.http.get(this.url + '/pigmy-chart/check/' + this.mem).subscribe((data) => {
+    // this.http.get('http://192.168.1.174:7265/pigmy-chart/check/' + this.mem).subscribe((data) => {
+    this.http.post(this.url+'/pigmy-chart/check/A' , this.mem).subscribe((data) => {
+
       if (data == 1) {
         Swal.fire({
           icon: 'info',
@@ -335,7 +346,9 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         })
       }
       else {
-        this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
+        // this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
+        this.http.post(this.url + '/pigmy-chart/pigmychart/mem' , this.mem).subscribe((data) => {
+          
           this.tableArr = data;
           this.tableArr.sort(function (a: any, b: any) {
             a['sortColumn'] = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
@@ -535,9 +548,17 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       var newDate = date[1] + '/' + date[0] + '/' + date[2]
       var k = new Date(newDate);
       var expiryDate = moment(k).format('DD.MM.YYYY');
-      let mem = [data.AGENT_ACTYPE, data.AGENT_ACNO, data.BRANCH_ID, expiryDate, data.CHART_NO]
+      // let mem = [data.AGENT_ACTYPE, data.AGENT_ACNO, data.BRANCH_ID, expiryDate, data.CHART_NO]
+      this.mem =
+      {
+        "actype":data.AGENT_ACTYPE,
+        "acno":data.AGENT_ACNO,
+        "branch":data.BRANCH_ID,
+        "trandate": expiryDate,
+        "chartNo": data.CHART_NO
+      } 
       this.dtTrigger.unsubscribe();
-      this.http.get(this.url + '/pigmy-chart/pigmychart/' + mem).subscribe((data) => {
+      this.http.post(this.url + '/pigmy-chart/pigmychart/mem' , this.mem).subscribe((data) => {
         this.tableArr = data;
         this.tableArr.sort(function (a: any, b: any) {
           a['sortColumn'] = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO

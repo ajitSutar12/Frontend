@@ -292,7 +292,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url + "/customer-id",
+            this.url+"/customer-id",
             dataTableParameters
           )
           .subscribe((resp) => {

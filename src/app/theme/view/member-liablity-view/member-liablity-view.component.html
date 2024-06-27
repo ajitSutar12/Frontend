@@ -99,6 +99,25 @@
                                 (click)="close()">Close</button>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                          <textarea [style.width.px]="textareaWidth" rows="10" readonly>{{ tableHtml }}</textarea>
+                        </div>
+                        <div class="col-12">
+                            <textarea [style.width.px]="textareaWidth" rows="10" readonly>{{ tableHtml1 }}</textarea>
+                          </div> 
+                          <div class="col-12">
+                            <textarea [style.width.px]="textareaWidth" rows="10" readonly>{{ tableHtml2 }}</textarea>
+                          </div>
+                      </div>
+                      <div class="row justify-content-center">
+                        <div class="col-sm">
+                          <button type="button" class="btn btn-outline-primary btn-sm btn-submit" (click)="printTextArea()"
+                           >Print</button>
+                        </div>
+                
+                      </div>
                     <div class="row" *ngIf="isShow">
                         <div class="col-12">
                             <div class="card">

@@ -720,12 +720,13 @@
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="8"
-                                                                            maxlength="10" [(ngModel)]="openingDate"
+                                                                            maxlength="10" [(ngModel)]="opdate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             bsDatepicker #OPDATE="bsDatepicker"
-                                                                            (keydown.Tab)="OPDATE.hide()">
-                                                                        <label for="AC_OPDATE">Open Date<sub
-                                                                                class="required">*
+                                                                            (keydown.Tab)="OPDATE.hide()" disabled>
+                                                                        <label for="AC_OPDATE">Open Date
+                                                                            <sub
+                                                                                class="required" >*
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>

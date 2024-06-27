@@ -581,6 +581,11 @@ const MENUITEMS1 = [
             id: 85
           },
           {
+            state: 'investmentAccountRenewal',
+            name: 'Investment Account Renewal',
+            id: 375
+          },
+          {
             state: 'cashCreditAcRenewal',
             name: 'Cash Credit A/c Renewal',
             id: 86
@@ -984,6 +989,11 @@ const MENUITEMS1 = [
             //     id: 109
             //   },
             // ]
+          },
+          {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 377,
           },
           {
             state: 'goldSilverReceipt',
@@ -1569,7 +1579,36 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 355,
               },
-
+              {
+                state: 'CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
+                type: 'sub',
+                id: 369,
+              },
+              {
+                state: 'CourtwiseDisputeLoanList',
+                name: 'Courtwise Dispute Loan List',
+                type: 'sub',
+                id: 370,
+              },
+              {
+                state: 'DisputeLoanList',
+                name: 'Dispute Loan List',
+                type: 'sub',
+                id: 371,
+              },
+              {
+                state: 'loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
+                type: 'sub',
+                id: 372,
+              },
+              {
+                state: 'healthCodewise',
+                name: 'Health Code Wise Report',
+                type: 'sub',
+                id: 373,
+              },
             ],
 
           },
@@ -1834,6 +1873,11 @@ const MENUITEMS1 = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'swnidhi',
+                name: 'Swnidhi Report',
+                id: 376
+              }
             ]
           },
           //
@@ -2110,7 +2154,11 @@ const MENUITEMS1 = [
             name: 'Recurring Amount Transfer to GL',
             id: 334
           },
-
+          {
+            state: 'conversion',
+            name: 'Conversion',
+            id: 374
+          },
         ]
       },
       {
@@ -3458,6 +3506,11 @@ const MENUITEMS = [
             id: 85
           },
           {
+            state: 'investmentAccountRenewal',
+            name: 'Investment Account Renewal',
+            id: 375
+          },
+          {
             state: 'cashCreditAcRenewal',
             name: 'Cash Credit A/c Renewal',
             id: 86
@@ -3860,6 +3913,11 @@ const MENUITEMS = [
             //     id: 109
             //   },
             // ]
+          },
+          {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 377,
           },
           {
             state: 'goldSilverReceipt',
@@ -4445,7 +4503,36 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 355,
               },
-
+              {
+                state: 'CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
+                type: 'sub',
+                id: 369,
+              },
+              {
+                state: 'CourtwiseDisputeList',
+                name: 'Courtwise Dispute Loan List',
+                type: 'sub',
+                id: 370,
+              },
+              {
+                state: 'DisputeLoanList',
+                name: 'Dispute Loan List',
+                type: 'sub',
+                id: 371,
+              },
+              {
+                state: 'loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
+                type: 'sub',
+                id: 372,
+              },
+              {
+                state: 'healthCodewise',
+                name: 'Health Code Wise Report',
+                type: 'sub',
+                id: 373,
+              },
             ],
 
           },
@@ -4711,6 +4798,11 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'swnidhi',
+                name: 'Swnidhi Report',
+                id: 376
+              }
             ]
           },
           //
@@ -4986,7 +5078,11 @@ const MENUITEMS = [
             name: 'Recurring Amount Transfer to GL',
             id: 334
           },
-
+          {
+            state: 'conversion',
+            name: 'Conversion',
+            id: 374
+          },
         ]
       },
       {

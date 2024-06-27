@@ -97,8 +97,8 @@ export class SummaryperiodwiseloanoverduelistComponent implements OnInit {
   }
   actype
   AddSchemeData() {
-    // this.http.get('http://' + this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
-    this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get(this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
+    // this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
       if (this.shemeDetails.length > 0) {
         this.actype = this.shemeDetails[0].id; // Assuming id is a property of the first item in the array

@@ -743,10 +743,13 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   //set open date, appointed date and expiry date 
   tempopendate: any
+  opdate
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.openingDate = data.CURRENT_DATE
       this.tempopendate = data.CURRENT_DATE
+      this.opdate=data.CURRENT_DATE
+
       if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
       } else {
@@ -1079,6 +1082,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.updateID = data.id;
       this.getCustomer(data.AC_CUSTID)
+    this.openingDate = data.AC_OPDATE
+
       this.schemeCode = data.AC_TYPE
       this.ngCategory = data.AC_CATG
       this.selectmembershipType = data.MEMBERSHIP_BY
@@ -1195,6 +1200,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.multiNominee = data.nomineeDetails
       this.ngDeathDate = (data.DEATH_DATE == 'Invalid date' || data.DEATH_DATE == '' || data.DEATH_DATE == null) ? deathdate = '' : deathdate = data.DEATH_DATE,
         // this.joindate = (data.AC_JOIN_DATE == 'Invalid date' || data.AC_JOIN_DATE == '' || data.AC_JOIN_DATE == null) ? joindate = '' : joindate = data.AC_JOIN_DATE,
+        this.opdate = data.AC_OPDATE
         this.angForm.patchValue({
           AC_ACNOTYPE: data.AC_ACNOTYPE,
           'AC_NO': data.AC_NO,
@@ -1202,7 +1208,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           'AC_SREPRESENT': data.AC_SREPRESENT,
           'BANKACNO': data.BANKACNO,
           //other controls
-          'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
+          'AC_OPDATE': data.AC_OPDATE ,
+
+          // 'AC_OPDATE': (data.AC_OPDATE == 'Invalid date' || data.AC_OPDATE == '' || data.AC_OPDATE == null) ? opdate = '' : opdate = data.AC_OPDATE,
           'AC_EXPDT': (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? exdate = '' : exdate = data.AC_EXPDT,
           'AC_SBNO': data.AC_SBNO,
           'AC_RESNO': data.AC_RESNO,

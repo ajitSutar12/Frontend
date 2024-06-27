@@ -10,7 +10,7 @@ import {DataTablesModule} from 'angular-datatables';
 
 import { MemberLiablityViewComponent } from './member-liablity-view.component';
 import { MemberLiablityViewRoutingModule } from './member-liablity-view-routing.module'
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
@@ -30,7 +30,7 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module,
+    Iframe5Module,HttpClientModule
 
   ],
   declarations: [MemberLiablityViewComponent],
