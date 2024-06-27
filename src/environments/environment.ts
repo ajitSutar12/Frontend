@@ -11,7 +11,7 @@ export const environment = {
 
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  sitename: 'http://localhost/SIDHANERLI/CBS' 
+  sitename: 'http://localhost/SIDHANERLI/CBS'  
 
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
