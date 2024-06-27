@@ -956,7 +956,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
   }
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
   NbirthDate: any
@@ -1250,4 +1252,19 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+
+  }
+
 }

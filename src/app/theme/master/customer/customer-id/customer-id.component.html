@@ -253,13 +253,13 @@
                             <div class="city">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select appTheme bindValue="regValue" [(ngModel)]="ngTitlereg"
-                                            id="AC_TITLE_REG" bindLabel="regValue" formControlName="AC_TITLE_REG"
+                                        <ng-select appTheme  [(ngModel)]="ngTitlereg"
+                                            id="AC_TITLE_REG" bindLabel="label" formControlName="AC_TITLE_REG"
                                             title="Compulsory Selection" [virtualScroll]="true"
                                             [ngClass]="{'form-submitted': formSubmitted}" required placeholder=""
                                             #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)" [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of regPrifix" [value]="values">
-                                                {{values.regValue}} </ng-option>
+                                                {{values.label}} </ng-option>
                                         </ng-select>
                                         <label for="AC_TYPE">Regional Title <sub class="required"> * </sub></label>
                                     </span>

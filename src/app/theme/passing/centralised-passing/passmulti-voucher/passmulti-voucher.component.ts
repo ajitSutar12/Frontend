@@ -136,7 +136,6 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
   }
   //get saving customer data
   getMultiVoucherData(data) {
-    debugger
     this.multiVoucherData = data.TRAN_NO;
     this.child.editClickHandler(data);
     this.child.DatatableHideShow = false;

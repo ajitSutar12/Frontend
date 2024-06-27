@@ -92,7 +92,7 @@
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.value}}  {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                                 </span>
@@ -120,7 +120,7 @@
                                         #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
                                         placeholder="Interest GL Account">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.value}}  {{values.label}}</ng-option>
                                     </ng-select>
                                     <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                                 </span>
@@ -478,7 +478,7 @@
                                                         placeholder="Interest Applicable Type">
                                                         <ng-option *ngFor="let values of interestApplicableTypeOption"
                                                             [value]="values">
-                                                            {{values.label}}</ng-option>
+                                                            {{values.value}}  {{values.label}}</ng-option>
                                                     </ng-select>
                                                     <label for="OVERDRAFT_INTEREST_APPLICABLE">Interest Applicable
                                                         Type<sub class="required"> * </sub></label>

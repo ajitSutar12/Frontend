@@ -720,7 +720,7 @@
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="8"
-                                                                            maxlength="10" [(ngModel)]="openingDate"
+                                                                            maxlength="10" [(ngModel)]="opdate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             bsDatepicker #OPDATE="bsDatepicker"
                                                                             (keydown.Tab)="OPDATE.hide()">
@@ -1650,7 +1650,7 @@
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
-                                                                                                (click)="delNominee(indexOfelement)"
+                                                                                                (click)="delNominee(indexOfelement,data)"
                                                                                                 placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>

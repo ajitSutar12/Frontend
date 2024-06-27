@@ -255,7 +255,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
-  branchOption: any[];
+  opdate: any;
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -317,10 +317,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
             }
           }
         });
-
-        this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
-          this.branchOption = data;
-        })
         let data: any = localStorage.getItem('user');
         let result = JSON.parse(data);
         let branchCode = result.branch.id;
@@ -677,9 +673,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
+      this.opdate = data.CURRENT_DATE
       this.angForm.patchValue({
-        AC_OPDATE: data.CURRENT_DATE,
-        AC_ASON_DATE: data.CURRENT_DATE
+        // AC_OPDATE: data.CURRENT_DATE,
+        // AC_ASON_DATE: data.CURRENT_DATE
       })
       if (data.ON_LINE === '1') {
         this.angForm.controls['AC_OPDATE'].disable()
@@ -1705,8 +1702,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
   updatecheckdata: any
-  name: any
-  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     // debugger
@@ -1715,8 +1710,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let asondate
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
-      this.name = data.AC_NAME
-      this.ac_no = data.BANKACNO
       console.log(data);
 
       this.createForm()
@@ -1807,6 +1800,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           this.ngrenewtypeaccountno = data.RENEW_TYPE_ACCOUNTNO
         })
       }
+      this.opdate = data.AC_OPDATE
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,
         'AC_NO': data.AC_NO,
@@ -1847,7 +1841,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
+
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -2245,9 +2242,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -2417,9 +2414,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
@@ -2583,9 +2580,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   }
 
-  delAttorney(id) {
-    this.multiAttorney.splice(id, 1)
-  }
+  // delAttorney(id) {
+  //   this.multiAttorney.splice(id, 1)
+  // }
 
   resetAttorney() {
     this.angForm.controls['ATTERONEY_NAME'].reset();
@@ -2904,14 +2901,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.TermDepositMasterService.approve(obj).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Term Deposit Account Approved successfully!',
-        html: `
-          <b>NAME : </b> ${this.name},<br>
-          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
-        `
-      });
+      Swal.fire(
+        'Approved',
+        'Term Deposit Account approved successfully',
+        'success'
+      );
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2929,14 +2923,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.TermDepositMasterService.reject(obj).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Term Deposit Account rejected successfully!',
-        html: `
-          <b>NAME : </b> ${this.name},<br>
-          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
-        `
-      });
+      Swal.fire(
+        'Rejected',
+        'Term Deposit Account rejected successfully',
+        'success'
+      );
+
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -3020,14 +3012,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       LOG_DATE: this.logDate
     }
     this.TermDepositMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire({
-        icon: 'success',
-        title: 'Account unapproved successfully!',
-        html: `
-          <b>NAME : </b> ${this.name},<br>
-          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
-        `
-      });
+      Swal.fire(
+        'Unapproved',
+        'Term Deposit Account unapproved successfully',
+        'success'
+      );
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -3081,6 +3070,40 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.renewtypeaccountno = data;
       this.ngrenewtypeaccountno = null
     })
+  }
+
+  delNominee(id, data) {
+
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+
+  }
+
+  delJointAc(id, data) {
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+  delAttorney(id, data) {
+    if (this.isDeleted) {
+      this.multiAttorney.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/powrattrneydelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Power Of Attorney Deleted Successfully!', 'success');
+      })
+    }
   }
 
 }

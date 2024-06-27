@@ -421,17 +421,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
     };
 
-    this.prefixMaster
-      .getPrefixMasterList()
-      .pipe(first())
-      .subscribe((data) => {
+    this.prefixMaster.getPrefixMasterList().pipe(first()).subscribe((data) => {
         this.prifix = data;
       });
-    this.prefixMaster
-      .getRegionalPrefixMasterList()
-      .pipe(first())
-      .subscribe((data) => {
-        this.regPrifix = data;
+    this.prefixMaster.getRegionalPrefixMasterList().pipe(first()).subscribe((data) => { 
+       this.regPrifix = data;
       });
     this.documentMasterService
       .getDocumentMasterList()

@@ -1409,7 +1409,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.introducerReq = true
       }
       else if (showAge > 18) {
-        this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
+        // this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
         this.angForm.controls['AC_GRDNAME'].disable();
         this.angForm.controls['AC_GRDRELE'].disable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].disable();
@@ -1575,9 +1575,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1738,9 +1738,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
@@ -1914,9 +1914,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  delAttorney(id) {
-    this.multiAttorney.splice(id, 1)
-  }
+  // delAttorney(id) {
+  //   this.multiAttorney.splice(id, 1)
+  // }
 
   resetAttorney() {
     this.angForm.controls['ATTERONEY_NAME'].reset();
@@ -1965,7 +1965,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     $event.target.value = data;
   }
 
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -2067,4 +2069,40 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+
+  }
+
+  delJointAc(id, data) {
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+  delAttorney(id, data) {
+    if (this.isDeleted) {
+      this.multiAttorney.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/powrattrneydelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Power Of Attorney Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+
 }

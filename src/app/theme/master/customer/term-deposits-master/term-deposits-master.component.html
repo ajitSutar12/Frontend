@@ -156,7 +156,7 @@
                                                                         #AC_OPDATE="bsDatepicker"
                                                                         (keydown.Tab)="AC_OPDATE.hide()"
                                                                         (bsValueChange)="setAsonDateMinLimit(opendate.value)"
-                                                                        [maxDate]="maxDate" formControlName="AC_OPDATE"
+                                                                        [maxDate]="maxDate" formControlName="AC_OPDATE" [(ngModel)]="logDate"
                                                                         [bsValue]="bsValue" bsDatepicker>
                                                                     <label for="AC_OPDATE">Open Date<sub
                                                                             class="required">*
@@ -403,7 +403,7 @@
                                                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         (bsValueChange)="getMaturityDate()"
-                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" [(ngModel)]="logDate"
                                                                         minlength="10" maxlength="10"
                                                                         [minDate]="asonDateRange"
                                                                         formControlName="AC_ASON_DATE"
@@ -1850,7 +1850,7 @@
                                                                                         <span
                                                                                             class="fa fa-fw fa-trash-o"
                                                                                             id="deletebutton"
-                                                                                            (click)="delNominee(indexOfelement)"
+                                                                                            (click)="delNominee(indexOfelement,data)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Delete"></span>
                                                                                     </div>
@@ -2044,7 +2044,7 @@
                                                                                         <span
                                                                                             class="fa fa-fw fa-trash-o"
                                                                                             id="deletebutton"
-                                                                                            (click)="delJointAc(indexOfelement)"
+                                                                                            (click)="delJointAc(indexOfelement,data)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Delete"></span>
                                                                                     </div>
@@ -2250,7 +2250,7 @@
                                                                                         <span
                                                                                             class="fa fa-fw fa-trash-o"
                                                                                             id="deletebutton"
-                                                                                            (click)="delAttorney(indexOfelement)"
+                                                                                            (click)="delAttorney(indexOfelement,data)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Delete"></span>
                                                                                     </div>

@@ -997,7 +997,12 @@ const MENUITEMS1 = [
                 id: 107
               }
             ]
-          }
+          },
+          {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 368,
+          },
         ]
       },
       {
@@ -3866,9 +3871,15 @@ const MENUITEMS = [
                 state: 'passbookEntryPrint',
                 name: 'Passbook Entry Print',
                 id: 107
-              }
+              },
+              
             ]
-          }
+          },
+          {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 368,
+          },
         ]
       },
       {

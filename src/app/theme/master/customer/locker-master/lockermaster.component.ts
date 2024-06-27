@@ -999,7 +999,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -1413,9 +1415,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1765,9 +1767,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
@@ -1780,5 +1782,30 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   clearFilter() {
     this.jointID = ''
   }
+
+  delNominee(id, data) {
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+  delJointAc(id, data) {
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+
+
+
 }
 
