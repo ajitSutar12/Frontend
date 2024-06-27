@@ -15,6 +15,8 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { BankMasterService } from 'src/app/shared/dropdownService/bank-Master-dropdown.service';
 
 @NgModule({
   imports: [
@@ -29,15 +31,22 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module
+    
   ],
   declarations: [SharesCCTSComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
+    
     multi: true
   },
   SchemeCodeDropdownService,
-  SchemeAccountNoService
+  SchemeAccountNoService,
+  OwnbranchMasterService,
+  BankMasterService,
+  OwnbranchMasterService
+  
+  
 ]
 })
 export class SharesCCTSModule { }

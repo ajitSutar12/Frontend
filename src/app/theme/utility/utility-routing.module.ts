@@ -153,7 +153,10 @@ const routes: Routes = [
         path: 'recAmtTrToGL',
         loadChildren: () => import('./recurring-attg/recurring-attg.module').then(m => m.RecurringAttgModule)
       },
-     
+      {
+        path: 'conversion',
+        loadChildren: () => import('./conversion/conversion.module').then(m => m.ConversionModule)
+      },
     ]
   }
 ];

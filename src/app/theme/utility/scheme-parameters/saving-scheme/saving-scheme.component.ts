@@ -482,16 +482,17 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   //Method for append data into fields
-  editClickHandler(id) { 
-       this.showButton = false;
+  editClickHandler(id) {
+    this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.angForm.controls['S_APPL'].disable()
-    this.savingschemeservice.getFormData(id).subscribe((data) => { debugger
+    this.savingschemeservice.getFormData(id).subscribe((data) => {
+      // debugger
       this.updateID = data.id;
       this.ngglacno = Number(data.S_GLACNO)
       this.nginterestgl = Number(data.S_INT_ACNO)
-      this.angForm.patchValue({ 
+      this.angForm.patchValue({
         S_ACNOTYPE: data.S_ACNOTYPE,
         S_APPL: data.S_APPL,
         S_NAME: data.S_NAME,
@@ -713,7 +714,7 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   getDecimal(event) {
@@ -727,12 +728,13 @@ export class SavingSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
+
   isShow: boolean = false
   isApplicable(event) {
     let ev = this.angForm.value

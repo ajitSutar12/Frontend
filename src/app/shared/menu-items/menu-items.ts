@@ -356,6 +356,16 @@ const MENUITEMS1 = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 47
+              },
+              {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
+              },
+              {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
               }
             ]
 
@@ -577,6 +587,11 @@ const MENUITEMS1 = [
             id: 85
           },
           {
+            state: 'investmentAccountRenewal',
+            name: 'Investment Account Renewal',
+            id: 375
+          },
+          {
             state: 'cashCreditAcRenewal',
             name: 'Cash Credit A/c Renewal',
             id: 86
@@ -770,11 +785,11 @@ const MENUITEMS1 = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -809,6 +824,7 @@ const MENUITEMS1 = [
             name: 'Inward Register',
             id: 131
           },
+
         ]
       },
       {
@@ -943,6 +959,12 @@ const MENUITEMS1 = [
             id: 348
 
           },
+          {
+            state: 'memberguaranterdetail',
+            name: 'Member Guaranter Detail',
+            id: 368
+
+          },
         ],
 
       },
@@ -973,6 +995,11 @@ const MENUITEMS1 = [
             //     id: 109
             //   },
             // ]
+          },
+          {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 377,
           },
           {
             state: 'goldSilverReceipt',
@@ -1563,7 +1590,36 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 355,
               },
-
+              {
+                state: 'CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
+                type: 'sub',
+                id: 369,
+              },
+              {
+                state: 'CourtwiseDisputeLoanList',
+                name: 'Courtwise Dispute Loan List',
+                type: 'sub',
+                id: 370,
+              },
+              {
+                state: 'DisputeLoanList',
+                name: 'Dispute Loan List',
+                type: 'sub',
+                id: 371,
+              },
+              {
+                state: 'loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
+                type: 'sub',
+                id: 372,
+              },
+              {
+                state: 'healthCodewise',
+                name: 'Health Code Wise Report',
+                type: 'sub',
+                id: 373,
+              },
             ],
 
           },
@@ -1640,6 +1696,36 @@ const MENUITEMS1 = [
           //   name: 'Nottice',
           //   id: 252
           // },
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 364
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 366
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 367
+                    },
+                  ]
+                },
           // //
           // {
           //   state: 'Report_Frame',
@@ -1828,6 +1914,11 @@ const MENUITEMS1 = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'swnidhi',
+                name: 'Swnidhi Report',
+                id: 376
+              }
             ]
           },
           //
@@ -2104,7 +2195,11 @@ const MENUITEMS1 = [
             name: 'Recurring Amount Transfer to GL',
             id: 334
           },
-
+          {
+            state: 'conversion',
+            name: 'Conversion',
+            id: 374
+          },
         ]
       },
       {
@@ -3233,6 +3328,10 @@ const MENUITEMS = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 47
+              }, {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
               }
             ]
 
@@ -3453,6 +3552,11 @@ const MENUITEMS = [
             id: 85
           },
           {
+            state: 'investmentAccountRenewal',
+            name: 'Investment Account Renewal',
+            id: 375
+          },
+          {
             state: 'cashCreditAcRenewal',
             name: 'Cash Credit A/c Renewal',
             id: 86
@@ -3646,11 +3750,11 @@ const MENUITEMS = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -3819,6 +3923,12 @@ const MENUITEMS = [
             id: 348
 
           },
+          {
+            state: 'memberguaranterdetail',
+            name: 'Member Guaranter Detail',
+            id: 368
+
+          },
         ],
 
       },
@@ -3849,6 +3959,11 @@ const MENUITEMS = [
             //     id: 109
             //   },
             // ]
+          },
+          {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 377,
           },
           {
             state: 'goldSilverReceipt',
@@ -4440,7 +4555,36 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 355,
               },
-
+              {
+                state: 'CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
+                type: 'sub',
+                id: 369,
+              },
+              {
+                state: 'CourtwiseDisputeList',
+                name: 'Courtwise Dispute Loan List',
+                type: 'sub',
+                id: 370,
+              },
+              {
+                state: 'DisputeLoanList',
+                name: 'Dispute Loan List',
+                type: 'sub',
+                id: 371,
+              },
+              {
+                state: 'loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
+                type: 'sub',
+                id: 372,
+              },
+              {
+                state: 'healthCodewise',
+                name: 'Health Code Wise Report',
+                type: 'sub',
+                id: 373,
+              },
             ],
 
           },
@@ -4518,6 +4662,36 @@ const MENUITEMS = [
           //   name: 'Nottice',
           //   id: 252
           // },
+{
+          state: 'nottice',
+                name: 'Nottice',
+                short_label: 'D',
+                type: 'sub',
+                icon: 'icon-home',
+                id: 362,
+                children: [
+                  {
+                    state: 'noticereport',
+                    name: 'Notice Report',
+                    id: 364
+                  },
+                  {
+                    state: 'noticeformat',
+                    name: 'Notice Format',
+                    id: 365
+                  },
+                  {
+                    state: 'blankNotice',
+                    name: 'Blank Notice Format',
+                    id: 366
+                  },
+                  {
+                    state: 'showNotice',
+                    name: 'Get Notice Format',
+                    id: 367
+                  },
+                ]
+              },
           // //
           // {
           //   state: 'Report_Frame',
@@ -4706,6 +4880,11 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'swnidhi',
+                name: 'Swnidhi Report',
+                id: 376
+              }
             ]
           },
           //
@@ -4981,7 +5160,11 @@ const MENUITEMS = [
             name: 'Recurring Amount Transfer to GL',
             id: 334
           },
-
+          {
+            state: 'conversion',
+            name: 'Conversion',
+            id: 374
+          },
         ]
       },
       {

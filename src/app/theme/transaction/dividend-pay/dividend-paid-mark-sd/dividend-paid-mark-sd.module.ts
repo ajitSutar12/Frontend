@@ -15,6 +15,8 @@ import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/salary-division-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { SalaryDMasterdropdownService } from 'src/app/shared/dropdownService/sal
     multi: true
   },
   SalaryDMasterdropdownService,
+  SchemeCodeDropdownService,
+  SchemeAccountNoService
 ]
 })
 export class  DividendPaidMarkSDModule { }

@@ -90,7 +90,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" #S_GLACNO [virtualScroll]="true"
                                         (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
                                         placeholder="GL Account Number">
+
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
@@ -121,7 +123,9 @@
                                         #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         placeholder="Interest GL Account">
+
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_INT_ACNO">Interest GL Account <sub class="required"> * </sub></label>
@@ -150,7 +154,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" #S_RECBL_PYBL_INT_ACNO
                                         (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true' required
                                         placeholder="Payable Interest Account">
+
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account<sub class="required"> *
@@ -607,7 +613,9 @@
                                                             [ngClass]="{'form-submitted': formSubmitted}" required
                                                             placeholder="Service Charges GL Code">
                                                             <ng-option *ngFor="let values of acMaster" [value]="values">
+
                                                                 {{values.value}} {{values.label}}</ng-option>
+
                                                         </ng-select>
                                                         <label for="SVR_CHARGE_GLCODE">Service Charges GL Code<sub
                                                                 class="required"> * </sub></label>

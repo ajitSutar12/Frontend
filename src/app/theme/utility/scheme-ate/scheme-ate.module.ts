@@ -11,10 +11,11 @@ import { SchemeATERoutingModule } from './scheme-ate-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+
 
 @NgModule({
   imports: [
@@ -28,6 +29,14 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    HttpClientModule,
+//     TranslateModule.forRoot({
+//   loader:{
+//     provide:TranslateLoader,
+//     useFactory:HttpLoaderFactory,
+//     deps:[HttpClient]
+//   }
+// })
   ],
   declarations: [SchemeATEComponent],
   providers:[{
@@ -40,3 +49,6 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 ]
 })
 export class SchemeATEModule { }
+// export function HttpLoaderFactory(http:HttpClient){
+//   return new TranslateHttpLoader(http);
+// }

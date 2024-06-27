@@ -98,12 +98,18 @@ export class MemberViewComponent implements OnInit {
 
   }
 
-
+  // View() { }
   // printTextArea() {
   //   this.calculateTotalBalance();
   //   this.calculateTotalBalance1();
   // }
   accountArray = []
+
+  // printTextArea() {
+  //   this.calculateTotalBalance();
+  //   this.calculateTotalBalance1();
+  // }
+  // accountArray = []
 
   getSchemCode(event) {
     this.accountArray = []

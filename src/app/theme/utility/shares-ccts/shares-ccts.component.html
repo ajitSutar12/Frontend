@@ -8,14 +8,34 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Debit Scheme<sub
-                                    class="required">*</sub></label>
-                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Branch Code<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedBranch" formControlName="branch_code" >
+                                        <ng-option *ngFor="let item of branch_code" [value]="item.value">
+                                            {{item.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['branch_code'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Debit Scheme<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedDScheme" #scheme formControlName="dscheme"
-                                        bindValue="value" bindLabel="label">
+                                        bindValue="value" bindLabel="label" (change)="getstype($event)">
                                         <ng-option *ngFor="let item of d_Scheme" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
@@ -34,13 +54,13 @@
                         <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Credit Scheme<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedCScheme" #scheme formControlName="cscheme"
-                                        bindValue="value" bindLabel="label">
-                                        <ng-option *ngFor="let item of c_Scheme" [value]="item">
-                                            {{item.id}} {{item.label}}</ng-option>
+                                        (change)="onSelectChange($event)">
+                                        <ng-option *ngFor="let item of glCredit" [value]="item">
+                                            {{item.S_APPL}} {{item.S_ACNOTYPE}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -56,15 +76,15 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">GL A/c No.<sub
+
+                        <div class="col-sm-12 col-md-2" *ngIf="showSecondSelect"> <label for="AC_BRANCH">GL A/c No.<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-3" *ngIf="showSecondSelect">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="selectedaccNo" #scheme formControlName="accNo"
-                                        bindValue="bankacno" bindLabel="NAME">
-                                        <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                            {{item.label}} {{item.name}}</ng-option>
+                                    <ng-select [(ngModel)]="selectedaccNo" #scheme formControlName="accNo" (change)="getglacno($event)">
+                                        <ng-option *ngFor="let item of glacno" [value]="item">
+                                            {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -78,14 +98,14 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Kayam Dep. Scheme<sub
+                        <div class="col-sm-12 col-md-2" *ngIf="kayamDepScheme"> <label for="AC_BRANCH">Kayam Dep.Scheme<sub
                                     class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-3" *ngIf="kayamDepScheme">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedKDscheme" #scheme formControlName="kdscheme"
-                                        bindValue="value" bindLabel="label">
+                                        bindValue="value" bindLabel="label" (change)="getkayamdep($event)">
                                         <ng-option *ngFor="let item of kd_scheme" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
@@ -100,16 +120,16 @@
                             </div>
 
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Amount Limit<sub
-                                    class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-3">
+
+                        <div class="col-sm-12 col-md-2" *ngIf="showShareAmt"> <label for="AC_BRANCH">Shares Amount
+                                Limit<sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3" *ngIf="showShareAmt">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="shamtlimit"
+                                        (change)="getshareTranfer($event)" id="INSTALLMENT_NO" maxlength="10"
+                                        formControlName="shamtlimit"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                                 </span>
                             </div>
@@ -123,37 +143,162 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">Particulars</label>
-                        </div>
-                        <div class="col-md-4">
+                    </div>
+
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label>Date<sub class="required">*</sub></label>
+                        </div> -->
+                    <!-- <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <textarea class="form-control" formControlName="particulars"
-                                        [(ngModel)]="particulars"></textarea>
-                                    <i class="fa fa-info-circle errspan"></i>
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                        class="form-control" appDateValidation [bsValue]="bsValue"
+                                        formControlName="Date" appButton minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
                                 </span>
                             </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Date'].invalid &&
+                            (angForm.controls['Date'].dirty ||angForm.controls['Date'].touched) "
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Date'].errors?.required">
+                                    This field is required
+                                </div> -->
+
+                    <!-- </div>
+                        </div>
+                    </div> -->
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive fixTableHead">
+                                <table class="table table-striped table-bordered table-hover compact"
+                                   >
+                                    <thead>
+                                        <td>Sr No</td>
+                                        <td>Account Number</td>
+                                        <td>Member</td>
+                                        <td>Name</td>
+                                        <td>vargani Balance</td>
+                                        <td>Share Balance</td>
+                                        <td>Share Transfer</td>
+                                        <td>Kayam Member No</td>
+                                        <td>Kayam Thav</td>
+                                        <!-- <td>Kayam Thav</td> -->
+
+                                    </thead>
+                                    <tbody *ngIf="tableData?.length != 0">
+                                        <tr *ngFor="let row of tableData, let i=index">
+                                            <td>{{ i+1 }}</td>
+                                            <td>{{ row.AC_NO }}</td>
+                                            <td>{{ row.AC_MEMBNO }}</td>
+                                            <td>{{ row.AC_NAME }}</td>
+                                            <td>{{ row.vargani_balance }}</td>
+                                            <!-- <td>{{ row.share_balance}}</td>
+                                            <td>{{ row.ShareTransfer }}</td> -->
+                                            <td
+                                                [ngClass]="{ 'disabled': selectedCScheme && selectedCScheme.S_NAME === 'GENERAL LEDGER' }">
+                                                {{ row.share_balance }}</td>
+                                            <td
+                                                [ngClass]="{ 'disabled': selectedCScheme && selectedCScheme.S_NAME === 'GENERAL LEDGER' }">
+                                                {{ row.ShareTransfer }}</td>
+                                            <td>{{row.KAYAM_ACNO}}</td>
+                                            <td>{{ row.KayamThav }}</td>
+                                            <!-- <td *ngIf="isHideAcc">{{ row.KayamThav }}</td> -->
+                                            <!-- <td *ngIf="isShowAcc">{{ row.vargani_balance }}</td> -->
+                                        </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{totalVargani_Bal}}</td>
+                                            <td></td>
+                                            <td>{{totalShare_Tran}}</td>
+                                            <td></td>
+                                            <td >{{totalKayam_Thev}}</td>
+
+                                            <!-- <td *ngIf="isHideAcc">{{totalKayam_Thev}}</td> -->
+                                            <!-- <td *ngIf="isShowAcc">{{totalVargani_Bal}}</td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="Loan_Amount">Total Amount</label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
+                                        id="INSTALLMENT_NO" maxlength="10" formControlName="tlAmt"
+                                        [(ngModel)]="totalVargani_Bal"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span>
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['tlAmt'].invalid && (angForm.controls['tlAmt'].dirty || angForm.controls['tlAmt'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['tlAmt'].errors?.pattern || angForm.controls['tlAmt'].errors?.required || angForm.controls['tlAmt'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div> -->
 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"><label for="AC_PARTICULAR">Narration</label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="particulars" formControlName="particulars">
+                                        <ng-option *ngFor="let item of nar" [value]="item">
+                                            {{item.NARRATION}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['particulars'].invalid && (angForm.controls['particulars'].dirty || angForm.controls['particulars'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['particulars'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div> -->
+            
+                        </div>
+                    </div>
+
+
+                    
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <!-- <button class="btn  btn-outline-primary btn-sm">Close</button> -->
 
-                            <button class="btn  btn-outline-primary btn-sm">Delete</button>
+                            <!-- <button class="btn  btn-outline-primary btn-sm">Delete</button> -->
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="Reset()">Cancel</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                            <!-- <button class="btn  btn-outline-primary btn-sm">Print</button> -->
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="submit()">Submit</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Calculate</button>
+                            <!-- <button class="btn  btn-outline-primary btn-sm">Calculate</button> -->
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
@@ -164,7 +309,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </form>

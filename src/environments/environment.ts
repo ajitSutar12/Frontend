@@ -5,20 +5,31 @@
 export const environment = {
   production: false,
 
+  // base_url: 'http://localhost:7271', 
+  base_url: 'http://192.168.1.113:7271',     
+  // base_url: 'http://192.168.1.154:7276',
+
   
   // Localhost
+
     // base_url: 'http://http://192.168.1.174/:7276',
 
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
   sitename: 'http://localhost/SIDHANERLI/CBS'  
 
+
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
+  
   // report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
 
-  // //TESTSIDHANERLI 
+  // base_url: 'http://103.174.87.104:7280',  
+  // report_url: 'http://103.174.87.104/TRIMURTIDONGAON/REPORTS/', 
+  // sitename: 'http://103.174.87.104/pargaon/CBS'
+
+  // //TESTSIDHANERLI  
   // base_url: 'http://103.174.87.104:4771',  
   // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
@@ -26,7 +37,7 @@ export const environment = {
   //VADGAON_SARAF 
   // base_url: 'http://103.174.87.104:7282',  //CBS  vadgaon server
   // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
-  // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
+  sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
 
  //Jijamata Arjunwada
   // base_url: 'http://103.174.87.104:7274',

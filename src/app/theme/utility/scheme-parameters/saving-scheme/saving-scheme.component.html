@@ -107,7 +107,9 @@
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
                     placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}}  {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                 </span>
@@ -133,7 +135,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
                     [selectOnTab]='true' required placeholder="Interest GL Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}}  {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                 </span>
@@ -385,13 +389,17 @@
                           border-checkbox-group border-checkbox-group-primary
                         ">
                         <input class="border-checkbox" type="checkbox" id="STAND_INSTRUCTION_ALLOW"
+
                           formControlName="STAND_INSTRUCTION_ALLOW"  (change)="isApplicable($event)"                          />
+
                         <label class="border-checkbox-label" for="STAND_INSTRUCTION_ALLOW">Is Standing Instruction
                           Applicable ?</label>
                       </div>
                       <div class="
                           border-checkbox-group border-checkbox-group-primary
+
                         " *ngIf="isShow">
+
                         <input class="border-checkbox" type="checkbox" id="IS_INSTRUCTION_UPTO_MATURITY"
                           formControlName="IS_INSTRUCTION_UPTO_MATURITY" />
                         <label class="border-checkbox-label" for="IS_INSTRUCTION_UPTO_MATURITY">Is Standing Instruction
@@ -400,7 +408,9 @@
                     </div>
                   </div>
 
+
                   <div class="row" *ngIf="isShow">
+
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
@@ -408,11 +418,13 @@
                             class="form-control" placeholder=" " maxlength="2" id="ROUNDOFF_FACTOR" required=""
                             pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
                             title="Input allowed only  0-9" formControlName="ROUNDOFF_FACTOR" />
-                          <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise<sub class="required">*
-                            </sub></label>
+                          <label for="ROUNDOFF_FACTOR">Interest Round Off Factor in Paise
+                            <!-- <sub class="required">*
+                            </sub>-->
+                          </label> 
                         </span>
                       </div>
-                      <div class="form-group form-primary form-static-label" *ngIf="
+                      <!-- <div class="form-group form-primary form-static-label" *ngIf="
                           angForm.controls['ROUNDOFF_FACTOR'].invalid &&
                           (angForm.controls['ROUNDOFF_FACTOR'].dirty ||
                             angForm.controls['ROUNDOFF_FACTOR'].touched)
@@ -425,7 +437,7 @@
                           This field is required and Input allowed only 0-9
                           (Space)
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>
@@ -445,8 +457,10 @@
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 ." formControlName="CHEQUEBOOK_MIN_BAL" />
-                          <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance<sub class="required">*
-                            </sub></label>
+                          <label for="CHEQUEBOOK_MIN_BAL">Cheque Book Minimum Balance
+                            <!-- <sub class="required">*
+                            </sub> -->
+                          </label>
                         </span>
                       </div>
                       <!-- <div class="form-group form-primary form-static-label" *ngIf="
@@ -552,12 +566,14 @@
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                             title="Input allowed only  0-9 . (Space)" formControlName="OVERDRAFT_INTEREST_RATE" />
-                          <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate ?<sub class="required">*
-                            </sub></label>
+                          <label for="OVERDRAFT_INTEREST_RATE">Overdraft Interest Rate ?
+                            <!-- <sub class="required">*
+                            </sub> -->
+                          </label>
                         </span>
 
                       </div>
-                      <div class="form-group form-primary form-static-label" *ngIf="
+                      <!-- <div class="form-group form-primary form-static-label" *ngIf="
                         angForm.controls['OVERDRAFT_INTEREST_RATE'].invalid &&
                         (angForm.controls['OVERDRAFT_INTEREST_RATE'].dirty ||
                           angForm.controls['OVERDRAFT_INTEREST_RATE'].touched)
@@ -571,7 +587,7 @@
                           This field is required and Input allowed only 0-9 .
                           (Space)
                         </div>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

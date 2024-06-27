@@ -100,6 +100,7 @@
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
                     placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
@@ -128,7 +129,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
                     [selectOnTab]='true' required placeholder="Interest GL Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                 </span>
@@ -160,7 +163,9 @@
                     title="Compulsory Selection" #S_INT_CR_ACNO (focus)="onFocus(S_INT_CR_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Credit GL Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_INT_CR_ACNO">Interest Credit GL Account <sub class="required"> * </sub></label>
                 </span>
@@ -190,7 +195,9 @@
                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
                     placeholder="Payable Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_RECBL_PYBL_INT_ACNO">Payable Interest Account <sub class="required"> * </sub></label>
                 </span>
@@ -223,6 +230,7 @@
                     #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_PENAL_ACNO">Penal Interest Account <sub class="required"> * </sub></label>
@@ -253,6 +261,7 @@
                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
                     placeholder="Recble Penal Interest Account ">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_RECBL_PENAL_ACNO">Recble Penal Interest Account <sub class="required"> * </sub></label>
@@ -283,7 +292,9 @@
                     (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true' [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_CASH_INT_ACNO">Cash Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -313,6 +324,7 @@
                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
                     placeholder="Mature But Not Paid GL">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
+
                       {{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="MATURED_BUT_NOT_PAID_GLAC">Mature But Not Paid GL<sub class="required"> * </sub></label>
