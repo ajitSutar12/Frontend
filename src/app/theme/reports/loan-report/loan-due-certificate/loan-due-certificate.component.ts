@@ -155,7 +155,7 @@ this.getDate(event)
 let BANKACNO=this.BANKACNO
 
   this.iframe5url=this.report_url+ "examples/NoDueCertificate.php?Scheme='"+scheme+"'&BRANCH_CODE="+this.ngbranch+"&AccountNo="+accno+"&date='" + edate +"'&AC_TYPE=" + AC_TYPE +"&BANKACNO='" + BANKACNO +"'&branchName='" + branchName +"'&bankName='" + bankName +"'";
-  console.log(this.iframe5url); 
+  console.log(this.iframe5url);  
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {

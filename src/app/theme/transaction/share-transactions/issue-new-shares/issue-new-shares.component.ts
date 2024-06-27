@@ -411,7 +411,7 @@ export class IssueNewSharesComponent implements OnInit {
         let result = JSON.parse(data);
         var object =
         {
-          BRANCH_CODE: formVal.BRANCH_CODE,
+          BRANCH_CODE: this.selectedBranch,
           TRANSACTIONMODE: formVal.T_TYPE,
           TRAN_ACTYPE: formVal.AC_TYPE,
           TRAN_ACNO: formVal.MEMBER_NO,

@@ -37,6 +37,10 @@ const routes: Routes = [
         path: 'yearWiseUnpaidDividendEntry',
         loadChildren: () => import('./year-wise-unpaid-dividend-entry/year-wise-unpaid-dividend-entry.module').then(m => m.YearWiseUnpaidDividendEntryModule)
       },
+      {
+        path: 'generalmeetpresentmem',
+        loadChildren: () => import('./general-meeting-present-mem/general-meeting-present-mem.module').then(m => m.GeneralMeetingPresentMemModule)
+      },
     ]
   }
 ];

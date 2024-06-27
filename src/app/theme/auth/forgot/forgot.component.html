@@ -1,47 +1,56 @@
 <section class="login-block">
-    <!-- Container-fluid starts -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <!-- Authentication card start -->
 
-                <form [formGroup]="angForm" class="md-float-material form-material" action="javascript:">
-                    <!-- <div class="text-center">
-            <img src="assets/images/logo.png" alt="logo.png">
-          </div> -->
+                <form [formGroup]="angForm" class="md-float-material form-material" (ngSubmit)="resetPassWord()">
+
                     <div class="auth-box card">
                         <div class="card-block">
                             <div class="row m-b-20">
                                 <div class="col-md-12">
-                                    <h3 class="text-left">Recover your password</h3>
+                                    <h3 class="text-left">Forgot Password</h3>
                                 </div>
                             </div>
 
                             <div class="form-group form-primary">
-                                <input type="text" name="email-address" formControlName="email" class="form-control"
+
+                                <input type="email" name="email-address" formControlName="email" class="form-control"
+
                                     [(ngModel)]="email" required="">
                                 <span class="form-bar"></span>
                                 <label class="float-label">Your Email Address</label>
+                                <div *ngIf="angForm.get('email').invalid && angForm.get('email').touched">
+                                    <small class="text-danger" *ngIf="angForm.get('email').errors.required">Email is required.</small>
+                                    <small class="text-danger" *ngIf="angForm.get('email').errors.pattern">Invalid email address.</small>
+                                </div>
                             </div>
+
                             <div class="form-group form-primary">
                                 <input type="text" name="contactNo" formControlName="contactNo" class="form-control"
                                     [(ngModel)]="contactNo" required="">
                                 <span class="form-bar"></span>
                                 <label class="float-label">Contact No</label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button type="button"
-                                        class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple"
-                                        (click)="resetPassWord()">Reset
-                                        Password</button>
+
+                                <div *ngIf="angForm.get('contactNo').invalid && angForm.get('contactNo').touched">
+                                    <small class="text-danger" *ngIf="angForm.get('contactNo').errors.required">Contact
+                                        number is required.</small>
+                                    <small class="text-danger" *ngIf="angForm.get('contactNo').errors.pattern">Invalid
+                                        contact number. Must be 10 digits.</small>
                                 </div>
                             </div>
-                            <!-- <p class="f-w-600 text-right">Back to <a [routerLink]="['/auth/login/simple']">Login.</a></p> -->
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-md btn-block waves-light text-center m-b-20 ripple"
+                                        [disabled]="angForm.invalid">Reset Password</button>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-8">
-                                    <!-- <p class="text-inverse text-left m-b-0">Thank you.</p> -->
-                                    <!-- <p class="text-inverse text-left"><a [routerLink]="['/dashboard/default']"><b>Back to website</b></a></p> -->
+                                    <!-- Optional content here -->
                                 </div>
                                 <div class="col-md-4">
                                     <img src="assets/images/comp.png" alt="small-logo.png">
@@ -51,9 +60,6 @@
                     </div>
                 </form>
             </div>
-            <!-- end of col-sm-12 -->
         </div>
-        <!-- end of row -->
     </div>
-    <!-- end of container-fluid -->
 </section>

@@ -11,9 +11,13 @@ export const environment = {
 
   
   // Localhost
-  // base_url: 'http://localhost:7276',
+
+    // base_url: 'http://http://192.168.1.174/:7276',
+
+  base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS',
+  sitename: 'http://localhost/SIDHANERLI/CBS' 
+
 
   // //SIDHANERLI 
   // base_url: 'http://103.174.87.104:4713', 
@@ -31,7 +35,7 @@ export const environment = {
   // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
 
   //VADGAON_SARAF 
-  // base_url: 'http://103.174.87.104:7797',  //CBS  vadgaon server
+  // base_url: 'http://103.174.87.104:7282',  //CBS  vadgaon server
   // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
   sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
 
@@ -62,7 +66,23 @@ export const environment = {
   // base_url: 'http://103.174.87.104:7278',  
   // report_url: 'http://103.174.87.104/COMPSERV/REPORTS/', 
   // sitename: 'http://103.174.87.104/COMPSERV/CBS'
-};
+
+     // //DONGAON Trimurti 
+  // base_url: 'http://103.174.87.104:7279',  
+  // report_url: 'http://103.174.87.104/TRIMURTIDONGAON/REPORTS/', 
+  // sitename: 'http://103.174.87.104/TRIMURTIDONGAON/CBS'
+
+     // DATTAPARGAON
+  // base_url: 'http://103.174.87.104:7280',  
+  // report_url: 'http://103.174.87.104/DATTAPARGAON/REPORTS/', 
+  // sitename: 'http://103.174.87.104/DATTAPARGAON/CBS'
+
+    // SANJAYSINH_KOTOLI
+  // base_url: 'http://103.174.87.104:7281',  
+  // report_url: 'http://103.174.87.104/SANJAYSINH_KOTOLI/REPORTS/', 
+  // sitename: 'http://103.174.87.104/SANJAYSINH_KOTOLI/CBS'
+
+// };
 
 /*
  * For easier debugging in development mode, you can import the following file
@@ -72,3 +92,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+}

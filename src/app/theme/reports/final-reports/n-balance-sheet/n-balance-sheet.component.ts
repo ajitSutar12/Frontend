@@ -81,6 +81,8 @@ export class NBalanceSheetComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME;
+
 
     if (this.angForm.valid) {
 
@@ -92,7 +94,10 @@ export class NBalanceSheetComponent implements OnInit {
       if(branch == 0){
         this.branchName='Consolidate';
      }
-      this.iframeurl =  this.report_url + "examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + this.branchName + "'&bankName='" + bankName + "'";
+     else{
+      this.branchName = branchName
+     }
+      this.iframeurl =  this.report_url + "examples/NformBalanceSheet.php?stardate='" + stardate + "'&endate='" + endate + "'&branched1='" + branch + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl); 
 
     }

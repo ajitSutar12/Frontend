@@ -908,7 +908,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -917,6 +918,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let opdate
     this.savingMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1095,7 +1098,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
     data['id'] = this.updateID;
     data['AC_MINOR'] = (data.AC_MINOR == true ? '1' : '0')
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0')
@@ -1406,7 +1409,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.introducerReq = true
       }
       else if (showAge > 18) {
-        this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
+        // this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
         this.angForm.controls['AC_GRDNAME'].disable();
         this.angForm.controls['AC_GRDRELE'].disable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].disable();
@@ -1572,9 +1575,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1735,9 +1738,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
@@ -1911,9 +1914,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   }
 
-  delAttorney(id) {
-    this.multiAttorney.splice(id, 1)
-  }
+  // delAttorney(id) {
+  //   this.multiAttorney.splice(id, 1)
+  // }
 
   resetAttorney() {
     this.angForm.controls['ATTERONEY_NAME'].reset();
@@ -1962,7 +1965,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     $event.target.value = data;
   }
 
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -1974,11 +1979,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.savingMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Saving Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Saving Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1996,11 +2004,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.savingMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Saving Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Saving Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -2043,11 +2054,14 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       LOG_DATE: this.logDate
     }
     this.savingMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2055,4 +2069,40 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+
+  }
+
+  delJointAc(id, data) {
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+  delAttorney(id, data) {
+    if (this.isDeleted) {
+      this.multiAttorney.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/powrattrneydelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Power Of Attorney Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+
 }

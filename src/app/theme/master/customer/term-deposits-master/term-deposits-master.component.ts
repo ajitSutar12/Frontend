@@ -255,7 +255,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
+
   AC_OPDATE: any;
+
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -673,7 +675,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
-      this.opdate=data.CURRENT_DATE
+
+      this.opdate = data.CURRENT_DATE
+
       this.angForm.patchValue({
         // AC_OPDATE: data.CURRENT_DATE,
         // AC_ASON_DATE: data.CURRENT_DATE
@@ -1843,7 +1847,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
+
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -2241,9 +2248,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -2413,9 +2420,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     }
   }
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
@@ -2579,9 +2586,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   }
 
-  delAttorney(id) {
-    this.multiAttorney.splice(id, 1)
-  }
+  // delAttorney(id) {
+  //   this.multiAttorney.splice(id, 1)
+  // }
 
   resetAttorney() {
     this.angForm.controls['ATTERONEY_NAME'].reset();
@@ -3069,6 +3076,40 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.renewtypeaccountno = data;
       this.ngrenewtypeaccountno = null
     })
+  }
+
+  delNominee(id, data) {
+
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+
+  }
+
+  delJointAc(id, data) {
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
+  delAttorney(id, data) {
+    if (this.isDeleted) {
+      this.multiAttorney.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/powrattrneydelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Power Of Attorney Deleted Successfully!', 'success');
+      })
+    }
   }
 
 }

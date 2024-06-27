@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, ViewChild, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, ViewChild, Output, ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
 import { TransactionCashModeService } from '../../../shared/elements/transaction-cash-mode.service';
 import { TransactionTransferModeService } from '../../../shared/elements/transaction-transfer-mode.service';
@@ -19,7 +19,9 @@ import { CustomerIdService } from '../../master/customer/customer-id/customer-id
 import { NgSelectComponent } from '@ng-select/ng-select'
 // import { DepositClosingVoucherComponent} from '../../passing/centralised-passing/deposit-closing-voucher/deposit-closing-voucher.component'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { event } from 'jquery';
+import { VoucherEntryService } from '../voucher-entry/voucher-entry.service';
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { TermDepositInterestRateService } from '../../master/policy-settings/definations/term-deposit-ir/term-deposit-ir.service';
 @Component({
   selector: 'app-term-deposit-account-closing',
   templateUrl: './term-deposit-account-closing.component.html',
@@ -32,6 +34,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
   @ViewChild('triggerNarrationhide') triggerNarrationhide: ElementRef<HTMLElement>;
   // @ViewChild(DepositClosingVoucherComponent) child: DepositClosingVoucherComponent;
   @ViewChild('narrationField') narrationField: ElementRef;
+  @ViewChild('INTAMT') INTAMT: ElementRef;
+  @ViewChild('NOTINTAMT') NOTINTAMT: ElementRef;
+  @ViewChild('submitbtn') submitbtn: ElementRef;
+  @ViewChild('swiper') swiper: ElementRef;
+
+
 
   formSubmitted = false;
   //api
@@ -54,20 +62,24 @@ export class TermDepositAccountClosingComponent implements OnInit {
   allSchemeCode: any//from schme master
   allScheme = new Array()//from schme master
   obj: any
+  submitForm = false
   introducerACNo
   type: any; //cash or transfer
   narrationList: any;
   syspara: any;
   // Created Form Group
   angForm: FormGroup;
-  Pass: number = 0;
-  Unpass: number = 0;
-  ClearBalance: number = 0;
-  AfterVoucher: number = 0;
+  Pass: any = 0;
+  Unpass: any = 0;
+  ClearBalance: any = 0;
+  AfterVoucher: any = 0;
   InputHeadAmt: number = 0.00;
   EditFlag: boolean = false;
   index: number;
   isture: boolean = true;
+  amount
+  TRANSFER_ACTYPE: any
+  multiField;
 
   //object created to get data when row is clicked
 
@@ -105,18 +117,18 @@ export class TermDepositAccountClosingComponent implements OnInit {
   //////////////////////////////////////////////////////
   ////////////////////Scheme type wise tran mode //////
   TranData = [
-    { key: 'AG', data: { cash: [1, 4, 5], transfer: [1, 4] } },
-    { key: 'SB', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5] } },
-    { key: 'CA', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5] } },
-    { key: 'CC', data: { cash: [1, 2, 4, 5], transfer: [1, 2, 4, 5, 9] } },
-    { key: 'DS', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
-    { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9, 15] } },
-    { key: 'GL', data: { cash: [1, 4], transfer: [1, 4] } },
-    { key: 'GS', data: { cash: [1, 4], transfer: [1, 4] } },
-    { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1, 4, 5, 7] } },
-    { key: 'IV', data: { cash: [1, 2, 4], transfer: [1, 2, 4, 9] } },
-    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1, 4, 5, 10] } },
-    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1, 4, 5, 6, 9, 10] } },
+    { key: 'AG', data: { cash: [1, 4, 5], transfer: [1] } },
+    { key: 'SB', data: { cash: [1, 2, 4, 5], transfer: [1] } },
+    { key: 'CA', data: { cash: [1, 2, 4, 5], transfer: [1] } },
+    { key: 'CC', data: { cash: [1, 2, 4, 5], transfer: [1, 2] } },
+    { key: 'DS', data: { cash: [1, 2, 4], transfer: [1] } },
+    { key: 'LN', data: { cash: [1, 2, 4], transfer: [1, 2] } },
+    { key: 'GL', data: { cash: [1, 4], transfer: [1] } },
+    { key: 'GS', data: { cash: [1, 4], transfer: [1] } },
+    { key: 'SH', data: { cash: [1, 4, 5, 7], transfer: [1] } },
+    { key: 'IV', data: { cash: [1, 2, 4], transfer: [1] } },
+    { key: 'PG', data: { cash: [1, 4, 5, 10], transfer: [1] } },
+    { key: 'TD', data: { cash: [1, 4, 5, 6, 10], transfer: [1] } },
   ]
 
   bankName = [
@@ -133,7 +145,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   tranModeList: any;
   particulars: any;
   date: any;
-  totalAmt: any;
+  totalAmt: any = 0;
   showChequeDetails: boolean = false;
   DayOpBal: number = 0.00;
   headData: any;
@@ -152,6 +164,28 @@ export class TermDepositAccountClosingComponent implements OnInit {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   logDate
+  submitScheme: any;
+  ChequeDate: any;
+  interestMinDate: any
+  interestMaxDate: any
+  IntersetHeadDate: any;
+  TschemeAC: any;
+  selectMode: any;
+  extenstionaftervoucher: string;
+  SideView: boolean;
+  ShownotLNCC: boolean;
+  ShowLNCC: boolean;
+  sanctiondate: any;
+  expirydate: any;
+  asondate: any;
+  opendate: any;
+  renewaldate: any;
+  extensionopenbal: string;
+  tempDayOpBal: any;
+  BANKACNO: any;
+  difference: number;
+
+
   constructor(public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
     public SchemeTypeService: SchemeTypeService,
@@ -160,10 +194,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
     private fb: FormBuilder,
+    private termDepositInterestRateService: TermDepositInterestRateService,
     private router: Router,
     private http: HttpClient,
     private _TDService: TermDepositAccountClosingService,
     private _CustomerIdService: CustomerIdService,
+    private _vservice: VoucherEntryService,
+    private cdr: ChangeDetectorRef,
+    private _ACMasterDropdownService: ACMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,) {
     if (this.childMessage != undefined) {
@@ -209,6 +247,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         return (scheme.name == 'TD')
       });
       this.allScheme = allscheme;
+
+
     })
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
@@ -217,11 +257,37 @@ export class TermDepositAccountClosingComponent implements OnInit {
       });
       this.Scheme = schemeList;
     })
+    //Scheme Code
+    this._service.getSchemeCodeList().subscribe(data => {
+      var schemeList = data.filter(function (schemeName) {
+        return (schemeName.S_ACNOTYPE != 'LK')
+      });
+      this.master = schemeList;
+      //debugger
+      this.allSchemeCode = [...new Map(schemeList.map(item => [item['S_ACNOTYPE'], item])).values()]
+      this.allSchemeCode = this.allSchemeCode.sort(this.dynamicSort("S_ACNOTYPE"));
+    })
 
     //Narration List
     this._service.getNarrationMaster().subscribe(data => {
       this.narrationList = data;
     })
+  }
+  SanAmount
+  totalCredit: any;
+  totalDebit: any
+  calculateVoucher() {
+    this.totalCredit = '0';
+    this.totalDebit = '0';
+    for (let item of this.mainMaster) {
+      if (item.tran_mode.tran_drcr == 'C') {
+        this.totalCredit = Number(Number(this.totalCredit) + Number(item.total_amt)).toFixed(2)
+        this.totalCredit = Number(this.totalCredit).toFixed(2)
+      } else {
+        this.totalDebit = Number(Number(this.totalDebit) + Number(item.total_amt)).toFixed(2);
+        this.totalDebit = Number(this.totalDebit).toFixed(2)
+      }
+    }
   }
 
   createForm() {
@@ -233,7 +299,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       slip_no: [''],
       account_no: ['', [Validators.required]],
       scheme: ['', [Validators.required]],
-      scheme_type: [''],
+      scheme_type: ['', [Validators.required]],
       date: [''],
       type: new FormControl('cash'),
       POSTED_INT: [0],
@@ -243,7 +309,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       ChequeDate: ['', [Validators.pattern]],
       // Token_Num: ['', [Validators.pattern]],
       particulars: [null],
-      amount: [, [Validators.pattern]],
+      tran_mode: ['', [Validators.required]],
       ClosingQuaters: [0],
       QInterest: [0],
       ClosingMonth: [''],
@@ -266,7 +332,9 @@ export class TermDepositAccountClosingComponent implements OnInit {
       NETPAYABLEAMT: [0],
       LEDGER_BAL: [0],
       PAYABLE_INTAMT: [0],
-      TRAN_NO: ['']
+      TRAN_NO: [''],
+      total_amt: [0],
+      amount: [0],
     });
     this._service.getSysParaData().subscribe(data => {
       this.date = data[0].CURRENT_DATE;
@@ -298,11 +366,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
   interestUptoCalDate
   afterMatureIntRate
   FIXED_MATURITY_AMT
-
+  schemeget
   dormant
   schemechange(event) {
     this.getschemename = event.name
     this.selectedScheme = event.value
+    this.schemeget = event.id
     this.isInterestApplicable = event.intapp
     this.FIXED_MATURITY_AMT = event.FIXED_MATURITY_AMT
     this.monthDays = event.monthDays
@@ -330,6 +399,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
     // break;
     // }
   }
+  Scode
+  schemecode
+  getScheme(event) {
+    this.Scode = event.S_NAME
+    this.schemecode = event.S_APPL
+  }
   INTRATE = 0.00
   bankacno
   lastIntDate
@@ -347,16 +422,28 @@ export class TermDepositAccountClosingComponent implements OnInit {
   Customer_info
   customerId
   modalClass: string = 'modalHide';
+  DEPO_AC_NO
+  getdata
+  bankno
+  getscheme
+  form
   getAccountDetails(event) {
+   
     this.bankacno = event.bankacno
     this.customerId = event.id
     this.dormant = event.dormant
     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
-    this.modalClass = 'modalShow';
+    // this.modalClass = 'modalShow';
     this.intRateShow = 0
     this.NET_EXC_INTAMT = 0
     this.transferTotalAmount = 0
     this.multigrid = []
+    this.form = this.fb.group({
+      scheme_type: [''],
+      account_no: [''],
+      scheme: ['']
+    });
+
     this.angForm.patchValue({
       InterestRate: 0,
       MaturedDays: 0,
@@ -379,7 +466,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
       NETPAYABLEAMT: 0
     })
     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
-      this.modalClass = 'modalHide';
       if (data[0].ODGIVEN == true) {
         Swal.fire('Oops', 'Overdraft given so Account cannot close', 'error')
         this.customer = null
@@ -400,11 +486,63 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.customer = null
         return
       }
-      else if (data[0].ISLIEN == true) {
-        Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
-        this.customer = null
-        return
+
+      else if (data[0].ISLIEN === true) {
+        let cashRadio = document.getElementById('formT') as HTMLInputElement;
+
+        Swal.fire({
+          title: 'Transfer to Loan Account?',
+          text: 'Do you want to transfer to the loan account?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes',
+          cancelButtonText: 'Cancel'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.isTransfer = true;
+
+            cashRadio.disabled = true;
+            let obj1 = { DEPO_AC_NO: event.bankacno };
+
+            this.http.post<any>('http://192.168.1.174:7265/term-deposits-master/ownDeposit', obj1).subscribe(
+              (demo: any) => {
+                // console.log(demo);
+                this.getdata = demo
+                if (demo && demo.length > 0) {
+                  this.form.patchValue({
+                    scheme_type: this.getdata[0].AC_ACNOTYPE,
+                    account_no: this.getdata[0].AC_NO
+                  });
+                  
+                }
+
+                let acType = { AC_TYPE: demo[0].AC_TYPE }
+
+                // Second POST request
+                this.http.post<any>('http://192.168.1.174:7265/scheme-parameters/AC_TYPE', acType).subscribe(
+                  (response: any) => {
+                    this.getscheme = response
+                    if (response && response.length > 0) {
+                      this.form.patchValue({
+                        scheme: this.getscheme[0].S_NAME,
+
+                      });
+                    }
+                  },
+
+                );
+
+              }
+
+            );
+
+          } else {
+            this.customer = null;
+          }
+        });
       }
+
+
       if (Number(data[0].LedgerBal) >= 0) {
         Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         this.customer = null
@@ -424,6 +562,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.days = data[0].AC_DAYS
       this.interestCategory = data[0].AC_INTCATA
       this.preMature = data[0].preMature
+      this.customer = data[0].BANKACNO
+
 
       this.angForm.patchValue({
         LEDGER_BAL: Number(Math.abs(data[0].LedgerBal)).toFixed(2),
@@ -445,10 +585,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       if (data[0].preMature == '1') {
         this.angForm.patchValue({
-          InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)
+          InterestRate: Number(this.multiField)-Number(this.prematureRate)
         })
         this.afterMaturedInt = false
-        this.intRateShow = Number(data[0].prematureRate) - Number(this.prematureRate)
+        this.intRateShow =  Number(this.multiField)-Number(this.prematureRate)
         if (data[0].post_Interest < 0) {
           this.angForm.patchValue({
             // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
@@ -492,7 +632,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
           // var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
           var a1 = moment(this.maturityDate, "DD/MM/YYYY")
           var b1
-          this.lastIntDate == null ? b1 = moment(this.opDate,'DD/MM/YYYY') : b1 = moment(this.lastIntDate, "DD/MM/YYYY")
+          this.lastIntDate == null ? b1 = moment(this.opDate, 'DD/MM/YYYY') : b1 = moment(this.lastIntDate, "DD/MM/YYYY")
 
           var b = moment(b1, 'DD/MM/YYYY')
           var a = moment(this.date, "DD/MM/YYYY");
@@ -504,28 +644,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
 
         if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
-          // var b = moment(this.date, "DD/MM/YYYY");
-          // var a = this.lastIntDate != '' && this.lastIntDate != null ? moment(this.lastIntDate, 'DD/MM/YYYY') : (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
-          // let maturedDays = Math.abs(a.diff(b, 'days'))
-          // let total_int = Number(this.angForm.controls['TOTAL_INT'].value) + Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
+
           this.angForm.patchValue({
             InterestRate: this.afterMatureIntRate,
             MaturedDays: data[0].totDays,
             TOTAL_INT: Math.round(data[0].InterestAmount)
           })
-          // this.intRateShow = this.afterMatureIntRate
-          // this.afterMaturedInt = false
-          // var b = moment(this.maturityDate, "DD/MM/YYYY");
-          // var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
-          // let maturedDays = Math.abs(a.diff(b, 'days'))
-          // let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
-          // this.angForm.patchValue({
-          //   InterestRate: this.afterMatureIntRate,
-          //   MaturedDays: maturedDays,
-          //   TOTAL_INT: Math.round(total_int)
-          // })
-          // this.intRateShow = this.afterMatureIntRate
-          // this.afterMaturedInt = false
+
+
         }
         else {
           var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
@@ -561,24 +687,39 @@ export class TermDepositAccountClosingComponent implements OnInit {
       let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
       let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
       let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
-      let totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (Number(ledgerAmt) + Number(netAmt) - Number(TDSAmt) - Number(surchargeAmt) - Number(penalAmt)).toFixed(2) : (Number(ledgerAmt) - Number(Math.abs(netAmt)) - Number(TDSAmt) - Number(surchargeAmt) - Number(penalAmt)).toFixed(2)
+      this.totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (Number(ledgerAmt) + Number(netAmt) - Number(TDSAmt) - Number(surchargeAmt) - Number(penalAmt)).toFixed(2) : (Number(ledgerAmt) - Number(Math.abs(netAmt)) - Number(TDSAmt) - Number(surchargeAmt) - Number(penalAmt)).toFixed(2)
       this.angForm.patchValue({
-        NETPAYABLEAMT: totalNetAmt
+        NETPAYABLEAMT: this.totalNetAmt
       })
       this.getNetPayAmount()
     })
     this.showCustomerDeatils()
+
+    let obj = { DEPO_AC_NO: event.bankacno };
+
+    this.http.post<any>('http://192.168.1.157:4771/term-deposits-master/ownDeposit', obj)
+      .subscribe(
+        (data: any) => {
+          this.getdata = data;
+        },
+      );
+
+      this.termDepositInterestRateService.getFormData(event.id).subscribe(data => {
+        this.multiField = data.rate[0].INT_RATE
+      })
   }
+
+
   getNetPayAmount() {
     let ledgerAmt = Number(this.angForm.controls['LEDGER_BAL'].value)
     let netAmt = Number(this.angForm.controls['NET_INTAMT'].value)
     let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
     let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
     let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
-    let totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (Math.abs(ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt)).toFixed(2) : (Math.abs(ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt)).toFixed(2)
-    this.preMature == false ? totalNetAmt = (Number(totalNetAmt) + Number(this.angForm.controls['PAYABLE_INTAMT'].value)).toFixed(2) : totalNetAmt = totalNetAmt
+    this.totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (Math.abs(ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt)).toFixed(2) : (Math.abs(ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt)).toFixed(2)
+    this.preMature == false ? this.totalNetAmt = (Number(this.totalNetAmt) + Number(this.angForm.controls['PAYABLE_INTAMT'].value)).toFixed(2) : this.totalNetAmt = this.totalNetAmt
     this.angForm.patchValue({
-      NETPAYABLEAMT: totalNetAmt
+      NETPAYABLEAMT: this.totalNetAmt
     })
   }
   getNetInterest() {
@@ -896,10 +1037,1847 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.transferAccountDetails = event
   }
 
+  headFlag: boolean = false;
+  submitTranMode: any;
+
+
+  changeMode(item) {
+
+    this.submitForm = true
+    this.headData = []
+    this.submitTranMode = item;
+    if (this.submitTranMode.tran_type == 'TR') {
+      this.showChequeDetails = true;
+
+    }
+
+    //get Head details
+    let obj = { 'code': this.selectedCode };
+    let headType = [
+      { FieldAmount: 'INTEREST_AMOUNT' },
+      { FieldAmount: 'PENAL_INT_AMOUNT' },
+      { FieldAmount: 'REC_PENAL_INT_AMOUNT' },
+      { FieldAmount: 'RECPAY_INT_AMOUNT' },
+      { FieldAmount: 'RECPAY_INT_AMOUNT' },
+      { FieldAmount: 'OTHER2_AMOUNT' },
+      { FieldAmount: 'OTHER3_AMOUNT' },
+      { FieldAmount: 'OTHER4_AMOUNT' },
+      { FieldAmount: 'OTHER5_AMOUNT' },
+      { FieldAmount: 'OTHER6_AMOUNT' },
+      { FieldAmount: 'OTHER7_AMOUNT' },
+      { FieldAmount: 'OTHER8_AMOUNT' },
+      { FieldAmount: 'OTHER9_AMOUNT' },
+      { FieldAmount: 'OTHER11_AMOUNT' },
+      { FieldAmount: 'OTHER10_AMOUNT' }
+    ]
+    let date = this.date;
+    var rowData = date.split('/');
+    let lastdate = Number(rowData[0]) - 1;
+    // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
+    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+    this._vservice.getHeadDetails(obj).subscribe(data => {
+      this.sendFunction(this.ChequeDate)
+      this.updateheadbalance(this.ChequeDate);
+      this.calculateVoucher()
+
+      if (data.length != 0) {
+
+        if (!this.headFlag) {
+          // this.headData = data;
+          this.headShow = true;
+
+          for (let item of data) {
+            let value = {}
+            // if (value != undefined) {
+            if (this.submitTranMode.tran_drcr == item.DRCR_APPLICABLE || item.DRCR_APPLICABLE == 'B') {
+              item['Amount'] = 0;
+              item['Amount'] = 0;
+              if (this.submitScheme.S_ACNOTYPE == 'TD') {
+                if (this.submitScheme.IS_RECURRING_TYPE == '1' && this.submitScheme.INTEREST_RULE == '0' && item.HEAD_TYPE == 'PNI') {
+                  this.headData.push(item)
+                } else {
+                  if (item.HEAD_TYPE != 'PNI') {
+                    this.headData.push(item)
+                  }
+                }
+              } else {
+                this.headData.push(item)
+              }
+            }
+
+            // }
+          }
+          // this.updateheadbalance(this.date)
+
+        }
+      } else {
+        this.headShow = false;
+      }
+    }, err => {
+      console.log(err);
+    })
+    // if (this.submitScheme.S_ACNOTYPE == 'TD' || this.submitScheme.S_ACNOTYPE == 'SB' || this.submitScheme.S_ACNOTYPE == 'PG' || this.submitScheme.S_ACNOTYPE == 'AG' || this.submitScheme.S_ACNOTYPE == 'CA') {
+    //   this.interestMaxDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
+    //   this.interestMaxDate = this.interestMaxDate._d
+    //   this.interestMinDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'months')
+    //   this.interestMinDate = this.interestMinDate._d
+    // }
+    // else if (this.submitScheme.S_ACNOTYPE == 'LN' || this.submitScheme.S_ACNOTYPE == 'CC' || this.submitScheme.S_ACNOTYPE == 'DS') {
+    //   this.interestMinDate = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
+    //   this.interestMinDate = this.interestMinDate._d
+    //   this.interestMaxDate = moment(this.date, "DD/MM/YYYY").add(1, 'months')
+    //   this.interestMaxDate = this.interestMaxDate._d
+    // }
+    this.angForm.patchValue({
+      amount: 0
+    })
+    if (item.id == 6) {
+      this.angForm.controls.amount.setValue('0.00');
+      this.angForm.controls.totalAmt.setValue('0.00');
+      this.totalAmt = 0.00
+      this.angForm.controls['amount'].disable();
+    }
+    else if (item.id == 2 || item.id == 5 || item.id == 15) {
+      this.angForm.patchValue({
+        amount: Number(this.ClearBalance).toFixed(2)
+      })
+      // this.getaftervoucher()
+      this.angForm.controls['amount'].disable();
+      this.decimalAllContent(this.ClearBalance);
+      this.checkCondition(this.ClearBalance);
+      this.checkSanctionAmountWithAmount()
+      this.checkamtcondition(this.ClearBalance)
+      this.getAmt(this.ClearBalance)
+    }
+    else {
+      this.angForm.controls.amount.setValue('0.00');
+      this.angForm.controls['amount'].enable();
+    }
+
+    // if (this.selectedCode == 'GL') {
+    //   this.showChequeDetails = true
+    // }
+  }
+
+  tran_mode
+  deamount
+  paidamt
+  user: any = []
+
+  decimalAllContent($event) {
+    if (this.submitTranMode == undefined) {
+      Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
+      this.tran_mode.focus()
+      let value = Number($event);
+      this.totalAmt = 0;
+      $event = 0
+      let amt = Number(this.AfterVoucher) - value;
+      if (amt < 0) {
+        amt = 0;
+      }
+      this.AfterVoucher = Math.abs(Number(parseFloat((amt).toString()).toFixed(2)))
+    }
+    else {
+      let value = Number($event);
+      let data = value.toFixed(2);
+      $event = data;
+      var t = $event;
+      $event = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    }
+  }
+
+
+  balancedata
+  sendFunction(mlsdate) {
+    let formValues = this.angForm.value;
+    let userData = JSON.parse(localStorage.getItem("user"));
+    this.date = userData.branch.syspara.CURRENT_DATE;
+    let obj = {
+      'accountNo': this.submitAccountNo.BANKACNO,
+      'schemeType': this.submitScheme.S_ACNOTYPE,
+      'scheme': this.submitScheme.S_APPL,
+      'currentDate': this.date,
+
+    };
+
+    this.http.post<any>('http://192.168.1.108:7266/voucher/getInputHeadBal', obj).subscribe((data1: any) => {
+      this.balancedata = data1;
+      // console.log(data1);
+
+      for (let element of this.headData) {
+        let newobj = {
+          acno: element?.GL_CODE,
+          scheme: '101',
+          date: this.ChequeDate,
+          schemeType: this.selectedCode,
+        }
+
+        if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+          } else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+          }
+          element['mlsdate'] = this.IntersetHeadDate;
+          element['tempBalance'] = data1.intpenal.InterestAmount
+          element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+          }
+          element['tempBalance'] = data1.intpenal.PenalInterest
+          element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.recpaypen))
+            element['Balance'] = Math.round(Math.abs(data1.recpaypen))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.recpaypen))
+          }
+          element['tempBalance'] = data1.recpaypen
+          element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.recpaybal))
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          element['tempBalance'] = data1.recpaybal
+          element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.recpaybal))
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          element['tempBalance'] = data1.recpaybal
+          element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER3_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER4_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER5_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER6_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER7_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER8_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER9_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER11_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
+          element['Amount'] = 0
+          element['Balance'] = Math.round(Math.abs(data1.overduebal))
+          element['tempBalance'] = data1.overduebal
+          element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Number(element['Balance']))
+          }
+          else {
+            element['Amount'] = 0
+          }
+        } else {
+          element['Amount'] = 0
+          element['Balance'] = 0
+          element['tempBalance'] = 0
+          element['type'] = 'Cr'
+        }
+      }
+      this.totalCredit = this.user.reduce((total, row) => total + (+row.amount), 0).toFixed(2);
+      this.totalDebit = 0
+      this.deamount = this.totalCredit - this.totalDebit;
+      this.paidamt = this.SanAmount - this.deamount
+      if (this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) {
+        let count = 0
+        this.headData.forEach(element => {
+          count = Number(element.Amount) + Number(count)
+        });
+        this.totalAmt = count + Number(this.ClearBalance)
+        this.totalAmt = Number(this.totalAmt).toFixed(2)
+      }
+      else {
+        this.totalAmt = 0
+      }
+      // );
+    })
+  }
+
+  submitAccountNo: any;
+
+  checkCondition($event) {
+
+    let obj = {
+      value: Number($event),
+      clearBalance: Number(this.ClearBalance),
+      accountNo: this.submitAccountNo.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.submitScheme.S_APPL,
+      tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
+      // odAmount: this.overdraftAmt,
+      currentDate: this.ChequeDate,
+      totalAmt: this.angForm.controls['total_amt'].value,
+      type: this.typeclearbal
+    }
+
+    if (Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS') {
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed == false) {
+          this.angForm.controls['amt'].reset();
+          this.angForm.controls['total_amt'].reset(0);
+          this.SideDetails()
+          this.submitForm = true
+        } else {
+          this.amount.nativeElement.blur();
+          this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
+        }
+      })
+    } if (Number(obj.value) >= 200000) {
+
+      Swal.fire({
+        title: 'Are you sure?',
+        html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.checkamtcondition($event)
+          this.checkSanctionAmountWithAmount()
+          this.amount.nativeElement.blur();
+        } else {
+          this.angForm.controls['amount'].reset();
+          // this.angForm.controls['total_amount'].reset(0);
+          this.submitForm = true
+          this.SideDetails()
+        }
+      })
+
+    } else {
+      this.checkamtcondition($event)
+    }
+  }
+
+  tokenshowhide: boolean = false
+
+  checktranCondition() {
+
+    if (this.angForm.controls['type'].value == 'cash' && this.submitTranMode.tran_drcr == 'D') {
+      this.tokenshowhide = true
+    } else {
+      this.tokenshowhide = false
+
+    }
+
+    let obj = {
+      accountNo: this.submitAccountNo.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.submitScheme.S_APPL,
+      tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
+      // currentDate: this.date
+    }
+
+    if (this.submitTranMode.id == 7 && this.selectedCode == 'SH') {
+      this.angForm.controls['amount'].disable();
+      this.angForm.controls['particulars'].disable();
+      let other2amounttotal
+      this._vservice.calculateDividend(obj).subscribe(data => {
+        other2amounttotal = data.Bcount
+        let str = []
+        for (let x in data.calculationdata) {
+          str.push(data.calculationdata[x].DIV_FROM_YEAR)
+        }
+        this.headData.forEach(element => {
+          if (element.FIELD_TRAN_TABLE == 'OTHER2_AMOUNT') {
+            element['Balance'] = other2amounttotal
+          }
+        });
+        this.angForm.patchValue({
+          'amount': data.count,
+          'particulars': str + ' Paid Dividend'
+        })
+      })
+    }
+
+    this._vservice.StandingOrInterestInstruction(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Oops!', data.message, 'error');
+        this.selectedMode = null
+      } else {
+        this._vservice.VoucherPassing(obj).subscribe(data => {
+          if (data != 0) {
+            Swal.fire('Oops!', data.message, 'error');
+            this.selectedMode = null
+          } else {
+            this._vservice.LienMarkChecking(obj).subscribe(data => {
+              if (data != 0) {
+                Swal.fire('Oops!', data.message, 'error');
+                this.selectedMode = null
+
+              } else {
+                this._vservice.RecurringTypeDeposite(obj).subscribe(data => {
+                  if (data != 0) {
+                    Swal.fire('Oops!', data.message, 'error');
+                    this.selectedMode = null
+
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
+            }, err => {
+              console.log(err);
+            })
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+    }, err => {
+      console.log(err);
+    })
+  }
+  submitCustomer: any;
+
+  getaftervoucher(event) {
+    this.submitForm = true
+    var t = event.target.value;
+    if (this.submitCustomer.AC_ACNOTYPE == 'LN' && this.submitTranMode.tran_drcr == 'D') {
+      let value = Number(event.target.value);
+      let data = value.toFixed(0);
+      event.target.value = data
+    }
+    else
+      event.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    let value = Number(event.target.value);
+    let tran = this.submitTranMode.tran_drcr;
+
+    if (tran == 'D' && this.typeclearbal == 'Dr') {
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) + value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
+      this.extenstionaftervoucher = 'Dr';
+    } else if (tran == 'D' && this.typeclearbal == 'Cr') {
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) - value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
+      if (value > Number(this.ClearBalance)) {
+        if (tran == 'C') {
+          this.extenstionaftervoucher = 'Cr';
+        } else {
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }
+      else if (value < Number(this.ClearBalance)) {
+        this.extenstionaftervoucher = this.typeclearbal
+      }
+    } else if (tran == 'C' && this.typeclearbal == 'Dr') {
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) - value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
+      if (value > Number(this.ClearBalance)) {
+        if (tran == 'C') {
+          this.extenstionaftervoucher = 'Cr';
+        } else {
+          this.extenstionaftervoucher = 'Dr';
+        }
+      }
+      else if (value < Number(this.ClearBalance)) {
+        this.extenstionaftervoucher = this.typeclearbal
+      }
+    } else {
+      this.AfterVoucher = Math.abs(Number(this.ClearBalance) + value);
+      this.AfterVoucher = Number(this.AfterVoucher).toFixed(2)
+      this.extenstionaftervoucher = 'Cr';
+    }
+  }
+
+  // checkSanctionAmountWithAmount() {
+  //   // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+  //   let sancAmt = (Number(this.amount) - Number(this.ClearBalance))
+  //   if (sancAmt < Number(this.angForm.controls['amount'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
+  //     this.SideDetails()
+  //     this.angForm.controls['amount'].reset();
+  //     this.angForm.patchValue({
+  //       total_amt: 0
+  //     })
+  //     this.amount.nativeElement.focus();
+  //     Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
+  //     this.submitForm = true
+  //   }
+  // }
+  Submitscheme
+  checkSanctionAmountWithAmount() {
+    // let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+    let sancAmt = (Number(this.sanctionamt) - Number(this.ClearBalance)) + Number(this.overdraftAmt)
+    if (sancAmt < Number(this.angForm.controls['amt'].value) && this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && this.Submitscheme.IS_GOLD_LOAN != '1' && (this.Submitscheme?.S_ACNOTYPE == 'CC' || this.Submitscheme?.S_ACNOTYPE == 'LN')) {
+      this.SideDetails()
+      this.angForm.controls['amt'].reset();
+      this.angForm.patchValue({
+        total_amt: 0.00,
+        amt: 0.00
+      })
+      Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
+      this.swiper.nativeElement.focus();
+      this.submitForm = true
+      this.angForm.patchValue({
+        total_amt: 0.00,
+        amt: 0.00
+      })
+    }
+  }
+  typeclearbal
+  checkamtcondition($event) {
+    let obj = {
+      // value: Number($event.target.value),
+      value: Number(this.angForm.controls['amount'].value),
+      // clearBalance: Number(this.ClearBalance),
+      accountNo: this.submitAccountNo.BANKACNO,
+      schemeType: this.selectedCode,
+      scheme: this.submitScheme.S_APPL,
+      // tran: this.submitTranMode.tran_drcr,
+      tranMode: this.submitTranMode.id,
+      // odAmount: this.overdraftAmt,
+      // currentDate: this.date,
+      totalAmt: this.angForm.controls['total_amt'].value,
+      type: this.typeclearbal
+    }
+    this._service.checkZeroBalance(obj).subscribe(data => {
+      // this.modalClass = 'modalShow';
+      if (data != 0) {
+        this.SideDetails()
+        this.angForm.controls['amount'].reset();
+        this.angForm.controls['total_amount'].reset(0);
+        this.amount.nativeElement.focus();
+        this.submitForm = true
+        // this.modalClass = 'modalHide';
+        Swal.fire('Oops!', data.message, 'error');
+      } else {
+        this._service.clearWithdrawBal(obj).subscribe(data => {
+          if (data != 0) {
+            this.SideDetails()
+            this.angForm.controls['amount'].reset();
+            this.angForm.controls['total_amount'].reset(0);
+            this.amount.nativeElement.focus();
+            this.submitForm = true
+            // this.modalClass = 'modalHide';
+            Swal.fire('Oops!', data.message, 'error');
+          } else {
+            this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
+              if (data != 0) {
+                // this.submitForm = true
+                // this.modalClass = 'modalHide';
+                Swal.fire({
+                  title: data.message,
+                  html: `<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>`,
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'No',
+                  confirmButtonText: 'Yes'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+
+                  } else {
+                    this.angForm.controls['amount'].reset();
+                    this.angForm.controls['total_amount'].reset(0);
+                    this.SideDetails()
+                  }
+                })
+
+              } else {
+                this._service.ClearVoucherSameBal(obj).subscribe(data => {
+                  if (data != 0) {
+                    this.SideDetails()
+                    this.angForm.controls['amount'].reset();
+                    this.angForm.controls['total_amount'].reset(0);
+                    this.amount.nativeElement.focus();
+                    this.submitForm = true
+                    // this.modalClass = 'modalHide';
+                    Swal.fire('Oops!', data.message, 'error');
+                  } else {
+                    this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
+                      if (data != 0) {
+                        this.SideDetails()
+                        this.angForm.controls['amount'].reset();
+                        this.angForm.controls['total_amount'].reset(0);
+                        this.amount.nativeElement.focus();
+                        this.submitForm = true
+                        // this.modalClass = 'modalHide';
+                        Swal.fire('Oops!', data.message, 'error');
+                      } else {
+                        this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
+                          if (data != 0) {
+                            this.SideDetails()
+                            this.angForm.controls['amount'].reset();
+                            this.angForm.controls['total_amount'].reset(0);
+                            this.amount.nativeElement.focus();
+                            this.submitForm = true
+                            // this.modalClass = 'modalHide';
+                            Swal.fire('Oops!', data.message, 'error');
+                          } else {
+                            this._vservice.InstructionFreezeAc(obj).subscribe(data => {
+                              if (data != 0) {
+                                this.SideDetails()
+                                this.angForm.controls['amount'].reset();
+                                this.angForm.controls['total_amount'].reset(0);
+                                this.amount.nativeElement.focus();
+                                this.submitForm = true
+                                // this.modalClass = 'modalHide';
+                                Swal.fire('Oops!', data.message, 'error');
+                              } else {
+                                this._vservice.MinBalanceChecking(obj).subscribe(data => {
+                                  if (data != 0) {
+                                    this.SideDetails()
+                                    this.angForm.controls['amount'].reset();
+                                    this.angForm.controls['total_amount'].reset(0);
+                                    this.amount.nativeElement.focus();
+                                    this.submitForm = true
+                                    // this.modalClass = 'modalHide';
+                                    Swal.fire('Oops!', data.message, 'error');
+                                  } else {
+                                    this._vservice.CheckClearBalAndAmt(obj).subscribe(data => {
+                                      if (data != 0) {
+                                        this.SideDetails()
+                                        this.angForm.controls['amount'].reset();
+                                        this.angForm.controls['total_amount'].reset(0);
+                                        this.amount.nativeElement.focus();
+                                        this.submitForm = true
+                                        // this.modalClass = 'modalHide';
+                                        Swal.fire('Oops!', data.message, 'error');
+                                      } else {
+                                        this._vservice.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
+                                          if (data != 0) {
+                                            this.SideDetails()
+                                            this.angForm.controls['amount'].reset();
+                                            this.angForm.controls['total_amount'].reset(0);
+                                            this.amount.nativeElement.focus();
+                                            this.submitForm = true
+                                            // this.modalClass = 'modalHide';
+                                            Swal.fire('Oops!', data.message, 'error');
+                                          } else {
+                                            this._vservice.DepositeAmountAndIntallments(obj).subscribe(data => {
+                                              if (data != 0) {
+                                                this.SideDetails()
+                                                this.angForm.controls['amount'].reset();
+                                                this.angForm.controls['total_amount'].reset(0);
+                                                this.amount.nativeElement.focus();
+                                                this.submitForm = true
+                                                // this.modalClass = 'modalHide';
+                                                Swal.fire('Oops!', data.message, 'error');
+                                              } else {
+                                                this._vservice.DepositAndTotalInstallments(obj).subscribe(data => {
+                                                  if (data != 0) {
+                                                    this.SideDetails()
+                                                    this.angForm.controls['amount'].reset();
+                                                    this.angForm.controls['total_amount'].reset(0);
+                                                    this.amount.nativeElement.focus();
+                                                    this.submitForm = true
+                                                    // this.modalClass = 'modalHide';
+                                                    Swal.fire('Oops!', data.message, 'error');
+                                                  } else {
+                                                    this._vservice.DepositAndDepositAmount(obj).subscribe(data => {
+                                                      if (data != 0) {
+                                                        this.SideDetails()
+                                                        this.angForm.controls['amount'].reset();
+                                                        this.angForm.controls['total_amount'].reset(0);
+                                                        this.amount.nativeElement.focus();
+                                                        this.submitForm = true
+                                                        // this.modalClass = 'modalHide';
+                                                        Swal.fire('Oops!', data.message, 'error');
+                                                      } else {
+                                                        this._vservice.PremcloseTdateTamtCom(obj).subscribe(data => {
+                                                          if (data != 0) {
+                                                            this.SideDetails()
+                                                            this.angForm.controls['amount'].reset();
+                                                            this.angForm.controls['total_amount'].reset(0);
+                                                            this.amount.nativeElement.focus();
+                                                            this.submitForm = true
+                                                            // this.modalClass = 'modalHide';
+                                                            Swal.fire('Oops!', data.message, 'error');
+                                                          } else {
+                                                            this._vservice.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
+                                                              if (data != 0) {
+                                                                this.SideDetails()
+                                                                this.angForm.controls['amount'].reset();
+                                                                this.angForm.controls['total_amount'].reset(0);
+                                                                this.amount.nativeElement.focus();
+                                                                this.submitForm = true
+                                                                // this.modalClass = 'modalHide';
+                                                                Swal.fire('Oops!', data.message, 'error');
+                                                              } else {
+                                                                this._vservice.ComVouamtClearbalAndStrs(obj).subscribe(data => {
+                                                                  if (data != 0) {
+                                                                    this.SideDetails()
+                                                                    this.angForm.controls['amount'].reset();
+                                                                    this.angForm.controls['total_amount'].reset(0);
+                                                                    this.amount.nativeElement.focus();
+                                                                    this.submitForm = true
+                                                                    // this.modalClass = 'modalHide';
+                                                                    Swal.fire('Oops!', data.message, 'error');
+                                                                  } else {
+                                                                    this._vservice.DepositGreaterShareLimitAmt(obj).subscribe(data => {
+                                                                      if (data != 0) {
+                                                                        this.SideDetails()
+                                                                        this.angForm.controls['amount'].reset();
+                                                                        this.angForm.controls['total_amount'].reset(0);
+                                                                        this.amount.nativeElement.focus();
+                                                                        this.submitForm = true
+                                                                        // this.modalClass = 'modalHide';
+                                                                        Swal.fire('Oops!', data.message, 'error');
+                                                                      } else {
+                                                                        this._vservice.ZeroBalance(obj).subscribe(data => {
+                                                                          if (data != 0) {
+                                                                            this.SideDetails()
+                                                                            this.angForm.controls['amount'].reset();
+                                                                            this.angForm.controls['total_amount'].reset(0);
+                                                                            this.amount.nativeElement.focus();
+                                                                            this.submitForm = true
+                                                                            // this.modalClass = 'modalHide';
+                                                                            Swal.fire('Oops!', data.message, 'error');
+                                                                          } else {
+                                                                            this._vservice.CashWithdraw(obj).subscribe(data => {
+                                                                              if (data != 0) {
+                                                                                this.SideDetails()
+                                                                                this.angForm.controls['amount'].reset();
+                                                                                this.angForm.controls['total_amount'].reset(0);
+                                                                                this.amount.nativeElement.focus();
+                                                                                this.submitForm = true
+                                                                                // this.modalClass = 'modalHide';
+                                                                                Swal.fire('Oops!', data.message, 'error');
+                                                                                // } else {
+                                                                                //   this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                //     if (data != 0) {
+                                                                                //       this.SideDetails()
+                                                                                //       this.angForm.controls['amt'].reset();
+                                                                                //       this.angForm.controls['total_amt'].reset(0);
+                                                                                //       this.amt.nativeElement.focus();
+                                                                                //       this.submitForm = true
+                                                                                this.modalClass = 'modalHide';
+                                                                                //       Swal.fire('Oops!', data.message, 'error');
+                                                                              } else {
+                                                                                this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
+                                                                                  // debugger
+                                                                                  if (data != 0) {
+                                                                                    this.SideDetails()
+                                                                                    this.angForm.controls['amount'].reset();
+                                                                                    this.angForm.controls['total_amount'].reset(0);
+                                                                                    this.amount.nativeElement.focus();
+                                                                                    this.submitForm = true
+                                                                                    // this.modalClass = 'modalHide';
+                                                                                    Swal.fire('Oops!', data.message, 'error');
+                                                                                  } else {
+                                                                                    this._vservice.withdrawClosingCondition(obj).subscribe(data => {
+                                                                                      if (data != 0) {
+                                                                                        this.SideDetails()
+                                                                                        this.angForm.controls['amount'].reset();
+                                                                                        this.angForm.controls['total_amount'].reset(0);
+                                                                                        this.selectMode.focus()
+                                                                                        this.submitForm = true
+                                                                                        // this.modalClass = 'modalHide';
+                                                                                        Swal.fire('Oops!', data.message, 'error');
+                                                                                      }
+                                                                                      else {
+                                                                                        this.submitForm = false
+                                                                                        this.amount.nativeElement.blur()
+                                                                                      }
+                                                                                    })
+                                                                                  }
+                                                                                }, err => {
+                                                                                  console.log(err);
+                                                                                })
+                                                                              }
+                                                                              //   }, err => {
+                                                                              //     console.log(err);
+                                                                              //   })
+                                                                              // }
+                                                                            }, err => {
+                                                                              console.log(err);
+                                                                            })
+                                                                          }
+                                                                        }, err => {
+                                                                          console.log(err);
+                                                                        })
+                                                                      }
+                                                                    }, err => {
+                                                                      console.log(err);
+                                                                    })
+
+                                                                  }
+                                                                }, err => {
+                                                                  console.log(err);
+                                                                })
+                                                              }
+                                                            }, err => {
+                                                              console.log(err);
+                                                            })
+                                                          }
+                                                        }, err => {
+                                                          console.log(err);
+                                                        })
+                                                      }
+                                                    }, err => {
+                                                      console.log(err);
+                                                    })
+
+                                                  }
+                                                }, err => {
+                                                  console.log(err);
+                                                })
+                                              }
+                                            }, err => {
+                                              console.log(err);
+                                            })
+                                          }
+                                        }, err => {
+                                          console.log(err);
+                                        })
+                                      }
+                                    }, err => {
+                                      console.log(err);
+                                    })
+                                  }
+                                }, err => {
+                                  console.log(err);
+                                })
+                              }
+                            }, err => {
+                              console.log(err);
+                            })
+                          }
+                        }, err => {
+                          console.log(err);
+                        })
+                      }
+                    }, err => {
+                      console.log(err);
+                    })
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
+            }, err => {
+              console.log(err);
+            })
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+    }, err => {
+      console.log(err);
+    })
+  }
+  getInputHeadAmt(ele, i) {
+    // let value = ele.target.value;
+    var t = ele.target.value;
+    ele.target.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+    let value = Number(ele.target.value);
+    if (this.headData[i].Balance == undefined)
+      this.headData[i].Balance = 0
+    if (Number(ele.target.value) > Number(this.headData[i]?.Balance) && this.headData[i].CHECK_BALANCE == '1') {
+      this.headData[i].Amount = '0'
+      if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+        this.INTAMT.nativeElement.focus();
+      else
+        this.NOTINTAMT.nativeElement.focus();
+      this.submitForm = true
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
+    }
+    else {
+      if (this.headData[i].IS_GLBAL_MAINTAIN == '1' && Number(this.headData[i].Balance) != 0 && Number(this.headData[i].Balance) != Number(ele.target.value)) {
+        this.headData[i].Amount = '0'
+        if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+          this.INTAMT.nativeElement.focus();
+        else
+          this.NOTINTAMT.nativeElement.focus();
+        this.submitForm = true
+        Swal.fire('Oops!', `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
+      }
+      else {
+        if (Number(this.headData[i].Amount) != 0)
+          this.totalAmt = Number(this.headData[i].Amount) - this.totalAmt
+        this.headData[i].Amount = Number(value);
+        let tran = this.submitTranMode.tran_drcr
+        let count = 0
+        for (let element of this.headData) {
+          count = Number(element.Amount) + Number(count)
+        }
+        this.totalAmt = count + Number(this.angForm.controls['amount'].value)
+        this.submitForm = false
+        if (this.headData.length == 0)
+          this.submitbtn.nativeElement.focus();
+      }
+    }
+    this.totalAmt = Number(this.totalAmt).toFixed(2)
+  }
+  checkBalanceFlag(event, i) {
+    if (this.headData[i].CHECK_REQUIRE == '1' && Number(event.target.value) == 0) {
+      if (this.headData[i].FIELD_AMOUNT == 'INTEREST_AMOUNT')
+        this.INTAMT.nativeElement.focus();
+      else
+        this.NOTINTAMT.nativeElement.focus();
+      this.submitForm = true
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
+    }
+  }
+
+
+  Add() {
+    if (Number(this.totalAmt) != 0 && this.totalAmt != undefined) {
+      let user = JSON.parse(localStorage.getItem('user'));
+      let obj = this.angForm.value;
+      obj['user'] = user;
+      for (let ele of this.headData) {
+        if (ele['INTEREST_DATE_INPUT'] == '0' && ele.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          ele['ChequeDate'] = null
+        }
+      }
+      obj['InputHead'] = this.headData;
+      obj['tran_mode'] = this.submitTranMode;
+      obj['scheme'] = this.submitScheme;
+      obj['account_no'] = this.submitAccountNo;
+      obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
+      obj['branch_code'] = this.selectedBranch
+      obj['total_amt'] = Number(this.angForm.controls['total_amt'].value).toFixed(2)
+      if (this.submitTranMode.id == 4 && this.submitTranMode.tran_drcr == 'D' && (this.submitScheme?.S_ACNOTYPE == 'CC' || this.submitScheme?.S_ACNOTYPE == 'LN')) {
+        let ledgerbal = Number(this.tempDayOpBal) > 0 ? Number(this.tempDayOpBal) : 0
+        let amount = Number(this.angForm.controls['amt'].value)
+        if (amount > ledgerbal)
+          obj['isOverdraftTaken'] = 1
+        else
+          obj['isOverdraftTaken'] = 0
+      }
+      else
+        obj['isOverdraftTaken'] = 0
+      this.mainMaster.push(obj);
+      this.DayOpBal = 0
+
+      this.angForm.controls['temp_over_draft'].reset()
+      this.angForm.controls['over_draft'].reset()
+      this.angForm.controls['token'].reset()
+      // this.angForm.controls['particulars'].reset()
+      this.angForm.controls['total_amt'].reset()
+      this.angForm.controls['amt'].reset()
+      this.angForm.controls['slip_no'].reset()
+      this.angForm.controls['tran_mode'].reset()
+      this.angForm.controls['account_no'].reset()
+      this.angForm.controls['scheme'].reset()
+      this.angForm.controls['scheme_type'].reset()
+      this.angForm.controls['type'].reset()
+      this.angForm.controls['chequeDate'].reset()
+      this.angForm.controls['chequeNo'].reset()
+      this.angForm.controls['bank'].reset()
+      // this.getVoucherData();
+      this.headData = [];
+      this.headShow = false;
+      this.showChequeDetails = false;
+      this.submitAccountNo = {};
+      this.submitScheme = {};
+      this.submitTranMode = {};
+      this.selectedCode = '';
+      this.selectedScheme = '';
+      this.selectedMode = '';
+      this.customer = '';
+
+      // this.calculateVoucher()
+    } else {
+      Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
+    }
+
+  }
+  // SideDetails() {
+  //   // debugger
+  //   this.AfterVoucher = 0
+  //   this.extenstionaftervoucher = ''
+  //   // this.angForm.controls['amt'].reset()
+  //   // this.angForm.controls['total_amt'].reset()
+  //   this.SideView = true
+  //   if (this.submitAccountNo.AC_ACNOTYPE == 'LN' || this.submitAccountNo.AC_ACNOTYPE == 'CC' || this.submitAccountNo.AC_ACNOTYPE == 'DS') {
+  //     this.ShowLNCC = true
+  //     this.ShownotLNCC = false
+  //     // this.sanctionamt = (this.submitAccountNo.AC_SANCTION_AMOUNT != null ? this.submitAccountNo.AC_SANCTION_AMOUNT : 0)
+  //     // this.sanctionamt = Number(this.sanctionamt).toFixed(2)
+  //     this.sanctiondate = (this.submitAccountNo.AC_SANCTION_DATE != null ? this.submitAccountNo.AC_SANCTION_DATE : '---')
+  //     this.expirydate = (this.submitAccountNo.AC_EXPIRE_DATE != null ? this.submitAccountNo.AC_EXPIRE_DATE : '---')
+  //     this.asondate = (this.submitAccountNo.AC_ASON_DATE != null ? this.submitAccountNo.AC_ASON_DATE : '---')
+  //     this.opendate = (this.submitAccountNo.AC_OPDATE != null ? this.submitAccountNo.AC_OPDATE : '---')
+  //     this.renewaldate = (this.submitAccountNo.AC_OPEN_OLD_DATE != null ? this.submitAccountNo.AC_OPEN_OLD_DATE : '---')
+  //   } else if (this.submitAccountNo.AC_ACNOTYPE == 'TD' || this.submitAccountNo.AC_ACNOTYPE == 'PG' || this.submitAccountNo.AC_ACNOTYPE == 'IV') {
+  //     this.ShowLNCC = false
+  //     this.ShownotLNCC = true
+  //     this.expirydate = (this.submitAccountNo.AC_EXPDT != null ? this.submitAccountNo.AC_EXPDT : '---')
+  //     // this.maturityamt = (this.submitAccountNo.AC_MATUAMT != null ? this.submitAccountNo.AC_MATUAMT : 0)
+  //     // this.maturityamt = Number(this.maturityamt).toFixed(2)
+  //     // this.depositamt = (this.submitAccountNo.AC_SCHMAMT != null ? this.submitAccountNo.AC_SCHMAMT : 0)
+  //     // this.depositamt = Number(this.depositamt).toFixed(2)
+  //     this.asondate = (this.submitAccountNo.AC_ASON_DATE != null ? this.submitAccountNo.AC_ASON_DATE : '---')
+  //     this.opendate = (this.submitAccountNo.AC_OPDATE != null ? this.submitAccountNo.AC_OPDATE : '---')
+  //   } else {
+  //     this.ShowLNCC = false
+  //     this.ShownotLNCC = false
+  //   }
+  //   // this.overdraftAmt = Number(this.submitAccountNo.AC_ODAMT) + Number(this.submitAccountNo.AC_SODAMT)
+  //   // this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
+
+  //   var startdate = this.angForm.controls['ChequeDate'].value
+  //   // startdate = startdate.subtract(1, 'd');
+  //   // startdate = startdate.format("DD-MM-YYYY");
+  //   let formDT = moment(startdate, 'DD/MM/YYYY')
+  //   var addInFrom: any;
+  //   if (this.submitScheme.S_ACNOTYPE == 'PG') {
+  //     addInFrom = startdate;
+  //   } else {
+  //     addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+  //   }
+  //   let obj = {
+  //     scheme: this.submitScheme.S_APPL,
+  //     acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
+  //     ChequeDate: addInFrom
+  //   }
+  //   //
+  //   this._vservice.getpigmychartBalance(obj).subscribe(data2 => {
+  //     this._vservice.getledgerbalance(obj).subscribe(data => {
+  //       this.DayOpBal = Math.abs(data);
+  //       // this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+  //       if (data < 0) {
+  //         this.extensionopenbal = 'Cr'
+  //       } else {
+  //         this.extensionopenbal = 'Dr'
+  //       }
+  //       this.tempDayOpBal = data;
+  //       if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(Number(this.DayOpBal)) > 0 && this.submitScheme.S_INSTTYPE == '0') {
+  //         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+  //       }
+  //       if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+  //         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+  //       if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+  //         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+  //       if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+  //         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+  //       this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
+  //         //
+  //         // this.Pass = Math.abs(data1.passedamt).toFixed(2)
+  //         // this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
+  //         // this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+  //         // this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+  //         // this.ClearBalance = this.DayOpBal + this.Pass
+  //         var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+  //         var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+  //         var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
+  //         // this.pigmyamount = data2
+  //         let value = open + pass + data2;
+  //         if (value < 0) {
+  //           this.ClearBalance = Math.abs(value).toFixed(2)
+  //           this.typeclearbal = 'Dr'
+  //         } else {
+  //           this.ClearBalance = Math.abs(value).toFixed(2)
+  //           this.typeclearbal = 'Cr'
+  //         }
+  //       })
+  //     })
+  //   })
+  // }
+  sanctionamt
+  depositamt
+  maturityamt
+  overdraftAmt
+  pigmyamount
+  DayOpBalance
+  passextension
+  unpassextension
+  SideDetails() {
+    //debugger
+    this.AfterVoucher = 0
+    this.extenstionaftervoucher = ''
+    // this.angForm.controls['amt'].reset()
+    // this.angForm.controls['total_amt'].reset()
+    this.SideView = true
+    if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC' || this.submitCustomer.AC_ACNOTYPE == 'DS') {
+      this.ShowLNCC = true
+      this.ShownotLNCC = false
+      this.sanctionamt = (this.submitCustomer.AC_SANCTION_AMOUNT != null ? this.submitCustomer.AC_SANCTION_AMOUNT : 0)
+      this.sanctionamt = Number(this.sanctionamt).toFixed(2)
+      this.sanctiondate = (this.submitCustomer.AC_SANCTION_DATE != null ? this.submitCustomer.AC_SANCTION_DATE : '---')
+      this.expirydate = (this.submitCustomer.AC_EXPIRE_DATE != null ? this.submitCustomer.AC_EXPIRE_DATE : '---')
+      this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
+      this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
+      this.renewaldate = (this.submitCustomer.AC_OPEN_OLD_DATE != null ? this.submitCustomer.AC_OPEN_OLD_DATE : '---')
+    } else if (this.submitCustomer.AC_ACNOTYPE == 'TD' || this.submitCustomer.AC_ACNOTYPE == 'PG' || this.submitCustomer.AC_ACNOTYPE == 'IV') {
+      this.ShowLNCC = false
+      this.ShownotLNCC = true
+      this.expirydate = (this.submitCustomer.AC_EXPDT != null ? this.submitCustomer.AC_EXPDT : '---')
+      this.maturityamt = (this.submitCustomer.AC_MATUAMT != null ? this.submitCustomer.AC_MATUAMT : 0)
+      this.maturityamt = Number(this.maturityamt).toFixed(2)
+      this.depositamt = (this.submitCustomer.AC_SCHMAMT != null ? this.submitCustomer.AC_SCHMAMT : 0)
+      this.depositamt = Number(this.depositamt).toFixed(2)
+      this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
+      this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
+    } else {
+      this.ShowLNCC = false
+      this.ShownotLNCC = false
+    }
+    if (this.submitCustomer.AC_ACNOTYPE == 'PG') {
+      let obj = {
+        scheme: this.Submitscheme.S_APPL,
+        acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+        date: addInFrom,
+        branch: this.branchCODE
+
+      }
+      this._service.getpigmychartBalance(obj).subscribe(data2 => {
+        console.log(data2, 'pigmy');
+        this.pigmyamount = data2
+      })
+    }
+
+    this.submitCustomer.AC_ODAMT == undefined ? this.submitCustomer.AC_ODAMT = 0 : this.submitCustomer.AC_ODAMT = this.submitCustomer.AC_ODAMT
+    this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
+    this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
+    this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
+
+    var startdate = this.angForm.controls['date'].value
+
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom: any;
+    // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+    //   addInFrom = startdate;
+    // } else {
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    // }
+    let obj = {
+      scheme: this.Submitscheme.S_APPL,
+      acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+      date: addInFrom,
+      branch: this.branchCode
+
+    }
+
+    this._service.getledgerbalance(obj).subscribe(data => {
+
+      //debugger
+      this.DayOpBal = Math.abs(data);
+      this.DayOpBalance = Number(this.DayOpBal).toFixed(2)
+      if (data < 0) {
+        this.extensionopenbal = 'Cr'
+      } else {
+        this.extensionopenbal = 'Dr'
+      }
+      //debugger
+      this.tempDayOpBal = data;
+      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0 && this.Submitscheme.S_INSTTYPE == '0') {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
+      this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
+        this.Pass = Math.abs(data1.passedamt).toFixed(2)
+        this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
+        this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+        this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+        // this.ClearBalance = this.DayOpBal + this.Pass
+        var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+        var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+        var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
+
+        // let value = open + pass + data2;
+        // let value = open + pass + this.pigmyamount;
+        let value = open + pass;
+        if (value < 0) {
+          this.ClearBalance = Math.abs(value).toFixed(2)
+          this.typeclearbal = 'Dr'
+        } else {
+          this.ClearBalance = Math.abs(value).toFixed(2)
+          this.typeclearbal = 'Cr'
+        }
+      })
+    })
+
+  }
+  updateheadbalance(ChequeDate) {
+
+    let formValues = this.angForm.value;
+    let newobj = {
+      'accountNo': formValues.TschemeAC,
+      'schemeType': this.submitScheme.name,
+      'scheme': this.submitScheme.label,
+      'currentDate': moment(formValues.ChequeDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+    };
+
+    let balancedata
+    this._vservice.getInputHeadBal(newobj).subscribe(data1 => {
+      this.headData.forEach((element, index) => {
+        element.Amount = data1.someProperty;
+        element.Balance = data1.someOtherProperty;
+      });
+      for (let element of this.headData) {
+        let newobj = {
+          acno: element?.GL_CODE,
+          scheme: '101',
+          date: this.ChequeDate,
+          schemeType: this.selectedCode,
+        }
+
+        if (element.FIELD_AMOUNT == 'INTEREST_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+          } else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.InterestAmount))
+          }
+          element['ChequeDate'] = this.IntersetHeadDate;
+          element['tempBalance'] = data1.intpenal.InterestAmount
+          element['type'] = (data1.intpenal.InterestAmount <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'PENAL_INT_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.intpenal.PenalInterest))
+          }
+          element['tempBalance'] = data1.intpenal.PenalInterest
+          element['type'] = (data1.intpenal.PenalInterest <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'REC_PENAL_INT_AMOUNT') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.recpaypen))
+            element['Balance'] = Math.round(Math.abs(data1.recpaypen))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.recpaypen))
+          }
+          element['tempBalance'] = data1.recpaypen
+          element['type'] = (data1.recpaypen <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'PYI') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.recpaybal))
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          element['tempBalance'] = data1.recpaybal
+          element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'RECPAY_INT_AMOUNT' && element.HEAD_TYPE == 'REC') {
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Math.abs(data1.recpaybal))
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          else {
+            element['Amount'] = 0
+            element['Balance'] = Math.round(Math.abs(data1.recpaybal))
+          }
+          element['tempBalance'] = data1.recpaybal
+          element['type'] = (data1.recpaybal <= 0 ? 'Cr' : 'Dr')
+        } else if (element.FIELD_AMOUNT == 'OTHER2_AMOUNT') {
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER3_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER4_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER5_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER6_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER7_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER8_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER9_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER11_AMOUNT') {
+          element['Amount'] = 0
+          if (element?.GL_CODE != null) {
+            this._vservice.getOtheramountbal(newobj).subscribe(data2 => {
+              element['Balance'] = Math.round(Math.abs(data2))
+              element['tempBalance'] = data2
+              element['type'] = (data2 <= 0 ? 'Cr' : 'Dr')
+              if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+                element['Amount'] = Math.round(Number(element['Balance']))
+              }
+              else {
+                element['Amount'] = 0
+              }
+            })
+          }
+        } else if (element.FIELD_AMOUNT == 'OTHER10_AMOUNT') {
+          element['Amount'] = 0
+          element['Balance'] = Math.round(Math.abs(data1.overduebal))
+          element['tempBalance'] = data1.overduebal
+          element['type'] = (data1.overduebal <= 0 ? 'Cr' : 'Dr')
+          if ((this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15 || this.selectedMode == 6) && element.IS_GLBAL_MAINTAIN == '1') {
+            element['Amount'] = Math.round(Number(element['Balance']))
+          }
+          else {
+            element['Amount'] = 0
+          }
+        } else {
+          element['Amount'] = 0
+          element['Balance'] = 0
+          element['tempBalance'] = 0
+          element['type'] = 'Cr'
+        }
+      }
+      if (this.selectedMode == 2 || this.selectedMode == 5 || this.selectedMode == 15) {
+        let count = 0
+        this.headData.forEach(element => {
+          count = Number(element.Amount) + Number(count)
+        });
+        this.totalAmt = count + Number(this.ClearBalance)
+        this.totalAmt = Number(this.totalAmt).toFixed(2)
+      }
+      else {
+        this.totalAmt = 0
+      }
+      // );
+    })
+  }
+
+  acno
+  checkAccountCondition(event) {
+    this.acno = event.AC_NO
+    this.BANKACNO = event.BANKACNO
+    let schemetype = event.AC_ACNOTYPE
+    let scheme = this.submitScheme.S_NAME
+
+    let data1: any = localStorage.getItem('user');
+    let result = JSON.parse(data1);
+    // let tempacno = this.submitAccountNo.BANKACNO
+    let obj = {
+      clearBalance: Number(this.ClearBalance),
+      accountNo: this.submitAccountNo.BANKACNO,
+      accno: this.submitAccountNo.AC_NO,
+      schemeType: this.selectedCode,
+      scheme: this.submitScheme.S_APPL,
+      usertype: result.RoleDefine[0].RoleId,
+      // currentDate: this.date
+    }
+
+    this._vservice.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
+      if (data != 0) {
+        Swal.fire('Oops!', data.message, 'error');
+        this.customer = null;
+        this.showlgindetails()
+      } else {
+        this._vservice.specialInstruction(obj).subscribe(data => {
+          if (data != 0) {
+            if (data.restriction == 1) {
+              this.customer = null
+              this.showlgindetails()
+
+            } else {
+              // this.customer = tempacno
+            }
+
+            Swal.fire({
+              title: 'Warning',
+              icon: 'warning',
+              html:
+                data.message + '<br>' +
+                '<span style="font-weight:bold;">Instruction:</span>' + '<br>'
+                + data.DETAILS
+            })
+          } else {
+            this._vservice.CheckLoginFlagInDpmaster(obj).subscribe(data => {
+              if (data != 0) {
+                Swal.fire('Oops!', data.message, 'error');
+                this.customer = null
+                this.showlgindetails()
+
+              } else {
+                this._vservice.checkDormantAccount(obj).subscribe(data => {
+                  if (data != 0) {
+                    Swal.fire('Oops!', data.message, 'error');
+                    this.customer = null
+                    this.showlgindetails()
+
+                  } else {
+                    this._vservice.InstructionFreezeAc(obj).subscribe(data => {
+                      if (data != 0) {
+                        Swal.fire({
+                          title: 'Are you sure?',
+                          text: data.message,
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          cancelButtonText: 'No',
+                          confirmButtonText: 'Yes'
+                        }).then((result) => {
+                          if (result.isConfirmed == false) {
+                            this.customer = null
+                            this.showlgindetails()
+
+                          }
+                        })
+                      } else {
+                        this._vservice.IsDirectEntryAllow(obj).subscribe(data => {
+                          if (data != 0) {
+                            Swal.fire('Oops!', data.message, 'error');
+                          }
+                        }, err => {
+                          console.log(err);
+                        })
+
+                      }
+                    }, err => {
+                      console.log(err);
+                    })
+                  }
+                }, err => {
+                  console.log(err);
+                })
+              }
+            }, err => {
+              console.log(err);
+            })
+          }
+        }, err => {
+          console.log(err);
+        })
+      }
+    }, err => {
+      console.log(err);
+    })
+
+
+
+  }
+  showlgindetails() {
+    throw new Error('Method not implemented.');
+  }
+  selectedSchemeCode() {
+
+    this.allScheme = [];
+    this.master.forEach(element => {
+      if (element.S_ACNOTYPE == this.selectedCode) {
+        this.allScheme.push(element)
+      }
+    });
+
+
+
+    //get Head details
+    let obj = { 'code': this.selectedCode };
+    let date = this.ChequeDate;
+    var rowData = date.split('/');
+    let lastdate = Number(rowData[0]) - 1;
+    // let result    = rowData[2]+'-'+rowData[1]+'-'+lastdate;
+    this.IntersetHeadDate = lastdate + '/' + rowData[1] + '/' + rowData[2];
+
+  }
+  dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+    return function (a, b) {
+      /* next line works with strings and numbers, 
+       * and you may want to customize it to your needs
+       */
+      var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
+  tempscheme
+  id
+  getIntroducer1(item) {
+    this.id = item.id
+    this.tempschmetype = this.selectedCode
+    this.introducerACNo = [];
+    this.submitScheme = item;
+
+    if (this.tempscheme != this.selectedScheme) {
+      this.customer = null
+    }
+
+    this.obj = [item.id, this.selectedBranch]
+    switch (this.selectedCode) {
+      case 'SB':
+        this.savingMasterService.getSavingSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'SH':
+        this.savingMasterService.getShareSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CA':
+        this.savingMasterService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'LN':
+        this.savingMasterService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'TD':
+        this.savingMasterService.getTermDepositSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'DS':
+        this.savingMasterService.getDisputeLoanSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'CC':
+        this.savingMasterService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'GS':
+        this.savingMasterService.getAnamatSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'PG':
+        this.savingMasterService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'AG':
+        this.savingMasterService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+
+      case 'IV':
+        this.savingMasterService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+          this.introducerACNo = data;
+        })
+        break;
+      case 'GL':
+        this._ACMasterDropdownService.getACMasterList1().subscribe(data => {
+          console.log('data', data)
+          this.introducerACNo = data;
+        })
+        break;
+    }
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+        if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(Number(this.DayOpBal)) > 0 && this.submitScheme.S_INSTTYPE == '0') {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
+        }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      })
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+        if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == 0 && this.submitScheme.IS_RECURRING_TYPE == 0 && this.submitScheme.IS_CALLDEPOSIT_TYPE == 0 && this.submitScheme.REINVESTMENT == 0 && Math.abs(Number(this.DayOpBal)) > 0 && this.submitScheme.S_INSTTYPE == '0') {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id != 1)
+        }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      })
+    }
+
+  }
+  tempschmetype
+  resetscheme() {
+    // console.log(this.tempschmetype)
+    if (this.tempschmetype != this.selectedCode) {
+      this.selectedScheme = null
+      this.customer = null
+      this.introducerACNo = []
+    }
+  }
+
+
+
   transferGrid
   jointShowButton: boolean = true
   jointUpdateShow: boolean = false
   transferACID: number
+  // getscheme: number
+
   transferIndex: number
   transferTotalAmount: number = 0
   //transfer account grid functions
@@ -907,34 +2885,46 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     this.formSubmitted = true;
     let formVal = this.angForm.value;
+    // this.getscheme = this.allScheme[0].id;
     var object = {
-      Scheme: this.transferSchemeDetails.id,
-      TRANSFER_ACNOTYPE: this.transferSchemeDetails.name,
-      TRANSFER_ACNO: formVal.TschemeAC,
-      TRANSFER_ACTYPE: this.selectedTransScheme,
-      ACNO: this.ngacno,
+      // Scheme: this.submitScheme.S_NAME,
+      Scheme: this.schemeget,
+
+      // TRANSFER_ACNOTYPE: this.transferSchemeDetails.name,
+      TRANSFER_ACNO: this.submitAccountNo.AC_NO,
+      TRANSFER_ACTYPE: this.submitAccountNo.AC_TYPE,
+      TRANSFER_ACNOTYPE: formVal.scheme_type,
+      ACNO: this.customer,
       NARRATION: formVal.particulars,
-      TRAN_AMOUNT: formVal.amount,
+      TRAN_AMOUNT: formVal.total_amt,
       AC_CLOSED: '0'
     }
-    if (formVal.Tscheme == "" || formVal.Tscheme == null) {
+    // console.log(this.multigrid)
+
+    this.getTransferAccountList(event)
+    if (formVal.scheme == "" || formVal.scheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
-    } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+    } else if (formVal.account_no == "" || formVal.account_no == null) {
       Swal.fire(
         "Warning!",
         "Please Select Account!",
         "info"
+
       );
+      // this.resetgrid()
     }
-    else if (formVal.amount == "" || formVal.amount == null) {
+    else if (formVal.total_amt == "" || formVal.total_amt == null) {
       Swal.fire(
         "Warning!",
         "Please Insert Amount!",
         "info"
       );
+      // this.resetgrid()
     }
+
     else if (this.multigrid.find(ob => ob['TRANSFER_ACNO'] === object.TRANSFER_ACNO)) {
       Swal.fire('Info', 'This Account is Already Exists!', 'error');
+
     }
     else {
       if (object.TRANSFER_ACNO != this.bankacno) {
@@ -955,7 +2945,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
           if (comparison <= this.transferTotalAmount) {
             if (formVal.amount >= termAmount) {
               this.multigrid.push(object);
-              this.resetgrid();
+              // this.resetgrid();
             }
             else {
               Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
@@ -976,65 +2966,73 @@ export class TermDepositAccountClosingComponent implements OnInit {
           let ledgerBal
           this.http.post(this.url + '/term-deposit-account-closing/ledgerBalance', obj).subscribe((bal) => {
             ledgerBal = bal
-            if (Number(ledgerBal) == Number(formVal.amount)) {
+            if (Number(ledgerBal) == Number(formVal.total_amt)) {
               object['AC_CLOSED'] = '1'
-              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.total_amt)
               let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
               if (comparison >= this.transferTotalAmount) {
                 this.multigrid.push(object);
-                this.resetgrid();
               }
               else {
-                this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+                this.transferTotalAmount = this.transferTotalAmount - Number(formVal.total_amt)
                 Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
               }
             }
-            else if (Number(ledgerBal) > Number(formVal.amount)) {
-              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+            else if (Number(ledgerBal) > Number(formVal.total_amt)) {
+              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.total_amt)
               let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
               if (comparison >= this.transferTotalAmount) {
                 this.multigrid.push(object);
-                this.resetgrid();
+                // this.resetgrid();
               }
               else {
-                this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+                this.transferTotalAmount = this.transferTotalAmount - Number(formVal.total_amt)
                 Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
               }
             }
-            else if (Number(ledgerBal) < Number(formVal.amount)) {
+            else if (Number(ledgerBal) < Number(formVal.total_amt)) {
               Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+
             }
           })
         }
         else {
-          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.total_amt)
           let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
           if (comparison >= this.transferTotalAmount) {
             this.multigrid.push(object);
-            this.resetgrid();
           }
           else {
-            this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
+            this.transferTotalAmount = this.transferTotalAmount - Number(formVal.total_amt)
             Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
           }
         }
       }
       else {
         Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
-        this.resetgrid();
+        // this.resetgrid();
+
       }
+      // this.resetgrid()
     }
   }
 
   editTransferAccount(id) {
     this.transferIndex = id
     this.transferACID = this.multigrid[id].id;
+    // this.getscheme = this.allScheme[id].id;
     this.transferGrid = this.multigrid[id]
     this.jointShowButton = false;
     this.jointUpdateShow = true;
     this.angForm.patchValue({
       particulars: this.multigrid[id].NARRATION,
-      amount: this.multigrid[id].TRAN_AMOUNT
+      amount: this.multigrid[id].TRAN_AMOUNT,
+      account_no: this.multigrid[id].TRANSFER_ACNO,
+      scheme_type: this.selectedTransScheme,
+      scheme: this.submitScheme.S_NAME,
+
+
+
     })
     this.ngacno = this.multigrid[id].ACNO
     this.selectedTransScheme = this.multigrid[id].TRANSFER_ACTYPE
@@ -1044,18 +3042,15 @@ export class TermDepositAccountClosingComponent implements OnInit {
     let index = this.transferIndex;
     let formVal = this.angForm.value;
     var object = {
-      Scheme: this.transferSchemeDetails.id,
-      TRANSFER_ACNOTYPE: this.transferSchemeDetails.name,
-      TRANSFER_ACNO: formVal.TschemeAC,
+      Scheme: this.submitScheme.S_NAME,
+      TRANSFER_ACNO: this.submitAccountNo.AC_NO,
       TRANSFER_ACTYPE: this.selectedTransScheme,
-      ACNO: this.ngacno,
       NARRATION: formVal.particulars,
       TRAN_AMOUNT: formVal.amount,
-      id: this.transferACID
     }
-    if (formVal.Tscheme == "" || formVal.Tscheme == null) {
+    if (formVal.scheme == "" || formVal.scheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
-    } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
+    } else if (formVal.account_no == "" || formVal.account_no == null) {
       Swal.fire(
         "Warning!",
         "Please Select Acoount!",
@@ -1237,6 +3232,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
     }
   }
 
+  //movable
+  isOptionTooLong(option: any): boolean {
+    const selectedText = option.label + ' ' + option.name;
+    return selectedText.length > 40;
+  }
+
   submit() {
     let formValue = this.angForm.value
     let data: any = localStorage.getItem('user');
@@ -1276,8 +3277,16 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       this._TDService.postData(dataToSend).subscribe(data => {
         // this.getVoucherData();
-        const successMessage = `Account Closed Successfully ! <b> Please Note Voucher Number </b> <br> ${data.TRAN_NO}`; 
+        const successMessage = `Account Closed Successfully ! <b> Please Note Voucher Number </b> <br> ${data.TRAN_NO}`;
         Swal.fire('Success!', successMessage, 'success');
+
+        let totalDebit = formValue.amount;
+        let totalCredit = data.NET_PAYABLE_AMOUNT;
+        let difference = totalCredit - totalDebit;
+
+        this.totalDebit = totalDebit;
+        this.totalCredit = totalCredit;
+        this.difference = difference;
         this.transferTotalAmount = 0
         this.multigrid = []
         this.customerImg = 'assets/images/nouser.png';
@@ -1316,21 +3325,36 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.angForm.controls["particulars"].reset();
     this.angForm.controls["TschemeAC"].reset();
     this.angForm.controls["amount"].reset();
+    this.angForm.controls["scheme_type"].reset();
+    // this.angForm.controls["scheme"].reset();
+    // this.angForm.controls["account_no"].reset();
+    this.angForm.controls["tran_mode"].reset();
+    this.angForm.controls["total_amt"].reset();
+    this.angForm.controls["chequeNo"].reset();
+    this.angForm.controls["ChequeDate"].reset();
 
   }
 
 
   //get Amount Details
   getAmt(ele) {
-    this.totalAmt = ele.target.value + '.00';
+    let count = 0
+    if (this.headData.length != 0) {
+      this.headData.forEach(element => {
+        count = Number(element.Amount) + Number(count)
+      });
+      let num = Number(ele) + Number(count)
+      // this.totalAmt = num + '.00'
+      this.totalAmt = parseFloat(num.toString()).toFixed(2);
+
+    } else {
+      // this.totalAmt = ele.target.value + '.00'
+      this.totalAmt = parseFloat(ele).toFixed(2);
+    }
+    this.totalAmt = parseFloat(this.totalAmt).toFixed(2);
   }
 
-  //decimal content show purpose wrote below function
-  decimalAllContent($event) {
-    let value = Number($event.target.value);
-    let data = value.toFixed(2);
-    $event.target.value = data;
-  }
+
 
   hideImage() {
     // document.getElementById("full").src = "";
@@ -1347,7 +3371,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     // document.getElementById('full').src = largeSrc;
   }
 
-
+  totalNetAmt
   showHide(reportId) {
 
     var ev = document.getElementById(reportId).hidden;
@@ -1365,7 +3389,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   updatecheckdata
   editClickHandler(id) {
     this._TDService.getFormData(id).subscribe((data1) => {
-      this.angForm.disable()
+      this.angForm.enable();
       this.updatecheckdata = data1
       if (data1.TRAN_STATUS == '0') {
         this.showButton = false;
@@ -1530,9 +3554,9 @@ export class TermDepositAccountClosingComponent implements OnInit {
         let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
         let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
         let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
-        let totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt).toFixed(2) : (ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt).toFixed(2)
+        this.totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt).toFixed(2) : (ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt).toFixed(2)
         this.angForm.patchValue({
-          NETPAYABLEAMT: totalNetAmt
+          NETPAYABLEAMT: this.totalNetAmt
         })
         this.getNetPayAmount()
         if (data1.TRAN_TYPE == 'TR') {
@@ -1544,10 +3568,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
         this.transferTotalAmount = Number(data1.NET_PAYABLE_AMOUNT)
         this.angForm.patchValue({
+          type: data1.TRAN_TYPE == 'CS' ? 'cash' : data1.TRAN_TYPE == 'TR' ? 'transfer' : '',
           TRAN_NO: data1.TRAN_NO,
           branch_code: data1.BRANCH_CODE,
-          // scheme: Number(data1.TRAN_ACTYPE),
-          // account_no: data1.TRAN_ACNO,
+          scheme: Number(data1.SCHEME.S_NAME),
+          account_no: data1.TRAN_ACNO,
           date: data1.TRAN_DATE,
           SAVING_PIGMY: data1.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
           chequeNo: data1.CHEQUE_NO,
@@ -1629,6 +3654,87 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }, err => {
         console.log(err);
       })
+    }
+  }
+  getVoucherData(item) {
+    this.submitAccountNo = item;
+    let customer = this.angForm.controls['account_no'].value;
+    this.DayOpBal = 0
+    this.selectedMode = null
+    // this.angForm.controls['total_amt'].reset()
+    // this.angForm.controls['amt'].reset()
+    // this.angForm.controls['tran_mode'].reset();
+    this.tempscheme = this.selectedScheme
+    let obj = {
+      'customer': customer.BANKACNO,
+      'date': this.date
+    }
+
+    //Check Account Close or not
+    let Obj = {
+      'customer_ACNO': customer.BANKACNO,
+      'type': this.selectedCode
+    }
+    this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
+      if (data == true) {
+        Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
+        return 0;
+      }
+    }, err => {
+      console.log(err);
+    })
+
+    var startdate = this.angForm.controls['date'].value
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom: any;
+    if (this.submitScheme.S_ACNOTYPE == 'PG') {
+      addInFrom = startdate;
+    } else {
+      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    }
+
+    let openingobj = {
+      scheme: this.submitScheme.S_APPL,
+      acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
+      date: addInFrom
+    }
+    //
+    this._vservice.getledgerbalance(openingobj).subscribe(data => {
+      this.DayOpBal = Math.abs(data);
+      // this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+    })
+    let object = this.TranData.find(t => t.key === this.selectedCode);
+
+    if (this.type == 'cash') {
+      this.tranModeList = [];
+      object.data.cash.forEach(ele => {
+        let obj = this.TranModeCash.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+      if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(Number(this.DayOpBal)) > 0 && this.submitScheme.S_INSTTYPE == '0') {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+      if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+    } else {
+      this.tranModeList = [];
+      object.data.transfer.forEach(ele => {
+        let obj = this.TranModeTransfer.find(t => t.id === ele);
+        this.tranModeList.push(obj);
+      })
+      if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(Number(this.DayOpBal)) > 0 && this.submitScheme.S_INSTTYPE == '0') {
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+      }
+      if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+      if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
     }
   }
   addNewData() {
@@ -1814,15 +3920,24 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.reloadTablePassing.emit();
   }
 
-  getBranch() {
-    this.introducerACNo = null
-    this.customer = null
-    this.getIntroducer()
-  }
-
+  // getBranch() {
+  //   this.introducerACNo = null
+  //   this.customer = null
+  //   this.getIntroducer()
+  // }
+  branchCODE
+  selectedAccountno
+  // getBranch(ele) {
+  //   this.branchCODE = ele
+  //   this.selectedScheme = null
+  //   this.selectedAccountno = null
+  //   this.introducerACNo = []
+  // }
+  scheme_type
   ResetForm() {
     this.ngOnInit()
     this.resetForm()
+    this.scheme_type = ''
     this.DayOpBal = 0
     this.Pass = 0
     this.INTRATE = 0

@@ -703,13 +703,16 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
   updatecheckdata: any
-
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     this.switchNgBTab('Details')
     this.PigmyAgentMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       let opdate
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
@@ -953,7 +956,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       }
     })
   }
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
   NbirthDate: any
@@ -1156,11 +1161,14 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       user: user.id
     }
     this.PigmyAgentMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Pigmy Agent Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Pigmy Agent Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1178,11 +1186,14 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       user: user.id
     }
     this.PigmyAgentMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Pigmy Agent Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Pigmy Agent Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -1226,11 +1237,14 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       LOG_DATE: this.logDate
     }
     this.PigmyAgentMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1238,4 +1252,19 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+
+  }
+
 }

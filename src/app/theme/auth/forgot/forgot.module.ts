@@ -5,6 +5,9 @@ import {ForgotRoutingModule} from './forgot-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AuthService } from '../auth.service';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -13,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [ForgotComponent]
+  declarations: [ForgotComponent],
+  providers:[AuthService]
 })
 export class ForgotModule { }

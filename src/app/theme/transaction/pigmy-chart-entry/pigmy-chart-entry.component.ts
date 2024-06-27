@@ -144,12 +144,14 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
 
         dataTableParameters['branchCode'] = branchCode;
         dataTableParameters['filterData'] = this.filterData;
+
         
         this.http
           .post<DataTableResponse>(
             this.url + '/pigmy-chart',
             dataTableParameters
           ).subscribe(resp => {
+
             this.pigmyChartMasterTable = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -332,9 +334,11 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       "trandate": expiryDate,
       "chartNo":chart
     } 
+
     this.dtTrigger.unsubscribe();
-    // this.http.get('http://192.168.1.174:7265/pigmy-chart/check/' + this.mem).subscribe((data) => {
-    this.http.post(this.url+'/pigmy-chart/check/A' , this.mem).subscribe((data) => {
+    // this.http.get(this.url + '/pigmy-chart/check/' + this.mem).subscribe((data) => {
+      this.http.post(this.url+'/pigmy-chart/check/A' , this.mem).subscribe((data) => {
+
 
       if (data == 1) {
         Swal.fire({
@@ -347,8 +351,10 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       }
       else {
         // this.http.get(this.url + '/pigmy-chart/pigmychart/' + this.mem).subscribe((data) => {
+
         this.http.post(this.url + '/pigmy-chart/pigmychart/mem' , this.mem).subscribe((data) => {
           
+
           this.tableArr = data;
           this.tableArr.sort(function (a: any, b: any) {
             a['sortColumn'] = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO
@@ -558,7 +564,9 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         "chartNo": data.CHART_NO
       } 
       this.dtTrigger.unsubscribe();
+
       this.http.post(this.url + '/pigmy-chart/pigmychart/mem' , this.mem).subscribe((data) => {
+
         this.tableArr = data;
         this.tableArr.sort(function (a: any, b: any) {
           a['sortColumn'] = a.TRAN_BANKACNO == null || a.TRAN_BANKACNO == "" ? a.BANKACNO : a.TRAN_BANKACNO

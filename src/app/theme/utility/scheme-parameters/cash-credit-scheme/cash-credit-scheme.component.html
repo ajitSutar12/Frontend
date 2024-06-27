@@ -106,7 +106,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
+
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
@@ -135,7 +137,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true'
                                         placeholder="Interest GL Account">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
+
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
@@ -167,7 +171,9 @@
                                         #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         placeholder="Receivable Interest Account">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
+
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_RECBL_PYBL_INT_ACNO">Receivable Interest Account<sub class="required">
@@ -197,7 +203,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'
                                         placeholder="Penal Interest Account">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
+
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_PENAL_ACNO">Penal Interest Account<sub class="required"> *
@@ -231,7 +239,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true'
                                         placeholder="Recble Penal Interest Account">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
+
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_RECBL_PENAL_ACNO">Recble Penal Interest Account<sub class="required">
@@ -262,7 +272,9 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #S_RECBL_ODUE_INT_ACNO (focus)="onFocus(S_RECBL_ODUE_INT_ACNO)" [selectOnTab]='true'
                                         placeholder="Recble Overdue Interest">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
+
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}
+
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_RECBL_ODUE_INT_ACNO">Recble Overdue Interest<sub class="required"> *

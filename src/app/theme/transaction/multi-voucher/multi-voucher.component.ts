@@ -248,7 +248,7 @@ export class MultiVoucherComponent implements OnInit {
       temp_over_draft: [''],
       over_draft: [''],
       token: [''],
-      particulars: [''],
+      NARRATION: [''],
       total_amt: [''],
       amt: [0],
       slip_no: [''],
@@ -321,7 +321,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
 
-  
+
 
   //get account no according scheme for introducer
   submitScheme: any;
@@ -633,7 +633,7 @@ export class MultiVoucherComponent implements OnInit {
       this.angForm.controls['temp_over_draft'].reset()
       this.angForm.controls['over_draft'].reset()
       this.angForm.controls['token'].reset()
-      // this.angForm.controls['particulars'].reset()
+      // this.angForm.controls['NARRATION'].reset()
       this.angForm.controls['total_amt'].reset()
       this.angForm.controls['amt'].reset()
       this.angForm.controls['slip_no'].reset()
@@ -906,7 +906,9 @@ export class MultiVoucherComponent implements OnInit {
     let openingobj = {
       scheme: this.submitScheme.S_APPL,
       acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch: this.branchCode
+
     }
     //
     this._vservice.getledgerbalance(openingobj).subscribe(data => {
@@ -1109,7 +1111,7 @@ export class MultiVoucherComponent implements OnInit {
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
       amt: Number(data.amt).toFixed(2),
-      // particulars: data.NARRATION,
+      // NARRATION: data.NARRATION,
       total_amt: data.total_amt
     })
     // this.changeMode(data.tran_mode);
@@ -1131,7 +1133,7 @@ export class MultiVoucherComponent implements OnInit {
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
       amt: Number(data.amt).toFixed(2),
-      particulars: data.particulars,
+      NARRATION: data.NARRATION,
       total_amt: Number(data.total_amt).toFixed(2),
       bank: data.bank
     })
@@ -1158,7 +1160,7 @@ export class MultiVoucherComponent implements OnInit {
       this.angForm.controls['temp_over_draft'].reset()
       this.angForm.controls['over_draft'].reset()
       this.angForm.controls['token'].reset()
-      // this.angForm.controls['particulars'].reset()
+      // this.angForm.controls['NARRATION'].reset()
       this.angForm.controls['total_amt'].reset()
       this.angForm.controls['amt'].reset()
       this.angForm.controls['slip_no'].reset()
@@ -1222,8 +1224,10 @@ export class MultiVoucherComponent implements OnInit {
         this.unapproveShow = false
       }
       this.mainMaster = data
+
       for (let ele of this.mainMaster) {
         ele['total_amt'] = Number(ele['total_amt']).toFixed(2)
+     
       }
       this.selectedCode = data[0].scheme.S_ACNOTYPE;
       this.selectedSchemeCode()
@@ -1232,9 +1236,10 @@ export class MultiVoucherComponent implements OnInit {
       this.customer = data[0].account_no.id;
       this.submitAccountNo = data[0].account_no;
       this.selectedMode = data[0].tran_mode.id;
+      this.particular = data[0].NARRATION;
       this.angForm.patchValue({
         scheme: this.selectedScheme,
-        particulars: data[0].NARRATION,
+        NARRATION: data[0].NARRATION,
         amt: Number(data[0].amt).toFixed(2)
       })
       this.calculateVoucher()
@@ -1412,7 +1417,9 @@ export class MultiVoucherComponent implements OnInit {
     let obj = {
       scheme: this.submitScheme.S_APPL,
       acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch: this.branchCode
+
     }
     //
     this._vservice.getpigmychartBalance(obj).subscribe(data2 => {
@@ -2072,7 +2079,7 @@ export class MultiVoucherComponent implements OnInit {
 
     if (this.submitTranMode.id == 7 && this.selectedCode == 'SH') {
       this.angForm.controls['amt'].disable();
-      this.angForm.controls['particulars'].disable();
+      this.angForm.controls['NARRATION'].disable();
       let other2amounttotal
       this._vservice.calculateDividend(obj).subscribe(data => {
         other2amounttotal = data.Bcount
@@ -2087,7 +2094,7 @@ export class MultiVoucherComponent implements OnInit {
         });
         this.angForm.patchValue({
           'amt': data.count,
-          'particulars': str + ' Paid Dividend'
+          'NARRATION': str + ' Paid Dividend'
         })
       })
     }

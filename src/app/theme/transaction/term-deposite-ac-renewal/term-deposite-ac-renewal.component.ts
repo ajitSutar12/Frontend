@@ -228,7 +228,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       BANKACNO: this.customer.BANKACNO,
       Date: this.date,
     }
-    this.modalClass = 'modalShow';
+    // this.modalClass = 'modalShow';
     this.NormalCheck = true;
     // this.InterestDate = null;
     this.angForm.patchValue({
@@ -622,7 +622,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this.customer = null
     this.introducerACNo = [];
     this.obj = [this.selectedScheme.id, this.selectedBranch]
-    this.modalClass = 'modalShow';
+    // this.modalClass = 'modalShow';
     switch (this.selectedCode) {
       case 'TD':
         this._service.termDepositExpiryAccount(this.obj).subscribe(data => {
