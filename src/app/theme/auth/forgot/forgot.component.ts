@@ -2,9 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../auth.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-forgot',
@@ -16,6 +18,7 @@ export class ForgotComponent implements OnInit {
   email: any
   contactNo: any
   angForm: FormGroup;
+
   url = environment.base_url
 
 

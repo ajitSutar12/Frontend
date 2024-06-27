@@ -19,15 +19,15 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
   selector: 'app-rece-pay-rep-details',
   templateUrl: './rece-pay-rep-details.component.html',
   styleUrls: ['./rece-pay-rep-details.component.scss'],
-  providers:[OwnbranchMasterService]
+  providers: [OwnbranchMasterService]
 })
 export class RecePayRepDetailsComponent implements OnInit {
- // Date variables
- todate: any = null;
- fromdate: any = null
- maxDate: Date;
- minDate: Date;
- bsValue = new Date();
+  // Date variables
+  todate: any = null;
+  fromdate: any = null
+  maxDate: Date;
+  minDate: Date;
+  bsValue = new Date();
 
 
  showRepo: boolean = false;
@@ -42,7 +42,7 @@ export class RecePayRepDetailsComponent implements OnInit {
   branchName: string;
 
 
-  constructor(  private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -52,7 +52,8 @@ export class RecePayRepDetailsComponent implements OnInit {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate()) }
+    this.maxDate.setDate(this.maxDate.getDate())
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -73,7 +74,7 @@ export class RecePayRepDetailsComponent implements OnInit {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.todate = data.CURRENT_DATE
-      
+
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
     })
@@ -83,9 +84,9 @@ export class RecePayRepDetailsComponent implements OnInit {
       BRANCH_CODE: ["", [Validators.required]],
       START_DATE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      TRANSCATION: new FormControl ('None') ,
-      PRINT:["",],
-      PENAL:["",],
+      TRANSCATION: new FormControl('None'),
+      PRINT: ["",],
+      PENAL: ["",],
     });
 
     let data: any = localStorage.getItem('user');
@@ -201,7 +202,7 @@ export class RecePayRepDetailsComponent implements OnInit {
     // this.createForm()
     // this.angForm.controls.BRANCH_CODE.reset();
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
 
 }

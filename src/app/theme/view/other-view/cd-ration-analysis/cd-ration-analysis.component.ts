@@ -12,6 +12,7 @@ import { DATE } from 'ngx-bootstrap/chronos/units/constants';
 import { data } from 'jquery';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import Swal from 'sweetalert2';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-cd-ration-analysis',
@@ -21,6 +22,9 @@ import Swal from 'sweetalert2';
 export class CdRationAnalysisComponent implements OnInit {
 
   url = environment.base_url;
+  iframe5url: any = '';
+  report_url = environment.report_url
+
   public myMath = Math;
   angForm: FormGroup;
   date
@@ -44,8 +48,13 @@ export class CdRationAnalysisComponent implements OnInit {
   show: boolean = false;
   cdratiototal: number;
   ngbranch_code
+  clicked: boolean = false;
+  formSubmitted: boolean;
+  isShow: boolean = true;
+  isCancel: boolean = true;
   // dtExportButtonOptions: any = {};
-  constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
+  constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService, private sanitizer: DomSanitizer,
+
     private _service: EditInterestCalculationService, private http: HttpClient,
     private other_service: OtherViewService,
     private systemParameter: SystemMasterParametersService,
@@ -99,6 +108,7 @@ export class CdRationAnalysisComponent implements OnInit {
     this.angForm = this.fb.group({
       DATE: ['', [Validators.required]],
       BRANCH: ['', [Validators.pattern]],
+      Con_PRO: []
     });
   }
 
@@ -154,80 +164,91 @@ export class CdRationAnalysisComponent implements OnInit {
         branch: result.BRANCH,
         date: date,
         scheme: '980'
-      }
+      };
+
       if (item.acno == data.acno) {
         if (ele.target.checked) {
           if (type == 'Depo') {
-
             item.depo = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.depobal = data;
-              // this.totalFun()    
               this.TabWiseTotal.depo = item.depobal < 0 ? this.TabWiseTotal.depo + Math.abs(item.depobal) : this.TabWiseTotal.depo - Math.abs(item.depobal);
-              this.ActiveTab = 'DEPOSITS'
+              this.ActiveTab = 'DEPOSITS';
               this.totalAmt = this.TabWiseTotal.depo;
-            })
+            });
           } else if (type == 'Loan') {
             item.loan = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.loanbal = data;
               this.TabWiseTotal.loan = this.TabWiseTotal.loan + item.loanbal;
-              // this.totalFun()
               this.ActiveTab = 'LOANS';
               this.totalAmt = this.TabWiseTotal.loan;
-            })
+            });
           } else if (type == 'PartA') {
             item.partA = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.partAbal = data;
               this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA + Math.abs(item.partAbal) : this.TabWiseTotal.partA - Math.abs(item.partAbal);
               this.ActiveTab = 'PART A';
               this.totalAmt = this.TabWiseTotal.partA;
-              // this.totalFun()
-            })
+            });
           } else {
             item.partB = true;
+            this.updateSelectedItems(item, true);
             this.other_service.ledgerbalance(obj).subscribe(data => {
               item.partBbal = data;
               this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB + Math.abs(item.partBbal) : this.TabWiseTotal.partB - Math.abs(item.partBbal);
               this.ActiveTab = 'PART B';
               this.totalAmt = this.TabWiseTotal.partB;
-              // this.totalFun()
-            })
+            });
           }
         } else {
           if (type == 'Depo') {
             item.depo = false;
-            // this.totalFun()
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.depo = item.depobal < 0 ? this.TabWiseTotal.depo - Math.abs(item.depobal) : this.TabWiseTotal.depo + Math.abs(item.depobal);
             item.depobal = 0;
-            this.ActiveTab = 'DEPOSITS'
+            this.ActiveTab = 'DEPOSITS';
             this.totalAmt = this.TabWiseTotal.depo;
           } else if (type == 'Loan') {
             item.loan = false;
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.loan = this.TabWiseTotal.loan - item.loanbal;
             item.loanbal = 0;
             this.ActiveTab = 'LOANS';
             this.totalAmt = this.TabWiseTotal.loan;
-            // this.totalFun()
           } else if (type == 'PartA') {
             item.partA = false;
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.partA = item.partAbal < 0 ? this.TabWiseTotal.partA - Math.abs(item.partAbal) : this.TabWiseTotal.partA + Math.abs(item.partAbal);
             item.partAbal = 0;
-            // this.totalFun()
             this.ActiveTab = 'PART A';
             this.totalAmt = this.TabWiseTotal.partA;
           } else {
             item.partB = false;
+            this.updateSelectedItems(item, false);
             this.TabWiseTotal.partB = item.partBbal < 0 ? this.TabWiseTotal.partB - Math.abs(item.partBbal) : this.TabWiseTotal.partB + Math.abs(item.partBbal);
             item.partBbal = 0;
             this.ActiveTab = 'PART B';
             this.totalAmt = this.TabWiseTotal.partB;
-            // this.totalFun()
           }
         }
       }
     }
+  }
+  selectedItems = [];
+
+  updateSelectedItems(item, isSelected) {
+    if (isSelected) {
+      this.selectedItems.push(item);
+    } else {
+      this.selectedItems = this.selectedItems.filter(i => i.name !== item.name);
+    }
+    let selectedItemsQuery = this.selectedItems.map(item => `name=${item.name}&depobal=${item.depobal}`).join('&');
+
   }
 
   async totalFun() {
@@ -249,13 +270,10 @@ export class CdRationAnalysisComponent implements OnInit {
     }
   }
 
-
   //-----------------------* Tab On Click *---------------------------//
   tab(type) {
     console.log(type);
   }
-
-
 
   fetchNews(evt: any) {
     console.log(evt); // has nextId that you can check to invoke the desired function
@@ -285,9 +303,10 @@ export class CdRationAnalysisComponent implements OnInit {
       this.totalAmt = this.TabWiseTotal.partA;
     }
   }
+  branchName
   getbranch(event) {
     this.branch_codeList = event.value;
-
+    this.branchName = event.branchName
   }
 
   getprofit(obj1) {
@@ -297,5 +316,187 @@ export class CdRationAnalysisComponent implements OnInit {
       // console.log(this.glDetails);
     })
   }
+  tbldata
+  tablearrDepo = []
+  tablearrLoan = []
+  tablearrpartA = []
+  tablearrpartB = []
+  tableDepo
+  tableDepo1
+  tableDepo2
 
+  tableLoan
+  tableLoan1
+  tableLoan2
+
+  tablepartA
+  tablepartA1
+  tablepartA2
+
+  tablepartB
+  tablepartB1
+  tablepartB2
+
+  async print1() {
+    let result = this.angForm.value;
+    let date = moment(result.DATE).format('DD/MM/YYYY');
+    let obj = {
+      date: date,
+      branch: result.BRANCH,
+      branch_code: this.branch_codeList
+    }
+    let data1 = await this.other_service.postData(obj).toPromise();
+    this.tbldata = data1
+    for (let i = 0; i < this.tbldata.length; i++) {
+      if (this.tbldata[i].depo == true) {
+        this.tablearrDepo.push(this.tbldata[i])
+      }
+      else if (this.tbldata[i].loan == true) {
+        this.tablearrLoan.push(this.tbldata[i])
+      }
+      else if (this.tbldata[i].partA == true) {
+        this.tablearrpartA.push(this.tbldata[i])
+      }
+      else if (this.tbldata[i].partB == true) {
+        this.tablearrpartB.push(this.tbldata[i])
+      }
+    }
+
+    //deposit data
+    let sName = []
+    let bal = []
+    let acno = []
+    this.tablearrDepo.forEach(item => {
+      sName.push(item.name);
+      bal.push(item.depobal);
+      acno.push(item.acno);
+
+    });
+    this.tableDepo = sName.map(name => `${name}<br/>`);
+    this.tableDepo1 = bal.map(depobal => `${Math.abs(depobal)}<br/>`);
+    this.tableDepo2 = acno.map(acno => `${acno}<br/>`);
+
+
+    //loan data
+    let LName = []
+    let Lbal = []
+    let Lacno = []
+    this.tablearrLoan.forEach(item => {
+      LName.push(item.name);
+      Lbal.push(item.loanbal);
+      Lacno.push(item.acno);
+    });
+    this.tableLoan = LName.map(name => `${name}<br/>`);
+    this.tableLoan1 = Lbal.map(loanbal => `${Math.abs(loanbal)}<br/>`);
+    this.tableLoan2 = Lacno.map(acno => `${acno}<br/>`);
+
+    //partA
+    let partAName = []
+    let partAbal = []
+    let partAacno = []
+    this.tablearrpartA.forEach(item => {
+      partAName.push(item.name);
+      partAbal.push(item.partAbal);
+      partAacno.push(item.acno);
+    });
+    this.tablepartA = partAName.map(name => `${name}<br/>`);
+    this.tablepartA1 = partAbal.map(partAbal => `${Math.abs(partAbal)}<br/>`);
+    this.tablepartA2 = partAacno.map(acno => `${acno}<br/>`);
+
+
+    //partB
+    let partBName = []
+    let partBbal = []
+    let partBacno = []
+    this.tablearrpartB.forEach(item => {
+      partBName.push(item.name);
+      partBbal.push(item.partBbal);
+      partBacno.push(item.acno);
+    });
+    this.tablepartB = partBName.map(name => `${name}<br/>`);
+    this.tablepartB1 = partBbal.map(partBbal => `${Math.abs(partBbal)}<br/>`);
+    this.tablepartB2 = partBacno.map(acno => `${acno}<br/>`);
+
+  }
+
+  async print() {
+    this.isShow = false
+    this.showRepo = true;
+    if (this.angForm.valid) {
+      this.isDisable = true
+      let obj = this.angForm.value
+      await this.print1()
+      this.showRepo = true;
+      let userData = JSON.parse(localStorage.getItem('user'));
+      let bankName = userData.branch.syspara.BANK_NAME;
+      let result = this.angForm.value;
+      let date = moment(result.DATE).format('DD/MM/YYYY');
+
+      // let schem = this.tablearrDepo
+      let depo = this.tableDepo
+      let depobal = this.tableDepo1
+      let dacno = this.tableDepo2
+
+      let loan = this.tableLoan
+      let loanbal = this.tableLoan1
+      let loanacno = this.tableLoan2
+
+      let partA = this.tablepartA
+      let partABal = this.tablepartA1
+      let partAacno = this.tablepartA2
+
+
+      let partB = this.tablepartB
+      let partBBal = this.tablepartB1
+      let partBacno = this.tablepartB2
+
+      let total = this.cdratiototal
+
+      let depobalance = this.tableDepo1
+        .map(balance => parseFloat(balance.replace('<br/>', '').trim()))
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+      let loanbalance = this.tableLoan1
+        .map(balance => parseFloat(balance.replace('<br/>', '').trim()))
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+      let partAbalance = this.tablepartA1
+        .map(balance => parseFloat(balance.replace('<br/>', '').trim()))
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+      let partBbalance = this.tablepartB1
+        .map(balance => parseFloat(balance.replace('<br/>', '').trim()))
+        .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+let partAbalanceBal=partAbalance
+      let flag
+      if (obj.Con_PRO == true) {
+        partAbalance =partAbalanceBal+ this.profitloss
+        flag = 0
+      }
+
+      let profitloss = this.profitloss
+      let netprofit = this.glDetails
+      this.iframe5url = `${this.report_url}examples/CDRatio.php?bankname=${encodeURIComponent(bankName)}&Branch=${encodeURIComponent(this.branchName)}&Depo=${encodeURIComponent(depo)}&DepoBal=${encodeURIComponent(depobal)}&dacno=${encodeURIComponent(dacno)}&depobalance=${encodeURIComponent(depobalance)}&Loan=${encodeURIComponent(loan)}&Loanbal=${encodeURIComponent(loanbal)}&loanacno=${encodeURIComponent(loanacno)}&loanbalance=${encodeURIComponent(loanbalance)}&partA=${encodeURIComponent(partA)}&partABal=${encodeURIComponent(partABal)}&partAacno=${encodeURIComponent(partAacno)}&partAbalance=${encodeURIComponent(partAbalance)}&partB=${encodeURIComponent(partB)}&partBBal=${encodeURIComponent(partBBal)}&partBacno=${encodeURIComponent(partBacno)}&partBbalance=${encodeURIComponent(partBbalance)}&date=${encodeURIComponent(date)}&total=${encodeURIComponent(total)}&profitloss=${encodeURIComponent(profitloss)}&netprofit=${encodeURIComponent(netprofit)}&flag=${encodeURIComponent(flag)}`;
+
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
+  }
+  showLoading: boolean = false;
+  showRepo: boolean = false;
+  onLoad() {
+    this.showLoading = false;
+  }
+  isDisable: boolean = false
+  cancel() {
+    this.angForm.reset()
+    this.isDisable = false
+    this.showRepo = false
+    this.isShow = true
+    this.isCancel = true
+    this.clicked = false;
+
+  }
 }

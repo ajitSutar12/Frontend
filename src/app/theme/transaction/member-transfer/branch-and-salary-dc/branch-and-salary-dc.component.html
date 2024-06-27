@@ -15,7 +15,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedTransBranch" #scheme formControlName="branch"
-                                        bindValue="value" bindLabel="label" (change)="getIntroducer()">
+                                        bindValue="value" bindLabel="label">
                                         <ng-option *ngFor="let item of branch_code" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
@@ -37,7 +37,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedTransScheme" #scheme formControlName="scode"
-                                        bindValue="value" bindLabel="label" (change)="getIntroducer()">
+                                        bindValue="value" bindLabel="label" (change)="getIntroducer($event)">
                                         <ng-option *ngFor="let item of Schemecode" [value]="item">
                                             {{item.label}}</ng-option>
                                     </ng-select>
@@ -58,13 +58,19 @@
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
+                                    <!-- <ng-select [(ngModel)]="selectedTransMemno" #scheme formControlName="memno" 
+                                        bindValue="bankacno" bindLabel="NAME"  (change)="getBankNo($event)" >
+                                        <ng-option *ngFor="let item of accountNumbers" [value]="item">
+                                            {{item.SHMASTER_AC_NO}} {{item.SHMASTER_AC_NAME}}</ng-option>
+                                    </ng-select> -->
                                     <ng-select [(ngModel)]="selectedTransMemno" #scheme formControlName="memno"
-                                        bindValue="bankacno" bindLabel="NAME">
-                                        <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                            {{item.label}} {{item.name}}</ng-option>
+                                        (change)="getBankNo($event)">
+                                        <ng-option *ngFor="let item of accountNumbers" [value]="item">
+                                            {{item.SHMASTER_AC_NO}} {{item.SHMASTER_AC_NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
+
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['memno'].invalid && (angForm.controls['memno'].dirty || angForm.controls['memno'].touched)"
                                 class="alert alert-danger">
@@ -83,22 +89,46 @@
 
                         <div class="col-sm-12 col-md-1"> <label for="INSTALLMENT_NO">Salary Division<sub
                                     class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-group form-primary form-static-label">
+                                            <!-- <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="selectedSDiv" formControlName="salaryDiv">
+                                                    <ng-option *ngFor="let item of salDiv" [value]="item">
+                                                        {{item.AC_SALARYDIVISION_CODE}}</ng-option>
+                                                </ng-select>
+                                            </span> -->
+                                            <input type="text" value="{{ salDiv }}" style="width: 100%;" >
+                                        </div>
+                                        <!-- <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['salaryDiv'].invalid && (angForm.controls['salaryDiv'].dirty || angForm.controls['salaryDiv'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['salaryDiv'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div> -->
+            
+                                    </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Sub Salary Division<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="salarydiv"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                    <!-- <ng-select [(ngModel)]="selectedSubSDiv" #scheme formControlName="subsd">
+                                        <ng-option *ngFor="let item of subSdivision" [value]="item">
+                                            {{item.SUB_SALARYDIVISION_CODE}}</ng-option>
+                                    </ng-select> -->
+                                    <input type="text" value="{{ subsalDiv }}" style="width: 100%;">
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['salarydiv'].invalid && (angForm.controls['salarydiv'].dirty || angForm.controls['salarydiv'].touched)"
+                            <!-- <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['subsd'].invalid && (angForm.controls['subsd'].dirty || angForm.controls['subsd'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['salarydiv'].errors?.pattern || angForm.controls['salarydiv'].errors?.required || angForm.controls['salarydiv'].errors?.maxlength">
+                                <div *ngIf="angForm.controls['subsd'].errors?.required">
                                     This field is required.
                                 </div>
-                            </div>
+                            </div> -->
+
                         </div>
 
                         <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">New Branch<sub
@@ -123,15 +153,18 @@
 
                         </div>
 
+
+                    </div>
+
+                    <div class="row">
                         <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">New Salary Division<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="selectedNewSDiv" #scheme formControlName="newsd"
-                                        bindValue="value" bindLabel="label">
-                                        <!-- <ng-option *ngFor="let item of NewSdivision" [value]="item">
-                                            {{item.id}} {{item.label}}</ng-option> -->
+                                    <ng-select [(ngModel)]="selectedNewSDiv" #scheme formControlName="newsd">
+                                        <ng-option *ngFor="let item of NewSdivision" [value]="item">
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -144,9 +177,29 @@
                             </div>
 
                         </div>
-                    </div>
 
-                    <div class="row">
+
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">New Sub Salary Division<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectednewSubSDiv" #scheme formControlName="Nsubsd">
+                                        <ng-option *ngFor="let item of NewsubSdivision" [value]="item">
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Nsubsd'].invalid && (angForm.controls['Nsubsd'].dirty || angForm.controls['Nsubsd'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Nsubsd'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="col-sm-12 col-md-1"> <label for=" Date">From Date<sub
                                     class="required">*</sub></label>
                         </div>
@@ -179,10 +232,9 @@
 
 <div class="row">
     <div class="col-12">
-        <button class="btn  btn-outline-primary btn-sm">Close</button>
 
-        <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+        <button class="btn  btn-outline-primary btn-sm" (click)="reset()">Cancel</button>
 
-        <button class="btn  btn-outline-primary btn-sm">Update</button>
+        <button class="btn  btn-outline-primary btn-sm" (click)=" submit()">Submit</button>
     </div>
 </div>

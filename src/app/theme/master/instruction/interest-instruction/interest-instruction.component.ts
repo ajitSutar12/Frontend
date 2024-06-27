@@ -341,15 +341,15 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     let currentDate = this.angForm.controls['INSTRUCTION_DATE'].value
     // var date = new Date();
     var check = moment(currentDate, 'DD/MM/YYYY');
-
-    var month = check.format('MM');
-    var day = check.format('DD');
-    var year = check.format('YYYY');
+    let month = Number(check.format('MM')) - 1;
+    // var month = check.format('MM') - 1;
+    var day = Number(check.format('DD'));
+    var year = Number(check.format('YYYY'));
     let date = new Date(Number(year), Number(month), Number(day))
     if (exe_day.value == 'MB') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
-      var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+      var firstDay = new Date(date.getFullYear(), date.getMonth() + 1, 1);
       var firstDate = this.datePipe.transform(firstDay, "yyyy-MM-dd")
       var full = []
       var fullDate = firstDate;
@@ -363,13 +363,20 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     else if (exe_day.value == 'ME') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
-      var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+      var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+
+
+      if (day > lastDay.getDate()) {
+        day = lastDay.getDate();
+      }
       var lastDate = this.datePipe.transform(lastDay, "yyyy-MM-dd")
       var full = []
       var fullDate = lastDate;
       full = fullDate.split(' ');
       var ndate = full[0].split(/\-/);
       var newDate = ndate[2] + '/' + ndate[1] + '/' + ndate[0]
+
+  
       this.angForm.patchValue({
         FROM_DATE: newDate
       })
@@ -421,8 +428,30 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();
+
+      if (day == 30) {
+        let nextMonthDate = new Date(year, month + 1, 1);
+        nextMonthDate.setDate(0);
+
+        if (day > nextMonthDate.getDate()) {
+          day = nextMonthDate.getDate();
+        }
+      }
       var exe_day = month + 1
-      var nextDate = new Date(year, exe_day, day);
+      if ((exe_day == 7)||(exe_day == 12)) {
+        var nextDate = new Date(year, exe_day, day);
+      }
+      else {
+        if (day == 31) {
+          var nextDate = new Date(year, exe_day, day - 1);
+        }
+        else if (day == 30) {
+          var nextDate = new Date(year, exe_day, day + 1);
+        }
+        else {
+          var nextDate = new Date(year, exe_day, day);
+        }
+      }
       var nextExeDate = this.datePipe.transform(nextDate, "yyyy-MM-dd")
       var full = []
       var fullDate = nextExeDate;
@@ -437,6 +466,33 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();
+
+
+      if (day == 30) {
+        let nextMonthDate = new Date(year, month + 1, 1);
+        nextMonthDate.setDate(0);
+
+        if (day > nextMonthDate.getDate()) {
+          day = nextMonthDate.getDate();
+        }
+      }
+      var exe_day = month + 1
+      if ((exe_day == 7)||(exe_day == 12)) {
+        var nextDate = new Date(year, exe_day, day);
+
+      }
+      else {
+        if (day == 31) {
+          var nextDate = new Date(year, exe_day, day - 1);
+        }
+        else if (day == 30) {
+          var nextDate = new Date(year, exe_day, day + 1);
+        }
+        else {
+          var nextDate = new Date(year, exe_day, day);
+        }
+      }
+
       var exe_day = month + 3
       var nextDate = new Date(year, exe_day, day);
       var nextExeDate = this.datePipe.transform(nextDate, "yyyy-MM-dd")
@@ -491,6 +547,33 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       var year = date.getFullYear();
       var month = new Date(date).getMonth();
       var day = new Date(date).getDate();
+
+
+      if (day == 30) {
+        let nextMonthDate = new Date(year, month + 1, 1);
+        nextMonthDate.setDate(0);
+
+        if (day > nextMonthDate.getDate()) {
+          day = nextMonthDate.getDate();
+        }
+      }
+      var exe_day = month + 1
+      if ((exe_day == 7)||(exe_day == 12)) {
+        var nextDate = new Date(year, exe_day, day);
+
+      }
+      else {
+        if (day == 31) {
+          var nextDate = new Date(year, exe_day, day - 1);
+        }
+        else if (day == 30) {
+          var nextDate = new Date(year, exe_day, day + 1);
+        }
+        else {
+          var nextDate = new Date(year, exe_day, day);
+        }
+      }
+
       var exe_day = month + 6
       var nextDate = new Date(year, exe_day, day);
       var nextExeDate = this.datePipe.transform(nextDate, "yyyy-MM-dd")
@@ -608,7 +691,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       // 'INSTRUCTION_DATE': formVal.INSTRUCTION_DATE,
       'DAYS': formVal.DAYS,
       // 'FROM_DATE': formVal.FROM_DATE,
-      // 'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
+      'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
       'EXECUTION_DAY': formVal.EXECUTION_DAY,
       'DR_ACTYPE': formVal.DR_ACTYPE,
       'DR_AC_NO': formVal.DR_AC_NO,

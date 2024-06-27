@@ -125,6 +125,14 @@ const routes: Routes = [
       //   path: 'goldSilverReceipt',
       //   loadChildren: () => import('./gold-silver-receipt-print/gold-silver-receipt-print.module').then(m => m.GoldSilverReceiptPrintModule)
       // },
+      {
+        path: 'ddtransaction',
+        loadChildren: () => import('./dd-transaction/dd-transaction.module').then(m => m.DdTransactionModule)
+      },
+      {
+        path: 'investmentAccountRenewal',
+        loadChildren: () => import('./investment-ac-renewal/investment-ac-renewal.module').then(m => m.InvestmentAcRenewalModule)
+      },
     ]
   }
 ];

@@ -224,6 +224,7 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
       dom: 'Blrtip',
 
     };
+
   }
   ngOnDestroy() {
     this.mySubscription?.unsubscribe();

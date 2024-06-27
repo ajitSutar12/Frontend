@@ -255,7 +255,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   ngrenewtypeaccountno
   showrenewdetails: boolean = false
   showrenewacctr: boolean = false
-  opdate: any;
+
+  AC_OPDATE: any;
+
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
     private fb: FormBuilder,
@@ -496,7 +498,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_MEMBTYPE: [''],
       BANKACNO: [''],
       AC_MEMBNO: [''],
-      AC_OPDATE: ['', [Validators.required]],
+      AC_OPDATE: [''],
       REF_ACNO: ['', [Validators.pattern]],
       AC_CAST: ['',],
       AC_OCODE: ['',],
@@ -673,7 +675,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.systemParameter.getFormData(1).subscribe(data => {
       this.tempopendate = data.CURRENT_DATE
       this.openingDate = data.CURRENT_DATE
+
       this.opdate = data.CURRENT_DATE
+
       this.angForm.patchValue({
         // AC_OPDATE: data.CURRENT_DATE,
         // AC_ASON_DATE: data.CURRENT_DATE
@@ -1703,6 +1707,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   updatecheckdata: any
   //Method for append data into fields
+  opdate
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
@@ -1800,6 +1805,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           this.ngrenewtypeaccountno = data.RENEW_TYPE_ACCOUNTNO
         })
       }
+
       this.opdate = data.AC_OPDATE
       this.angForm.patchValue({
         AC_TYPE: data.AC_TYPE,

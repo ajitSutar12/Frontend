@@ -307,7 +307,7 @@ $form-valid-color: $success-color, $warning-color, $danger-color;
 
         &::after {
             transform: scale(0);
-            background-color: $primary-color;
+            background-color:#6d022d;
             border-color: black;
         }
 
@@ -338,7 +338,7 @@ $form-valid-color: $success-color, $warning-color, $danger-color;
         }
 
         &:checked ~ .helper::before {
-            color: $primary-color;
+            color: #6d022d;
             animation: ripple 0.3s linear forwards;
         }
     }
@@ -392,6 +392,7 @@ $form-valid-color: $success-color, $warning-color, $danger-color;
     margin-right: 20px;
 }
 $radio-bg-state: primary, warning, default, danger, success, inverse, info;
+// $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, $success-color, $inverse-color, $info-color;
 $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, $success-color, $inverse-color, $info-color;
 @each $var in $radio-bg-state {
     $i: index($radio-bg-state, $var);
@@ -400,12 +401,12 @@ $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, 
         &.radiofill {
             &.radio-#{$var} {
                 .helper::after {
-                    background-color: nth($radio-bg-color, $i);
+                    background-color:#6d022d;
                     border-color: nth($radio-bg-color, $i);
                 }
 
                 .helper::before {
-                    border-color: nth($radio-bg-color, $i);
+                    border-color: #6d022d;
                 }
             }
         }
@@ -418,7 +419,7 @@ $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, 
                 }
 
                 .helper::before {
-                    border-color: nth($radio-bg-color, $i);
+                    border-color: #6d022d;
                 }
             }
         }
@@ -431,8 +432,8 @@ $radio-bg-color: $primary-color, $warning-color, $default-color, $danger-color, 
                 }
 
                 input ~ .helper::before {
-                    background-color: nth($radio-bg-color, $i);
-                    border-color: nth($radio-bg-color, $i);
+                    background-color: #6d022d;
+                    border-color: #6d022d;
                 }
             }
         }

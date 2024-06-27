@@ -91,7 +91,9 @@
     ////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
     window.addEventListener('popstate', function (event) {
 
+
         if (window.location.href == 'http://103.174.87.104/SANJAYSINH_KOTOLI/CBS/auth/login/simple') { 
+
            
 
             let data = localStorage.getItem('user');
@@ -104,14 +106,18 @@
             }
             $.ajax({
 
+
                  url: 'http://103.174.87.104:7281/user-defination/logout',
+
                 method: 'POST',
                 data: obj,
                 success: function (result) { }
             })
             $.ajax({
 
+
                  url: 'http://103.174.87.104:7281/user-defination/logoffhistory',
+
 
               method: 'POST',
                 data: obj,
@@ -169,12 +175,15 @@
                     }
                     $.ajax({
 
+
                         url: 'http://103.174.87.104:7281/user-defination/logout',
+
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
                     })
                     $.ajax({
+
 
                         url: 'http://103.174.87.104:7281/user-defination/logoffhistory',
                         method: 'POST',
@@ -190,6 +199,7 @@
                 // console.error('Error decoding token:', error);
             }
             // your function for too long inactivity goes here
+
 
             window.location.href = 'http://103.174.87.104/SANJAYSINH_KOTOLI/CBS/auth/login/simple';
             window.close()
@@ -209,6 +219,7 @@
                     let refreshToken = localStorage.getItem('token')
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
+
 
                         url: 'http://103.174.87.104:7281/refresh-token',
                         method: 'POST',

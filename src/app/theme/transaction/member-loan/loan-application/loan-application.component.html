@@ -35,6 +35,28 @@
 
                             <div class="solid">
                                 <div class="row">
+                                    <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Branch<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="selectedTransBranch" #scheme
+                                                    formControlName="branch" bindValue="value" bindLabel="label"
+                                                    (change)="getIntroducer(); getbranchid($event)">
+                                                    <ng-option *ngFor="let item of branch_code" [value]="item">
+                                                        {{item.id}} {{item.label}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['branch'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+
+                                    </div>
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Demand Application
                                             No.<sub class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
@@ -44,7 +66,7 @@
                                                     placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                     formControlName="demandApplNo"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                    disabled>
+                                                    [(ngModel)]="DeApp" disabled>
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
@@ -65,6 +87,7 @@
                                                 <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
                                                     formControlName="loandDate" appButton minlength="10" maxlength="10"
+                                                    (change)="forGetDate($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -78,7 +101,10 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for=" Date">Meeting Date<sub
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-1"> <label for=" Date">Meeting Date<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
@@ -99,40 +125,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch<sub
+                                    <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedTransBranch" #scheme
-                                                    formControlName="branch" bindValue="value" bindLabel="label"
-                                                    (change)="getIntroducer()">
-                                                    <ng-option *ngFor="let item of branch_code" [value]="item">
-                                                        {{item.id}} {{item.label}}</ng-option>
-                                                </ng-select>
-                                            </span>
-                                        </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
-                                            class="alert alert-danger">
-                                            <div *ngIf="angForm.controls['branch'].errors?.required">
-                                                This field is required.
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
-                                                class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedTransScheme" #scheme
-                                                    formControlName="scode" bindValue="value" bindLabel="label"
-                                                    (change)="getIntroducer()">
+                                                <ng-select [(ngModel)]="selectedTransScheme" formControlName="scode"
+                                                    (change)="getScheme($event)">
                                                     <ng-option *ngFor="let item of Schemecode" [value]="item">
                                                         {{item.id}} {{item.label}}</ng-option>
                                                 </ng-select>
@@ -147,16 +146,15 @@
                                         </div>
 
                                     </div>
-
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member Number<sub
+                                    <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Member Number<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
-                                                <ng-select [(ngModel)]="selectedTransMemno" #scheme
-                                                    formControlName="memno" bindValue="bankacno" bindLabel="NAME">
-                                                    <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                                        {{item.label}} {{item.name}}</ng-option>
+                                                <ng-select [(ngModel)]="selectedTransMemno" formControlName="memno"
+                                                    (change)="memnumber($event)">
+                                                    <ng-option *ngFor="let item of Mem_number" [value]="item">
+                                                        {{item.AC_MEMBNO}} {{item.AC_NAME}} </ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -169,9 +167,28 @@
                                         </div>
 
                                     </div>
-                                    <!-- (change)="getTransferAccountList($event)"
-                                    (focus)="onFocus(scheme)"> -->
 
+                                    <div class="col-sm-12 col-md-1"> <label for=" Date">Retairment Date<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                                    formControlName="ReDate" appButton minlength="10" maxlength="10"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                    bsDatepicker>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['ReDate'].invalid && (angForm.controls['ReDate'].dirty || angForm.controls['ReDate'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['ReDate'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 
@@ -184,6 +201,46 @@
                         </div>
 
                         <div class="card-body" id="cb">
+                            <h1><span>Previous Loan Details</span></h1>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="solid">
+
+                                        <table class="table table-bordered table-hover compact">
+                                            <thead style="text-align: center;">
+                                                <td>Type</td>
+                                                <td>Scheme</td>
+                                                <td>A/C No</td>
+                                                <td>Open Date</td>
+                                                <td>Expire Date</td>
+                                                <td>Sanction</td>
+                                                <td>Ledger Bal</td>
+                                                <td>Interest</td>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of tableData">
+                                                    <td>{{ row.AC_TYPE }}</td>
+                                                    <td>{{ row.S_NAME }}</td>
+                                                    <td>{{ row.AC_NO }}</td>
+                                                    <td>{{ row.AC_OPDATE }}</td>
+                                                    <td>{{ row.AC_EXPIRE_DATE }}</td>
+                                                    <td>{{ row.AC_SANCTION_AMOUNT }}</td>
+                                                    <td>{{ row.LEDGER_BAL }}</td>
+                                                    <td>{{ row.InterestAmount }}</td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body" id="cb">
                             <h1><span>Demand Details</span></h1>
                             <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Demand Scheme<sub
@@ -192,7 +249,8 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedDScheme" #scheme
-                                                formControlName="demandScheme" bindValue="value" bindLabel="label">
+                                                formControlName="demandScheme" bindValue="value" bindLabel="label"
+                                                (change)="getDeScheme($event)">
                                                 <ng-option *ngFor="let item of demand_Scheme" [value]="item">
                                                     {{item.id}} {{item.label}}</ng-option>
                                             </ng-select>
@@ -216,7 +274,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="demandAmt"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="demandAmt">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -237,7 +296,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="basicDa"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="basicDA">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -260,7 +320,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="totalS"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="totsalary">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -281,7 +342,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="totalD"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="totDeduc">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -294,22 +356,23 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Int. Rate<sub
+                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Actual Sanction Amount<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
-                                                formControlName="iRate"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                formControlName="asAmt"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="sancAmt" >
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
-                                        *ngIf="angForm.controls['iRate'].invalid && (angForm.controls['iRate'].dirty || angForm.controls['iRate'].touched)"
+                                        *ngIf="angForm.controls['asAmt'].invalid && (angForm.controls['asAmt'].dirty || angForm.controls['asAmt'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['iRate'].errors?.pattern || angForm.controls['iRate'].errors?.required || angForm.controls['iRate'].errors?.maxlength">
+                                            *ngIf="angForm.controls['asAmt'].errors?.pattern || angForm.controls['asAmt'].errors?.required || angForm.controls['asAmt'].errors?.maxlength">
                                             This field is required.
                                         </div>
                                     </div>
@@ -325,7 +388,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="loanPeriod"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="loanPer">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -338,22 +402,24 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Actual Sanction Amount<sub
+
+                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Int. Rate<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
-                                                formControlName="asAmt"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                formControlName="iRate"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="intRate" (change)="getamt($event)">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
-                                        *ngIf="angForm.controls['asAmt'].invalid && (angForm.controls['asAmt'].dirty || angForm.controls['asAmt'].touched)"
+                                        *ngIf="angForm.controls['iRate'].invalid && (angForm.controls['iRate'].dirty || angForm.controls['iRate'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['asAmt'].errors?.pattern || angForm.controls['asAmt'].errors?.required || angForm.controls['asAmt'].errors?.maxlength">
+                                            *ngIf="angForm.controls['iRate'].errors?.pattern || angForm.controls['iRate'].errors?.required || angForm.controls['iRate'].errors?.maxlength">
                                             This field is required.
                                         </div>
                                     </div>
@@ -367,7 +433,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="sanShifaras"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="sanShif">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -386,10 +453,10 @@
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedpfLoan"
-                                                formControlName="pfLoan" bindLabel="label" placeholder="">
+                                            <ng-select id="BRANCH_CODE" [(ngModel)]="selectedpfLoan"
+                                                formControlName="pfLoan" placeholder="" (change)="getLoan($event)">
                                                 <ng-option *ngFor="let values of purpose_Loan" [value]="values">
-                                                    {{values.label}}</ng-option>
+                                                    {{values.NAME}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -410,7 +477,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="oldLDues"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="oldLoan">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -423,52 +491,33 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-2"> <label for="Branch">Guranter 1</label></div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group form-primary form-static-label">
-                                        <span class="border-lable-flt">
-                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedG1"
-                                                formControlName="gOne" bindLabel="label" placeholder=""
-                                                (change)="getIntroducer()">
-                                                <ng-option *ngFor="let values of g_One" [value]="values">
-                                                    {{values.label}}{{values.name}}</ng-option>
-                                            </ng-select>
-                                        </span>
-                                    </div>
-
-                                    <div class="form-group form-primary form-static-label"
-                                        *ngIf="angForm.controls['gOne'].invalid && (angForm.controls['gOne'].dirty || angForm.controls['gOne'].touched)"
-                                        class="alert alert-danger">
-                                        <div *ngIf="angForm.controls['gOne'].errors?.required">
-                                            This field is required
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Share Deductions</label>
+                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Old Loan Interest</label>
                                 </div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
-                                                formControlName="shDeduct"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                formControlName="oldLInterest"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="oldInt">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
-                                        *ngIf="angForm.controls['shDeduct'].invalid && (angForm.controls['shDeduct'].dirty || angForm.controls['shDeduct'].touched)"
+                                        *ngIf="angForm.controls['oldLInterest'].invalid && (angForm.controls['oldLInterest'].dirty || angForm.controls['oldLInterest'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['shDeduct'].errors?.pattern || angForm.controls['shDeduct'].errors?.required || angForm.controls['shDeduct'].errors?.maxlength">
+                                            *ngIf="angForm.controls['oldLInterest'].errors?.pattern || angForm.controls['oldLInterest'].errors?.required || angForm.controls['oldLInterest'].errors?.maxlength">
                                             This field is required.
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
+
 
                             </div>
 
                             <div class="row">
+
                                 <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Share Deductions</label>
                                 </div>
                                 <div class="col-sm-12 col-md-2">
@@ -477,7 +526,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="shDeduct"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="ShareDedu">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -490,27 +540,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-2"> <label for="Branch">Guranter 2</label></div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group form-primary form-static-label">
-                                        <span class="border-lable-flt">
-                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedG2"
-                                                formControlName="gTwo" bindLabel="label" placeholder=""
-                                                (change)="getIntroducer()">
-                                                <ng-option *ngFor="let values of g_Two" [value]="values">
-                                                    {{values.label}}{{values.name}}</ng-option>
-                                            </ng-select>
-                                        </span>
-                                    </div>
-
-                                    <div class="form-group form-primary form-static-label"
-                                        *ngIf="angForm.controls['gTwo'].invalid && (angForm.controls['gTwo'].dirty || angForm.controls['gTwo'].touched)"
-                                        class="alert alert-danger">
-                                        <div *ngIf="angForm.controls['gTwo'].errors?.required">
-                                            This field is required
-                                        </div>
-                                    </div>
-                                </div>
 
                                 <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Deposits</label></div>
                                 <div class="col-sm-12 col-md-2">
@@ -519,7 +548,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="deposits"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="Deposit" >
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -531,9 +561,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
                                 <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Other Sanstha Name</label>
                                 </div>
                                 <div class="col-sm-12 col-md-2">
@@ -541,8 +568,7 @@
                                         <span class="border-lable-flt">
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
-                                                formControlName="othSName"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                formControlName="othSName" [(ngModel)]="sanName">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -555,6 +581,27 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-12 col-md-2"> <label for="Branch">Guranter 1</label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedG1"
+                                                formControlName="gOne" bindLabel="label" placeholder=""
+                                                (change)="getGuranter($event)">
+                                                <ng-option *ngFor="let item of g_One" [value]="item.AC_MEMBNO"
+                                                    [disabled]="item.disabled">
+                                                    {{item.AC_MEMBNO}} {{item.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+
+                                </div>
+
                                 <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Other Sanstha
                                         Deductions</label></div>
                                 <div class="col-sm-12 col-md-2">
@@ -563,7 +610,8 @@
                                             <input type="text" name="INSTALLMENT_NO" class="form-control"
                                                 placeholder=" " id="INSTALLMENT_NO" maxlength="10"
                                                 formControlName="othSdeduct"
-                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="othSanDed" (change)="totPayamt($event)">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -576,15 +624,110 @@
                                     </div>
                                 </div>
 
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2"> <label for="Branch">Guranter 2</label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedG2"
+                                                formControlName="gTwo" bindLabel="label" placeholder=""
+                                                (change)="getGuranter2($event)">
+                                                <ng-option *ngFor="let item of g_Two" [value]="item.AC_MEMBNO"
+                                                    [disabled]="item.disabled">
+                                                    {{item.AC_MEMBNO}} {{item.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Total Paybale
+                                        Amount</label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="INSTALLMENT_NO" class="form-control"
+                                                placeholder=" " id="INSTALLMENT_NO" maxlength="10"
+                                                formControlName="totpayamt"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="TotAmount">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['totpayamt'].invalid && (angForm.controls['totpayamt'].dirty || angForm.controls['totpayamt'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['totpayamt'].errors?.pattern || angForm.controls['totpayamt'].errors?.required || angForm.controls['totpayamt'].errors?.maxlength">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2"> <label for="Branch">Guranter 3</label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedG3"
+                                                formControlName="gTwo" bindLabel="label" placeholder=""
+                                                (change)="getGuranter3($event)">
+                                                <ng-option *ngFor="let item of g_Three" [value]="item">
+                                                    {{item.AC_MEMBNO}} {{item.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12 col-md-2"> <label for="INSTALLMENT_NO">Installment
+                                        Amount</label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="INSTALLMENT_NO" class="form-control"
+                                                placeholder=" " id="INSTALLMENT_NO" maxlength="10"
+                                                formControlName="Insamt"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                [(ngModel)]="InsattAmt">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['Insamt'].invalid && (angForm.controls['Insamt'].dirty || angForm.controls['Insamt'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['Insamt'].errors?.pattern || angForm.controls['Insamt'].errors?.required || angForm.controls['Insamt'].errors?.maxlength">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2"> <label for="Branch">Guranter 4</label></div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="selectedG4"
+                                                formControlName="gTwo" bindLabel="label" placeholder=""
+                                                (change)="getGuranter4($event)">
+                                                <ng-option *ngFor="let item of g_four" [value]="item">
+                                                    {{item.AC_MEMBNO}} {{item.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+
+                                </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-12">
-                                    <button class="btn  btn-outline-primary btn-sm">Close</button>
+                                    <!-- <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button> -->
 
-                                    <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                                    <button class="btn  btn-outline-primary btn-sm" (click)="reset()">Cancel</button>
 
-                                    <button class="btn  btn-outline-primary btn-sm">Update</button>
+                                    <button class="btn  btn-outline-primary btn-sm" (click)=" submit()">Submit</button>
                                 </div>
                             </div>
                         </div>

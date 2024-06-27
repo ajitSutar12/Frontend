@@ -1,0 +1,345 @@
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Notice Report</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="solid">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for="LOAN">Select Loan/Deposite<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="Loan" formControlName="Loan" placeholder="Loan">
+                                                   
+                                                </ng-select>
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['Loan'].invalid && (ngForm.controls['Loan'].dirty || ngForm.controls['Loan'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['Loan'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2"> <label for="Scheme">Scheme Type<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select formControlName="Scheme_code" placeholder="Scheme Type"> -->
+                                                    <!-- <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option> -->
+                                                <!-- </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"> <label for="Notice Date">Notice Date<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="dd/mm/yyyy" name="NOTICE_DATE"
+                                                    id="NOTICE_DATE" formControlName="NOTICE_DATE" class="form-control">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['NOTICE_DATE'].invalid && (ngForm.controls['NOTICE_DATE'].dirty || ngForm.controls['NOTICE_DATE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['NOTICE_DATE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2"> <label for="Membership Date">Auction Date<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="dd/mm/yyyy" name="Auction_Date"
+                                                    id="date" formControlName="Auction_Date" class="form-control">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['Auction_Date'].invalid && (ngForm.controls['Auction_Date'].dirty || ngForm.controls['Auction_Date'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['Auction_Date'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"> <label for="Recovery Days">Recovery Days<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="RECOVERY_DAYS" id="RECOVERY_DAYS"
+                                                    formControlName="RECOVERY_DAYS" class="form-control">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['RECOVERY_DAYS'].invalid && (ngForm.controls['RECOVERY_DAYS'].dirty || ngForm.controls['RECOVERY_DAYS'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['RECOVERY_DAYS'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"> <label for="Notice Fee">Notice Fee<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="NOTICE_FEE" id="NOTICE_FEE"
+                                                    formControlName="NOTICE_FEE" class="form-control">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['NOTICE_FEE'].invalid && (ngForm.controls['NOTICE_FEE'].dirty || ngForm.controls['NOTICE_FEE'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['NOTICE_FEE'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for="Notice Type">Notice Type<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select id="noticetype" formControlName="noticetype"
+                                                    placeholder="noticetype"> -->
+                                                    <!-- <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                        {{values.label}}</ng-option> -->
+                                              <!--    </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="ngForm.controls['noticetype'].invalid && (ngForm.controls['noticetype'].dirty || ngForm.controls['noticetype'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="ngForm.controls['noticetype'].errors?.required">
+                                                This field is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-1"> <label for="LOAN">Range<sub
+                                                class="required">*</sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-1"> <label for=" Date">From<sub
+                                                class="required">*</sub></label>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="" name="from" id="from"
+                                                    class="form-control" formControlName="from" appButton>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"> <label for=" Date">To<sub class="required">*</sub></label>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="" name="to" id="to" class="form-control"
+                                                    formControlName="to" appButton>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="solid">
+                                
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"> <label for=" Date">Balance/Interest Date<sub
+                                                class="required"></sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" placeholder="dd/mm/yyyy" name="BAL_INT_DATE"
+                                                    id="BAL_INT_DATE" class="form-control"
+                                                    formControlName="BAL_INT_DATE">
+                                            </span>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col-sm-12 col-md-2"> <label for=" Auction Time">Auction Time<sub
+                                                class="required"></sub></label>
+                                    </div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="AUCTION_TIME" id="AUCTION_TIME"
+                                                    class="form-control" formControlName="AUCTION_TIME">
+                                            </span>
+                                        </div>
+                                       
+                                   </div>
+                                </div>
+
+
+                            
+                    <div class="row">
+                        <div class="col-sm col-md-3">
+                            <div class="checkbox checkbox-primary ">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="Loan_overdue" value="0"
+                                        formControlName="Loan_overdue" (click)="show()">
+                                    <label class="border-checkbox-label" for="Loan_overdue">Only Overdue Accounts
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-2" *ngIf="isShow"> <label for=" from">Between Overdue Date<sub
+                                    class="required"></sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1" *ngIf="isShow"> <label for=" from">From<sub
+                                    class="required"></sub></label>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="isShow">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="from" id="from" class="form-control"
+                                        formControlName="from" appButton>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1" *ngIf="isShow"> <label for=" to">To<sub class="required"></sub></label>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="isShow">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="to" id="to" class="form-control"
+                                        formControlName="to" appButton>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row" *ngIf="isShow">
+                        <div class="col-sm col-md-3"></div>
+                        <div class="col-sm-12 col-md-2"> <label for=" from">Between Overdue Installment<sub
+                                    class="required"></sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for=" from">From<sub class="required"></sub></label>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="from" id="from" class="form-control"
+                                        formControlName="from" appButton>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1"> <label for=" to">To<sub class="required"></sub></label>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="to" id="to" class="form-control"
+                                        formControlName="to" appButton>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm col-md-3">
+                            <div class="checkbox checkbox-primary ">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input type="checkbox" class="border-checkbox" id="Expired_Acc" value="0"
+                                        formControlName="Expired_Acc" (click)="show1()">
+                                    <label class="border-checkbox-label" for="Expired_Acc">Only Expired Accounts
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2" *ngIf="isShow1"> <label for=" Date">Expired Date<sub
+                                    class="required"></sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1" *ngIf="isShow1"> <label for=" Date">From<sub
+                                    class="required"></sub></label>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="isShow1">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="from" id="from" class="form-control"
+                                        formControlName="from">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-1" *ngIf="isShow1"> <label for=" Date">To<sub
+                                    class="required"></sub></label>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="isShow1">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="to" id="to" class="form-control"
+                                        formControlName="to">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-md-9"></div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-primary btn-sm" value="submit" (click)="view($event)">View</button>
+
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

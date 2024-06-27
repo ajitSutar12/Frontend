@@ -296,8 +296,12 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         USER_CODE: result.id
       }
       this.http.post(this.url + '/gold-silver-return-entry/approve', object).subscribe((data: any) => {
-        this.angForm.enable()
+        // this.angForm.enable()
         Swal.fire("Success!", "Data Approved Successfully !", "success");
+        var button = document.getElementById('triggerhide');
+        button.click();
+        this.reloadTablePassing.emit();
+        this.angForm.enable()
         // this.createForm()
         this.tableData = []
         this.ngscheme = null
@@ -309,6 +313,8 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         var button = document.getElementById('triggerhide');
         button.click();
         this.reloadTablePassing.emit();
+        this.angForm.enable()
+        
       })
     // }
   }
@@ -323,7 +329,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         LOG_DATE: this.logDate
       }
       this.http.post(this.url + '/gold-silver-return-entry/unapprove', object).subscribe((data: any) => {
-        this.angForm.enable()
+        
         Swal.fire("Success!", "Data Unapproved Successfully !", "success");
         // this.createForm()
         this.tableData = []
@@ -336,6 +342,7 @@ export class GoldSilverReturnEntryComponent implements OnInit {
         var button = document.getElementById('triggerhide');
         button.click();
         this.reloadTablePassing.emit();
+        this.angForm.enable()
       })
     // }
   }

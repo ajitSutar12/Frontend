@@ -1,0 +1,276 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Conversion</h5>
+            </div>
+        </div>
+        <form [formGroup]="ngForm">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="solid">
+                            <label class="border-label-flt">Select Database</label>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="radio" value="Excel" formControlName="radio">
+                                                <i class="helper"></i>EXCEL FILE
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="radio" value="MS_Access" formControlName="radio">
+                                                <i class="helper"></i>MS Access
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="radio" value="ORACLE"  formControlName="radio" (change)="oracle($event)">
+                                                <i class="helper"></i>ORACLE
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="radio" value="POSTGRES" formControlName="radio">
+                                                <i class="helper"></i>PostgreSQL
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="solid">
+                            <label class="border-label-flt">Select Files and their Path</label>
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <label>Dictionary<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input type="file" name="upload" class="form-control" id="upload"
+                                            formControlName="upload">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Dict. Table<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" name="table_name" class="form-control" id="table_name"
+                                            formControlName="table_name">
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                                *ngIf="ngForm.controls['table_name'].invalid && (ngForm.controls['table_name'].dirty || ngForm.controls['table_name'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="ngForm.controls['table_name'].errors?.required">
+                                                    This field is required
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="col-md-2">
+                                    <label>Data<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                        <input type="file" name="upload_d" class="form-control" id="upload_d"
+                                            formControlName="upload_d">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Data Table<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <input type="text" name="dtable_name" class="form-control" id="dtable_name"
+                                            formControlName="dtable_name">
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                                *ngIf="ngForm.controls['dtable_name'].invalid && (ngForm.controls['dtable_name'].dirty || ngForm.controls['dtable_name'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="ngForm.controls['dtable_name'].errors?.required">
+                                                    This field is required
+                                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="solid">
+                            <label class="border-label-flt">Select Columns to Use</label>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-primary btn-block">Get Columns</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4 mb-2">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2"></label>
+                                        <select multiple class="form-control" id="exampleFormControlSelect2">
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                          <option>4</option>
+                                          <option>5</option>
+                                        </select>
+                                      </div>
+                                </div>
+                                <div class="col-sm-12 col-md-3 mb-2">
+                                    <button type="button" class="btn btn-secondary btn-block">From Field -></button>
+                                </div>
+                                <div class="col-sm-12 col-md-5 mb-2">
+                                    <input type="text" name="from_field" class="form-group" id="from_field"
+                                        formControlName="from_field">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4 mb-2">
+                                </div>
+                                <div class="col-sm-12 col-md-3 mb-2">
+                                    <button type="button" class="btn btn-secondary btn-block">To Field -></button>
+                                </div>
+                                <div class="col-sm-12 col-md-5 mb-2">
+                                    <input type="text" name="to_field" class="form-group" id="to_field"
+                                        formControlName="to_field">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="solid">
+                            <label class="border-label-flt">Conversion Direction</label>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="conversion" value="engTomar"
+                                                    formControlName="conversion">
+                                                <i class="helper"></i>English To Marathi
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="conversion" value="marToeng"
+                                                    formControlName="conversion">
+                                                <i class="helper"></i>Marathi To English
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-radio">
+                                        <div class="radio radio-inline">
+                                            <label>
+                                                <input type="radio" name="conversion" value="dvbwTounicode"
+                                                    formControlName="conversion">
+                                                <i class="helper"></i>DVBW To Unicode
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="solid">
+                            <label class="border-label-flt">Progress</label>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                              </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-primary btn-sm" value="convert" >Convert</button>
+    
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-primary btn-sm" >Quit</button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label">Service Name:</label>
+                  <input type="text" class="form-control" id="service_nm">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">User:</label>
+                  <input type="text" class="form-control" id="user">
+                </div>
+                <div class="form-group">
+                    <label for="message-text" class="col-form-label">Password:</label>
+                    <input type="text" class="form-control" id="password">
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
