@@ -49,7 +49,7 @@ export class LoanProjectionComponent implements OnInit {
   ];
   TDS_RATE: number;
   todate: any;
-
+  showRepo: boolean = false;
   constructor(
     private repayModeService: RepayModeService,
     private installmentMethodService: InstallmentMethodService,
@@ -121,9 +121,10 @@ export class LoanProjectionComponent implements OnInit {
       })
     }
   }
-  iframe5url: any = '';
+  Iframe1Module: any = '';
   report_url = environment.report_url
   Process() {
+    this.showRepo = true;
     let obj = this.angForm.value;
     obj['user'] = JSON.parse(localStorage.getItem('user'));
     this.modalClass = 'modalShow';
@@ -165,10 +166,9 @@ export class LoanProjectionComponent implements OnInit {
       totint1 = totint.map(totint => `${totint}<br/>`);
   
 
-
-      this.iframe5url = "http://localhost/phpjasper/vendor/tecnickcom/tcpdf/examples/loanProjection.php/?&loan='" + obj.LOAN + "'&installNumber=" + obj.INSTALLMENTS + "&AC_REPAYMODE=" + obj.AC_REPAYMODE + "&INSTALLMENT_METHOD=" + obj.INSTALLMENT_METHOD + "&POSTINGMETHOD=" + obj.POSTINGMETHOD + "&TDS_RATE=" + obj.TDS_RATE + "&RESOLUTION_DATE=" + obj.RESOLUTION_DATE + "'&PERIOD=" + obj.PERIOD + "'";
-      console.log(this.iframe5url);
-      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      this.Iframe1Module = this.report_url + "examples/loanP.php?&Bal1='" + Bal1 + "'&CrAmt1=" + CrAmt1 + "&Days1=" +Days1 + "&DrAmt1=" + DrAmt1 + "&Product1=" + Product1 + "&totint1=" + totint1 + "";
+      console.log(this.Iframe1Module);
+      this.Iframe1Module = this.sanitizer.bypassSecurityTrustResourceUrl(this.Iframe1Module);
 
     }, err => {
       this.modalClass = 'modalHide';
