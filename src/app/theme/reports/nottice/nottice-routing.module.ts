@@ -21,14 +21,14 @@ const routes: Routes = [
           path: 'noticereport',
           loadChildren: () => import('./notice-report/notice-report.module').then(m => m.NoticeReportModule)
         },
-        {
-          path: 'blankNotice',
-          loadChildren: () => import('./blanknotice/blanknotice.module').then(m => m.BlanknoticeModule)
-        },
-        {
-          path: 'showNotice',
-          loadChildren: () => import('./createnotice/createnotice.module').then(m => m.CreatenoticeModule)
-        },
+        // {
+        //   path: 'blankNotice',
+        //   loadChildren: () => import('./blanknotice/blanknotice.module').then(m => m.BlanknoticeModule)
+        // },
+        // {
+        //   path: 'showNotice',
+        //   loadChildren: () => import('./createnotice/createnotice.module').then(m => m.CreatenoticeModule)
+        // },
       ]
   }
 ];
