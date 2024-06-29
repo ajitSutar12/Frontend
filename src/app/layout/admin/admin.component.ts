@@ -193,6 +193,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   newsContent: string;
   marqueeElement: any;
   url=environment.base_url
+  barnchCode
   constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,public router:Router,
     private http: HttpClient) {
     this.animateSidebar = '';
@@ -309,6 +310,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let resultArray = result.RoleDefine[0].Role.Rolehaspermission.Menus;
 
     this.barnchName = result.branch.NAME;
+    this.barnchCode = result.branch.CODE;
     this.bankName = result.branch.syspara.BANK_NAME;
     this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
     //console.log(resultArray);

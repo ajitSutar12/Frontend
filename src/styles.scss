@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-// @import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
 
 .odd {
     display: none;
@@ -154,7 +154,7 @@ input[type="checkbox"]:focus {
 }
 
 .btn-outline-primary {
-    color: #6d022d;
+    color: #ea7815;
     background-color: transparent;
     float: right;
     margin-right: 5px;
@@ -173,10 +173,10 @@ input[type="checkbox"]:focus {
 .nav-pills .nav-link.active.active:hover {
     color: white;
     text-align: center;
-    border-bottom: 2px solid #6d022d;
+    border-bottom: 2px solid #0275d8;
     border-top-left-radius: 0.2rem !important;
     border-top-right-radius: 0.2rem !important;
-    background-color:#6d022d;
+    background-color: #ea7815;
 }
 
 .nav-tabs {
@@ -269,12 +269,12 @@ th {
 }
 
 .btn-outline-primary {
-    // background-color:#6d022d;
-    background-color:#ff770c;
-    // border-color:#6d022d;
+   
+    background:#ea7815;
+    // border-color: #448aff;
     color: white;
     // background-image: linear-gradient(#8d1b54, #ddb4c2);
-    border-color: #ff770c;
+    border-color: black;
     // background-color: transparent;
     float: right;
     margin-right: 5px;
@@ -442,7 +442,9 @@ ng-select>div>div.single>div.toggle {
 }
 
 .card .card-header {
-    background-color: #6d022d;
+    // background-color: #6e91cc;
+    background:purple;
+
     border-bottom: none;
     padding: 2px;
     position: relative;
@@ -474,7 +476,7 @@ ng-select>div>div.single>div.toggle {
 
 .card .card-header h5:after {
     content: "";
-    background-color: #6d022d;
+    background-color: cornflowerblue;
     position: absolute;
     left: -2px;
     top: 0;
@@ -506,7 +508,10 @@ ng-select>div>div.single>div.toggle {
 
 
 .pcoded .pcoded-header[header-theme="theme1"] {
-    background:#6d022d; // background-image: linear-gradient(to right, #8d1b54, #cb90a5);
+    // background:#094585 ;
+    background:linear-gradient(to bottom, #f5ad42 -18%, #ea7815 127%);
+
+    ; // background-image: linear-gradient(to right, #8d1b54, #cb90a5);
 }
 
 .pcoded .pcoded-header[header-theme="theme1"] .input-group-addon,
@@ -521,9 +526,12 @@ ng-select>div>div.single>div.toggle {
 // }
 
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a {
-    // background:#6d022d;
+    // background: #448aff;
     // color: black !important;
-    background:#6d022d;
+    // background: #448aff;
+    background:linear-gradient(to bottom, #f5ad42 -18%, #ea7815 127%)
+    ;
+
     color: #fff !important;
 }
 
@@ -537,9 +545,15 @@ ng-select>div>div.single>div.toggle {
 
 .pcoded[fream-type="theme1"] .page-header:before,
 .pcoded[fream-type="theme1"] .main-menu .main-menu-header:before {
-    // background:#6d022d;
+    // background: #448aff;
     //  background: RGB(217 231 248/80%) !important;
-    background: #6d022d82;
+     // background: rgba(23, 60, 122, 0.5);
+    // background: rgb(109, 2, 45);
+    // background: rgba(114, 215, 63, 0.875);
+    // background: rgba(114, 215, 63, 0.875);
+    background: rgba(227, 11, 227, 0.5);
+
+
 }
 
 // .table.dataTable[class*="table-"] thead th {
@@ -553,7 +567,8 @@ ng-select>div>div.single>div.toggle {
         // background-color: transparentize($primary-color,0.97);
         // background-color: #f8eef3;
         // background-color: #dae7f6;
-        background-color: #6d022d4d;
+        background-color:rgb(243, 214, 243);
+        ;
     }
 }
 
@@ -595,7 +610,7 @@ ng-select>div>div.single>div.value {
 }
 
 .table.dataTable[class*="table-"] thead th {
-    // background-color:#6d022d;
+    // background-color: #448aff;
     // background-image: -webkit-linear-gradient(top,
     //         #dae7f6,
     //         #6e91cc 45%,
@@ -611,7 +626,9 @@ ng-select>div>div.single>div.value {
     //         #b8cfee 51%,
     //         #cbddf3);
     // // background: rgba(68, 138, 255, 0.5);
-    background: #6d022dd7;
+    // background: #6e91cc;
+    background:purple;
+
     color: white;
     // text-transform: capitalize;
     // background-image: -webkit-linear-gradient(top,
@@ -647,9 +664,9 @@ ng-select>div>div.single>div.value {
 .btn-outline-primary:disabled {
     // color: WHITE;
     // background-color: transparent;
-    background-color:#ff770c;
+    background-color: #ea7815;
     color: white !important;
-    border-color: #ff770c;
+    border-color: black;
     float: right;
     margin-right: 5px;
     border-radius: 5px;
@@ -670,7 +687,7 @@ ng-select>div>div.single>div.value {
 
 .border-primary {
     border-color: transparent;
-    border: 1px solid #6d022d4d;
+    border: 1px solid #abc7ec;
     border-radius: 0;
     box-shadow: 0 0 1px #999;
     color: black !important;
@@ -772,7 +789,7 @@ ng-select>div>div.single>div.value {
 
 .border-secondary {
     // padding-top: 0px;
-    border: #6d022d;
+    border: blue;
 }
 
 // .ng-valid.ng-dirty:not(form) {
@@ -790,8 +807,8 @@ ng-select>div>div.single>div.value {
 // }
 
 thead td {
-    // background-color:#6d022d;
-    background: #6d022d8c;
+    // background-color: #448aff;
+   background:purple;
     // background-image: -webkit-linear-gradient(top,
     //         #dae7f6,
     //         #cddef3 45%,
@@ -836,7 +853,7 @@ th.ng-tns-c146-1 {
             #cbddf3);
     height: 2em;
     color: #000;
-    border-color:#6d022d;
+    border-color: #448aff;
 }
 
 .fc th,
@@ -925,7 +942,8 @@ input[type="file" i]::-webkit-file-upload-button {
     // color: #333;
     // background-color: #e0e6ef;
     color: #fdf9f9;
-    background-color: #6d022de8;
+    // background-color: #88b1ed;
+    background-color:rgb(206, 102, 206);
 }
 
 .inputRadio:focus-within {
@@ -1013,35 +1031,6 @@ tr:hover {
     overflow-x: hidden;
 
 }
-
-.highlighted{
-    background-color: yellow;
-    color: red;
+.swal2-title {
+    position: static !important
 }
-.cardcls {
-    // width: 300px;
-    background-color: lightblue;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-.lblCls{
-    font-weight: bold;
-}
-// .ui-widgets {
-//     position: relative;
-//     display: inline-block;
-//     width: 150px;
-//     height: 150px;
-//     border-radius: 9rem;
-//     // margin: 1.5rem;
-//     border: 15px solid rgb(152, 164, 251);
-//     box-shadow: inset 0 0 7px grey;
-//     border-left-color: rgb(251, 152, 229);
-//     border-top-color: rgb(255, 225, 0);
-//     border-right-color: darkgreen;
-//     border-bottom-color: rgb(249, 0, 0);
-//     // text-align: center;
-//     box-sizing: border-box;
-// }

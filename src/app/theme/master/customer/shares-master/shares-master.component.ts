@@ -1039,7 +1039,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updatecheckdata: any
   name: any
   ac_no: any
-  opdate
+  // opdate
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
