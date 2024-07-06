@@ -111,9 +111,11 @@ createForm() {
     this.ngbranch = result.branch.id
   }
 }
-
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+} 
 view(event) {
-  debugger
+  // debugger
   event.preventDefault();
   this.formSubmitted = true;
 

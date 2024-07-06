@@ -164,6 +164,9 @@ export class LoanExpiredListComponent implements OnInit {
 
   }
 
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
 
 

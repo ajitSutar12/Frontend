@@ -39,6 +39,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
 import { data } from 'jquery';
+import { InterestInstructionComponent } from '../../instruction/interest-instruction/interest-instruction.component';
 
 class DataTableResponse {
   data: any[];
@@ -112,6 +113,8 @@ interface TermDepositMaster {
 export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
   @Output() reloadTablePassing = new EventEmitter<string>();
+  @ViewChild(InterestInstructionComponent) child: InterestInstructionComponent;
+
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -257,6 +260,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   showrenewacctr: boolean = false
 
   AC_OPDATE: any;
+  intinstruction: any;
 
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -1708,6 +1712,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   opdate
+  intinst
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
@@ -1716,7 +1721,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       console.log(data);
-
+      this.intinstruction = data.intinstruction
+      console.log(this.intinstruction)
       this.createForm()
       this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -1847,7 +1853,30 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
+  // intdata
+  // editClickHandler1(id,data) {
+  //   this.intdata=this.angForm.patchValue({
+  //       'INSTRUCTION_NO': data.INSTRUCTION_NO,
+  //       'INSTRUCTION_DATE': data.INSTRUCTION_DATE,
+  //       'FROM_DATE': data.FROM_DATE,
+  //       'NEXT_EXE_DATE': data.NEXT_EXE_DATE,
+  //       'TRAN_TYPE': data.TRAN_TYPE,
+  //       'LAST_EXEC_DATE': data.LAST_EXEC_DATE,
+  //       'DR_ACTYPE': data.DR_ACTYPE,
+  //       'DR_PARTICULARS': data.DR_PARTICULARS,
+  //       'CR_ACTYPE': data.CR_ACTYPE,
+  //       'CR_AC_NO': data.CR_AC_NO,
+  //       'CR_PARTICULARS': data.CR_PARTICULARS,
+  //       'SI_FREQUENCY': data.SI_FREQUENCY,
+  //       'REVOKE_DATE': data.REVOKE_DATE,
+  //       'ADV_NARRATION': data.ADV_NARRATION,
+  //       'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE ,
+        
 
+  //     })
+  //     // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
+  //   }
+  
   isDeleted: boolean = true
   disableForm(id) {
     this.isDeleted = false
@@ -3110,6 +3139,19 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         Swal.fire('', 'Power Of Attorney Deleted Successfully!', 'success');
       })
     }
+  }
+  reloadTable() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
+  }
+  getIntInstruct
+  getInstructionData(data) {
+    this.getIntInstruct = data;
+    this.child.editClickHandler(data);
+    // this.child.DatatableHideShow = false;
+    // this.child.rejectShow = true;
+    // this.child.approveShow = true;
   }
 
 }

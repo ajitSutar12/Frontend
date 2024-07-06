@@ -187,7 +187,7 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <a [href]="fileUrl" download> <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                         (click)="View($event); clicked = true  " >View</button></a>
+                         (click)="View($event); clicked = true ;scrollToTop() " >View</button></a>
                         </div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>

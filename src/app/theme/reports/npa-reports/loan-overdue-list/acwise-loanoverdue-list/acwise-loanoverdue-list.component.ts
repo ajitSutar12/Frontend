@@ -287,7 +287,9 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     // Use the selected tab value as needed
   }
 
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   selectedArrayItem: any[]
   // selectedArrayItem: any[]
   view(event) {

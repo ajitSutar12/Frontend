@@ -153,10 +153,10 @@ report_url = environment.report_url;
     }
   }
 
- 
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
     view(event){
-     
-  
       event.preventDefault();
       this.formSubmitted = true;
   

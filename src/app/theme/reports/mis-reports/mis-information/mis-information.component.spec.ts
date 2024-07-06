@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MemberLiablityViewComponent } from './member-liablity-view.component';
+import { MisInformationComponent } from './mis-information.component';
 
-describe('MemberLiablityViewComponent', () => {
-  let component: MemberLiablityViewComponent;
-  let fixture: ComponentFixture<MemberLiablityViewComponent>;
+describe('MisInformationComponent', () => {
+  let component: MisInformationComponent;
+  let fixture: ComponentFixture<MisInformationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemberLiablityViewComponent ]
+      declarations: [ MisInformationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MemberLiablityViewComponent);
+    fixture = TestBed.createComponent(MisInformationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

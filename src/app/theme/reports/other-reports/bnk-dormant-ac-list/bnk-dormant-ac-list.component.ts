@@ -107,6 +107,9 @@ showRepo: boolean = false;
     });
   }
   src: any;
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
 view(event) {
   
   event.preventDefault();

@@ -92,6 +92,9 @@ export class LoancashcreditacOpensanctiondatewiseComponent implements OnInit {
       return result * sortOrder;
     }
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     this.showLoading = true;
     event.preventDefault();

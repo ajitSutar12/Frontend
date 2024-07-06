@@ -144,7 +144,9 @@ export class LcdRenewalListComponent implements OnInit {
     });
 
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
 
 

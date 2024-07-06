@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -41,4 +41,5 @@ export class DayBeginService {
   LOGOFFHISTORY(data: any): Observable<any> {
     return this.http.post<any>(this.base_url + '/user-defination/logoffhistory', data);
   }
+  
 }

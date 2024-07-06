@@ -169,7 +169,9 @@ export class BnkPigmyBalanceListComponent implements OnInit {
   //     this.defaultDate = data.CURRENT_DATE
   //   })
   // }
- 
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   
   src: any;
   view(event) {

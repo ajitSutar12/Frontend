@@ -530,7 +530,9 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
   end() { }
 
   showLoading: boolean = false;
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
  
   view(event) {
     this.formSubmitted = true;

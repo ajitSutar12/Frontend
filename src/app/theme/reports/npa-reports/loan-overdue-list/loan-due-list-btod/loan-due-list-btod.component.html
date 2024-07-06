@@ -149,7 +149,7 @@
                             <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button>
 
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                            (click)="view($event); clicked = true ">View</button>
+                            (click)="view($event); clicked = true;scrollToTop() ">View</button>
                         </div>
                     </div>
                     <div class="row">

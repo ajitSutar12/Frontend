@@ -212,7 +212,9 @@ export class BnkODRegisterComponent implements OnInit {
       Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
     }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
     debugger
