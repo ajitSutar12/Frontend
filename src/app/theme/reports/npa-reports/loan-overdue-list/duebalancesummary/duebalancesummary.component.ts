@@ -184,7 +184,9 @@ export class DuebalancesummaryComponent implements OnInit {
     }
   }
   end() { }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     this.formSubmitted = true;
     event.preventDefault();

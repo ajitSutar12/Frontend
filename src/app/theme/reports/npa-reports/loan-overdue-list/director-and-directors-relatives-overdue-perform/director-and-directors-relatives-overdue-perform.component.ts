@@ -136,7 +136,9 @@ export class DirectorAndDirectorsRelativesOverduePerformComponent implements OnI
 
     }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   showLoading: boolean = false;
   src: any;
   view(event) {

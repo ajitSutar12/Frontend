@@ -111,7 +111,9 @@ export class BnkTrialBalComponent implements OnInit {
     this.branchName = event.branchName
     this.branchCode = event.name
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     // debugger
     event.preventDefault();

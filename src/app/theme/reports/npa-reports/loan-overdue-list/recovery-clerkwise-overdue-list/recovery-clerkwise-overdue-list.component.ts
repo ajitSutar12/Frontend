@@ -132,7 +132,9 @@ export class RecoveryClerkwiseOverdueListComponent implements OnInit {
   dateGet(event) {
     this.inputDate = event.value
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     this.inputDate
     this.showLoading = true;

@@ -248,7 +248,9 @@ export class BnkDptambalListComponent implements OnInit {
      Print_Closed_Accounts: [''],
     });
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
   

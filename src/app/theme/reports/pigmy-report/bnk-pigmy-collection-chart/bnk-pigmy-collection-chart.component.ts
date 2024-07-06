@@ -197,6 +197,9 @@ export class BnkPigmyCollectionChartComponent implements OnInit {
     this.acCloseDate = null
     this.isOpen = false
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
     

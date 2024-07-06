@@ -109,7 +109,9 @@ export class BnkTrialBaldetailComponent implements OnInit {
     }
   }
 
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));

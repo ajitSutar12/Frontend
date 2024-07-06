@@ -123,7 +123,9 @@ export class BnkRegInsurenceComponent implements OnInit {
 
 
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
 

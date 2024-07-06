@@ -125,9 +125,11 @@ export class RecoveryCwBalanceComponent implements OnInit {
     });
 
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
-    debugger
+    // debugger
 
 
     event.preventDefault();

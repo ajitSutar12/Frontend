@@ -107,7 +107,9 @@ getTransferAccountList(event) {
   this.tScheme = event.name
 
 }
-
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+} 
 end() {}
 src: any;
 view(event) {

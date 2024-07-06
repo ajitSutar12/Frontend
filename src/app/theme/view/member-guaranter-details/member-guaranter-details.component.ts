@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { event } from 'jquery';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -11,11 +9,12 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-member-liablity-view',
-  templateUrl: './member-liablity-view.component.html',
-  styleUrls: ['./member-liablity-view.component.scss']
+  selector: 'app-member-guaranter-details',
+  templateUrl: './member-guaranter-details.component.html',
+  styleUrls: ['./member-guaranter-details.component.scss']
 })
-export class MemberLiablityViewComponent implements OnInit {
+export class MemberGuaranterDetailsComponent implements OnInit {
+
   angForm: FormGroup;
   obj: any;
   clicked = false;
@@ -312,3 +311,4 @@ brachcode
   // }
 
 }
+

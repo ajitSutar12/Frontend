@@ -96,7 +96,9 @@ export class BalanceSheetComponent implements OnInit {
     })
   }
 
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     // this.branchName = event.branchName
     event.preventDefault();

@@ -269,7 +269,9 @@ export class CitiwiseNpaRegComponent implements OnInit {
   //   const checkedFalse = false
   //   this.InterestArr.forEach(item => item.IS_POST_INT_AC = checkedFalse);
   // }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
 
   view(event) {
 
