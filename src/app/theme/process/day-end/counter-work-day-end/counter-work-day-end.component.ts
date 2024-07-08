@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
 import * as moment from 'moment';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -15,7 +16,7 @@ export class CounterWorkDayEndComponent implements OnInit {
   ngbdate
   systemInfo: any;
   isLoading: boolean = false;
-  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService) { }
+  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService,private appComponent: AppComponent) { }
 
   ngOnInit(): void {
     this._services.getSysparaDetails().subscribe(data => {
@@ -31,6 +32,9 @@ export class CounterWorkDayEndComponent implements OnInit {
   isHotkeyShow: boolean = true
   DayEnd() {
     this.isLoading = true;
+    this.isHotkeyShow = false;
+    this.appComponent.toggleHotkeys(false);
+    
     var value = localStorage.setItem('key','0');
     this.isHotkeyShow = false
     //get login details
@@ -63,12 +67,14 @@ export class CounterWorkDayEndComponent implements OnInit {
                 Swal.fire('Success', 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
               }, err => {
                 this.isLoading = false;
+                this.appComponent.toggleHotkeys(true);
                 if (err.error.statusCode == 400) {
                   Swal.fire('Cancelled', err.error.message, 'error');
                 }
               })
             }, err => {
               this.isLoading = false;
+              this.appComponent.toggleHotkeys(true);
               if (err.error.statusCode == 400) {
                 Swal.fire('Cancelled', err.error.message, 'error');
               }
@@ -77,6 +83,7 @@ export class CounterWorkDayEndComponent implements OnInit {
             result.dismiss === Swal.DismissReason.cancel
           ) {
             this.isLoading = false;
+            this.appComponent.toggleHotkeys(true);
             Swal.fire(
               'Cancelled',
               'Your Action is revert',
@@ -87,6 +94,7 @@ export class CounterWorkDayEndComponent implements OnInit {
       }
     }, err => {
       console.log(err);
+      this.appComponent.toggleHotkeys(true);
       this.isLoading = false;
     })
 

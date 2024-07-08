@@ -535,6 +535,9 @@ ng-select>div>div.single>div.toggle {
     color: #fff !important;
 }
 
+.pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a .tooltiptext {
+    visibility: hidden;
+}
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item>li.active>a .pcoded-micon {
     color: rgb(255, 255, 255) !important;
 }

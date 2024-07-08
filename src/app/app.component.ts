@@ -104,6 +104,14 @@ export class AppComponent implements OnInit {
   //     }, ['INPUT', 'TEXTAREA', 'SELECT']));
   // }
 
+  hotkeysEnabled: boolean = true;
+  toggleHotkeys(enable: boolean) {
+    this.hotkeysEnabled = enable;
+    this._hotkeysService.reset();
+    if (this.hotkeysEnabled) {
+      this.addHotKeys();
+    }
+  }
   // @HostListener('window:beforeunload', ['$event'])
   @HostListener('window:unload', ['$event'])
   beforeunloadHandler(event) {

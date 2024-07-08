@@ -56,8 +56,11 @@ const routes: Routes = [
     {
       path:'recoveryFlag',
       loadChildren: () => import('./recovery-flag-updation/recovery-flag-updation.module').then(m=>m.RecoveryFlagUpdationModule)
+    },
+    {
+      path:'disputedetail',
+      loadChildren: () => import('./dispute-detail/dispute-detail.module').then(m=>m.DisputeDetailModule)
     }
-   
    
   ]
   }

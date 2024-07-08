@@ -88,6 +88,9 @@ export class MisInformationComponent implements OnInit {
 
     }
   }
+  get f(){
+    return this.angForm.controls
+    }
   getBranch(event) {
     this.ngbranch = event.value
     this.branchName = event.branchName
