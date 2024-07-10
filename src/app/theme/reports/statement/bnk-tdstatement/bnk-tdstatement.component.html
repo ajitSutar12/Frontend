@@ -38,7 +38,7 @@
                             <div class="col-sm-12 col-md-2"> <label for="Scheme Code">Scheme Code<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-3">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
@@ -67,7 +67,7 @@
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select formControlName="Starting_Account" bindValue="value"
-                                            bindLabel="label" [(ngModel)]="startingAccount"  (change)="getAcno1($event)">
+                                            bindLabel="label" [(ngModel)]="startingAccount" (change)="getAcno1($event)">
                                             <ng-option *ngFor="let values of startingacc" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
@@ -83,6 +83,13 @@
                                 </div>
 
                             </div>
+
+                            <div class="col-sm-3 col-md-3" style="float: right; color: rgb(14 168 14);" *ngIf="isOpen">
+                                Account Open</div>
+                            <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="acCloseDate">
+                                <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
+                            </div>
+
                             <!-- <div class="col-sm-12 col-md-2"> <label for="Member No.">Ending Account<sub
                                         class="required">*</sub></label>
                             </div>
@@ -106,10 +113,12 @@
                                 </div>
 
                             </div> -->
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="Form Date">Starting Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-3">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Starting_Date"
@@ -129,13 +138,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                        
+                            <!-- </div> -->
+
+
                             <div class="col-sm-12 col-md-2"> <label for="Form Date">Ending Date<sub
                                         class="required">*</sub></label>
                             </div>
-                            <div class="col-sm-12 col-md-3">
+                            <div class="col-sm-12 col-md-4">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" placeholder="dd/mm/yyyy" name="Ending_Date" id="Ending_Date"

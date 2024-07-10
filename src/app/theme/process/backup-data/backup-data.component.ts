@@ -18,16 +18,20 @@ export class BackupDataComponent implements OnInit {
   ngOnInit(): void {
   }
   fileUrl = this.url + '/upload/backup.sql'
+  isloader: boolean = false
 
   download() {
     this.modalClass = 'modalShow';
+    this.isloader = true
     this.http.post(this.url + '/voucher/backupdb', '').subscribe(data => {
       if (data == 0) {
+        this.isloader = false
         this.modalClass = 'modalHide';
         Swal.fire('Opps', 'Failed', 'error');
         this.showButton = false
       } else {
         setTimeout(() => {
+          this.isloader = false
           this.showButton = false
           this.modalClass = 'modalHide';
           Swal.fire('success', 'File is ready to download', 'success');
