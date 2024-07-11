@@ -89,6 +89,19 @@ children:[
     path: 'healthCodewise',
     loadChildren: () => import('./health-codewise-overdue/health-codewise-overdue.module').then(m => m.HealthCodewiseOverdueModule)
   },
+  {
+    path: 'drawingPowerRegister',
+    loadChildren: () => import('./drawing-power-register/drawing-power-register.module').then(m => m.DrawingPowerRegisterModule)
+  },
+  {
+    path: 'count-wise-lawad-loan',
+    loadChildren: () => import('./count-wise-lawad-loan/count-wise-lawad-loan.module').then(m => m.CountWiseLawadLoanModule)
+  },
+  {
+    path: 'security-reports',
+    loadChildren: () => import('./security-reports/security-reports.module').then(m => m.SecurityReportsModule)
+  },
+
 ]
 }
 ];

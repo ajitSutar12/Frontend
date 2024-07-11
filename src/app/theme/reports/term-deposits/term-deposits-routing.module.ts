@@ -70,7 +70,13 @@ children:[
     path: 'abtypeDepositList',
     loadChildren: () => import('./abtypedeposit-list/abtypedeposit-list.module').then(m => m.AbtypedepositListModule)
   },
- 
+  {
+    path: 'customerIdWiseTDSreport',
+    loadChildren: () => import('./customer-id-wise-tdsreport/customer-id-wise-tdsreport.module').then(m => m.CustomerIdWiseTDSreportModule)
+  }, {
+    path: 'AmountwiseDepositIntrestCerti',
+    loadChildren: () => import('./amountwise-deposit-intrest-certi/amountwise-deposit-intrest-certi.module').then(m => m.AmountwiseDepositIntrestCertiModule)
+  },
 ]
 }
 ];

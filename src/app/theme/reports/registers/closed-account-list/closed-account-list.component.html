@@ -1,0 +1,190 @@
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Closedd Account List</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch <sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                            placeholder="Branch">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme Type<sub
+                                            class="required">*</sub></label></div>
+                                 <div class="col-sm-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedCode"
+                                                (change)="selectedSchemeCode();resetscheme()"
+                                                formControlName="scheme_type" #selectCode appTheme
+                                               [selectOnTab]='true'>
+                                                <ng-option *ngFor="let item of allSchemeCode"
+                                                    [value]="item.S_ACNOTYPE">{{item.S_ACNOTYPE}}</ng-option>
+                                            </ng-select>
+
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['scheme_type'].invalid && (ngForm.controls['scheme_type'].dirty || ngForm.controls['scheme_type'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="ngForm.controls['scheme_type'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+                               <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme Code<sub
+                                            class="required">*</sub></label></div>
+                                 <div class="col-sm-12 col-md-2">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select [(ngModel)]="selectedScheme" bindValue="id" appTheme
+                                                formControlName="scheme"
+                                                #selectScheme  [selectOnTab]='true'>
+                                                <ng-option *ngFor="let item of allScheme" [value]="item">
+                                                    {{item.S_APPL}} {{item.S_NAME}}
+                                                </ng-option>
+                                            </ng-select>
+
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="ngForm.controls['scheme'].invalid && (ngForm.controls['scheme'].dirty || ngForm.controls['scheme'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="ngForm.controls['scheme'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"> <label for="START_DATE">Starting Date
+                                <sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
+                                        class="form-control" [(ngModel)]="dates" [bsValue]="bsValue"
+                                        [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        formControlName="START_DATE" appButton minlength="10" maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="ngForm.controls['START_DATE'].invalid && (ngForm.controls['START_DATE'].dirty || ngForm.controls['START_DATE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                            <div class="col-md-2"> <label for="END_DATE">Ending Date
+                                    <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                            class="form-control" [(ngModel)]="date" [bsValue]="bsValue"
+                                            [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            formControlName="END_DATE" appButton minlength="10" maxlength="10"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['END_DATE'].invalid && (ngForm.controls['END_DATE'].dirty || ngForm.controls['END_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['END_DATE'].errors?.required ||ngForm.controls['END_DATE'].invalid">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-3">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
+                                                value="SUBMISSION" [checked]="true">
+                                            <i class="helper"></i>Ac No</label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
+                                                value="RETURN">
+                                            <i class="helper"></i>Ac Name</label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
+                                                value="check">
+                                            <i class="helper"></i>Date</label>
+                                    </div>
+                                </div>
+                            </div> -->
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                    (click)="view($event); clicked = true ">View</button>
+
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                    </div>
+                                    <div *ngIf="showRepo">
+                                        <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

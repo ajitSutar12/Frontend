@@ -1,0 +1,30 @@
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Other security reports</h5>
+            </div>
+            <div class="card-block scroll">
+                <div class="col-md-12">
+                    <ul class="basic-list">
+                        <li>
+                            <h6> <a (click)="OpenLink(1)" routerLink="/reports/loan-report/security-reports"
+                                    routerLinkActive="active" [ngClass]="{'isActive': narationmasterTrue}"
+                                    class="text-right f-w-600" id="pointer">1.all-security-sumarry-report works</a></h6>
+                        </li>        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="card-block">
+            <div *ngIf="narationmasterTrue">
+                <app-all-security-sumarry-report></app-all-security-sumarry-report>
+            </div>
+            
+        </div>
+    </div>
+</div>
+

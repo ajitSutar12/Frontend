@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Shares Account Label Print</h5>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            formControlName="BRANCH_CODE" bindLabel="label" placeholder=""
+                                            (change)="getdata()">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                            [(ngModel)]="ngscheme" (change)="schemechange($event)">
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.id}}{{values.label}}  </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                        [(ngModel)]="ngscheme" (change)="schemechange($event)">
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Starting Account<sub
+                                class="required">*</sub></label>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group form-primary form-static-label">
+                            <span class="border-lable-flt">
+                                <ng-select id="AC_TYPE" [(ngModel)]="accountedit" formControlName="AC_TYPE"
+                                    (change)="getIntTrans($event)">
+                                    <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                        {{values.label}}{{values.name}} </ng-option>
+                                </ng-select>
+                            </span>
+                        </div>
+                    </div>
+
+                        </div>
+                        <div class="row">
+                           
+
+                            <!-- <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_TYPE" formControlName="AC_TYPE" [(ngModel)]="accountedit"
+                                            (change)="getIntTrans($event)">
+                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
+                                                {{values.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Ending Account<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_TYPE1" [(ngModel)]="accountedit1" formControlName="AC_TYPE1"
+                                            (change)="getIntTrans($event)">
+                                            <ng-option *ngFor="let values of schemeACNo1" [value]="values">
+                                                {{values.label}} {{values.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AC_TYPE1" formControlName="AC_TYPE1"
+                                            (change)="getIntTrans($event)" [(ngModel)]="accountedit1">
+                                            <ng-option *ngFor="let values of schemeACNo1" [value]="values">
+                                                {{values.name}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="checkbox checkbox-primary">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                            formControlName="Schemewise">
+                                        <label class="border-checkbox-label" for="checkbox1">Print Book Post
+                                            Recvied?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="checkbox checkbox-primary">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input class="border-checkbox" type="checkbox" id="checkbox2"
+                                            formControlName="Schemewise1">
+                                        <label class="border-checkbox-label" for="checkbox2">Print Book Post
+
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                    (click)="View($event);">View</button>
+
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                    </div>
+                                    <div *ngIf="showRepo">
+                                        <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

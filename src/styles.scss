@@ -1037,3 +1037,50 @@ tr:hover {
 .swal2-title {
     position: static !important
 }
+// @keyframes blink-border {
+//     0%, 100% {
+//         border-color: transparent;
+//     }
+//     50% {
+//         border-color: black;
+//     }
+// }
+// .form-group {
+//     position: relative;
+// }
+
+// .form-group input {
+//     width: 100%;
+//     padding: 10px;
+//     border: 2px solid #000;
+//     // border-radius: 4px;
+//     box-sizing: border-box;
+//     transition: border-color 0.3s;
+// }
+
+// .form-group input:focus {
+//     animation: blink-border 1s infinite;
+//     outline: none;
+// }
+
+// .form-group label {
+//     position: absolute;
+//     top: 0;
+//     left: 10px;
+//     padding: 0 5px;
+//     // background: white;
+//     // color: #aaa;
+//     transition: 0.2s;
+//     pointer-events: none;
+// }
+
+// .form-group input:focus + label,
+// .form-group input:not(:placeholder-shown) + label {
+//     // top: -18px;
+//     // left: 5px;
+//     color: black;
+// }
+
+// .form-group input:disabled:focus {
+//     animation: none;
+// }

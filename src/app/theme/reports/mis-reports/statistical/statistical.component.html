@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-header">
+                <h5>Other statistical</h5>
+            </div>
+            <div class="card-block scroll">
+                <div class="col-md-12">
+                    <!-- <perfect-scrollbar style="max-width: 600px; max-height: 450px;"> -->
+                    <!-- <h6 class="sub-title">Text with Icon Lists</h6> -->
+                    <ul class="basic-list">
+                        <li>
+                            <h6> <a (click)="OpenLink(1)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': narationmasterTrue}"
+                                    class="text-right f-w-600" id="pointer">1.Sanction Amountwise Classification of Loan</a></h6>
+                        </li>
+                        <!-- <li>
+                            <h6> <a (click)="OpenLink(2)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': periodwiseTrue}"
+                                    class="text-right f-w-600" id="pointer">2.periodwise classification of loan</a></h6>
+                        </li>
+                        <li>
+                            <h6> <a (click)="OpenLink(3)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': periodwiseDetailsTrue}"
+                                    class="text-right f-w-600" id="pointer">3.periodwise classification of Deposits</a></h6>
+                        </li>
+                        <li>
+                            <h6> <a (click)="OpenLink(4)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': MdatewiseTrue}"
+                                    class="text-right f-w-600" id="pointer">4.Monthly deposit summery chart (datewise)</a></h6>
+                        </li> -->
+                        <li>
+                            <h6> <a (click)="OpenLink(5)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': schemewisedeposit}"
+                                    class="text-right f-w-600" id="pointer">2.schemewise-deposit-account</a></h6>
+                        </li>
+                        <!-- <li>
+                            <h6> <a (click)="OpenLink(6)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': schemewiseTotCrDetilsAmt}"
+                                    class="text-right f-w-600" id="pointer">6.Schemewise Total Credit Deposit Amount Bettween Two Dates</a></h6>
+                        </li>
+                        <li>
+                            <h6> <a (click)="OpenLink(7)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': OverAmtPeriodLClss}"
+                                    class="text-right f-w-600" id="pointer">7. Overdue Amt Period Loan Classfication</a></h6>
+                        </li> -->
+                        <li>
+                            <h6> <a (click)="OpenLink(8)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': schemewiseTotCrLoanAmt}"
+                                    class="text-right f-w-600" id="pointer">3. schemwise total credit loan ammount between two date</a></h6>
+                        </li>
+                        <li>
+                            <h6> <a (click)="OpenLink(9)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': schemewiseLoanAcc}"
+                                    class="text-right f-w-600" id="pointer">4. Schmewise Loan Account</a></h6>
+                        </li>
+                        <li>
+                            <h6> <a (click)="OpenLink(10)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': reconsilation}"
+                                    class="text-right f-w-600" id="pointer">5. Reconsilation Statment</a></h6>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <div class="card-block">
+            <div *ngIf="narationmasterTrue">
+                <app-sanction-amount-classi></app-sanction-amount-classi>
+            </div>
+            <div *ngIf="periodwiseTrue">
+                <app-periodwise-classificationloan></app-periodwise-classificationloan>
+            </div>
+            <div *ngIf="periodwiseDetailsTrue">
+                <app-periodwise-classification-details></app-periodwise-classification-details>
+            </div>
+            <div *ngIf="MdatewiseTrue">
+                <app-monthly-deposit-summery-chart-datewise></app-monthly-deposit-summery-chart-datewise>
+            </div>
+            <div *ngIf="schemewisedeposit">
+                <app-schemewise-deposit-account></app-schemewise-deposit-account>
+            </div>
+            <div *ngIf="schemewiseTotCrDetilsAmt">
+                <app-schemwisetotalcreditloanammountbetweentwodate></app-schemwisetotalcreditloanammountbetweentwodate>
+            </div>
+            <div *ngIf="OverAmtPeriodLClss">
+                <app-overdue-amt-period-loan-classfication></app-overdue-amt-period-loan-classfication>
+            </div>
+            <div *ngIf="schemewiseTotCrLoanAmt">
+                <app-schemwise-totalcreditloan></app-schemwise-totalcreditloan>
+            </div>
+            <div *ngIf="schemewiseLoanAcc">
+                <app-schmewise-loan-account></app-schmewise-loan-account>
+            </div>
+            <div *ngIf="reconsilation">
+                <app-reconcialation-statement></app-reconcialation-statement>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

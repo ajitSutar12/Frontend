@@ -1641,7 +1641,13 @@ const MENUITEMS1 = [
                 tooltip:'रक्कम निहाय ठेव व्याज प्रमाणपत्र',
                 id: 390
               },
-
+              {
+                state: 'customerIdWiseTDSreport',
+                name: 'customer Id Wise TDS report',
+                tooltip:'ग्राहक आयडीनुसार टीडीएस अहवाल',
+                type: 'sub',
+                id: 388,
+              },
 
             ]
 
@@ -1677,8 +1683,8 @@ const MENUITEMS1 = [
               },
               {
                 state: 'sharesReturnRegister',
-                name: 'Membership Cancellation',
-                tooltip:'सदस्यत्व रद्द करणे',
+                name: 'Shares Return Register',
+                tooltip:'शेअर्स रिटर्न रजिस्टर',
                 id: 223
               },
               {
@@ -1892,13 +1898,7 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 385,
               },
-              {
-                state: 'customerIdWiseTDSreport',
-                name: 'customer Id Wise TDS report',
-                tooltip:'ग्राहक आयडीनुसार टीडीएस अहवाल',
-                type: 'sub',
-                id: 388,
-              },
+             
               {
                 state: 'drawingPowerRegister',
                 name: 'Drawing Power Register',
@@ -5018,7 +5018,13 @@ const MENUITEMS = [
                 tooltip:'रक्कम निहाय ठेव व्याज प्रमाणपत्र',
                 id: 390
               },
-
+              {
+                state: 'customerIdWiseTDSreport',
+                name: 'customer Id Wise TDS report',
+                tooltip:'ग्राहक आयडीनुसार टीडीएस अहवाल',
+                type: 'sub',
+                id: 388,
+              },
 
             ]
 
@@ -5054,8 +5060,8 @@ const MENUITEMS = [
               },
               {
                 state: 'sharesReturnRegister',
-                name: 'Membership Cancellation',
-                tooltip:'सदस्यत्व रद्द करणे',
+                name: 'Shares Return Register',
+                tooltip:'शेअर्स रिटर्न रजिस्टर',
                 id: 223
               },
               {
@@ -5269,13 +5275,7 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 385,
               },
-              {
-                state: 'customerIdWiseTDSreport',
-                name: 'customer Id Wise TDS report',
-                tooltip:'ग्राहक आयडीनुसार टीडीएस अहवाल',
-                type: 'sub',
-                id: 388,
-              },
+             
               {
                 state: 'drawingPowerRegister',
                 name: 'Drawing Power Register',

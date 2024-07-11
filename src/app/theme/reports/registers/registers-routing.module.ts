@@ -65,7 +65,22 @@ const routes: Routes = [
         path: 'lockerRegister',
         loadChildren: () => import('./locker-register/locker-register.module').then(m => m.LockerRegisterModule)
       },
-     
+      {
+        path: 'lockerkeyregister',
+        loadChildren: () => import('./locker-key-register/locker-key-register.module').then(m => m.LockerKeyRegisterModule)
+      },
+      {
+        path: 'totalchallandetails',
+        loadChildren: () => import('./totalchallandetails/totalchallandetails.module').then(m => m.TotalchallandetailsModule)
+      },
+      {
+        path: 'closedaccountlist',
+        loadChildren: () => import('./closed-account-list/closed-account-list.module').then(m => m.ClosedAccountListModule)
+      },
+      {
+        path: 'accountopenbetweendates',
+        loadChildren: () => import('./account-open-between-dates/account-open-between-dates.module').then(m => m.AccountOpenBetweenDatesModule)
+      },
     ]
   }
 ];
