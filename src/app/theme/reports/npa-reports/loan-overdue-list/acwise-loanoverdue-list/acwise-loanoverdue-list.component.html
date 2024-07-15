@@ -281,7 +281,7 @@
                         <div class="row justify-content-end">
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event); clicked = true ">View</button>
+                                    (click)="view($event); clicked = true;scrollToTop() ">View</button>
                             </div>
                             <div class="col-md-1">
                                 <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>

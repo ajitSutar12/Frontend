@@ -93,6 +93,9 @@ export class ShortBalListComponent implements OnInit {
       FROM_DATE:  ['', [ Validators.required]],
     });
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
     event.preventDefault();

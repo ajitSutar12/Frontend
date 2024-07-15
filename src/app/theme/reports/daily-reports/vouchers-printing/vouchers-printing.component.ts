@@ -134,7 +134,9 @@ trantype=[
     this.ngbranch = result.branch.id
   }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
    
    this.showLoading = true;

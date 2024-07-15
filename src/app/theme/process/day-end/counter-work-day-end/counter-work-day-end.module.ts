@@ -7,6 +7,7 @@ import {DataTablesModule} from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  },]
+  },
+  HotkeysService]
 })
 export class CounterWorkDayEndModule { }

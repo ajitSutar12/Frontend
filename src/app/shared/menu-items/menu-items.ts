@@ -960,7 +960,7 @@ const MENUITEMS1 = [
 
           },
           {
-            state: 'memberguaranterdetail',
+            state: 'memberguaranter',
             name: 'Member Guaranter Detail',
             id: 368
 
@@ -1030,6 +1030,7 @@ const MENUITEMS1 = [
           //   name: 'TD Receipt Printing',
           //   id: 368,
           // },
+
         ]
       },
       {
@@ -1922,6 +1923,11 @@ const MENUITEMS1 = [
                 state: 'swnidhi',
                 name: 'Swnidhi Report',
                 id: 376
+              },
+              {
+                state: 'MISInfo',
+                name: 'MIS Information',
+                id: 377
               }
             ]
           },
@@ -3928,7 +3934,7 @@ const MENUITEMS = [
 
           },
           {
-            state: 'memberguaranterdetail',
+            state: 'memberguaranter',
             name: 'Member Guaranter Detail',
             id: 368
 
@@ -3999,6 +4005,7 @@ const MENUITEMS = [
           //   name: 'TD Receipt Printing',
           //   id: 368,
           // },
+
         ]
       },
       {
@@ -4893,6 +4900,11 @@ const MENUITEMS = [
                 state: 'swnidhi',
                 name: 'Swnidhi Report',
                 id: 376
+              },
+              {
+                state: 'MISInfo',
+                name: 'MIS Information',
+                id: 377
               }
             ]
           },

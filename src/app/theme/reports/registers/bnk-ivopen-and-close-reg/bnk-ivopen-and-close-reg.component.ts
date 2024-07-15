@@ -129,6 +129,9 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
   getTransferAccountList(event) {
     this.tScheme = event.label
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   View(event) {
     // debugger

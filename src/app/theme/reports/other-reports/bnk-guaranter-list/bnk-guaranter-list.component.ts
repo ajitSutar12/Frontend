@@ -127,9 +127,10 @@ maxDate: Date;
    
   }
   
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
-   
-
     event.preventDefault();
     this.formSubmitted = true;
 

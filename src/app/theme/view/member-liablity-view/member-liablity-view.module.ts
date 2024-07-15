@@ -15,7 +15,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
-
+import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
 
 
 
@@ -40,7 +40,8 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
     multi: true
   },
   SchemeCodeDropdownService,
-  SchemeAccountNoService
+  SchemeAccountNoService,
+  DirectorMasterDropdownService
 ]
 })
 export class MemberLiablityViewModule { }

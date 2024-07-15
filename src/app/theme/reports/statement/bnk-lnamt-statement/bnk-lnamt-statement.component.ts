@@ -198,7 +198,9 @@ export class BnkLNamtStatementComponent implements OnInit {
       this.isOpen = true
     }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   View(event) {
      debugger

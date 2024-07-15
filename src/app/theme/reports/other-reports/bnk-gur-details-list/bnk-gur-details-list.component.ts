@@ -99,11 +99,10 @@ clicked:boolean=false;
    //set open date, appointed date and expiry date
   
   src: any;
- 
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event){
-   
-   
-
     event.preventDefault();
     this.formSubmitted = true;
 

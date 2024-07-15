@@ -1,27 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MemberGuaranterDetailsRoutingModule } from './member-guaranter-details-routing.module';
+import { MemberGuaranterDetailsComponent } from './member-guaranter-details.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { DataTablesModule } from 'angular-datatables';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
-
-import {DataTablesModule} from 'angular-datatables';
-
-import { MemberLiablityViewComponent } from './member-liablity-view.component';
-import { MemberLiablityViewRoutingModule } from './member-liablity-view-routing.module'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-
+import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 
 @NgModule({
+  declarations: [MemberGuaranterDetailsComponent],
   imports: [
     CommonModule,
-    MemberLiablityViewRoutingModule,    
+    MemberGuaranterDetailsRoutingModule,
     NgbModule,
     NgSelectModule,
     FormsModule,
@@ -29,9 +27,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-
   ],
-  declarations: [MemberLiablityViewComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
@@ -42,4 +38,4 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
   OwnbranchMasterService
 ]
 })
-export class MemberLiablityViewModule { }
+export class MemberGuaranterDetailsModule { }

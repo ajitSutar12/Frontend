@@ -129,6 +129,9 @@ defaultDate: any
       this.ngbranch = result.branch.id
     }
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
     

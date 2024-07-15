@@ -23,6 +23,10 @@ children:[
     path: 'swnidhi',
     loadChildren: () => import('./svnidhi/svnidhi.module').then(m => m.SvnidhiModule)
   },
+  {
+    path: 'MISInfo',
+    loadChildren: () => import('./mis-information/mis-information.module').then(m => m.MisInformationModule)
+  },
 ]
 }];
 @NgModule({

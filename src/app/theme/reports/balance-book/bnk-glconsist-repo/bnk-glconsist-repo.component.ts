@@ -117,6 +117,9 @@ export class BnkGLConsistRepoComponent implements OnInit {
   printpay() {
     this.printpenal = true;
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     // debugger
     event.preventDefault();

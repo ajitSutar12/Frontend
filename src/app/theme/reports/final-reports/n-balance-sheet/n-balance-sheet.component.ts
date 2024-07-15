@@ -75,7 +75,9 @@ export class NBalanceSheetComponent implements OnInit {
       END_DATE: ["", [Validators.required]],
     })
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     event.preventDefault();
 
