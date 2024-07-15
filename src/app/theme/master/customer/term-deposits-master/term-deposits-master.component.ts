@@ -39,6 +39,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
 import { data } from 'jquery';
+import { InterestInstructionComponent } from '../../instruction/interest-instruction/interest-instruction.component';
 
 class DataTableResponse {
   data: any[];
@@ -112,6 +113,7 @@ interface TermDepositMaster {
 export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() childMessage: string;
   @Output() reloadTablePassing = new EventEmitter<string>();
+  @ViewChild(InterestInstructionComponent) child: InterestInstructionComponent;
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -257,6 +259,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   showrenewacctr: boolean = false
 
   AC_OPDATE: any;
+  intinstruction: any;
 
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -1708,6 +1711,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   opdate
+  minorAc: boolean = false
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
@@ -1716,7 +1720,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     let maturitydate
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       console.log(data);
-
+      this.intinstruction = data.intinstruction
       this.createForm()
       this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -1750,6 +1754,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+      }
+      if (data.AC_MINOR == '1') {
+        this.minorAc = true
+      }
+      else if (data.AC_MINOR == '0') {
+        this.minorAc = false
       }
       this.updateID = data.id;
       this.updatecheckdata = data
@@ -3111,5 +3121,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     }
   }
-
+ getIntInstruct
+  getInstructionData(data) {
+    this.getIntInstruct = data;
+    this.child.editClickHandler(data);
+    // this.child.DatatableHideShow = false;
+    // this.child.rejectShow = true;
+    // this.child.approveShow = true;
+  }
 }

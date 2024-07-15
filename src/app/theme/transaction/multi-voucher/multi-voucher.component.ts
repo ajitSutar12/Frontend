@@ -610,9 +610,11 @@ export class MultiVoucherComponent implements OnInit {
           ele['date'] = null
         }
       }
+      let chequeDate=moment(obj.chequeDate).format('DD/MM/YYYY')
       obj['InputHead'] = this.headData;
       obj['tran_mode'] = this.submitTranMode;
       obj['scheme'] = this.submitScheme;
+      obj['chequeDate']=chequeDate
       obj['account_no'] = this.submitAccountNo;
       obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
       obj['branch_code'] = this.selectedBranch
@@ -1110,6 +1112,7 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
+      bank:data.bank,
       amt: Number(data.amt).toFixed(2),
       // NARRATION: data.NARRATION,
       total_amt: data.total_amt

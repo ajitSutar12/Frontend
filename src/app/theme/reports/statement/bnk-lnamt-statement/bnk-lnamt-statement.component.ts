@@ -57,6 +57,9 @@ export class BnkLNamtStatementComponent implements OnInit {
   todate: any;
   fromdate: moment.Moment;
   bankacno: any;
+  isOpen: boolean = false
+  acCloseDate: null;
+
 
   constructor(
     private fb: FormBuilder,
@@ -138,6 +141,8 @@ export class BnkLNamtStatementComponent implements OnInit {
     this.getIntroducer()
   }
   getIntro(event) {
+    this.acCloseDate = null
+    this.isOpen = false
     this.getschemename = event.name
     this.getIntroducer()
   }
@@ -184,7 +189,14 @@ export class BnkLNamtStatementComponent implements OnInit {
   getacdetails(event){
     this.bankacno = event.bankacno
     
-    
+    if (event.AC_CLOSEDT != null) {
+      this.acCloseDate = event.AC_CLOSEDT
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
   }
 
   src: any;

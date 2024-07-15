@@ -75,6 +75,13 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-sm" style="float: right; color: rgb(14 168 14);" *ngIf="isOpen">Account Open
+                        </div>
+                        <div class="col-sm-3 col-md-3" style="float: right;" *ngIf="acCloseDate">
+                            <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
+                        </div>
+
                         <!-- <div class="col-md-2"> <label for="AC_NOFrom"> Ending Account No.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
