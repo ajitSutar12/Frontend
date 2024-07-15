@@ -199,7 +199,9 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
   }
 
   //set open date, appointed date and expiry date
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
 

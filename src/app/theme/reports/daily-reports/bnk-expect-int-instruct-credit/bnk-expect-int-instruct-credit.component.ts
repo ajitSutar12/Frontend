@@ -109,7 +109,9 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     });
   }
   src: any;
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
 
     event.preventDefault();

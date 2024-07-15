@@ -82,10 +82,10 @@
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select formControlName="Scheme_acc" bindValue="value" bindLabel="label"
+                                    <ng-select formControlName="Scheme_acc" bindValue="BANKACNO" bindLabel="label"
                                         [(ngModel)]="startingAccount" (change)="getAccountDetails($event)">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
-                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                            {{values.AC_NO}} {{values.AC_NAME}}</ng-option> 
                                     </ng-select>
                                 </span>
                             </div>
@@ -131,7 +131,7 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true;scrollToTop() ">View</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"

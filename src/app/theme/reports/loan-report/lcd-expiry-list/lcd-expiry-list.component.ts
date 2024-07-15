@@ -103,7 +103,9 @@ export class LcdExpiryListComponent implements OnInit {
     this.getschemename = event.name
     // this.getIntroducer()
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     this.showLoading = true;
     event.preventDefault();

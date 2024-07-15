@@ -1,4 +1,79 @@
 <!-- Member Guranter Details -->
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Member Guranter Details</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+            </div>
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Scheme<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedshScheme" #scheme formControlName="scheme"
+                                        bindValue="value" bindLabel="label"
+                                        (change)="getIntro($event);getIntroducer();">
+                                        <ng-option *ngFor="let item of sh_Scheme" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['scheme'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member No.<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedmemNo" #scheme formControlName="memNo"
+                                        bindValue="bankacno" bindLabel="NAME">
+                                        <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                            {{item.label}} {{item.name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['memNo'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+
+                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<!-- Member Guranter Details -->
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -40,7 +115,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedmemNo" #scheme formControlName="memNo"
                                         bindValue="bankacno" bindLabel="NAME" (change)="getIntro1($event);">
-                                        <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                        <ng-option *ngFor="let item of director" [value]="item">
                                             {{item.label}} {{item.name}}</ng-option>
                                     </ng-select>
                                 </span>
@@ -92,7 +167,7 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); getdata(); clicked = true ">View</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"

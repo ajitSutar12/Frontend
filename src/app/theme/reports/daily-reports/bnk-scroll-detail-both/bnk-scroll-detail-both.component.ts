@@ -150,6 +150,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
   onScrollTypeChange() {
     this.isTransferSelected = this.selectedScrollType === 'transfer';
 }
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+} 
   src:any;
   view(event) {
    

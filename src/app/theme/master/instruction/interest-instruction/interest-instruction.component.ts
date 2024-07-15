@@ -363,7 +363,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
     else if (exe_day.value == 'ME') {
       this.angForm.controls['DAYS'].disable()
       this.angForm.controls['DAYS'].reset()
-      var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0);
+      var lastDay = new Date(date.getFullYear(), date.getMonth()-1 + 2, 0);
 
 
       if (day > lastDay.getDate()) {

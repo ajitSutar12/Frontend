@@ -132,7 +132,9 @@ this.systemParameter.getFormData(1).subscribe(data => {
     });
    
   }
-  
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
    
 

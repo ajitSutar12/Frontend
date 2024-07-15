@@ -206,7 +206,9 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       });
      
     }
-    
+    scrollToTop() {
+      window.scrollTo({ top: 200, behavior: 'smooth' });
+    } 
     view(event:any) {
     
       event.preventDefault();

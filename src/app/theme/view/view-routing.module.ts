@@ -58,8 +58,8 @@ const routes: Routes = [
         loadChildren: () => import('./locker-view/locker-view.module').then(m => m.LockerViewModule)
       },
       {
-        path: 'memberguaranterdetail',
-        loadChildren: () => import('./member-guaranter-details/member-liablity-view.module').then(m => m.MemberLiablityViewModule)
+        path: 'memberguaranter',
+        loadChildren: () => import('./member-guaranter-details/member-guaranter-details.module').then(m => m.MemberGuaranterDetailsModule)
       },
     ]
   }

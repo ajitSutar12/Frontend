@@ -145,7 +145,9 @@ newcustid: any = null;
 
     }
   }
- 
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
     src: any;
     view(event) {
       debugger

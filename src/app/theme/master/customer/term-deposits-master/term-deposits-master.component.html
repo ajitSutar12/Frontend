@@ -107,6 +107,9 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="col-sm-2"  *ngIf="minorAc">
+                            <label style="color: #1e5bc5">MINOR ACCOUNT (A.P.K.)</label>
+                        </div>
                         <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
                             <label style="color: #1e5bc5">JOINT ACCOUNT</label>
                         </div>
@@ -2470,6 +2473,7 @@
                                                             <span class="fa fa-fw fa-plus-circle field-icon" id="icon"
                                                                 (click)="modalLarge.show()" placement="bottom"
                                                                 ngbTooltip="Add Interest Instruction"></span>
+
                                                         </div>
                                                     </div>
                                                     <div *ngIf="updatecheckdata?.intinstruction.length!=0">
@@ -2501,9 +2505,11 @@
                                                                         <tbody
                                                                             *ngIf="updatecheckdata?.intinstruction?.length != 0">
                                                                             <tr
-                                                                                *ngFor="let data of interestInstruction;let indexOfelement=index;">
+                                                                                *ngFor="let data of intinstruction;let indexOfelement=index;">
                                                                                 <td>
-
+                                                                                    <span class="fa fa-fw fa-edit field-icon" id="editbutton" [(ngmodel)]="intdata"
+                                                                                    (click)="modalLarge.show();getInstructionData(data.id);gotoTop()" placement="bottom"
+                                                                                    ngbTooltip="Edit"></span>
                                                                                     <!-- <span
                                                                                             class="fa fa-fw fa-edit field-icon"
                                                                                             style="align-items: right;"
@@ -2513,22 +2519,16 @@
                                                                                             placement="bottom"
                                                                                             ngbTooltip="Edit"></span> -->
 
-                                                                                    <span
-                                                                                        class="fa fa-fw fa-eye field-icon"
-                                                                                        id="viewbutton"
-                                                                                        style="align-items: right;"
-                                                                                        *ngIf="data.SYSCHNG_LOGIN"
-                                                                                        (click)="disableForm(data.id);gotoTop()"
-                                                                                        placement="bottom"
-                                                                                        ngbTooltip="View"></span>
+
                                                                                     <!-- <span
-                                                                                            style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
+                                                                                            style="font-size: 12px; cursor: pointer;"
+                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE);"
                                                                                             placement="right"
                                                                                             ngbTooltip="Show Image"
-                                                                                            class="fa fa-fw fa-eye field-icon"></span> -->
+                                                                                            class="fa fa-fw fa-eye  field-icon"></span> -->
 
                                                                                 </td>
+                                                                               
                                                                                 <td class="td_right">
                                                                                     {{data.INSTRUCTION_NO}}</td>
                                                                                 <td class="td_center">
@@ -2597,7 +2597,7 @@
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
-                                                            <app-interest-instruction
+
                                                                 (newTDCustomerEvent)="addNewInstruction($event)">
                                                             </app-interest-instruction>
                                                             <!-- </perfect-scrollbar> -->

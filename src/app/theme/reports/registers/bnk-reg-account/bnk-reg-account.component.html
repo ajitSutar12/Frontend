@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
@@ -119,7 +119,7 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="View($event); clicked = true ">View</button>
+                                (click)="View($event); clicked = true;scrollToTop() ">View</button>
 
                         </div>
                         <div class="col-md-1">

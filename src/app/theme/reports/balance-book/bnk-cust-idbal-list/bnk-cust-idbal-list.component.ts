@@ -99,6 +99,9 @@ export class BnkCustIDBalListComponent implements OnInit {
       
     });
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
   debugger
     event.preventDefault();

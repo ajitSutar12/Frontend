@@ -62,7 +62,11 @@ export class BnkTDStatementComponent implements OnInit{
   showRepo:boolean=false;
   todate: any;
   fromdate: moment.Moment;
+
+  isOpen: boolean = false
   acCloseDate: null;
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -162,6 +166,7 @@ export class BnkTDStatementComponent implements OnInit{
       this.acCloseDate = null
       this.isOpen = true
     }
+
   }
   getAcno2(event) {
     this.getbankAcNo2 =  event.bankacno
@@ -203,7 +208,9 @@ export class BnkTDStatementComponent implements OnInit{
 
     }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   View(event) {
      debugger

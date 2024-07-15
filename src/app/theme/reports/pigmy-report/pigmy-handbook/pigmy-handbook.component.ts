@@ -116,7 +116,7 @@ defaultDate: any
       FROM_DATE: ["", [Validators.pattern, Validators.required]],
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       Scheme_code: ["", [Validators.pattern, Validators.required]],
-      Scheme_acc: [""],
+      AGENT_ACNO: [""],
     });
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -129,6 +129,9 @@ defaultDate: any
       this.ngbranch = result.branch.id
     }
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
     
@@ -152,7 +155,7 @@ defaultDate: any
     
     
     let scheme = obj.Scheme_code
-    let schemeAccountNo = obj.Scheme_acc
+    let schemeAccountNo = obj.AGENT_ACNO
     let branch = obj.BRANCH_CODE
   
     this.iframe5url=this.report_url+"examples/PigmyHandbook.php?date='" + date + "'&sdate='" + sdate + "'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo='" + schemeAccountNo +"'&bankName=" + bankName + "" ;
@@ -194,7 +197,7 @@ close(){
 resetForm() {
   // this.createForm()
   this.ngForm.controls.Scheme_code.reset();
-  this.ngForm.controls.Scheme_acc.reset();
+  this.ngForm.controls.AGENT_ACNO.reset();
   this.showRepo = false;
   this.clicked=false;
 }

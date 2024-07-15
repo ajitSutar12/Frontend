@@ -114,7 +114,9 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
     this.tScheme = event.name
 
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
 
     event.preventDefault();

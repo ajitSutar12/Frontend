@@ -60,7 +60,11 @@ export class BnkLNamtStatementComponent implements OnInit {
   todate: any;
   fromdate: moment.Moment;
   bankacno: any;
-  acCloseDate: any;
+
+  isOpen: boolean = false
+  acCloseDate: null;
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -189,6 +193,7 @@ export class BnkLNamtStatementComponent implements OnInit {
   
   getacdetails(event){
     this.bankacno = event.bankacno
+
     if (event.AC_CLOSEDT != null) {
       this.acCloseDate = event.AC_CLOSEDT
       this.isOpen = false
@@ -197,9 +202,11 @@ export class BnkLNamtStatementComponent implements OnInit {
       this.acCloseDate = null
       this.isOpen = true
     }
-    
-  }
 
+  }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   View(event) {
      debugger

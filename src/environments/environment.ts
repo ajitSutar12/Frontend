@@ -5,10 +5,12 @@
 export const environment = {
   production: false,
 
-  // base_url: 'http://localhost:7271', 
-  base_url: 'http://192.168.1.113:7271', //Poonam     
-  // base_url: 'http://192.168.1.154:7276',
-  // base_url: 'http://192.168.1.154:7276', //Jagannath
+
+  base_url: 'http://localhost:7271', 
+  // base_url: 'http://192.168.1.113:7271',     
+  // base_url: 'http://192.168.1.174:7266',
+
+
   
   // Localhost
 
@@ -71,7 +73,7 @@ export const environment = {
   // report_url: 'http://103.174.87.104/TRIMURTIDONGAON/REPORTS/', 
   // sitename: 'http://103.174.87.104/TRIMURTIDONGAON/CBS'
 
-     // DATTAPARGAON
+    //  DATTAPARGAON
   // base_url: 'http://103.174.87.104:7280',  
   // report_url: 'http://103.174.87.104/DATTAPARGAON/REPORTS/', 
   // sitename: 'http://103.174.87.104/DATTAPARGAON/CBS'
@@ -81,6 +83,11 @@ export const environment = {
   // report_url: 'http://103.174.87.104/SANJAYSINH_KOTOLI/REPORTS/', 
   // sitename: 'http://103.174.87.104/SANJAYSINH_KOTOLI/CBS'
 
+
+      // PANHALA_URBAN
+  // base_url: 'http://103.174.87.104:7284',  
+  // report_url: 'http://103.174.87.104/PANHALA_URBAN/REPORTS/', 
+  // sitename: 'http://103.174.87.104/PANHALA_URBAN/CBS'
 // };
 
 /*

@@ -142,10 +142,10 @@ export class ServiceChargesListComponent implements OnInit {
     else
       event.target.value = 0
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
-
-
     event.preventDefault();
     this.formSubmitted = true;
 
