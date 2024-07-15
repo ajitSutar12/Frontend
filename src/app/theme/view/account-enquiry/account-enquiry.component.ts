@@ -124,6 +124,10 @@ export class AccountEnquiryComponent implements OnInit {
   leftMonth
   introducerName
   totalInterest = 0
+  isOpen: boolean = false
+  isMinor:boolean=false
+  isJoint:boolean=false
+  jointCustId
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
@@ -676,7 +680,7 @@ export class AccountEnquiryComponent implements OnInit {
 
 
   //get account details
-  isOpen: boolean = false
+  
   getAccountDetails(event) {
     this.viewView(event)
 
@@ -748,14 +752,26 @@ export class AccountEnquiryComponent implements OnInit {
       this.AC_NO = event.AC_NO
       this.LAST_OD_DATE = event.LAST_OD_DATE
       this.nominee = event?.nomineeDetails
+      // event?.jointAccounts?.forEach((element, index) => {
+      //   if (index == 0) {
+      //     this.jointHolderName = element.JOINT_ACNAME
+      //   }
+      //   else {
+      //     this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
+      //   }
+      // });
+
       event?.jointAccounts?.forEach((element, index) => {
-        if (index == 0) {
-          this.jointHolderName = element.JOINT_ACNAME
+        if (index === 0) {
+            this.jointHolderName = element.JOINT_ACNAME;
+            this.jointCustId = element.JOINT_AC_CUSTID;
+        } else {
+            this.jointHolderName += '/' + element.JOINT_ACNAME;
+            this.jointCustId = '';
         }
-        else {
-          this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
-        }
-      });
+    });
+    this.isJoint = event?.jointAccounts?.length > 0;
+    
       this.idmaster = event.idmaster
       let periodOverdraft = event.AC_SODAMT == undefined || event.AC_SODAMT == null ? 0 : Number(event.AC_SODAMT)
       let tempOverdraft = event.AC_ODAMT == undefined || event.AC_ODAMT == null ? 0 : Number(event.AC_ODAMT)
@@ -775,6 +791,20 @@ export class AccountEnquiryComponent implements OnInit {
         this.acCloseDate = null
         this.isOpen = true
       }
+
+      if(event.AC_MINOR=='1'){
+        this.isMinor=true
+      }
+      else  if(event.AC_MINOR=='0'){
+        this.isMinor=false
+      }
+      if(event.jointAccounts && event.jointAccounts.length > 0){
+        this.isJoint=true
+      }
+      else if(event.jointAccounts='0'){
+        this.isJoint=false
+      }
+
       this.angForm.patchValue({
         AC_CLOSEDT: event.closeDate,
         AMOUNT: maturedAmount,

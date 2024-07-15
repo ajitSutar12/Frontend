@@ -104,6 +104,8 @@
                                     </div>
                                     <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
                                         *ngIf="isOpen">Open Account </div>
+                                        <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
+                                    *ngIf="isMinor">Minor Account </div>
                                     <div class="col-sm-3 col-md-2" style="float: right;" *ngIf="acCloseDate">
                                         <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
                                     </div>
@@ -1225,14 +1227,26 @@
                                     <label class="fw-bolder me-25">Contact:</label>
                                     <span style="color: green;">{{idmaster.AC_MOBILENO}}</span>
                                 </li>
-                                <li class="mb-75" *ngIf="accountEvent?.AC_GRDNAME">
+                                <!-- <li class="mb-75" *ngIf="accountEvent?.AC_GRDNAME">
                                     <label class="fw-bolder me-25">Guardian Name:</label>
                                     <span style="color: green;">{{accountEvent?.AC_GRDNAME}}</span>
+                                </li> -->
+                                <li class="mb-75" *ngIf="accountEvent?.AC_GRDNAME">
+                                    <label class="fw-bolder me-25">Guardian Name:</label>
+                                    <span style="color: green;">{{accountEvent?.AC_GRDNAME}} <label style="color: blue;">(Adnyan Palan Karta)</label></span>
                                 </li>
-                                <li class="mb-75" *ngIf="jointHolderName">
+                                <li class="mb-75" *ngIf="isJoint && jointCustId">
+                                    <label class="fw-bolder me-25">Joint Holder CustId:</label>
+                                    <span style="color: green; font-size: 11px;">{{jointCustId}}</span>
+                                </li>
+                                <li class="mb-75" *ngIf="isJoint && jointHolderName">
                                     <label class="fw-bolder me-25">Joint Holder Name:</label>
                                     <span style="color: green; font-size: 11px;">{{jointHolderName}}</span>
                                 </li>
+                                <!-- <li class="mb-75" *ngIf="jointHolderName">
+                                    <label class="fw-bolder me-25">Joint Holder Name:</label>
+                                    <span style="color: green; font-size: 11px;">{{jointHolderName}}</span>
+                                </li> -->
                                 <li class="mb-75" *ngIf="accountEvent?.AC_RENEWAL_COUNT">
                                     <label class="fw-bolder me-25">Renewal Count:</label>
                                     <span style="color: green;">{{accountEvent?.AC_RENEWAL_COUNT}}</span>

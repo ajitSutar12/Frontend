@@ -107,6 +107,9 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="col-sm-2"  *ngIf="minorAc">
+                            <label style="color: #1e5bc5">MINOR ACCOUNT (A.P.K.)</label>
+                        </div>
                         <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
                             <label style="color: #1e5bc5">JOINT ACCOUNT</label>
                         </div>
@@ -2516,7 +2519,7 @@
                                                                                             placement="bottom"
                                                                                             ngbTooltip="Edit"></span> -->
 
-                                                
+
                                                                                     <!-- <span
                                                                                             style="font-size: 12px; cursor: pointer;"
                                                                                             (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE);"
@@ -2594,7 +2597,7 @@
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
-                                                            <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
+
                                                                 (newTDCustomerEvent)="addNewInstruction($event)">
                                                             </app-interest-instruction>
                                                             <!-- </perfect-scrollbar> -->

@@ -146,11 +146,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
         dataTableParameters['filterData'] = this.filterData;
 
         
-        this.http
-          .post<DataTableResponse>(
-            this.url + '/pigmy-chart',
-            dataTableParameters
-          ).subscribe(resp => {
+        this.http.post<DataTableResponse>(this.url + '/pigmy-chart',dataTableParameters).subscribe(resp => {
 
             this.pigmyChartMasterTable = resp.data;
             callback({

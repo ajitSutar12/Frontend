@@ -1712,7 +1712,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   opdate
-  intinst
+  minorAc: boolean = false
+
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
@@ -1722,7 +1723,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       console.log(data);
       this.intinstruction = data.intinstruction
-      console.log(this.intinstruction)
+
       this.createForm()
       this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -1756,6 +1757,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+      }
+      if (data.AC_MINOR == '1') {
+        this.minorAc = true
+      }
+      else if (data.AC_MINOR == '0') {
+        this.minorAc = false
       }
       this.updateID = data.id;
       this.updatecheckdata = data
@@ -3140,6 +3147,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     }
   }
+
   reloadTable() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload()

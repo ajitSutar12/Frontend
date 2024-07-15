@@ -1025,11 +1025,12 @@ const MENUITEMS1 = [
               }
             ]
           },
-          {
-            state: 'tDReceiptPrinting',
-            name: 'TD Receipt Printing',
-            id: 378,
-          },
+          // {
+          //   state: 'tDReceiptPrinting',
+          //   name: 'TD Receipt Printing',
+          //   id: 368,
+          // },
+
         ]
       },
       {
@@ -1337,7 +1338,11 @@ const MENUITEMS1 = [
                 name: 'Excess Cash Balance Report',
                 id: 202
               },
-
+              {
+                state: 'KYCDocReceivedNotRec',
+                name: 'KYC Document Rec Not Rec',
+                id: 378
+              },
             ]
           },
           //
@@ -3995,11 +4000,12 @@ const MENUITEMS = [
               
             ]
           },
-          {
-            state: 'tDReceiptPrinting',
-            name: 'TD Receipt Printing',
-            id: 378,
-          },
+          // {
+          //   state: 'tDReceiptPrinting',
+          //   name: 'TD Receipt Printing',
+          //   id: 368,
+          // },
+
         ]
       },
       {
@@ -4306,6 +4312,11 @@ const MENUITEMS = [
                 state: 'excessCashBalance',
                 name: 'Excess Cash Balance Report',
                 id: 202
+              },
+              {
+                state: 'KYCDocReceivedNotRec',
+                name: 'KYC Document Rec Not Rec',
+                id: 378
               },
 
             ]

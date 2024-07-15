@@ -73,6 +73,8 @@ export class BnkAcStatementComponent implements OnInit {
 
   fileUrl = this.url + 'examples/AccountStatement1.php'
   name: any;
+  isOpen: boolean = false
+  acCloseDate: any;
 
 
   constructor(
@@ -175,13 +177,24 @@ export class BnkAcStatementComponent implements OnInit {
     this.getInterestTransfer()
   }
   //get acnotype from selected scheme
-  getIntTrans(event) { 
+  getIntTrans(event) {
+    this.acCloseDate = null
+    this.isOpen = false 
     this.getschemename = event.name
     this.getInterestTransfer()
   }
   getIntTranscus(event) { 
     this.getbankAcNo =  event.bankacno
     this.name = event.name
+
+    if (event.AC_CLOSEDT != null) {
+      this.acCloseDate = event.AC_CLOSEDT
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
 
   }
 

@@ -3571,7 +3571,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
           type: data1.TRAN_TYPE == 'CS' ? 'cash' : data1.TRAN_TYPE == 'TR' ? 'transfer' : '',
           TRAN_NO: data1.TRAN_NO,
           branch_code: data1.BRANCH_CODE,
-          scheme: Number(data1.SCHEME.S_NAME),
+          selectedScheme: Number(data1.SCHEME.S_NAME),
           account_no: data1.TRAN_ACNO,
           date: data1.TRAN_DATE,
           SAVING_PIGMY: data1.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
