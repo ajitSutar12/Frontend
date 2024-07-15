@@ -5,14 +5,16 @@
 export const environment = {
   production: false,
 
+
   base_url: 'http://localhost:7271', 
   // base_url: 'http://192.168.1.113:7271',     
   // base_url: 'http://192.168.1.174:7266',
 
+
   
   // Localhost
 
-    // base_url: 'http://http://192.168.1.174/:7276',
+    // base_url: 'http://192.168.1.174:7266', //Abhishek
 
   // base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
