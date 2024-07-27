@@ -74,6 +74,7 @@
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
+                                    
                                 </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
@@ -93,6 +94,8 @@
                                 <div><label style="color: red; font-size: 15px;">Account Closed On:
                                         {{acCloseDate}}</label></div>
                             </div>
+                            <div class="col-sm" style="float: right; color: rgb(14 168 14);"
+                                    *ngIf="isJoint">Joint Account </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date<sub

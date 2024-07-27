@@ -390,6 +390,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   //get account details
+  jointAC
+  isJoint:boolean=false
   getAccountDetails(event) {
     this.showLoader = false
     this.tableData = []
@@ -406,6 +408,21 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.grandTotal = 0
     this.bankacno = event.bankacno
     this.dormantac = event.dormant
+    this.jointAC=event.jointAcHolders,
+
+
+  //   event?.jointAccounts?.forEach((element, index) => {
+  //     if (index === 0) {
+  //         this.jointHolderName = element.JOINT_ACNAME;
+  //         this.jointCustId = element.JOINT_AC_CUSTID;
+  //     } else {
+  //         this.jointHolderName += '/' + element.JOINT_ACNAME;
+  //         this.jointCustId = ''; // Assuming you only want the CustId of the first joint holder
+  //     }
+  // });
+  // this.isJoint = event?.jointAccounts?.length > 0;
+  
+    
     this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
     this.acCloseDate = event.acClose == null || event.acClose == '' ? null : event.acClose
     this.freezeac = event.freez == null || event.freez == '' ? false : true
@@ -433,6 +450,12 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       this.isOpen = true
       this.freezeac = false
 
+    }
+    if(event.jointAcHolders && event.jointAcHolders.length > 0){
+      this.isJoint=true
+    }
+    else if(event.jointAccounts='0'){
+      this.isJoint=false
     }
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d

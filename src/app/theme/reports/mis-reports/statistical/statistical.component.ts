@@ -17,6 +17,7 @@ export class StatisticalComponent implements OnInit {
   schemewiseTotCrLoanAmt:boolean=false;
   schemewiseLoanAcc:boolean=false;
   reconsilation: boolean=false;
+  expired:boolean=false;
   constructor() { 
     console.log('hii')
   }
@@ -35,7 +36,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==2) {
       this.narationmasterTrue = false;
@@ -47,7 +49,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==3) {
       this.narationmasterTrue = false;
@@ -59,7 +62,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==4) {
       this.narationmasterTrue = false;
@@ -71,7 +75,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==5) {
       this.narationmasterTrue = false;
@@ -83,7 +88,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==6) {
       this.narationmasterTrue = false;
@@ -95,7 +101,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==7) {
       this.narationmasterTrue = false;
@@ -104,10 +111,11 @@ export class StatisticalComponent implements OnInit {
       this.MdatewiseTrue = false;
       this.schemewisedeposit = false;
       this.schemewiseTotCrDetilsAmt = false;
-      this.OverAmtPeriodLClss = true;
+      this.expired = true;
       this.schemewiseTotCrLoanAmt=false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      
     }
     else if (val ==8) {
       this.narationmasterTrue = false;
@@ -119,7 +127,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt = true;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
     }
     else if (val ==9) {
       this.narationmasterTrue = false;
@@ -131,7 +140,9 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt = false;
       this.schemewiseLoanAcc = true;
-      this.reconsilation=false
+      this.reconsilation=false;
+      this.expired = false;
+
     }
     else if (val ==10) {
       this.narationmasterTrue = false;
@@ -143,7 +154,8 @@ export class StatisticalComponent implements OnInit {
       this.OverAmtPeriodLClss = false;
       this.schemewiseTotCrLoanAmt = false;
       this.schemewiseLoanAcc = false;
-      this.reconsilation=true
+      this.reconsilation=true;
+      this.expired = false;
     }
 
 

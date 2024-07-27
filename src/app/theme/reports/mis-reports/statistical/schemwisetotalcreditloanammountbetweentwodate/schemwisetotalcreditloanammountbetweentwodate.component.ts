@@ -68,7 +68,7 @@ export class SchemwisetotalcreditloanammountbetweentwodateComponent implements O
       Schemewise: ['Schemewise'],
       Termwise: ['Termwise'],
       SUBMISSION: ['SUBMISSION'],
-      Amount:["", [Validators.required]],
+      Amount: ["", [Validators.required]],
 
     })
   }
@@ -77,7 +77,7 @@ export class SchemwisetotalcreditloanammountbetweentwodateComponent implements O
     this.branchName = event.branchName
   }
   showtable() {
-    this.http.get(this.url+'/ledger-view/cschemtdsbpg').subscribe((data: any) => {
+    this.http.get(this.url + '/ledger-view/cschemtdsbpg').subscribe((data: any) => {
       // console.log(data);
 
       this.tableData = data
@@ -109,12 +109,12 @@ export class SchemwisetotalcreditloanammountbetweentwodateComponent implements O
   toggleSelection(event: any, row: any) {
     if (event.target.checked) {
       // If checkbox is checked, add row id to selectedRows if not already present
-      if (!this.selectedRows.includes(row.id)) {
-        this.selectedRows.push(row.id);
+      if (!this.selectedRows.includes(row.S_APPL)) {
+        this.selectedRows.push(row.S_APPL);
       }
     } else {
       // If checkbox is unchecked, remove row id from selectedRows if present
-      const index = this.selectedRows.indexOf(row.id);
+      const index = this.selectedRows.indexOf(row.S_APPL);
       if (index !== -1) {
         this.selectedRows.splice(index, 1);
       }
@@ -123,12 +123,12 @@ export class SchemwisetotalcreditloanammountbetweentwodateComponent implements O
   }
 
   isRowSelected(row: any) {
-    return this.selectedRows.includes(row.S_NAME);
+    return this.selectedRows.includes(row.S_APPL);
   }
 
   selectAll() {
     // Clear selectedRows array and then add all row ids to it
-    this.selectedRows = this.tableData.map(row => row.S_NAME);
+    this.selectedRows = this.tableData.map(row => row.S_APPL);
     this.updateCheckboxes(true);
     this.pushSelectedRows();
   }
@@ -166,12 +166,22 @@ export class SchemwisetotalcreditloanammountbetweentwodateComponent implements O
       let Date = moment(obj.start_date).format('DD/MM/YYYY');
       let Date1 = moment(obj.end_date).format('DD/MM/YYYY');
       let branch = obj.BRANCH;
-      let rowArray = this.selectedRows
-      let radio = obj.SUBMISSION
-      // let checkbox = obj.Schemewise
-      this.iframe5url = this.report_url + "examples/schemewiseCrDrDeposit.php/?&branchname='" + branchName + "'&sdate='" + Date + "'&AC_TYPE='" + bankName + "'&AC_RECOVERY_CLERK='" + bankName + "'&branch='" + this.ngbranch + "'"+"'$row='" + rowArray + "'&edate='" + Date1 +"'"+ "&radio=" + radio;
+      let rowArray = this.selectedRows;
+      let radio = obj.SUBMISSION;
+
+      let flag
+      if (radio == 'SUBMISSION') {
+        flag = 0;
+      }
+      else {
+        flag = 1;
+      }
+
+        // let checkbox = obj.Schemewise
+        this.iframe5url = this.report_url + "examples/schemewiseCrDrDeposit.php/?&branchname='" + branchName + "'&sdate='" + Date + "'&AC_TYPE='" + bankName + "'&AC_RECOVERY_CLERK='" + bankName + "'&branch='" + this.ngbranch + "'&edate='" + Date1 + "'&row=" + rowArray + "&radio=" + radio+"&flag=" + flag +""
+        ;
       // this.iframe5url = this.report_url + "examples/schemewisecreditdeposit-DETAIL.php/?&branchname='" + branchName + "'&sdate='" + Date + "'&AC_TYPE='" + bankName + "'&AC_RECOVERY_CLERK='" + bankName + "'&branch='" + this.ngbranch + "'"+"'$row='" + rowArray + "'&edate='" + Date1 +"'"+ "&radio=" + radio;
-     
+
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
@@ -186,12 +196,11 @@ export class SchemwisetotalcreditloanammountbetweentwodateComponent implements O
     this.angForm.controls['Amount'].reset()
 
 
-   }
+  }
 
-   close(){
-    this. reset();
+  close() {
+    this.reset();
     this.showRepo = false;
     this.clicked = false;
-   }
-
+  }
 }

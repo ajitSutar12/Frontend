@@ -101,7 +101,16 @@ children:[
     path: 'security-reports',
     loadChildren: () => import('./security-reports/security-reports.module').then(m => m.SecurityReportsModule)
   },
-
+  {
+    path: 'interest-ratewise-classification-of-loan',
+    loadChildren: () => import('./interest-ratewise-classification-of-loan/interest-ratewise-classification-of-loan.module').then(m => m.InterestRatewiseClassificationOfLoanModule)
+  },
+  {
+    path: 'LoanCashCreditExpiryList',
+    loadChildren: () => import('./loan-cash-credit-expiry-list/loan-cash-credit-expiry-list.module').then(m => m.LoanCashCreditExpiryListModule)
+  },
+  
+  
 ]
 }
 ];

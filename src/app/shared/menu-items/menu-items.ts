@@ -1906,7 +1906,13 @@ const MENUITEMS1 = [
                 type: 'sub',
                 id: 391,
               },
-
+              {
+                state: 'LoanCashCreditExpiryList',
+                name: 'Loan Cash Credit Expiry List',
+                tooltip:'कर्ज रोख क्रेडिट समाप्ती यादी',
+                type: 'sub',
+                id: 399,
+              },
             ],
 
           },
@@ -2245,6 +2251,12 @@ const MENUITEMS1 = [
                 tooltip:'साप्ताहिक लेजर शिल्लक',
                 id: 373
               },
+              {
+                state: 'swnidhi',
+                name: 'swnidhi Report',
+                tooltip:'swnidhi',
+                id: 400
+              },
             ]
           },
           //
@@ -2346,17 +2358,23 @@ const MENUITEMS1 = [
             icon: 'icon-home',
             id: 369,
             children: [
+              // {
+              //   state: 'termdeposit',
+              //   name: 'Term Deposit Report',
+              //   tooltip:'मुदत ठेव अहवाल',
+              //   id: 370
+              // },
+              // {
+              //   state: 'SharesandRecovery',
+              //   name: 'Shares and Recovery',
+              //   tooltip:'शेअर्स आणि रिकव्हरी',
+              //   id: 387
+              // },
               {
-                state: 'termdeposit',
-                name: 'Term Deposit Report',
-                tooltip:'मुदत ठेव अहवाल',
-                id: 370
-              },
-              {
-                state: 'SharesandRecovery',
-                name: 'Shares and Recovery',
-                tooltip:'शेअर्स आणि रिकव्हरी',
-                id: 387
+                state: 'memberanddividendreports',
+                name: 'Member and Dividend Reports',
+                tooltip:'Member and Dividend Reports',
+                id: 401
               },
 
             ]
@@ -5283,7 +5301,13 @@ const MENUITEMS = [
                 type: 'sub',
                 id: 391,
               },
-
+ {
+                state: 'LoanCashCreditExpiryList',
+                name: 'Loan Cash Credit Expiry List',
+                tooltip:'कर्ज रोख क्रेडिट समाप्ती यादी',
+                type: 'sub',
+                id: 399,
+              },
 
             ],
 
@@ -5611,7 +5635,12 @@ const MENUITEMS = [
                 tooltip:'साप्ताहिक लेजर शिल्लक',
                 id: 373
               },
-
+              {
+                state: 'swnidhi',
+                name: 'swnidhi Report',
+                tooltip:'swnidhi',
+                id: 400
+              },
             ]
           },
           //
@@ -5713,19 +5742,24 @@ const MENUITEMS = [
             icon: 'icon-home',
             id: 369,
             children: [
+              // {
+              //   state: 'termdeposit',
+              //   name: 'Term Deposit Report',
+              //   tooltip:'मुदत ठेव अहवाल',
+              //   id: 370
+              // },
+              // {
+              //   state: 'SharesandRecovery',
+              //   name: 'Shares and Recovery',
+              //   tooltip:'शेअर्स आणि रिकव्हरी',
+              //   id: 387
+              // },
               {
-                state: 'termdeposit',
-                name: 'Term Deposit Report',
-                tooltip:'मुदत ठेव अहवाल',
-                id: 370
+                state: 'memberanddividendreports',
+                name: 'Member and Dividend Reports',
+                tooltip:'Member and Dividend Reports',
+                id: 401
               },
-              {
-                state: 'SharesandRecovery',
-                name: 'Shares and Recovery',
-                tooltip:'शेअर्स आणि रिकव्हरी',
-                id: 387
-              },
-
 
             ]
           },

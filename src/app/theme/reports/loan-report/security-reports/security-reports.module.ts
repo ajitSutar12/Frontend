@@ -14,13 +14,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+import{GoldSilverStockComponent} from './gold-silver-stock/gold-silver-stock.component';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
-  declarations: [SecurityReportsComponent, AllSecuritySumarryReportComponent,],
+  declarations: [SecurityReportsComponent, AllSecuritySumarryReportComponent,GoldSilverStockComponent],
   providers: [OwnbranchMasterService,
     SchemeCodeDropdownService,
-    SchemeAccountNoService
+    SchemeAccountNoService,SystemMasterParametersService
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SecurityReportsComponent implements OnInit {
   narationmasterTrue: boolean = true;
- 
+  goldSilverStock:boolean = false;
   constructor() { 
     console.log('hii')
   }
@@ -18,9 +18,12 @@ export class SecurityReportsComponent implements OnInit {
     // 
     if (val == 1) {
       this.narationmasterTrue = true;
-     
+      this.goldSilverStock = false;
     }
-    
+    else if (val == 2) {
+      this.goldSilverStock = true;
+      this.narationmasterTrue = false;
+    }
 
 
 

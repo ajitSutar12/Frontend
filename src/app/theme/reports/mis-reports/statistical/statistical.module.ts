@@ -21,12 +21,13 @@ import { OverdueAmtPeriodLoanClassficationComponent } from './overdue-amt-period
 import { SchemwiseTotalcreditloanComponent } from './schemwise-totalcreditloan/schemwise-totalcreditloan.component';
 import { SchmewiseLoanAccountComponent } from './schmewise-loan-account/schmewise-loan-account.component';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 // import { SanctionAmountwiseClaComponent } from './sanction-amountwise-cla/sanction-amountwise-cla.component';
 
 
 @NgModule({
   declarations: [StatisticalComponent, SanctionAmountClassiComponent, PeriodwiseClassificationloanComponent, PeriodwiseClassificationDetailsComponent, MonthlyDepositSummeryChartDatewiseComponent, SchemewiseDepositAccountComponent, SchemwisetotalcreditloanammountbetweentwodateComponent, OverdueAmtPeriodLoanClassficationComponent, SchemwiseTotalcreditloanComponent, SchmewiseLoanAccountComponent,  ],
-  providers:[OwnbranchMasterService, SystemMasterParametersService,SchemeCodeDropdownService],
+  providers:[OwnbranchMasterService, SystemMasterParametersService,SchemeCodeDropdownService,SchemeAccountNoService],
   imports: [
     CommonModule,
     StatisticalRoutingModule,

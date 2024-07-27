@@ -193,7 +193,6 @@ export class SchmewiseLoanAccountComponent implements OnInit {
     }
   }
   resetForm() {
-    this.angForm.controls.Scheme.reset();
     this.angForm.controls.end_date.reset();
     this.angForm.controls.start_date.reset();
   }

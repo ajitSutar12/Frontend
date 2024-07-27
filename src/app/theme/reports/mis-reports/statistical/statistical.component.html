@@ -34,12 +34,12 @@
                                     routerLinkActive="active" [ngClass]="{'isActive': schemewisedeposit}"
                                     class="text-right f-w-600" id="pointer">2.schemewise-deposit-account</a></h6>
                         </li>
-                        <!-- <li>
+                         <li>
                             <h6> <a (click)="OpenLink(6)" routerLink="/reports/mis-reports/statistical"
                                     routerLinkActive="active" [ngClass]="{'isActive': schemewiseTotCrDetilsAmt}"
                                     class="text-right f-w-600" id="pointer">6.Schemewise Total Credit Deposit Amount Bettween Two Dates</a></h6>
                         </li>
-                        <li>
+                        <!--<li>
                             <h6> <a (click)="OpenLink(7)" routerLink="/reports/mis-reports/statistical"
                                     routerLinkActive="active" [ngClass]="{'isActive': OverAmtPeriodLClss}"
                                     class="text-right f-w-600" id="pointer">7. Overdue Amt Period Loan Classfication</a></h6>
@@ -54,11 +54,16 @@
                                     routerLinkActive="active" [ngClass]="{'isActive': schemewiseLoanAcc}"
                                     class="text-right f-w-600" id="pointer">4. Schmewise Loan Account</a></h6>
                         </li>
-                        <li>
+                        <!-- <li>
                             <h6> <a (click)="OpenLink(10)" routerLink="/reports/mis-reports/statistical"
                                     routerLinkActive="active" [ngClass]="{'isActive': reconsilation}"
                                     class="text-right f-w-600" id="pointer">5. Reconsilation Statment</a></h6>
-                        </li>
+                        </li> -->
+                        <!-- <li>
+                            <h6> <a (click)="OpenLink(7)" routerLink="/reports/mis-reports/statistical"
+                                    routerLinkActive="active" [ngClass]="{'isActive': expired}"
+                                    class="text-right f-w-600" id="pointer">7. Expiry Periodwise Classifiaction of Loan</a></h6>
+                        </li> -->
                     </ul>
                 </div>
             </div>
@@ -93,10 +98,14 @@
             <div *ngIf="schemewiseLoanAcc">
                 <app-schmewise-loan-account></app-schmewise-loan-account>
             </div>
-            <div *ngIf="reconsilation">
+            <!-- <div *ngIf="reconsilation">
                 <app-reconcialation-statement></app-reconcialation-statement>
                 
-            </div>
+            </div> -->
+            <!-- <div *ngIf="expired">
+                <app-expiry-periodwise-classificationofloan></app-expiry-periodwise-classificationofloan>
+                
+            </div> -->
         </div>
     </div>
 </div>

@@ -1713,6 +1713,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //Method for append data into fields
   opdate
   intinst
+  DAC_NO
+  DAC_ACNOTYPE
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
@@ -1722,6 +1724,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       console.log(data);
       this.intinstruction = data.intinstruction
+      this.DAC_NO = data.BANKACNO
+      this.DAC_ACNOTYPE = data.AC_TYPE
       console.log(this.intinstruction)
       this.createForm()
       this.showInstruction = true
@@ -3004,8 +3008,19 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     button.click();
     this.reloadTablePassing.emit();
   }
+  DR_ACTYPE
+  DR_AC_NO
+
   addNewInstruction(instruction) {
     this.intInstructionObject = instruction
+    this.DR_AC_NO = this.DAC_NO;
+    this.DR_ACTYPE = this.DAC_ACNOTYPE;
+    (this.child as any).DR_AC_NO = this.DR_AC_NO;
+    (this.child as any).DR_ACTYPE = this.DR_ACTYPE;
+
+    this.child.submit();
+
+
   }
 
   onFocus(ele: NgSelectComponent) {
@@ -3146,12 +3161,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     });
   }
   getIntInstruct
+  showUpdateButton: boolean = false;
   getInstructionData(data) {
     this.getIntInstruct = data;
     this.child.editClickHandler(data);
-    // this.child.DatatableHideShow = false;
-    // this.child.rejectShow = true;
-    // this.child.approveShow = true;
+  }
+  updateTableData(newData) {
+    this.intinstruction.push(newData);
   }
 
 }

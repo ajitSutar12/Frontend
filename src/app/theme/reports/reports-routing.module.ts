@@ -99,6 +99,10 @@ const routes: Routes = [
         path: 'iframecomponent',
         component:IframecomponentComponent
       },
+      {
+        path: 'EmployeeSocity',
+        loadChildren: () => import('./employee-socity/employee-socity.module').then(m => m.EmployeeSocityModule)
+      },
     ]
   }
 ];

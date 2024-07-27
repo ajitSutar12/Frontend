@@ -41,6 +41,7 @@ export class VoucherViewComponent implements OnInit {
   branch_code: any[];
 
   ngdate: any = null
+  isRadioVisible: boolean=true;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -133,17 +134,20 @@ export class VoucherViewComponent implements OnInit {
   multiVoucherData: any = {};
   voucherMenu = null
   //get saving customer data
+ 
+
   getVoucherData(data) {
     if (data.TRAN_SOURCE_TYPE == 'VC') {
       this.voucherMenu = 'voucher'
-      this.voucherData = data.id;
-      this.voucherchild.editClickHandler(data.id);
+      this.voucherData = data.ID;
+      this.voucherchild.btnShow(data.ID);
       this.voucherchild.DatatableHideShow = false;
       this.voucherchild.rejectShow = false;
       this.voucherchild.approveShow = false
       this.voucherchild.showButton = false;
       this.voucherchild.updateShow = false;
       this.voucherchild.newbtnShow = true;
+      this.isRadioVisible = false;
     }
     else if (data.TRAN_SOURCE_TYPE == 'MV' || data.TRAN_SOURCE_TYPE == 'DC') {
       this.voucherMenu = 'multi'
@@ -155,8 +159,10 @@ export class VoucherViewComponent implements OnInit {
       this.multichild.showButton = false;
       this.multichild.updateShow = false;
       this.multichild.newbtnShow = true;
+      this.isRadioVisible = false;
     }
   }
+
   public getData(value): void {
     let el: HTMLElement = this.myDiv.nativeElement;
     el.click();

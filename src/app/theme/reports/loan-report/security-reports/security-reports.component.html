@@ -12,6 +12,11 @@
                             <h6> <a (click)="OpenLink(1)" routerLink="/reports/loan-report/security-reports"
                                     routerLinkActive="active" [ngClass]="{'isActive': narationmasterTrue}"
                                     class="text-right f-w-600" id="pointer">1.all-security-sumarry-report works</a></h6>
+                        </li>   
+                        <li>
+                            <h6> <a (click)="OpenLink(2)" routerLink="/reports/loan-report/security-reports"
+                                    routerLinkActive="active" [ngClass]="{'isActive': goldSilverStock}"
+                                    class="text-right f-w-600" id="pointer">2.Gold Silver Stock</a></h6>
                         </li>        
                     </ul>
                 </div>
@@ -23,7 +28,9 @@
             <div *ngIf="narationmasterTrue">
                 <app-all-security-sumarry-report></app-all-security-sumarry-report>
             </div>
-            
+            <div *ngIf="goldSilverStock">
+                <app-gold-silver-stock></app-gold-silver-stock>
+            </div>
         </div>
     </div>
 </div>

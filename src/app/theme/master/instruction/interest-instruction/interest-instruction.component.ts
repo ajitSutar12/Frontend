@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Output, EventEmitter, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
@@ -60,6 +60,11 @@ interface InterestInstruction {
 
 export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDestroy {
   //api 
+  @Output() formSubmitted = new EventEmitter<any>();
+  @Input() showUpdateButton: boolean = true; 
+  @Input() ShowCancelButton:boolean=true;
+  @Input() DR_AC_NO: string;
+  @Input() DR_ACTYPE: string;
   @Output() newTDCustomerEvent = new EventEmitter<object>();
   url = environment.base_url;
   angForm: FormGroup;
@@ -115,7 +120,7 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
   maxDate
   cashTrue: boolean = true;
   transferTrue: boolean = false;
-  formSubmitted = false;
+  // formSubmitted = false;
 
   constructor(private fb: FormBuilder, public frequencyService: FrequencyService,
     public executionDayService: ExecutionDayService,
@@ -693,8 +698,10 @@ export class InterestInstructionComponent implements OnInit, AfterViewInit, OnDe
       // 'FROM_DATE': formVal.FROM_DATE,
       'NEXT_EXE_DATE': formVal.NEXT_EXE_DATE,
       'EXECUTION_DAY': formVal.EXECUTION_DAY,
-      'DR_ACTYPE': formVal.DR_ACTYPE,
-      'DR_AC_NO': formVal.DR_AC_NO,
+      // 'DR_ACTYPE': formVal.DR_ACTYPE,
+      // 'DR_AC_NO': formVal.DR_AC_NO,
+      'DR_ACTYPE':formVal.DR_ACTYPE?formVal.DR_ACTYPE:this.DR_ACTYPE,
+      'DR_AC_NO' : formVal.DR_AC_NO ? formVal.DR_AC_NO : this.DR_AC_NO,
       'DR_PARTICULARS': formVal.DR_PARTICULARS,
       'CR_ACTYPE': formVal.CR_ACTYPE,
       'CR_AC_NO': formVal.CR_AC_NO,

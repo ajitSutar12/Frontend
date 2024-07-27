@@ -466,11 +466,13 @@
                                     Submit
                                 </button>
                             </ng-container>
+                            <div *ngIf="showUpdateButton">
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                 Update</button>
+                            </div>
                         </div>
                     </div>
                 </div>
