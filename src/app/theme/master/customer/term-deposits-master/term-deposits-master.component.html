@@ -2584,11 +2584,14 @@
 
                                                         </div>
                                                         <div class="app-modal-body">
-                                                            <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
+                                                            <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> 
                                                             <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
                                                                 (newTDCustomerEvent)="addNewInstruction($event)" (formSubmitted)="updateTableData($event)" [showUpdateButton]="showUpdateButton" >
                                                             </app-interest-instruction>
-                                                            <!-- </perfect-scrollbar> -->
+                                                           </perfect-scrollbar> -->
+                                                           <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
+                                                                (newTDCustomerEvent)="addNewInstruction($event)" [showUpdateButton]="showUpdateButton" >
+                                                            </app-interest-instruction>
                                                         </div>
                                                         <div class="app-modal-footer">
                                                             <button type="button" class="btn btn-outline-primary btn-sm"

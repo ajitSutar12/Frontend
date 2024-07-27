@@ -3013,12 +3013,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addNewInstruction(instruction) {
     this.intInstructionObject = instruction
-    this.DR_AC_NO = this.DAC_NO;
-    this.DR_ACTYPE = this.DAC_ACNOTYPE;
-    (this.child as any).DR_AC_NO = this.DR_AC_NO;
-    (this.child as any).DR_ACTYPE = this.DR_ACTYPE;
+    // this.DR_AC_NO = this.DAC_NO;
+    // this.DR_ACTYPE = this.DAC_ACNOTYPE;
+    // (this.child as any).DR_AC_NO = this.DR_AC_NO;
+    // (this.child as any).DR_ACTYPE = this.DR_ACTYPE;
 
-    this.child.submit();
+    // this.child.submit();
 
 
   }
@@ -3166,8 +3166,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.getIntInstruct = data;
     this.child.editClickHandler(data);
   }
-  updateTableData(newData) {
-    this.intinstruction.push(newData);
-  }
+  // updateTableData(newData) {
+  //   this.intinstruction.push(newData);
+  // }
 
 }
