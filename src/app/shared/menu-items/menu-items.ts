@@ -2062,11 +2062,7 @@ const MENUITEMS1 = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-          {
-            state: 'pigmyAppProcess',
-            name: 'Pigmy App Process',
-            id: 308
-          },
+          
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -2244,7 +2240,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
@@ -2253,6 +2249,12 @@ const MENUITEMS1 = [
                 id: 299
               },
             ]
+          },
+
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
           },
 
           {
@@ -5039,11 +5041,7 @@ const MENUITEMS = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-          {
-            state: 'pigmyAppProcess',
-            name: 'Pigmy App Process',
-            id: 308
-          },
+         
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -5220,7 +5218,7 @@ const MENUITEMS = [
               },
               {
                 state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
@@ -5230,7 +5228,11 @@ const MENUITEMS = [
               },
             ]
           },
-
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
+          },
           {
             state: 'holiday',
             name: 'Holiday',

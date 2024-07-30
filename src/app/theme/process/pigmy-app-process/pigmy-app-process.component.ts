@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import Swal from 'sweetalert2';
 // Creating and maintaining form fields with validation 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeCodeDropdownService } from '../../../shared/dropdownService/scheme-code-dropdown.service'
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service'
@@ -112,7 +112,7 @@ export class PigmyAppProcessComponent implements OnInit {
       TRAN_DATE: [''],
       BRANCH: ['', [Validators.required]],
       startDate: ['',],
-      endDate: ['',]
+      // endDate: ['',]
     });
   }
 
@@ -172,7 +172,9 @@ export class PigmyAppProcessComponent implements OnInit {
         records: this.receivedAccount,
         "branch_code": this.ngBranchCode,
         "start_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
-        "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
+        // "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
+        "end_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
+
       }
       this.http.post(this.url + '/pigmy-chart/receivefromapp/', obj).subscribe(data => {
         this.showprocessbutton = true
@@ -242,7 +244,9 @@ export class PigmyAppProcessComponent implements OnInit {
     let obj = {
       "branch_code": this.ngBranchCode,
       "start_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
-      "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
+      // "end_date": moment(this.angForm.controls['endDate'].value).format('DD-MM-YYYY')
+      "end_date": moment(this.angForm.controls['startDate'].value).format('DD-MM-YYYY'),
+
     }
     // this.http.post('http://68.183.93.209/pigmy_test/getDataModified.php', obj).subscribe(data => {
     this.http.post(this.url + '/pigmy-chart/receivefromapp/', obj).subscribe(data => {

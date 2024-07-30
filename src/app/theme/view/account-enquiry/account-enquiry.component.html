@@ -331,11 +331,11 @@
                                             style="color: #3e8cd0; text-align: left;"><label>{{accountData?.AC_REF_RECEIPTNO}}</label></span>
                                     </div>
                                     <div class="col-sm-8" *ngIf="!accountData?.AC_REF_RECEIPTNO"></div>
-                                    <div class="col-sm-2" *ngIf="accountData?.AC_INTRATE">
+                                    <div class="col-sm-2">
                                         <span><label>Interest Rate: </label></span>
                                     </div>
-                                    <div class="col-sm-2" *ngIf="accountData?.AC_INTRATE"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate==0?accountData?.AC_INTRATE:transactionData?.interest_rate}}</label></span>
+                                    <div class="col-sm-2"><span
+                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate ==0?accountData?.AC_INTRATE:transactionData?.interest_rate }}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">

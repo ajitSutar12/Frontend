@@ -200,8 +200,8 @@ export class BnkAcStatementComponent implements OnInit {
       this.isOpen = true
     }
 
-    if (event.AC_CLOSEDT != null) {
-      this.acCloseDate = event.AC_CLOSEDT
+    if (event.acClose != null) {
+      this.acCloseDate = event.acClose
       this.isOpen = false
     }
     else {

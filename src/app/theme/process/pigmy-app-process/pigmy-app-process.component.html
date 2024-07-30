@@ -70,11 +70,11 @@
                                         (keydown.Tab)="startdate.hide()" placement="right" #startdate
                                         formControlName="startDate" bsDatepicker>
                                     <!-- [maxDate]="maxDate" -->
-                                    <label for="startDate">Start Date<sub class="required">* </sub></label>
+                                    <label for="startDate">Enter Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <!-- <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="endDate"
@@ -82,12 +82,12 @@
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [ngClass]="{'form-submitted': formSubmitted}" #endDate="bsDatepicker"
                                         (keydown.Tab)="enddate.hide()" placement="right" #enddate
-                                        formControlName="endDate" bsDatepicker>
+                                        formControlName="endDate" bsDatepicker> -->
                                     <!-- [maxDate]="maxDate" -->
-                                    <label for="endDate">End Date<sub class="required">* </sub></label>
+                                    <!-- <label for="endDate">End Date<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row" *ngIf="showloader">
                         <div class="col-12">

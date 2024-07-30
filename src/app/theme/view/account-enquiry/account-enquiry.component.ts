@@ -1400,7 +1400,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.payableInterestArr = []
       let obj = [
         this.ngscheme,
-        this.AC_NO
+        this.bankacno
       ]
       this.http.get<any>(this.url + '/ledger-view/interestInstructionView/' + obj).subscribe((data) => {
         this.interestInstructionArr = data

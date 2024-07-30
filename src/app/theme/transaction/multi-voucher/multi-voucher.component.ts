@@ -1117,7 +1117,7 @@ export class MultiVoucherComponent implements OnInit {
       amt: Number(data.amt).toFixed(2),
       // NARRATION: data.NARRATION,
       total_amt: data.total_amt,
-      bank:data.bank
+      // bank:data.bank
     })
     // this.changeMode(data.tran_mode);
     this.headData = []

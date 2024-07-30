@@ -10,7 +10,7 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
@@ -58,7 +58,7 @@
                        
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="">Agent code <sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"><label for="">Agent code <sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -79,6 +79,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-3 col-md-2" *ngIf="!isOpen"></div>
                         <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
                         *ngIf="isOpen">Account Open</div>
                         <div class="col-sm-3 col-md-2" *ngIf="acclosedon">

@@ -5,12 +5,10 @@
                 <h5>Data Backup</h5>
             </div>
             <form>
-                <div class="card-block">
-                    <div class="row"  *ngIf="showButton">
-                        <div class="col-sm-2">
-                            <label for="lbl" class="lblCls">Preparing File For Download...</label>
-                        </div>
-                        <div class="col-sm-10">
+                <!-- <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12">
+
                             <button type="button" class="btn btn-outline-primary btn-sm" style="float: left;"
                                  (click)="download()">Prepare File to
                                 Download</button>
@@ -27,6 +25,30 @@
                                 </button></a>
                         </div>
                     </div>
+                </div> -->
+                <div class="card-block">
+                    <div class="row" *ngIf="showButton">
+                        <div class="col-sm-2">
+                            <label for="lbl" class="lblCls">Preparing File For Download...</label>
+                        </div>
+                        <div class="col-sm-10">
+                            <button type="button" class="btn btn-outline-primary btn-sm" style="float: left;"
+                                (click)="download()">Prepare File to
+                                Download</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="showDButton">
+                        <div class="col-sm-2">
+                            <label for="lbl" class="lblCls">Click Here To Download File</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <a [href]="fileUrl" download> <button type="button" class="btn btn-outline-primary btn-sm"
+                                    style="float: left;">
+                                    Download File
+                                </button></a>
+                        </div>
+                    </div>
+
                     <div class="loader-block loader" *ngIf="isloader">
                         <svg id="loader2" viewBox="0 0 100 100">
                             <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>

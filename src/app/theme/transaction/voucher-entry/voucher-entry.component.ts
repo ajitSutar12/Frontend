@@ -1138,7 +1138,7 @@ export class VoucherEntryComponent implements OnInit {
     // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
     //   addInFrom = startdate;
     // } else {
-    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(0, 'days').format('DD/MM/YYYY')
     // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
@@ -2634,7 +2634,7 @@ export class VoucherEntryComponent implements OnInit {
     // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
     //   addInFrom = startdate;
     // } else {
-    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(0, 'days').format('DD/MM/YYYY')
     // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,

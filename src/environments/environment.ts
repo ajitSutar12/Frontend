@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
 
+//   base_url: 'http://localhost:7276', 
 
-  base_url: 'http://localhost:7271', 
   // base_url: 'http://192.168.1.113:7271',     
   // base_url: 'http://192.168.1.174:7266',
 
@@ -14,80 +14,89 @@ export const environment = {
   
   // Localhost
 
-    // base_url: 'http://192.168.1.174:7266', //Abhishek
 
-  // base_url: 'http://localhost:7276',
+
+  base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
   sitename: 'http://localhost/SIDHANERLI/CBS'  
 
   // //SIDHANERLI 
-  // base_url: 'http://103.174.87.104:4713', 
-  
-  // report_url: 'http://103.174.87.104/SIDHANERLI/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SIDHANERLI/CBS' 
+  // base_url: 'https://patsevacompservtech.com:4713',
+  // report_url: 'https://patsevacompservtech.com/SIDHANERLI/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/SIDHANERLI/CBS'  
 
-  // base_url: 'http://103.174.87.104:7280',  
-  // report_url: 'http://103.174.87.104/TRIMURTIDONGAON/REPORTS/', 
-  // sitename: 'http://103.174.87.104/pargaon/CBS'
+  // base_url: 'https://patsevacompservtech.com:7280',  
+  // report_url: 'https://patsevacompservtech.com/TRIMURTIDONGAON/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/pargaon/CBS'
 
   // //TESTSIDHANERLI  
-  // base_url: 'http://103.174.87.104:4771',  
-  // report_url: 'http://103.174.87.104/TESTSIDHANERLI/REPORTS/', 
-  // sitename: 'http://103.174.87.104/TESTSIDHANERLI/CBS' 
+  // base_url: 'https://patsevacompservtech.com:4771',  
+  // report_url: 'https://patsevacompservtech.com/TESTSIDHANERLI/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/TESTSIDHANERLI/CBS' 
 
   //VADGAON_SARAF 
-  // base_url: 'http://103.174.87.104:7282',  //CBS  vadgaon server
-  // report_url: 'http://103.174.87.104/VADGAON_SARAF/REPORTS/',
-  // sitename: 'http://103.174.87.104/VADGAON_SARAF/CBS' 
+  // base_url: 'https://patsevacompservtech.com:7282',  //CBS  vadgaon server
+  // report_url: 'https://patsevacompservtech.com/VADGAON_SARAF/REPORTS/',
+  // sitename: 'https://patsevacompservtech.com/VADGAON_SARAF/CBS' 
 
  //Jijamata Arjunwada
-  // base_url: 'http://103.174.87.104:7274',
-  // report_url: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/REPORTS/', 
-  // sitename: 'http://103.174.87.104/JIJAMATA_ARJUNWADA/CBS'
+  // base_url: 'https://patsevacompservtech.com:7274',
+  // report_url: 'https://patsevacompservtech.com/JIJAMATA_ARJUNWADA/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/JIJAMATA_ARJUNWADA/CBS'
 
   // //SHIVPRASAD NATEPUTE
-  // base_url: 'http://103.174.87.104:7275',  //CBS  natepute server
-  // report_url: 'http://103.174.87.104/SHIVPRASADNATEPUTE/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS' 
+  // base_url: 'https://patsevacompservtech.com:7275',  //CBS  natepute server
+  // report_url: 'https://patsevacompservtech.com/SHIVPRASADNATEPUTE/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/SHIVPRASADNATEPUTE/CBS' 
 
 
   // //VENKATESH 
-  // base_url: 'http://103.174.87.104:7276',  
-  // report_url: 'http://103.174.87.104/VENKATESH/REPORTS/', 
-  // sitename: 'http://103.174.87.104/VENKATESH/CBS'
+  // base_url: 'https://patsevacompservtech.com:7276',  
+  // report_url: 'https://patsevacompservtech.com/VENKATESH/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/VENKATESH/CBS'
 
   
 
 // //VITTHALDHARASHIV 
-  // base_url: 'http://103.174.87.104:7277',  
-  // report_url: 'http://103.174.87.104/VITTHALDHARASHIV/REPORTS/', 
-  // sitename: 'http://103.174.87.104/VITTHALDHARASHIV/CBS' 
+  // base_url: 'https://patsevacompservtech.com:7277',  
+  // report_url: 'https://patsevacompservtech.com/VITTHALDHARASHIV/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/VITTHALDHARASHIV/CBS' 
 
    // //DEMO COMPSERV 
-  // base_url: 'http://103.174.87.104:7278',  
-  // report_url: 'http://103.174.87.104/COMPSERV/REPORTS/', 
-  // sitename: 'http://103.174.87.104/COMPSERV/CBS'
+  // base_url: 'https://patsevacompservtech.com:7278',  
+  // report_url: 'https://patsevacompservtech.com/COMPSERV/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/COMPSERV/CBS'
 
      // //DONGAON Trimurti 
-  // base_url: 'http://103.174.87.104:7279',  
-  // report_url: 'http://103.174.87.104/TRIMURTIDONGAON/REPORTS/', 
-  // sitename: 'http://103.174.87.104/TRIMURTIDONGAON/CBS'
+  // base_url: 'https://patsevacompservtech.com:7279',  
+  // report_url: 'https://patsevacompservtech.com/TRIMURTIDONGAON/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/TRIMURTIDONGAON/CBS'
 
     //  DATTAPARGAON
-  // base_url: 'http://103.174.87.104:7280',  
-  // report_url: 'http://103.174.87.104/DATTAPARGAON/REPORTS/', 
-  // sitename: 'http://103.174.87.104/DATTAPARGAON/CBS'
+  // base_url: 'https://patsevacompservtech.com:7280',  
+  // report_url: 'https://patsevacompservtech.com/DATTAPARGAON/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/DATTAPARGAON/CBS'
 
-    // SANJAYSINH_KOTOLI
-  // base_url: 'http://103.174.87.104:7281',  
-  // report_url: 'http://103.174.87.104/SANJAYSINH_KOTOLI/REPORTS/', 
-  // sitename: 'http://103.174.87.104/SANJAYSINH_KOTOLI/CBS'
+  //   // SANJAYSINH_KOTOLI
+  // base_url: 'https://patseva.compservtech.com:7281',  
+  // report_url: 'https://patseva.compservtech.com/SANJAYSINH_KOTOLI/REPORTS/', 
+  // sitename: 'https://patseva.compservtech.com/SANJAYSINH_KOTOLI/CBS'
 
 
       // PANHALA_URBAN
-  // base_url: 'http://103.174.87.104:7284',  
-  // report_url: 'http://103.174.87.104/PANHALA_URBAN/REPORTS/', 
-  // sitename: 'http://103.174.87.104/PANHALA_URBAN/CBS'
+  // base_url: 'https://patsevacompservtech.com:7284',  
+  // report_url: 'https://patsevacompservtech.com/PANHALA_URBAN/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/PANHALA_URBAN/CBS'
+    
+  // SACHINSOCITY
+  // base_url: 'https://patsevacompservtech.com:7285',  
+  // report_url: 'https://patsevacompservtech.com/SACHINSOCITY/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/SACHINSOCITY/CBS'
+
+  // TEST
+  // base_url: 'https://patsevacompservtech.com:7286',  
+  // report_url: 'https://patsevacompservtech.com/TEST/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/TEST/CBS'
 // };
 
 /*

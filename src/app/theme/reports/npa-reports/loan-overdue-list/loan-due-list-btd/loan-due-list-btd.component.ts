@@ -97,8 +97,8 @@ export class LoanDueListBtdComponent implements OnInit {
       branch: ['',[Validators.required]],
       fdate: ['',[Validators.required]],
       tdate: ['',[Validators.required]],
-      mininst: ['',[Validators.required]],
-      maxinst: ['',[Validators.required]]
+      // mininst: ['',[Validators.required]],
+      // maxinst: ['',[Validators.required]]
       
     });
   }
@@ -177,6 +177,8 @@ export class LoanDueListBtdComponent implements OnInit {
 }
 
   close() {
+    this.showRepo = false;
+    this.clicked = false;
     this.resetForm()
     this.selectedItems =null;
 

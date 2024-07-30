@@ -33,6 +33,7 @@ export class BackupDataComponent implements OnInit {
         setTimeout(() => {
           this.isloader = false
           this.showButton = false
+          this.isloader = false
           this.modalClass = 'modalHide';
           Swal.fire('success', 'File is ready to download', 'success');
           this.showDButton = true
