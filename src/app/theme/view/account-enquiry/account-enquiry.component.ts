@@ -125,6 +125,10 @@ export class AccountEnquiryComponent implements OnInit {
   leftMonth
   introducerName
   totalInterest = 0
+  isOpen: boolean = false
+  isMinor:boolean=false
+  isJoint:boolean=false
+  jointCustId
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
@@ -680,6 +684,7 @@ export class AccountEnquiryComponent implements OnInit {
   isOpen: boolean = false
   isMinor:boolean=false
   isJoint:boolean=false
+
   getAccountDetails(event) {
     this.viewView(event)
 
@@ -754,11 +759,7 @@ export class AccountEnquiryComponent implements OnInit {
       // event?.jointAccounts?.forEach((element, index) => {
       //   if (index == 0) {
       //     this.jointHolderName = element.JOINT_ACNAME
-      //     this.jointCustId=element.JOINT_AC_CUSTID
-      //   }
-      //   else {
-      //     this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
-      //     this.jointCustId=''
+
       //   }
       // });
 
@@ -769,11 +770,12 @@ export class AccountEnquiryComponent implements OnInit {
         } else {
             this.jointHolderName += '/' + element.JOINT_ACNAME;
             this.jointCustId = ''; // Assuming you only want the CustId of the first joint holder
+
         }
     });
     this.isJoint = event?.jointAccounts?.length > 0;
     
-      
+
       this.idmaster = event.idmaster
       let periodOverdraft = event.AC_SODAMT == undefined || event.AC_SODAMT == null ? 0 : Number(event.AC_SODAMT)
       let tempOverdraft = event.AC_ODAMT == undefined || event.AC_ODAMT == null ? 0 : Number(event.AC_ODAMT)
@@ -793,6 +795,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.acCloseDate = null
         this.isOpen = true
       }
+
       if(event.AC_MINOR=='1'){
         this.isMinor=true
       }
@@ -1401,7 +1404,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.payableInterestArr = []
       let obj = [
         this.ngscheme,
-        this.AC_NO
+        this.bankacno
       ]
       this.http.get<any>(this.url + '/ledger-view/interestInstructionView/' + obj).subscribe((data) => {
         this.interestInstructionArr = data

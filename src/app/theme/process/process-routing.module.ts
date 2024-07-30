@@ -18,6 +18,10 @@ const routes: Routes = [
         loadChildren: () => import('./day-end/day-end.module').then(m => m.DayEndModule)
       },
       {
+        path: 'pigmyAppProcess',
+        loadChildren: () => import('./pigmy-app-process/pigmy-app-process.module').then(m => m.PigmyAppProcessModule)
+      },
+      {
         path: 'holiday',
         loadChildren: () => import('./holiday/holiday.module').then(m => m.HolidayModule)
       },

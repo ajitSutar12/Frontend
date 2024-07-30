@@ -74,8 +74,8 @@ export class SafeVaultToCashierComponent implements OnInit {
       //Get Cashier List
       this._service.getList({ branch_id: this.SelectedBranch }).subscribe(data => {
         this.cashier_list = data;
-        this.safeCashier = this.cashier_list.filter(el => el.CASHIER_CODE !== 'SAFE VAULT');
         this.safeCashier1 = this.cashier_list.filter(el => el.CASHIER_CODE == 'SAFE VAULT');
+        this.safeCashier = this.cashier_list.filter(el => el.CASHIER_CODE !== 'SAFE VAULT');
 
 
       })
@@ -199,6 +199,8 @@ export class SafeVaultToCashierComponent implements OnInit {
   }
   changeData(ele) {
     // console.log(ele);
+
+  
     this.currencyData[0].available = this.safeCashier1[0].DENO_2000;
     this.currencyData[1].available = this.safeCashier1[0].DENO_1000;
     this.currencyData[2].available = this.safeCashier1[0].DENO_500;

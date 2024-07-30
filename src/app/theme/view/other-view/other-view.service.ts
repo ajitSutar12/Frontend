@@ -49,5 +49,9 @@ export class OtherViewService {
   getInstallment(data:any): Observable<any>{
     return this.http.post(this.url+'/voucher/getLoanInstallment',data);
   }
+
+  getHtmlReport(url: string): Observable<string> {
+    return this.http.get(url, { responseType: 'text' });
+  }
   
 }

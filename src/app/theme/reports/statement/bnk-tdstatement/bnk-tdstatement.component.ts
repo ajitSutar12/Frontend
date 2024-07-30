@@ -32,6 +32,8 @@ export class BnkTDStatementComponent implements OnInit{
   ngForm: FormGroup;
   iframe5url:any='';
   clicked:boolean=false;
+  isOpen: boolean = false;
+
   //api
   url = environment.base_url;
   report_url = environment.report_url;
@@ -60,6 +62,11 @@ export class BnkTDStatementComponent implements OnInit{
   showRepo:boolean=false;
   todate: any;
   fromdate: moment.Moment;
+
+  isOpen: boolean = false
+  acCloseDate: null;
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -144,11 +151,22 @@ export class BnkTDStatementComponent implements OnInit{
     this.getIntroducer()
   }
   getIntro(event) {
+    this.acCloseDate = null
+    this.isOpen = false
     this.getschemename = event.name
     this.getIntroducer()
   }
   getAcno1(event) {
     this.getbankAcNo1 =  event.bankacno
+    if (event.acClose != null) {
+      this.acCloseDate = event.acClose
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
+
   }
   getAcno2(event) {
     this.getbankAcNo2 =  event.bankacno

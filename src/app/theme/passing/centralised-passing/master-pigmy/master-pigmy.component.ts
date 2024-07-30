@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
@@ -84,7 +84,7 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
   // Store data from backend
   pigmyAccountMaster: PigmyAccountMaster[];
   PigmyData: any;
-  constructor(private http: HttpClient,private cdr: ChangeDetectorRef) { }
+  constructor(private http: HttpClient,) { }
 
   ngOnInit(): void {
     // this.dtExportButtonOptions = {
@@ -162,8 +162,6 @@ export class MasterPigmyComponent implements OnInit, AfterViewInit {
             dataTableParameters
           ).subscribe(resp => {
             this.pigmyAccountMaster = resp.data;
-            this.cdr.detectChanges();
-            console.log('pigmy',resp)
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,

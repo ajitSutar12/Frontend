@@ -116,7 +116,6 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
     this.Acc_No = []
     this.getAccountList()
   }
-  
   getAccountList() {
     this.obj = [this.schemeCode, this.ngBranchCode]
     this.accno = null

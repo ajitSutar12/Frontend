@@ -364,7 +364,7 @@
 
 
                             <!-- Multiple Transaction details data show here -->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="solid">
                                         <table class="table table-bordered table-hover compact">
@@ -383,15 +383,14 @@
                                                             (click)="showHide(in)"></span>&nbsp; <span
                                                             class="fa fa-fw fa-edit field-icon grab"
                                                             (click)="editVoucher(in)"></span>
-                                                        <!-- &nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-fw fa-trash-o grab"
-                                                            (click)="deleteData(in)"></span></td> -->
+                                                        
                                                     <td>{{item.scheme_type}}</td>
                                                     <td>{{item.scheme.S_NAME}}</td>
                                                     <td>{{item.scheme_type ==
                                                         'GL'?item.account_no.AC_NO:item.account_no.BANKACNO}}</td>
                                                     <td>{{item.tran_mode.value}}</td>
                                                     <td style="text-align: right;">{{item.total_amt}}</td>
-                                                    <td style="text-align: left;">{{item.NARRATION}}</td>
+                                                    <td style="text-align: left;" class="cellCss">{{item.NARRATION}}</td>
                                                 </tr>
                                                 <tr id="{{in}}" [hidden]="true">
                                                     <td></td>
@@ -419,6 +418,77 @@
                                                 </tr>
                                             </ng-container>
                                         </table>
+
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                Total Credit : {{totalCredit}}
+                                            </div>
+                                            <div class="col-md-3">
+                                                Total Debit : {{totalDebit}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="solid">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover compact">
+                                                <thead>
+                                                    <td></td>
+                                                    <td>Scheme</td>
+                                                    <td>Scheme Code</td>
+                                                    <td>Account NO.</td>
+                                                    <td>Transaction Code</td>
+                                                    <td style="text-align: right;">Amount</td>
+                                                    <td>Particulars</td>
+                                                </thead>
+                                                <ng-container *ngFor="let item of mainMaster;let in = index;">
+                                                    <tr>
+                                                        <td><span class="fa fa-plus-circle grab"
+                                                                (click)="showHide(in)"></span>&nbsp; <span
+                                                                class="fa fa-fw fa-edit field-icon grab"
+                                                                (click)="editVoucher(in)"></span>
+                                                            <!-- &nbsp;&nbsp;&nbsp;&nbsp;<span class="fa fa-fw fa-trash-o grab"
+                                                            (click)="deleteData(in)"></span></td> -->
+                                                        </td>
+                                                        <td>{{item.scheme_type}}</td>
+                                                        <td>{{item.scheme.S_NAME}}</td>
+                                                        <td>{{item.scheme_type ==
+                                                            'GL'?item.account_no.AC_NO:item.account_no.BANKACNO}}</td>
+                                                        <td>{{item.tran_mode.value}}</td>
+                                                        <td style="text-align: right;">{{item.total_amt}}</td>
+                                                        <td style="text-align: left;">{{item.NARRATION}}</td>
+                                                    </tr>
+                                                    <tr id="{{in}}" [hidden]="true">
+                                                        <td></td>
+                                                        <td [attr.colspan]="5">
+                                                            <html>
+                                                            <thead>
+                                                                <td>Head</td>
+                                                                <td>Int. Date</td>
+                                                                <td>Int. Amount</td>
+                                                                <td>Balance Amount</td>
+                                                                <td>Type</td>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let i of item.InputHead">
+                                                                    <td>{{i.SHORT_NAME}}</td>
+                                                                    <td>{{i.date}}</td>
+                                                                    <td>{{i.Amount}}</td>
+                                                                    <td>{{i.Balance}}</td>
+                                                                    <td>{{i.DRCR_APPLICABLE == 'C'?CR:DR}}</td>
+                                                                </tr>
+                                                            </tbody>
+
+                                                            </html>
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                            </table>
+                                        </div>
 
                                         <div class="row">
                                             <div class="col-md-3">

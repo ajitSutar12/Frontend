@@ -18,7 +18,7 @@
                                         [virtualScroll]="true" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" #ACTYPE (focus)="onFocus(ACTYPE)"
                                         [selectOnTab]='true' required placeholder="Scheme"
-                                        (change)="getReceiptNumber();  getrdagent($event)" autofocus>
+                                        (change)="getrdagent($event)" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -106,6 +106,9 @@
                                     <label for="BANKACNO">Account Number</label>
                                 </span>
                             </div>
+                        </div>
+                        <div class="col-sm-2"  *ngIf="minorAc">
+                            <label style="color: #1e5bc5">MINOR ACCOUNT (A.P.K.)</label>
                         </div>
                         <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
                             <label style="color: #1e5bc5">JOINT ACCOUNT</label>
@@ -2470,7 +2473,6 @@
                                                             <span class="fa fa-fw fa-plus-circle field-icon" id="icon"
                                                                 (click)="modalLarge.show()" placement="bottom"
                                                                 ngbTooltip="Add Interest Instruction"></span>
-
                                                         </div>
                                                     </div>
                                                     <div *ngIf="updatecheckdata?.intinstruction.length!=0">
@@ -2517,6 +2519,7 @@
                                                                             </td>
                                                                                 
                                                                                
+
                                                                                 <td class="td_right">
                                                                                     {{data.INSTRUCTION_NO}}</td>
                                                                                 <td class="td_center">
@@ -2591,6 +2594,7 @@
                                                            </perfect-scrollbar> -->
                                                            <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
                                                                 (newTDCustomerEvent)="addNewInstruction($event)" [showUpdateButton]="showUpdateButton" >
+
                                                             </app-interest-instruction>
                                                         </div>
                                                         <div class="app-modal-footer">

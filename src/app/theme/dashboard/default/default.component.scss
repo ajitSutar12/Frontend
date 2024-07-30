@@ -107,4 +107,37 @@ h2{
       clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
   }
 }
+.welcome-container {
+  text-align: center;
+  padding: 40px 20px;
+ 
+}
+
+.welcome-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  
+  
+}
+
+.welcome-word {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 5px 10px;
+  background: linear-gradient(45deg, #2c3e50, #3498db);
+  color: white;
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.welcome-word:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
 

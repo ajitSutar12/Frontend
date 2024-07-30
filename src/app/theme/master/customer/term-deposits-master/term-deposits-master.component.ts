@@ -114,7 +114,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   @Input() childMessage: string;
   @Output() reloadTablePassing = new EventEmitter<string>();
   @ViewChild(InterestInstructionComponent) child: InterestInstructionComponent;
-
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -468,7 +467,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.scheme = data;
       this.selectedValue = this.scheme[0].value
       this.scheme[0].IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
-      this.getReceiptNumber()
+      // this.getReceiptNumber()
 
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
         if (data.UNIT_OF_PERIOD == "B") {
@@ -1712,21 +1711,32 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   opdate
+
   intinst
   DAC_NO
   DAC_ACNOTYPE
+
+  minorAc: boolean = false
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
     let opdate
     let asondate
     let maturitydate
+    let receiptNumber
+
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       console.log(data);
+      if (data && data.BANKACNO) {
+        receiptNumber = data.BANKACNO.toString().slice(-3);
+        // this.angForm.patchValue({ AC_REF_RECEIPTNO: receiptNumber });
+      }
       this.intinstruction = data.intinstruction
+
       this.DAC_NO = data.BANKACNO
       this.DAC_ACNOTYPE = data.AC_TYPE
       console.log(this.intinstruction)
+
       this.createForm()
       this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -1760,6 +1770,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
+      }
+      if (data.AC_MINOR == '1') {
+        this.minorAc = true
+      }
+      else if (data.AC_MINOR == '0') {
+        this.minorAc = false
       }
       this.updateID = data.id;
       this.updatecheckdata = data
@@ -1833,7 +1849,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_DAYS': data.AC_DAYS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         // 'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
-        'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
+        'AC_REF_RECEIPTNO': this.receiptNo,
         'AC_ASON_DATE': data.AC_ASON_DATE,
         'AC_MATUAMT': data.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': (data.IS_DISCOUNTED_INT_RATE == '1' ? true : false),
@@ -1857,30 +1873,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
-  // intdata
-  // editClickHandler1(id,data) {
-  //   this.intdata=this.angForm.patchValue({
-  //       'INSTRUCTION_NO': data.INSTRUCTION_NO,
-  //       'INSTRUCTION_DATE': data.INSTRUCTION_DATE,
-  //       'FROM_DATE': data.FROM_DATE,
-  //       'NEXT_EXE_DATE': data.NEXT_EXE_DATE,
-  //       'TRAN_TYPE': data.TRAN_TYPE,
-  //       'LAST_EXEC_DATE': data.LAST_EXEC_DATE,
-  //       'DR_ACTYPE': data.DR_ACTYPE,
-  //       'DR_PARTICULARS': data.DR_PARTICULARS,
-  //       'CR_ACTYPE': data.CR_ACTYPE,
-  //       'CR_AC_NO': data.CR_AC_NO,
-  //       'CR_PARTICULARS': data.CR_PARTICULARS,
-  //       'SI_FREQUENCY': data.SI_FREQUENCY,
-  //       'REVOKE_DATE': data.REVOKE_DATE,
-  //       'ADV_NARRATION': data.ADV_NARRATION,
-  //       'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE ,
-        
 
-  //     })
-  //     // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
-  //   }
-  
   isDeleted: boolean = true
   disableForm(id) {
     this.isDeleted = false
@@ -2987,22 +2980,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
     event.IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
   }
-  getReceiptNumber() {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let obj = {
-      scheme: this.selectedValue,
-      BRANCH_CODE: branchCode
-    }
-    this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
-      this.angForm.patchValue({
-        AC_REF_RECEIPTNO: data
-      })
-      this.receiptNo = data
-      data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
-    })
-  }
+  // getReceiptNumber() {
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   let branchCode = result.branch.id;
+  //   let obj = {
+  //     scheme: this.selectedValue,
+  //     BRANCH_CODE: branchCode
+  //   }
+  //   this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
+  //     this.angForm.patchValue({
+  //       AC_REF_RECEIPTNO: data
+  //     })
+  //     this.receiptNo = data
+  //     data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
+  //   })
+  // }
   closeModal() {
     var button = document.getElementById('trigger');
     button.click();
@@ -3013,12 +3006,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addNewInstruction(instruction) {
     this.intInstructionObject = instruction
-    // this.DR_AC_NO = this.DAC_NO;
-    // this.DR_ACTYPE = this.DAC_ACNOTYPE;
-    // (this.child as any).DR_AC_NO = this.DR_AC_NO;
-    // (this.child as any).DR_ACTYPE = this.DR_ACTYPE;
-
-    // this.child.submit();
 
 
   }
@@ -3169,5 +3156,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   // updateTableData(newData) {
   //   this.intinstruction.push(newData);
   // }
+
 
 }

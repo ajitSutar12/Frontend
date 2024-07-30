@@ -1129,7 +1129,7 @@ const MENUITEMS1 = [
                 id: 107
               }
             ]
-          }
+
         ]
       },
       {
@@ -1526,6 +1526,7 @@ const MENUITEMS1 = [
                 tooltip:'तारखांच्या दरम्यान खाते उघडा',
                 id: 396
               },
+
 
             ]
           },
@@ -2445,6 +2446,7 @@ const MENUITEMS1 = [
             tooltip:'पिग्मी ॲप प्रक्रिया',
             id: 308
           },
+
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -2647,6 +2649,7 @@ const MENUITEMS1 = [
                 state: 'pigmyDayEnd',
                 name: 'pigmy Day End',
                 tooltip:'पिग्मी दिवसाचा शेवट',
+
                 id: 298
               },
               {
@@ -2656,6 +2659,12 @@ const MENUITEMS1 = [
                 id: 299
               },
             ]
+          },
+
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
           },
 
           {
@@ -4524,7 +4533,7 @@ const MENUITEMS = [
                 id: 107
               }
             ]
-          }
+
         ]
       },
       {
@@ -4921,6 +4930,7 @@ const MENUITEMS = [
                 tooltip:'तारखांच्या दरम्यान खाते उघडा',
                 id: 396
               },
+
 
 
             ]
@@ -5822,12 +5832,14 @@ const MENUITEMS = [
             tooltip:'पिग्मी मशीन प्रोसेस',
             id: 307
           },
+
           {
             state: 'pigmyAppProcess',
             name: 'Pigmy App Process',
             tooltip:'पिग्मी ॲप प्रक्रिया',
             id: 308
           },
+
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -6027,8 +6039,12 @@ const MENUITEMS = [
               },
               {
                 state: 'pigmyDayEnd',
+
                 name: 'pigmy Day End',
                 tooltip:'पिग्मी दिवसाचा शेवट',
+
+                name: 'Pigmy Day End',
+
                 id: 298
               },
               {
@@ -6039,7 +6055,11 @@ const MENUITEMS = [
               },
             ]
           },
-
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
+          },
           {
             state: 'holiday',
             name: 'Holiday',

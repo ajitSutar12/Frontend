@@ -1129,7 +1129,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
   isPayableIntAdded: boolean = false
   payableStatus(ele) {
-    let dataValue = this.angForm.controls['NormalIntRadio'].value;
+    let dataValue = this.angForm.controls['PayableIntRadio'].value;
     let selectedValue = ele.target.value;
     if (dataValue == selectedValue) {
       if (ele.target.value == 'transfer') {
