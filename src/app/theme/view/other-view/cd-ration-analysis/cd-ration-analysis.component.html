@@ -321,6 +321,8 @@
                                         Update</button>
                                     <button type="button" class="btn btn-outline-primary btn-sm" (click)="find()">
                                         Find CD Ratio</button>
+                                        <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                (click)="print(); clicked = true ">View</button>
                                 </div>
                             </div>
                         </div>
@@ -345,6 +347,21 @@
                         </div>
                         <div class="col-md-4" *ngIf="profitloss != 0">
                             <label class="">{{glDetails}} = {{profitloss}} </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <!-- <div *ngIf="showRepo">
+                                    <app-iframe1 [url]='iframe1url' (load)="onLoad()"></app-iframe1>
+                                </div> -->
+                                <div *ngIf="showRepo">
+                                    <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

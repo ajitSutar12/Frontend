@@ -4,13 +4,13 @@
 
 div.solid {
   border-style: solid;
-  padding:2%;
-  width: 400px;
+  padding:0.5%;
+  width: auto;
 }
 .h{
   content: "";
   width: 210px;
-  height: 2px;
+  // height: 2px;
   display: block;
   background: black;
   position: absolute;
@@ -25,3 +25,69 @@ div.solid {
     z-index: 2;
     color: red;
   } 
+  .td_center {
+    text-align: center;
+    vertical-align: middle;
+    border-color: black;
+    color: black;
+    
+}
+
+.td-padding {
+  padding: 5px;
+  margin-right: 5%;
+}
+
+.tr-padding {
+  padding: 5px;
+}
+
+
+//table for cash denomination
+.table-container {
+  margin: 0 auto; /* This centers the table horizontally */
+  width: fit-content;
+}
+
+/* Style for tbody element */
+.table-centered {
+  width: 100%;
+  box-sizing: border-box;
+  margin-right: 10%;
+}
+
+/* Style for tr elements */
+.table-row {
+  padding: 5px;
+}
+
+/* Style for td elements */
+.table-cell {
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  color: black;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 1.1em; 
+}
+
+/* Style for input fields */
+.input-field {
+  width: 100px; 
+}
+.input-field.text-right {
+  text-align: right;
+}
+
+.input-field.font-bold {
+  font-weight: bold;
+}
+
+.modal {
+  z-index: 1040; 
+}
+
+.swal2-container {
+  z-index: 1050 !important;; 
+}

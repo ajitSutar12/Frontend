@@ -8,6 +8,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { VoucherEntryModule } from "../../voucher-entry/voucher-entry.module";
+import { SharedModule } from "../../../../shared/shared.module";
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { ThemeModule } from 'src/app/theme/theme.module';
 
 
 @NgModule({
@@ -17,9 +21,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DataTablesModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule
-  
-  ],
+    ReactiveFormsModule,
+    VoucherEntryModule,
+    SharedModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    ThemeModule
+],
   declarations: [AcceptDComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,

@@ -80,6 +80,13 @@ export class BnkSubsidaryDetailComponent implements OnInit {
   //  debugger
   this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
     this.branchOption = data;
+    console.log(this.branchOption, "sjhjd");
+
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      } 
   })
 
   //get date from syspara current_date
@@ -135,7 +142,7 @@ export class BnkSubsidaryDetailComponent implements OnInit {
 //     })
 //   })
 // }
- 
+branchName
  src: any;
  view(event) {
    debugger
@@ -161,9 +168,13 @@ export class BnkSubsidaryDetailComponent implements OnInit {
    let scheme_code = this.ngIntroducer;
    let branch = obj.Branch;
   //  let scheme_code =  obj.Scheme_Code;
-  let Rdio = obj.radio
+  let Rdio = obj.radio;
+
+  if(branch == 0){
+    this.branchName='Consolidate';
+ }
   
-  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&bankName=" +bankName + " &branch="+ branch +"" ;
+  this.iframe1url=this.report_url+"examples/SubsidaryReport.php?startDate='"+startDate+"'&Rdio='"+Rdio+"'&scheme_code='" + scheme_code + "&bankName=" +bankName + " &branch="+ this.branchName +"" ;
   this.iframe1url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
   
   

@@ -164,8 +164,8 @@ Types = [
    let bankName = userData.branch.syspara.BANK_NAME;
    let branchName = userData.branch.NAME;
  
-  if (this.angForm.controls['RADIO'].value=="detail" && this.angForm.valid) {
-     this.showRepo = true;
+   if (this.angForm.valid) {
+    this.showRepo = true;
      let obj = this.angForm.value
      let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
      // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
@@ -176,46 +176,27 @@ Types = [
      }else{ 
        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
      };
-
      let branched = obj.BRANCH_CODE;
-     let detail = obj.RADIO;
-    
+    let flag;
 
-     let startscheme = obj.NEWPAGE;
-     // let sort = obj.SORT.value;
+    if (obj.RADIO == 'detail') {
 
-     // if(sort == null || sort==false){
-     //   sort = 'Debit';
-     // }else{
-     //   sort = 'Credit';
-     // }
+      flag = 0
 
-     this.iframe1url = this.report_url+"examples/SLR.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&detail='" + detail +  "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
-     console.log(this.iframe1url);
-     this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-   }
-   else if (this.angForm.controls['RADIO'].value=="summary" && this.angForm.valid) {
-     this.showRepo = true;
-     let obj = this.angForm.value
-     let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
-     // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      this.iframe1url = this.report_url+"examples/CRR.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched +  "'&flag='" + flag  + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
+      console.log(this.iframe1url);
+      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url)
+    }
+    else if (obj.RADIO == 'summary') {
 
-     let edate:any;
-     if (this.todate == obj.END_DATE) {
-       edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-     }else{ 
-       edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-     };
+      flag = 1
 
-     let branched = obj.BRANCH_CODE;
-     let summary = obj.RADIO;
-     let startscheme = obj.NEWPAGE;
-     // let sort = obj.SORT;
+      this.iframe1url = this.report_url+"examples/CRRSummary.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched +  "'&flag='" + flag + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
+    console.log(this.iframe1url);
+    this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url)
+    }
 
-     this.iframe1url = this.report_url+"examples/CRR.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&detail='" + summary +  "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
-     console.log(this.iframe1url);
-     this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
-   }
+  }
    else {
      this.formSubmitted = false;
      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});

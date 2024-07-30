@@ -7,7 +7,9 @@ export const environment = {
 
   
   // Localhost
-  base_url: 'http://localhost:7276', 
+  // base_url: 'http://192.168.1.109:3000',  //mis onkar  backend
+  // base_url: 'http://192.168.1.146:7272',  //jagaa   backend
+  base_url: 'http://localhost:3000', 
    report_url: 'http://localhost/phpjasper/', //report folder local path
   sitename: 'http://103.174.87.104/SIDHANERLI/CBS',
 

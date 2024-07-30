@@ -96,9 +96,16 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
-    });
+      console.log(this.branchOption, "sjhjd");
+
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }    })
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -205,7 +212,10 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       //   sort = 'Credit';
       // }
 
-      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
+      if(branched == 0){
+        this.branchName='Consolidate';
+     }
+      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }

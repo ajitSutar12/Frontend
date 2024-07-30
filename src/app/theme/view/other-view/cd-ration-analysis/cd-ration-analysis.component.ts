@@ -44,6 +44,14 @@ export class CdRationAnalysisComponent implements OnInit {
   show: boolean = false;
   cdratiototal: number;
   ngbranch_code
+  selectedIds: any;
+  report_url: string;
+  iframe5url: string;
+  sanitizer: any;
+  formSubmitted: boolean;
+  clicked: boolean;
+  showRepo: any;
+  showLoading: boolean;
   // dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private _service: EditInterestCalculationService, private http: HttpClient,
@@ -285,8 +293,10 @@ export class CdRationAnalysisComponent implements OnInit {
       this.totalAmt = this.TabWiseTotal.partA;
     }
   }
+  branchName
   getbranch(event) {
     this.branch_codeList = event.value;
+    this.branchName=event.branchName;
 
   }
 
@@ -296,6 +306,148 @@ export class CdRationAnalysisComponent implements OnInit {
       this.profitloss = Number(data[data.length - 1].head_total)
       // console.log(this.glDetails);
     })
+  }
+
+  tbldata
+  tablearrDepo = []
+  tablearrLoan = []
+  tablearrpartA = []
+  tablearrpartB = []
+  tableDepo
+  tableDepo1
+  tableLoan
+  tablepartA
+  tablepartB
+  async   print1() {
+    let result = this.angForm.value;
+    let date = moment(result.DATE).format('DD/MM/YYYY');
+    let obj = {
+      date: date,
+      branch: result.BRANCH,
+      branch_code: this.branch_codeList
+    }
+    let data1 = await this.other_service.postData(obj).toPromise();
+    // this.tbldata = data1;
+    // this.other_service.postData(obj).subscribe(data1 => {
+      this.tbldata = data1
+      for (let i = 0; i < this.tbldata.length; i++) {
+        if (this.tbldata[i].depo == true) {
+        this.tablearrDepo.push(this.tbldata[i])
+        }
+        else if (this.tbldata[i].loan == true) {
+         this.tablearrLoan.push(this.tbldata[i])
+        }
+        else if (this.tbldata[i].partA == true) {
+        this.tablearrpartA.push(this.tbldata[i])
+        }
+        else if (this.tbldata[i].partB == true) {
+         this.tablearrpartB.push(this.tbldata[i])
+        }
+      }
+      let sName=[]
+      let bal=[]
+      this.tablearrDepo.forEach(item => {
+        sName.push(item.name);
+        bal.push(item.depobal);
+    });
+
+    this.tableDepo = sName.map(name => `${name}<br/>`);
+    this.tableDepo1 = bal.map(depobal => `${depobal}<br/>`);
+    // })
+    // console.log(this.tablearrDepo)
+    // console.log(this.tablearrLoan)
+    // console.log(this.tablearrpartA)
+    // console.log(this.tablearrpartB)
+    // if (this.angForm.valid) {
+    //   this.showRepo = true;
+    //   let userData = JSON.parse(localStorage.getItem('user'));
+    //   let bankName = userData.branch.syspara.BANK_NAME;
+    //   let schem = this.tablearrDepo
+    //   let depo=this.tableDepo
+    //   let loan= this.tableLoan
+    //   let partA= this.tablepartA
+    //   let partB=this.tablepartB
+
+
+    //   let selectedItemsQuery = this.selectedItems.map(item => `name=${item.name}&depobal=${item.depobal}`).join('&');
+    //   this.iframe5url = this.report_url + "examples/CDRatio.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Depo" + depo + "'&Loan" + loan + "'&partA" + partA + "'&partB" + partB + "";
+    //   console.log(this.iframe5url);
+    //   this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    // }
+
+
+    // this.showRepo = true;
+    // let userData = JSON.parse(localStorage.getItem('user'));
+    // let bankName = userData.branch.syspara.BANK_NAME;
+    // let schem = this.tablearrDepo
+    // let selectedItemsQuery = this.selectedItems.map(item => `name=${item.name}&depobal=${item.depobal}`).join('&');
+    // this.iframe5url = this.report_url + "examples/CDRatio.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Depo" + this.tablearrDepo+ "'&Loan" + this.tablearrLoan+ "'&partA" + this.tablearrpartA+ "'&partB" + this.tablearrpartB + "";
+    // console.log(this.iframe5url);
+    // this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  }
+  async  print(){
+    if (this.angForm.valid) {
+      await this.print1()
+      this.showRepo = true;
+      let userData = JSON.parse(localStorage.getItem('user'));
+      let bankName = userData.branch.syspara.BANK_NAME;
+      let schem = this.tablearrDepo
+      let depo=this.tableDepo
+      let loan= this.tableLoan
+      let partA= this.tablepartA
+      let partB=this.tablepartB
+
+
+      // let selectedItemsQuery = this.selectedItems.map(item => `name=${item.name}&depobal=${item.depobal}`).join('&');
+      this.iframe5url = this.report_url + "examples/CDRatio.php/?&bankname='" + bankName + "'&Branch='" + this.branchName + "'&Depo" +  this.tableDepo+ "'&DepoBal" +   this.tableDepo1  + "'&Loan" + loan + "'&partA" + partA + "'&partB" + partB + "";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+  }
+
+
+
+  // view(event) {
+  //   this.formSubmitted = true;
+  //   event.preventDefault();
+  //   let userData = JSON.parse(localStorage.getItem('user'));
+  //   let bankName = userData.branch.syspara.BANK_NAME;
+  //   let branchName = userData.branch.NAME;
+
+  //   if (this.angForm.valid) {
+  //     this.showRepo = true;
+  //     let obj = this.angForm.value
+  //     let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
+  //     // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+
+
+  //     let branched = obj.BRANCH_CODE;
+  //     // let detail = obj.RADIO;
+
+
+  //     let startscheme = obj.NEWPAGE;
+
+  //     let flag = obj.RADIO;
+  //     let schemeid = event.dataObject;
+  //     let myArray = this.selectedIds
+
+  //     // this.iframe1url = this.report_url + "examples/LoanBalanceBetTwoDates.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + this.ngbranch  + "'&schemeid=" + myArray +  "&flag=" + flag + "'&bankName='" + bankName + "'&branchName='" + branchName + "'";
+  //     // console.log(this.iframe1url);
+  //     // this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+
+  //     this.iframe5url = this.report_url + "examples/LoanBalanceBetTwoDates.php?stadate='" + stadate + "'&schemeid=" + myArray + "&flag=" + flag + "'&bankName='" + bankName + "'";
+  //     console.log(this.iframe5url);
+  //     this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+  //   }
+  //   else {
+  //     this.formSubmitted = false;
+  //     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+  //   }
+
+  // }
+  onLoad() {
+    this.showLoading = false;
+
   }
 
 }

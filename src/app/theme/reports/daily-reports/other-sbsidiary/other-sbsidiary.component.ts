@@ -95,6 +95,13 @@ maxDate: Date;
    //branchlist
    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
     this.branchOption = data;
+    console.log(this.branchOption, "sjhjd");
+
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }  
   })
 
  // Scheme Code
@@ -194,11 +201,15 @@ this.systemParameter.getFormData(1).subscribe(data => {
 
     let branch = obj.BRANCH_CODE;
 
+    if(branch == 0){
+      this.branchName='Consolidate';
+   }
+
     // let schemeName = this.tScheme
 
     //  let startingcode= obj.Starting_Account;
     // let endingcode =obj.Ending_Account;
-    this.iframe5url=this.report_url+ "examples/OTHER_SUBSIDAIRY.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&BRANCH_CODE='"+branch+"'"
+    this.iframe5url=this.report_url+ "examples/OTHER_SUBSIDAIRY.php/?&bankname='"+ bankName +"'&Branch='"+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&AC_TYPE='"+ scheme +"'&BRANCH_CODE='"+this.branchName+"'"
   console.log(this.iframe5url); 
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }

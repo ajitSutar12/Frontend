@@ -42,7 +42,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule,
     ReactiveFormsModule,
     ThemeModule,
-    Iframe5Module
+    Iframe5Module,
+    
   ],
   declarations: [VoucherEntryComponent],
   exports: [VoucherEntryComponent],

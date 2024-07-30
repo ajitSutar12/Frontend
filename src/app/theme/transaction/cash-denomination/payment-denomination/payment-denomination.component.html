@@ -1,260 +1,258 @@
+
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Payment cash Denomination</h5>
-                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
-                </h6>
-            </div>
-            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                <div class="card-block"> 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Transaction No<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <ng-select id="TRANSACTION_NO" [(ngModel)]="ngTransactionNo"
-                                        formControlName="TRANSACTION_NO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="" (change)="getVoucherData($event)">
-                                        <ng-option *ngFor="let values of voucherData" [value]="values">
-                                            {{values.TRAN_NO}}||{{values.TRAN_ACNOTYPE}}||{{values.TRAN_ACNO}}||{{values.TRAN_AMOUNT}}
-                                        </ng-option>
-                                    </ng-select>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TRANSACTION_NO'].invalid && (angForm.controls['TRANSACTION_NO'].dirty || angForm.controls['TRANSACTION_NO'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['TRANSACTION_NO'].errors?.required">
-                                    This field is required.
-                                </div>
-                            </div>
-                        </div>
-                       
-                        <div class="col-sm-12 col-md-1"> <label for="TOKEN_NO">Token No</label></div>
-                        <div class="col-md-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" maxlength="12"
-                                    pattern="^[0-9]+$" class="form-control" formControlName="TOKEN_NO"
-                                    [(ngModel)]="token" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" readonly>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="SCHEME">Scheme<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <!-- <ng-select id="SCHEME" bindValue="value" [(ngModel)]="ngscheme"
-                                        formControlName="SCHEME" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="">
-                                        <ng-option *ngFor="let values of SCHEME" [value]="values">
-                                            {{values.label}}</ng-option> 
-                                    </ng-select> -->
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                        <input type="text" style="text-align: right;" maxlength="12"
-                                        pattern="^[0-9]+$" class="form-control" [(ngModel)]="Scheme" formControlName="SCHEME" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" readonly>
+    <div class="col-7">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Payment cash Denomination</h5>
+                    <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                        Cashier: {{name}}</h6>
+                </div>
+                <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_NO">Tran No<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-10">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="TRANSACTION_NO" [(ngModel)]="ngTransactionNo"
+                                            formControlName="TRANSACTION_NO" bindLabel="label"
+                                            title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                            placeholder="" (change)="getVoucherData($event)">
+                                            <ng-option *ngFor="let values of voucherData" [value]="values">
+                                                <span style="font-weight: bold;">{{values.TRAN_NO}}</span>  || 
+                                                <span style="font-weight: bold;">{{values.TRAN_ACNOTYPE}}</span>  ||
+                                                <span style="font-weight: bold;">{{values.TRAN_ACNO}}</span>  ||
+                                                <span style="font-weight: bold;">{{values.ac_name}}</span>  ||
+                                                <span style="font-weight: bold;">{{values.TRAN_AMOUNT}}</span>
+                                            </ng-option>
+                                        </ng-select>
                                     </span>
-                                    </div>
-                                </span>
-                            </div>
-                            <!-- <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['SCHEME'].invalid && (angForm.controls['SCHEME'].dirty || angForm.controls['SCHEME'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['SCHEME'].errors?.required">
-                                    This field is required.
                                 </div>
-                            </div> -->
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['TRANSACTION_NO'].invalid && (angForm.controls['TRANSACTION_NO'].dirty || angForm.controls['TRANSACTION_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['TRANSACTION_NO'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="ACCOUNT_NO">Account No<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
-                                <span class="border-lable-flt">
-                                    <!-- <ng-select id="ACCOUNT_NO" bindValue="value" [(ngModel)]="ngaccount"
-                                        formControlName="ACCOUNT_NO" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                        placeholder="">
-                                     
-                                    </ng-select> -->
-                                    <div class="form-group input-group">
-                                        <span class="border-lable-flt">
-                                            <input type="text" style="text-align: right;" maxlength="12"
-                                            pattern="^[0-9]+$" class="form-control" [(ngModel)]="accountno" formControlName="ACCOUNT_NO"
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4"> <label for="DENOMINATION_AMT">Denomination Amount</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" name="DENOMINATION_AMT" [(ngModel)]="denomination" (change)="cashInHand($event)"
+                                            class="form-control" placeholder=" " id="DENOMINATION_AMT" required=""
+                                            style="text-align: right;" pattern="\d{1,20}(\.\d{1,2})?"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                            title="Input allowed only  0-9" formControlName="DENOMINATION_AMT"
+                                            [ngClass]="{'form-submitted': formSubmitted}" readonly>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['DENOMINATION_AMT'].invalid && (angForm.controls['DENOMINATION_AMT'].dirty || angForm.controls['DENOMINATION_AMT'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="angForm.controls['DENOMINATION_AMT'].errors?.pattern || angForm.controls['DENOMINATION_AMT'].errors?.required">
+                                        This field is required and Input allowed only 0-9
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for="TOKEN_NO">Token No</label></div>
+                            <div class="col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" style="text-align: right;" maxlength="12" pattern="^[0-9]+$"
+                                            class="form-control" formControlName="TOKEN_NO" [(ngModel)]="token"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)" readonly>
-                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-block">
+                            <div class="solid">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-1"> <label for="SCHEME">Scheme<sub
+                                                class="required">*</sub></label>
                                     </div>
-                                </span>
-                            </div>
-                            <!-- <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['ACCOUNT_NO'].invalid && (angForm.controls['ACCOUNT_NO'].dirty || angForm.controls['ACCOUNT_NO'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['ACCOUNT_NO'].errors?.required">
-                                    This field is required.
+                                    <div class="col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="12"
+                                                            pattern="^[0-9]+$" class="form-control"
+                                                            [(ngModel)]="ngscheme" formControlName="SCHEME"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                            readonly>
+                                                    </span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-1"> <label for="ACCOUNT_NO">Account No<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-md-4">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" style="text-align: right;" maxlength="12"
+                                                            pattern="^[0-9]+$" class="form-control"
+                                                            [(ngModel)]="ngaccount" formControlName="ACCOUNT_NO"
+                                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                            readonly>
+                                                    </span>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-1"> <label for="LEDGER_BAL">Ledger Balance</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input style="text-align: right;" class="form-control"
+                                                    name="DENOMINATION_AMT" formControlName="LEDGER_BAL"
+                                                    pattern="\d{1,20}(\.\d{1,2})?"
+                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                    (focusout)="getDecimalPoint($event)" title="Input allowed only  0-9"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" type="text">
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['LEDGER_BAL'].invalid && (angForm.controls['LEDGER_BAL'].dirty || angForm.controls['LEDGER_BAL'].touched)"
+                                            class="alert alert-danger">
+                                            <div
+                                                *ngIf="angForm.controls['LEDGER_BAL'].errors?.pattern || angForm.controls['LEDGER_BAL'].errors?.required">
+                                                This field is required and Input allowed only 0-9
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div> -->
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-2"><label for="NARRATION">Particulars</label></div>
+                                    <div class="col-md-10">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <textarea class="form-control" [(ngModel)]="Particulars" readonly
+                                                    formControlName="NARRATION"></textarea>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"><label for="NARRATION">Particulars</label></div>
-                        <div class="col-sm-12 col-md-3">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <textarea class="form-control" [(ngModel)]="Particulars" readonly formControlName="NARRATION"></textarea>
-                                </span>
+                        <div class="row">
+                            <div class="col-md-3" id="FORMA">
+                                <div class="card" style="width: 340px;">
+                                    <div class="card-header">
+                                        <h5>Cash In Hand</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="solid">
+                                            <table style="text-align: center; width: 100%;">
+                                                <tr *ngFor="let data of currencyData; let indexOfelement = index">
+                                                    <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
+                                                    <td class="td_center" *ngIf="data.currency !== 'Coin'">
+                                                        {{data.currency}} X</td>
+                                                    <td class="td_center"><input type="text" class="text-right"
+                                                            style="width: 60px;" value="{{data.available}}" disabled> =
+                                                    </td>
+                                                    <td class="td_center"><input type="text" class="text-right"
+                                                            style="width: 100px;" value="{{data.totalcurrency}}"
+                                                            disabled></td>
+                                                </tr>
+                                                <div></div>
+                                                <div class="h" style="width: 350px;"></div>
+                                                <div></div>
+                                                <tr>
+                                                    <td class="td_center" align="right">
+                                                        Total Cash :
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="td_center">
+                                                        <input type="text" class="text-right"
+                                                            style="width: 100px; font-weight: bold;"
+                                                            [value]="this.totalSum">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <button class="btn btn-outline-primary btn-sm" (click)="showCashModule()">
+                                    Update
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="refreshdata()">
+                                    Cancel
+                                </button>
                             </div>
                         </div>
                     </div>
-                  
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_AMT">Transaction Amount<sub
-                            class="required">*</sub></label></div>
-                        <div class="col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="TRANSACTION_AMT"
-                                    class="form-control" placeholder=" " [(ngModel)]="transactionAmt"
-                                    id="TRANSACTION_AMT" required=""
-                                     style="text-align: right;"
-                                    pattern="\d{1,20}(\.\d{1,2})?"
-                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                    title="Input allowed only  0-9"
-                                    formControlName="TRANSACTION_AMT"
-                                    (focusout)= "getDecimalPoint($event)"
-                                    [ngClass]="{'form-submitted': formSubmitted}" readonly>
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['TRANSACTION_AMT'].invalid && (angForm.controls['TRANSACTION_AMT'].dirty || angForm.controls['TRANSACTION_AMT'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['TRANSACTION_AMT'].errors?.pattern || angForm.controls['TRANSACTION_AMT'].errors?.required">
-                                    This field is required and Input allowed only 0-9
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-2"> <label for="LEDGER_BAL">Ledger Balance</label></div>
-                        <div class="col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input style="text-align: right;" class="form-control"  name="TRANSACTION_AMT" formControlName="LEDGER_BAL"
-                                    pattern="\d{1,20}(\.\d{1,2})?" (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                                    title="Input allowed only  0-9" [ngClass]="{'form-submitted': formSubmitted}"
-                                    (focusout)= "getDecimalPoint($event)"
-                                     type="text">
-                                </span>
-                            </div>
-                            <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['LEDGER_BAL'].invalid && (angForm.controls['LEDGER_BAL'].dirty || angForm.controls['LEDGER_BAL'].touched)"
-                                class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['LEDGER_BAL'].errors?.pattern || angForm.controls['LEDGER_BAL'].errors?.required">
-                                    This field is required and Input allowed only 0-9
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TRANSACTION_TYPE">Transaction Type</label></div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" name="TRANSACTION_TYPE"
-                                    class="form-control" placeholder=" "
-                                    id="TRANSACTION_TYPE"
-                                    pattern="^[A-Za-z\./ -]+$"
-                                    
-                                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                    title="Input allowed only  A-Z a-z  - / . (Space)"
-                                    formControlName="TRANSACTION_TYPE" >
-                                </span>
-                            </div>
-                        </div>
-                        
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="col-md-3" id="FORMA" *ngIf="showCash">
+            <div class="card" style="width: 500px; height: 150px;">
+                <div class="card-header">
+                    <h5>Cash Denomination</h5>
+                </div>
+                <div class="card-block">
+                    <div class="solid">
+                        <table style="position: center;">
+                            <tbody class="table-centered">
+                                <tr class="table-row" *ngFor="let data of currencyData; let indexOfelement = index">
+                                    <td class="table-cell" *ngIf="data.currency === 'Coin'">Coins</td>
+                                    <td class="table-cell" *ngIf="data.currency !== 'Coin'">{{data.currency}} X</td>
+                                    <td class="table-cell">
+                                        <input type="text" (keyup)="calculation(data,indexOfelement,$event)"
+                                            class="input-field font-bold" placeholder="0" value="{{data.qty}}">
+                                    </td>
+                                    <td class="table-cell">
+                                        <input type="text" class="input-field text-right font-bold"
+                                            value="{{data.total}}" disabled>
+                                    </td>
+                                    <td class="table-cell">
+                                        <input type="text" class="input-field text-right font-bold"
+                                            value="{{data.available}}" disabled>
+                                    </td>
+                                </tr>
+                                <tr class="table-row">
+                                    <td align="right" class="table-cell">
+                                        Total Cash :
+                                    </td>
+                                    <td class="table-cell"></td>
+                                    <td class="table-cell">
+                                        <input type="text" class="input-field text-right font-bold" value="{{sum}}">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="DENOMINATION_AMT">Denomination Amount</label></div>
-                        <div class="col-md-2">
-                            <div class="form-group input-group">
-                                <span class="border-lable-flt">
-                                    <input type="text" style="text-align: right;" maxlength="12"
-                                        pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
-                                        formControlName="DENOMINATION_AMT"  [(ngModel)]="denomination"
-                                        (focusout)= "getDecimalPoint($event)"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
-                                </span>
-                            </div>
-                        </div> 
-                        <div class="col-sm-12 col-md-2"> <label>Cashier:</label></div>
-                        <div class="col-sm-12 col-md-2"> <label>{{cashierName}}</label></div>
-                    </div>
+                </div>
+                <div class="card-footer">
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" (click)="showCashModule()">
-                                Update
+                            <button class="btn btn-outline-primary btn-sm" (click)="submit()">
+                                Submit
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="refreshdata()">
+
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">
                                 Cancel
                             </button>
                         </div>
-                        
                     </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="col-md-3" id="FORMA" *ngIf="showCash">
-    <div class="card" style="width: 450px;">
-        <div class="card-header">
-            <h5>Cash  Denomination</h5>
-        </div>
-        <div class="card-block">
-            <div class="solid">
-                <table>
-                    <tr *ngFor="let data of currencyData; let indexOfelement = index">
-
-                        <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
-                        <td class="td_center" *ngIf="data.currency !== 'Coin'">{{data.currency}} X</td>
-
-                        <td><input type="text" (keyup)="calculation(data,indexOfelement,$event)"
-                            style="width: 100px;" placeholder="0"   value="{{data.qty}}">=</td>
-                        <td><input type="text" class="text-right" style="width: 100px;" value="{{data.total}}" disabled></td>
-                        <td><input type="text" class="text-right" style="width: 60px;" value="{{data.available}}" disabled></td>
-                    </tr>
-
-                    <div></div>
-                    <div class="h" style="width: 350px;"></div>
-                    <div></div>
-                    <tr>
-                        <td align="right">
-                            Total Cash :
-                        </td>
-                        <td></td>
-                        <td >
-                            <input class="text-right" type="text" style="width: 100px;" value="{{sum}}">
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
-        <div class="card-footer">
-            <div class="row">
-                <div class="col-sm">
-                    <button class="btn btn-outline-primary btn-sm" (click)="submit()">
-                        Submit
-                    </button>
-                    <button class="btn btn-outline-primary btn-sm" (click)="cancel()">
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>

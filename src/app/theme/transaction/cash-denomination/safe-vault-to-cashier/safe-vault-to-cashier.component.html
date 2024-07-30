@@ -121,7 +121,12 @@
 
                         <td><input type="text" class="text-right" style="width: 100px;" value="{{data.total}}" disabled></td>
                         
-                        <td><input type="text" class="text-right" style="width: 60px;" value="{{data.available}}" disabled>
+                        <td><input type="text" class="text-right" style="width: 60px;" value="{{data.available}}" disabled> 
+                        </td>
+                        <td class="td_center">
+                            <input type="text" class="text-right"
+                                style="width: 100px; font-weight: bold;"
+                                [value]="this.totalSum">
                         </td>
                     </tr>
 

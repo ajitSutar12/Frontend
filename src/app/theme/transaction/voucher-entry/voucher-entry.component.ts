@@ -26,6 +26,13 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./voucher-entry.component.scss']
 })
 export class VoucherEntryComponent implements OnInit {
+  // @Input() tranModeList: any[] = []; // accept Deno
+  // @Input() selectedMode: any;  // accept denomination
+  @Input() isRadioVisible: boolean = true; // accept denomination
+  @Input() istranModeShow: boolean = false; // accept denomination
+  @Input() tranModeList: any[];
+  @Input() selectedMode: any;
+
   @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
@@ -52,7 +59,7 @@ export class VoucherEntryComponent implements OnInit {
   selectedScheme: any;
   selectedAccountno: any;
   selectedCode: string;
-  selectedMode: any;
+  // selectedMode: any;
   branch_codeList: any = null
   master: any;
   branch_code: any[]//from ownbranchmaster
@@ -144,7 +151,7 @@ export class VoucherEntryComponent implements OnInit {
     }
   ]
 
-  tranModeList: any;
+  // tranModeList: any;
   particulars: any;
   date: any;
   isture: boolean = true;
@@ -322,7 +329,7 @@ export class VoucherEntryComponent implements OnInit {
       bank: [''],
       Intdate: ['']
     })
-   
+
   }
 
   resetscheme() {
@@ -442,8 +449,24 @@ export class VoucherEntryComponent implements OnInit {
 
     let object = this.TranData.find(t => t.key === this.selectedCode);
     //debugger
-    if (this.type == 'cash') {
+
+    // accept denomination 1st if condition tran mode 1,2
+    if (this.istranModeShow) {
+      if (this.type == 'cash') {
+          this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+      }
+    }
+    else if (this.type == 'cash') {
+
       this.tranModeList = [];
+
+      // object.data.cash.forEach(ele => {
+      //   let obj1 = this.TranModeCash.find(t => t.tran_drcr === 'C');
+      //   this.tranModeList.push(obj1);
+      // })
+
+      //accept denomination code
+
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
@@ -473,6 +496,9 @@ export class VoucherEntryComponent implements OnInit {
       if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
         this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
     }
+
+
+
   }
 
   //Transaction mode select
@@ -500,7 +526,13 @@ export class VoucherEntryComponent implements OnInit {
       //debugger
       this.DayOpBal = Math.abs(data);
       let object = this.TranData.find(t => t.key === this.selectedCode);
-      if (this.type == 'cash') {
+          // accept denomination 1st if condition tran mode 1,2
+      if (this.istranModeShow) {
+        if (this.type == 'cash') {
+            this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+        }
+      }
+      else if (this.type == 'cash') {
         this.tranModeList = [];
         object.data.cash.forEach(ele => {
           let obj = this.TranModeCash.find(t => t.id === ele);
@@ -604,7 +636,7 @@ export class VoucherEntryComponent implements OnInit {
             icon: 'success',
             title: 'Voucher update Successfully!',
             html:
-              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>', 
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
             showCancelButton: true, //true
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#3085d6',
@@ -1162,7 +1194,13 @@ export class VoucherEntryComponent implements OnInit {
       this.DayOpBal = Number(this.DayOpBal).toFixed(2)
       let object = this.TranData.find(t => t.key === this.selectedCode);
       //debugger
-      if (this.type == 'cash') {
+          // accept denomination 1st if condition tran mode 1,2
+      if (this.istranModeShow) {
+        if (this.type == 'cash') {
+            this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+        }
+      }
+      else if (this.type == 'cash') {
         this.tranModeList = [];
         object.data.cash.forEach(ele => {
           let obj = this.TranModeCash.find(t => t.id === ele);
@@ -2155,7 +2193,13 @@ export class VoucherEntryComponent implements OnInit {
   }
   getTranMode() {
     let object = this.TranData.find(t => t.key === this.selectedCode);
-    if (this.type == 'cash') {
+        // accept denomination 1st if condition tran mode 1,2
+    if (this.istranModeShow) {
+      if (this.type == 'cash') {
+          this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+      }
+    }
+    else if (this.type == 'cash') {
       this.tranModeList = [];
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
@@ -2648,7 +2692,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
       date: addInFrom,
-      branch : this.branchCode
+      branch: this.branchCode
 
     }
 
@@ -2685,7 +2729,7 @@ export class VoucherEntryComponent implements OnInit {
 
         // let value = open + pass + data2;
         // let value = open + pass + this.pigmyamount;
-        let value = open + pass ;
+        let value = open + pass;
         if (value < 0) {
           this.ClearBalance = Math.abs(value).toFixed(2)
           this.typeclearbal = 'Dr'

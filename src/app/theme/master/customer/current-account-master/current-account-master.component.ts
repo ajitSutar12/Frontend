@@ -647,6 +647,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
       //joint ac
       JOINT_AC_CUSTID: [''],
+      join_date: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
       OPERATOR: [true],
 
@@ -1621,7 +1622,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        join_date: data.join_date,
+        
       })
     })
   }
@@ -1637,6 +1640,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      join_date: formVal.join_date,
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1706,6 +1710,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      join_date: this.multiJointAC[id].join_date,
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1718,6 +1723,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      join_date: formVal.join_date,
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1774,8 +1780,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
     // this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['join_date'].reset();
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      join_date: ''
     })
     this.jointID.clearFilter();
     // .handleClearClick();

@@ -638,16 +638,16 @@ const MENUITEMS1 = [
                 name: 'Payment Denomination',
                 id: 98
               },
-              {
-                state: 'cashInDenomination',
-                name: 'Cash In Denomination',
-                id: 99
-              },
-              {
-                state: 'cashOutDenomination',
-                name: 'Cash Out Denomination',
-                id: 100
-              },
+              // {
+              //   state: 'cashInDenomination',
+              //   name: 'Cash In Denomination',
+              //   id: 99
+              // },
+              // {
+              //   state: 'cashOutDenomination',
+              //   name: 'Cash Out Denomination',
+              //   id: 100
+              // },
               {
                 state: 'cashInitialisationEntry',
                 name: 'cash Initialisation Entry',
@@ -662,6 +662,11 @@ const MENUITEMS1 = [
                 state: 'cashierToSafeVault',
                 name: 'Cashier To Safe Vault',
                 id: 103
+              },
+              {
+                state: 'exchangeCash',
+                name: 'Exchange Cash',
+                id: 369
               },
             ]
           },
@@ -3578,16 +3583,16 @@ const MENUITEMS = [
                 name: 'Payment Denomination',
                 id: 98
               },
-              {
-                state: 'cashInDenomination',
-                name: 'Cash In Denomination',
-                id: 99
-              },
-              {
-                state: 'cashOutDenomination',
-                name: 'Cash Out Denomination',
-                id: 100
-              },
+              // {
+              //   state: 'cashInDenomination',
+              //   name: 'Cash In Denomination',
+              //   id: 99
+              // },
+              // {
+              //   state: 'cashOutDenomination',
+              //   name: 'Cash Out Denomination',
+              //   id: 100
+              // },
               {
                 state: 'cashInitialisationEntry',
                 name: 'cash Initialisation Entry',
@@ -3602,6 +3607,11 @@ const MENUITEMS = [
                 state: 'cashierToSafeVault',
                 name: 'Cashier To Safe Vault',
                 id: 103
+              },
+              {
+                state: 'exchangeCash',
+                name: 'Exchange Cash',
+                id: 369
               },
             ]
           },

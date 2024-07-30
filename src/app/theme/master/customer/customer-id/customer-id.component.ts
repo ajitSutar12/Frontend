@@ -59,6 +59,10 @@ interface CustomerMaster {
   L_NAME: string;
   M_NAME: string;
   AC_NAME: string;
+  MF_NAME: string;
+  ML_NAME: string;
+  MM_NAME: string;
+  MAC_NAME: string;
   AC_CAST: string;
   AC_OCODE: string;
   AC_ADHARNO: string;
@@ -101,6 +105,14 @@ interface CustomerMaster {
   styleUrls: ["./customer-id.component.scss"],
 })
 export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  prifixStatic = [
+    { label: 'SOU', value: 'SOU' },
+    { label: 'SHRIMATI', value: 'SHRIMATI' },
+    
+  ];
+
+
   formSubmitted = false;
   @Output() newCustomerEvent = new EventEmitter<string>();
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
@@ -128,6 +140,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   fname = "";
   mname = "";
   lname = "";
+  mlname="";
+  mfname="";
+  mmname="";
+  // mlname="";
+  mfullname="";
   fullname = "";
   lnamereg = "";
   fnamereg = "";
@@ -201,6 +218,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   ngRisk: any = null
   ngCity: any = null
   ngTitle: any = null
+  mngTitle: any = null
   ngTitlereg: any = null
   updatecheckdata: any
   ngSubmitDate: any
@@ -324,6 +342,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         {
           title: "Full Name",
           data: "AC_NAME",
+        },
+        {
+          title: "Mother Full Name",
+          data: "MAC_NAME",
         },
         {
           title: "Cast",
@@ -489,6 +511,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       F_NAME: ["", [Validators.pattern, Validators.required]],
       M_NAME: ["", [Validators.pattern, Validators.required]],
       L_NAME: ["", [Validators.pattern, Validators.required]],
+      ML_NAME: [""],
+      MM_NAME: [""],
+      MF_NAME: [""],
+      MAC_NAME: [""],
       AC_TITLE_REG: [""],
       F_NAME_REG: [""],
       M_NAME_REG: [""],
@@ -531,6 +557,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       GST_NO: [""],
       TAN_NO: [""],
       COP_NO: [""],
+      MAC_TITLE : [""],
     });
     this.documentUpload()
   }
@@ -563,7 +590,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'F_NAME': formVal.F_NAME?.toUpperCase(),
         'M_NAME': formVal.M_NAME?.toUpperCase(),
         'L_NAME': formVal.L_NAME?.toUpperCase(),
+        'ML_NAME': formVal.ML_NAME?.toUpperCase(),
+        'MF_NAME': formVal.MF_NAME?.toUpperCase(),
+        'MM_NAME': formVal.MM_NAME?.toUpperCase(),
         'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
+        'MAC_NAME': (formVal.ML_NAME + ' ' + formVal.MF_NAME + ' ' + formVal.MM_NAME)?.toUpperCase(),
         'AC_TITLE_REG': formVal.AC_TITLE_REG,
         'F_NAME_REG': formVal.F_NAME_REG?.toUpperCase(),
         'M_NAME_REG': formVal.M_NAME_REG?.toUpperCase(),
@@ -636,6 +667,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngRisk = null
       this.ngCity = null
       this.ngTitle = null
+      // this.mngTitle = null
       this.ngTitlereg = null
 
       //To clear form
@@ -695,6 +727,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ngRisk = null
     this.ngCity = null
     this.ngTitle = null
+    this.mngTitle = null
     this.ngTitlereg = null
     this.ngfinyear = null
     this.ngSubmitDate = null
@@ -702,6 +735,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.lname = ''
     this.fname = ''
     this.mname = ''
+    this.mfullname = ''
+    this.mlname = ''
+    this.mfname = ''
+    this.mmname = ''
     this.createForm();
     this.documentMasterService
       .getDocumentMasterList()
@@ -723,6 +760,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.lname = ''
     this.fname = ''
     this.mname = ''
+    this.mfullname = ''
+    this.mlname = ''
+    this.mfname = ''
+    this.mmname = ''
     this.resetForm();
   }
 
@@ -803,6 +844,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           M_NAME: data.M_NAME,
           L_NAME: data.L_NAME,
           AC_NAME: data.AC_NAME,
+          MF_NAME: data.MF_NAME,
+          MM_NAME: data.MM_NAME,
+          ML_NAME: data.ML_NAME,
+          MAC_NAME: data.MAC_NAME,
           PROP_NAME:data.PROP_NAME,
           REG_NO:data.REG_NO,
           REG_DATE:data.REG_DATE,
@@ -909,6 +954,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['F_NAME'] = this.fname?.toUpperCase()
     data['L_NAME'] = this.lname?.toUpperCase()
     data['M_NAME'] = this.mname?.toUpperCase()
+    data['MF_NAME'] = this.mfname?.toUpperCase()
+    data['ML_NAME'] = this.mlname?.toUpperCase()
+    data['MM_NAME'] = this.mmname?.toUpperCase()
     data['AC_TITLE_REG'] = data.AC_TITLE_REG
     data['F_NAME_REG'] = data.F_NAME_REG?.toUpperCase()
     data['M_NAME_REG'] = data.M_NAME_REG?.toUpperCase()
@@ -1399,10 +1447,17 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               this.angForm.controls['M_NAME'].reset()
               this.angForm.controls['L_NAME'].reset()
               this.angForm.controls['AC_NAME'].reset()
+              this.angForm.controls['MF_NAME'].reset()
+              this.angForm.controls['MM_NAME'].reset()
+              this.angForm.controls['ML_NAME'].reset()
+              this.angForm.controls['MAC_NAME'].reset()
               this.angForm.patchValue({
                 L_NAME: '',
                 F_NAME: '',
-                M_NAME: ''
+                M_NAME: '',
+                ML_NAME: '',
+                MF_NAME: '',
+                MM_NAME: '',
               })
 
             }

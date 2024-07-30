@@ -5,6 +5,8 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { Address } from '../../forms/ngx-wizard/data/formData.model';
+import { log } from 'console';
 
 @Component({
   selector: 'app-neft-transaction',
@@ -27,6 +29,9 @@ export class NeftTransactionComponent implements OnInit {
   stor
   msg
   multigrid = [];
+  schemeDetails: any[];
+  url = environment.base_url;
+
 
   bankOptions = [
     { id: 1, name: 'Yes Bank' },
@@ -34,10 +39,13 @@ export class NeftTransactionComponent implements OnInit {
     { id: 3, name: 'Bank Of Maharastra' },
     { id: 4, name: 'IDBI Bank' },
   ];
-  url = environment.base_url;
-  constructor(
-    private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private http: HttpClient,
+  schemeCode: any;
+  Account_NO: any;
+  accList: any[];
+  Cust_ID: any;
 
+  constructor(
+    private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private http: HttpClient
 
   ) { }
 
@@ -48,19 +56,61 @@ export class NeftTransactionComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
+    this.getScheme(event);
+
+  }
+
+  AC_MOBILENO
+  id
+  AC_ADD_REG
+  getScheme(event) {
+    //SCHEME
+    this.http.post('http://192.168.1.154:7276/voucher/neft', {}).subscribe((data: any) => {
+      //  this.http.get('http://192.168.1.113:7271/voucher/neft').subscribe((data: any) => {
+      this.schemeDetails = data;
+      console.log("Scheme Data", data);
+      this.accList = data;
+      console.log("Account_NO Data", data);
+
+    })
+
+  }
+
+
+  S_ID
+  chengeData(event) {
+    //SCHEME
+    // this.http.post('http://192.168.1.154:7276/voucher/neft', {}).subscribe((data: any) => {
+    //   //  this.http.get('http://192.168.1.113:7271/voucher/neft').subscribe((data: any) => {
+    //   this.schemeDetails = data;
+    //   console.log("Scheme Data", data);
+    //   this.accList = data;
+    //   console.log("Account_NO Data", data);
+
+      this.AC_MOBILENO = event.AC_MOBILENO
+      this.id = event.id
+      this.AC_ADD_REG = event.AC_ADD_REG
+      this.S_ID=event.s_id 
+
+    // })
 
   }
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
+      account_no: ['',],
+      Scheme_code: ['',],
+      Address: ['',],
       BANK_NAME: ['',],
+      custID: ['',],
+      contact_no: ['',],
       BENEF_NAME: ['', [Validators.required]],
       BENEF_CODE: ['', [Validators.required]],
       IFSC_CODE: ['', [Validators.required]],
       IFSCB_NAME: ['', [Validators.required]],
       IFSCBRN_NAME: ['', [Validators.required]],
       MOBILENO: ['', [Validators.required]],
-      CUST_ADDR: ['', [Validators.required]],
+      CUST_ADDR: ['', ],
       CITY: ['', [Validators.required]],
       STATE: ['', [Validators.required]],
       STORI: ['', [Validators.required]],
@@ -68,11 +118,12 @@ export class NeftTransactionComponent implements OnInit {
       APPL_CHRGE: ['', [Validators.required]],
       SERV_CHARGE: ['', [Validators.required]],
       TOTAL_AMT: ['', [Validators.required]],
-      MESSAGE: ['',],
+      MESSAGE: ['',[Validators.required]],
     });
 
   }
 
+instData
 
   submit() {
     const formVal = this.angForm.value;
@@ -93,14 +144,19 @@ export class NeftTransactionComponent implements OnInit {
       appl_charge: formVal.APPL_CHRGE,
       service_tax: formVal.SERV_CHARGE,
       total_amount: formVal.TOTAL_AMT,
+      // TRAN_ACTYPE: this.S_APPL,
+      TRAN_ACTYPE: this.S_ID ,
     }
     if (this.angForm.invalid) {
       Swal.fire("Warning!", "Please Fill All Mandatory Fields!", "error");
     }
     else {
       this.multigrid.push(obj);
-      this.http.post(this.url + '/shares-transfer/insert', obj).subscribe(data => {  
-      // this.http.post('http://192.168.1.165:4771/customer-app/RTGS', obj).subscribe(data => {
+      // this.http.post(this.url + '/shares-transfer/insert', obj).subscribe(data => {
+      this.http.post('http://192.168.1.154:7276/shares-transfer/insert', obj).subscribe(data => {
+        this.instData=data;
+        console.log("insert data in table : ",this.instData)
+        // this.http.post('http://192.168.1.165:4771/customer-app/RTGS', obj).subscribe(data => {
 
         Swal.fire(
           'success', "Data Submitted Successfully!!", 'success'
@@ -109,6 +165,11 @@ export class NeftTransactionComponent implements OnInit {
       })
     }
   }
+
+  close() {
+    this.angForm.reset();
+  }
+
 
   getDecimalPoint(event) {
     if (event.target.value != '')

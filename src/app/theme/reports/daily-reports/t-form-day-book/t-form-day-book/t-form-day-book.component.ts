@@ -62,6 +62,13 @@ export class TFormDayBookComponent implements OnInit {
 
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      console.log(this.branchOption, "sjhjd");
+
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }  
     });
 
     //get date from syspara current_date
@@ -129,6 +136,10 @@ export class TFormDayBookComponent implements OnInit {
       // let Date = this.date;
       let Branch = obj.Branch;
 
+      if(Branch == 0){
+        this.branchName='Consolidate';
+     }
+
       this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + branchName + "&type=" + type + "&bankName=" + bankName + " ";
       // console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
@@ -148,6 +159,8 @@ export class TFormDayBookComponent implements OnInit {
 
       // let Date = this.date;
       let Branch = obj.Branch;
+
+    
 
       this.iframe1url = this.report_url + "examples/DayBookSummary.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + this.branchName + "&type=" + type + "&bankName=" + bankName + " ";
       console.log(this.iframe1url);

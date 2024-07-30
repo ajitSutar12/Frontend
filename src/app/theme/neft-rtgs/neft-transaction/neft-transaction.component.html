@@ -37,24 +37,136 @@
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select id="BANK_NAME" bindValue="value" [(ngModel)]="ngbank" bindValue="name"
-                                            formControlName="BANK_NAME" bindLabel="label" placeholder="Bank Name">
+                                        <ng-select id="BANK_NAME" bindValue="value" [(ngModel)]="ngbank"
+                                            bindValue="name" formControlName="BANK_NAME" bindLabel="label"
+                                            placeholder="Bank Name" (change)="getScheme($event)">
                                             <ng-option *ngFor="let values of bankOptions" [value]="values">
                                                 {{values.name}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
-                                <!-- <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['BANK_NAME'].invalid && (angForm.controls['BANK_NAME'].dirty || angForm.controls['BANK_NAME'].touched)"
-                                class="alert alert-danger">
-                                <div *ngIf="angForm.controls['BANK_NAME'].errors?.required">
-                                    This field is required
-                                </div>
-                            </div> -->
-
                             </div>
                             <div class="col-md-3"> <label style="font-size: 15px; color: black;">Transaction Type :
                                     NEFT</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="solid">
+                            <h1><span>Applicant (Remitter) Details</span></h1>
+                            <div class="row">
+                                <div class="col-md-1"> <label for="Scheme Code">Scheme<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-md-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                                [(ngModel)]="schemeCode" placeholder="Scheme Code">
+                                                <ng-option *ngFor="let values of schemeDetails" [value]="values">
+                                                    {{values.S_APPL}} {{values.S_NAME}} </ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['Scheme_code'].invalid && (angForm.controls['Scheme_code'].dirty || angForm.controls['Scheme_code'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['Scheme_code'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-1"> <label for="Account">Account No<sub
+                                            class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select formControlName="account_no" bindValue="value" bindLabel="label"
+                                                [(ngModel)]="Account_NO" placeholder="Account"
+                                                (change)="chengeData($event)">
+                                                <ng-option *ngFor="let values of accList" [value]="values">
+                                                    {{values.BANKACNO}} {{values.AC_NAME}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['account_no'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="custID">Customer ID<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="label-name" class="form-control" placeholder=" "
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                formControlName="custID" maxlength="10" [(ngModel)]="id">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['custID'].invalid && (angForm.controls['custID'].dirty || angForm.controls['custID'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['custID'].errors?. maxlength || angForm.controls['custID'].errors?. minlength || angForm.controls['custID'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label for="contact_no">Contact No<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" name="label-name" class="form-control" placeholder=" "
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                                formControlName="contact_no" maxlength="10" [(ngModel)]="AC_MOBILENO">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['contact_no'].invalid && (angForm.controls['contact_no'].dirty || angForm.controls['contact_no'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['contact_no'].errors?. maxlength || angForm.controls['contact_no'].errors?. minlength || angForm.controls['contact_no'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="Address">Address<sub class="required">*</sub></label>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <textarea name="label-name" class="form-control" placeholder=" "
+                                                formControlName="Address" [(ngModel)]="AC_ADD_REG"></textarea>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['Address'].invalid && (angForm.controls['Address'].dirty || angForm.controls['Address'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['Address'].errors?.maxlength || angForm.controls['Address'].errors?.minlength || angForm.controls['Address'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -89,7 +201,7 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label for="beneficiarycode">Beneficiary A/c. Code<sub class="required">*
+                                    <label for="beneficiarycode">Beneficiary A/c.Code<sub class="required">*
                                         </sub></label>
                                 </div>
                                 <div class="col-md-2">
@@ -189,7 +301,7 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label for="mobileno">Customer Contact No. (M)<sub class="required">*</sub></label>
+                                    <label for="mobileno">Contact No.(Mobile)<sub class="required">*</sub></label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
@@ -213,25 +325,27 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label for="address">Customer Address<sub class="required">*</sub></label>
+                                    <label for="address">Beneficiary Address<sub class="required">*</sub></label>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input type="text" name="label-name" class="form-control" placeholder=" "
+                                            <textarea type="text" name="label-name" class="form-control" placeholder=" "
                                                 (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58)"
-                                                [(ngModel)]="addr" formControlName="CUST_ADDR" maxlength="40">
+                                                [(ngModel)]="addr" formControlName="CUST_ADDR" maxlength="40"
+                                                pattern="^[A-Za-z0-9]*$"></textarea>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
                                         *ngIf="angForm.controls['CUST_ADDR'].invalid && (angForm.controls['CUST_ADDR'].dirty || angForm.controls['CUST_ADDR'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['CUST_ADDR'].errors?. maxlength || angForm.controls['CUST_ADDR'].errors?. minlength || angForm.controls['CUST_ADDR'].errors?.required">
-                                            This field is required
+                                            *ngIf="angForm.controls['CUST_ADDR'].errors?.pattern || angForm.controls['CUST_ADDR'].errors?.required">
+                                            This field is required and input is allowed only A-Z, 0-9, and no spaces.
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="row">
@@ -286,16 +400,18 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" name="label-name" class="form-control" placeholder=" "
-                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
-                                                [(ngModel)]="stor" formControlName="STORI" maxlength="15">
+                                                required maxlength="30"
+                                                (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                                (ngModelChange)="stor = $event?.toUpperCase()" [(ngModel)]="stor"
+                                                formControlName="STORI" pattern="^[A-Za-z ]*$">
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
                                         *ngIf="angForm.controls['STORI'].invalid && (angForm.controls['STORI'].dirty || angForm.controls['STORI'].touched)"
                                         class="alert alert-danger">
                                         <div
-                                            *ngIf="angForm.controls['STORI'].errors?. maxlength || angForm.controls['STORI'].errors?. minlength || angForm.controls['STORI'].errors?.required">
-                                            This field is required
+                                            *ngIf="angForm.controls['STORI'].errors?.pattern || angForm.controls['STORI'].errors?.required">
+                                            This field is required and Input allowed only A-Z
                                         </div>
                                     </div>
                                 </div>
@@ -421,26 +537,27 @@
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
                                         <input type="text" name="label-name" class="form-control" placeholder=" "
-                                            (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode < 58)"
-                                            [(ngModel)]="msg" formControlName="MESSAGE" maxlength="40">
+                                        required maxlength="30"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                        (ngModelChange)="msg = $event?.toUpperCase()" [(ngModel)]="msg" pattern="^[A-Za-z ]*$"
+                                            formControlName="MESSAGE" maxlength="40">
                                     </span>
                                 </div>
-                                <!-- <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['MESSAGE'].invalid && (angForm.controls['MESSAGE'].dirty || angForm.controls['MESSAGE'].touched)"
-                                    class="alert alert-danger">
-                                    <div
-                                        *ngIf="angForm.controls['MESSAGE'].errors?. maxlength || angForm.controls['MESSAGE'].errors?. minlength || angForm.controls['MESSAGE'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div> -->
+                                
+                                <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['MESSAGE'].invalid && (angForm.controls['MESSAGE'].dirty || angForm.controls['MESSAGE'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['MESSAGE'].errors?.pattern || angForm.controls['MESSAGE'].errors?.required">
+                                    This field is required and Input allowed only A-Z
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm" style="float: right;">
-                            <button class="btn btn-outline-primary btn-sm">
-                                <!-- (click)="close()"> -->
-                                Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="submit()">
                                 Submit
                             </button>
@@ -449,32 +566,40 @@
                         </div>
                     </div>
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover compact">
                                     <thead>
                                         <td>Action</td>
-                                         <td>Scheme</td> 
+                                        <td>Scheme</td>
                                         <td>Account Number</td>
                                         <td>DR/CR</td>
                                         <td>Particulars</td>
                                         <td style="text-align: right;">Amount</td>
+                                        <td>Branch Name</td>
+                                        <td>Bank Name</td>
+                                        <td>Tran Type</td>
+                                        <td>Beneficiary Name</td>
+                                        <td>Beneficiary A/c.Code</td>
+                                        <td>Sender to Receiver Info</td>
+                                        <td>Remitting Amount</td>
+                                        <td>Applicable Charges</td>
+                                        <td>Service Tax</td>
+                                        <td>Total Amount</td>
+                                        <td>Message</td>
                                     </thead>
                                     <tbody *ngIf="multigrid.length != 0">
-                                        <tr
-                                            *ngFor="let data of multigrid; let indexOfelement = index">
-                                            <td class="td_center"> <span
-                                                    class="fa fa-fw fa-edit field-icon"
-                                                    id="editbutton"
-                                                    (click)="editTransferAccount(indexOfelement)"
+                                        <tr *ngFor="let data of multigrid; let indexOfelement = index">
+                                            <td class="td_center"> <span class="fa fa-fw fa-edit field-icon"
+                                                    id="editbutton" (click)="editTransferAccount(indexOfelement)"
                                                     placement="top" ngbTooltip="Edit"></span>
                                             </td>
-                                             <td [ngClass]="'td_right'">{{ data.Tscheme==
+                                            <td [ngClass]="'td_right'">{{ data.Tscheme==
                                                 undefined || data.Tscheme==null
                                                 ? data.depoCloseTranAc.S_APPL: data.Tscheme
                                                 }}
-                                            </td
+                                            </td>
                                             <td class="td_center">{{data.TRANSFER_ACNO}}</td>
                                             <td class="td_center">{{data.DEBIT_CREDIT}}</td>
                                             <td class="td_center">{{data.PERTICULARS}}</td>
@@ -491,13 +616,10 @@
                                 </table>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                 </div>
             </form>
         </div>
-
-
-
     </div>
 </div>

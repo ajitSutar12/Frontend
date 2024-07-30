@@ -1445,6 +1445,35 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm">
+                                                                            <div class="form-group input-group">
+                                                                              <span class="border-lable-flt">
+                                                                                <input type="text" appTheme appButton minlength="10" maxlength="10"
+                                                                                  placeholder="Datepicker" placeholder="dd/mm/yyyy" name="join_date"
+                                                                                   [minDate]="join_date" class="form-control"
+                                                                                  id="join_date" [bsConfig]="{
+                                                                                    dateInputFormat: 'DD/MM/YYYY'
+                                                                                  }" formControlName="join_date" [minDate]="maxDate" bsDatepicker
+                                                                                  #NDATE="bsDatepicker" (keydown.Tab)="NDATE.hide()" />
+                                                                                <label for="join_date">Join Date<sub class="required">*
+                                                                                  </sub></label>
+                                                                              </span>
+                                                                            </div>
+                                                                            <div class="form-group form-primary form-static-label" *ngIf="
+                                                                                angForm.controls['join_date']
+                                                                                  .invalid &&
+                                                                                (angForm.controls['join_date'].dirty ||
+                                                                                  angForm.controls['join_date']
+                                                                                    .touched)
+                                                                              " class="alert alert-danger">
+                                                                              <div *ngIf="
+                                                                                  angForm.controls['join_date'].errors
+                                                                                    ?.required
+                                                                                ">
+                                                                                This fiels is required
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        <div class="col-sm">
                                                                             <div class="checkbox checkbox-primary">
                                                                                 <div
                                                                                     class="border-checkbox-group border-checkbox-group-primary">

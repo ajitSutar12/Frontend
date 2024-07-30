@@ -1,0 +1,226 @@
+<div class="row">
+    <div class="col-6">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>cash In Denomination</h5>
+                    <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                        Cashier: {{name}}</h6>
+                </div>
+                <form action="javascript:" [formGroup]="angForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-1  "><label for="AC_PARTICULAR">Branch<sub
+                                        class="required">*</sub></label></div>
+                            <div class="col-sm-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="d/c" [(ngModel)]="SelectedBranch" formControlName="Branch"
+                                            bindLabel="label" bindValue="name" title="Compulsory Selection"
+                                            placeholder="" (change)="changes($event)">
+                                            <ng-option *ngFor="let values of branch_list" [value]="values.value">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['Branch'].invalid && (angForm.controls['Branch'].dirty || angForm.controls['Branch'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['Branch'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-4"> <label for="TRAN_DATE">Denomination Transaction
+                                    Date<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
+                                            class="form-control" [(ngModel)]="trandate" appButton minlength="8"(change)="cashInHand($event)"
+                                            maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                            [ngClass]="{'form-submitted': formSubmitted}" formControlName="TRAN_DATE"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker tabindex="2">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="CASHIER" [(ngModel)]="cashier" formControlName="CASHIER"
+                                                title="Compulsory Selection"
+                                                [ngClass]="{'form-submitted': formSubmitted}" placeholder="" autofocus
+                                                tabindex="0">
+                                                
+                                                <ng-option *ngFor="let values of cashier_list" [value]="values"
+                                                    [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.F_NAME}} {{values.L_NAME}}</ng-option> 
+                                            </ng-select> 
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['CASHIER'].invalid && (angForm.controls['CASHIER'].dirty || angForm.controls['CASHIER'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['CASHIER'].errors?.required">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3"> <label for="DENOMINATION_AMT">Denomination
+                                    Amount</label></div>
+                            <div class="col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" style="text-align: right;" maxlength="12"
+                                            pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
+                                            formControlName="DENOMINATION_AMT" [(ngModel)]="denoamt" (change)="cashInHand($event)"
+                                            (keyup)="isFormA(2)" (focusout)="getDecimalPoint($event)"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                            tabindex="1">
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm-12 col-md-3"> <label for="TRANSACTION_NO">Transaction No<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" style="text-align: right;" maxlength="12"
+                                            pattern="\d{1,20}(\.\d{1,2})?" class="form-control"
+                                            formControlName="TRANSACTION_NO"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['TRANSACTION_NO'].invalid && (angForm.controls['TRANSACTION_NO'].dirty || angForm.controls['TRANSACTION_NO'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['TRANSACTION_NO'].errors?.required">
+                                        This field is required.
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3" id="FORMA">
+                                <div class="card" style="width: 340px;">
+                                    <div class="card-header">
+                                        <h5>Cash In Hand</h5>
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="solid">
+                                            <table style="text-align: center; width: 100%;">
+                                                <tr *ngFor="let data of cashData; let indexOfelement = index">
+                                                    <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
+                                                    <td class="td_center" *ngIf="data.currency !== 'Coin'">
+                                                        {{data.currency}} X</td>
+                                                    <td class="td_center"><input type="text" class="text-right" style="width: 60px;"
+                                                            value="{{data.qty}}" disabled> =
+                                                    </td>
+                                                    <td class="td_center"><input type="text" class="text-right" style="width: 100px;"
+                                                            value="{{data.totalcurrency}}" disabled></td>
+                                                </tr>
+                                                <div></div>
+                                                <div class="h" style="width: 350px;"></div>
+                                                <div></div>
+                                                <tr>
+                                                    <td class="td_center" align="right">
+                                                        Total Cash :
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="td_center">
+                                                        <input type="text" class="text-right" style="width: 100px; font-weight: bold;"
+                                                            [value]="this.totalSum">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-sm">
+                                <button class="btn btn-outline-primary btn-sm" (click)="showCashModule()">
+                                    Update
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="refreshdata()">
+                                    Cancel
+                                </button>
+                            </div> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<div class="col-md-1"></div>
+
+<div class="col-md-5">
+    <div class="col-md-3" id="FORMA" *ngIf="DenominationChart">
+        <div class="card" style="width: 500px; height: 150px;">
+            <div class="card-header">
+                <h5>Cash Denomination</h5>
+            </div>
+            <div class="card-block">
+                <div class="solid">
+                    <table style="position: center;">
+                        <tbody class="table-centered">
+                            <tr class="table-row" *ngFor="let data of currencyData; let indexOfelement = index">
+                                <td class="table-cell" *ngIf="data.currency === 'Coin'">Coins</td>
+                                <td class="table-cell" *ngIf="data.currency !== 'Coin'">{{data.currency}} X</td>
+                                <td class="table-cell">
+                                    <input type="text" (keyup)="calculation(data,indexOfelement,$event)"
+                                        class="input-field font-bold" placeholder="0" value="{{data.qty}}">
+                                </td>
+                                <td class="table-cell">
+                                    <input type="text" class="input-field text-right font-bold" value="{{data.total}}"
+                                        disabled>
+                                </td>
+                                <td class="table-cell">
+                                    <input type="text" class="input-field text-right font-bold"
+                                        value="{{data.available}}" disabled>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td align="right" class="table-cell">
+                                    Total Cash :
+                                </td>
+                                <td class="table-cell"></td>
+                                <td class="table-cell">
+                                    <input type="text" class="input-field text-right font-bold" value="{{sum}}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm">
+                        <button class="btn btn-outline-primary btn-sm" (click)="submit()">
+                            Submit
+                        </button>
+
+                        <button class="btn btn-outline-primary btn-sm" (click)="close()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

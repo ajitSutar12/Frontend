@@ -34,6 +34,10 @@ export class RtgsTransactionComponent implements OnInit {
     { id: 4, name: 'IDBI Bank' },
   ];
   url = environment.base_url;
+  schemeDetails: any;
+  accList: any;
+schemeCode: any;
+Account_NO: any;
   constructor(
     private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService, private http: HttpClient,
 
@@ -46,14 +50,44 @@ export class RtgsTransactionComponent implements OnInit {
     //branchOption
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      this.getScheme(event);
+
     })
 
 
   }
+  AC_MOBILENO
+  id
+  AC_ADD_REG
+  getScheme(event) {
+    //SCHEME
+    this.http.post('http://192.168.1.154:7276/voucher/neft', {}).subscribe((data: any) => {
+      //  this.http.get('http://192.168.1.113:7271/voucher/neft').subscribe((data: any) => {
+      this.schemeDetails = data;
+      console.log("Scheme Data", data);
+      this.accList = data;
+      console.log("Account_NO Data", data);
+
+    })
+
+  }
+
+
+  chengeData(event) {
+
+      this.AC_MOBILENO = event.AC_MOBILENO
+      this.id = event.id
+      this.AC_ADD_REG = event.AC_ADD_REG
+  }
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
+      account_no: ['',],
+      Scheme_code: ['',],
+      Address: ['',],
       BANK_NAME: ['',],
+      custID: ['',],
+      contact_no: ['',],
       BENEF_NAME: ['', [Validators.required]],
       BENEF_CODE: ['', [Validators.required]],
       IFSC_CODE: ['', [Validators.required]],

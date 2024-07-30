@@ -60,6 +60,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     { id: 4, name: "Half Yearly" },
     { id: 5, name: "None" },
   ];
+  branchName: string;
 
   constructor(
     private fb: FormBuilder,
@@ -81,6 +82,13 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
+      console.log(this.branchOption, "sjhjd");
+
+      let data1: any = localStorage.getItem('user');
+      let result = JSON.parse(data1);
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+        this.branchOption.push({ value: '0', label: 'Consolidate' })
+      }  
     });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
@@ -137,8 +145,11 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
       let frequency = obj.FREQUENCY;
       let PrintClosedAccounts = obj.Print_Closed_Accounts;
 
+      if(branch == 0){
+        this.branchName='Consolidate';
+     }
 
-      this.iframe1url = this.report_url+ "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
+      this.iframe1url = this.report_url+ "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + this.branchName + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
