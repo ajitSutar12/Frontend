@@ -69,7 +69,7 @@ export class PigmyDayEndComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Revert it!'
+      confirmButtonText: 'Yes !'
     }).then((result) => {
       if (result.isConfirmed) {
         this._service.pigmyDayEnd(obj).subscribe(data => {

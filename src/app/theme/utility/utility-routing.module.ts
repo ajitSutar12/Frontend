@@ -41,10 +41,10 @@ const routes: Routes = [
         path: 'pigmyMachineProcess',
         loadChildren: () => import('./pigmy-machine-process/pigmy-machine-process.module').then(m => m.PigmyMachineProcessModule)
       },
-      {
-        path: 'pigmyAppProcess',
-        loadChildren: () => import('./pigmy-app-process/pigmy-app-process.module').then(m => m.PigmyAppProcessModule)
-      },
+      // {
+      //   path: 'pigmyAppProcess',
+      //   loadChildren: () => import('./pigmy-app-process/pigmy-app-process.module').then(m => m.PigmyAppProcessModule)
+      // },
       {
         path: 'monthRecProc',
         loadChildren: () => import('./monthly-rec-proc/monthly-rec-proc.module').then(m => m.MonthlyRecProcModule)

@@ -18,7 +18,7 @@
                                         [virtualScroll]="true" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" #ACTYPE (focus)="onFocus(ACTYPE)"
                                         [selectOnTab]='true' required placeholder="Scheme"
-                                        (change)="getReceiptNumber();  getrdagent($event)" autofocus>
+                                        (change)="getrdagent($event)" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -2473,7 +2473,6 @@
                                                             <span class="fa fa-fw fa-plus-circle field-icon" id="icon"
                                                                 (click)="modalLarge.show()" placement="bottom"
                                                                 ngbTooltip="Add Interest Instruction"></span>
-
                                                         </div>
                                                     </div>
                                                     <div *ngIf="updatecheckdata?.intinstruction.length!=0">
@@ -2519,16 +2518,22 @@
                                                                                             placement="bottom"
                                                                                             ngbTooltip="Edit"></span> -->
 
-
                                                                                     <!-- <span
-                                                                                            style="font-size: 12px; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE);"
+                                                                                        class="fa fa-fw fa-eye field-icon"
+                                                                                        id="viewbutton"
+                                                                                        style="align-items: right;"
+                                                                                        *ngIf="data.SYSCHNG_LOGIN"
+                                                                                        (click)="disableForm(data.id);gotoTop()"
+                                                                                        placement="bottom"
+                                                                                        ngbTooltip="View"></span> -->
+                                                                                    <!-- <span
+                                                                                            style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Show Image"
-                                                                                            class="fa fa-fw fa-eye  field-icon"></span> -->
+                                                                                            class="fa fa-fw fa-eye field-icon"></span> -->
 
                                                                                 </td>
-                                                                               
                                                                                 <td class="td_right">
                                                                                     {{data.INSTRUCTION_NO}}</td>
                                                                                 <td class="td_center">
@@ -2597,7 +2602,7 @@
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
-
+                                                                <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
                                                                 (newTDCustomerEvent)="addNewInstruction($event)">
                                                             </app-interest-instruction>
                                                             <!-- </perfect-scrollbar> -->

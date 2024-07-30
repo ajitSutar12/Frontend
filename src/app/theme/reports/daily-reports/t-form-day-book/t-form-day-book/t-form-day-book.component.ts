@@ -136,7 +136,7 @@ export class TFormDayBookComponent implements OnInit {
       let Branch = obj.Branch;
 
       this.iframe1url = this.report_url + "examples/DayBookfinal1.php?Date=" + Date + "&Branch=" + Branch + "&branchName=" + this.branchName + "&type=" + type + "&bankName=" + bankName + " ";
-      // console.log(this.iframe1url);
+      console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else if (this.ngForm.controls['Print_Code'].value == "Summary" && this.ngForm.valid) {

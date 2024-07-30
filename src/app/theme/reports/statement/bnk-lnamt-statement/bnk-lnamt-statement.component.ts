@@ -189,8 +189,8 @@ export class BnkLNamtStatementComponent implements OnInit {
   getacdetails(event){
     this.bankacno = event.bankacno
     
-    if (event.AC_CLOSEDT != null) {
-      this.acCloseDate = event.AC_CLOSEDT
+    if (event.acClose != null) {
+      this.acCloseDate = event.acClose
       this.isOpen = false
     }
     else {
