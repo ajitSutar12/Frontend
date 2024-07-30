@@ -8,14 +8,18 @@
                 <!-- <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12">
+
                             <button type="button" class="btn btn-outline-primary btn-sm" style="float: left;"
-                                *ngIf="showButton" (click)="download()">Prepare File to
+                                 (click)="download()">Prepare File to
                                 Download</button>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="showDButton">
+                        <div class="col-sm-2">
+                            <label for="lbl" class="lblCls">Click Here To Download File</label>
+                        </div>
                         <div class="col-sm-6">
-                            <a [href]="fileUrl" download *ngIf="showDButton"> <button type="button"
+                            <a [href]="fileUrl" download > <button type="button"
                                     class="btn btn-outline-primary btn-sm" style="float: left;">
                                     Download File
                                 </button></a>
@@ -44,6 +48,7 @@
                                 </button></a>
                         </div>
                     </div>
+
                     <div class="loader-block loader" *ngIf="isloader">
                         <svg id="loader2" viewBox="0 0 100 100">
                             <circle id="circle-loader2" cx="50" cy="50" r="45"></circle>

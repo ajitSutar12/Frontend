@@ -35,6 +35,9 @@ export class BnkLNamtStatementComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   formSubmitted = false;
+  isOpen: boolean = false;
+
+
      //account
      memFrom
      memTo
@@ -57,8 +60,10 @@ export class BnkLNamtStatementComponent implements OnInit {
   todate: any;
   fromdate: moment.Moment;
   bankacno: any;
+
   isOpen: boolean = false
   acCloseDate: null;
+
 
 
   constructor(
@@ -191,12 +196,14 @@ export class BnkLNamtStatementComponent implements OnInit {
     
     if (event.acClose != null) {
       this.acCloseDate = event.acClose
+
       this.isOpen = false
     }
     else {
       this.acCloseDate = null
       this.isOpen = true
     }
+
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
