@@ -128,7 +128,7 @@ export class AccountEnquiryComponent implements OnInit {
   isOpen: boolean = false
   isMinor:boolean=false
   isJoint:boolean=false
-  jointCustId
+  // jointCustId
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
@@ -681,9 +681,9 @@ export class AccountEnquiryComponent implements OnInit {
 
 
   //get account details
-  isOpen: boolean = false
-  isMinor:boolean=false
-  isJoint:boolean=false
+  // isOpen: boolean = false
+  // isMinor:boolean=false
+  // isJoint:boolean=false
 
   getAccountDetails(event) {
     this.viewView(event)

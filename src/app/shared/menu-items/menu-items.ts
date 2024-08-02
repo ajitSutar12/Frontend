@@ -1129,7 +1129,7 @@ const MENUITEMS1 = [
                 id: 107
               }
             ]
-
+          }
         ]
       },
       {
@@ -2223,14 +2223,50 @@ const MENUITEMS1 = [
                 id: 280
               },
               {
+                state: 'slr',
+                name: 'SLR Report',
+                tooltip:'एसएलआर ',
+
+                id: 403
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                tooltip:'सीआरआर ',
+
+                id: 404
+              },
+  
+                {
+                  state: 'crar',
+                  name: 'CRAR Report',
+                  tooltip:'सीआर एआर ',
+
+                  id: 405
+                },
+                {
+                  state: 'memberIncreaseDecrease',
+                  name: 'Member Increase Decrease Report',
+                  tooltip:'मेंबर इंक्रीज डिक्रिज रिपोर्ट  ',
+
+                  id: 406
+                },
+                {
+                  state: 'abrAlr',
+                  name: 'Abr-Alr Report',
+                  tooltip:'एबीआर ए एलआर रिपोर्ट  ',
+
+                  id: 407
+                },
+              {
                 state: 'statistical',
-                name: 'statistical',
+                name: 'Statistical',
                 tooltip:'सांख्यिकीय',
                 id: 363
               },
               {
                 state: 'comparativeStatment',
-                name: 'comparative Statment',
+                name: 'Comparative Statment',
                 tooltip:'तुलनात्मक विधान',
                 id: 364
               },
@@ -2254,8 +2290,8 @@ const MENUITEMS1 = [
               },
               {
                 state: 'swnidhi',
-                name: 'swnidhi Report',
-                tooltip:'swnidhi',
+                name: 'Swnidhi Report',
+                tooltip:'स्वनिधी रिपोर्ट ',
                 id: 400
               },
             ]
@@ -2264,7 +2300,7 @@ const MENUITEMS1 = [
           {
             state: 'managerViewReports',
             name: 'Manager View Reports',
-            tooltip:'व्यवस्थापक पहा अहवाल',
+            tooltip:'व्यवस्थापक दृष्टिक्षेप रिपोर्ट',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -2274,7 +2310,7 @@ const MENUITEMS1 = [
           {
             state: 'finalReports',
             name: 'Final Reports',
-            tooltip:'अंतिम अहवाल',
+            tooltip:'अंतिम रिपोर्ट',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4533,6 +4569,7 @@ const MENUITEMS = [
                 id: 107
               }
             ]
+          }
 
         ]
       },
@@ -5616,6 +5653,33 @@ const MENUITEMS = [
                 id: 280
               },
               {
+              state: 'slr',
+              name: 'SLR Report',
+              id: 403
+            },
+            {
+              state: 'crr',
+              name: 'CRR Report',
+              id: 404
+            },
+
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 405
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 406
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 407
+              },
+
+              {
                 state: 'statistical',
                 name: 'statistical',
                 tooltip:'सांख्यिकीय',
@@ -6043,7 +6107,7 @@ const MENUITEMS = [
                 name: 'pigmy Day End',
                 tooltip:'पिग्मी दिवसाचा शेवट',
 
-                name: 'Pigmy Day End',
+                // name: 'Pigmy Day End',
 
                 id: 298
               },

@@ -48,6 +48,28 @@ const routes: Routes = [{
       path: 'WeeklyLedgerBalance',
       loadChildren: () => import('./weekly-ledger-balance/weekly-ledger-balance.module').then(m => m.WeeklyLedgerBalanceModule)
     },
+    {
+      path: 'crar',
+      loadChildren: () => import('./crar/crar.module').then(m => m.CrarModule)
+    },
+
+    {
+      path: 'memberIncreaseDecrease',
+      loadChildren: () => import('./member-increase-decrease/member-increase-decrease.module').then(m => m.MemberIncreaseDecreaseModule)
+    },
+    {
+      path: 'abrAlr',
+      loadChildren: () => import('./abr-alr/abr-alr.module').then(m => m.AbrAlrModule)
+    },
+  
+    {
+      path: 'slr',
+      loadChildren: () => import('./slr/slr.module').then(m => m.SlrModule)
+    },
+    {
+      path: 'crr',
+      loadChildren: () => import('./crr/crr.module').then(m => m.CrrModule)
+    },
   ]
 
 }];

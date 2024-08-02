@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Welcome || Your Bank Name</title>
+    <base href="/COMPSERV/CBS/">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- <meta name="description" content="CBS Angular 10 admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords" content="angular 10, bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" /> -->
+    <!-- <meta name="author" content="Phoenixcoded" /> -->
+
+    <link rel="icon" type="image/x-icon" href="assets/BPK.jpg">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Maven Pro:300,400,500,700" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.6/css/colReorder.dataTables.min.css">
+
+    <script src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.5.6/js/dataTables.colReorder.min.js"></script> -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"> 
+</head>
+
+<body onbeforeunload="ConfirmClose()" onunload="HandleOnClose()">
+    <app-root>
+        <div class="theme-loader">
+            <div class="loader-track">
+                <div class="preloader-wrapper">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-red">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-yellow">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-green">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </app-root>
+<script src="runtime.js" defer></script><script src="polyfills.js" defer></script><script src="styles.js" defer></script><script src="scripts.js" defer></script><script src="vendor.js" defer></script><script src="main.js" defer></script></body>
+<script>
+    ////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
+    window.addEventListener('popstate', function (event) {
+
+
+        if (window.location.href == 'https://patsevacompservtech.com/SIDHANERLI/CBS/auth/login/simple') { 
+
+           
+
+            let data = localStorage.getItem('user');
+            let result = JSON.parse(data);
+            let obj = {
+                USERID: result.id,
+                BRANCH_CODE: result.branchId,
+                REMARK: 'SESSION LOGOUT',
+                id: result.id,
+            }
+            $.ajax({
+
+
+                 url: 'https://patsevacompservtech.com:4713/user-defination/logout',
+
+                method: 'POST',
+                data: obj,
+                success: function (result) { }
+            })
+            $.ajax({
+
+
+                 url: 'https://patsevacompservtech.com:4713/user-defination/logoffhistory',
+
+
+              method: 'POST',
+                data: obj,
+                success: function (result) { }
+            })
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+        }
+    });
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////SCREEN INACTIVE/////////////////////////////////////////////////////////////////////
+
+    function ConfirmClose() { }
+    function HandleOnClose() { }
+
+    function idleLogout() {
+        var t;
+        window.onload = resetTimer;
+        window.onmousemove = resetTimer;
+        window.onmousedown = resetTimer;  // catches touchscreen presses as well      
+        window.ontouchstart = resetTimer; // catches touchscreen swipes as well      
+        window.ontouchmove = resetTimer;  // required by some devices 
+        window.onclick = resetTimer;      // catches touchpad clicks as well
+        window.onkeydown = resetTimer;
+        window.addEventListener('scroll', resetTimer, true); // improved; see comments
+
+        function decodeJwtToken(token) {
+            if (token) {
+                const payloadBase64 = token?.split('.')[1];
+                const decodedPayload = atob(payloadBase64);
+                const parsedPayload = JSON.parse(decodedPayload);
+                // console.log(parsedPayload)
+                return parsedPayload;
+            }
+        }
+
+        function yourFunction() {
+            try {
+                const decodedToken = decodeJwtToken(localStorage.getItem('token'));
+                const currentTime = Math.floor(Date.now() / 1000);
+                // Check if the token has an expiration time
+                if (decodedToken.exp !== undefined && decodedToken.exp < currentTime) {
+                    // console.log(decodedToken.exp < currentTime, 'decodedToken.exp < currentTime')
+                    let data = localStorage.getItem('user');
+                    let result = JSON.parse(data);
+                    let obj = {
+                        USERID: result.id,
+                        BRANCH_CODE: result.branchId,
+                        REMARK: 'SESSION LOGOUT',
+                        id: result.id,
+                    }
+                    $.ajax({
+
+
+                        url: 'https://patsevacompservtech.com:4713/user-defination/logout',
+
+                        method: 'POST',
+                        data: obj,
+                        success: function (result) { }
+                    })
+                    $.ajax({
+
+
+                        url: 'https://patsevacompservtech.com:4713/user-defination/logoffhistory',
+                        method: 'POST',
+                        data: obj,
+                        success: function (result) { }
+                    })
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                }
+            } catch (error) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                // console.error('Error decoding token:', error);
+            }
+            // your function for too long inactivity goes here
+
+
+            window.location.href = 'https://patsevacompservtech.com/SIDHANERLI/CBS/auth/login/simple'; 
+            window.close()
+        }
+
+        function resetTimer() {
+
+            try {
+                const decodedToken = decodeJwtToken(localStorage.getItem('token'));
+                const currentTime = Math.floor(Date.now() / 1000);
+                // console.log('active', decodedToken.exp - 100, currentTime)
+                // Check if the token has an expiration time
+                if (decodedToken.exp !== undefined && decodedToken.exp - 100 < currentTime) {
+                    // console.log(localStorage.getItem('token'), 'token item')
+                    let data = localStorage.getItem('user');
+                    let result = JSON.parse(data);
+                    let refreshToken = localStorage.getItem('token')
+                    let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
+                    $.ajax({
+
+
+                        url: 'https://patsevacompservtech.com:4713/refresh-token',
+                        method: 'POST',
+                        data: payload,
+                        success: function (result) {
+                            localStorage.setItem('token', result.accessToken)
+                        }
+                    })
+                }
+                // return true; // Treat the token as expired if no expiration time is present
+            } catch (error) {
+                // console.error('Error decoding token:', error);
+            }
+            clearTimeout(t);
+            t = setTimeout(yourFunction, 900000);  // time is in milliseconds
+        }
+    }
+    idleLogout();
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+</script>
+
+</html>
