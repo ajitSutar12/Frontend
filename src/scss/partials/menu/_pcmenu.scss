@@ -44,6 +44,7 @@ $icon-color: #800080, #b71c1c, #4CAF50, #d84315, #4527a0, #37474f, #7C4DFF, #FF5
                 >a>.pcoded-micon {
                     color: $inverse-color;
                     margin-top: 4px;
+
                     b {
                         display: none;
                     }
@@ -3639,7 +3640,7 @@ body {
                             li:hover {
                                 >a {
                                     color: $value !important;
-                                    background-color:#6d022d7e;
+                                    background-color: #6d022d7e;
                                 }
                             }
 
@@ -3657,7 +3658,27 @@ body {
 
                                 .pcoded-micon {
                                     color: $value !important;
+
                                 }
+
+                                .tooltiptext {
+
+                                    visibility: visible;
+
+                                }
+
+                                .tooltiptext1 {
+
+                                    visibility: visible;
+
+                                }
+
+                                .tooltiptext2 {
+
+                                    visibility: visible;
+
+                                }
+
 
                                 // background: $value;
                                 &:before {

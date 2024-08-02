@@ -249,6 +249,69 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  // updateProfile() {
+
+  //   let updateObject = this.angEditForm.value;
+  //   let user = JSON.parse(localStorage.getItem('user'));
+
+  //   if (updateObject.newPassword != '' && updateObject.confirmPassword != '') {
+  //     if (updateObject.newPassword != updateObject.confirmPassword) {
+  //       Swal.fire('Oops!', 'New password and Confirm password not matched', 'error');
+  //       throw Error("");
+  //     }
+  //   }
+
+  //   updateObject['imgbase64'] = this.imgBase64;
+  //   updateObject['id'] = user.id;
+
+  //   this._userService.updateUser(updateObject).subscribe(data => {
+      
+  //     Swal.fire('Success!', 'Profile update successfully please login again', 'success');
+  //     console.log(data)
+
+  //     let data1: any = localStorage.getItem('user');
+  //     let result = JSON.parse(data1);
+  //     console.log(result.USER_NAME, result.PASSWORD)
+
+
+
+  //     // let obj = {
+  //     //   "username": result.USER_NAME,
+  //     //   "password": 'Admin@21'
+  //     // }
+
+  //     // this._authService.login(obj).subscribe(data => {
+  //     //   debugger
+  //     //   // localStorage.setItem('token', data.access_token);
+  //     //   localStorage.setItem('user', JSON.stringify(data.user));
+  //     //   // if (data.user) {
+  //     //   //   this.router.navigate(['/dashboard']);
+  //     //   let data1: any = localStorage.getItem('user');
+  //     //   let result = JSON.parse(data1);
+  //     //   this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
+  //     //   // }
+  //     // })
+  //     this._userService.editlocal(data.id).subscribe(data => {
+        
+  //       // localStorage.setItem('token', data.access_token);
+  //       localStorage.setItem('user', JSON.stringify(data));
+  //       // if (data.user) {
+  //       //   this.router.navigate(['/dashboard']);
+  //       let data1: any = localStorage.getItem('user');
+  //       let result = JSON.parse(data1);
+  //       this.profilePath = environment.base_url + '/' + result.PROFILE_PATH;
+  //       // }
+  //     })
+
+
+  //   }, err => {
+  //     Swal.fire('Oops!', err.error.message, 'error');
+
+  //   })
+  // }
+
+
+  update:boolean=false;
   updateProfile() {
 
     let updateObject = this.angEditForm.value;
@@ -260,21 +323,36 @@ export class UserProfileComponent implements OnInit {
         throw Error("");
       }
     }
-
     updateObject['imgbase64'] = this.imgBase64;
     updateObject['id'] = user.id;
 
+    // this._userService.updateUser(updateObject).subscribe(data => {
+    //   debugger
+    //   this.update=true;
+    //   if(updateObject.invalid){
+    //     return
+    //   }
+    //   Swal.fire('Success!', 'Profile update successfully please login again', 'success');
+    //   console.log(data)
+
+    //   let data1: any = localStorage.getItem('user');
+    //   let result = JSON.parse(data1);
+    //   console.log(result.USER_NAME, result.PASSWORD)
+
     this._userService.updateUser(updateObject).subscribe(data => {
-      
-      Swal.fire('Success!', 'Profile update successfully please login again', 'success');
+      debugger
+      this.update=true;
+      if(updateObject.invalid){
+        Swal.fire('Error!!', 'invalid password', 'error');
+      }
+      else{
+        Swal.fire('Success!', 'Profile update successfully please login again', 'success');
       console.log(data)
 
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
       console.log(result.USER_NAME, result.PASSWORD)
-
-
-
+      }
       // let obj = {
       //   "username": result.USER_NAME,
       //   "password": 'Admin@21'
@@ -292,7 +370,7 @@ export class UserProfileComponent implements OnInit {
       //   // }
       // })
       this._userService.editlocal(data.id).subscribe(data => {
-        
+        debugger
         // localStorage.setItem('token', data.access_token);
         localStorage.setItem('user', JSON.stringify(data));
         // if (data.user) {
@@ -309,5 +387,6 @@ export class UserProfileComponent implements OnInit {
 
     })
   }
+
 
 }

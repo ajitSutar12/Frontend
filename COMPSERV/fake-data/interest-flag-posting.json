@@ -1,0 +1,29 @@
+{
+    "data": [
+        {
+            "schemecode":1556,
+            "accnofrom":"categogy A",
+            "accnoto":"Yes",
+            "acc_no":1556,
+            "acc_name":"categogy A",
+            "isPostInterest":"Yes"
+        },
+        {
+            "schemecode":16,
+            "accnofrom":"categogy A",
+            "accnoto":"Yes",
+            "acc_no":1556,
+            "acc_name":"categogy A",
+            "isPostInterest":"Yes"
+        },
+        {
+            "schemecode":56,
+            "accnofrom":"categogy A",
+            "accnoto":"Yes",
+            "acc_no":1556,
+            "acc_name":"categogy A",
+            "isPostInterest":"Yes"
+        }
+        
+    ]
+}

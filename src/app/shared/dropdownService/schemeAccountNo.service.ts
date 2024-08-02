@@ -286,7 +286,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/term-deposits-master/ledgerviewAccList/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT, closeDate: element.AC_CLOSEDT };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT, closeDate: element.AC_CLOSEDT,acMinor: element.AC_MINOR ,jointAcHolders: element.jointAccounts};
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;
@@ -529,7 +529,7 @@ export class SchemeAccountNoService {
         return this.http.get<any>(this.url + '/pigmy-account-master/ledgerviewAccList/' + schemeid)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT, closeDate: element.AC_CLOSEDT };
+                    let obj = { label: element.AC_NO, value: element.AC_NO, name: element.AC_NAME, bankacno: element.BANKACNO, acnotype: element.AC_ACNOTYPE, freez: element.AC_FREEZE_STATUS, dormant: element.IS_DORMANT, acClose: element.AC_CLOSEDT, opendate: element.AC_OPDATE, autoMaturedPayableAmt: element.AUTO_MATURED_PAYABLEAMT, autoMaturedIntrestAmt: element.AUTO_MATURED_INTERESTAMT, closeDate: element.AC_CLOSEDT ,jointAcHolders: element.jointAccounts};
                     this.schemeObject.push(obj)
                 });
                 return this.schemeObject;

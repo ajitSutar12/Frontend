@@ -1,0 +1,64 @@
+{
+    "data": [{
+            "srno":1,
+            "months":2,
+            "days":48,
+            "from_days": 3,
+            "to_days": 10,
+            "from_months": 1,
+            "to_months": 2,
+            "int_rate": 3.00,
+            "penal_int_rate": 1.00
+        },  {
+            "srno":2,
+            "months":4,
+            "days":120,
+            "from_days": 13,
+            "to_days": 18,
+            "from_months": 3,
+            "to_months": 10,
+            "int_rate": 3.00,
+            "penal_int_rate": 3.00
+        },{
+            "srno":3,
+            "months":3,
+            "days":48,
+            "from_days": 3,
+            "to_days": 10,
+            "from_months": 3,
+            "to_months": 10,
+            "int_rate": 3,
+            "penal_int_rate":  1.20
+        },{
+            "srno":4,
+            "months":4,
+            "days":48,
+            "from_days": 3,
+            "to_days": 10,
+            "from_months": 3,
+            "to_months": 10,
+            "int_rate": 3,
+            "penal_int_rate":  0.00
+        },{
+            "srno":5,
+            "months":1,
+            "days":28,
+            "from_days": 3,
+            "to_days": 10,
+            "from_months": 3,
+            "to_months": 10,
+            "int_rate": 3,
+            "penal_int_rate":  5.04
+        },{
+            "srno":6,
+            "months":3,
+            "days":50,
+            "from_days": 3,
+            "to_days": 10,
+            "from_months": 3,
+            "to_months": 10,
+            "int_rate": 3,
+            "penal_int_rate":  0.00
+        }
+   ]
+}

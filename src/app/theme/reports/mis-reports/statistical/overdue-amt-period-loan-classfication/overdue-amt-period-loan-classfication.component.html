@@ -1,0 +1,160 @@
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Overdue Amount PeriodWise Loan Classification</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="angForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="Branch">Branch
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" formControlName="BRANCH_CODE" placeholder="branch" [(ngModel)]="ngbranch">
+                                        <ng-option *ngFor="let values of branchOption" [value]="values.value">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-12 col-md-1"> <label for="Scheme">Period :
+                            </label></div> -->
+                        <div class="col-md-3">
+                            <div class="form-radio">
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
+                                            value="SUBMISSION" [checked]="true">
+                                        <i class="helper"></i>Detail</label>
+                                </div>
+                                <div class="radio radio-inline">
+                                    <label>
+                                        <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
+                                            value="RETURN">
+                                        <i class="helper"></i>Summary</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="Scheme">Date
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                        class="form-control" appDateValidation [bsValue]="bsValue"
+                                        formControlName="Date" appButton minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['Date'].invalid &&
+                    (angForm.controls['Date'].dirty ||angForm.controls['Date'].touched) " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Date'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="angForm.controls['SUBMISSION'].value === 'RETURN'">
+                        <div class="col-md-12 col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="Schemewise == true" formControlName="TermcheckActive">
+                                    <label class="border-checkbox-label" for="checkbox1">Termwise Grouping Required?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-md-3">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox2"
+                                        [checked]="Schemewise == true" formControlName="SchemecheckActive">
+                                    <label class="border-checkbox-label" for="checkbox2">Schemewise Grouping
+                                        Required?</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"  (click)="selectAll()">Select
+                                All</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline-primary btn-sm" (click)="unselectAll() ">Unselect All</button>
+                        </div>
+                        
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="solid">
+                                <table class="table table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Scheme Type</td>
+                                        <td>Scheme Code</td>
+                                        <td>Scheme Name</td>
+                                        <td>Select Scheme</td>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of tableData">
+                                            <td>{{ row.S_ACNOTYPE }}</td>
+                                            <td>{{row.S_APPL}}</td>
+                                            <td>{{row.S_NAME}}</td>
+                                            <td><input type="checkbox" [checked]="isRowSelected(row)"
+                                                (change)="toggleSelection($event, row)"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                            (click)="view($event); clicked = true ">View</button>                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

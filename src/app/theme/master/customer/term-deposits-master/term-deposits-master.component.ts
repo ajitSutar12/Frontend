@@ -1711,6 +1711,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   updatecheckdata: any
   //Method for append data into fields
   opdate
+
+  intinst
+  DAC_NO
+  DAC_ACNOTYPE
+
   minorAc: boolean = false
   editClickHandler(id, status) {
     // debugger
@@ -1727,6 +1732,11 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         // this.angForm.patchValue({ AC_REF_RECEIPTNO: receiptNumber });
       }
       this.intinstruction = data.intinstruction
+
+      this.DAC_NO = data.BANKACNO
+      this.DAC_ACNOTYPE = data.AC_TYPE
+      console.log(this.intinstruction)
+
       this.createForm()
       this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -2991,9 +3001,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     button.click();
     this.reloadTablePassing.emit();
   }
+  DR_ACTYPE
+  DR_AC_NO
+
   addNewInstruction(instruction) {
     this.intInstructionObject = instruction
-    this.child.submit();
+
+
   }
 
   onFocus(ele: NgSelectComponent) {
@@ -3128,13 +3142,20 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     }
   }
- getIntInstruct
+  reloadTable() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
+  }
+  getIntInstruct
+  showUpdateButton: boolean = false;
   getInstructionData(data) {
     this.getIntInstruct = data;
     this.child.editClickHandler(data);
-    
-    // this.child.DatatableHideShow = false;
-    // this.child.rejectShow = true;
-    // this.child.approveShow = true;
   }
+  // updateTableData(newData) {
+  //   this.intinstruction.push(newData);
+  // }
+
+
 }

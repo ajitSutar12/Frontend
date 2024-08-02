@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Count Wise Lawad Loan</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="angForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="Branch">Branch
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="ngbranch" formControlName="BRANCH">
+                                        <ng-option *ngFor="let item of branchOption" [value]="item.value">
+                                            {{item.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['BRANCH'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12 col-md-1"> <label for="Scheme">Scheme Type
+                            <sub class="required">*</sub></label></div>
+                    <div class="col-sm-12 col-md-2">
+                        <div class="form-group form-primary form-static-label">
+                            <span class="border-lable-flt">
+                                <ng-select id="Scheme" formControlName="Scheme" placeholder=" "(change)="getscheme($event)">
+                                    <ng-option *ngFor="let values of Scheme" [value]="values">
+                                        {{values.id}} {{values.label}} </ng-option>
+                                </ng-select>
+
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label"
+                            *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                This field is required
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="col-sm-12 col-md-1">
+                            <label>Starting Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="start_date" id="start_date"
+                                        class="form-control" appDateValidation [bsValue]="bsValue"
+                                        formControlName="start_date" appButton minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['start_date'].invalid &&
+                                (angForm.controls['start_date'].dirty ||angForm.controls['start_date'].touched) "
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['start_date'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12 col-md-1">
+                            <label>Ending Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="end_date" id="end_date"
+                                        class="form-control" appDateValidation [bsValue]="bsValue"
+                                        formControlName="end_date" appButton minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['end_date'].invalid &&
+                                (angForm.controls['end_date'].dirty ||angForm.controls['end_date'].touched) "
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['end_date'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                            (click)="View($event); clicked = true ">View</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm"(click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

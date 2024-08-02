@@ -1,0 +1,11 @@
+{
+    "data": [{
+            "Name": "WER",
+            "IsOperative": "Yes"
+        },
+        {
+            "Name": "POQ",
+            "IsOperative": "No"
+        }
+    ]
+}

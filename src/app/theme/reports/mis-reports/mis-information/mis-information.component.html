@@ -29,10 +29,10 @@
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf=" angForm.controls['BRANCH_CODE'].invalid &&(angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                *ngIf=" f['BRANCH_CODE'].invalid &&(f['BRANCH_CODE'].dirty || f['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['BRANCH_CODE'].errors?.required ||angForm.controls['BRANCH_CODE'].errors?.pattern">
+                                    *ngIf="f['BRANCH_CODE'].errors?.required ||f['BRANCH_CODE'].errors?.pattern">
                                     This is required field
                                 </div>
                             </div>
@@ -51,10 +51,10 @@
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['START_DATE'].invalid && (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)"
+                                *ngIf="f['START_DATE'].invalid && (f['START_DATE'].dirty || f['START_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['START_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                    *ngIf="f['START_DATE'].errors?.required ||f['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>
@@ -74,10 +74,10 @@
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['END_DATE'].invalid && (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)"
+                                *ngIf="f['END_DATE'].invalid && (f['END_DATE'].dirty || f['END_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['END_DATE'].errors?.required ||angForm.controls['START_DATE'].invalid">
+                                    *ngIf="f['END_DATE'].errors?.required ||f['START_DATE'].invalid">
                                     This field is required.
                                 </div>
                             </div>

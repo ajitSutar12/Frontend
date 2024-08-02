@@ -1,0 +1,44 @@
+{
+    "data": [{
+            "code": 1,
+            "desc": "Photo",
+            "is_allowed":"Yes",
+            "remark": ""
+        },{
+            "code": 2,
+            "desc": "Stamp Paper",
+            "is_allowed":"No",
+            "remark": ""
+        },{
+            "code": 3,
+            "desc": "Photo",
+            "is_allowed":"Yes",
+            "remark": ""
+        },{
+            "code": 4,
+            "desc": "Aadhar Card",
+            "is_allowed":"Yes",
+            "remark": ""
+        },{
+            "code": 5,
+            "desc": "PAN Card",
+            "is_allowed":"Yes",
+            "remark": ""
+        },{
+            "code": 6,
+            "desc": "Aadhar Card",
+            "is_allowed":"Yes",
+            "remark": ""
+        },{
+            "code": 7,
+            "desc": "Stamp Paper",
+            "is_allowed":"Yes",
+            "remark": ""
+        },{
+            "code": 8,
+            "desc": "Ration Card",
+            "is_allowed":"No",
+            "remark": ""
+        }
+    ]
+}

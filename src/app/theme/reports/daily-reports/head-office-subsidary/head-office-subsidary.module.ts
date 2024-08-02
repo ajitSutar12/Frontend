@@ -1,0 +1,30 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { HeadOfficeSubsidaryRoutingModule } from './head-office-subsidary-routing.module';
+import { HeadOfficeSubsidaryComponent } from './head-office-subsidary.component';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
+
+
+@NgModule({
+  declarations: [HeadOfficeSubsidaryComponent,],
+  providers: [
+    
+    OwnbranchMasterService,
+  ],
+  imports: [
+    CommonModule,
+    HeadOfficeSubsidaryRoutingModule,
+    FormsModule,
+    ReactiveFormsModule, 
+    NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
+    Iframe5Module
+  ]
+})
+export class HeadOfficeSubsidaryModule { }

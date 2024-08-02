@@ -56,6 +56,7 @@ export class AccountEnquiryComponent implements OnInit {
   acCloseDate
   guardianName
   jointHolderName = ''
+  jointCustId=''
   freezStataus
   transactions
   tableData = []
@@ -127,7 +128,7 @@ export class AccountEnquiryComponent implements OnInit {
   isOpen: boolean = false
   isMinor:boolean=false
   isJoint:boolean=false
-  jointCustId
+  // jointCustId
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
@@ -215,7 +216,7 @@ export class AccountEnquiryComponent implements OnInit {
   }
   IS_WEEKLY_REPAY
   schemechange(event) {
-
+    this.isMinor=false
     this.acCloseDate = null
     this.isOpen = false
     this.schemeACNo = null
@@ -680,7 +681,10 @@ export class AccountEnquiryComponent implements OnInit {
 
 
   //get account details
-  
+  // isOpen: boolean = false
+  // isMinor:boolean=false
+  // isJoint:boolean=false
+
   getAccountDetails(event) {
     this.viewView(event)
 
@@ -755,9 +759,7 @@ export class AccountEnquiryComponent implements OnInit {
       // event?.jointAccounts?.forEach((element, index) => {
       //   if (index == 0) {
       //     this.jointHolderName = element.JOINT_ACNAME
-      //   }
-      //   else {
-      //     this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
+
       //   }
       // });
 
@@ -767,11 +769,13 @@ export class AccountEnquiryComponent implements OnInit {
             this.jointCustId = element.JOINT_AC_CUSTID;
         } else {
             this.jointHolderName += '/' + element.JOINT_ACNAME;
-            this.jointCustId = '';
+            this.jointCustId = ''; // Assuming you only want the CustId of the first joint holder
+
         }
     });
     this.isJoint = event?.jointAccounts?.length > 0;
     
+
       this.idmaster = event.idmaster
       let periodOverdraft = event.AC_SODAMT == undefined || event.AC_SODAMT == null ? 0 : Number(event.AC_SODAMT)
       let tempOverdraft = event.AC_ODAMT == undefined || event.AC_ODAMT == null ? 0 : Number(event.AC_ODAMT)

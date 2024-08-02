@@ -1,0 +1,33 @@
+{
+    "data": [{
+            "id": 1,
+           
+            "Date": "12/12/2000",
+            "StartFrom": "4/31/1998",
+            "InstructionNo": 41414141,
+            "Day": "l",
+            "Frequency":"Monthly",
+            "NextExecutionOn": "3/4/2001",
+            "LastExecutionOn": "1/3/3000",
+          
+            
+            
+            "Scheme": 123,
+            "AccountNo": 22121222,
+            "DebitNarration": 25754252,
+            "Scheme1": 1233232,
+            "AccountNo1":22122121,
+            "CreditNarration":"aa",     
+            "IsAuto":"Yes",
+            "TransactionAmount":34434389,
+            "RevokeDate":"1/3/3000"
+           
+           
+        }
+       
+       
+       
+        
+       
+    ]
+}

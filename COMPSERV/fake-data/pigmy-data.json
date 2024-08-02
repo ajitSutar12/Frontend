@@ -1,0 +1,92 @@
+{
+    "data": [{
+            "scheme_type": "AB",
+            "int_category": 2,
+            "int_rate":10,
+            "date": "2011/04/25"
+        },
+        {
+            "scheme_type": "SP",
+            "int_category": 2,
+            "int_rate": 12,
+            "date": "2011/04/25"
+        },
+        {
+            "scheme_type": "DL",
+           "int_category": 3,
+           "date": "2011/04/25",
+           "int_rate": 15
+        },
+        {
+            "scheme_type": "AB",
+           "int_category": 4,
+           "date": "2011/04/25",
+           "int_rate": 9
+        },
+        {
+            "scheme_type": "SP",
+           "int_category": 8,
+           "date": "2011/04/25",
+           "int_rate": 15
+        },
+        {
+            "scheme_type": "AB",
+           "int_category": 12,
+           "date": "2011/04/25",
+           "int_rate": 19
+        },
+        {
+            "scheme_type": "SP",
+           "int_category": 13,
+           "date": "2011/04/25",
+           "int_rate": 13
+        },
+        {
+            "scheme_type": "WP",
+           "int_category": 15,
+           "date": "2011/04/25",
+           "int_rate": 10
+        },
+        {
+            "scheme_type": "DG",
+           "int_category": 13,
+           "date": "2011/04/25",
+           "int_rate": 18
+        },
+        {
+            "scheme_type": "AB",
+           "int_category": 5,
+           "date": "2011/04/25",
+           "int_rate": 11
+        },
+        {
+            "scheme_type": "RV",
+           "int_category": 12,
+           "date": "2011/04/25",
+           "int_rate": 13
+        },
+        {
+            "scheme_type": "DV",
+           "int_category": 19,
+           "date": "2011/04/25",
+           "int_rate": 11
+        },{
+            "scheme_type": "EV",
+           "int_category": 16,
+           "date": "2011/04/25",
+           "int_rate": 10
+        },
+        {
+            "scheme_type": "EV",
+           "int_category": 13,
+           "date": "2011/04/25",
+           "int_rate": 19
+        },
+        {
+            "scheme_type": "VE",
+           "int_category": 15,
+           "date": "2011/04/25",
+           "int_rate": 13
+        }
+    ]
+}

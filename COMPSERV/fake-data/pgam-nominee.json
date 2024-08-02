@@ -1,0 +1,27 @@
+{
+    "data": [{
+            "Name1": "xyz",
+            "Relation": "22",
+            "NominationDate": "25/02/2012",
+            "Age": "25",
+            "Address1": "shivaji peth,kolhapur",
+            "Address2":"shivaji peth,kolhapur",
+            "Address3":"shivaji peth,kolhapur",
+            "City":"Kolhapur",
+            "Pin":416012
+            
+        },
+        {
+            "Name1": "xyz",
+            "Relation": "22",
+            "NominationDate": "25/02/2012",
+            "Age": "25",
+            "Address1": "shivaji peth,kolhapur",
+            "Address2":"shivaji peth,kolhapur",
+            "Address3":"shivaji peth,kolhapur",
+            "City":"Kolhapur",
+            "Pin":416012
+        }
+
+    ]
+}

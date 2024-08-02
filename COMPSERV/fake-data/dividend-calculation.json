@@ -1,0 +1,41 @@
+{
+    "data": [
+        {
+            "SchemeCode": 1,
+            "DivDateFrom": "22/2/2000",
+            "To": "22/2/2000",
+            "WarrantDate": "22/2/2000",
+            "BranchCode":"123",
+            "Dividend": "70%",
+            "Bonus": "50%",
+            "MemberFrom": "4258",
+            "To2": 4283
+           
+        },
+        {
+            "SchemeCode": 2,
+            "DivDateFrom": "22/2/2000",
+            "To": "22/2/2000",
+            "WarrantDate": "22/2/2000",
+            "BranchCode":"123",
+            "Dividend": "60%",
+            "Bonus": "80%",
+            "MemberFrom": "4258",
+            "To2": 5739
+           
+        },
+        {
+            "SchemeCode": 3,
+            "DivDateFrom": "22/2/2000",
+            "To": "22/2/2000",
+            "WarrantDate": "22/2/2000",
+            "BranchCode":"123",
+            "Dividend": "85%",
+            "Bonus": "40%",
+            "MemberFrom": "2145",
+            "To2": 1247
+           
+        }
+        
+    ]
+}

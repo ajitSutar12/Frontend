@@ -6,6 +6,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import Swal from 'sweetalert2';
 import { DayBeginService } from './day-begin.service';
 import { AuthService } from '../../../theme/auth/auth.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-day-begin',
@@ -33,7 +34,7 @@ export class DayBeginComponent implements OnInit {
     private router: Router,
     private systemParameter: SystemMasterParametersService,
     private _service: DayBeginService,
-    private _authService: AuthService
+    private _authService: AuthService, private appComponent: AppComponent
 
   ) { }
 
@@ -79,33 +80,37 @@ export class DayBeginComponent implements OnInit {
           date: current_date
         }
         this.daybeginProcess = true;
+
         this._service.postData(obj).subscribe(data => {
           Swal.fire("Success!", current_date + " Day Begin Successfully", "success");
           this.daybeginProcess = false;
-          Swal.fire({
-            title: 'Need To Re-Login',
-            text: "Please re-login in Application",
-            icon: 'warning',
-            showCancelButton: false,
-            confirmButtonColor: '#229954',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Re-Login!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // let user = JSON.parse(localStorage.getItem('user'));
-              // localStorage.removeItem('token');
-              // localStorage.removeItem('user');
-              // this.router.navigate(['/auth/login/simple/'])
-              this.logout()
+          this.enableHotkeysAndReLogin(current_date);
+          // Swal.fire({
+          //   title: 'Need To Re-Login',
+          //   text: "Please re-login in Application",
+          //   icon: 'warning',
+          //   showCancelButton: false,
+          //   confirmButtonColor: '#229954',
+          //   cancelButtonColor: '#d33',
+          //   confirmButtonText: 'Yes, Re-Login!'
+          // }).then((result) => {
+          //   if (result.isConfirmed) {
+          //     this.appComponent.toggleHotkeys(true);
+          //     // let user = JSON.parse(localStorage.getItem('user'));
+          //     // localStorage.removeItem('token');
+          //     // localStorage.removeItem('user');
+          //     // this.router.navigate(['/auth/login/simple/'])
+          //     this.logout()
 
-            } else {
-              // let user = JSON.parse(localStorage.getItem('user'));
-              // localStorage.removeItem('token');
-              // localStorage.removeItem('user');
-              // this.router.navigate(['/auth/login/simple/'])
-              this.logout()
-            }
-          })
+          //   } else {
+          //     this.appComponent.toggleHotkeys(true);
+          //     // let user = JSON.parse(localStorage.getItem('user'));
+          //     // localStorage.removeItem('token');
+          //     // localStorage.removeItem('user');
+          //     // this.router.navigate(['/auth/login/simple/'])
+          //     this.logout()
+          //   }
+          // })
         }, err => {
           Swal.fire(
             "Error",
@@ -143,5 +148,31 @@ export class DayBeginComponent implements OnInit {
     localStorage.removeItem('user');
     this.router.navigate(['/auth/login/simple/'])
   }
-
+  enableHotkeysAndReLogin(current_date: string) {
+    Swal.fire({
+      title: 'Need To Re-Login',
+      text: "Please re-login in Application",
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonColor: '#229954',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Re-Login!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.appComponent.toggleHotkeys(true);
+        let user = JSON.parse(localStorage.getItem('user'));
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.router.navigate(['/auth/login/simple/'])
+        this.logout();
+      } else {
+        this.appComponent.toggleHotkeys(true);
+        let user = JSON.parse(localStorage.getItem('user'));
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.router.navigate(['/auth/login/simple/'])
+        this.logout();
+      }
+    });
+  }
 }

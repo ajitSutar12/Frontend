@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -14,28 +14,33 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { ModalBasicComponent } from 'src/app/shared/modal-basic/modal-basic.component';
 
 @NgModule({
   imports: [
     CommonModule,
     MemberDAPDTRoutingModule,
-    SharedModule,
-    NgbModule,
-    NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTablesModule,
+    NgbModule,
+    PerfectScrollbarModule,
+    NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
   ],
   declarations: [MemberDAPDTComponent],
-  providers:[{
-    provide: HTTP_INTERCEPTORS,
-    useClass: UserAuthInterceptor,
-    multi: true
-  },
-  SchemeAccountNoService
-]
+  providers: [
+    SystemMasterParametersService,
+    OwnbranchMasterService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAuthInterceptor,
+      multi: true
+    },
+  ], schemas: [NO_ERRORS_SCHEMA]
 })
 export class MemberDAPDTModule { }

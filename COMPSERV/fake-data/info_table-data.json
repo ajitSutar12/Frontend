@@ -1,0 +1,179 @@
+{
+    "data": [
+      {
+        
+        "srno": 1,
+        "master-name": "Narration"
+        
+      },
+      {
+        
+        "srno": 2,
+        "master-name": "Bank"
+      },
+      {
+       
+        "srno": 3,
+        "master-name": "Clearing Branch"
+      },
+      {
+      
+        "srno": 4,
+        "master-name": "Own Branch"
+      },
+      {
+        
+        "srno": 5,
+        "master-name": "Category"
+      },
+      {
+        
+        "srno": 6,
+        "master-name": "City"
+      },
+      {
+       
+        "srno": 7,
+        "master-name": "Cast"
+      },
+      {
+        
+        "srno": 8,
+        "master-name": "Occupation"
+      },
+      {
+        
+        "srno": 9,
+        "master-name": "Director"
+      },
+      {
+        
+        "srno": 10,
+        "master-name": "Authority"
+      },
+      {
+        
+        "srno": 11,
+        "master-name": "Recovery Clerk "
+      },
+      {
+        
+        "srno": 12,
+        "master-name": "Insurance"
+      },
+      {
+        
+        "srno": 13,
+        "master-name": "Operation"
+      },
+      {
+        
+        "srno": 14,
+        "master-name": "Purpose"
+      },
+      {
+       
+        "srno": 15,
+        "master-name": "Priority Sector"
+      },
+      {
+        
+        "srno": 16,
+        "master-name": "Court"
+      },
+      {
+       
+        "srno": 17,
+        "master-name": "Advocate"
+      },
+      {
+       
+        "srno": 18,
+        "master-name": "Industry"
+      },
+      {
+       
+        "srno": 19,
+        "master-name": "Weaker"
+      },
+      {
+        "srno": 20,
+        "master-name": "Loan Stage"
+      },
+      {
+       
+        "srno":21,
+        "master-name": "Interest Category"
+      },
+      {
+        "srno": 22,
+        "master-name": "Health"
+      },
+      {
+      
+        "srno": 22,
+        "master-name": "Prefix"
+      },
+      {
+       
+        "srno": 23,
+        "master-name": "Minimum Balance Category"
+      },
+      {
+      
+        "srno": 24,
+        "master-name": "Documents"
+      },
+      {
+      
+        "srno": 25,
+        "master-name": "Locker Rack Master"
+      },
+      {
+      
+        "srno": 26,
+        "master-name": "Locker Master"
+      },
+      {
+       
+        "srno": 27,
+        "master-name": "Locker Size Master"
+      },
+      {
+       
+        "srno": 28,
+        "master-name": "Company Group"
+      },
+      {
+      
+        "srno":29,
+        "master-name": "Company Group Link"
+      },
+      {
+       
+        "srno": 30,
+        "master-name": "Report type"
+      },
+      {
+      
+        "srno":31,
+        "master-name": "Item Category"
+      },
+      {
+      
+        "srno": 32,
+        "master-name": "Depreciation Category"
+      },
+      {
+       
+        "srno": 33,
+        "master-name": "Salary Division Codet"
+      },
+      {
+        
+        "srno":34,
+        "master-name": "Sub Salary Division"
+      }
+    
+    ]
+  }

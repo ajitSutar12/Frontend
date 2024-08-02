@@ -74,6 +74,14 @@ const routes: Routes = [
         path: 'SubsidiarySummery',
         loadChildren: () => import('./sbsidiary-summery/sbsidiary-summery.module').then(m => m.SbsidiarySummeryModule)
       },
+      {
+        path: 'headOfficeSubsidary',
+        loadChildren: () => import('./head-office-subsidary/head-office-subsidary.module').then(m => m.HeadOfficeSubsidaryModule)
+      },
+      {
+        path: 'covering-voucher',
+        loadChildren: () => import('./covering-voucher/covering-voucher.module').then(m => m.CoveringVoucherModule)
+      },
     ]
   }
 ];

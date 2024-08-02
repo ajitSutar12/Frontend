@@ -371,7 +371,10 @@
                         target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle>
                         <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label
                             }}</b></span>
-                        <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                        <!-- <span class="pcoded-mtext">{{ asideItem.name }}</span> -->
+                        <span class="pcoded-mtext">{{ asideItem.name }}
+                          <span class="tooltiptext">{{ asideItem.tooltip }}</span>
+                        </span>
                         <span *ngFor="let asideBadge of asideItem.badge"
                           class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                         <span class="pcoded-mcaret"></span>
@@ -386,7 +389,10 @@
                         *ngIf="asideItem.main_state; else mainContent">
                         <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label
                             }}</b></span>
-                        <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                        <!-- <span class="pcoded-mtext">{{ asideItem.name }}</span> -->
+                        <span class="pcoded-mtext">{{ asideItem.name }}
+                          <span class="tooltiptext">{{ asideItem.tooltip }}</span>
+                        </span>
                         <span *ngFor="let asideBadge of asideItem.badge"
                           class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                         <span class="pcoded-mcaret"></span>
@@ -396,7 +402,10 @@
                           target="{{asideItem.target ? '_blank' : '_self'}}" appAccordionToggle>
                           <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label
                               }}</b></span>
-                          <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                          <!-- <span class="pcoded-mtext">{{ asideItem.name }}</span> -->
+                          <span class="pcoded-mtext">{{ asideItem.name }}
+                            <span class="tooltiptext">{{ asideItem.tooltip }}</span>
+                          </span>
                           <span *ngFor="let asideBadge of asideItem.badge"
                             class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                           <span class="pcoded-mcaret"></span>
@@ -411,7 +420,10 @@
                         <div class="ripple menu-ripple"></div>
                         <span class="pcoded-micon"><i class="{{ asideItem.icon }}"></i><b>{{ asideItem.short_label
                             }}</b></span>
-                        <span class="pcoded-mtext">{{ asideItem.name }}</span>
+                        <!-- <span class="pcoded-mtext">{{ asideItem.name }}</span> -->
+                        <span class="pcoded-mtext">{{ asideItem.name }}
+                          <span class="tooltiptext">{{ asideItem.tooltip }}</span>
+                        </span>
                         <span *ngFor="let asideBadge of asideItem.badge"
                           class="pcoded-badge label label-{{ asideBadge.type }}">{{asideBadge.value}}</span>
                         <span class="pcoded-mcaret"></span>
@@ -426,7 +438,10 @@
                                 <div class="ripple menu-ripple"></div>
                                 <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
                                 <i class="fa fa-square" style="font-size:10px"></i>&nbsp;
-                                <span class="pcoded-mtext">{{ asideChildren.name }} </span>
+                                <!-- <span class="pcoded-mtext">{{ asideChildren.name }} </span> -->
+                                <span class="pcoded-mtext">{{ asideChildren.name }} 
+                                  <span class="tooltiptext1">{{ asideChildren.tooltip }}</span>
+                                </span>
                                 <span *ngFor="let asideChildrenBadge of asideChildren.badge"
                                   class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
                                 <span class="pcoded-mcaret"></span>
@@ -442,7 +457,10 @@
                                 <div class="ripple menu-ripple"></div>
                                 <span class="pcoded-micon"><i class="icon-direction-alt"></i></span>
                                 <i class="fa fa-square" style="font-size:10px;"></i>&nbsp;
-                                <span class="pcoded-mtext">{{ asideChildren.name }}</span>
+                                <!-- <span class="pcoded-mtext">{{ asideChildren.name }}</span> -->
+                                <span class="pcoded-mtext">{{ asideChildren.name }} 
+                                  <span class="tooltiptext1">{{ asideChildren.tooltip }}</span>
+                                </span>
                                 <span *ngFor="let asideChildrenBadge of asideChildren.badge"
                                   class="pcoded-badge label label-{{ asideChildrenBadge.type }}">{{asideChildrenBadge.value}}</span>
                                 <span class="pcoded-mcaret"></span>
@@ -458,7 +476,10 @@
                                         <div class="ripple menu-ripple"></div>
                                         <span class="pcoded-micon"><i class="icon-angle-right"></i></span>
                                         <i class="fa fa-circle" style="font-size:10px"></i>&nbsp;
-                                        <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span>
+                                        <!-- <span class="pcoded-mtext">{{ asideChildrenSub.name }}</span> -->
+                                        <span class="pcoded-mtext" >{{ asideChildrenSub.name }}
+                                          <span class="tooltiptext2">{{ asideChildrenSub.tooltip }}</span>
+                                        </span>
                                         <span *ngFor="let asideChildrenSubBadge of asideChildrenSub.badge"
                                           class="pcoded-badge label label-{{ asideChildrenSubBadge.type }}">{{asideChildrenSubBadge.value}}</span>
                                         <span class="pcoded-mcaret"></span>

@@ -1,0 +1,61 @@
+{
+    "data": [
+        {
+            "DivisionCode":1456,
+            "SubCode":"123",
+            "Name":"XYZ",
+            "AtPost":"Kolhapur",
+            "TalukaName":"Karvir",
+            "DistrictName":"Kolhapur",
+            "EmailID":"abc@gmail.com",
+            "TelephoneR":"5588996375",
+            "TelephoneMob":"9988554476"
+
+        },
+        {
+            "DivisionCode":1456,
+            "SubCode":"213",
+            "Name":"ABC",
+            "AtPost":"Kolhapur",
+            "TalukaName":"Karvir",
+            "DistrictName":"Kolhapur",
+            "EmailID":"abc@gmail.com",
+            "TelephoneR":"5588996375",
+            "TelephoneMob":"9988554476"
+        },
+        {
+            "DivisionCode":1456,
+            "SubCode":"456",
+            "Name":"PQR",
+            "AtPost":"Kolhapur",
+            "TalukaName":"Karvir",
+            "DistrictName":"Kolhapur",
+            "EmailID":"abc@gmail.com",
+            "TelephoneR":"5588996375",
+            "TelephoneMob":"9988554476"
+        },
+        { 
+            "DivisionCode":1456,
+            "SubCode":"123",
+            "Name":"MNO",
+            "AtPost":"Kolhapur",
+            "TalukaName":"Karvir",
+            "DistrictName":"Kolhapur",
+            "EmailID":"abc@gmail.com",
+            "TelephoneR":"5588996375",
+            "TelephoneMob":"9988554476"
+        },
+        {
+            "DivisionCode":1456,
+            "SubCode":"789",
+            "Name":"RST",
+            "AtPost":"Kolhapur",
+            "TalukaName":"Karvir",
+            "DistrictName":"Kolhapur",
+            "EmailID":"abc@gmail.com",
+            "TelephoneR":"5588996375",
+            "TelephoneMob":"9988554476"
+        }
+
+    ]
+}

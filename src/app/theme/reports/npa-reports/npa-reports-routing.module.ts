@@ -56,6 +56,10 @@ const routes: Routes = [
         path:'loanoverduelist',
         loadChildren: () => import('./loan-overdue-list/loan-overdue-list.module').then(m =>m.LoanOverdueListModule)
       },
+      {
+        path:'coparativeDeSummary',
+        loadChildren: () => import('./coparative-detail-summary/coparative-detail-summary.module').then(m =>m.CoparativeDetailSummaryModule)
+      },
 
     ]
   }

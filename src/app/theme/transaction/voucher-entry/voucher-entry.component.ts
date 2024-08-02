@@ -26,6 +26,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./voucher-entry.component.scss']
 })
 export class VoucherEntryComponent implements OnInit {
+    @Input() isRadioVisible: boolean = true;
   @Output() reloadTablePassing = new EventEmitter<string>();
   @Input() childMessage: string;
   @ViewChild('triggerhide') triggerhide: ElementRef<HTMLElement>;
@@ -2314,6 +2315,14 @@ export class VoucherEntryComponent implements OnInit {
       }
     })
   }
+
+  btnshw:boolean=true
+  btnShow(id){
+    this.btnshw=false
+    this.editClickHandler(id)
+  }
+
+
   headFlag: boolean = false;
   editClickHandler(id) {
 

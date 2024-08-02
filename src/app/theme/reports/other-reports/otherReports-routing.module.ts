@@ -73,7 +73,14 @@ const routes: Routes = [
         path: 'dormantAccountList',
         loadChildren: () => import('./dormant-account/dormant-account.module').then(m => m.DormantAccountModule)
       },
-      
+      {
+        path: 'forzenaccount',
+        loadChildren: () => import('./forzenaccount/forzenaccount.module').then(m => m.ForzenaccountModule)
+      },
+      {
+        path: 'nonmemberlist',
+        loadChildren: () => import('./non-member-list/non-member-list.module').then(m => m.NonMemberListModule)
+      },
     ]
   }
 ];

@@ -1,0 +1,23 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "SerialNo": 1,
+            "NPAClass": "Standard",
+            "SubClassNo": 2,
+            "NPAClassDescription": "STANDARD",
+            "FromDays": 4,
+            "FromMonths": 3,
+            "ToDays": 2,
+            "ToMonths": 1,
+            "SecuredPercent": 0.0000,
+            "UnSecuredPercent":0.000
+           
+           
+        }
+       
+        
+        
+       
+    ]
+}

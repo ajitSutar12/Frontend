@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "Companycode":1456,
+            "Schemecode":"357241",
+            "FromAC":5000,
+            "ToAC":5000
+        },
+        {
+            "Companycode":3456,
+            "Schemecode":"753869",
+            "FromAC":5000,
+            "ToAC":5000
+        },
+        {
+            "Companycode":5456,
+            "Schemecode":"74632189",
+            "FromAC":5000,
+            "ToAC":5000
+        },
+        {
+            "Companycode":7456,
+            "Schemecode":"8754465514",
+            "FromAC":5000,
+            "ToAC":5000
+
+        },
+        {
+            "Companycode":9456,
+            "Schemecode":"85654",
+            "FromAC":5000,
+            "ToAC":5000
+
+        }
+
+    ]
+}

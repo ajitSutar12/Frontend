@@ -99,7 +99,7 @@
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
                     <input type="text" name="F_NAME" class="form-control" placeholder=" " id="F_NAME" required
-                      pattern="^[A-Za-z]+$" maxlength="15" title="Input allowed only A-Z" formControlName="firstName" disabled>
+                      pattern="^[A-Za-z]+$" maxlength="15" title="Input allowed only A-Z" formControlName="firstName">
                   </span>
                 </div>
 
@@ -113,7 +113,7 @@
                   <span class="border-lable-flt">
                     <input type="text" name="L_NAME" class="form-control" placeholder=" " id="L_NAME" required
                       pattern="^[A-Za-z]+$" maxlength="15" #lastname title="Input allowed only A-Z"
-                      formControlName="LastName" disabled>
+                      formControlName="LastName">
                   </span>
                 </div>
 
@@ -299,9 +299,15 @@
                       formControlName="currentPassword">
                   </span>
                 </div>
+                <div class="form-group form-primary form-static-label"
+                  *ngIf="update || angEditForm.controls['currentPassword'].invalid && angEditForm.controls['currentPassword'].touched">
+                  <div
+                    *ngIf="angEditForm.controls['currentPassword'].errors?.pattern || angEditForm.controls['currentPassword'].touched">please Enter Your Current Password</div>
+                    <!-- <div *ngIf="angEditForm.controls['currentPassword'].touched">please Enter Your Current Password</div> -->
+                </div>
               </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-sm-3">
                 <label for="Create_Password"> New Password<sub class="required">* </sub></label>
               </div>
@@ -341,6 +347,82 @@
                     </a>
                     <button type="button" id="submit" (click)="updateProfile()" name="submit"
                       class="btn btn-outline-primary btn-sm">Update</button>
+                  </span>
+
+                </div>
+              </div>
+            </div> -->
+            <div class="row">
+              <div class="col-sm-3">
+                <label for="Create_Password"> New Password<sub class="required">* </sub></label>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="password" name="Create_Password"
+                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$" minlength="4"
+                      class="form-control" [NgPasswordValidator]="options" (valid)="isValid($event)"
+                      (keyup)="onInput($event)" placeholder=" " id="Create_Password" formControlName="newPassword"
+                      required  >
+
+                  </span>
+                </div>
+                <div class="form-group form-primary form-static-label"
+                  *ngIf="update || angEditForm.controls['newPassword'].invalid && angEditForm.controls['newPassword'].touched">
+                  <div
+                    *ngIf="angEditForm.controls['newPassword'].errors?.pattern">Password policy Condition must be fullfill</div>
+                  <!-- <div
+                    *ngIf="angEditForm.controls['newPassword'].errors?.pattern && angEditForm.controls['newPassword'].errors?.minlength">
+                    minlength
+                  </div>
+                  <div *ngIf="angEditForm.controls['newPassword'].errors?.pattern && angEditForm.controls['newPassword'].errors?.maxlength">maxlength
+                  </div> -->
+                </div>
+
+              </div>
+              <div class="col-sm-3">
+                <label for="confirmPassword">Confirm Password</label>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group input-group">
+                  <span class="border-lable-flt">
+                    <input type="password" name="confirmPassword" class="form-control" placeholder=" "
+                      id="confirmPassword" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+                      [NgPasswordValidator]="options" (valid)="isValid($event)" (keyup)="onInput($event)"
+                      formControlName="confirmPassword">
+                  </span>
+                </div>
+                <div class="form-group form-primary form-static-label"
+                  *ngIf="update || angEditForm.controls['confirmPassword'].invalid && angEditForm.controls['newPassword'].touched">
+                  <div
+                    *ngIf="angEditForm.controls['confirmPassword'].errors?.pattern"> invalid</div>
+                  <!-- <div
+                    *ngIf="angEditForm.controls['confirmPassword'].errors?.pattern && angEditForm.controls['confirmPassword'].errors?.minlength">
+                    minlength
+                  </div>
+                  <div *ngIf="angEditForm.controls['confirmPassword'].errors?.pattern && angEditForm.controls['confirmPassword'].errors?.maxlength">maxlength
+                  </div> -->
+                </div>
+
+
+              </div>
+              <div class="col-sm">
+                <div class="text-right">
+                  <span style="margin-right: 5px;">
+                    <a [routerLink]="['/dashboard']" class="btn btn-outline-primary btn-sm">
+                      Cancel
+                    </a>
+                    <!-- <button type="button" id="submit" (click)="updateProfile()" name="submit"
+                      class="btn btn-outline-primary btn-sm"
+                       [disabled]="angEditForm.controls['currentPassword'].invalid && angEditForm.controls['currentPassword'].touched || angEditForm.controls['newPassword'].invalid && angEditForm.controls['newPassword'].touched">Update</button> -->
+                       <button type="button" id="submit" (click)="updateProfile()" name="submit"
+                      class="btn btn-outline-primary btn-sm"
+                       [disabled]="angEditForm.controls['currentPassword'].invalid && angEditForm.controls['currentPassword'].touched || angEditForm.controls['newPassword'].invalid && angEditForm.controls['newPassword'].touched">Update</button>
+                       <!-- <button type="button" id="submit" (click)="updateProfile()" name="submit"
+                       class="btn btn-outline-primary btn-sm"
+                       [disabled]="angEditForm.controls['currentPassword'].invalid && (angEditForm.controls['currentPassword'].value || angEditForm.controls['newPassword'].value)"> -->
+                       <!-- Update
+                     </button> -->
                   </span>
 
                 </div>

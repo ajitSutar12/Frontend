@@ -1,0 +1,37 @@
+{
+    "data": [{
+            "id": 1,
+            "Scheme": 31,
+            "AccountNo": 41414141,
+            "SecurityCode": 561541154,
+            "LedgerBalance": 445222,
+            "DepositAmount": 0,
+            "TDReceiptNo": 55999,
+            "IsLienMarkClear": "Yes",
+            "LoanAcNo": 25754252,
+            "LoanOsBalance": 422,
+            "LoanExpiryDate":"12/11/2019"
+           
+           
+        },
+        {
+            "id": 2,
+            "Scheme": 40,
+            "AccountNo": 40000,
+            "SecurityCode": 500000,
+            "LedgerBalance": 6000000,
+            "DepositAmount": 1,
+            "TDReceiptNo": 800,
+            "IsLienMarkClear": "No",
+            "LoanAcNo": 25754,
+            "LoanOsBalance": 5484,
+            "LoanExpiryDate":"19/11/2019"
+           
+           
+        }
+       
+        
+        
+       
+    ]
+}

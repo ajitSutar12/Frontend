@@ -75,8 +75,8 @@ export class BnkAcStatementComponent implements OnInit {
 
   fileUrl = this.url + 'examples/AccountStatement1.php'
   name: any;
-  isOpen: boolean = false
-  acCloseDate: any;
+  // isOpen: boolean = false
+  // acCloseDate: any;
 
 
   constructor(

@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "schemecode":1,
+            "fromacc":12,
+            "toacc":234,
+            "notingdate":"2/2/1977",
+            "chargestype":"yes",
+            "chargesamount":23,
+            "transeferglaccno":"no",
+            "addinprinciple":"Yes",
+            "createglentry":"No",
+            "debit":"Yes",
+            "credit":"No"
+    
+            
+        },
+        {
+            "schemecode":2,
+            "fromacc":2,
+            "toacc":234,
+            "notingdate":"2/3/1977",
+            "chargestype":"yes",
+            "chargesamount":23,
+            "transeferglaccno":"no",
+            "addinprinciple":"No",
+            "createglentry":"Yes",
+            "debit":"Yes",
+            "credit":"No"
+            
+            
+        },
+        {
+            "schemecode":3,
+            "fromacc":121,
+            "toacc":234,
+            "notingdate":"2/4/1977",
+            "chargestype":"yes",
+            "chargesamount":23,
+            "transeferglaccno":"no",
+            "addinprinciple":"No",
+            "createglentry":"No",
+            "debit":"No",
+            "credit":"Yes"
+            
+        
+            
+        }
+        
+        
+    ]
+}

@@ -1,0 +1,160 @@
+<!-- <p>reconcialation-statement works!</p> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Reconcialation Statement</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="angForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="Branch">Branch
+                            <sub class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" formControlName="BRANCH_CODE" placeholder="branch" [(ngModel)]="ngbranch">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values.value">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+    
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-1"> <label for="Scheme">Scheme
+                                <sub class="required">*</sub></label></div>
+                                <div class="col-sm-12 col-md-3">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="Scheme" formControlName="Scheme" placeholder="branch"  (change)="getIntTrans($event)" [(ngModel)]="ngscheme">
+                                                <ng-option *ngFor="let values of scheme" [value]="values">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+        
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['Scheme'].invalid && (angForm.controls['Scheme'].dirty || angForm.controls['Scheme'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['Scheme'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="col-sm-12 col-md-2"> <label for="AcNo">Account No.
+                                    <sub class="required">*</sub></label></div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="AcNo" formControlName="AcNo" placeholder=" " (change)="getacno($event)">
+                                            <ng-option *ngFor="let values of introducerACNo" [value]="values">
+                                        {{values.label}} {{values.name}} </ng-option>
+                                        </ng-select>
+    
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['AcNo'].invalid && (angForm.controls['AcNo'].dirty || angForm.controls['AcNo'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['AcNo'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"> <label for="Date"> Start Date
+                            <sub class="required">*</sub></label></div>
+                    <div class="col-sm-12 col-md-2">
+                        <div class="form-group input-group">
+                            <span class="border-lable-flt">
+                                <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                    class="form-control" appDateValidation [bsValue]="bsValue"
+                                    formControlName="S_Date" appButton minlength="10" maxlength="10"
+                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                    bsDatepicker>
+                            </span>
+                        </div>
+                        <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['S_Date'].invalid &&
+(angForm.controls['S_Date'].dirty ||angForm.controls['S_Date'].touched) " class="alert alert-danger">
+                            <div *ngIf="angForm.controls['S_Date'].errors?.required">
+                                This field is required
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                        <div class="col-sm-12 col-md-2"> <label for="Date"> End Date
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                        class="form-control" appDateValidation [bsValue]="bsValue"
+                                        formControlName="E_Date" appButton minlength="10" maxlength="10"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['E_Date'].invalid &&
+(angForm.controls['E_Date'].dirty ||angForm.controls['E_Date'].touched) " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['E_Date'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm">
+                            <div class="checkbox checkbox-primary">
+                                <div class="border-checkbox-group border-checkbox-group-primary">
+                                    <input class="border-checkbox" type="checkbox" id="checkbox1"
+                                        [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive">
+                                    <label class="border-checkbox-label" for="checkbox1">Print Starting Balance</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                            (click)="view($event); clicked = true ">View</button>                        </div>
+                        <div class="col-md-1">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" (click)="close()">Close</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Report Frame</h5>
+                                </div>
+                                <div *ngIf="showRepo">
+                                <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

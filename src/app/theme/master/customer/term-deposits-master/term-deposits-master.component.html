@@ -2502,38 +2502,24 @@
                                                                             </td>
                                                                         </thead>
                                                                         <tbody
-                                                                            *ngIf="updatecheckdata?.intinstruction?.length != 0">
-                                                                            <tr
-                                                                                *ngFor="let data of intinstruction;let indexOfelement=index;">
-                                                                                <td>
-                                                                                    <span class="fa fa-fw fa-edit field-icon" id="editbutton" [(ngmodel)]="intdata"
-                                                                                    (click)="modalLarge.show();getInstructionData(data.id);gotoTop()" placement="bottom"
-                                                                                    ngbTooltip="Edit"></span>
-                                                                                    <!-- <span
-                                                                                            class="fa fa-fw fa-edit field-icon"
-                                                                                            style="align-items: right;"
-                                                                                            id="editbutton"
+                                                                        *ngIf="updatecheckdata?.intinstruction?.length != 0">
+                                                                        <tr
+                                                                            *ngFor="let data of intinstruction;let indexOfelement=index;">
+                                                                            <td>
+                                                                                <!-- <span class="fa fa-fw fa-edit field-icon" id="editbutton" [(ngmodel)]="intdata"
+                                                                                (click)="modalLarge.show();getInstructionData(data.id);gotoTop()" placement="bottom"
+                                                                                ngbTooltip="Edit"></span> -->
+                                                                                <span
+                                                                                        style="font-size: 12px; cursor: pointer;"
+                                                                                        (click)="modalLarge.show();getInstructionData(data.id);gotoTop()"
+                                                                                        placement="right"
+                                                                                        ngbTooltip="Show Image"
+                                                                                        class="fa fa-fw fa-eye  field-icon"></span>
 
-                                                                                            (click)="editClickHandler(data.id,0);gotoTop()"
-                                                                                            placement="bottom"
-                                                                                            ngbTooltip="Edit"></span> -->
+                                                                            </td>
+                                                                                
+                                                                               
 
-                                                                                    <!-- <span
-                                                                                        class="fa fa-fw fa-eye field-icon"
-                                                                                        id="viewbutton"
-                                                                                        style="align-items: right;"
-                                                                                        *ngIf="data.SYSCHNG_LOGIN"
-                                                                                        (click)="disableForm(data.id);gotoTop()"
-                                                                                        placement="bottom"
-                                                                                        ngbTooltip="View"></span> -->
-                                                                                    <!-- <span
-                                                                                            style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
-                                                                                            placement="right"
-                                                                                            ngbTooltip="Show Image"
-                                                                                            class="fa fa-fw fa-eye field-icon"></span> -->
-
-                                                                                </td>
                                                                                 <td class="td_right">
                                                                                     {{data.INSTRUCTION_NO}}</td>
                                                                                 <td class="td_center">
@@ -2601,11 +2587,15 @@
 
                                                         </div>
                                                         <div class="app-modal-body">
-                                                            <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
-                                                                <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
-                                                                (newTDCustomerEvent)="addNewInstruction($event)">
+                                                            <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> 
+                                                            <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
+                                                                (newTDCustomerEvent)="addNewInstruction($event)" (formSubmitted)="updateTableData($event)" [showUpdateButton]="showUpdateButton" >
                                                             </app-interest-instruction>
-                                                            <!-- </perfect-scrollbar> -->
+                                                           </perfect-scrollbar> -->
+                                                           <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
+                                                                (newTDCustomerEvent)="addNewInstruction($event)" [showUpdateButton]="showUpdateButton" >
+
+                                                            </app-interest-instruction>
                                                         </div>
                                                         <div class="app-modal-footer">
                                                             <button type="button" class="btn btn-outline-primary btn-sm"

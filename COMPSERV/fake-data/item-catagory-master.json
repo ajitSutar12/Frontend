@@ -1,0 +1,19 @@
+{
+    "data":[
+        {
+            "ItemCategoryCode":1234,
+            "Description":" description A"
+
+        },
+        {
+            "ItemCategoryCode":5678,
+            "Description":" description b"
+
+        },
+        {
+            "ItemCategoryCode":9876,
+            "Description":" description c"
+
+        }
+    ]
+}

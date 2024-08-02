@@ -1,0 +1,21 @@
+{
+    "data":[
+
+        {
+            "ReceiptType":"A",
+            "LastReceiptNo":569
+        },
+        {
+            "ReceiptType":"B",
+            "LastReceiptNo":469
+        },
+        {
+            "ReceiptType":"C",
+            "LastReceiptNo":669
+        },
+        {
+            "ReceiptType":"D",
+            "LastReceiptNo":769
+        }
+    ]
+}

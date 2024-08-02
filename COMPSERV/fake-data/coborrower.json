@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "CustomerID": 378,
+            "Name": "KLM",
+            "AddressLine1": "KYC LMN",
+            "AddressLine2": "PQR UVW",
+            "AddressLine3": "XYZ",
+            "CityCode": 7879
+        },
+        {
+            "CustomerID": 353,
+            "Name": "KLM",
+            "AddressLine1": "KYC LMN",
+            "AddressLine2": "PQR UVW",
+            "AddressLine3": "XYZ",
+            "CityCode": 7879
+        }
+    ]
+}

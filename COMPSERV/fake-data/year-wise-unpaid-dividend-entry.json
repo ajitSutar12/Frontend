@@ -1,0 +1,32 @@
+{
+    "data": [
+        {
+            "Scheme":1,
+            "SalaryDivision": "189009777431",
+            "WarrantDate": "10/2/2021",
+            "DividendYearFrom": "2020",
+            "To": "2021",
+            "MemberFrom": "189009",
+            "MemberTo": "124578",
+            "TotalAmount": "55000",
+            "MemberNo": "98765123451",
+            "MemberName": "xyz",
+            "DividendAmount": "20000",
+            "CloseDate": "12/10/2021"
+        },
+        {
+            "Scheme":1,
+            "SalaryDivision": "189009777568",
+            "WarrantDate": "15/3/2021",
+            "DividendYearFrom": "2020",
+            "To": "2021",
+            "MemberFrom": "189369",
+            "MemberTo": "124235",
+            "TotalAmount": "55000",
+            "MemberNo": "98765123451",
+            "MemberName": "abc",
+            "DividendAmount": "30000",
+            "CloseDate": "23/08/2021"
+        }
+    ]
+}

@@ -75,12 +75,12 @@
           </div>
     </div>
 </div>
-<div class="row" *ngIf="tableData?.length != 0">
+<div class="row" *ngIf="tableData?.length > 0">
     <div class="col-12">
         <div class="table-responsive fixTableHead">
-            <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
+            <table class="table table-striped table-bordered table-hover compact" >
                 <thead>
-                    <!-- <td>Action</td> -->
+                    <td>Action</td>
                     <td>Record Number</td>
                     <td class="td_center">Time</td>
                     <td>Scheme</td>
@@ -100,14 +100,14 @@
                     <td>Dividend Amount</td>
                     <td>User</td>
                 </thead>
-                <tbody *ngIf="tableData?.length != 0">
+                <tbody >
                     <tr *ngFor="let data of tableData;
                 let indexOfelement = index">
-                        <!-- <td>
-                            <span class="fa fa-fw fa-eye field-icon" id="viewbutton" style="align-items: right;"
+                        <td>
+                            <span class="fa fa-fw fa-eye field-icon" id="viewbutton1" style="align-items: right;"
                                 (click)="modalLarge.show();getVoucherData(data)" placement="bottom"
                                 ngbTooltip="View"></span>
-                        </td> -->
+                        </td>
                         <td>{{data.TRAN_NO}}</td>
                         <td>{{data?.TRAN_TIME}}</td>
                         <td>{{data.S_APPL}}</td>
@@ -158,7 +158,7 @@
     <div class="app-modal-body">
         <perfect-scrollbar style="overflow-y: auto;">
             <ng-container *ngIf="voucherMenu == 'voucher'">
-                <app-voucher-entry [childMessage]="voucherData"></app-voucher-entry>
+                <app-voucher-entry [childMessage]="voucherData"  [isRadioVisible]="isRadioVisible"></app-voucher-entry>
             </ng-container>
             <ng-container *ngIf="voucherMenu == 'multi'">
                 <app-multi-voucher [childMessage]="multiVoucherData">
