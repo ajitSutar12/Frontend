@@ -16,7 +16,7 @@ import * as moment from 'moment';
 import { event } from 'jquery';
 @Component({
   selector: 'app-membership-cancellation',
-  templateUrl: './membership-cancellation.component.html',
+  templateUrl: './membership-cancellation.component.html', 
   styleUrls: ['./membership-cancellation.component.scss']
 })
 export class MembershipCancellationComponent implements OnInit {
@@ -466,48 +466,48 @@ export class MembershipCancellationComponent implements OnInit {
       RESULATION_NO: formVal.RESOLUTIONNO,
       MembershipData: this.multigrid
     }
-    if (formVal.branchOption == "" || formVal.branchOption == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
-    }
-    else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Select Account!",
-        "info"
-      );
-    }
-    else if (formVal.MEMBER_CODE1 == "" || formVal.MEMBER_CODE1 == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
-        "info"
-      );
-    }
-    else if (formVal.MCDATE == "" || formVal.MCDATE == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Select Account!",
-        "info"
-      );
-    }
-    else if (formVal.RDATE == "" || formVal.RDATE == null) {
-      Swal.fire(
-        "Warning!",
-        "Please Insert Resolution Date!",
-        "info"
-      );
-    }
-    else if (formVal.RESOLUTIONNO == "" || formVal.RESOLUTIONNO == null) {
-      Swal.fire(
-        "Warning!", "Please enter resolution number!", "error"
-      );
-    }
-    else if (this.transferTotalAmount != this.shareBal && formVal.type == 'transfer') {
-      Swal.fire(
-        "Warning!", "Please check transfer amount!", "error"
-      );
-    }
-    else {
+    // if (formVal.branchOption == "" || formVal.branchOption == null) {
+    //   Swal.fire("Warning!", "Please Select Scheme!", "error");
+    // }
+    // else if (formVal.AC_TYPE == "" || formVal.AC_TYPE == null) {
+    //   Swal.fire(
+    //     "Warning!",
+    //     "Please Select Account!",
+    //     "info"
+    //   );
+    // }
+    // else if (formVal.MEMBER_CODE1 == "" || formVal.MEMBER_CODE1 == null) {
+    //   Swal.fire(
+    //     "Warning!",
+    //     "Please Insert Amount!",
+    //     "info"
+    //   );
+    // }
+    // else if (formVal.MCDATE == "" || formVal.MCDATE == null) {
+    //   Swal.fire(
+    //     "Warning!",
+    //     "Please Select Account!",
+    //     "info"
+    //   );
+    // }
+    // else if (formVal.RDATE == "" || formVal.RDATE == null) {
+    //   Swal.fire(
+    //     "Warning!",
+    //     "Please Insert Resolution Date!",
+    //     "info"
+    //   );
+    // }
+    // else if (formVal.RESOLUTIONNO == "" || formVal.RESOLUTIONNO == null) {
+    //   Swal.fire(
+    //     "Warning!", "Please enter resolution number!", "error"
+    //   );
+    // }
+    // else if (this.transferTotalAmount != this.shareBal && formVal.type == 'transfer') {
+    //   Swal.fire(
+    //     "Warning!", "Please check transfer amount!", "error"
+    //   );
+    // }
+    // else {
       this.http.post(this.url + '/dailyshrtran/insert', obj).subscribe(data => {
         Swal.fire(
           'success', "Data Submitted Successfully!!", 'success'
@@ -516,7 +516,7 @@ export class MembershipCancellationComponent implements OnInit {
         this.transferTotalAmount = 0
         this.ngOnInit()
       })
-    }
+    // }
   }
 
   // function for edit button clicked

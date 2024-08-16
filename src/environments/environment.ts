@@ -14,14 +14,15 @@ export const environment = {
   
   // Localhost
 
+  // base_url: 'http://192.168.1.119:7281', 
+  base_url: 'http://192.168.1.153:7275',
 
-
-  base_url: 'http://localhost:7276',
+  // base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
-  sitename: 'http://localhost/SIDHANERLI/CBS'  
+  sitename: 'http://localhost/SIDHANERLI/CBS'   
 
   // //SIDHANERLI 
-  // base_url: 'https://patsevacompservtech.com:4713',
+  // base_url: 'https://patsevacompservtech.com:4713', 
   // report_url: 'https://patsevacompservtech.com/SIDHANERLI/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/SIDHANERLI/CBS'  
 
@@ -64,7 +65,7 @@ export const environment = {
 
    // //DEMO COMPSERV 
   // base_url: 'https://patsevacompservtech.com:7278',  
-  // report_url: 'https://patsevacompservtech.com/COMPSERV/REPORTS/', 
+  // report_url: 'https://patsevacompservtech.com/COMPSERV/R EPORTS/', 
   // sitename: 'https://patsevacompservtech.com/COMPSERV/CBS'
 
      // //DONGAON Trimurti 
@@ -78,9 +79,9 @@ export const environment = {
   // sitename: 'https://patsevacompservtech.com/DATTAPARGAON/CBS'
 
   //   // SANJAYSINH_KOTOLI
-  // base_url: 'https://patseva.compservtech.com:7281',  
-  // report_url: 'https://patseva.compservtech.com/SANJAYSINH_KOTOLI/REPORTS/', 
-  // sitename: 'https://patseva.compservtech.com/SANJAYSINH_KOTOLI/CBS'
+  // base_url: 'https://patsevacompservtech.com:7281',  
+  // report_url: 'https://patsevacompservtech.com/SANJAYSINH_KOTOLI/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/SANJAYSINH_KOTOLI/CBS'
 
 
       // PANHALA_URBAN
@@ -93,10 +94,10 @@ export const environment = {
   // report_url: 'https://patsevacompservtech.com/SACHINSOCITY/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/SACHINSOCITY/CBS'
 
-  // TEST
+  // SAISAMRAT
   // base_url: 'https://patsevacompservtech.com:7286',  
-  // report_url: 'https://patsevacompservtech.com/TEST/REPORTS/', 
-  // sitename: 'https://patsevacompservtech.com/TEST/CBS'
+  // report_url: 'https://patsevacompservtech.com/SAISAMRAT/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/SAISAMRAT/CBS'
 // };
 
 /*

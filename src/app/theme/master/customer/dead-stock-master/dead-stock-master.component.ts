@@ -341,6 +341,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   // Method to insert data into database through NestJS
+  isDisable=false
   submit() {
     this.formSubmitted = true;
     let purchase
@@ -372,8 +373,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         GL_ACNO: formVal.GL_ACNO,
 
       };
+      this.isDisable = true
       this.deadstockmasterService.postData(dataToSend).subscribe(
         (data1) => {
+          this.isDisable = false
           Swal.fire({
             icon: 'success',
             title: 'Account Created successfully!',

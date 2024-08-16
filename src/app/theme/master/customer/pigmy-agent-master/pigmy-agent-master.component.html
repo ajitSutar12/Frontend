@@ -936,7 +936,7 @@
                                                             <button type="submit"
                                                                 class="btn btn-outline-primary btn-sm btn-submit"
                                                                 *ngIf="showButton" (click)="submit($event)"
-                                                                (keydown.Tab)="focus()" appTheme>
+                                                                (keydown.Tab)="focus()" appTheme [disabled]="angForm.invalid">
                                                                 Submit
                                                             </button>
                                                             <button class="btn btn-outline-primary btn-sm"
@@ -1039,3 +1039,6 @@
         </div>
     </div>
 </div>
+<div *ngIf="isDisable">
+    <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
+    </div>

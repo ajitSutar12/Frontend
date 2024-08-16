@@ -1551,6 +1551,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit() {
     // console.log(this.receiptNo);
 
@@ -1670,7 +1671,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         RENEW_TYPE_ACCOUNTNO: formVal.RENEW_TYPE_ACCOUNTNO
       }
       // console.log(dataToSend)
+      this.isDisable = true
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

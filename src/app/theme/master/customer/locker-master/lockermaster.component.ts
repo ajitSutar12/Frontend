@@ -626,6 +626,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -693,7 +694,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //Joint Account
         'JointAccountData': this.multiJointAC,
       }
+      this.isDisable = true
       this.LockerMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

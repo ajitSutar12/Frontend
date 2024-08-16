@@ -11,6 +11,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { HolidayService } from './holiday.service'
+import { NgSelectModule } from '@ng-select/ng-select';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin
@@ -24,7 +25,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CommonModule,
     SharedModule,
     FullCalendarModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ],
   declarations: [HolidayComponent],
   providers: [{

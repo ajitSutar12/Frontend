@@ -48,9 +48,10 @@
                                 <span class="border-lable-flt">
                                     <ng-select class="sticky-drpodown" appTheme bindValue="value" [(ngModel)]="ngTitle"
                                         id="AC_TITLE" bindLabel="label" formControlName="AC_TITLE"
-                                        title="Compulsory Selection" [virtualScroll]="true" (change)="notApplicable($event)"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="" #AC_TITLE
-                                        (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus>
+                                        title="Compulsory Selection" [virtualScroll]="true"
+                                        (change)="notApplicable($event)" [ngClass]="{'form-submitted': formSubmitted}"
+                                        required placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)"
+                                        [selectOnTab]='true' autofocus>
 
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
@@ -67,7 +68,7 @@
                             </div>
                             <!-- </div> -->
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" *ngIf="!showBeneficiaryName">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME" class="form-control " placeholder=" "
@@ -92,7 +93,7 @@
                         </div>
 
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" *ngIf="!showBeneficiaryName">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME" class="form-control " placeholder=" "
@@ -114,7 +115,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-2" *ngIf="!showBeneficiaryName">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME" style="text-transform:uppercase"
@@ -148,6 +149,21 @@
                             </div>
                         </div> -->
 
+                        <div class="col-sm-4" *ngIf="showBeneficiaryName">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input appTheme type="text" name="BENEF_NAME" class="form-control " placeholder=" "
+                                        id="BENEF_NAME" required maxlength="30"   (ngModelChange)="onBeneficiaryNameChange($event)"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                                      
+                                        style="text-transform:uppercase;" [(ngModel)]="beneficiaryName"
+                                        title="Input allowed  only A-Z space" formControlName="BENEF_NAME">
+                                    <label for="BENEF_NAME">Beneficiary Name</label>
+                                </span>
+                            </div>
+
+                        </div>
+                        
                         <div class="col-sm-4" *ngIf="isable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -166,7 +182,8 @@
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                                         pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
                                         [disabled]="isFullNameDisabled" [(ngModel)]="fullname"
-                                        [value]="lname + ' ' + fname + ' ' + mname + ' '+fullname + ' '"
+                                      
+                                        [value]="fullName"
                                         formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name</label>
                                 </span>
@@ -253,11 +270,11 @@
                             <div class="city">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
-                                        <ng-select appTheme  [(ngModel)]="ngTitlereg"
-                                            id="AC_TITLE_REG" bindLabel="label" formControlName="AC_TITLE_REG"
-                                            title="Compulsory Selection" [virtualScroll]="true"
-                                            [ngClass]="{'form-submitted': formSubmitted}" required placeholder=""
-                                            #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)" [selectOnTab]='true'>
+                                        <ng-select appTheme [(ngModel)]="ngTitlereg" id="AC_TITLE_REG" bindLabel="label"
+                                            formControlName="AC_TITLE_REG" title="Compulsory Selection"
+                                            [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
+                                            required placeholder="" #AC_TITLE_REG (focus)="onFocus(AC_TITLE_REG)"
+                                            [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of regPrifix" [value]="values">
                                                 {{values.label}} </ng-option>
                                         </ng-select>
@@ -1058,16 +1075,16 @@
                                                 {{data.GST_NO === ''? '-' : data.GST_NO}} </td>
                                             <td class="td_right"
                                                 [ngClass]="data.TAN_NO === '' ? 'td_center' : 'td_right'">
-                                                {{data.TAN_NO === ''? '-' : data.TAN_NO}} </td>  
+                                                {{data.TAN_NO === ''? '-' : data.TAN_NO}} </td>
                                             <td class="td_right"
                                                 [ngClass]="data.REG_NO === '' ? 'td_center' : 'td_right'">
-                                                {{data.REG_NO === ''? '-' : data.REG_NO}} </td> 
+                                                {{data.REG_NO === ''? '-' : data.REG_NO}} </td>
                                             <td class="td_right"
                                                 [ngClass]="data.REG_DATE === '' ? 'td_center' : 'td_right'">
-                                                {{data.REG_DATE === ''? '-' : data.REG_DATE}} </td>   
+                                                {{data.REG_DATE === ''? '-' : data.REG_DATE}} </td>
                                             <td class="td_right"
                                                 [ngClass]="data.PROP_NAME === '' ? 'td_center' : 'td_right'">
-                                                {{data.PROP_NAME === ''? '-' : data.PROP_NAME}} </td>  
+                                                {{data.PROP_NAME === ''? '-' : data.PROP_NAME}} </td>
                                             <td class="td_center"
                                                 [ngClass]="data.AC_BIRTH_DT === '' ? 'td_center' : 'td_center'">
                                                 {{data.AC_BIRTH_DT === ''? '-' : data.AC_BIRTH_DT}}</td>

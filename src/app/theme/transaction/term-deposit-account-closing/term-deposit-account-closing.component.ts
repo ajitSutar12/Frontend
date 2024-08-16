@@ -79,7 +79,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   isture: boolean = true;
   amount
   TRANSFER_ACTYPE: any
-  multiField;
+  multiField :any = 0;
 
   //object created to get data when row is clicked
 
@@ -585,10 +585,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       if (data[0].preMature == '1') {
         this.angForm.patchValue({
-          InterestRate: Number(this.multiField)-Number(this.prematureRate)
+          InterestRate: Math.abs(Number(this.multiField)-Number(this.prematureRate))
         })
         this.afterMaturedInt = false
-        this.intRateShow =  Number(this.multiField)-Number(this.prematureRate)
+        this.intRateShow =  Math.abs(Number(this.multiField)-Number(this.prematureRate))
         if (data[0].post_Interest < 0) {
           this.angForm.patchValue({
             // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
@@ -2891,7 +2891,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       Scheme: this.schemeget,
 
       // TRANSFER_ACNOTYPE: this.transferSchemeDetails.name,
-      TRANSFER_ACNO: this.submitAccountNo.AC_NO,
+      TRANSFER_ACNO: this.submitAccountNo.BANKACNO,
       TRANSFER_ACTYPE: this.submitAccountNo.AC_TYPE,
       TRANSFER_ACNOTYPE: formVal.scheme_type,
       ACNO: this.customer,

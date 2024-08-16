@@ -1121,8 +1121,44 @@ export class VoucherEntryComponent implements OnInit {
   }
   tempscheme
   submitCustomer: any;
+  minor
+  isMinor: boolean = false
+  isJoint: boolean = false
+  grdName
+  custId
+  accountEvent
+  tableData: any[] = [];
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableData.some(item => item.grdName === grdName && item.custId === custId);
+  
+    if (!exists && grdName && custId) {
+      this.tableData.push({ grdName: grdName, custId: custId });
+    }
+  }
   //get customer today voucher data
   getVoucherData(item) {
+    this.accountEvent = item
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable( this.grdName,  this.custId);
+   //  this.tableData = [];
+   this.minor = item.AC_MINOR
+   if (item.AC_MINOR == '1') {
+     this.isMinor = true
+   }
+   else if (item.AC_MINOR == '0') {
+     this.isMinor = false
+   }
+   if (item.jointAccounts && item.jointAccounts.length > 0) {
+     this.isJoint = true
+   }
+   else if (item.jointAccounts = '0') {
+     this.isJoint = false
+   }
     this.submitCustomer = null
     this.angForm.controls['total_amt'].reset()
     this.angForm.controls['amt'].reset()
@@ -1138,7 +1174,7 @@ export class VoucherEntryComponent implements OnInit {
     // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
     //   addInFrom = startdate;
     // } else {
-    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(0, 'days').format('DD/MM/YYYY')
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
@@ -2634,7 +2670,7 @@ export class VoucherEntryComponent implements OnInit {
     // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
     //   addInFrom = startdate;
     // } else {
-    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(0, 'days').format('DD/MM/YYYY')
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
@@ -2750,6 +2786,28 @@ export class VoucherEntryComponent implements OnInit {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
   }
+  Cancel(){
+    this.resetForm()
 
-
+  }
+ IsJointView: boolean = false
+  openModal(view) {
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint= true
+      this.isMinor = false
+      this.display = "block";
+    }
+  }
+  display
+  onCloseHandled() {
+    this.display = 'none';
+    
+    // this.isMinor = true;
+    // this.isJoint = true;
+  }
 }
