@@ -126,6 +126,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   no: boolean = true
 
   fname = "";
+  fname1 = "";
   mname = "";
   lname = "";
   fullname = "";
@@ -483,6 +484,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       F_NAME: ["", [Validators.pattern, Validators.required]],
       M_NAME: ["", [Validators.pattern, Validators.required]],
       L_NAME: ["", [Validators.pattern, Validators.required]],
+      BENEF_NAME: [""],
       AC_TITLE_REG: [""],
       F_NAME_REG: [""],
       M_NAME_REG: [""],
@@ -544,11 +546,24 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.SUBMIT_DATE = false
     }
+    let formVal = this.angForm.value;
+    // let fullName = '';
+    // if (this.showBeneficiaryName && formVal.BENEF_NAME) {
+    //   fullName = formVal.BENEF_NAME?.toUpperCase();
+    // } else {
+    //   fullName = (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase();
+    // }
     if (this.angForm.valid) {
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
       let branchCode = result.branchId
       const formVal = this.angForm.value;
+      let fullName = '';
+      if (this.showBeneficiaryName && formVal.BENEF_NAME) {
+        fullName = formVal.BENEF_NAME?.toUpperCase();
+      } else {
+        fullName = (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase();
+      }
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
@@ -557,7 +572,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'F_NAME': formVal.F_NAME?.toUpperCase(),
         'M_NAME': formVal.M_NAME?.toUpperCase(),
         'L_NAME': formVal.L_NAME?.toUpperCase(),
-        'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
+        'BENEF_NAME':formVal.BENEF_NAME?.toUpperCase(),
+        // 'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
+       'AC_NAME':fullName,
         'AC_TITLE_REG': formVal.AC_TITLE_REG,
         'F_NAME_REG': formVal.F_NAME_REG?.toUpperCase(),
         'M_NAME_REG': formVal.M_NAME_REG?.toUpperCase(),
@@ -801,6 +818,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           F_NAME: data.F_NAME,
           M_NAME: data.M_NAME,
           L_NAME: data.L_NAME,
+          BENEF_NAME:data.BENEF_NAME,
           AC_NAME: data.AC_NAME,
           PROP_NAME:data.PROP_NAME,
           REG_NO:data.REG_NO,
@@ -911,6 +929,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['F_NAME'] = this.fname?.toUpperCase()
     data['L_NAME'] = this.lname?.toUpperCase()
     data['M_NAME'] = this.mname?.toUpperCase()
+    data['BENEF_NAME']=data.BENEF_NAME?.toUpperCase()
     data['AC_TITLE_REG'] = data.AC_TITLE_REG
     data['F_NAME_REG'] = data.F_NAME_REG?.toUpperCase()
     data['M_NAME_REG'] = data.M_NAME_REG?.toUpperCase()
@@ -1548,15 +1567,41 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   isapplicable: boolean = false
   isable: boolean = true
 
+  // notApplicable(event) {
+  //   if (event.value == 'PROF.' || event.value == 'ADV.' || event.value == 'DR.' || event.value == 'MANDAL' || event.value == 'M/S' || event.value == 'SANSTHA') {
+  //     this.isapplicable = true
+  //     this.isable = false
+  //   }
+  //   else {
+  //     this.isapplicable = false
+  //     this.isable = true
+  //     this.angForm.controls['AC_NAME'].reset()
+  //   }
+  // }
+  showBeneficiaryName = false;
+
+
+  // isTitleHidden(): boolean {
+  //   let hiddenTitles = ['PROF.', 'ADV.', 'DR.', 'MANDAL', 'M/S', 'SAN.'];
+  //   return hiddenTitles.includes(this.ngTitle);
+  // }
+
   notApplicable(event) {
-    if (event.value == 'PROF.' || event.value == 'ADV.' || event.value == 'DR.' || event.value == 'MANDAL' || event.value == 'M/S') {
-      this.isapplicable = true
-      this.isable = false
-    }
-    else {
-      this.isapplicable = false
-      this.isable = true
-      this.angForm.controls['AC_NAME'].reset()
+    let titlesToShowBeneficiary = ['PROF.', 'ADV.', 'DR.', 'MANDAL', 'M/S', 'SANSTHA'];
+    this.showBeneficiaryName = titlesToShowBeneficiary.includes(event.value);
+    this.updateFullName();
+  }
+  beneficiaryName = '';
+  onBeneficiaryNameChange(event) {
+    this.beneficiaryName = event?.toUpperCase();
+    this.updateFullName();
+  }
+
+  updateFullName() {
+    if (this.showBeneficiaryName && this.beneficiaryName) {
+      this.fullname = this.beneficiaryName;
+    } else {
+      this.fullname = `${this.lname} ${this.fname} ${this.mname}`.trim().toUpperCase();
     }
   }
 }

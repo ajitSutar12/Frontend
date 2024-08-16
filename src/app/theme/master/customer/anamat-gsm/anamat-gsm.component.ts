@@ -263,7 +263,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         //   title: "Member No",
         // },
         {
-          data: "AC_AREA",
+          data: "AC_ADDR",
           title: "Detail Address",
         },
         {
@@ -396,7 +396,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_ADDR: permadd?.AC_ADDR,
         AC_GALLI: permadd?.AC_GALLI,
         AC_AREA: permadd?.AC_AREA,
-        AC_CTCODE: permadd?.city?.CITY_NAME,
+        AC_CTCODE: permadd?.city?.AC_CTCODE ,
         AC_PIN: permadd?.AC_PIN,
       })
 

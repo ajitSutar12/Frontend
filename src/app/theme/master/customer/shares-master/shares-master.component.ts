@@ -913,6 +913,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -1006,7 +1007,9 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'NomineeData': this.multiNominee,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.ShareMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

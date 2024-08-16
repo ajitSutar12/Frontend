@@ -1020,6 +1020,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   ngexpiry: any
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     let temdate
     let opdate
@@ -1116,7 +1117,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'JointAccountData': this.multiJointAC,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.PigmyAccountMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

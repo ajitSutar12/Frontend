@@ -2431,7 +2431,7 @@
                                                     <div class="row" *ngIf="!showInstruction">
                                                         <div class="col-sm" style="float: right;">
                                                             <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                                *ngIf="showButton" (click)="submit($event)">
+                                                                *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid">
                                                                 Submit
                                                             </button>
                                                             <button class="btn btn-outline-primary btn-sm"
@@ -2772,3 +2772,6 @@
         </div>
     </div>
 </div>
+<div *ngIf="isDisable">
+    <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
+    </div>

@@ -389,8 +389,48 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     }
   }
 
+  jointAC
+  isJoint:boolean=false
+  grdName
+  custId
+  minor
+  tableDataMinor=[]
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableDataMinor.some(item => item.grdName === grdName && item.custId === custId);
+  
+    if (!exists && grdName && custId) {
+      this.tableDataMinor.push({ grdName: grdName, custId: custId });
+    }
+  }
+  AC_MINOR 
   //get account details
   getAccountDetails(event) {
+    this.accountEvent = event
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable( this.grdName,  this.custId);
+    this.AC_MINOR=event.acMinor
+   //  this.tableData = [];
+   this.minor = event.AC_MINOR
+   if (this.AC_MINOR == '1') {
+     this.isMinor = true
+     this.isOpen = false
+
+   }
+   else if (this.AC_MINOR == '0') {
+     this.isMinor = false
+   }
+   if (event.jointAcHolders && event.jointAcHolders.length > 0) {
+     this.isJoint = true
+     this.isOpen = false
+   }
+   else if (event.jointAccounts = '0') {
+     this.isJoint = false
+   }
     this.showLoader = false
     this.tableData = []
     this.transactions = null
@@ -576,4 +616,24 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.schemeACNo = null
     this.getAccountlist()
   }
+  display
+  isMinor:boolean=false
+  IsJointView: boolean = false
+  onCloseHandled() {
+    this.display = 'none';
+  }
+  openModal(view) {
+    this.isOpen = false
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint= true
+      this.isMinor = false
+      this.display = "block";
+    }
+  }
+
 }

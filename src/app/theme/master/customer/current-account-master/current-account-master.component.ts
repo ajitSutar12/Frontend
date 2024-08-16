@@ -673,6 +673,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -758,8 +759,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'Document': this.imageObject
       }
       console.log(formVal.AC_TYPE);
-
+      this.isDisable = true
       this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

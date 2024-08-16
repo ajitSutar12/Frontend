@@ -102,6 +102,7 @@ export class MonthlyRecProcessComponent implements OnInit {
   headShow: boolean = false;
   branchCode:any;
   branchOption: any;
+  istrue: boolean = true;
 
   selectedScheme: any;
   allScheme = new Array()//from schme master
@@ -125,6 +126,7 @@ export class MonthlyRecProcessComponent implements OnInit {
   schemeType: string = 'GL'
 
   schemeACNo
+  sequencedata: any;
 
   constructor(private fb: FormBuilder,
     public TransactionCashModeService: TransactionCashModeService,
@@ -192,7 +194,27 @@ export class MonthlyRecProcessComponent implements OnInit {
       this.characters = options;
     });
 
+      //get syspara details
+      this._service.getSysParaData().subscribe(data => {
+        // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
+        //debugger
+        this.date = data[0].CURRENT_DATE;
+        // let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+        // let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
+  
+        // this.maxDate = new Date(nextDate);
+        // this.maxDate.setDate(this.maxDate.getDate());
+  
+        // this.minDate = new Date(lastDate);
+        // this.minDate.setDate(this.minDate.getDate());
+      })
     
+      this._service.getSequenceData().subscribe(data => {
+
+        this.sequencedata = data;
+
+
+      })
 
     //Scheme Code
     this._service.getSchemeCodeList().subscribe(data => {
@@ -252,7 +274,7 @@ export class MonthlyRecProcessComponent implements OnInit {
       OTHER_2_ACCOUNTNO: ['', [Validators.required]],
       DR_G_L_SCHEME: ['', [Validators.required]],
       DR_G_L_CODE: ['', [Validators.required]],
-      TRAN_DATE: ['', [Validators.required]],
+      date: ['', [Validators.required]],
       PROCESS_DATE: ['', [Validators.required]],
     })
 
@@ -310,26 +332,45 @@ getIntroducers() {
 }
 
 submit(){
-  var FormVal = this.angForm.value;
+  var FormVal = this.angForm.value; 
+
   const obj = {
 
     ac_type: 5,
-    branch: 2,
-    salarydiv: 1,
-    subsalarydiv: null,
-    processYear: 2024,
-    processMonth: 3,
-    flag: 1,
-    date: '24/08/2023',
-    T_OTHER1AMT: 10,
-    T_OTHER1ACNO: 2,
-    T_OTHER2AMT: 20,
-    T_OTHER2ACNO: 3,
-    listtype: 1 
+      branch: 2,
+      salarydiv: 1,
+      subsalarydiv: null,
+      processYear: 2024,
+      processMonth: 3,
+      flag: 1,
+      date: '24/08/2023',
+      T_OTHER1AMT: 10,
+      T_OTHER1ACNO: 2,
+      T_OTHER2AMT: 20,
+      T_OTHER2ACNO: 3,
+      listtype: 1 
 
   }
 
-  this.http.post(this.url + '/MonthlyRecovery/process', obj).subscribe(data => {
+  // const obj = {
+
+  //   ac_type: 5,
+  //   branch: 2,
+  //   salarydiv: 1,
+  //   subsalarydiv: null,
+  //   processYear: 2024,
+  //   processMonth: 3,
+  //   flag: 1,
+  //   date: '24/08/2023',
+  //   T_OTHER1AMT: 10,
+  //   T_OTHER1ACNO: 2,
+  //   T_OTHER2AMT: 20,
+  //   T_OTHER2ACNO: 3,
+  //   listtype: 1 
+
+  // }
+
+  this.http.post(this.url + '/MonthlyRecovery/process', obj).subscribe(data => { 
 
     Swal.fire(
       'success', "Data Submitted Successfully!!", 'success'

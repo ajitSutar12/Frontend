@@ -2282,13 +2282,18 @@ const MENUITEMS1 = [
           },
           {
             state: 'monthly recovery process',
-            name: 'Monthly recovery process',
+            name: 'Monthly Recovery Process',
             id: 360
           },
           {
             state: 'yearEndBranchwise',
             name: 'Year End BranchWise',
             id: 361
+          },
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
 
         ]
@@ -5258,13 +5263,18 @@ const MENUITEMS = [
           },
           {
             state: 'monthly recovery process',
-            name: 'Monthly recovery process',
+            name: 'Monthly Recovery Process',
             id: 360
           },
           {
             state: 'yearEndBranchwise',
             name: 'Year End BranchWise',
             id: 361
+          },
+          {
+            state: 'cibilScore',
+            name: 'CibilScore',
+            id: 380
           },
         ]
       },

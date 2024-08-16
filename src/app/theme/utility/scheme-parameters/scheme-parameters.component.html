@@ -21,7 +21,7 @@
                         </li>
                         <!-- <li>
                                 <h6> <a (click)="OpenLink(3)" routerLink="/utility/schemeParameters" [ngClass]="{'isActive': recoverysequenceTrue}" routerLinkActive="active" class="text-right f-w-600" id="pointer">3. Recovery Sequence</a></h6>
-                            </li> -->
+                            </li> --> 
                         <li>
                             <h6> <a (click)="OpenLink(4)" routerLink="/utility/schemeParameters"
                                     [ngClass]="{'isActive': schemetypesettingTrue}" routerLinkActive="active"
@@ -119,9 +119,9 @@
             <div *ngIf="smssettingTrue">
                 <app-sms-settings></app-sms-settings>
             </div>
-            <!-- <div *ngIf="recoverysequenceTrue">
+            <div *ngIf="recoverysequenceTrue">
                 <app-recovery-sequence></app-recovery-sequence>
-            </div> -->
+            </div>
             <div *ngIf="schemetypesettingTrue">
                 <app-scheme-type-setting></app-scheme-type-setting>
             </div>

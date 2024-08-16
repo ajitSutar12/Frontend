@@ -646,7 +646,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MOBNO: [''],
       AC_EMAIL: [''],
       //minor and introducer
-      AC_MINOR: ['', []],
+      // AC_MINOR: ['', []],
+      AC_MINOR: [false],
       AC_MBDATE: ['', []],
       AC_GRDNAME: ['', [Validators.pattern]],
       AC_GRDRELE: ['', [Validators.pattern]],
@@ -798,6 +799,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   is_reqired_auto
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     let temdate
     let opdate
@@ -878,7 +880,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'PowerOfAttorneyData': this.multiAttorney,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.savingMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1399,7 +1403,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (birthDate) {
       showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
       if (showAge <= 18) {
-        this.angForm.controls['AC_MINOR'].setValue(true ? '1' : '0');
+        // this.angForm.controls['AC_MINOR'].setValue(true ? '1' : '0');
+        this.angForm.controls['AC_MINOR'].setValue(true);
         this.angForm.controls['AC_GRDNAME'].enable();
         this.angForm.controls['AC_GRDRELE'].enable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].enable();
@@ -1410,6 +1415,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       else if (showAge > 18) {
         // this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
+        this.angForm.controls['AC_MINOR'].setValue(false);
         this.angForm.controls['AC_GRDNAME'].disable();
         this.angForm.controls['AC_GRDRELE'].disable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].disable();

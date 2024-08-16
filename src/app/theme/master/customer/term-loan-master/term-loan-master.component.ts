@@ -676,6 +676,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     this.formSubmitted = true;
     let formVal = this.angForm.value;
@@ -806,9 +807,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'Vehicle': this.vehicleid,
         'Document': this.imageObject
       }
-
+      this.isDisable = true
       this.termLoanService.postData(dataToSend).subscribe(data => {
-
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
