@@ -45,10 +45,7 @@ const routes: Routes = [
         path: 'yearEndBranchwise',
         loadChildren: () => import('./year-end-branchwise/year-end-branchwise.module').then(m => m.YearEndBranchwiseModule)
       },
-      {
-        path: 'cibilScore',
-        loadChildren: () => import('./cibil-score/cibil-score.module').then(m => m.CibilScoreModule)
-      },
+  
 
     ]
   }

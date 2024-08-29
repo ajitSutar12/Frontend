@@ -828,36 +828,6 @@ const MENUITEMS1 = [
         ]
       },
       {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
-      {
         state: 'passing',
         short_label: 'D',
         name: 'Passing',
@@ -889,6 +859,43 @@ const MENUITEMS1 = [
           },
         ]
       },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+
+        ]
+      },
+     
       {
         state: 'view',
         short_label: 'D',
@@ -2290,11 +2297,7 @@ const MENUITEMS1 = [
             name: 'Year End BranchWise',
             id: 361
           },
-          {
-            state: 'cibilScore',
-            name: 'Cibil Score',
-            id: 380
-          },
+        
 
         ]
       },
@@ -3809,36 +3812,6 @@ const MENUITEMS = [
         ]
       },
       {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
-      {
         state: 'passing',
         short_label: 'D',
         name: 'Passing',
@@ -3871,6 +3844,41 @@ const MENUITEMS = [
         ]
       },
       {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'Services',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+        ]
+      },
+           {
         state: 'view',
         short_label: 'D',
         name: 'View',
@@ -5271,11 +5279,7 @@ const MENUITEMS = [
             name: 'Year End BranchWise',
             id: 361
           },
-          {
-            state: 'cibilScore',
-            name: 'CibilScore',
-            id: 380
-          },
+        
         ]
       },
       {

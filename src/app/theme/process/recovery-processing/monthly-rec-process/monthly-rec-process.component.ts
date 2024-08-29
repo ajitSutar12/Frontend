@@ -69,7 +69,7 @@ export class MonthlyRecProcessComponent implements OnInit {
    
   acno: any = null;
   acnos: any = null;
-  SchemeCodeDropdownDropdown: any[];
+  SharesScheme: any[];
   ngIntroducer: any ;
   ngIntroducers:any;
   OwnbranchMasterDropdown: any[];
@@ -127,6 +127,7 @@ export class MonthlyRecProcessComponent implements OnInit {
 
   schemeACNo
   sequencedata: any;
+  Recoverydata: Object;
 
   constructor(private fb: FormBuilder,
     public TransactionCashModeService: TransactionCashModeService,
@@ -199,14 +200,7 @@ export class MonthlyRecProcessComponent implements OnInit {
         // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
         //debugger
         this.date = data[0].CURRENT_DATE;
-        // let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
-        // let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
-  
-        // this.maxDate = new Date(nextDate);
-        // this.maxDate.setDate(this.maxDate.getDate());
-  
-        // this.minDate = new Date(lastDate);
-        // this.minDate.setDate(this.minDate.getDate());
+        
       })
     
       this._service.getSequenceData().subscribe(data => {
@@ -251,7 +245,7 @@ export class MonthlyRecProcessComponent implements OnInit {
    var filtered = data.filter(function(SchemeCodeDropdownDropdown){
     return (SchemeCodeDropdownDropdown.name == 'SH');
    });
-   this.SchemeCodeDropdownDropdown = filtered;
+   this.SharesScheme = filtered;
     })
 
     this.OwnbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -268,12 +262,15 @@ export class MonthlyRecProcessComponent implements OnInit {
 
       BRANCH_CODE: ['', [Validators.required]],
       ACNOTYPE: ['', [Validators.required]],
+      RECTYPE : new FormControl('member'),
       SUB_SALARYDIVISION_CODE: ['', [Validators.required]],
       AC_SALARYDIVISION_CODE: ['', [Validators.required]],
       OTHER_1_ACCOUNTNO: ['', [Validators.required]],
-      OTHER_2_ACCOUNTNO: ['', [Validators.required]],
-      DR_G_L_SCHEME: ['', [Validators.required]],
-      DR_G_L_CODE: ['', [Validators.required]],
+      OTHER_2_ACCOUNTNO: [''],
+      OTHERAMOUNT1:['', [Validators.required]],
+      OTHERAMOUNT2:[''],
+      // DR_G_L_SCHEME: ['', [Validators.required]],
+      // DR_G_L_CODE: ['', [Validators.required]],
       date: ['', [Validators.required]],
       PROCESS_DATE: ['', [Validators.required]],
     })
@@ -331,52 +328,72 @@ getIntroducers() {
   }
 }
 
+
+
 submit(){
-  var FormVal = this.angForm.value; 
+  var formVal = this.angForm.value; 
+
+  let processDate = formVal.PROCESS_DATE
+
+  let ProcDate = moment(processDate).format('DD/MM/YYYY');
+
+  var current = new Date(processDate)
+  let year = current.getFullYear();
+  var month = new Date(processDate).getMonth();
+
+  let procMonth = month + 1
+
+
+  let recflag 
+  if (formVal.RECTYPE == 'member') {
+    recflag = 1
+  }
+  else {
+    recflag = 0
+  }
+
+  // let procMonth = d.getMonth();
+
+  // let procYear = moment(processDate).getFullYear().format('DD/MM/YYYY');
+
+
+  if (this.angForm.valid) {
 
   const obj = {
 
-    ac_type: 5,
-      branch: 2,
-      salarydiv: 1,
-      subsalarydiv: null,
-      processYear: 2024,
-      processMonth: 3,
-      flag: 1,
-      date: '24/08/2023',
-      T_OTHER1AMT: 10,
-      T_OTHER1ACNO: 2,
-      T_OTHER2AMT: 20,
-      T_OTHER2ACNO: 3,
+    ac_type: formVal.ACNOTYPE,
+      branch: formVal.BRANCH_CODE,
+      salarydiv: formVal.AC_SALARYDIVISION_CODE,
+      subsalarydiv: formVal.SUB_SALARYDIVISION_CODE,
+      processYear: year,
+      processMonth: procMonth,
+      flag: recflag,
+      date: ProcDate,
+      T_OTHER1AMT: formVal.OTHERAMOUNT1,
+      T_OTHER1ACNO: formVal.OTHER_1_ACCOUNTNO,
+      T_OTHER2AMT: formVal.OTHERAMOUNT2,
+      T_OTHER2ACNO: formVal.OTHER_2_ACCOUNTNO,
       listtype: 1 
 
   }
-
-  // const obj = {
-
-  //   ac_type: 5,
-  //   branch: 2,
-  //   salarydiv: 1,
-  //   subsalarydiv: null,
-  //   processYear: 2024,
-  //   processMonth: 3,
-  //   flag: 1,
-  //   date: '24/08/2023',
-  //   T_OTHER1AMT: 10,
-  //   T_OTHER1ACNO: 2,
-  //   T_OTHER2AMT: 20,
-  //   T_OTHER2ACNO: 3,
-  //   listtype: 1 
-
-  // }
+  
+console.log(obj);
+ 
 
   this.http.post(this.url + '/MonthlyRecovery/process', obj).subscribe(data => { 
+
+
+    this.Recoverydata = data;
 
     Swal.fire(
       'success', "Data Submitted Successfully!!", 'success'
     );
   })
   
+}
+  else {
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+  }
 }
 
 //get account no according scheme

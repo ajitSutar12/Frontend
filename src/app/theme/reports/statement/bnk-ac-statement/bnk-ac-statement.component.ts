@@ -70,8 +70,8 @@ export class BnkAcStatementComponent implements OnInit {
     getbankAcNo2: any;
   branchName: any;
   introducerACNo
-  acCloseDate
-  isOpen: boolean = false
+  // acCloseDate
+  // isOpen: boolean = false
 
   fileUrl = this.url + 'examples/AccountStatement1.php'
   name: any;
