@@ -25,16 +25,5 @@ getSchemeCodeList(): Observable<any> {
   return this.http.get(this.url + '/scheme-parameters')
 }
 
- //get syspara 
- getSysParaData(): Observable<any> {
-  return this.http.get(this.url + '/system-master-parameters');
-}
-
-
- //get syspara 
- getSequenceData(): Observable<any> {
-  return this.http.get(this.url + '/MonthlyRecovery/recoveryseq');
-}
-// MonthlyRecovery/recoveryseq
 
 }

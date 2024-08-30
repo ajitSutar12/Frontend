@@ -136,7 +136,7 @@
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker minlength="8"
                                             maxlength="10" formControlName="ChequeDate" [maxDate]="maxDate"
                                             [minDate]="minDate" #ChequeDate="bsDatepicker"
-                                            (keydown.Tab)="ChequeDate.hide()" placement="top">
+                                            (keydown.Tab)="ChequeDate.hide()" placement="right">
                                     </span>
                                 </div>
                             </div>
@@ -238,6 +238,7 @@
                                         <input type="text" class="form-control"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                             [value]="totalAmt" readonly formControlName="TotalAmt" 
+
                                             style="text-align: right;">
                                     </span>
 

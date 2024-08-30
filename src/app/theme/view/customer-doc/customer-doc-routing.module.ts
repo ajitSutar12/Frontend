@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CibilScoreComponent } from './cibil-score.component';
+import { CustomerDocComponent } from './customer-doc.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: CibilScoreComponent,
+    component: CustomerDocComponent,
     data: {
-      title: 'CibilScoreComponent',
+      title: 'Customer Document',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CibilScoreRoutingModule { }
+export class CustomerDocRoutingModule { }

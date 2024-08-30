@@ -15,9 +15,10 @@
                             <full-calendar [options]="calendarOptions"></full-calendar>
                         </div>
                         <div class="col-sm">
-                            <ng-select [items]="daysOfWeek" bindLabel="name" placeholder="Select Weekly Holiday" (change)="onDaySelected($event)">
+                            <label>Select Holiday Type Here</label>
+                            <ng-select [items]="daysOfWeek" bindLabel="name" placeholder="Select Holiday Type Here"
+                                (change)="onDaySelected($event)">
                             </ng-select>
-                            
                         </div>
                     </div>
                 </div>

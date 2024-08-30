@@ -233,6 +233,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   maxDate: any
   AGENTBRANCH: any = null
   Recommended: any[]
+  joinDate: any;
 
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
@@ -528,6 +529,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       //joint ac
       JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [],
 
     });
@@ -1728,7 +1731,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE,
+
       })
     })
   }
@@ -1736,6 +1741,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1745,6 +1753,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1790,6 +1800,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1802,6 +1814,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1837,6 +1851,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointID = null
     this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.getSystemParaDate()
   }
 

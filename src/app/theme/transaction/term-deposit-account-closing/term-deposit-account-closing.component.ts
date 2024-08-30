@@ -79,7 +79,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   isture: boolean = true;
   amount
   TRANSFER_ACTYPE: any
-  multiField :any = 0;
+  multiField: any = 0;
 
   //object created to get data when row is clicked
 
@@ -349,11 +349,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
     //   this.selectedBranch = result.branch.id
     // }
     // else {
-      this.angForm.controls['branch_code'].disable()
-      this.angForm.patchValue({
-        'branch_code': result.branch.id
-      })
-      this.selectedBranch = result.branch.id
+    this.angForm.controls['branch_code'].disable()
+    this.angForm.patchValue({
+      'branch_code': result.branch.id
+    })
+    this.selectedBranch = result.branch.id
     // }
   }
 
@@ -384,7 +384,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.getIntroducer()
   }
 
-  
+
 
   //get account no according scheme for introducer
   getIntroducer() {
@@ -428,7 +428,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   getscheme
   form
   getAccountDetails(event) {
-   
+
     this.bankacno = event.bankacno
     this.customerId = event.id
     this.dormant = event.dormant
@@ -513,7 +513,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
                     scheme_type: this.getdata[0].AC_ACNOTYPE,
                     account_no: this.getdata[0].AC_NO
                   });
-                  
+
                 }
 
                 let acType = { AC_TYPE: demo[0].AC_TYPE }
@@ -585,10 +585,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       if (data[0].preMature == '1') {
         this.angForm.patchValue({
-          InterestRate: Math.abs(Number(this.multiField)-Number(this.prematureRate))
+          InterestRate: Math.abs(Number(this.multiField) - Number(this.prematureRate))
         })
         this.afterMaturedInt = false
-        this.intRateShow =  Math.abs(Number(this.multiField)-Number(this.prematureRate))
+        this.intRateShow = Math.abs(Number(this.multiField) - Number(this.prematureRate))
         if (data[0].post_Interest < 0) {
           this.angForm.patchValue({
             // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
@@ -704,9 +704,9 @@ export class TermDepositAccountClosingComponent implements OnInit {
         },
       );
 
-      this.termDepositInterestRateService.getFormData(event.id).subscribe(data => {
-        this.multiField = data.rate[0].INT_RATE
-      })
+    this.termDepositInterestRateService.getFormData(event.id).subscribe(data => {
+      this.multiField = data.rate[0].INT_RATE
+    })
   }
 
 
@@ -3211,6 +3211,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
   Status
   showCustomerDeatils() {
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
     if (this.angForm.controls['account_no'].value != null) {
       this._CustomerIdService.getFormData(this.customerId).subscribe(data => {
         this.Customer_info = data

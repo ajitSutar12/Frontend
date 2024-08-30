@@ -39,7 +39,7 @@ export class BatchVoucherComponent implements OnInit {
   selectedBranch: any;
   selectCompanyCode: any;
   totalAmt: number = 0;
-  totalAmount 
+  totalAmount
   filterArray: any;
   narrationList: any;
   particulars: any;
@@ -173,6 +173,7 @@ export class BatchVoucherComponent implements OnInit {
         // acno: bankCode + barnchCode[0].name + schData[0].S_APPL + this.company_data.AC_NO,
         acno: schData[0].S_APPL == '980' ? this.company_data.AC_NO : this.company_data.BANKACNO,
 
+
         scheme: schData[0].S_APPL,
         date: this.date
       }
@@ -270,6 +271,7 @@ export class BatchVoucherComponent implements OnInit {
       let dataObj = this.angForm.value;
       dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
       dataObj['gridData'] = this.dataArray;
+
       dataObj['schemeData'] = this.company_data;
       dataObj['companyData'] = this.company_main_data;
       dataObj['narration'] = this.particulars;
@@ -576,6 +578,7 @@ export class BatchVoucherComponent implements OnInit {
     }
       // }
     )
+
 
   }
   closeModal() {

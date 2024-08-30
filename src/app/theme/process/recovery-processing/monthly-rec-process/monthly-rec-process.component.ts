@@ -102,7 +102,6 @@ export class MonthlyRecProcessComponent implements OnInit {
   headShow: boolean = false;
   branchCode:any;
   branchOption: any;
-  istrue: boolean = true;
 
   selectedScheme: any;
   allScheme = new Array()//from schme master
@@ -126,8 +125,10 @@ export class MonthlyRecProcessComponent implements OnInit {
   schemeType: string = 'GL'
 
   schemeACNo
+
   sequencedata: any;
   Recoverydata: Object;
+
 
   constructor(private fb: FormBuilder,
     public TransactionCashModeService: TransactionCashModeService,
@@ -202,13 +203,8 @@ export class MonthlyRecProcessComponent implements OnInit {
         this.date = data[0].CURRENT_DATE;
         
       })
+
     
-      this._service.getSequenceData().subscribe(data => {
-
-        this.sequencedata = data;
-
-
-      })
 
     //Scheme Code
     this._service.getSchemeCodeList().subscribe(data => {
@@ -272,6 +268,7 @@ export class MonthlyRecProcessComponent implements OnInit {
       // DR_G_L_SCHEME: ['', [Validators.required]],
       // DR_G_L_CODE: ['', [Validators.required]],
       date: ['', [Validators.required]],
+
       PROCESS_DATE: ['', [Validators.required]],
     })
 
@@ -337,6 +334,7 @@ submit(){
 
   let ProcDate = moment(processDate).format('DD/MM/YYYY');
 
+
   var current = new Date(processDate)
   let year = current.getFullYear();
   var month = new Date(processDate).getMonth();
@@ -351,12 +349,8 @@ submit(){
   else {
     recflag = 0
   }
-
   // let procMonth = d.getMonth();
-
   // let procYear = moment(processDate).getFullYear().format('DD/MM/YYYY');
-
-
   if (this.angForm.valid) {
 
   const obj = {
@@ -379,6 +373,7 @@ submit(){
   
 console.log(obj);
  
+
 
   this.http.post(this.url + '/MonthlyRecovery/process', obj).subscribe(data => { 
 

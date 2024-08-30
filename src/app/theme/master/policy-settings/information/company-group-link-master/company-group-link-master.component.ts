@@ -231,8 +231,10 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       const dataToSend = {
         'COMP_CODE': formVal.COMP_CODE,
         'CODE': formVal.CODE,
-        'FROM_AC': formVal.FROM_AC,
-        'TO_AC': formVal.TO_AC,
+        // 'FROM_AC': formVal.FROM_AC,
+        // 'TO_AC': formVal.TO_AC,
+        'FROM_AC': this.fromac,
+        'TO_AC': this.toac,
         'BRANCH_CODE': this.ngBranchCode,
         'Company_Data': this.multiData
       }
@@ -297,7 +299,16 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
   //Method for update data 
   updateData() {
-    let data = this.angForm.value;
+    // let data = this.angForm.value;
+    let formVal = this.angForm.value;
+    const data = {
+      'COMP_CODE': formVal.COMP_CODE,
+      'CODE': formVal.CODE,
+      'FROM_AC': this.fromac,
+      'TO_AC': this.toac,
+      'BRANCH_CODE': this.ngBranchCode,
+      'Company_Data': this.multiData
+    }
     data['id'] = this.updateID;
     this.companyGroupLinkMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -480,6 +491,15 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         })
         break;
     }
+
+  }
+  fromac
+  getfrom(event) {
+    this.fromac = event.bankacno
+  }
+  toac
+  getto(event) {
+    this.toac = event.bankacno
 
   }
   multiData: any

@@ -260,6 +260,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   AC_OPDATE: any;
   intinstruction: any;
+  joinDate: any;
 
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -494,7 +495,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['TD'],
       AC_NO: [''],
-      AC_INTRATE: [],
+      AC_INTRATE: [{ value: 0, disabled: false },],
       AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
       AC_NAME: [''],
@@ -514,8 +515,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // AC_IS_RECOVERY: [false],
       AC_REF_RECEIPTNO: [''],
       AC_ASON_DATE: [],
-      AC_MONTHS: [0, [Validators.pattern, Validators.required]],
-      AC_DAYS: [0],
+      AC_MONTHS: [{ value: 0, disabled: false }, [Validators.pattern, Validators.required]],
+      AC_DAYS: [{ value: 0, disabled: false },],
       AC_EXPDT: ['', [Validators.required]],
       AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
       AC_MATUAMT: ['', [Validators.pattern]],
@@ -573,6 +574,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       //joint ac
       JOINT_AC_CUSTID: ['',],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
 
       //attorney
@@ -1561,6 +1564,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       let temdate
       let asondate
       let maturitydate
+      let schename
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == undefined) {
         this.addType = 'P'
@@ -1584,7 +1588,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       let schecode
       this.scheme.forEach(async (element) => {
         if (element.value == this.selectedValue) {
-          schecode = element.name
+           
+          schecode = element.id
+          schename = element.name
         }
       })
       if (this.tempopendate != this.openingDate) {
@@ -2300,6 +2306,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.customerIdService.getFormData(id.value).subscribe(data => {
       this.angForm.patchValue({
         JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE,
+
         JOINT_AC_CUSTID: id.value
       })
     })
@@ -2308,6 +2316,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -2317,6 +2328,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.jointID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -2382,6 +2395,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -2394,6 +2409,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -2445,8 +2462,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
   }
@@ -3139,5 +3160,52 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     // this.child.DatatableHideShow = false;
     // this.child.rejectShow = true;
     // this.child.approveShow = true;
+  }
+  Intid
+  getCategory(event) {
+    this.Intid = event.value
+    if (event.label === 'DAMDUPPAT') {
+      this.angForm.get('AC_MONTHS')?.disable();
+      this.angForm.get('AC_DAYS')?.disable();
+      this.angForm.get('AC_INTRATE')?.disable();
+    } else {
+      this.angForm.get('AC_MONTHS')?.enable();
+      this.angForm.get('AC_DAYS')?.enable();
+      this.angForm.get('AC_INTRATE')?.enable();
+      this.angForm.patchValue({
+        AC_MONTHS: null,
+        AC_DAYS: null,
+        AC_INTRATE: null
+      });
+    }
+    this.getFormData()
+  }
+  iid
+  month
+  days
+  rate
+  getFormData() {
+    let obj = {
+      'id': this.Intid
+    }
+    this.http.post(this.url + '/pat-scheme-interest-rates/PATSCHEME', obj).subscribe(data => {
+      if (Array.isArray(data)) {
+        data.forEach((item: any) => {
+          this.month = item.MONTHS;
+          this.days = item.DAYS;
+          this.rate = item.INT_RATE;
+          console.log(item);
+
+          if (this.angForm.get('AC_MONTHS')?.disabled || this.angForm.get('AC_DAYS')?.disabled) {
+            this.angForm.patchValue({
+              AC_MONTHS: this.month,
+              AC_DAYS: this.days,
+              AC_INTRATE: this.rate
+            });
+          }
+
+        });
+      }
+    })
   }
 }

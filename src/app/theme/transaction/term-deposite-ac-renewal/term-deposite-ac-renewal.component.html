@@ -377,7 +377,7 @@
                                 <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedCodeNormal"
+                                            <ng-select [(ngModel)]="selectedCodeNormal" *ngIf="!showAccount" 
                                                 (change)="selectedSchemeCodeNormal()"
                                                 formControlName="normal_scheme_type" #intSchemeType
                                                 (focus)="onFocus(intSchemeType)" [selectOnTab]='true'>
@@ -385,6 +385,8 @@
                                                     [value]="item.S_ACNOTYPE">
                                                     {{item.S_ACNOTYPE}}</ng-option>
                                             </ng-select>
+                                            <input type="text" name="normal_scheme_type" *ngIf="showAccount" class="form-control"
+                                            placeholder=" " disabled formControlName="normal_scheme_type" />
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -400,13 +402,15 @@
                                 <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedSchemeNormal"
+                                            <ng-select [(ngModel)]="selectedSchemeNormal" *ngIf="!showAccount"
                                                 (change)="getIntroducerNormal()" formControlName="normal_scheme"
                                                 #intScheme (focus)="onFocus(intScheme)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of allSchemeNormal" [value]="item">
                                                     {{item.S_APPL}}
                                                     {{item.S_NAME}}</ng-option>
                                             </ng-select>
+                                            <input type="text" name="normal_scheme" *ngIf="showAccount" class="form-control"
+                                            placeholder=" " disabled formControlName="normal_scheme" />
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -423,11 +427,13 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="customerNormal" formControlName="normal_account_no"
-                                                (change)="getVoucherData()" #intSchemeAcc
+                                                (change)="getVoucherData()" #intSchemeAcc *ngIf="!showAccount" 
                                                 (focus)="onFocus(intSchemeAcc)" [selectOnTab]='true'>
                                                 <ng-option *ngFor="let item of introducerACNoNormal" [value]="item">
                                                     {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                             </ng-select>
+                                            <input type="text" name="normal_account_no" *ngIf="showAccount" class="form-control"
+                                            placeholder=" " disabled formControlName="normal_account_no" />
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"

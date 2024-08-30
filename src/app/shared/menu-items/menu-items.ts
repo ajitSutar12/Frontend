@@ -827,6 +827,7 @@ const MENUITEMS1 = [
 
         ]
       },
+
       {
         state: 'passing',
         short_label: 'D',
@@ -878,11 +879,7 @@ const MENUITEMS1 = [
             id: 351
           },
           {
-            state: 'cibilScore',
-            name: 'Cibil Score',
-            id: 380
-          },
-          {
+
             state: 'billPayment',
             name: 'Bill Payment',
             id: 352
@@ -893,9 +890,13 @@ const MENUITEMS1 = [
             id: 353
           },
 
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
+          },
         ]
       },
-     
       {
         state: 'view',
         short_label: 'D',
@@ -1935,6 +1936,11 @@ const MENUITEMS1 = [
                 state: 'MISInfo',
                 name: 'MIS Information',
                 id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
               }
             ]
           },
@@ -2213,6 +2219,11 @@ const MENUITEMS1 = [
             name: 'Conversion',
             id: 374
           },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -2297,7 +2308,7 @@ const MENUITEMS1 = [
             name: 'Year End BranchWise',
             id: 361
           },
-        
+
 
         ]
       },
@@ -3811,6 +3822,7 @@ const MENUITEMS = [
           },
         ]
       },
+
       {
         state: 'passing',
         short_label: 'D',
@@ -3846,7 +3858,8 @@ const MENUITEMS = [
       {
         state: 'neftRtgs',
         short_label: 'D',
-        name: 'Services',
+
+        name: 'Services ',
         type: 'sub',
         icon: 'fa fa-money',
         id: 349,
@@ -3862,11 +3875,7 @@ const MENUITEMS = [
             id: 351
           },
           {
-            state: 'cibilScore',
-            name: 'Cibil Score',
-            id: 380
-          },
-          {
+
             state: 'billPayment',
             name: 'Bill Payment',
             id: 352
@@ -3876,9 +3885,15 @@ const MENUITEMS = [
             name: 'Fund Transfer',
             id: 353
           },
+
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
+          },
         ]
       },
-           {
+      {
         state: 'view',
         short_label: 'D',
         name: 'View',
@@ -4920,6 +4935,11 @@ const MENUITEMS = [
                 state: 'MISInfo',
                 name: 'MIS Information',
                 id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
               }
             ]
           },
@@ -5197,6 +5217,11 @@ const MENUITEMS = [
             name: 'Conversion',
             id: 374
           },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -5271,7 +5296,7 @@ const MENUITEMS = [
           },
           {
             state: 'monthly recovery process',
-            name: 'Monthly Recovery Process',
+            name: 'Monthly recovery process',
             id: 360
           },
           {
@@ -5279,7 +5304,7 @@ const MENUITEMS = [
             name: 'Year End BranchWise',
             id: 361
           },
-        
+
         ]
       },
       {

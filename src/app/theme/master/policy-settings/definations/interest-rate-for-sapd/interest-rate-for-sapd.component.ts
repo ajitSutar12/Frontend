@@ -123,7 +123,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     })
 
   }
-
+  tdname
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
@@ -195,6 +195,9 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         return (scheme.name == 'PG' || scheme.name == 'SB');
       });
       this.allScheme = filtered;
+      filtered.forEach((item: any) => {
+        this.tdname = item.name;
+      })
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -230,7 +233,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       //'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
-      'INT_RATE': formVal.INT_RATE
+      'INT_RATE': formVal.INT_RATE,
+      'TYPE': this.tdname
     }
     this.savingandPigmyInterestRatesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');

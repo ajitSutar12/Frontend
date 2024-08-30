@@ -6,12 +6,13 @@ import { SharedModule } from '../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { HolidayService } from './holiday.service'
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from '../../theme.module';
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin
@@ -26,7 +27,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SharedModule,
     FullCalendarModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    ThemeModule,
+    ReactiveFormsModule
   ],
   declarations: [HolidayComponent],
   providers: [{

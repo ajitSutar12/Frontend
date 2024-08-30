@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CibilScoreComponent } from './cibil-score.component';
+import { RemainderComponent } from './remainder.component';
 
-describe('CibilScoreComponent', () => {
-  let component: CibilScoreComponent;
-  let fixture: ComponentFixture<CibilScoreComponent>;
+describe('RemainderComponent', () => {
+  let component: RemainderComponent;
+  let fixture: ComponentFixture<RemainderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CibilScoreComponent ]
+      declarations: [ RemainderComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CibilScoreComponent);
+    fixture = TestBed.createComponent(RemainderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
