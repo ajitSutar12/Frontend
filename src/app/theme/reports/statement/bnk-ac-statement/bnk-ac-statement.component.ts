@@ -71,6 +71,7 @@ export class BnkAcStatementComponent implements OnInit {
   branchName: any;
   introducerACNo
 
+
   fileUrl = this.url + 'examples/AccountStatement1.php'
   name: any;
   isOpen: boolean = false

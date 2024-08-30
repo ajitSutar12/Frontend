@@ -90,7 +90,7 @@ export class CashCreditSchemeComponent implements OnInit {
   otherSettingsTrue = false;
   cashCredittypeTrue = false;
 
-  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -819,7 +819,7 @@ export class CashCreditSchemeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');

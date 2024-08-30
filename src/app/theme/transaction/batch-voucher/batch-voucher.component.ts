@@ -170,7 +170,10 @@ export class BatchVoucherComponent implements OnInit {
       let bankCode = this.sysparaData.BANK_CODE;
       let schData = this.schemeData.filter(ele => ele.id == this.company_data?.AC_TYPE);
       let obj = {
+        // acno: bankCode + barnchCode[0].name + schData[0].S_APPL + this.company_data.AC_NO,
         acno: schData[0].S_APPL == '980' ? this.company_data.AC_NO : this.company_data.BANKACNO,
+
+
         scheme: schData[0].S_APPL,
         date: this.date
       }
@@ -267,7 +270,8 @@ export class BatchVoucherComponent implements OnInit {
       //create a object
       let dataObj = this.angForm.value;
       dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
-        dataObj['gridData'] = this.dataArray;
+      dataObj['gridData'] = this.dataArray;
+
       dataObj['schemeData'] = this.company_data;
       dataObj['companyData'] = this.company_main_data;
       dataObj['narration'] = this.particulars;
@@ -469,6 +473,53 @@ export class BatchVoucherComponent implements OnInit {
     let fi = this.fileInput.nativeElement;
     let notAssigned = new Array();
     let flag: boolean = false;
+    // readXlsxFile(fi.files[0]).then((rows) => {
+    //   if (this.filterArray == undefined) {
+    //     Swal.fire('Oops...!', "Please select company data first", "error");
+    //   } else {
+    //     for (let item of this.filterArray) {
+    //       flag = false;
+    //       for (let ele of rows) {
+    //         if (item.AC_TYPE == ele[0] && item.AC_NO == ele[1]) {
+    //           item.DEFAULT_AMOUNT = ele[2];
+    //           flag = true;
+    //         }
+    //       }
+    //       if (flag == false) {
+    //         notAssigned.push(item);
+    //         flag = true;
+    //       }
+    //     }
+
+    //     if (notAssigned.length != 0) {
+    //       let string = '';
+    //       for (let item of notAssigned) {
+    //         string += `Ac No : ${item.AC_NO}<br>`
+    //       }
+    //       string += `above Account not find in system please check once again`;
+
+    //       Swal.fire('Oops...!', string, 'error');
+    //     }
+
+    //     this.totalAmt = 0;
+    //     this.filterArray.forEach(element => {
+    //       //debugger
+    //       this.totalAmt = this.totalAmt + parseFloat(element.DEFAULT_AMOUNT);
+    //       this.totalAmount = this.totalAmt.toFixed(2)
+
+    //     });
+    //   }
+
+    //     this.totalAmt = 0;
+    //     this.filterArray.forEach(element => {
+    //       //debugger
+    //       this.totalAmt = this.totalAmt + parseFloat(element.DEFAULT_AMOUNT);
+          
+    //       this.totalAmount = this.totalAmt.toFixed(2)
+
+    //     });
+    //   // }
+    // })
     readXlsxFile(fi.files[0]).then((rows) => {
      
       // if (this.filterArray == undefined) {
@@ -501,11 +552,6 @@ export class BatchVoucherComponent implements OnInit {
     
       console.log(this.dataArray);
     
-      rows.forEach(element => {
-        
-      });
-     
-
       if (flag == false) {
         // notAssigned.push(item);
         flag = true;
@@ -522,14 +568,9 @@ export class BatchVoucherComponent implements OnInit {
         Swal.fire('Oops...!', string, 'error');
       }
 
-      // this.filterArray = item
-      // console.log(item);
-
-
       this.totalAmt = 0;
       this.dataArray.forEach(element => {
         this.dataArray
-        //debugger
         this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
         this.totalAmount = this.totalAmt.toFixed(2)
 
@@ -537,6 +578,8 @@ export class BatchVoucherComponent implements OnInit {
     }
       // }
     )
+
+
   }
   closeModal() {
     var button = document.getElementById('triggerhide');
