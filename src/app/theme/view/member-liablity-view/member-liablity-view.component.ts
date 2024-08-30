@@ -16,73 +16,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./member-liablity-view.component.scss']
 })
 export class MemberLiablityViewComponent implements OnInit {
-  // angForm : FormGroup;
-  //   obj: any;
-
-  // constructor(
-  //   private fb: FormBuilder,
-  //   public schemeCodeDropdownService: SchemeCodeDropdownService,
-  //   private _schemeService: SchemeAccountNoService
-
-  // ) { }
-
-  // //ngfor variables
-  // sh_Scheme
-  // introducerACNo
-
-  // //ngmodel variables
-  // selectedshScheme
-  // selectedmemNo
-
-  // ngOnInit(): void {
-  //   this.createForm();
-
-  //   this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-
-  //       var filtered = data.filter(function (sh_Scheme) {
-  //         return (sh_Scheme.name == 'SH');
-  //       });
-  //       this.sh_Scheme = filtered;
-  //       this.getIntroducer()
-  //   })
-  // }
-
-
-  // getIntro(event){
-  //   this.getschemename = event.name
-  //   this.getIntroducer()
-  // }
-
-  // getschemename: any
-  // getIntroducer() {
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   let branchCode = result.branch.id;
-  //   this.obj = [this.selectedshScheme,branchCode]
-
-    
-  //   switch (this.getschemename) {
-
-  //     case 'SH':
-  //       this._schemeService.getShareSchemeList1(this.obj).subscribe(data => {
-  //         this.introducerACNo = data;
-  //         //console.log(data,"gj");        
-
-  //       })
-  //       break;
-
-  //   }
-     
-  //  }
-
-
-  // createForm(){
-  //   this.angForm = this.fb.group({
-  //     scheme: ['',[Validators.required]],
-  //     memNo: ['',[Validators.required]]
-  //   });
-  // }
-
   angForm: FormGroup;
   obj: any;
   defaultDate: any
@@ -150,15 +83,12 @@ export class MemberLiablityViewComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.id = data[0].id
       var filtered = data.filter(function (sh_Scheme) {
-        return (sh_Scheme.name == 'LN');
+        return (sh_Scheme.name == 'SH');
       });
       this.sh_Scheme = filtered;
       this.getIntroducer()
     });
-    //director
-//  this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
-//   this.director = data;
-// })
+ 
   }
   createForm() {
     this.angForm = this.fb.group({
@@ -176,17 +106,7 @@ export class MemberLiablityViewComponent implements OnInit {
     this.actype = event.value
   }
 
-  // adjustTextareaWidth() {
-  //   const content = this.tableHtml + this.tableHtml1;
-  //   const lines = content.split('\n');
-  //   let maxLength = 0;
-  //   lines.forEach(line => {
-  //       if (line.length > maxLength) {
-  //           maxLength = line.length;
-  //       }
-  //   });
-  //   this.textareaWidth = Math.min(maxLength * 8, window.innerWidth - 40); 
-  // }
+
   bankacno: any
   ac_name: any
   accdetails
@@ -201,7 +121,7 @@ export class MemberLiablityViewComponent implements OnInit {
     // this.bankacno = event.bankacno
     // this.ac_name = event.name
     // this.branch = event.branch
-    this.customerId = event.customerId
+    this.customerId = event.label
     // this.getdata();
   }
   
@@ -231,23 +151,29 @@ export class MemberLiablityViewComponent implements OnInit {
 
   getThirdDetails(){
     const myObj2 = {
-      'GAC_CUSTID':  this.thirdaccustid
+      'GAC_CUSTID':  this.accustid
     };
 
     this.http.post(this.url+'/term-loan-master/guaranterDetails3', myObj2).subscribe(
       (data3: any) => {
-        this.accdetails2 = data3;
-        this.tableData2 = data3.map(item => ({
-          srNO: data3[0].id,
-          name: data3[0].AC_NAME || '',
-          sanctionAmount: data3[0].AC_SANCTION_AMOUNT || 0,
-          installmentAmount: data3[0].AC_INSTALLMENT || 0,
-          openDate: data3[0].AC_OPDATE || '',
-          closeDate: data3[0].AC_CLOSEDT || '',
-          balance: data3[0].ledgerbalance || 0,
-          dueBalance: data3[0].duebal || 0
-        }));
-        // this.setAccountDetails(data[0]);
+ 
+
+      this.accdetails2 = data3;
+        this.tableData2 = []; 
+
+        for (let item of data3) {
+          this.tableData2.push({
+            srNO: item.id,
+            name: item.AC_NAME || '',
+            sanctionAmount: item.AC_SANCTION_AMOUNT || 0,
+            installmentAmount: item.AC_INSTALLMENT || 0,
+            openDate: item.AC_OPDATE || '',
+            closeDate: item.AC_CLOSEDT || '',
+            balance: item.ledgerbalance || 0,
+            dueBalance: item.duebal || 0
+          });
+        }
+
         this.tableHtml2 = this.convertTableToText2(this.tableData2);
       },
       error => {
@@ -263,8 +189,8 @@ export class MemberLiablityViewComponent implements OnInit {
     let branchCode = result.branch.id;
     this.obj = [this.selectedshScheme, branchCode]
     switch (this.getschemename) {
-      case 'LN':
-        this._schemeService.getTermLoanSchemeList1(this.obj).subscribe(data => {
+      case 'SH':
+        this._schemeService.getShareMasterAcListForLedger(this.obj).subscribe(data => {
           this.director = data;     
         })
         break;
@@ -276,8 +202,7 @@ export class MemberLiablityViewComponent implements OnInit {
   printTextArea() {
     const printWindow = window.open();
     printWindow.document.write('<html><head><title>Print</title></head><body>');
-    // tableHtml: string = '';
-    // printWindow.document.write('<pre>' + this.tableHtml, this.tableHtml1 + '</pre>');
+   
     printWindow.document.write('<pre>' + this.tableHtml + '\n' + this.tableHtml1 + '\n' + this.tableHtml2 +'</pre>');
    
     printWindow.document.write('</body></html>');
@@ -287,37 +212,6 @@ export class MemberLiablityViewComponent implements OnInit {
 
   }
 
-
-//   convertTableToText(data: any[], bankName: string, branchName: string, reportName: string, currentDate: string): string {
-//     let headers = ['Sr. No.', 'Name/Guarantor Name', 'Sanction Amount', 'Installment Amount', 'Open Date', 'Close Date', 'Balance', 'Due Balance'];
-
-
-//     // let headerRow = ` ${headers[0].padEnd(5, ' ')}  ${headers[1].padEnd(20, ' ')}  ${headers[2].padEnd(15, ' ')}  ${headers[3].padStart(15, ' ')}  ${headers[4].padStart(15, ' ')}  ${headers[5].padStart(15, ' ')}  ${headers[6].padStart(15, ' ')}  ${headers[7].padStart(15, ' ')} `;
-
-//     let headerRow = ` ${headers[0]}      ${headers[1]}               ${headers[2]}          ${headers[3]}          ${headers[4]}         ${headers[5]}        ${headers[6]}        ${headers[7]} `;
-
-//     let separator = '___________________________________________________________________________________________________________________________________________________________';
-//     // let rows = data.map(row =>
-//     //   ` ${(row.srNO ?? '').toString().padEnd(5, ' ')}  ${(row.name).padEnd(20, ' ')}  ${(row.sanctionAmount ?? '').toString().padStart(15, ' ')}  ${(row.installmentAmount ?? '').toString().padStart(15, ' ')}  ${(row.openDate ?? '').padStart(15, ' ')}  ${(row.closeDate ?? '').padStart(15, ' ')}  ${(row.balance ?? '').toString().padStart(15, ' ')}  ${(row.dueBalance ?? '').toString().padStart(15, ' ')} `
-//     // );
-
-
-//     let rows = data.map(row =>
-//       ` ${(row.srNO ?? '').toString()}          ${(row.name)}                    ${(row.sanctionAmount ?? '').toString()}           ${(row.installmentAmount ?? '').toString()}              ${(row.openDate ?? '')}            ${(row.closeDate ?? '')}           ${(row.balance ?? '').toString()}             ${(row.dueBalance ?? '').toString()} `
-//     );
-//     let additionalInfo = `                                                      ${bankName}  
-//  ${branchName}                                                            ${reportName} ${currentDate}
- 
-// `;
-
-//     return [separator, additionalInfo, separator, headerRow, separator, ...rows, separator].join('\n');
-//   }
-//   convertTableToText1(data: any[]): string {
-//     let rows = data.map(row =>
-//       ` ${(row.srNO ?? '').toString()}          ${(row.name)}          `
-//     );
-//     return [...rows].join('\n');
-//   }
 
 convertTableToText(data: any[], bankName: string, branchName: string, reportName: string, currentDate: string): string {
   let headers = ['Sr. No.', 'Name/Guarantor Name', 'Sanction Amount', 'Installment Amount', 'Open Date', 'Close Date', 'Balance', 'Due Balance'];
@@ -343,8 +237,7 @@ convertTableToText1(data: any[]): string {
   return rows.join('\n');
 }
 convertTableToText2(data: any[]): string {
-  // let headers = ['Sr. No.', 'Name/Guarantor Name', 'Sanction Amount', 'Installment Amount', 'Open Date', 'Close Date', 'Balance', 'Due Balance'];
-  // let headerRow = ` ${headers[0]}      ${headers[1]}           ${headers[2]}          ${headers[3]}          ${headers[4]}         ${headers[5]}        ${headers[6]}        ${headers[7]} `;
+
   let separator = '_______________________________________________________________________________________________________________________________________________';
 
   let rows = data.map(row =>
@@ -356,10 +249,8 @@ convertTableToText2(data: any[]): string {
 }
 getdata(){
   let myObj = {
-    // 'AC_TYPE': this.actype,
-    // 'BANKACNO': this.bankacno,
-    // 'BRANCH_CODE': this.branch
-    'AC_CUSTID':this.customerId
+  
+    'AC_NO':this.customerId
   }
   this.http.post(this.url+'/term-loan-master/memberLiablity1', myObj).subscribe(
     (data: any) => {
@@ -418,6 +309,62 @@ resetForm() {
 }
 onLoad() {
   this.showLoading = false;
+}
+
+isSchemeShow = false
+isSchemeShow1 = true
+isCustomer = false
+isCustomer1 = true
+isBtnShow = true
+editClick(data) {
+  this.isBtnShow = false
+  this.isSchemeShow = true
+  this.isSchemeShow1 = false
+  this.isCustomer = true
+  this.isCustomer1 = false
+  this.selectedshScheme = data.scheme
+  this.angForm.patchValue({
+    'scheme': data.scheme,
+    'memNo': data.accMember,
+  })
+
+  let id = data.acno
+  let obj = {
+    'AC_NO': id
+  }
+
+  this.http.post('http://192.168.1.153:7272/term-loan-master/memberLiablity1', obj).subscribe(
+    (data1: any) => {
+      this.accdetails = data1;
+      this.gaccustid = data1[0].lnmasterID
+      this.accustid = data1[0].AC_CUSTID
+      this.tableData1 = [{
+        srNO: data1[0].id,
+        name: data1[0].AC_NAME || '',
+        sanctionAmount: data1[0].AC_SANCTION_AMOUNT || 0,
+        installmentAmount: data1[0].AC_INSTALLMENT || 0,
+        openDate: data1[0].AC_OPDATE || '',
+        closeDate: data1[0].AC_CLOSEDT || '',
+        balance: data1[0].ledgerbalance || 0,
+        dueBalance: data1[0].duebal || 0,
+        TOT_SAC_AMT: data1[0].TOT_SAC_AMT || 0
+      }];
+
+      let userData = JSON.parse(localStorage.getItem('user'));
+      let bankName = userData.branch.syspara.BANK_NAME;
+      let branchName = userData.branch.NAME;
+      this.getSecondDetails();
+      this.tableHtml = this.convertTableToText(this.tableData1, bankName, branchName, 'Member Liability Report', this.fromdate);
+      // this.adjustTextareaWidth();
+    },
+    error => {
+      console.error('Error fetching data:', error);
+    }
+  );
+
+
+  
+
 }
 
 }

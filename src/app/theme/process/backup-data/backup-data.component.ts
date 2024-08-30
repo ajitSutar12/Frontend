@@ -19,7 +19,6 @@ export class BackupDataComponent implements OnInit {
   }
   fileUrl = this.url + '/upload/backup.sql'
   isloader: boolean = false
-
   download() {
     this.modalClass = 'modalShow';
     this.isloader = true
@@ -31,7 +30,6 @@ export class BackupDataComponent implements OnInit {
         this.showButton = false
       } else {
         setTimeout(() => {
-          this.isloader = false
           this.showButton = false
           this.isloader = false
           this.modalClass = 'modalHide';

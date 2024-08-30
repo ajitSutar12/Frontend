@@ -1,5 +1,3 @@
-
-
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CalendarOptions } from '@fullcalendar/angular';
@@ -11,7 +9,7 @@ import { HolidayService } from './holiday.service';
 
 export interface HolidayEvent {
   title: string;
-  start: string; 
+  start: string;
   allDay: boolean;
 }
 
@@ -30,7 +28,8 @@ export class HolidayComponent implements OnInit, OnDestroy {
     { id: 4, name: 'Thursday' },
     { id: 5, name: 'Friday' },
     { id: 6, name: 'Saturday' },
-    { id: 0, name: 'Sunday' }
+    { id: 0, name: 'Sunday' },
+    { id: 7, name: 'No Holiday' }
   ];
 
   url = environment.base_url;
@@ -116,7 +115,7 @@ export class HolidayComponent implements OnInit, OnDestroy {
       var date = full[0].split(/\//);
       var newDate = date[1] + '/' + date[0] + '/' + date[2];
       var formatDate = new Date(newDate);
-      // starting and end date
+
       let start = moment(formatDate);
       let end = moment(start).add(12, 'M');
       let starting = moment(start).format('DD.MM.YYYY');
@@ -145,29 +144,44 @@ export class HolidayComponent implements OnInit, OnDestroy {
     this.mySubscription.unsubscribe();
   }
 
+
   // Holiday
   selectedDay: any;
   onDaySelected(event: any) {
     this.selectedDay = event;
     this.sendDayAndYear();
-    this.showConfirmationModal();
-    
+
+    if (this.selectedDay.name === 'No Holiday') {
+      this.NoHoliday();
+    } else {
+      this.showConfirmationModal();
+    }
+  }
+
+  NoHoliday() {
+
+    let selectnoholi = this.selectedDay.name;
+    let currentYear = moment().year();
+    this.http.post<any>(this.url + '/holiday/NoHoliday', { dayOfWeek: selectnoholi, year: currentYear }).subscribe(data => {
+      Swal.fire('No Holiday Declared!', 'You have declared No Holiday.', 'success');
+    })
+
   }
   sendDayAndYear() {
     let selectedDayName = this.selectedDay.name;
-    
+
     let currentYear = moment().year();
 
     this.http.post<any>(this.url + '/holiday/dates-for-day', { dayOfWeek: selectedDayName, year: currentYear })
       .subscribe(response => {
-        this.holiday=response
+        this.holiday = response
         this.handleHoliday(response);
       }, error => {
         this.handleError();
       });
   }
   handleHoliday(response: any) {
-    let nextDay = response.date; 
+    let nextDay = response.date;
     this.datesArr.push({
       title: 'Holiday',
       start: nextDay,
@@ -176,7 +190,7 @@ export class HolidayComponent implements OnInit, OnDestroy {
     this.refreshCalendar();
   }
 
- 
+
   handleError() {
     Swal.fire('Error!', `There was an issue processing the holiday for ${this.selectedDay.name}.`, 'error');
   }
@@ -193,38 +207,8 @@ export class HolidayComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   holiday
-  
-  // confirmHoliday() {
-  //   let selectedDayName = this.selectedDay.name;
-  //   let selectedDayId = this.selectedDay.id;
-  //   let currentYear = moment().year();
-
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   let branchCode = result.branch.CODE;
-
-    
-  //   this.http.post<any>('http://192.168.1.139:7277/holiday/postholiday', {
-  //     dayOfWeek: selectedDayName,
-  //     id:selectedDayId,
-  //     year: currentYear,
-  //     branchCode: branchCode,
-  //     holidayDates: this.holiday 
-  //   }).subscribe(response => {
-  //     let nextDay = response.date; 
-  //     Swal.fire('Holiday Declared!', `Holiday on ${selectedDayName} has been declared.`, 'success');
-  //     this.datesArr.push({
-  //       title: 'Holiday',
-  //       start: nextDay,
-  //       allDay: true
-  //     });
-  //     this.refreshCalendar();
-      
-  //   }, error => {
-  //     Swal.fire('Error!', `There was an issue declaring the holiday on ${selectedDayName}.`, 'error');
-  //   });
-  // }
   confirmHoliday() {
     let selectedDayName = this.selectedDay.name;
     let selectedDayId = 1;
@@ -234,64 +218,64 @@ export class HolidayComponent implements OnInit, OnDestroy {
     let result = JSON.parse(data);
     let branchCode = result.branch.CODE;
 
-    
-    if (this.datesArr.length > 0) {
-        
-        Swal.fire({
-            title: "Do you want to reassign the holiday?",
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.reassignHoliday(selectedDayName, 1, currentYear, branchCode);
-            }
-        });
-    } else {
-       
-        Swal.fire({
-            title: `Are you going to declare a holiday on the upcoming ${this.selectedDay.name} this year?`,
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.declareHoliday(selectedDayName, selectedDayId, currentYear, branchCode);
-            }
-        });
-    }
-}
 
-declareHoliday(selectedDayName: string, selectedDayId: number, currentYear: number, branchCode: string) {
-    // Declare the holiday
+    if (this.datesArr.length > 0) {
+
+      Swal.fire({
+        title: "Do you want to reassign the holiday?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.reassignHoliday(selectedDayName, 1, currentYear, branchCode);
+        }
+      });
+    } else {
+
+      Swal.fire({
+        title: `Are you going to declare a holiday on the upcoming ${this.selectedDay.name} this year?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.declareHoliday(selectedDayName, 1, currentYear, branchCode);
+        }
+      });
+    }
+  }
+
+  declareHoliday(selectedDayName: string, selectedDayId: number, currentYear: number, branchCode: string) {
+
     this.http.post<any>(this.url + '/holiday/postholiday', {
       dayOfWeek: selectedDayName,
       id: 1,
       year: currentYear,
       branchCode: branchCode,
-      holidayDates: this.holiday 
+      holidayDates: this.holiday
     }).subscribe(response => {
       let nextDay = response.date;
       Swal.fire('Holiday Declared!', `Holiday on ${selectedDayName} has been declared.`, 'success');
-      
-    
+
+
       this.datesArr.push({
         title: 'Holiday',
         start: nextDay,
         allDay: true
       });
-       
+
       this.refreshCalendar();
-      
+
     }, error => {
       Swal.fire('Error!', `There was an issue declaring the holiday on ${selectedDayName}.`, 'error');
     });
-}
+  }
 
-reassignHoliday(selectedDayName: string, selectedDayId: number, currentYear: number, branchCode: string) {
-    
+  reassignHoliday(selectedDayName: string, selectedDayId: number, currentYear: number, branchCode: string) {
+
     this.datesArr = this.datesArr.filter(event => event.title !== 'Holiday');
 
     // Reassign the holiday
@@ -300,25 +284,25 @@ reassignHoliday(selectedDayName: string, selectedDayId: number, currentYear: num
       id: 1,
       year: currentYear,
       branchCode: branchCode,
-      holidayDates: this.holiday 
+      holidayDates: this.holiday
     }).subscribe(response => {
       let nextDay = response.date;
       Swal.fire('Holiday Declared!', `Holiday on ${selectedDayName} has been declared.`, 'success');
-      
-      // Add the new holiday to the dates array
+
+
       this.datesArr.push({
         title: 'Holiday',
         start: nextDay,
         allDay: true
       });
-      
-    
+
+
       this.refreshCalendar();
-      
+
     }, error => {
       Swal.fire('Error!', `There was an issue declaring the holiday on ${selectedDayName}.`, 'error');
     });
-}
+  }
 
   getNextOccurrenceOfDay(dayName: string): string {
     const dayIndexMap = {
@@ -334,7 +318,7 @@ reassignHoliday(selectedDayName: string, selectedDayId: number, currentYear: num
     let today = moment();
     let dayIndex = dayIndexMap[dayName];
 
-   
+
     let nextDay = today.day(dayIndex);
     if (nextDay.isBefore(today, 'day')) {
       nextDay.add(1, 'week');

@@ -33,6 +33,7 @@ import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/di
     Iframe5Module,HttpClientModule
 
   ],
+  exports:[MemberLiablityViewComponent],
   declarations: [MemberLiablityViewComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,

@@ -827,36 +827,7 @@ const MENUITEMS1 = [
 
         ]
       },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
+      
       {
         state: 'passing',
         short_label: 'D',
@@ -886,6 +857,41 @@ const MENUITEMS1 = [
             state: 'neftPassing',
             name: 'NEFT/RTGS Transaction Passing',
             id: 354
+          },
+        ]
+      },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
         ]
       },
@@ -1928,6 +1934,11 @@ const MENUITEMS1 = [
                 state: 'MISInfo',
                 name: 'MIS Information',
                 id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
               }
             ]
           },
@@ -2206,6 +2217,11 @@ const MENUITEMS1 = [
             name: 'Conversion',
             id: 374
           },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -2290,11 +2306,7 @@ const MENUITEMS1 = [
             name: 'Year End BranchWise',
             id: 361
           },
-          {
-            state: 'cibilScore',
-            name: 'Cibil Score',
-            id: 380
-          },
+         
 
         ]
       },
@@ -3808,36 +3820,7 @@ const MENUITEMS = [
           },
         ]
       },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
+     
       {
         state: 'passing',
         short_label: 'D',
@@ -3867,6 +3850,41 @@ const MENUITEMS = [
             state: 'neftPassing',
             name: 'NEFT/RTGS Transaction Passing',
             id: 354
+          },
+        ]
+      },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
         ]
       },
@@ -4912,6 +4930,11 @@ const MENUITEMS = [
                 state: 'MISInfo',
                 name: 'MIS Information',
                 id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
               }
             ]
           },
@@ -5189,6 +5212,11 @@ const MENUITEMS = [
             name: 'Conversion',
             id: 374
           },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -5263,7 +5291,7 @@ const MENUITEMS = [
           },
           {
             state: 'monthly recovery process',
-            name: 'Monthly Recovery Process',
+            name: 'Monthly recovery process',
             id: 360
           },
           {
@@ -5271,11 +5299,7 @@ const MENUITEMS = [
             name: 'Year End BranchWise',
             id: 361
           },
-          {
-            state: 'cibilScore',
-            name: 'CibilScore',
-            id: 380
-          },
+          
         ]
       },
       {

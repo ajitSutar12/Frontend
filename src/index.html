@@ -92,7 +92,7 @@
     window.addEventListener('popstate', function (event) {
 
 
-        if (window.location.href == 'https://patsevacompservtech.com/SHIVPRASADNATEPUTE/CBS/auth/login/simple') { 
+        if (window.location.href == 'https://patsevacompservtech.com/COMPSERV/CBS/auth/login/simple') { 
 
            
 
@@ -107,7 +107,7 @@
             $.ajax({
 
 
-                 url: 'https://patsevacompservtech.com:7275/user-defination/logout',
+                 url: 'https://patsevacompservtech.com:7279/user-defination/logout',
 
                 method: 'POST',
                 data: obj,
@@ -116,7 +116,7 @@
             $.ajax({
 
 
-                 url: 'https://patsevacompservtech.com:7275/user-defination/logoffhistory',
+                 url: 'https://patsevacompservtech.com:7279/user-defination/logoffhistory',
 
 
               method: 'POST',
@@ -176,7 +176,7 @@
                     $.ajax({
 
 
-                        url: 'https://patsevacompservtech.com:7275/user-defination/logout',
+                        url: 'https://patsevacompservtech.com:7279/user-defination/logout',
 
                         method: 'POST',
                         data: obj,
@@ -185,7 +185,7 @@
                     $.ajax({
 
 
-                        url: 'https://patsevacompservtech.com:7275/user-defination/logoffhistory',
+                        url: 'https://patsevacompservtech.com:7279/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -201,7 +201,7 @@
             // your function for too long inactivity goes here
 
 
-            window.location.href = 'https://patsevacompservtech.com/SHIVPRASADNATEPUTE/CBS/auth/login/simple'; 
+            window.location.href = 'https://patsevacompservtech.com/COMPSERV/CBS/auth/login/simple'; 
             window.close()
         }
 
@@ -221,7 +221,7 @@
                     $.ajax({
 
 
-                        url: 'https://patsevacompservtech.com:7275/refresh-token',
+                        url: 'https://patsevacompservtech.com:7279/refresh-token',
                         method: 'POST',
                         data: payload,
                         success: function (result) {

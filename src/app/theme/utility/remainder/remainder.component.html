@@ -1,0 +1,171 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Remainder Input</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-2"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                        (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                        placeholder="Branch">
+                                        <ng-option *ngFor="let values of branchOption" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2"> <label for="END_DATE">Entry Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                        class="form-control" [(ngModel)]="todate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" appButton
+                                        minlength="10" maxlength="10" formControlName="END_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label for="in-out-time">In-Out Time</label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <div class="form-group input-group">
+                                    <input type="time" id="in-out-time" name="time" formControlName="time"
+                                        class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"> <label for="END_DATE">From Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
+                                        class="form-control" [(ngModel)]="fromtodate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" appButton
+                                        minlength="10" maxlength="10" formControlName="FROM_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2"> <label for="END_DATE">Upto Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="UPTO_DATE" id="UPTO_DATE"
+                                        class="form-control" [(ngModel)]="uptodate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate" appButton
+                                        minlength="10" maxlength="10" formControlName="UPTO_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-2"> <label for="scheme">User <sub class="required">*</sub></label></div>
+                        <div class="col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select id="USER" bindValue="value" [(ngModel)]="user" formControlName="USER" (change)="getUser($event)"
+                                        bindLabel="label" placeholder="User">
+                                        <!-- <ng-option *ngFor="let value of ROLEX" [value]="values">
+                                            {{value.label}}</ng-option> -->
+                                        <ng-option *ngFor="let value of ROLEX" [value]="value.id">
+                                            {{value.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label for="frequency">Frequency<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select id="FREQUENCY" formControlName="FREQUENCY" placeholder="FREQUENCY"
+                                    bindLabel="name" bindValue="name">
+                                    <ng-option *ngFor="let values of options" [value]="values">
+                                        {{values}}</ng-option>
+                                </ng-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label for="narration">Narration<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <input type="text" formControlName="DETAILS" [(ngModel)]="model1.DETAILS">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10"></div>
+                        <div class="col-sm-12 col-md-2">
+                            <button type="submit" *ngIf="showsubmit" class="btn btn-outline-primary btn-sm"
+                                value="submit" (click)="submit()">Submit</button>
+                            <button type="submit" *ngIf="showupdate" class="btn btn-outline-primary btn-sm"
+                                value="submit" (click)="update($event)">Update</button>
+                            <button type="submit" *ngIf="cancelshow" class="btn btn-outline-primary btn-sm"
+                                value="submit" (click)="onReset()">Cancel</button>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact" #myTable>
+                                    <thead>
+                                        <td>Action</td>
+                                        <td>Sr. No.</td>
+                                        <td>User</td>
+                                        <td>From Date</td>
+                                        <td>To Date</td>
+                                        <td>Frequncy</td>
+                                        <td>Narration</td>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of gettable;let i= index">
+                                            <td>
+                                                <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                    (click)="editTransferAccount(i)" placement="top"
+                                                    ngbTooltip="Edit"></span>
+                                            </td>
+                                            <td>{{i+1}}</td>
+                                            <td>{{item.USERID}}</td>
+                                            <td>{{item.FROM_DATE}}</td>
+                                            <td>{{item.UPTO_DATE}}</td>
+                                            <td>{{item.FREQUENCY}}</td>
+                                            <td>{{item.DETAILS}}</td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

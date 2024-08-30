@@ -39,7 +39,7 @@ export class BatchVoucherComponent implements OnInit {
   selectedBranch: any;
   selectCompanyCode: any;
   totalAmt: number = 0;
-  totalAmount 
+  totalAmount
   filterArray: any;
   narrationList: any;
   particulars: any;
@@ -56,6 +56,7 @@ export class BatchVoucherComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   showImportDiv: boolean = false;
+  dataArray: any;
 
   constructor(
     private fb: FormBuilder,
@@ -169,7 +170,7 @@ export class BatchVoucherComponent implements OnInit {
       let bankCode = this.sysparaData.BANK_CODE;
       let schData = this.schemeData.filter(ele => ele.id == this.company_data?.AC_TYPE);
       let obj = {
-        acno: bankCode + barnchCode[0].name + schData[0].S_APPL + this.company_data.AC_NO,
+        acno: schData[0].S_APPL == '980' ? this.company_data.AC_NO : this.company_data.BANKACNO,
         scheme: schData[0].S_APPL,
         date: this.date
       }
@@ -203,7 +204,7 @@ export class BatchVoucherComponent implements OnInit {
   editFlag: boolean = false;
   async setFilterData(data) {
     // debugger
-    this.filterArray = [];
+    this.dataArray = [];
     for (let item of data) {
       let ac_type = this.schemeData.filter(ele => ele.id == item.TRAN_ACTYPE)
       let obj = {
@@ -212,7 +213,7 @@ export class BatchVoucherComponent implements OnInit {
         AC_TYPE: ac_type[0].S_APPL,
         DEFAULT_AMOUNT: item.TRAN_AMOUNT
       }
-      this.filterArray.push(obj);
+      this.dataArray.push(obj);
       this.editFlag = true;
     }
   }
@@ -266,7 +267,7 @@ export class BatchVoucherComponent implements OnInit {
       //create a object
       let dataObj = this.angForm.value;
       dataObj['ChequeDate'] = (formVal.ChequeDate == '' || formVal.ChequeDate == 'Invalid date' || formVal.ChequeDate == null || formVal.ChequeDate == undefined) ? cheqDate = '' : cheqDate = moment(formVal.ChequeDate).format('DD/MM/YYYY'),
-        dataObj['gridData'] = this.filterArray;
+        dataObj['gridData'] = this.dataArray;
       dataObj['schemeData'] = this.company_data;
       dataObj['companyData'] = this.company_main_data;
       dataObj['narration'] = this.particulars;
@@ -469,42 +470,73 @@ export class BatchVoucherComponent implements OnInit {
     let notAssigned = new Array();
     let flag: boolean = false;
     readXlsxFile(fi.files[0]).then((rows) => {
-      if (this.filterArray == undefined) {
-        Swal.fire('Oops...!', "Please select company data first", "error");
-      } else {
-        for (let item of this.filterArray) {
-          flag = false;
-          for (let ele of rows) {
-            if (item.AC_TYPE == ele[0] && item.AC_NO == ele[1]) {
-              item.DEFAULT_AMOUNT = ele[2];
-              flag = true;
-            }
-          }
-          if (flag == false) {
-            notAssigned.push(item);
-            flag = true;
-          }
-        }
-
-        if (notAssigned.length != 0) {
-          let string = '';
-          for (let item of notAssigned) {
-            string += `Ac No : ${item.AC_NO}<br>`
-          }
-          string += `above Account not find in system please check once again`;
-
-          Swal.fire('Oops...!', string, 'error');
-        }
-
-        this.totalAmt = 0;
-        this.filterArray.forEach(element => {
-          //debugger
-          this.totalAmt = this.totalAmt + parseFloat(element.DEFAULT_AMOUNT);
-          this.totalAmount = this.totalAmt.toFixed(2)
-
-        });
+     
+      // if (this.filterArray == undefined) {
+      //   Swal.fire('Oops...!', "Please select company data first", "error");
+      // } else {
+      // for (let item of this.filterArray) {
+      let excelData = []
+      flag = false;
+      const headers = rows[0]; // First row as headers
+       this.dataArray = [];
+  
+      // Iterate over each row, starting from the second row (index 1)
+      for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          let rowObject = {};
+  
+          // Map each cell to the corresponding header
+          headers.forEach((header, index) => {
+              rowObject['AC_TYPE'] = row[0]; // Assign cell value to the corresponding header
+              rowObject['AC_NO'] = row[1]; // Assign cell value to the corresponding header
+              rowObject['DEFAULT_AMOUNT'] = row[2]; // Assign cell value to the corresponding header
+              
+          });
+  
+          // Add the object to the array
+          this.dataArray.push(rowObject);
+          console.log(this.dataArray);
+          
       }
-    })
+    
+      console.log(this.dataArray);
+    
+      rows.forEach(element => {
+        
+      });
+     
+
+      if (flag == false) {
+        // notAssigned.push(item);
+        flag = true;
+      }
+      // }
+
+      if (notAssigned.length != 0) {
+        let string = '';
+        for (let item of notAssigned) {
+          string += `Ac No : ${item.AC_NO}<br>`
+        }
+        string += `above Account not find in system please check once again`;
+
+        Swal.fire('Oops...!', string, 'error');
+      }
+
+      // this.filterArray = item
+      // console.log(item);
+
+
+      this.totalAmt = 0;
+      this.dataArray.forEach(element => {
+        this.dataArray
+        //debugger
+        this.totalAmt = this.totalAmt + element.DEFAULT_AMOUNT;
+        this.totalAmount = this.totalAmt.toFixed(2)
+
+      });
+    }
+      // }
+    )
   }
   closeModal() {
     var button = document.getElementById('triggerhide');

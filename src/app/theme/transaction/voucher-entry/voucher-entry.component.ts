@@ -320,7 +320,7 @@ export class VoucherEntryComponent implements OnInit {
       bank: [''],
       Intdate: ['']
     })
-   
+
   }
 
   resetscheme() {
@@ -602,7 +602,7 @@ export class VoucherEntryComponent implements OnInit {
             icon: 'success',
             title: 'Voucher update Successfully!',
             html:
-              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>', 
+              '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
             showCancelButton: true, //true
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#3085d6',
@@ -671,8 +671,44 @@ export class VoucherEntryComponent implements OnInit {
   }
   // Reset Function
   resetForm() {
-    this.createForm();
+    this.angForm.controls.temp_over_draft.reset();
+    this.angForm.controls.bank.reset();
+    this.angForm.controls.chequeNo.reset();
+    this.angForm.controls.chequeDate.reset();
+    this.angForm.controls.scheme_type.reset();
+    this.angForm.controls.scheme.reset();
+    this.angForm.controls.account_no.reset();
+    this.angForm.controls.tran_mode.reset();
+    this.angForm.controls.slip_no.reset();
+    this.angForm.controls.amt.reset();
+    this.angForm.controls.total_amt.reset();
+    this.angForm.controls.particulars.reset();
+    this.angForm.controls.token.reset();
+    this.angForm.controls.over_draft.reset();
+    this.angForm.controls.Intdate.reset();
+    
+    this.DayOpBalance = null;
+    this.Pass = null;
+    this.Unpass = null;
+    this.overdraftAmt = null;
+    this.opendate = null;
+    this.asondate = null;
+    this.sanctiondate = null;
+    this.expirydate = null;
+    this.renewaldate = null;
+    this.sanctionamt = null;
+    this.depositamt = null;
+    this.maturityamt = null;
+    this.ClearBalance = null;
+    this.AfterVoucher = null;
 
+    
+   
+    if (this.headData) {
+      this.headData = [];
+    }
+    
+    
   }
 
   //get Amount Details
@@ -706,6 +742,9 @@ export class VoucherEntryComponent implements OnInit {
     this.submitForm = true
     this.headData = []
     this.submitTranMode = item;
+
+    this.tokenshowhide = (item.tran_drcr === 'D'); // token Number
+
     if (this.submitTranMode.tran_type == 'TR') {
       this.showChequeDetails = true;
       this.angForm.controls['chequeNo'].reset()
@@ -1083,6 +1122,8 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   showlgindetails() {
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
     //debugger
     if (this.angForm.controls['account_no'].value != null && this.selectedCode != 'GL') {
       this.ShowDocuments = true
@@ -1134,7 +1175,7 @@ export class VoucherEntryComponent implements OnInit {
     // }
 
     const exists = this.tableData.some(item => item.grdName === grdName && item.custId === custId);
-  
+
     if (!exists && grdName && custId) {
       this.tableData.push({ grdName: grdName, custId: custId });
     }
@@ -1144,21 +1185,21 @@ export class VoucherEntryComponent implements OnInit {
     this.accountEvent = item
     this.grdName = this.accountEvent.AC_GRDNAME;
     this.custId = this.accountEvent.AC_CUSTID;
-    this.patchToTable( this.grdName,  this.custId);
-   //  this.tableData = [];
-   this.minor = item.AC_MINOR
-   if (item.AC_MINOR == '1') {
-     this.isMinor = true
-   }
-   else if (item.AC_MINOR == '0') {
-     this.isMinor = false
-   }
-   if (item.jointAccounts && item.jointAccounts.length > 0) {
-     this.isJoint = true
-   }
-   else if (item.jointAccounts = '0') {
-     this.isJoint = false
-   }
+    this.patchToTable(this.grdName, this.custId);
+    //  this.tableData = [];
+    this.minor = item.AC_MINOR
+    if (item.AC_MINOR == '1') {
+      this.isMinor = true
+    }
+    else if (item.AC_MINOR == '0') {
+      this.isMinor = false
+    }
+    if (item.jointAccounts && item.jointAccounts.length > 0) {
+      this.isJoint = true
+    }
+    else if (item.jointAccounts = '0') {
+      this.isJoint = false
+    }
     this.submitCustomer = null
     this.angForm.controls['total_amt'].reset()
     this.angForm.controls['amt'].reset()
@@ -2676,7 +2717,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme: this.Submitscheme.S_APPL,
       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
       date: addInFrom,
-      branch : this.branchCode
+      branch: this.branchCode
 
     }
 
@@ -2713,7 +2754,7 @@ export class VoucherEntryComponent implements OnInit {
 
         // let value = open + pass + data2;
         // let value = open + pass + this.pigmyamount;
-        let value = open + pass ;
+        let value = open + pass;
         if (value < 0) {
           this.ClearBalance = Math.abs(value).toFixed(2)
           this.typeclearbal = 'Dr'
@@ -2786,11 +2827,11 @@ export class VoucherEntryComponent implements OnInit {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
   }
-  Cancel(){
+  Cancel() {
     this.resetForm()
 
   }
- IsJointView: boolean = false
+  IsJointView: boolean = false
   openModal(view) {
     if (view == 'minor') {
       this.isMinor = true
@@ -2798,7 +2839,7 @@ export class VoucherEntryComponent implements OnInit {
       this.display = "block";
     }
     else if (view == 'joint') {
-      this.isJoint= true
+      this.isJoint = true
       this.isMinor = false
       this.display = "block";
     }
@@ -2806,7 +2847,7 @@ export class VoucherEntryComponent implements OnInit {
   display
   onCloseHandled() {
     this.display = 'none';
-    
+
     // this.isMinor = true;
     // this.isJoint = true;
   }
