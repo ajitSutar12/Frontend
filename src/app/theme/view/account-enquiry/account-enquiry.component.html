@@ -104,8 +104,8 @@
                                     </div>
                                     <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
                                         *ngIf="isOpen">Open Account </div>
-                                        <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
-                                    *ngIf="isMinor">Minor Account </div>
+                                    <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
+                                        *ngIf="isMinor">Minor Account </div>
                                     <div class="col-sm-3 col-md-2" style="float: right;" *ngIf="acCloseDate">
                                         <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
                                     </div>
@@ -335,7 +335,9 @@
                                         <span><label>Interest Rate: </label></span>
                                     </div>
                                     <div class="col-sm-2"><span
-                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate ==0?accountData?.AC_INTRATE:transactionData?.interest_rate }}</label></span>
+                                            style="color: #3e8cd0; float: right; text-align: right; padding-right:10px;"><label>{{transactionData?.interest_rate
+                                                ==0?accountData?.AC_INTRATE:transactionData?.interest_rate
+                                                }}</label></span>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -1152,6 +1154,12 @@
                                             *ngIf="customerIdView"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Customer ID</a>
                                     </li>
+                                    <li class="mb-75">
+                                        <!-- <a><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info</a> -->
+                                        <a href="javascript:void(0);" (click)="openModal()">
+                                            <i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -1233,7 +1241,8 @@
                                 </li> -->
                                 <li class="mb-75" *ngIf="accountEvent?.AC_GRDNAME">
                                     <label class="fw-bolder me-25">Guardian Name:</label>
-                                    <span style="color: green;">{{accountEvent?.AC_GRDNAME}} <label style="color: blue;">(Adnyan Palan Karta)</label></span>
+                                    <span style="color: green;">{{accountEvent?.AC_GRDNAME}} <label
+                                            style="color: blue;">(Adnyan Palan Karta)</label></span>
                                 </li>
                                 <li class="mb-75" *ngIf="isJoint && jointCustId">
                                     <label class="fw-bolder me-25">Joint Holder CustId:</label>
@@ -2289,8 +2298,17 @@
                                     </div>
                                     <div class="app-modal-body">
                                         <perfect-scrollbar>
-                                            <img [src]="selectedImagePreview" alt="docu" class="form-control"
-                                                style="width: 100%; height: 100%" />
+                                            <!-- <img [src]="selectedImagePreview" alt="docu" class="form-control"
+                                                style="width: 100%; height: 100%" /> -->
+                                            <div *ngIf="isImgPreview && (selectedImagePreview.startsWith('data:image') || selectedImagePreview.toLowerCase().endsWith('.jpg') || selectedImagePreview.toLowerCase().endsWith('.jpeg') || selectedImagePreview.toLowerCase().endsWith('.png'))"
+                                                class='embed-responsive' style='padding-bottom:60%;'>
+                                                <img [src]="selectedImagePreview"
+                                                    style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0;">
+                                            </div>
+                                            <div *ngIf="isPdf || (isImgPreview && (selectedImagePreview.startsWith('data:application/pdf') || selectedImagePreview.toLowerCase().endsWith('.pdf')))"
+                                                class='embed-responsive' style='padding-bottom:60%;'>
+                                                <iframe [src]="urlMap"></iframe>
+                                            </div>
                                         </perfect-scrollbar>
                                     </div>
                                     <div class="app-modal-footer">
@@ -2424,3 +2442,29 @@
     </div>
 </app-modal-basic>
 <div [class]="modalClass"><!-- Place at bottom of page --> </div>
+
+
+
+<div class="modal text-black" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: rgb(148, 19, 131);">
+                <label style="color: white;">OD INFORMATION</label>
+                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div><label>Temporary Amount : {{AC_ODAMT}}</label></div>
+                <div><label>Periodical Amount : {{AC_SODAMT}}</label></div>
+                <div><label>Sanctioned By : {{AC_OD_ASSIGNBY}}</label></div>
+                <div><label>Expire Date : {{OD_EXPIRE_DATE}}</label></div>
+                <div><label>OD Days : {{AC_ODDAYS}}</label></div>
+            </div>
+            <div class="modal-footer">
+                <button style="background-color: rgb(230, 97, 9);" type="button" class="btn btn-default"
+                    (click)="onCloseHandled()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

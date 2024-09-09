@@ -241,7 +241,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.ngBranchCode = result.branch.id
     // }
   }
-  
+
 
 
 
@@ -888,6 +888,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   Status
   Customer_info
   showCustomerDeatils() {
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
     if (this.angForm.controls['AC_NO'].value != null) {
       this._CustomerIdService.getFormData(this.customerId).subscribe(data => {
         this.Customer_info = data

@@ -32,7 +32,6 @@ export class BnkTDStatementComponent implements OnInit{
   ngForm: FormGroup;
   iframe5url:any='';
   clicked:boolean=false;
-  isOpen: boolean = false;
 
   //api
   url = environment.base_url;
@@ -62,10 +61,8 @@ export class BnkTDStatementComponent implements OnInit{
   showRepo:boolean=false;
   todate: any;
   fromdate: moment.Moment;
-
   isOpen: boolean = false
   acCloseDate: null;
-
 
 
   constructor(

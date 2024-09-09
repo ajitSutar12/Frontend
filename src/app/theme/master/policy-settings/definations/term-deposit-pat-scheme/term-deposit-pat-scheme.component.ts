@@ -125,7 +125,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       this.minDate = this.maxDate
     })
   }
-
+  tdname
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
@@ -190,6 +190,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     this.runTimer();
     this.schemeCodeDropdownService.getTermDepositSchemePatD().pipe(first()).subscribe(data => {
       this.scheme = data
+      data.forEach((item: any) => {
+        this.tdname = item.name;
+      })
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -227,6 +230,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
         'AC_TYPE': formVal.AC_TYPE,
         'INT_CATEGORY': formVal.INT_CATEGORY,
         'FieldData': this.multiField,
+        'TYPE': this.tdname
       }
       this.termDepositPatSchemeService.postData(dataToSend).subscribe(data1 => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');

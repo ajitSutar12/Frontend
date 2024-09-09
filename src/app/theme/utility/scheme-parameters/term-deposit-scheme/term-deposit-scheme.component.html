@@ -13,10 +13,10 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                  <input  style="text-align: right;" type="text" name="S_APPL" class="form-control"
                     placeholder=" " id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     (focusout)="checkDuplicate($event)" pattern="^[0-9]+$" maxlength="3" minlength="3" min="201"
-                    max="299" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus />
+                    max="299" title="Input allowed only 0-9" formControlName="S_APPL"  />
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -38,7 +38,7 @@
             <div class="col-md">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
+                  <input  type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
                     required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME" maxlength="10"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" />
@@ -63,7 +63,7 @@
             <div class="col-md">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
+                  <input  type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
                     pattern="^[A-Za-z\./ -]+$" formControlName="S_NAME" maxlength="90"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" />
@@ -95,7 +95,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglacno" formControlName="S_GLACNO"
+                  <ng-select  id="S_GLACNO" bindValue="value" [(ngModel)]="ngsglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
                     placeholder="GL Account Number">
@@ -124,7 +124,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
+                  <ng-select  id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
                     formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
                     [selectOnTab]='true' required placeholder="Interest GL Account">
@@ -158,7 +158,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl"
+                  <ng-select  id="S_INT_CR_ACNO" bindValue="value" [(ngModel)]="ngintcreditgl"
                     [virtualScroll]="true" formControlName="S_INT_CR_ACNO" bindLabel="label"
                     title="Compulsory Selection" #S_INT_CR_ACNO (focus)="onFocus(S_INT_CR_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Credit GL Account ">
@@ -189,7 +189,7 @@
                 </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
+                  <ng-select  id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngpayable"
                     formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                     [virtualScroll]="true" #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)"
                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
@@ -225,7 +225,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                  <ng-select  id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
                     [virtualScroll]="true" formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Penal Interest Account ">
@@ -255,7 +255,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble"
+                  <ng-select  id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecble"
                     [virtualScroll]="true" formControlName="S_RECBL_PENAL_ACNO" bindLabel="label"
                     title="Compulsory Selection" #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)"
                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
@@ -287,7 +287,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
+                  <ng-select  id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
                     formControlName="S_CASH_INT_ACNO" bindLabel="label" title="Compulsory Selection" #S_CASH_INT_ACNO
                     (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true' [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
@@ -318,7 +318,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="MATURED_BUT_NOT_PAID_GLAC" bindValue="value" [(ngModel)]="ngmaturebtntpd"
+                  <ng-select  id="MATURED_BUT_NOT_PAID_GLAC" bindValue="value" [(ngModel)]="ngmaturebtntpd"
                     formControlName="MATURED_BUT_NOT_PAID_GLAC" bindLabel="label" title="Compulsory Selection"
                     [virtualScroll]="true" #MATURED_BUT_NOT_PAID_GLAC (focus)="onFocus(MATURED_BUT_NOT_PAID_GLAC)"
                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}" required
@@ -1973,7 +1973,7 @@
                 <tbody *ngIf="termDepositScheme?.length != 0">
                   <tr *ngFor="let data of termDepositScheme">
                     <td>
-                      <span appTheme class="fa fa-fw fa-edit field-icon" id="editbutton"
+                      <span  class="fa fa-fw fa-edit field-icon" id="editbutton"
                         (click)="editClickHandler(data.id);gotoTop()" placement="bottom" ngbTooltip="Edit"></span>
                       &nbsp;
                       <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm"

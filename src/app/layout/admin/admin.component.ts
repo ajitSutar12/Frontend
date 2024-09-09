@@ -194,6 +194,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   marqueeElement: any;
   url=environment.base_url
   barnchCode
+  narrations: string[];
   constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,public router:Router,
     private http: HttpClient) {
     this.animateSidebar = '';
@@ -392,7 +393,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   dataArray: any[]
 
   ngOnInit() {
-
+    this.getRemain()
+    this.getData1()
     this.roleWiseMenuAssign()
 
     let data: any = localStorage.getItem('user');
@@ -445,28 +447,28 @@ export class AdminComponent implements OnInit, OnDestroy {
     if (marqueeState === 'hidden') {
       this.newsContent = '';
     }
-    interval(5000).subscribe(x => {
-      let data1: any = localStorage.getItem('user');
-      let result1 = JSON.parse(data1);
-      let branchcode = result1.branch.id;
-      // this.http.get<any>('http://192.168.1.113:7276/remainder' + branchcode).subscribe(
-        // this.http.get<any>(environment.base_url+branchcode).subscribe(
-          this.http.get<any>(this.url + '/remainder' + branchcode ).subscribe(
-        (apiData) => {
+    // interval(5000).subscribe(x => {
+    //   let data1: any = localStorage.getItem('user');
+    //   let result1 = JSON.parse(data1);
+    //   let branchcode = result1.branch.id;
+    //   // this.http.get<any>('http://192.168.1.113:7276/remainder' + branchcode).subscribe(
+    //     // this.http.get<any>(environment.base_url+branchcode).subscribe(
+    //       this.http.get<any>(this.url + '/remainder' + branchcode ).subscribe(
+    //     (apiData) => {
 
-          for (let i = 0; i < apiData.length; i++) {
-            this.newsContent += apiData[i].S_APPL + " " + apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " + apiData[i].AC_MATUAMT + " ";
-            // console.log(this.newsContent);
-          }
-          if (marqueeState !== 'hidden') {
-            localStorage.setItem('marqueeState', 'visible');
-          }
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    });
+    //       for (let i = 0; i < apiData.length; i++) {
+    //         this.newsContent += apiData[i].S_APPL + " " + apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " + apiData[i].AC_MATUAMT + " ";
+    //         // console.log(this.newsContent);
+    //       }
+    //       if (marqueeState !== 'hidden') {
+    //         localStorage.setItem('marqueeState', 'visible');
+    //       }
+    //     },
+    //     (error) => {
+    //       console.error(error);
+    //     }
+    //   );
+    // });
 
     document.querySelector('.alert-close')?.addEventListener('click', () => {
       const messageElement = document.querySelector('.message');
@@ -877,11 +879,118 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.filteredMenuListData = [];
   }
 
-  modalClose: boolean = false
+//   modalClose: boolean = false
+//   closeMarquee() {
+//     this.modalClose = false
+//   }
+//   openModal(){
+// this.modalClose=true
+//   }
+  modalClose: boolean = true
   closeMarquee() {
     this.modalClose = false
+
   }
-  openModal(){
-this.modalClose=true
+  openModal() {
+    this.modalClose = true
+  }
+
+
+  getData1() {
+    let data1: any = localStorage.getItem('user');
+    let result1 = JSON.parse(data1);
+    let branchcode = result1.branch.id;
+    // this.http.get<any>('http://192.168.1.113:7276/remainder' + branchcode).subscribe(
+    // this.http.get<any>(environment.base_url+branchcode).subscribe(
+    this.http.get<any>(this.url + '/remainder' + branchcode).subscribe(
+      (apiData) => {
+
+       
+        for (let i = 0; i < apiData.length; i++) {
+          this.newsContent += apiData[i].S_APPL + " " + apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " + apiData[i].AC_MATUAMT + " ";
+          // console.log(this.newsContent);
+        }
+        if (marqueeState !== 'hidden') {
+          localStorage.setItem('marqueeState', 'visible');
+        }
+        this.updateMarqueeContent(); 
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    const marqueeState = localStorage.getItem('marqueeState');
+    if (marqueeState === 'hidden') {
+      this.newsContent = '';
+    }
+  }
+  user
+  gettable
+  remainDT
+  filteredNarrations
+  getRemain() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    this.userData = result;
+    this.user = this.userData.RoleDefine[0].RoleId
+    let obj = {
+      "USERID": this.user,
+    }
+    this.http.post(this.url+'/user-defination/getremainderdata', obj).subscribe(
+      (response) => {
+        this.gettable = response;
+        this.filteredNarrations = [];
+        this.gettable.forEach((item: any) => {
+          let fromDate = item.FROM_DATE;
+          let endDate = item.UPTO_DATE;
+          if (fromDate >= endDate) {
+            this.filteredNarrations.push(item.DETAILS);
+          }
+        });
+        this.remainDT = this.filteredNarrations
+        this.updateMarqueeContent(); 
+      }
+    );
+  }
+  marqueeContent
+  updateMarqueeContent() {
+    // this.marqueeContent = `${this.newsContent} ${this.remainDT.join(' ')}`;
+    let formattedRemainDT = this.remainDT.map((item, index) => `${index + 1}. ${item}`).join('<br>');
+    this.marqueeContent = `${this.newsContent}<br>${formattedRemainDT}`;
+  }
+
+  // modalClose = true;
+  isDragging = false;
+  initialX: number = 0;
+  initialY: number = 0;
+  offsetX: number = 0;
+  offsetY: number = 0;
+
+  startDrag(event: MouseEvent) {
+    this.isDragging = true;
+    this.initialX = event.clientX - this.offsetX;
+    this.initialY = event.clientY - this.offsetY;
+  }
+
+  drag(event: MouseEvent) {
+    if (this.isDragging) {
+      event.preventDefault();
+      const x = event.clientX - this.initialX;
+      const y = event.clientY - this.initialY;
+      this.offsetX = x;
+      this.offsetY = y;
+
+      const draggableElement = document.getElementById('ofBar') as HTMLElement;
+      if (draggableElement) {
+        draggableElement.style.transform = `translate(${x}px, ${y}px)`;
+      }
+    }
+  }
+
+  stopDrag() {
+    this.isDragging = false;
+  }
+  closeModal() {
+    this.modalClose = false;
   }
 }

@@ -59,6 +59,9 @@ interface CustomerMaster {
   L_NAME: string;
   M_NAME: string;
   AC_NAME: string;
+  MF_NAME: string;
+  ML_NAME: string;
+  MM_NAME: string;
   AC_CAST: string;
   AC_OCODE: string;
   AC_ADHARNO: string;
@@ -327,6 +330,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           data: "AC_NAME",
         },
         {
+          title: "Mother Full Name",
+          data: "MAC_NAME",
+        },
+        {
           title: "Cast",
           data: "AC_CAST",
         },
@@ -527,9 +534,20 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       GST_NO: [""],
       TAN_NO: [""],
       COP_NO: [""],
+      ML_NAME:[""],
+      MF_NAME:[""],
+      MAC_NAME:[""],
+      MM_NAME:[""],
+      MAC_TITLE:[""],
     });
     this.documentUpload()
   }
+
+  mTitle
+  mlname
+  mfname
+  mmname
+  mfullname
 
   // Method to insert data into database through NestJS
   submit(event) {
@@ -564,6 +582,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       } else {
         fullName = (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase();
       }
+       //mother full name
+       let mfullname = '';
+       mfullname = formVal.ML_NAME + ' ' + formVal.MF_NAME + ' ' + formVal.MM_NAME;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
@@ -575,7 +596,13 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'BENEF_NAME':formVal.BENEF_NAME?.toUpperCase(),
         // 'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
        'AC_NAME':fullName,
-        'AC_TITLE_REG': formVal.AC_TITLE_REG,
+       'MF_NAME': formVal.MF_NAME?.toUpperCase(),
+        'MM_NAME': formVal.MM_NAME?.toUpperCase(),
+        'ML_NAME': formVal.ML_NAME?.toUpperCase(),
+        'MAC_TITLE': formVal.AC_TITLE,
+        'MAC_NAME':mfullname,
+       
+        'AC_TITLE_REG': formVal.AC_TITLE_REG.regValue,
         'F_NAME_REG': formVal.F_NAME_REG?.toUpperCase(),
         'M_NAME_REG': formVal.M_NAME_REG?.toUpperCase(),
         'L_NAME_REG': formVal.L_NAME_REG?.toUpperCase(),
@@ -734,6 +761,10 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     this.lname = ''
     this.fname = ''
     this.mname = ''
+    this.mfullname = null
+    this.mlname = ''
+    this.mfname = ''
+    this.mmname = ''
     this.resetForm();
   }
 
@@ -793,6 +824,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   customerDoc
   //Method for append data into fields
+
+  motherFullName=true;
   file = null
   editClickHandler(id) {
     this.autofacus = false;
@@ -808,16 +841,29 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngoccupation = data.AC_OCODE
       this.ngCast = data.AC_CAST
       this.ngfinyear = data.tdsForm?.FIN_YEAR
+      if (data.MAC_NAME === "null" || data.MAC_NAME === null || data.MAC_NAME === '') {
+        this.motherFullName = false; 
+      } else {
+        this.motherFullName = true; 
+        this.angForm.patchValue({
+          MAC_NAME: data.MAC_NAME 
+        });
+      }
       this.ngSubmitDate = (data.tdsForm?.SUBMIT_DATE == 'Invalid date' || data.tdsForm?.SUBMIT_DATE == '' || data.tdsForm?.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm?.SUBMIT_DATE,
         this.angForm.patchValue({
           AC_NO: data.AC_NO,
           AC_MEMBTYPE: data.AC_MEMBTYPE,
           AC_MEMBNO: data.AC_MEMBNO,
           AC_TITLE: data.AC_TITLE,
+          MAC_TITLE: data.MAC_TITLE,
+
           AC_TITLE_REG: data.AC_TITLE_REG,
           F_NAME: data.F_NAME,
           M_NAME: data.M_NAME,
           L_NAME: data.L_NAME,
+          MF_NAME: data.MF_NAME,
+          ML_NAME: data.ML_NAME,
+          MM_NAME: data.MM_NAME,
           BENEF_NAME:data.BENEF_NAME,
           AC_NAME: data.AC_NAME,
           PROP_NAME:data.PROP_NAME,
@@ -929,8 +975,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['F_NAME'] = this.fname?.toUpperCase()
     data['L_NAME'] = this.lname?.toUpperCase()
     data['M_NAME'] = this.mname?.toUpperCase()
+    data['MF_NAME'] = this.mfname?.toUpperCase()
+    data['ML_NAME'] = this.mlname?.toUpperCase()
+    data['MM_NAME'] = this.mmname?.toUpperCase()
     data['BENEF_NAME']=data.BENEF_NAME?.toUpperCase()
-    data['AC_TITLE_REG'] = data.AC_TITLE_REG
+    data['AC_TITLE_REG'] = data.AC_TITLE_REG.regValue 
     data['F_NAME_REG'] = data.F_NAME_REG?.toUpperCase()
     data['M_NAME_REG'] = data.M_NAME_REG?.toUpperCase()
     data['L_NAME_REG'] = data.L_NAME_REG?.toUpperCase()
@@ -1419,10 +1468,18 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               this.angForm.controls['M_NAME'].reset()
               this.angForm.controls['L_NAME'].reset()
               this.angForm.controls['AC_NAME'].reset()
+              this.angForm.controls['MF_NAME'].reset()
+              this.angForm.controls['MM_NAME'].reset()
+              this.angForm.controls['ML_NAME'].reset()
+              this.angForm.controls['AC_NAME'].reset()
+              this.angForm.controls['MAC_NAME'].reset()
               this.angForm.patchValue({
                 L_NAME: '',
                 F_NAME: '',
-                M_NAME: ''
+                M_NAME: '',
+                ML_NAME: '',
+                MF_NAME: '',
+                MM_NAME: '',
               })
 
             }

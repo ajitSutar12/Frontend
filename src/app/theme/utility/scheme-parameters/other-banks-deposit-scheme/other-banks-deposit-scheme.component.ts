@@ -100,7 +100,7 @@ interface OtherBankDepositScheme {
 })
 export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   // Filter Variable
   filterData = {};
@@ -1235,7 +1235,7 @@ export class OtherBanksDepositSchemeComponent implements OnInit, AfterViewInit, 
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');

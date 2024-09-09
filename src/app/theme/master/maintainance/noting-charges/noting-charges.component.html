@@ -196,7 +196,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno"
                                         formControlName="transeferglaccno" bindLabel="label" [virtualScroll]="true"
-                                        #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
+                                        #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'  (change)="getGL($event)"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         required placeholder="Transfer G.L.A/c No">
                                         <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
@@ -254,13 +254,20 @@
                                 <td class="td_right">{{data.AC_NO}}</td>
                                 <td>{{data.AC_NAME == '' || data.AC_NAME == null ? '-' :
                                     data.AC_NAME}}</td>
-                                <td class="td_right">
+                                <!-- <td class="td_right">
                                     <input style="text-align: right;" type="text" class="form-control"
                                         (focus)="selectAllContent($event)" name="chargesAmt" id="chargesAmt" #chargesAmt
                                         value="{{data.TRAN_AMOUNT}}" (keypress)=" ($event.charCode>= 48 && $event.charCode <
                                         58)"
                                         (focusout)="getChargesAmount(data.id,data.AC_NO,data.BANKACNO,chargesAmt.value,Narration.value)">
-                                </td>
+                                </td> -->
+                                <td class="td_right">
+                                    <input style="text-align: right;" type="text" class="form-control"
+                                           (focus)="selectAllContent($event)" name="chargesAmt" id="chargesAmt"
+                                           #chargesAmt (input)="updateAmount(data, chargesAmt.value)" 
+                                           value="{{ data.TRAN_AMOUNT }}" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                                           (focusout)="getChargesAmount(data.id, data.AC_NO, data.BANKACNO, chargesAmt.value, Narration.value)">
+                                  </td>
                                 <td class="td_right">
                                     <input type="text" class="form-control" name="Narration" id="Narration" #Narration
                                         value="{{data.NARRATION}}"

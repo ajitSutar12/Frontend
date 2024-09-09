@@ -93,7 +93,7 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   page: number;
   filterData = {};
-
+ 
   scheme
   fromAC
   toAC
@@ -427,14 +427,45 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
   selectAllContent($event) {
     $event.target.select();
   }
-
+  tranGL_ACACNOTYPE
+  actype
+  acno
+  getGL(event) {
+    this.acno=event.value
+    this.tranGL_ACACNOTYPE = event.AC_ACNOTYPE
+    this.actype = event.AC_TYPE
+   
+  }
   submit() {
     let notingdate
     this.formSubmitted = true;
+    this.updateTotalCharges();
     if (this.notingChargesArr.length != 0) {
       const formVal = this.angForm.value;
       let data: any = localStorage.getItem('user');
       let result = JSON.parse(data);
+      // const dataToSend = {
+      //   TRAN_DATE: formVal.TRAN_DATE,
+      //   USER: result.id,
+      //   TRAN_GLACNO: this.ngglacno,
+      //   notingChargesArr: this.notingChargesArr,
+      //   TRAN_AMOUNT: formVal.TRAN_AMOUNT,
+      //   TRAN_ACNOTYPE: this.getschemename,
+      //   TRAN_ACTYPE: this.ngscheme,
+      //   TRAN_DRCR: formVal.TRAN_DRCR,
+      //   GL_ENTRY: formVal.GL_ENTRY,
+      //   BRANCH_CODE: this.branchCode,
+      //   addInPrinciple: formVal.addInPrinciple,
+      //   AMOUNT_TYPE: this.ngchargestype,
+      //   BranchID: this.branchid,
+      //   S_GLACNO: this.S_GLACNO,
+      //   FIELD_GL: this.FIELD_GL,
+      //   GL_CODE: this.GL_CODE,
+      //   FIELD_AMOUNT: this.FIELD_AMOUNT,
+      //   DESCRIPTION: this.DESCRIPTION
+
+      // };
+
       const dataToSend = {
         TRAN_DATE: formVal.TRAN_DATE,
         USER: result.id,
@@ -450,10 +481,14 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
         AMOUNT_TYPE: this.ngchargestype,
         BranchID: this.branchid,
         S_GLACNO: this.S_GLACNO,
+        GLACNO:this.acno,
         FIELD_GL: this.FIELD_GL,
         GL_CODE: this.GL_CODE,
         FIELD_AMOUNT: this.FIELD_AMOUNT,
-        DESCRIPTION: this.DESCRIPTION
+        DESCRIPTION: this.DESCRIPTION,
+        TRANAC_ACNOTYPE: this.tranGL_ACACNOTYPE,
+        AC_TYPE: this.actype,
+        TOTAL: this.totalCharges
 
       };
       this._service.postData(dataToSend).subscribe(data => {
@@ -570,5 +605,15 @@ export class NotingChargesComponent implements OnInit, OnDestroy {
       event.target.value = parseFloat(event.target.value).toFixed(2);
     else
       event.target.value = 0
+  }
+  //total
+  getTotalChargesAmount(): number {
+    return this.notingChargesArr?.reduce((total, data) => {
+      return total + parseFloat(data.TRAN_AMOUNT || 0);
+    }, 0);
+  }
+  totalCharges: number = 0;
+  updateTotalCharges() {
+    this.totalCharges = this.getTotalChargesAmount();
   }
 }
