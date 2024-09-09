@@ -13,7 +13,7 @@ import { PigmyChartEntryService } from './pigmy-chart-entry.service'
 import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive  
-import { DataTableDirective } from 'angular-datatables';
+import { DataTableDirective } from 'angular-datatables'; 
 import { NgSelectComponent } from '@ng-select/ng-select'
 // Handling datatable data
 class DataTableResponse {

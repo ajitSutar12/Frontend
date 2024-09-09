@@ -235,6 +235,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   resetexpirydate: any
   imageObject = new Array();
   isDisabled: boolean = true;
+  joinDate: any;
   constructor(
     private http: HttpClient,
     private LockerMasterService: LockerMasterService,
@@ -608,6 +609,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //joint ac
       JOINT_AC_CUSTID: ['',],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
     })
     let data: any = localStorage.getItem('user');
@@ -626,6 +629,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -693,7 +697,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //Joint Account
         'JointAccountData': this.multiJointAC,
       }
+      this.isDisable = true
       this.LockerMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1623,7 +1629,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE
+
       })
     })
   }
@@ -1636,6 +1644,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1645,6 +1656,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1711,6 +1724,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1723,6 +1739,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1774,8 +1792,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
   }

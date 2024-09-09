@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 import { ReportFrameComponent } from "../../reports/report-frame/report-frame.component";
+import { HttpClient } from '@angular/common/http';
 
  
 
@@ -66,6 +67,9 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
   ngbranch: any;
   branchName: any;
   getbankAcNo: any;
+  SAPPL: any;
+  receiptAmt: any;
+  ledgerBalance: number;
 
   constructor(  
     private fb: FormBuilder,
@@ -77,6 +81,8 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
     private savingMasterService: SavingMasterService,
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,    private systemParameter:SystemMasterParametersService,
+    private http: HttpClient,
+
 
   ) { }
 
@@ -154,6 +160,8 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
 
   getIntro(event) {
     this.getschemename = event.name
+    this.SAPPL =event.id
+
     
     this.getIntroducer()
     
@@ -192,70 +200,134 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
   }
   getIntTrans(event) {
   this.firstno =  event.BANKACNO
+  this.receiptAmt = event.AC_SCHMAMT
+
   }
   getIntTrans1(event) {
     this.lastno =  event.BANKACNO
     }
-  view(event) {
+  // view(event) {
 
+  //   event.preventDefault();
+  //   this.formSubmitted = true;
+  
+  //   let userData = JSON.parse(localStorage.getItem('user'));
+  //   let bankName = userData.branch.syspara.BANK_NAME;
+  //   let branchName = userData.branch.NAME;
+    
+  //   if(this.ngForm.valid){
+  //   let obj = this.ngForm.value
+  //   this.showRepo = true;
+  
+  //   if(this.defaultDate == userData.branch.syspara.CURRENT_DATE)
+  //   {
+  //     obj['FROM_DATE'] =userData.branch.syspara.CURRENT_DATE
+  //   }
+  //   else{
+  //   let date = moment(this.defaultDate).format('DD/MM/YYYY');
+  //   let tDate = moment(date, 'DD/MM/YYYY')
+  //   obj['FROM_DATE']=date 
+  // }
+  //   // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+  //   // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+  
+  //   let scheme = obj.AC_TYPE 
+  //   let branch = obj.BRANCH_CODE
+
+  //   let firstno = this.firstno 
+  //   let lastno = this.lastno 
+
+  //     //     //for tdreceipt Number
+  //     // let obj1 = {
+  //     //   type: this.vtype,
+  //     //   branch: this.ngbranch,
+  //     //   tran_type: this.tranType,
+  //     //   date : sdate
+      
+  
+  //     // }
+  //     // this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
+  //     //   this.glDetails = data
+  //     //   console.log(this.glDetails)
+  //     // }) 
+
+
+
+
+  //  this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ firstno +"'"
+  //  console.log(this.iframe5url);
+  //  this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+   
+   
+   
+  // }
+  // else {
+  //   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  // }
+  
+  // } 
+  iframeVisible: boolean = false;
+  view(event): void {
     event.preventDefault();
     this.formSubmitted = true;
   
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
-    
-    if(this.ngForm.valid){
-    let obj = this.ngForm.value
-    this.showRepo = true;
   
-    if(this.defaultDate == userData.branch.syspara.CURRENT_DATE)
-    {
-      obj['FROM_DATE'] =userData.branch.syspara.CURRENT_DATE
+    if (this.ngForm.valid) {
+      let obj = this.ngForm.value;
+      this.showRepo = true;
+  
+      if (this.defaultDate === userData.branch.syspara.CURRENT_DATE) {
+        obj['FROM_DATE'] = userData.branch.syspara.CURRENT_DATE;
+      } else {
+        let date = moment(this.defaultDate).format('DD/MM/YYYY');
+        obj['FROM_DATE'] = date;
+      }
+  
+      let scheme = obj.AC_TYPE;
+      let branch = obj.BRANCH_CODE;
+  
+      let firstno = this.firstno;
+      let lastno = this.lastno;
+  
+      // Call the API to get ledger balance
+      let obj1 = {
+        scheme:   this.SAPPL,
+        acno: this.firstno,
+        date: obj.FROM_DATE,
+        branch: obj.BRANCH_CODE
+      }
+
+      this._service.getledgerbalance(obj1).subscribe(data => {
+        this.ledgerBalance = Math.abs(data);
+        console.log("Ledger Balance", this.ledgerBalance);
+          let depositAmount = parseInt(this.receiptAmt.replace(/\.\d+$/, ''), 10);
+
+          if (this.ledgerBalance === depositAmount) {
+            this.iframe5url = this.report_url + "examples/TDReceiptPrint.php/?&Date='" + obj.FROM_DATE + "'&scheme='" + scheme + "'&branchname='" + branchName + "'&BRANCH_CODE='" + branch + "'&Bankname='" + bankName + "'&AC_ACNOTYPE='" + scheme + "'&BANKACNO1='" + firstno + "'&BANKACNO2='" + lastno + "'";
+            console.log(this.iframe5url);
+            this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+            this.iframeVisible = true;
+          } else {
+            Swal.fire('Warning!', 'Deposit amount and ledger balance do not match!', 'warning').then(() => {
+              this.clicked = false;
+            });
+            this.iframeVisible = false;
+          }
+        },
+        (error) => {
+          console.error("Error fetching ledger balance", error);
+        }
+      );
+    } else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => {
+        this.clicked = false;
+      });
     }
-    else{
-    let date = moment(this.defaultDate).format('DD/MM/YYYY');
-    let tDate = moment(date, 'DD/MM/YYYY')
-    obj['FROM_DATE']=date 
-  }
-    // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-    // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
-  
-    let scheme = obj.AC_TYPE 
-    let branch = obj.BRANCH_CODE
-
-    let firstno = this.firstno 
-    let lastno = this.lastno 
-
-      //     //for tdreceipt Number
-      // let obj1 = {
-      //   type: this.vtype,
-      //   branch: this.ngbranch,
-      //   tran_type: this.tranType,
-      //   date : sdate
-      
-  
-      // }
-      // this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
-      //   this.glDetails = data
-      //   console.log(this.glDetails)
-      // }) 
-
-
-
-
-   this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ firstno +"'"
-   console.log(this.iframe5url);
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-   
-   
-   
-  }
-  else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
   
-  } 
   close(){
     this.resetForm()
     }

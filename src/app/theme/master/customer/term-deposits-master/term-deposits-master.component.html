@@ -18,7 +18,7 @@
                                         [virtualScroll]="true" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" #ACTYPE (focus)="onFocus(ACTYPE)"
                                         [selectOnTab]='true' required placeholder="Scheme"
-                                        (change)="getReceiptNumber();  getrdagent($event)" autofocus>
+                                        (change)="getrdagent($event)" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -308,7 +308,7 @@
                                                                         bindValue="value" [(ngModel)]="ngIntCategory"
                                                                         formControlName="AC_INTCATA" bindLabel="label"
                                                                         title="Compulsory Selection"
-                                                                        [virtualScroll]="true"
+                                                                        [virtualScroll]="true" (change)="getCategory($event)"
                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                         #AC_INTCATA (focus)="onFocus(AC_INTCATA)"
                                                                         [selectOnTab]='true' required
@@ -1991,6 +1991,35 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm">
+                                                                        <div class="form-group input-group">
+                                                                          <span class="border-lable-flt">
+                                                                            <input type="text" appTheme appButton minlength="10" maxlength="10"
+                                                                              placeholder="Datepicker" placeholder="dd/mm/yyyy" name="JOINT_DATE"
+                                                                               [minDate]="JOINT_DATE" class="form-control"
+                                                                              id="JOINT_DATE" [bsConfig]="{
+                                                                                dateInputFormat: 'DD/MM/YYYY'
+                                                                              }" formControlName="JOINT_DATE" [minDate]="maxDate" bsDatepicker
+                                                                              #NDATE="bsDatepicker" (keydown.Tab)="NDATE.hide()" />
+                                                                            <label for="JOINT_DATE">Join Date<sub class="required">*
+                                                                              </sub></label>
+                                                                          </span>
+                                                                        </div>
+                                                                        <div class="form-group form-primary form-static-label" *ngIf="
+                                                                            angForm.controls['JOINT_DATE']
+                                                                              .invalid &&
+                                                                            (angForm.controls['JOINT_DATE'].dirty ||
+                                                                              angForm.controls['JOINT_DATE']
+                                                                                .touched)
+                                                                          " class="alert alert-danger">
+                                                                          <div *ngIf="
+                                                                              angForm.controls['JOINT_DATE'].errors
+                                                                                ?.required
+                                                                            ">
+                                                                            This fiels is required
+                                                                          </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    <div class="col-sm">
                                                                         <div class="checkbox checkbox-primary">
                                                                             <div
                                                                                 class="border-checkbox-group border-checkbox-group-primary">
@@ -2034,6 +2063,8 @@
                                                                         <td style="max-width: 20px;">Customer ID
                                                                         </td>
                                                                         <td>Name</td>
+                                                                        <td style="max-width: 15px">Joint Date</td>
+
                                                                         <td style="max-width: 15px;">Operation</td>
                                                                     </thead>
                                                                     <tbody *ngIf="multiJointAC?.length != 0">
@@ -2070,6 +2101,11 @@
                                                                                 {{data.JOINT_ACNAME === ''? '-' :
                                                                                 data.JOINT_ACNAME}}
                                                                             </td>
+                                                                            <td class="td_left"
+                                                                                    [ngClass]="data.JOINT_DATE === '' ? 'td_center' : 'td_right'">
+                                                                                    {{data.JOINT_DATE === ''? '-' :
+                                                                                    data.JOINT_DATE}}
+                                                                                </td>
                                                                             <td class="td_left"
                                                                                 [ngClass]="data.OPERATOR === '' ? 'td_left' : 'td_right'">
                                                                                 {{data.OPERATOR === ''? '-' :
@@ -2431,7 +2467,7 @@
                                                     <div class="row" *ngIf="!showInstruction">
                                                         <div class="col-sm" style="float: right;">
                                                             <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                                *ngIf="showButton" (click)="submit($event)">
+                                                                *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid">
                                                                 Submit
                                                             </button>
                                                             <button class="btn btn-outline-primary btn-sm"
@@ -2473,7 +2509,6 @@
                                                             <span class="fa fa-fw fa-plus-circle field-icon" id="icon"
                                                                 (click)="modalLarge.show()" placement="bottom"
                                                                 ngbTooltip="Add Interest Instruction"></span>
-
                                                         </div>
                                                     </div>
                                                     <div *ngIf="updatecheckdata?.intinstruction.length!=0">
@@ -2519,16 +2554,22 @@
                                                                                             placement="bottom"
                                                                                             ngbTooltip="Edit"></span> -->
 
-
                                                                                     <!-- <span
-                                                                                            style="font-size: 12px; cursor: pointer;"
-                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE);"
+                                                                                        class="fa fa-fw fa-eye field-icon"
+                                                                                        id="viewbutton"
+                                                                                        style="align-items: right;"
+                                                                                        *ngIf="data.SYSCHNG_LOGIN"
+                                                                                        (click)="disableForm(data.id);gotoTop()"
+                                                                                        placement="bottom"
+                                                                                        ngbTooltip="View"></span> -->
+                                                                                    <!-- <span
+                                                                                            style="font-size: 20px;color: #0f459b; cursor: pointer;"
+                                                                                            (click)="modalLarge.show();viewImagePreview($event,data.DOCUMENT_CODE)"
                                                                                             placement="right"
                                                                                             ngbTooltip="Show Image"
-                                                                                            class="fa fa-fw fa-eye  field-icon"></span> -->
+                                                                                            class="fa fa-fw fa-eye field-icon"></span> -->
 
                                                                                 </td>
-                                                                               
                                                                                 <td class="td_right">
                                                                                     {{data.INSTRUCTION_NO}}</td>
                                                                                 <td class="td_center">
@@ -2597,7 +2638,7 @@
                                                         </div>
                                                         <div class="app-modal-body">
                                                             <!-- <perfect-scrollbar style="max-width: 10%; max-height: 450px"> -->
-
+                                                                <app-interest-instruction [childMessage]="getIntInstruct"  (reloadTablePassing)="reloadTable()"
                                                                 (newTDCustomerEvent)="addNewInstruction($event)">
                                                             </app-interest-instruction>
                                                             <!-- </perfect-scrollbar> -->
@@ -2767,3 +2808,6 @@
         </div>
     </div>
 </div>
+<div *ngIf="isDisable">
+    <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
+    </div>

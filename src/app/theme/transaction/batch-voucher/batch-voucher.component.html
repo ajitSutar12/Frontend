@@ -136,7 +136,7 @@
                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker minlength="8"
                                             maxlength="10" formControlName="ChequeDate" [maxDate]="maxDate"
                                             [minDate]="minDate" #ChequeDate="bsDatepicker"
-                                            (keydown.Tab)="ChequeDate.hide()" placement="top">
+                                            (keydown.Tab)="ChequeDate.hide()" placement="right">
                                     </span>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of filterArray; let i =index;">
+                                        <tr *ngFor="let item of dataArray; let i =index;">
                                             <td></td>
                                             <td>{{item.AC_TYPE}}</td>
                                             <td>{{item.AC_NO}}</td>
@@ -237,7 +237,8 @@
                                     <span class="border-lable-flt">
                                         <input type="text" class="form-control"
                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                            [value]="totalAmount" readonly formControlName="TotalAmt"
+                                            [value]="totalAmt" readonly formControlName="TotalAmt" 
+
                                             style="text-align: right;">
                                     </span>
 

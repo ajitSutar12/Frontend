@@ -288,16 +288,22 @@
 
     <div class="pcoded-main-container" [style.margin-top]="headerFixedMargin">
       <!-- ////////////////////////////////////////////////////////////////////////////// -->
-     <div *ngIf='router.url==="/dashboard/default"'>
-      <div id="ofBar" *ngIf="modalClose" >
-        <div class="message alert">
+      <div *ngIf='router.url==="/dashboard/default"'>
+     
+        <div id="ofBar" *ngIf="modalClose" class="alert alert-warning draggable" 
+       (mousedown)="startDrag($event)" 
+       (mousemove)="drag($event)"   (dblclick)="closeModal()"
+       (mouseup)="stopDrag()">
+        <img src="assets/time.png" alt="Clock" style="height: 120px; width: 120px;" class="image">
+        <!-- <div class="message alert"> -->
           <marquee behavior="scroll" direction="up" scrollamount="1">
-            <label class="text"><b>
-                {{newsContent}}
+            <!-- <label class="text"><b>
+                {{marqueeContent}}
               </b>
-            </label>
+            </label> -->
+            <label class="text"><b [innerHTML]="marqueeContent"></b></label>
           </marquee>
-        </div>
+        <!-- </div> -->
         <a id="close-bar" (click)="closeMarquee()">×</a>
       </div>
     </div>
@@ -320,6 +326,7 @@
                     <span id="more-details" (click)="toggleOpenedSidebar()" style="font-weight: bold;"> {{barnchName}}
                       <!-- <i class="fa fa-caret-down m-l-10"></i> -->
                     </span>
+                    <span style="font-weight: bold;">Branch Code: {{barnchCode}}</span>
                   </div>
                 </div>
               </div>

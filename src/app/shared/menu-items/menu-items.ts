@@ -827,36 +827,7 @@ const MENUITEMS1 = [
 
         ]
       },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
+
       {
         state: 'passing',
         short_label: 'D',
@@ -886,6 +857,43 @@ const MENUITEMS1 = [
             state: 'neftPassing',
             name: 'NEFT/RTGS Transaction Passing',
             id: 354
+          },
+        ]
+      },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
         ]
       },
@@ -1928,6 +1936,11 @@ const MENUITEMS1 = [
                 state: 'MISInfo',
                 name: 'MIS Information',
                 id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
               }
             ]
           },
@@ -2062,11 +2075,7 @@ const MENUITEMS1 = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-          {
-            state: 'pigmyAppProcess',
-            name: 'Pigmy App Process',
-            id: 308
-          },
+          
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -2210,6 +2219,11 @@ const MENUITEMS1 = [
             name: 'Conversion',
             id: 374
           },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -2244,7 +2258,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
@@ -2253,6 +2267,12 @@ const MENUITEMS1 = [
                 id: 299
               },
             ]
+          },
+
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
           },
 
           {
@@ -2280,7 +2300,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'monthly recovery process',
-            name: 'Monthly recovery process',
+            name: 'Monthly Recovery Process',
             id: 360
           },
           {
@@ -2288,6 +2308,7 @@ const MENUITEMS1 = [
             name: 'Year End BranchWise',
             id: 361
           },
+
 
         ]
       },
@@ -3801,36 +3822,7 @@ const MENUITEMS = [
           },
         ]
       },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
+
       {
         state: 'passing',
         short_label: 'D',
@@ -3860,6 +3852,44 @@ const MENUITEMS = [
             state: 'neftPassing',
             name: 'NEFT/RTGS Transaction Passing',
             id: 354
+          },
+        ]
+      },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
         ]
       },
@@ -4905,6 +4935,11 @@ const MENUITEMS = [
                 state: 'MISInfo',
                 name: 'MIS Information',
                 id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
               }
             ]
           },
@@ -5039,11 +5074,7 @@ const MENUITEMS = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-          {
-            state: 'pigmyAppProcess',
-            name: 'Pigmy App Process',
-            id: 308
-          },
+         
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -5186,6 +5217,11 @@ const MENUITEMS = [
             name: 'Conversion',
             id: 374
           },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -5220,7 +5256,7 @@ const MENUITEMS = [
               },
               {
                 state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
@@ -5230,7 +5266,11 @@ const MENUITEMS = [
               },
             ]
           },
-
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
+          },
           {
             state: 'holiday',
             name: 'Holiday',
@@ -5264,6 +5304,7 @@ const MENUITEMS = [
             name: 'Year End BranchWise',
             id: 361
           },
+
         ]
       },
       {

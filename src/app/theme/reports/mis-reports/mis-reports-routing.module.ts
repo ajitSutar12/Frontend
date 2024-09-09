@@ -27,6 +27,10 @@ children:[
     path: 'MISInfo',
     loadChildren: () => import('./mis-information/mis-information.module').then(m => m.MisInformationModule)
   },
+  {
+    path: 'expensive',
+    loadChildren: () => import('./expensive-list/expensive-list.module').then(m => m.ExpensiveListModule)
+  },
 ]
 }];
 @NgModule({

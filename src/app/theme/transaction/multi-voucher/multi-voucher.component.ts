@@ -610,12 +610,12 @@ export class MultiVoucherComponent implements OnInit {
           ele['date'] = null
         }
       }
-      let chequeDate=moment(obj.chequeDate).format('DD/MM/YYYY')
+      let chequeDate = moment(obj.chequeDate).format('DD/MM/YYYY')
       obj['InputHead'] = this.headData;
       obj['tran_mode'] = this.submitTranMode;
-      obj['chequeDate']=chequeDate
+      obj['chequeDate'] = chequeDate
       obj['scheme'] = this.submitScheme;
-      obj['chequeDate']=chequeDate
+      obj['chequeDate'] = chequeDate
       obj['account_no'] = this.submitAccountNo;
       obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
       obj['branch_code'] = this.selectedBranch
@@ -869,7 +869,31 @@ export class MultiVoucherComponent implements OnInit {
   tempscheme
   //get customer today voucher data
   submitAccountNo: any;
+  // submitAccountNo: any;
+  isMinor: boolean = false
+  isJoint: boolean = false
+  minor
+  accountEvent
+  grdName
+  custId
   getVoucherData(item) {
+    this.accountEvent = item
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable(this.grdName, this.custId);
+    this.minor = item.AC_MINOR
+    if (item.AC_MINOR == '1') {
+      this.isMinor = true
+    }
+    else if (item.AC_MINOR == '0') {
+      this.isMinor = false
+    }
+    if (item.jointAccounts && item.jointAccounts.length > 0) {
+      this.isJoint = true
+    }
+    else if (item.jointAccounts = '0') {
+      this.isJoint = false
+    }
     this.DayOpBal = 0
     this.selectedMode = null
     this.angForm.controls['total_amt'].reset()
@@ -1113,11 +1137,11 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
-      bank:data.bank,
+      bank: data.bank,
       amt: Number(data.amt).toFixed(2),
       // NARRATION: data.NARRATION,
       total_amt: data.total_amt,
-      bank:data.bank
+      // bank:data.bank
     })
     // this.changeMode(data.tran_mode);
     this.headData = []
@@ -1232,7 +1256,7 @@ export class MultiVoucherComponent implements OnInit {
 
       for (let ele of this.mainMaster) {
         ele['total_amt'] = Number(ele['total_amt']).toFixed(2)
-     
+
       }
       this.selectedCode = data[0].scheme.S_ACNOTYPE;
       this.selectedSchemeCode()
@@ -1474,6 +1498,8 @@ export class MultiVoucherComponent implements OnInit {
   url = environment.base_url;
   ShowDocuments: boolean = false
   showlgindetails() {
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
     if (this.angForm.controls['account_no'].value != null) {
       this.ShowDocuments = true
       this._CustomerIdService.getFormData(this.submitAccountNo.idmasterID).subscribe(data => {
@@ -2549,5 +2575,89 @@ export class MultiVoucherComponent implements OnInit {
   adjustsize() {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
+  }
+  resetForm() {
+
+    this.angForm.controls['token'].reset()
+    // this.angForm.controls['NARRATION'].reset()
+    this.angForm.controls['total_amt'].reset()
+    this.angForm.controls['amt'].reset()
+    this.angForm.controls['slip_no'].reset()
+    this.angForm.controls['tran_mode'].reset()
+    this.angForm.controls['account_no'].reset()
+    this.angForm.controls['scheme'].reset()
+    this.angForm.controls['scheme_type'].reset()
+    this.angForm.controls['type'].reset()
+    this.angForm.controls['chequeDate'].reset()
+    this.angForm.controls['chequeNo'].reset()
+    this.angForm.controls['bank'].reset()
+    this.angForm.controls['NARRATION'].reset()
+
+    this.DayOpBal = null;
+    this.Pass = null;
+    this.Unpass = null;
+    this.overdraftAmt = null;
+    this.opendate = null;
+    this.asondate = null;
+    this.sanctiondate = null;
+    this.expirydate = null;
+    this.renewaldate = null;
+    this.sanctionamt = null;
+    this.depositamt = null;
+    this.maturityamt = null;
+    this.ClearBalance = null;
+    this.AfterVoucher = null;
+
+
+    if (this.headData) {
+      this.headData = [];
+    }
+
+    if (this.mainMaster) {
+      this.mainMaster = [];
+    }
+
+    this.totalCredit = null;
+    this.totalDebit = null;
+
+  }
+
+  Cancel() {
+    this.resetForm()
+
+  }
+  IsJointView: boolean = false
+  display
+
+  isMinor1 = false
+  isJoint1 = false
+  openModal(view) {
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint = true
+      this.isMinor = false
+      this.display = "block";
+    }
+  }
+
+  tableData: any[] = [];
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableData.some(item => item.grdName === grdName && item.custId === custId);
+
+    if (!exists && grdName && custId) {
+      this.tableData.push({ grdName: grdName, custId: custId });
+    }
+  }
+  onCloseHandled() {
+    this.display = 'none';
+
   }
 }

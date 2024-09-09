@@ -223,3 +223,10 @@ label {
   width: 100%;
   background: rgba(255, 255, 255, .8) url('https://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
 }
+.cellCss {
+  text-align: left;
+  word-wrap: break-word;
+  white-space: normal;
+  max-width: 200px;
+
+}

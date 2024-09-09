@@ -585,6 +585,7 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   // Method to insert data into database through NestJS
+ isDisable = false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -626,7 +627,9 @@ export class PigmyAgentMasterComponent implements OnInit, AfterViewInit, OnDestr
         'SIGNATURE_AUTHORITY': formVal.SIGNATURE_AUTHORITY,
         'NomineeData': this.multiNominee
       }
+      this.isDisable = true
       this.PigmyAgentMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

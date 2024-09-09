@@ -78,4 +78,7 @@ export class MonthlyRecPostingComponent implements OnInit {
       this.schemeACNo = data
     })
   }
+
+
+  submit(){}
 }

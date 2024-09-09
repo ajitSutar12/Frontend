@@ -646,7 +646,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MOBNO: [''],
       AC_EMAIL: [''],
       //minor and introducer
-      AC_MINOR: ['', []],
+      // AC_MINOR: ['', []],
+      AC_MINOR: [false],
       AC_MBDATE: ['', []],
       AC_GRDNAME: ['', [Validators.pattern]],
       AC_GRDRELE: ['', [Validators.pattern]],
@@ -671,6 +672,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //joint ac
       JOINT_AC_CUSTID: ['',],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
       //attorney
       ATTERONEY_NAME: ['', []],
@@ -798,6 +801,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   is_reqired_auto
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     let temdate
     let opdate
@@ -878,7 +882,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'PowerOfAttorneyData': this.multiAttorney,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.savingMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1399,7 +1405,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (birthDate) {
       showAge = moment().diff(moment(birthDate, "DD-MM-YYYY"), 'years');
       if (showAge <= 18) {
-        this.angForm.controls['AC_MINOR'].setValue(true ? '1' : '0');
+        // this.angForm.controls['AC_MINOR'].setValue(true ? '1' : '0');
+        this.angForm.controls['AC_MINOR'].setValue(true);
         this.angForm.controls['AC_GRDNAME'].enable();
         this.angForm.controls['AC_GRDRELE'].enable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].enable();
@@ -1410,6 +1417,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       else if (showAge > 18) {
         // this.angForm.controls['AC_MINOR'].setValue(false ? '0' : '1');
+        this.angForm.controls['AC_MINOR'].setValue(false);
         this.angForm.controls['AC_GRDNAME'].disable();
         this.angForm.controls['AC_GRDRELE'].disable();
         this.angForm.controls['SIGNATURE_AUTHORITY'].disable();
@@ -1598,7 +1606,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE
+
       })
     })
   }
@@ -1615,6 +1625,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1681,6 +1693,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1693,6 +1707,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1744,8 +1760,12 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
   }

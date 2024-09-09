@@ -216,6 +216,10 @@ const routes: Routes = [
     path: 'centralpassing',
     loadChildren: () => import('../shortcutkey/centralised-passing/cdPassing.module').then(m => m.CentralPassingModule)
   },
+  {
+    path: 'customerDoc',
+    loadChildren: () => import('../shortcutkey/customdoc/customdoc.module').then(m => m.CustomdocModule)
+  },
 
 ];
 

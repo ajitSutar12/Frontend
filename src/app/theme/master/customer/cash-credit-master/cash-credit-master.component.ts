@@ -809,7 +809,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.selectedImagePreview = ''
     }
   }
-
+  isDisable=false
   // Method to insert data into database through NestJS
   submit() {
     this.formSubmitted = true;
@@ -930,7 +930,9 @@ export class CashCreditMasterComponent implements OnInit {
         'Vehicle': this.vehicleid,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.cashCreditService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',

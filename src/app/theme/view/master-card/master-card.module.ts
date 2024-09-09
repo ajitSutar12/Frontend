@@ -17,6 +17,11 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { LedgerViewModule } from '../ledger-view/ledger-view.module';
+import { ThemeModule } from '../../theme.module';
+import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { MemberLiablityViewModule } from '../member-liablity-view/member-liablity-view.module';
+import { SharesLedgerViewModule } from '../shares-ledger-view/shares-ledger-view.module';
 
 
 
@@ -32,9 +37,14 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    LedgerViewModule,
+    ThemeModule,
+    MemberLiablityViewModule,
+    SharesLedgerViewModule
   ],
   declarations: [MasterCardComponent],
+  exports:[MasterCardComponent],
   providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
@@ -42,6 +52,7 @@ import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module
   },
   SchemeCodeDropdownService,
   SchemeAccountNoService,
+  OwnbranchMasterService
 ]
 })
 export class MasterCardModule { }

@@ -114,7 +114,6 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   @Input() childMessage: string;
   @Output() reloadTablePassing = new EventEmitter<string>();
   @ViewChild(InterestInstructionComponent) child: InterestInstructionComponent;
-
   formSubmitted = false;
   //api 
   url = environment.base_url;
@@ -261,6 +260,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   AC_OPDATE: any;
   intinstruction: any;
+  joinDate: any;
 
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -468,7 +468,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.scheme = data;
       this.selectedValue = this.scheme[0].value
       this.scheme[0].IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
-      this.getReceiptNumber()
+      // this.getReceiptNumber()
 
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
         if (data.UNIT_OF_PERIOD == "B") {
@@ -495,7 +495,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_TYPE: ['', [Validators.required]],
       AC_ACNOTYPE: ['TD'],
       AC_NO: [''],
-      AC_INTRATE: [],
+      AC_INTRATE: [{ value: 0, disabled: false },],
       AC_CUSTID: ['', [Validators.required]],
       AC_TITLE: [''],
       AC_NAME: [''],
@@ -515,8 +515,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // AC_IS_RECOVERY: [false],
       AC_REF_RECEIPTNO: [''],
       AC_ASON_DATE: [],
-      AC_MONTHS: [0, [Validators.pattern, Validators.required]],
-      AC_DAYS: [0],
+      AC_MONTHS: [{ value: 0, disabled: false }, [Validators.pattern, Validators.required]],
+      AC_DAYS: [{ value: 0, disabled: false },],
       AC_EXPDT: ['', [Validators.required]],
       AC_SCHMAMT: ['', [Validators.pattern, Validators.required]],
       AC_MATUAMT: ['', [Validators.pattern]],
@@ -574,6 +574,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       //joint ac
       JOINT_AC_CUSTID: ['',],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
 
       //attorney
@@ -1552,6 +1554,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit() {
     // console.log(this.receiptNo);
 
@@ -1561,6 +1564,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       let temdate
       let asondate
       let maturitydate
+      let schename
       const formVal = this.angForm.value;
       if (formVal.AC_ADDFLAG == undefined) {
         this.addType = 'P'
@@ -1584,7 +1588,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       let schecode
       this.scheme.forEach(async (element) => {
         if (element.value == this.selectedValue) {
-          schecode = element.name
+           
+          schecode = element.id
+          schename = element.name
         }
       })
       if (this.tempopendate != this.openingDate) {
@@ -1671,7 +1677,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         RENEW_TYPE_ACCOUNTNO: formVal.RENEW_TYPE_ACCOUNTNO
       }
       // console.log(dataToSend)
+      this.isDisable = true
       this.TermDepositMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1713,17 +1721,21 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   //Method for append data into fields
   opdate
   minorAc: boolean = false
-
   editClickHandler(id, status) {
     // debugger
     this.switchNgBTab('Basic')
     let opdate
     let asondate
     let maturitydate
+    let receiptNumber
+
     this.TermDepositMasterService.getFormData(id).subscribe(data => {
       console.log(data);
+      if (data && data.BANKACNO) {
+        receiptNumber = data.BANKACNO.toString().slice(-3);
+        // this.angForm.patchValue({ AC_REF_RECEIPTNO: receiptNumber });
+      }
       this.intinstruction = data.intinstruction
-
       this.createForm()
       this.showInstruction = true
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
@@ -1836,7 +1848,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         'AC_DAYS': data.AC_DAYS,
         'AC_SCHMAMT': data.AC_SCHMAMT,
         // 'AC_IS_RECOVERY': (data.AC_IS_RECOVERY == '1' ? true : false),
-        'AC_REF_RECEIPTNO': data.AC_REF_RECEIPTNO,
+        'AC_REF_RECEIPTNO': this.receiptNo,
         'AC_ASON_DATE': data.AC_ASON_DATE,
         'AC_MATUAMT': data.AC_MATUAMT,
         'IS_DISCOUNTED_INT_RATE': (data.IS_DISCOUNTED_INT_RATE == '1' ? true : false),
@@ -1860,30 +1872,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
     })
   }
-  // intdata
-  // editClickHandler1(id,data) {
-  //   this.intdata=this.angForm.patchValue({
-  //       'INSTRUCTION_NO': data.INSTRUCTION_NO,
-  //       'INSTRUCTION_DATE': data.INSTRUCTION_DATE,
-  //       'FROM_DATE': data.FROM_DATE,
-  //       'NEXT_EXE_DATE': data.NEXT_EXE_DATE,
-  //       'TRAN_TYPE': data.TRAN_TYPE,
-  //       'LAST_EXEC_DATE': data.LAST_EXEC_DATE,
-  //       'DR_ACTYPE': data.DR_ACTYPE,
-  //       'DR_PARTICULARS': data.DR_PARTICULARS,
-  //       'CR_ACTYPE': data.CR_ACTYPE,
-  //       'CR_AC_NO': data.CR_AC_NO,
-  //       'CR_PARTICULARS': data.CR_PARTICULARS,
-  //       'SI_FREQUENCY': data.SI_FREQUENCY,
-  //       'REVOKE_DATE': data.REVOKE_DATE,
-  //       'ADV_NARRATION': data.ADV_NARRATION,
-  //       'DEFAULT_INTEREST_APPLICABLE': data.DEFAULT_INTEREST_APPLICABLE ,
-        
 
-  //     })
-  //     // this.angForm.controls['AC_INTRATE'].patchValue = data.AC_INTRATE
-  //   }
-  
   isDeleted: boolean = true
   disableForm(id) {
     this.isDeleted = false
@@ -2317,6 +2306,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.customerIdService.getFormData(id.value).subscribe(data => {
       this.angForm.patchValue({
         JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE,
+
         JOINT_AC_CUSTID: id.value
       })
     })
@@ -2325,6 +2316,9 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -2334,6 +2328,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.jointID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -2399,6 +2395,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -2411,6 +2409,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -2462,8 +2462,12 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
   }
@@ -2990,22 +2994,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
     event.IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
   }
-  getReceiptNumber() {
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    let branchCode = result.branch.id;
-    let obj = {
-      scheme: this.selectedValue,
-      BRANCH_CODE: branchCode
-    }
-    this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
-      this.angForm.patchValue({
-        AC_REF_RECEIPTNO: data
-      })
-      this.receiptNo = data
-      data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
-    })
-  }
+  // getReceiptNumber() {
+  //   let data: any = localStorage.getItem('user');
+  //   let result = JSON.parse(data);
+  //   let branchCode = result.branch.id;
+  //   let obj = {
+  //     scheme: this.selectedValue,
+  //     BRANCH_CODE: branchCode
+  //   }
+  //   this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
+  //     this.angForm.patchValue({
+  //       AC_REF_RECEIPTNO: data
+  //     })
+  //     this.receiptNo = data
+  //     data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
+  //   })
+  // }
   closeModal() {
     var button = document.getElementById('trigger');
     button.click();
@@ -3013,6 +3017,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   addNewInstruction(instruction) {
     this.intInstructionObject = instruction
+    this.child.submit();
   }
 
   onFocus(ele: NgSelectComponent) {
@@ -3147,19 +3152,60 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       })
     }
   }
-
-  reloadTable() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload()
-    });
-  }
-  getIntInstruct
+ getIntInstruct
   getInstructionData(data) {
     this.getIntInstruct = data;
     this.child.editClickHandler(data);
+    
     // this.child.DatatableHideShow = false;
     // this.child.rejectShow = true;
     // this.child.approveShow = true;
   }
+  Intid
+  getCategory(event) {
+    this.Intid = event.value
+    if (event.label === 'DAMDUPPAT') {
+      this.angForm.get('AC_MONTHS')?.disable();
+      this.angForm.get('AC_DAYS')?.disable();
+      this.angForm.get('AC_INTRATE')?.disable();
+    } else {
+      this.angForm.get('AC_MONTHS')?.enable();
+      this.angForm.get('AC_DAYS')?.enable();
+      this.angForm.get('AC_INTRATE')?.enable();
+      this.angForm.patchValue({
+        AC_MONTHS: null,
+        AC_DAYS: null,
+        AC_INTRATE: null
+      });
+    }
+    this.getFormData()
+  }
+  iid
+  month
+  days
+  rate
+  getFormData() {
+    let obj = {
+      'id': this.Intid
+    }
+    this.http.post(this.url + '/pat-scheme-interest-rates/PATSCHEME', obj).subscribe(data => {
+      if (Array.isArray(data)) {
+        data.forEach((item: any) => {
+          this.month = item.MONTHS;
+          this.days = item.DAYS;
+          this.rate = item.INT_RATE;
+          console.log(item);
 
+          if (this.angForm.get('AC_MONTHS')?.disabled || this.angForm.get('AC_DAYS')?.disabled) {
+            this.angForm.patchValue({
+              AC_MONTHS: this.month,
+              AC_DAYS: this.days,
+              AC_INTRATE: this.rate
+            });
+          }
+
+        });
+      }
+    })
+  }
 }

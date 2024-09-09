@@ -814,7 +814,7 @@
                               <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                   <input class="border-checkbox" type="checkbox" id="ac_minor" name="AC_MINOR"
-                                    [checked]="MINOR == true" formControlName="AC_MINOR" maxlength="100" disabled />
+                                  [checked]="angForm.controls['AC_MINOR'].value === 'true'" formControlName="AC_MINOR" maxlength="100" disabled />
                                   <label class="border-checkbox-label" for="ac_minor">Minor Details</label>
                                 </div>
                               </div>
@@ -1553,6 +1553,35 @@
                                     </div>
                                   </div>
                                   <div class="col-sm">
+                                    <div class="form-group input-group">
+                                      <span class="border-lable-flt">
+                                        <input type="text" appTheme appButton minlength="10" maxlength="10"
+                                          placeholder="Datepicker" placeholder="dd/mm/yyyy" name="JOINT_DATE"
+                                           [minDate]="JOINT_DATE" class="form-control"
+                                          id="JOINT_DATE" [bsConfig]="{
+                                            dateInputFormat: 'DD/MM/YYYY'
+                                          }" formControlName="JOINT_DATE" [minDate]="maxDate" bsDatepicker
+                                          #NDATE="bsDatepicker" (keydown.Tab)="NDATE.hide()" />
+                                        <label for="JOINT_DATE">Join Date<sub class="required">*
+                                          </sub></label>
+                                      </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label" *ngIf="
+                                        angForm.controls['JOINT_DATE']
+                                          .invalid &&
+                                        (angForm.controls['JOINT_DATE'].dirty ||
+                                          angForm.controls['JOINT_DATE']
+                                            .touched)
+                                      " class="alert alert-danger">
+                                      <div *ngIf="
+                                          angForm.controls['JOINT_DATE'].errors
+                                            ?.required
+                                        ">
+                                        This fiels is required
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm">
                                     <div class="checkbox checkbox-primary">
                                       <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input class="border-checkbox" type="checkbox" name="OPERATOR" id="operator"
@@ -1585,6 +1614,8 @@
                                     <td style="max-width: 10px">Action</td>
                                     <td style="max-width: 20px">Customer ID</td>
                                     <td>Name</td>
+                                    <td style="max-width: 15px">Joint Date</td>
+
                                     <td style="max-width: 15px">Operation</td>
                                   </thead>
                                   <tbody *ngIf="multiJointAC?.length != 0">
@@ -1627,6 +1658,11 @@
                                         : data.JOINT_ACNAME
                                         }}
                                       </td>
+                                      <td class="td_left"
+                                                                                    [ngClass]="data.JOINT_DATE === '' ? 'td_center' : 'td_right'">
+                                                                                    {{data.JOINT_DATE === ''? '-' :
+                                                                                    data.JOINT_DATE}}
+                                                                                </td>
                                       <td class="td_left" [ngClass]="
                                           data.OPERATOR === ''
                                             ? 'td_left'
@@ -1952,7 +1988,7 @@
                           <div class="row">
                             <div class="col-sm" style="float: right">
                               <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
+                                (click)="submit($event)" (keydown.Tab)="focus()" appTheme [disabled]="angForm.invalid">
                                 Submit
                               </button>
                               <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
@@ -2110,3 +2146,6 @@
     </div>
   </div>
 </div>
+<div *ngIf="isDisable">
+  <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
+  </div>
