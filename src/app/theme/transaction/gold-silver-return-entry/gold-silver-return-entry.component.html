@@ -171,7 +171,8 @@
                                 *ngIf="showButton" [disabled]="angForm.invalid" (click)="submit();branchcode.focus()">
                                 Submit
                             </button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()"  id="triggerhide"
+                            #triggerhide >
                                 Close</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                                 Cancel

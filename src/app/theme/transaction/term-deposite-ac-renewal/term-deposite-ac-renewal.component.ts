@@ -228,14 +228,14 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       BANKACNO: this.customer.BANKACNO,
       Date: this.date,
     }
-    this.modalClass = 'modalShow';
+    // this.modalClass = 'modalShow';
     this.NormalCheck = true;
     // this.InterestDate = null;
-    this.angForm.patchValue({
-      NormalInt: null,
-      NormalIntRadio: '',
-      NormalIntCheck: false
-    })
+    // this.angForm.patchValue({
+    //   NormalInt: null,
+    //   NormalIntRadio: '',
+    //   NormalIntCheck: false
+    // })
     this.PayableCheck = true;
     this.angForm.patchValue({
       payableInt: null,
@@ -319,7 +319,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     var endDate = moment(date2, "DD/MM/YYYY");
 
     var result = endDate.diff(startDate, 'days');
-    this.result = Math.round(Math.floor(this.angForm.controls['new_deposit'].value) * (Math.floor(result)) * Math.floor(this.angForm.controls['new_rate'].value) / 36500 + Math.floor(this.angForm.controls['new_deposit'].value))
+    this.result = Math.round(Math.floor(this.angForm.controls['new_deposit'].value) * (Math.floor(result)) * this.angForm.controls['new_rate'].value / 36500 + Math.floor(this.angForm.controls['new_deposit'].value))
     this.angForm.patchValue({
       new_maturity_amt: Number(this.result).toFixed(2)
     })
@@ -622,7 +622,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
     this.customer = null
     this.introducerACNo = [];
     this.obj = [this.selectedScheme.id, this.selectedBranch]
-    this.modalClass = 'modalShow';
+    // this.modalClass = 'modalShow';
     switch (this.selectedCode) {
       case 'TD':
         this._service.termDepositExpiryAccount(this.obj).subscribe(data => {
@@ -808,6 +808,126 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   updateShow: boolean = false;
   newbtnShow: boolean = false;
   updatecheckdata
+  // editClickHandler(id) {
+
+  //   this._service.getTermFormData(id).subscribe((data) => {
+  //     this.angForm.disable()
+  //     this.updatecheckdata = data
+  //     if (data.SYSCHNG_LOGIN != null) {
+  //       this.unapproveShow = true
+  //       this.showButton = false;
+  //       this.updateShow = false;
+  //       this.newbtnShow = true;
+  //       this.approveShow = false;
+  //       this.rejectShow = false;
+  //     }
+  //     else if (data.SYSCHNG_LOGIN == null) {
+  //       this.unapproveShow = false
+  //       this.showButton = false;
+  //       this.updateShow = true;
+  //       this.newbtnShow = true;
+  //       this.approveShow = true;
+  //       this.rejectShow = true;
+  //     }
+  //     else {
+  //       this.approveShow = false;
+  //       this.rejectShow = false;
+  //       this.unapproveShow = false
+  //       this.showButton = false;
+  //       this.updateShow = false;
+  //       this.newbtnShow = true;
+  //     }
+  //     this.updateID = data.id;
+  //     this.date = data.RENEWAL_DATE
+  //     let normalType
+  //     if (data.NORMAL_INT_TRTYPE == 'DP') {
+  //       normalType = 'AddInDeposit'
+  //     }
+  //     else if (data.NORMAL_INT_TRTYPE == 'CS') {
+  //       normalType = 'cash';
+  //     } else if (data.NormalIntRadio == 'TR') {
+  //       normalType = 'transfer';
+  //     } else if (data.NormalIntRadio == 'KP') {
+  //       normalType = 'keepaspayable';
+  //     }
+  //     let PAY_INT_TRTYPE
+  //     if (data.PAY_INT_TRTYPE == 'DP') {
+  //       PAY_INT_TRTYPE = 'AddInDeposit'
+  //     }
+  //     else if (data.PAY_INT_TRTYPE == 'CS') {
+  //       PAY_INT_TRTYPE = 'cash';
+  //     } else if (data.PAY_INT_TRTYPE == 'TR') {
+  //       PAY_INT_TRTYPE = 'transfer';
+  //     }
+  //     // this.selectedScheme = Number(data.AC_TYPE)
+  //     this.selectedScheme = data.selectedScheme
+  //     this.customer = data.customer
+  //     let cust = data.customer.AC_NO + ' ' + data.customer.AC_NAME
+  //     let obj = {
+  //       Scheme: this.selectedScheme.S_APPL,
+  //       AC_TYPE: this.selectedScheme.id,
+  //       BANKACNO: this.customer.BANKACNO,
+  //       Date: this.date,
+  //     }
+  //     this._service.getAccountDeatils(obj).subscribe(data1 => {
+  //       this.angForm.patchValue({
+  //         old_total_int_paid: data1.totalinterest,
+  //         // new_rate: data.InterestRate,
+  //         // new_deposit: Math.abs(data.ledgerBal),
+  //         AC_RENEWAL_COUNTER: data1.renewalCount
+  //       })
+  //       this.funAmtNormalInterest = data1.normalInterest
+  //       this.funAmtPayableInterest = data1.paybableInterest
+  //       this.isCalulateMaturityAmountFlag = data1.isCalulateMaturityAmountFlag
+  //       this.funInterestRate = data1.InterestRate
+  //       this.ledgerBalance = data1.ledgerBal
+  //     })
+  //     this.updateID = data.id
+  //     this.angForm.patchValue({
+  //       old_deposit_Amt: data.OLD_AC_SCHMAMT,
+  //       old_Ac_op_date: data.OLD_AC_OPEN_DATE,
+  //       branch_code: data.BRANCH_CODE,
+  //       old_month: data.OLD_MONTH,
+  //       old_days: data.OLD_DAYS,
+  //       old_ac_expdt: data.OLD_EXPIRY_DATE,
+  //       old_ac_matuamt: data.OLD_MATUAMT,
+  //       old_intrate: data.OLD_INTEREST_RATE,
+  //       old_ac_ason_date: data.OLD_ASON_DATE,
+  //       date: data.RENEWAL_DATE,
+  //       scheme_type: data.AC_ACNOTYPE,
+  //       new_deposit: Math.abs(data.RENEWAL_AMOUNT),
+  //       new_month: data.NEW_MONTH,
+  //       new_day: data.NEW_DAYS,
+  //       new_ason_date: data.NEW_ASON_DATE,
+  //       NormalIntRadio: normalType,
+  //       NormalIntCheck: normalType == null ? false : true,
+  //       PayableIntRadio: PAY_INT_TRTYPE,
+  //       AC_RENEWAL_COUNTER: data.AC_RENEWAL_COUNTER,
+  //       TRAN_NO: data.TRAN_NO,
+  //       payableInt: data.PAYABLE_INTEREST,
+  //       NormalInt: data.NORMAL_INTEREST,
+  //       payableInterestcheck: PAY_INT_TRTYPE == null ? false : true,
+  //       new_maturity_amt: data.NEW_MATURITY_AMOUNT,
+  //       new_rate: data.NEW_INTEREST_RATE,
+  //       new_matu_date: data.NEW_EXPIRY_DATE,
+  //       new_receipt: data.NEW_RECEIPTNO,
+  //       renewal_tran_no: data.TRAN_NO,
+  //       IntUpto: data.INTEREST_DATE,
+  //       new_category: Number(data.NEW_INT_CATA),
+  //     })
+  //     this.getTotalDays()
+  //     this.angForm.patchValue({
+  //       new_maturity_amt: Number(data.NEW_MATURITY_AMOUNT).toFixed(2),
+  //       new_rate: data.NEW_INTEREST_RATE,
+  //       new_matu_date: data.NEW_EXPIRY_DATE,
+  //       scheme: data.selectedScheme.S_APPL + ' ' + data.selectedScheme.S_NAME,
+  //       account_no: cust,
+  //     })
+  //     this.showAccount = true
+  //     this.customer = data.customer
+  //   })
+  // }
+
   editClickHandler(id) {
 
     this._service.getTermFormData(id).subscribe((data) => {
@@ -845,9 +965,17 @@ export class TermDepositeAcRenewalComponent implements OnInit {
       }
       else if (data.NORMAL_INT_TRTYPE == 'CS') {
         normalType = 'cash';
-      } else if (data.NormalIntRadio == 'TR') {
+      } else if (data.NORMAL_INT_TRTYPE == 'TR') {
+        // this.showAccount = true
         normalType = 'transfer';
-      } else if (data.NormalIntRadio == 'KP') {
+        this.transferShowNormal = true;
+        this.angForm.patchValue({
+          normal_scheme_type: data.trasferData[0].AC_ACNOTYPE,
+          normal_scheme: data.trasferData[0].S_APPL + ' ' + data.trasferData[0].S_NAME,
+          normal_account_no: data.trasferData[0].AC_NO + ' ' + data.trasferData[0].AC_NAME
+        })
+       
+      } else if (data.NORMAL_INT_TRTYPE == 'KP') {
         normalType = 'keepaspayable';
       }
       let PAY_INT_TRTYPE
@@ -883,6 +1011,13 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         this.ledgerBalance = data1.ledgerBal
       })
       this.updateID = data.id
+
+      let date;
+      if (data.NEW_ASON_DATE) {
+        date = data.NEW_ASON_DATE;
+      } else {
+        date = moment(data.NEW_ASON_DATE).format('DD/MM/YYYY');
+      }
       this.angForm.patchValue({
         old_deposit_Amt: data.OLD_AC_SCHMAMT,
         old_Ac_op_date: data.OLD_AC_OPEN_DATE,
@@ -898,7 +1033,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
         new_deposit: Math.abs(data.RENEWAL_AMOUNT),
         new_month: data.NEW_MONTH,
         new_day: data.NEW_DAYS,
-        new_ason_date: data.NEW_ASON_DATE,
+        new_ason_date: date,
         NormalIntRadio: normalType,
         NormalIntCheck: normalType == null ? false : true,
         PayableIntRadio: PAY_INT_TRTYPE,
@@ -1129,7 +1264,7 @@ export class TermDepositeAcRenewalComponent implements OnInit {
   }
   isPayableIntAdded: boolean = false
   payableStatus(ele) {
-    let dataValue = this.angForm.controls['NormalIntRadio'].value;
+    let dataValue = this.angForm.controls['PayableIntRadio'].value;
     let selectedValue = ele.target.value;
     if (dataValue == selectedValue) {
       if (ele.target.value == 'transfer') {

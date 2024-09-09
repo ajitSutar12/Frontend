@@ -809,7 +809,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.selectedImagePreview = ''
     }
   }
-
+  isDisable=false
   // Method to insert data into database through NestJS
   submit() {
     this.formSubmitted = true;
@@ -930,7 +930,9 @@ export class CashCreditMasterComponent implements OnInit {
         'Vehicle': this.vehicleid,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.cashCreditService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1007,7 +1009,8 @@ export class CashCreditMasterComponent implements OnInit {
     this.getSystemParaDate()
     this.switchNgBTab('Basic')
   }
-
+  name:any
+  ac_no:any
   //Method for append data into fields
   tempbankacno
   editClickHandler(id, status) {
@@ -1025,6 +1028,8 @@ export class CashCreditMasterComponent implements OnInit {
       this.updatecheckdata = data
       this.tempbankacno = data.BANKACNO
       this.accountedit = data.BANKACNO
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -2044,11 +2049,14 @@ export class CashCreditMasterComponent implements OnInit {
       user: user.id
     }
     this.cashCreditService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Cash Credit Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'CashCredit Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2066,11 +2074,14 @@ export class CashCreditMasterComponent implements OnInit {
       user: user.id
     }
     this.cashCreditService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Cash Credit Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'CashCredit Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -2124,11 +2135,14 @@ export class CashCreditMasterComponent implements OnInit {
       LOG_DATE: this.logDate
     }
     this.cashCreditService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

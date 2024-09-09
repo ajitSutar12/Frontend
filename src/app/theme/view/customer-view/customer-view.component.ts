@@ -145,6 +145,8 @@ export class CustomerViewComponent implements OnInit {
   allAccounts = []
   //function to get existing customer data according selection
   getCustomer(eve) {
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
 
     this.accountsList = []
     this.allAccounts = []

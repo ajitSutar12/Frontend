@@ -137,7 +137,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       this.minDate = this.maxDate
     })
   }
-
+  tdname
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
@@ -207,9 +207,12 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
       var filtered = data.filter(function (scheme) {
 
-        return (scheme.id == 'TD');
+        return (scheme.name== 'TD');
       });
       this.scheme = filtered;
+      filtered.forEach((item: any) => {
+        this.tdname = item.name;
+      })
       // this.scheme = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
@@ -258,6 +261,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         'ACNOTYPE': formVal.ACNOTYPE,
         'INT_CATEGORY': formVal.INT_CATEGORY,
         'FieldData': this.multiField,
+        'TYPE': this.tdname
       }
       this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');

@@ -14,12 +14,12 @@
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme style="text-align: right;" type="text" name="S_APPL"
+                                    <input  style="text-align: right;" type="text" name="S_APPL"
                                         class="form-control" placeholder=" " id="S_APPL"
                                         (focusout)="checkDuplicate($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" required=""
                                         pattern="^[0-9]+$" maxlength="3" minlength="3" min="301" max="399"
-                                        title="Input allowed 0-9. (Space)" formControlName="S_APPL" #autofocus>
+                                        title="Input allowed 0-9. (Space)" formControlName="S_APPL" >
                                     <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                                 </span>
                             </div>
@@ -37,7 +37,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" "
+                                    <input  type="text" name="S_NAME" class="form-control" placeholder=" "
                                         id="S_NAME"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         required="" pattern="^[A-Za-z\./ -]+$" maxlength="90"
@@ -60,7 +60,7 @@
                         <div class="col-sm-6">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" "
+                                    <input  type="text" name="S_SHNAME" class="form-control" placeholder=" "
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         id="S_SHNAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="S_SHNAME">
@@ -126,7 +126,7 @@
                                             <div class="col-sm-8">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
-                                                        <input appTheme style="text-align: right;" type="text"
+                                                        <input  style="text-align: right;" type="text"
                                                             name="MIN_INT_LIMIT" class="form-control" placeholder=" "
                                                             id="MIN_INT_LIMIT" (focusout)="getDecimalPoint($event)"
                                                             (keyup)="getDecimal($event)"

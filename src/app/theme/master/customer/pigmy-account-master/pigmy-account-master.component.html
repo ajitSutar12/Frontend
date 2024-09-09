@@ -443,7 +443,7 @@
                                                                             [(ngModel)]="ngexpiry"
                                                                             placeholder="dd/mm/yyyy"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            disabled formControlName="AC_EXPDT">
+                                                                             formControlName="AC_EXPDT">
                                                                         <label for="AC_EXPDT">Expiry Date<sub
                                                                                 class="required">*
                                                                             </sub></label>
@@ -1723,7 +1723,7 @@
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
-                                                                                                (click)="delNominee(indexOfelement)"
+                                                                                                (click)="delNominee(indexOfelement,data)"
                                                                                                 placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
@@ -1863,6 +1863,35 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm">
+                                                                            <div class="form-group input-group">
+                                                                              <span class="border-lable-flt">
+                                                                                <input type="text" appTheme appButton minlength="10" maxlength="10"
+                                                                                  placeholder="Datepicker" placeholder="dd/mm/yyyy" name="JOINT_DATE"
+                                                                                   [minDate]="JOINT_DATE" class="form-control"
+                                                                                  id="JOINT_DATE" [bsConfig]="{
+                                                                                    dateInputFormat: 'DD/MM/YYYY'
+                                                                                  }" formControlName="JOINT_DATE" [minDate]="maxDate" bsDatepicker
+                                                                                  #NDATE="bsDatepicker" (keydown.Tab)="NDATE.hide()" />
+                                                                                <label for="JOINT_DATE">Join Date<sub class="required">*
+                                                                                  </sub></label>
+                                                                              </span>
+                                                                            </div>
+                                                                            <div class="form-group form-primary form-static-label" *ngIf="
+                                                                                angForm.controls['JOINT_DATE']
+                                                                                  .invalid &&
+                                                                                (angForm.controls['JOINT_DATE'].dirty ||
+                                                                                  angForm.controls['JOINT_DATE']
+                                                                                    .touched)
+                                                                              " class="alert alert-danger">
+                                                                              <div *ngIf="
+                                                                                  angForm.controls['JOINT_DATE'].errors
+                                                                                    ?.required
+                                                                                ">
+                                                                                This fiels is required
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+                                                                        <div class="col-sm">
                                                                             <div class="checkbox checkbox-primary">
                                                                                 <div
                                                                                     class="border-checkbox-group border-checkbox-group-primary">
@@ -1907,6 +1936,8 @@
                                                                             <td style="max-width: 20px;">Customer ID
                                                                             </td>
                                                                             <td>Name</td>
+                                                                            <td style="max-width: 15px">Joint Date</td>
+
                                                                             <td style="max-width: 15px;">Operation</td>
                                                                         </thead>
                                                                         <tbody *ngIf="multiJointAC?.length != 0">
@@ -1927,7 +1958,7 @@
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
-                                                                                                (click)="delJointAc(indexOfelement)"
+                                                                                                (click)="delJointAc(indexOfelement,data)"
                                                                                                 placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
@@ -1942,6 +1973,11 @@
                                                                                     [ngClass]="data.JOINT_ACNAME === '' ? 'td_center' : 'td_right'">
                                                                                     {{data.JOINT_ACNAME === ''? '-' :
                                                                                     data.JOINT_ACNAME}}
+                                                                                </td>
+                                                                                <td class="td_left"
+                                                                                    [ngClass]="data.JOINT_DATE === '' ? 'td_center' : 'td_right'">
+                                                                                    {{data.JOINT_DATE === ''? '-' :
+                                                                                    data.JOINT_DATE}}
                                                                                 </td>
                                                                                 <td class="td_left"
                                                                                     [ngClass]="data.OPERATOR === '' ? 'td_left' : 'td_right'">
@@ -2096,7 +2132,7 @@
                                                                 <button type="submit"
                                                                     class="btn btn-outline-primary btn-sm  btn-submit"
                                                                     *ngIf="showButton" (click)="submit($event)"
-                                                                    (keydown.Tab)="focus()" appTheme>
+                                                                    (keydown.Tab)="focus()" appTheme [disabled]="angForm.invalid">
                                                                     Submit
                                                                 </button>
                                                                 <button class="btn btn-outline-primary btn-sm"
@@ -2235,3 +2271,6 @@
         </div>
     </div>
 </div>
+<div *ngIf="isDisable">
+    <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
+    </div>

@@ -129,7 +129,9 @@ export class BnkInstructionsStandingDebitComponent implements OnInit {
       Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
     }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     debugger
     this.formSubmitted = true;

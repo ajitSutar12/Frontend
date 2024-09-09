@@ -1,0 +1,26 @@
+  .solid {
+    position: relative;
+    border: 2px solid black;
+    padding: 20px;
+    margin: 7px 0;
+}
+
+.border-label-flt {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: white;
+    padding: 0 5px;
+    font-size: 16px;
+}
+
+.input-group-text {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input[type="file"],
+.form-group input[type="text"] {
+    height: calc(2.25rem + 2px);
+}
+

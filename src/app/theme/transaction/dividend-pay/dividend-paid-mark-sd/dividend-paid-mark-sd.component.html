@@ -7,36 +7,65 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Transaction No.
-                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Branch Code<sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
-                            <div class="form-group input-group">
+                            <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="20" formControlName="traNo"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                    <ng-select [(ngModel)]="selectedBranch" formControlName="branch"
+                                        (change)="getbranchcode($event)">
+                                        <ng-option *ngFor="let item of Branchcode" [value]="item">
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="angForm.controls['traNo'].invalid && (angForm.controls['traNo'].dirty || angForm.controls['traNo'].touched)"
+                                *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
                                 class="alert alert-danger">
-                                <div
-                                    *ngIf="angForm.controls['traNo'].errors?.pattern || angForm.controls['traNo'].errors?.required || angForm.controls['traNo'].errors?.maxlength">
+                                <div *ngIf="angForm.controls['branch'].errors?.required">
                                     This field is required.
                                 </div>
                             </div>
+
+
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="Date">Date<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
+                                    class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedTransScheme" #scheme formControlName="scode"
+                                        bindValue="value" bindLabel="label"
+                                        (change)="getIntroducer();getScheme($event)">
+                                        <ng-option *ngFor="let item of Schemecode" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['scode'].invalid && (angForm.controls['scode'].dirty || angForm.controls['scode'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['scode'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-2"> <label for="Date">Warrent Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                        formControlName="date" appButton minlength="10" maxlength="10"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                        bsDatepicker>
+                                    
+                                    <ng-select [(ngModel)]="date" #scheme formControlName="date"  (change)="getdate($event)">
+                                        <ng-option *ngFor="let item of Date" [value]="item">
+                                            {{item.WARRENT_DATE}}</ng-option>
+                                    </ng-select>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -47,19 +76,20 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Salary Division<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Salary Division<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedSDiv" #scheme formControlName="sdiv"
-                                        bindValue="value" bindLabel="label">
+                                        (change)="saldiv($event)">
                                         <ng-option *ngFor="let item of s_Div" [value]="item">
-                                            {{item.id}} {{item.label}}</ng-option>
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -73,27 +103,175 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"><label for="AC_PARTICULAR">Particulars</label>
+
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Sub Salary Division<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedSubSDiv" #scheme formControlName="subsd">
+                                        <ng-option *ngFor="let item of subSdivision" [value]="item">
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['subsd'].invalid && (angForm.controls['subsd'].dirty || angForm.controls['subsd'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['subsd'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-md-4">
+
+                       
+                    </div>
+
+                    <div class="card-body" id="cb">
+                        <h1><span>Credit Amount Details</span></h1>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="solid">
+
+                                    <table class="table table-bordered table-hover compact">
+                                        <thead style="text-align: center;">
+
+                                            <td>Scheme</td>
+                                            <td>A/C No</td>
+                                            <td>Name</td>
+                                            <td>Amount</td>
+                                            <td>Is Valid</td>
+
+
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of tableData">  
+                                                <td>{{ row.S_ACNOTYPE }}</td>
+                                                <td>{{ row.BANKACNO }}</td>
+                                                <td>{{ row.AC_NAME }}</td>
+                                                <td style="text-align: end;">{{ row.DIVIDEND_AMOUNT }}</td>
+                                                <!-- <td>{{ row.DIVIDEND_STATUS }}</td> -->
+                                                <td> <input type="checkbox" checked [(ngModel)]="row.checkboxChecked"
+                                                        (change)="CheckboxChange(row)"></td>
+
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="margin-top: 29px; margin-bottom: 29px;">
+                        <div class="col-sm-12 col-md-1"> <label for="Narration">Narration<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="Narration" formControlName="narration">
+                                        <ng-option *ngFor="let item of narr" [value]="item">
+                                            {{item.NARRATION}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['narration'].invalid && (angForm.controls['narration'].dirty || angForm.controls['narration'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['narration'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-1"> <label for="tlAmt">Total Amount</label>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <textarea class="form-control" formControlName="particulars"
-                                        [(ngModel)]="particulars"></textarea>
-                                    <i class="fa fa-info-circle errspan"></i>
+                                    <!-- <input type="text" name="tlAmt" class="form-control" placeholder=" " id="tlAmt"
+                                        maxlength="10" formControlName="tlAmt"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" [(ngModel)]="TotalAmt"> -->
+                                    <input type="text" value="{{ totalBalance }}">
+
                                 </span>
                             </div>
 
                         </div>
+                        <!-- <div class="col-sm-12 col-md-1"> <label for="usercode">User Code</label>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="usercode" class="form-control" placeholder=" "
+                                        id="usercode" maxlength="10" formControlName="usercode"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
+                                </span>
+                            </div>
+
+                        </div> -->
                     </div>
+
+                    <!-- <div class="card-body" id="cb">
+                        <h1><span>Search</span></h1>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-1"> <label for="scheme">Scheme
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+
+                                        <ng-select [(ngModel)]="sname" formControlName="scheme" bindValue="value"
+                                            bindLabel="label">
+                                            <ng-option *ngFor="let item of schemename" [value]="item">
+                                                {{item.id}} {{item.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-1"> <label for="acno">A/c No.
+                                </label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+
+                                        <ng-select [(ngModel)]="account_no" formControlName="acno" bindValue="value"
+                                            bindLabel="label">
+                                            <ng-option *ngFor="let item of acc_number" [value]="item">
+                                                {{item.id}} {{item.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <button class="btn  btn-outline-primary btn-sm">Search</button>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+
+
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <!-- <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button> -->
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="reset()">Cancel</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)=" submit()">Submit</button>
                         </div>
                     </div>
                 </div>

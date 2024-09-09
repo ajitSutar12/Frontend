@@ -113,7 +113,9 @@ export class BnkReceiveIntListComponent implements OnInit {
     this.ngbranch = result.branch.id
   }
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     
     event.preventDefault();

@@ -8,25 +8,19 @@
                 </h6>
             </div>
             <div class="card-block">
-                <!-- <div class="row" style="height: 100px;">
-                    <div class="col-sm-12"> -->
-                <!-- <div class="page-body"> -->
                 <div>
                     <div class="row">
-                        <div class="col-sm">
-
-                        </div>
+                        <div class="col-sm"></div>
                         <div class="col-sm-8">
-                            <!-- <app-card cardClass="elite-calendar"> -->
                             <full-calendar [options]="calendarOptions"></full-calendar>
-                            <!-- </app-card> -->
                         </div>
                         <div class="col-sm">
-
+                            <label>Select Holiday Type Here</label>
+                            <ng-select [items]="daysOfWeek" bindLabel="name" placeholder="Select Holiday Type Here"
+                                (change)="onDaySelected($event)">
+                            </ng-select>
                         </div>
                     </div>
-                    <!-- </div>
-                    </div> -->
                 </div>
             </div>
         </div>

@@ -341,6 +341,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   // Method to insert data into database through NestJS
+  isDisable=false
   submit() {
     this.formSubmitted = true;
     let purchase
@@ -372,8 +373,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         GL_ACNO: formVal.GL_ACNO,
 
       };
+      this.isDisable = true
       this.deadstockmasterService.postData(dataToSend).subscribe(
         (data1) => {
+          this.isDisable = false
           Swal.fire({
             icon: 'success',
             title: 'Account Created successfully!',
@@ -408,6 +411,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   lddate: any
   nglastdedate: any
   updatecheckdata: any
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
 
@@ -415,6 +420,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     let date1
     let date2
     this.deadstockmasterService.getFormData(id).subscribe((data) => {
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -508,10 +515,10 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           ITEM_CODE: data.ITEM_CODE,
           ITEM_NAME: data.ITEM_NAME,
           // OP_BALANCE:data.OP_BALANCE,
-          OP_QUANTITY:data.OP_QUANTITY,
-          PURCHASE_RATE:data.PURCHASE_RATE,
-          PURCHASE_OP_QUANTITY:data.PURCHASE_OP_QUANTITY,
-          PURCHASE_VALUE:data.PURCHASE_VALUE,
+          OP_QUANTITY: data.OP_QUANTITY,
+          PURCHASE_RATE: data.PURCHASE_RATE,
+          PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+          PURCHASE_VALUE: data.PURCHASE_VALUE,
           PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
           // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),
           GL_ACNO: Number(data.GL_ACNO),
@@ -692,11 +699,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       user: user.id
     }
     this.deadstockmasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Dead Stock Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'DeadStock Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('triggerhide');
       button.click();
       this.reloadTablePassing.emit();
@@ -712,11 +722,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       user: user.id
     }
     this.deadstockmasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Dead Stock rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'DeadStock rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('triggerhide');
       button.click();
@@ -733,11 +746,14 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       LOG_DATE: this.logDate
     }
     this.deadstockmasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

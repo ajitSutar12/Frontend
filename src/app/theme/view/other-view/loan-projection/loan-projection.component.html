@@ -10,7 +10,7 @@
           <div class="solid">
             <div class="row">
               <div class="col-sm-12 col-md-2"> <label for="Loan">
-                  Loan Ammount<sub class="required">*</sub></label></div>
+                  Loan Amount<sub class="required">*</sub></label></div>
               <div class="col-md-2">
                 <div class="form-group input-group">
                   <span class="border-lable-flt">
@@ -55,7 +55,7 @@
                   <span class="border-lable-flt">
                     <ng-select id="AC_REPAYMODE" bindValue="value" [(ngModel)]="repay" formControlName="AC_REPAYMODE"
                       bindLabel="label" title="Compulsory Selection" required placeholder="Repay Mode"
-                      (change)="checkPeriod()">
+                      (change)="checkPeriod();getRepay($event)">
                       <ng-option *ngFor="let values of repayModeOption" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
@@ -82,7 +82,7 @@
                   <span class="border-lable-flt">
                     <ng-select id="INSTALLMENT_METHOD" bindValue="value" [(ngModel)]="installmentType"
                       formControlName="INSTALLMENT_METHOD" bindLabel="label" title="Compulsory Selection" required
-                      placeholder="Type">
+                      placeholder="Type" (change)="getInstallment($event)">
                       <ng-option *ngFor="let values of installment" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
@@ -105,7 +105,7 @@
                 <div class="form-group form-primary form-static-label">
                   <span class="border-lable-flt">
                     <ng-select type="text" id="ins" [(ngModel)]="posting" formControlName="POSTINGMETHOD"
-                      bindLabel="label" bindValue="value" title="Compulsory Selection" required placeholder="Method">
+                      bindLabel="label" bindValue="value" title="Compulsory Selection" required placeholder="Method" (change)="getPosting($event)">
                       <ng-option *ngFor="let values of repayModeOption1" [value]="values">
                         {{values.label}}</ng-option>
                     </ng-select>
@@ -176,9 +176,17 @@
               <div class="col-md-12">
                 <button class="btn btn-outline-primary btn-sm" (click)="Process()">Process</button>
                 <button class="btn btn-outline-primary btn-sm" (click)="close()">close</button>
+                <!-- <div class="row justify-content-center">
+                  <div class="col-sm"> -->
+                    <!-- <button type="button" class="btn btn-outline-primary btn-sm btn-submit"
+                     >Print</button> -->
+                  <!-- </div>
+          
+                </div> -->
               </div>
             </div>
           </div>
+          
         </div>
       </form>
     </div>
@@ -219,4 +227,23 @@
     </div>
   </div>
 </div>
-<div [class]="modalClass"><!-- Place at bottom of page --> </div>
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn btn-outline-primary btn-sm" (click)="view()">View</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="cancel()">Cancel</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+              <h5>Report Frame</h5>
+          </div>
+
+          <div *ngIf="showRepo">
+
+              <app-iframe1 [url]='Iframe1Module'></app-iframe1>
+          </div>
+      </div>
+  </div>
+</div>

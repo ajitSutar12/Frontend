@@ -9,6 +9,30 @@
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
+
+                        <!-- <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
+                                        formControlName="BRANCH_CODE" bindLabel="label" [virtualScroll]="true" (change)="getBranch($event)"
+                                        title="Compulsory Selection" #BRANCH_CODE [selectOnTab]='true'
+                                        placeholder="Branch" autofocus>
+                                        <ng-option *ngFor="let values of branchData" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div> -->
+                        <!-- <div class="form-group form-primary form-static-label"
+                        *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
+                            This field is required.
+                        </div>
+                    </div> -->
+                        <!-- </div> -->
+
                         <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
                                     class="required">*</sub></label>
                         </div>
@@ -16,8 +40,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedScheme" #scheme formControlName="scode"
-                                        bindValue="value" bindLabel="label"
-                                        (change)="getIntro($event);getIntroducer();">
+                                        (change)="getSchemeName($event)" bindValue="value" bindLabel="label">
                                         <ng-option *ngFor="let item of Schemecode" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
@@ -33,17 +56,16 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Member Number<sub
+                        <div class="col-sm-12 col-md-1"> <label for="memNo">Member Number<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedmemno" #scheme formControlName="memNo"
-                                        bindValue="value" bindLabel="label"
-                                        (change)="getIntro($event);getIntroducer();">
+                                        bindValue="value" (change)="getIntro($event);getIntroducer();">
                                         <ng-option *ngFor="let item of member_No" [value]="item">
-                                            {{item.label}} {{item.name}}</ng-option>
+                                            {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -54,10 +76,9 @@
                                     This field is required.
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="col-sm-1">
+                        <!-- <div class="col-sm-1">
                             <button class="btn btn-primary"></button>
                         </div>
                         <div class="col-sm">
@@ -68,32 +89,391 @@
                         </div>
                         <div class="col-sm">
                             <label>Loan</label>
+                        </div> -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="name">Name<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="name" disabled formControlName="name">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['name'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="mobNo">Mob. No.<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="mobNo" disabled formControlName="mobNo">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['mobNo'].invalid && (angForm.controls['mobNo'].dirty || angForm.controls['mobNo'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['mobNo'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="address">Address<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <textarea name="address" class="form-control" id="address" disabled
+                                        formControlName="address"></textarea>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['address'].invalid && (angForm.controls['address'].dirty || angForm.controls['address'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['address'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"> <label for="name">BirthDate<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="birthDate" disabled
+                                        formControlName="birthDate">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['birthDate'].invalid && (angForm.controls['birthDate'].dirty || angForm.controls['birthDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['birthDate'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="joinDate">Joining Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="joinDate" disabled
+                                        formControlName="joinDate">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['joinDate'].invalid && (angForm.controls['joinDate'].dirty || angForm.controls['joinDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['joinDate'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="retirementDate">Retirement Date<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="retirementDate" disabled
+                                        formControlName="retirementDate">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['retirementDate'].invalid && (angForm.controls['retirementDate'].dirty || angForm.controls['retirementDate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['retirementDate'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <!-- <div class="col-sm-1">
-                                <button class="btn btn-primary"></button>
+                        <div class="col-sm-12 col-md-1"> <label for="Status">Status<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="Status" formControlName="Status"
+                                        disabled>
+                                </span>
+                                <!-- Active -->
                             </div>
-                            <div class="col-sm-2">
-                                <label>Deposit</label>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['Status'].invalid && (angForm.controls['Status'].dirty || angForm.controls['Status'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['Status'].errors?.required">
+                                    This field is required.
+                                </div>
                             </div>
-                            <div class="col-sm-1">
-                                <button class="btn btn-danger"></button>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="salaryDiv">Salary Division<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select #scheme formControlName="salaryDiv">
+                                        <ng-option *ngFor="let item of salaryDivision" [value]="item">
+                                            {{item.AC_SALARYDIVISION_CODE }} {{item.NAME}}</ng-option>
+                                    </ng-select>
+                                </span>
                             </div>
-                            <div class="col-sm-2">
-                                <label>Loan</label>
-                            </div> -->
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['salaryDiv'].invalid && (angForm.controls['salaryDiv'].dirty || angForm.controls['salaryDiv'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['salaryDiv'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1"> <label for="subSalaryDiv">Sub Salary Division<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select formControlName="subSalaryDiv">
+                                        <ng-option *ngFor="let item of subSalaryDivision" [value]="item">
+                                            {{item.SUB_SALARYDIVISION_CODE}} {{item.NAME}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['subSalaryDiv'].invalid && (angForm.controls['subSalaryDiv'].dirty || angForm.controls['subSalaryDiv'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['subSalaryDiv'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- <div class="col-sm-2"> -->
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="openModal('memberLiabilityView');clickHereToShowMember()">Show Member Liability
+                            View</button>
+                        <!-- </div> -->
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-12">
+                            <div class="solid">
+                                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                                    <table class="table table-bordered table-hover compact">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Scheme</th>
+                                                <th>Scheme Name</th>
+                                                <th>Account Balance</th>
+                                                <th>Opening Date</th>
+                                                <th>Sanction Amount</th>
+                                                <th>Maturity Amount</th>
+                                                <th>Months</th>
+                                                <th>Days</th>
+                                                <th>Maturity Date</th>
+                                                <th>Installment</th>
+                                                <th>Repay Mode</th>
+                                                <th>Purpose</th>
+                                                <th>Interest</th>
+                                                <th>Member No.</th>
+                                                <th>Guarantor</th>
+                                                <th>Branch</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of tableData; let index = i">
+                                                <td *ngIf="data.AC_ACNOTYPE != 'SH'">
+                                                    <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                        onclick="this.blur()"
+                                                        (click)="openModal('ledgerView');clickHere(data)"
+                                                        placement="bottom" ngbTooltip="Ledger View"></span>
+                                                </td>
+                                                <td *ngIf="data.AC_ACNOTYPE == 'SH'">
+                                                    <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                        onclick="this.blur()"
+                                                        (click)="openModal('shareLedgerView');sharesView(data)"
+                                                        placement="bottom" ngbTooltip="Ledger View"></span>
+                                                </td>
+                                                <td>{{data.S_APPL}}</td>
+                                                <td>{{data.S_NAME}}</td>
+                                                <td class="text-right">{{data.LEDGERBALANCE}}</td>
+                                                <td class="td_center">{{data.AC_OPDATE}}</td>
+                                                <td class="text-right">{{data.AC_SANCTION_AMOUNT}}</td>
+                                                <td class="text-right">{{data.AC_MATUAMT}}</td>
+                                                <td class="text-right">{{data.AC_MONTHS}}</td>
+                                                <td class="text-right">{{data.AC_DAYS}}</td>
+                                                <td class="td_center">{{data.AC_EXPDT}}</td>
+                                                <td class="text-right">{{data.AC_INSTALLMENT}}</td>
+                                                <td class="text-right">{{data.AC_REPAYMODE}}</td>
+                                                <td>{{data.PURPOSE}}</td>
+                                                <td class="text-right">{{data.AC_INTRATE}}</td>
+                                                <td class="td_center">{{data.AC_MEMBNO}}</td>
+                                                <td>{{data.guarantors}}</td>
+                                                <td>{{data.NAME}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-sm-12 col-md-3"><label for="memNo"><b>Consoledate Statement View :</b></label>
+                        </div>
 
 
-                        <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                        <div class="col-sm-12 col-md-1">
+                            <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
+                                        class="form-control" [(ngModel)]="fromdate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="8"
+                                        maxlength="10" formControlName="START_DATE"
+                                        (bsValueChange)="onFromDateChange($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['START_DATE'].invalid &&
+                                             (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['START_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <label for="END_DATE">End Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                        class="form-control" [(ngModel)]="todate" appButton minlength="10"
+                                        maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [maxDate]="maxDate" [minDate]="fromdate" formControlName="END_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['END_DATE'].invalid &&
+                                             (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)" class="alert alert-danger">
+                                <div *ngIf="angForm.controls['END_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
 
-                            <button class="btn  btn-outline-primary btn-sm">Print</button>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="view()">View</button>
+                        </div>
 
-                            <button class="btn  btn-outline-primary btn-sm">Guarantor View</button>
+                    </div>
 
-                            <button class="btn  btn-outline-primary btn-sm">Refresh</button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="name">{{schemeName}} </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="name">{{schemeName1}} </label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-6">
+                            <div class="solid">
+                                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                                    <table class="table table-bordered table-hover compact">
+                                        <thead>
+                                            <tr>
+                                                <th>Crdit Amount</th>
+                                                <th>Debit Amount</th>
+                                                <th>Credit Interest</th>
+                                                <th>Debit Interest</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of loanData">
+                                                <td class="text-right">{{data.total_loan_credit_amount}}</td>
+                                                <td class="text-right">{{data.total_loan_debit_amount}}</td>
+                                                <td class="text-right">{{data.total_loan_credit_interest}}</td>
+                                                <td class="text-right">{{data.total_loan_debit_interest}}</td>
+                                                <td class="text-right">{{data.total_ledger_balance}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="solid">
+                                <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                                    <table class="table table-bordered table-hover compact">
+                                        <thead>
+                                            <tr>
+                                                <th>Crdit Amount</th>
+                                                <th>Debit Amount</th>
+                                                <th>Credit Interest</th>
+                                                <th>Debit Interest</th>
+                                                <th>Balance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let data of depositDate">
+                                                <td class="text-right">{{data.total_deposit_credit_amount}}</td>
+                                                <td class="text-right">{{data.total_deposit_debit_amount}}</td>
+                                                <td class="text-right">{{data.total_deposit_credit_interest}}</td>
+                                                <td class="text-right">{{data.total_deposit_debit_interest}}</td>
+                                                <td class="text-right">{{data.total_ledger_balance}}</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
+                            <button class="btn  btn-outline-primary btn-sm" (click)="cancel()">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm"
+                                (click)="showMasterCardView()">View</button>
                         </div>
                     </div>
 
@@ -104,15 +484,84 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe [url]='iframeurl'></app-iframe>
+                                    <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-            </form>
 
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="isLedger">
+    <div class="modal text-black" tabindex="-1" role="dialog"
+        [ngStyle]="{'display':display, 'background-color': 'rgba(0, 0, 0, 0.5)'}">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <label style="font-weight: bold;">Ledger View</label> -->
+                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <app-ledger-view [childMessage]="ledgerData"></app-ledger-view>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="onCloseHandled()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isMember">
+    <div class="modal text-black" tabindex="-1" role="dialog"
+        [ngStyle]="{'display':display, 'background-color': 'rgba(0, 0, 0, 0.5)'}">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <label style="font-weight: bold;">Ledger View</label> -->
+                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body scrollable-modal-body">
+                    <app-member-liablity-view></app-member-liablity-view>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="onCloseHandled()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="isShare">
+    <div class="modal text-black" tabindex="-1" role="dialog"
+        [ngStyle]="{'display':display, 'background-color': 'rgba(0, 0, 0, 0.5)'}">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <label style="font-weight: bold;">Ledger View</label> -->
+                    <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body scrollable-modal-body">
+                    <app-shares-ledger-view></app-shares-ledger-view>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        (click)="onCloseHandled()">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

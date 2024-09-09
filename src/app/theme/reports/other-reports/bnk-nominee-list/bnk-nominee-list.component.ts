@@ -114,7 +114,9 @@ export class BnkNomineeListComponent implements OnInit {
     });
 
   }
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     this.showLoading = true;
 

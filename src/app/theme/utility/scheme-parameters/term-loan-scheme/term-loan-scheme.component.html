@@ -13,10 +13,10 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                  <input  style="text-align: right;" type="text" name="S_APPL" class="form-control"
                     placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$" (focusout)="checkDuplicate($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" title="Input allowed only  0-9"
-                    maxlength="3" minlength="3" min="501" max="599" formControlName="S_APPL" #autofocus />
+                    maxlength="3" minlength="3" min="501" max="599" formControlName="S_APPL"  />
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -39,7 +39,7 @@
             <div class="col-sm-7">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
+                  <input  type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
@@ -67,7 +67,7 @@
             <div class="col-sm-6">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
+                  <input  type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
                     required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -107,10 +107,10 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
+                  <ng-select  id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required placeholder="GL Account Number">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                 </span>
@@ -138,11 +138,12 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
+                  <ng-select  id="S_INT_ACNO" bindValue="value" [(ngModel)]="ngintglac"
                     formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
                     [selectOnTab]='true' required placeholder="Interest GL Account">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_INT_ACNO">Interest GL Account<sub class="required"> * </sub></label>
                 </span>
@@ -175,11 +176,12 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivableintac"
+                  <ng-select  id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivableintac"
                     formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Receivable Interest Account">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_RECBL_PYBL_INT_ACNO">Receivable Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -208,11 +210,12 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
+                  <ng-select  id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalintac"
                     formControlName="S_PENAL_ACNO" bindLabel="label" title="Compulsory Selection" #S_PENAL_ACNO
                     (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
                     required placeholder="Penal Interest Account">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_PENAL_ACNO">Penal Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -246,11 +249,12 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecblepenalintac"
+                  <ng-select  id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngrecblepenalintac"
                     formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Penal Interest Account">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_RECBL_PENAL_ACNO">Recble Penal Interest Account<sub class="required"> * </sub></label>
                 </span>
@@ -280,11 +284,13 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_RECBL_ODUE_INT_ACNO" bindValue="value" [(ngModel)]="ngrecbleoverdueint"
+                  <ng-select  id="S_RECBL_ODUE_INT_ACNO" bindValue="value" [(ngModel)]="ngrecbleoverdueint"
                     formControlName="S_RECBL_ODUE_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_RECBL_ODUE_INT_ACNO (focus)="onFocus(S_RECBL_ODUE_INT_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Recble Overdue Interest">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
+
                   </ng-select>
                   <label for="S_RECBL_ODUE_INT_ACNO">Recble Overdue Interest<sub class="required"> * </sub></label>
                 </span>
@@ -314,11 +320,12 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_OUTSTANDING_INT_ACNO" bindValue="value" [(ngModel)]="ngoutstandingintac"
+                  <ng-select  id="S_OUTSTANDING_INT_ACNO" bindValue="value" [(ngModel)]="ngoutstandingintac"
                     formControlName="S_OUTSTANDING_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_OUTSTANDING_INT_ACNO (focus)="onFocus(S_OUTSTANDING_INT_ACNO)" [selectOnTab]='true'
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Outstanding Interest Account">
-                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}</ng-option>
+
+                    <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}} {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_OUTSTANDING_INT_ACNO">Outstanding Interest Account<sub class="required"> *
                     </sub></label>
@@ -1096,7 +1103,7 @@
                       <div class="col-sm-8">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input appTheme style="text-align: right;" type="text" name="IS_OVERDUE_ON_INSTALLMENT"
+                            <input  style="text-align: right;" type="text" name="IS_OVERDUE_ON_INSTALLMENT"
                               class="form-control" placeholder=" "
                               (keypress)="($event.charCode >= 48 && $event.charCode <= 51)" max="7" maxlength="1"
                               id="IS_OVERDUE_ON_INSTALLMENT" pattern="^[0-9]+$" title="Input allowed only  0-9"

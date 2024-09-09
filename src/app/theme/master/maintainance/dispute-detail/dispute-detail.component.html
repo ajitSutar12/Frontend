@@ -1,0 +1,653 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Dispute Detail</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <form [formGroup]="angForm" (ngSubmit)="submit()">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+
+                                    <label>Branch<sub class="required">*</sub></label>
+                                </span>
+                                <ng-select id="Branch" formControlName="BRANCH" bindValue="value" bindLabel="label"
+                                    [(ngModel)]="ngbranch" placeholder="Branch" (change)="getBranch($event)">
+                                    <ng-option *ngFor="let values of branchOption" [value]="values">
+                                        {{values.label}} </ng-option>
+                                </ng-select>
+                            </div>
+                            <div *ngIf="angForm.get('BRANCH').invalid && (angForm.get('BRANCH').dirty || angForm.get('BRANCH').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('BRANCH').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <label>Scheme<sub class="required">*</sub></label>
+                                </span>
+                                <ng-select id="Scheme" formControlName="AC_ACNOTYPE"
+                                    (change)="getTransferAccountList($event)">
+                                    <ng-option *ngFor="let scheme of schemes" [value]="scheme" name="AC_ACNOTYPE"
+                                        [(ngModel)]="model.AC_ACNOTYPE">
+                                        {{ scheme.S_APPL }} {{ scheme.S_NAME }} </ng-option>
+                                </ng-select>
+                            </div>
+                            <div *ngIf="angForm.get('AC_ACNOTYPE').invalid && (angForm.get('AC_ACNOTYPE').dirty || angForm.get('AC_ACNOTYPE').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('AC_ACNOTYPE').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <label>Account Number<sub class="required">*</sub></label>
+                                </span>
+                                <ng-select id="AC_NO" formControlName="AC_NO" (change)="getAccountList($event)"
+                                    name="AC_NO" [(ngModel)]="model.AC_NO">
+                                    <ng-option *ngFor="let values of fromAc" [value]="values">
+                                        {{values.label}} {{values.name}}
+                                    </ng-option>
+                                </ng-select>
+                                <!-- <ng-select id="Account_Number" bindValue="bankbankacno" [(ngModel)]="start"
+                                 formControlName="Account_Number"  (change)="getAccountList($event)"bindLabel="label"
+                                    placeholder="">
+                                    <ng-option *ngFor="let values of Accountno" [value]="values">
+                                        {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
+                                </ng-select> -->
+                            </div>
+                            <div *ngIf="angForm.get('AC_NO').invalid && (angForm.get('AC_NO').dirty || angForm.get('AC_NO').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('AC_NO').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label>Suite Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="CASE_SUITE_DATE"
+                                        id="CASE_SUITE_DATE" class="form-control" appDateValidation [bsValue]="bsValue"
+                                        (change)="getsuitedate($event)" formControlName="CASE_SUITE_DATE" appButton
+                                        minlength="10" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker name="Suite_Date" [(ngModel)]="model.Suite_Date">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['CASE_SUITE_DATE'].invalid &&
+                            (angForm.controls['CASE_SUITE_DATE'].dirty ||angForm.controls['CASE_SUITE_DATE'].touched) "
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['CASE_SUITE_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label>Court interest Rate<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="COURT_INT_RATE" id="COURT_INT_RATE"
+                                        class="form-control" formControlName="COURT_INT_RATE"
+                                        pattern="^[0-9\u0966-\u096F]*$" name="COURT_INT_RATE"
+                                        [(ngModel)]="model.COURT_INT_RATE">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COURT_INT_RATE'].invalid && (angForm.controls['COURT_INT_RATE'].dirty || angForm.controls['COURT_INT_RATE'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('COURT_INT_RATE').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                                <div *ngIf="angForm.controls['COURT_INT_RATE'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label>Court Installment<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="COURT_INSTALLMENT" id="COURT_INSTALLMENT"
+                                        class="form-control" formControlName="COURT_INSTALLMENT"
+                                        pattern="^[0-9\u0966-\u096F]*$" name="COURT_INSTALLMENT"
+                                        [(ngModel)]="model.COURT_INSTALLMENT">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COURT_INSTALLMENT'].invalid && (angForm.controls['COURT_INSTALLMENT'].dirty || angForm.controls['COURT_INSTALLMENT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('COURT_INSTALLMENT').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                                <div *ngIf="angForm.controls['COURT_INSTALLMENT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label>Court Order Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="COURT_ORDER_DATE"
+                                        id="COURT_ORDER_DATE" class="form-control" [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        formControlName="COURT_ORDER_DATE" appDateValidation minlength="10"
+                                        maxlength="10" appButton (change)="getcourtdate($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker name="COURT_ORDER_DATE" [(ngModel)]="model.COURT_ORDER_DATE">
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COURT_ORDER_DATE'].invalid &&
+                            (angForm.controls['COURT_ORDER_DATE'].dirty ||angForm.controls['COURT_ORDER_DATE'].touched) " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['COURT_ORDER_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <label>Case No<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="COURT_CASE_NO" id="COURT_CASE_NO"
+                                        class="form-control" formControlName="COURT_CASE_NO" name="COURT_CASE_NO"
+                                        [(ngModel)]="model.COURT_CASE_NO">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COURT_CASE_NO'].invalid && (angForm.controls['COURT_CASE_NO'].dirty || angForm.controls['COURT_CASE_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('COURT_CASE_NO').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                                <!-- <div *ngIf="angForm.controls['COURT_CASE_NO'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div> -->
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label>Suite Amount<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="SUITE_AMT" id="SUITE_AMT"
+                                        class="form-control" formControlName="SUITE_AMT" pattern="^[0-9\u0966-\u096F]*$"
+                                        name="SUITE_AMT" [ngModel]="SUITE_AMT">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['SUITE_AMT'].invalid && (angForm.controls['SUITE_AMT'].dirty || angForm.controls['SUITE_AMT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('SUITE_AMT').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                                <div *ngIf="angForm.controls['Suite_Amount'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label>Result Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="COURT_RESULT_DATE"
+                                        id="COURT_RESULT_DATE" class="form-control" formControlName="COURT_RESULT_DATE"
+                                        appDateValidation [bsValue]="bsValue"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10"
+                                        maxlength="10" (change)="getresultdate($event)"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker name="COURT_RESULT_DATE" [(ngModel)]="model.COURT_RESULT_DATE">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COURT_RESULT_DATE'].invalid &&
+                            (angForm.controls['COURT_RESULT_DATE'].dirty ||angForm.controls['COURT_RESULT_DATE'].touched) " class="alert alert-danger">
+                                <div *ngIf="angForm.controls['COURT_RESULT_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label>Old Scheme/Account No<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label>Recoverable Amount<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="RECOVERABLE_AMT" id="RECOVERABLE_AMT"
+                                        formControlName="RECOVERABLE_AMT" class="form-control"
+                                        pattern="^[0-9\u0966-\u096F]*$" name="RECOVERABLE_AMT"
+                                        [(ngModel)]="model.RECOVERABLE_AMT">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['RECOVERABLE_AMT'].invalid && (angForm.controls['RECOVERABLE_AMT'].dirty || angForm.controls['RECOVERABLE_AMT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('RECOVERABLE_AMT').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                                <div *ngIf="angForm.controls['Recoverable_Amount'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label>Int. Calculation Date<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="dd/mm/yyyy" name="INT_CALC_DATE"
+                                        id="calculation_Date" class="form-control" appDateValidation [bsValue]="bsValue"
+                                        formControlName="INT_CALC_DATE" (change)="getcalculationdate($event)"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10"
+                                        maxlength="10"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker name="INT_CALC_DATE" [(ngModel)]="model.INT_CALC_DATE">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INT_CALC_DATE'].invalid &&
+                            (angForm.controls['INT_CALC_DATE'].dirty ||angForm.controls['INT_CALC_DATE'].touched) "
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['INT_CALC_DATE'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="" name="OLD_SCHEME" id="OLD_SCHEME"
+                                                class="form-control" formControlName="OLD_SCHEME" name="OLD_SCHEME"
+                                                [(ngModel)]="model.OLD_SCHEME">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="angForm.get('OLD_SCHEME').invalid && (angForm.get('OLD_SCHEME').dirty || angForm.get('OLD_SCHEME').touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.get('OLD_SCHEME').errors?.required" class="text-danger">
+                                            This field is required
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="" id="REF_OLD_AC_NO" class="form-control"
+                                                formControlName="REF_OLD_AC_NO" pattern="^[0-9\u0966-\u096F]*$"
+                                                name="REF_OLD_AC_NO" [(ngModel)]="model.REF_OLD_AC_NO">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['REF_OLD_AC_NO'].invalid && (angForm.controls['REF_OLD_AC_NO'].dirty || angForm.controls['REF_OLD_AC_NO'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.get('REF_OLD_AC_NO').errors?.required" class="text-danger">
+                                            This field is required
+                                        </div>
+                                        <div *ngIf="angForm.controls['REF_OLD_AC_NO'].errors?.pattern">
+                                            Input allowed only 0-9
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text " placeholder="" name="CAL_VALUE" id="CAL_VALUE"
+                                        formControlName="CAL_VALUE" class="form-control">
+                                </span>
+                            </div>
+                            <div *ngIf="angForm.get('CAL_VALUE').invalid && (angForm.get('CAL_VALUE').dirty || angForm.get('CAL_VALUE').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('CAL_VALUE').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-12 col-md-2">
+                            <label>Recoverable Interest<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="RECOVERABLE_INT"
+                                        formControlName="RECOVERABLE_INT" id="RECOVERABLE_INT" class="form-control"
+                                        pattern="^[0-9\u0966-\u096F]*$" name="RECOVERABLE_INT"
+                                        [(ngModel)]="model.RECOVERABLE_INT">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['RECOVERABLE_INT'].invalid && (angForm.controls['RECOVERABLE_INT'].dirty || angForm.controls['RECOVERABLE_INT'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('RECOVERABLE_INT').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                                <div *ngIf="angForm.controls['RECOVERABLE_INT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <label>Case No<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="COURT_CASE_NO" id="COURT_CASE_NO"
+                                        class="form-control" formControlName="COURT_CASE_NO" name="COURT_CASE_NO"
+                                        [(ngModel)]="model.COURT_CASE_NO">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['COURT_CASE_NO'].invalid && (angForm.controls['COURT_CASE_NO'].dirty || angForm.controls['COURT_CASE_NO'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('COURT_CASE_NO').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label>Old Scheme/Account No<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="" name="OLD_SCHEME" id="OLD_SCHEME"
+                                                class="form-control" formControlName="OLD_SCHEME" name="OLD_SCHEME"
+                                                [(ngModel)]="model.OLD_SCHEME">
+                                        </span>
+                                    </div>
+                                    <div *ngIf="angForm.get('OLD_SCHEME').invalid && (angForm.get('OLD_SCHEME').dirty || angForm.get('OLD_SCHEME').touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.get('OLD_SCHEME').errors?.required" class="text-danger">
+                                            This field is required
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <input type="text" placeholder="" id="REF_OLD_AC_NO" class="form-control"
+                                                formControlName="REF_OLD_AC_NO" pattern="^[0-9\u0966-\u096F]*$"
+                                                name="REF_OLD_AC_NO" [(ngModel)]="model.REF_OLD_AC_NO">
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['REF_OLD_AC_NO'].invalid && (angForm.controls['REF_OLD_AC_NO'].dirty || angForm.controls['REF_OLD_AC_NO'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.get('REF_OLD_AC_NO').errors?.required" class="text-danger">
+                                            This field is required
+                                        </div>
+                                        <div *ngIf="angForm.controls['REF_OLD_AC_NO'].errors?.pattern">
+                                            Input allowed only 0-9
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> -->
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <label>Advocate<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <!-- <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="Advocate" id="Advocate"
+                                        class="form-control">
+                                </span>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select id="Advocate" formControlName="ADVOCATE" (change)="getname1($event)"
+                                    name="ADVOCATE" [(ngModel)]="model.ADVOCATE">
+                                    <ng-option *ngFor="let values of advocates" [value]="values">{{ values.CODE }} {{
+                                        values.NAME }}</ng-option>
+                                </ng-select>
+                            </div>
+                            <div *ngIf="angForm.get('ADVOCATE').invalid && (angForm.get('ADVOCATE').dirty || angForm.get('ADVOCATE').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('ADVOCATE').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12 col-md-1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <label>Loan Stage<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <!-- <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="Loan_Stage" id="Loan_Stage"
+                                        class="form-control">
+                                </span>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select id="Loan_Stage" formControlName="LOAN_STAGE" (change)="getname($event)"
+                                    name="LOAN_STAGE" [(ngModel)]="model.LOAN_STAGE">
+                                    <ng-option *ngFor="let values of loanstage" [value]="stage">{{ values.CODE }} {{
+                                        values.NAME }}</ng-option>
+                                </ng-select>
+                            </div>
+                            <div *ngIf="angForm.get('LOAN_STAGE').invalid && (angForm.get('LOAN_STAGE').dirty || angForm.get('LOAN_STAGE').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('LOAN_STAGE').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <label>Court<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                            <!-- <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" placeholder="" name="Court" id="Court" class="form-control">
+                                </span>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select id="Court" formControlName="COURT" (change)="getname2($event)" name="COURT"
+                                    [(ngModel)]="model.COURT">
+                                    <ng-option *ngFor="let values of court" [value]="values">{{ values.CODE }} {{
+                                        values.NAME }}</ng-option>
+                                </ng-select>
+                            </div>
+                            <div *ngIf="angForm.get('COURT').invalid && (angForm.get('COURT').dirty || angForm.get('COURT').touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.get('COURT').errors?.required" class="text-danger">
+                                    This field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-1"></div>
+                    </div>
+
+                </div>
+                <div class="solid">
+                    <h6><span>Remark</span></h6>
+                    <div class="row">
+                        <div class=" col-sm-1"></div>
+                        <div class=" col-sm-10">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <textarea type="text" placeholder="" name="" id="AC_REMARK" class="form-control"
+                                        formControlName="AC_REMARK" name="AC_REMARK"
+                                        [(ngModel)]="model.AC_REMARK"></textarea>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_REMARK'].invalid &&
+                            (angForm.controls['AC_REMARK'].dirty ||angForm.controls['AC_REMARK'].touched) "
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['AC_REMARK'].errors?.required">
+                                    This field is required
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class=" col-sm-1"></div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-primary btn-sm" (click)="submit();">Submit</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn  btn-outline-primary btn-sm" (click)="resetForm(); hidecancel=false;">Cancel</button>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-outline-primary btn-sm" (click)="update()" *ngIf="updateShow">Update</button>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+<!-- table part -->
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="table-responsive fixTableHead">
+            <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
+                <thead>
+                    <td>Action</td>
+                    <!-- <td>Branch</td> -->
+                    <td>Scheme</td>
+                    <td>Account Number</td>
+                    <td>Suite Date</td>
+                    <td>Court Interest Rate</td>
+                    <td>Court Installment</td>
+                    <td>Court Order Date</td>
+                    <td>Suite Amount</td>
+                    <td>Result Date</td>
+                    <td>Recoverable Amount</td>
+                    <td>Int. Calculation Date</td>
+                    <td>Recoverable Interest</td>
+                    <td>Old Scheme</td>
+                    <td>Old Account No</td>
+                    <td>Case No</td>
+                    <td>COURT</td>
+                    <td>LOAN STAGE</td>
+                    <td>ADVOCATE</td>
+                    <!-- <td>Remark</td> -->
+
+                </thead>
+                <tbody *ngIf="tableData?.length != 0">
+                    <tr *ngFor="let data of showData; let i = index">
+                        <td>
+                            <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editvalue(i);gotoTop()"
+                                placement=" bottom" ngbTooltip="Edit"></span>
+                        </td>
+                        <td>{{ data.AC_ACNOTYPE }}</td>
+                        <!-- <td>{{ data.AccountName }}</td>
+                        <td>{{ data.LedgerBalance }}</td> 
+                        <td>{{ data.Amount }}</td> -->
+                        <td>{{ data.AC_NO }}</td>
+                        <td>{{ data.CASE_SUITE_DATE }}</td>
+                        <td>{{ data.COURT_INT_RATE }}</td>
+                        <td>{{ data.COURT_INSTALLMENT }}</td>
+                        <td>{{ data.COURT_ORDER_DATE }}</td>
+                        <td>{{ data.SUITE_AMT }}</td>
+                        <td>{{ data.COURT_RESULT_DATE}}</td>
+                        <td>{{ data.RECOVERABLE_AMT }}</td>
+                        <td>{{ data.INT_CALC_DATE }}</td>
+                        <td>{{ data.RECOVERABLE_INT }}</td>
+                        <td>{{ data.REF_OLD_AC_TYPE }}</td>
+                        <td>{{ data.REF_OLD_AC_NO }}</td>
+                        <td>{{ data.COURT_CASE_NO }}</td>
+                        <!-- <td>{{ data.CASE_SUITE_DATE }}</td> -->
+                        <td>{{ data.COURT }}</td>
+                        <td>{{ data.LOAN_STAGE }}</td>
+                        <td>{{ data.ADVOCATE }}</td>
+                        <!-- <td>{{ data.AC_REMARK }}</td> -->
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+        </div>
+    </div>
+</div>

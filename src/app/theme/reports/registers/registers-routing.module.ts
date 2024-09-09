@@ -65,6 +65,10 @@ const routes: Routes = [
         path: 'lockerRegister',
         loadChildren: () => import('./locker-register/locker-register.module').then(m => m.LockerRegisterModule)
       },
+      {
+        path: 'KYCDocReceivedNotRec',
+        loadChildren: () => import('./kyc-document-received-not-received/kyc-document-received-not-received.module').then(m => m.KYCDocumentReceivedNotReceivedModule)
+      },
      
     ]
   }

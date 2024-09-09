@@ -68,13 +68,53 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   // column filter
   filterData = {};
 
+
+  regions: string[] = [' ', 'North',
+    'South',
+    'West',
+    'East',
+    'Central',
+    'Northeast',
+    'Northwest',
+    'Southeast',
+    'Southwest'];
+  selectedRegion: string;
+  selectedState: any;
+
   constructor(
     private http: HttpClient,
     private citytMasterService: CitytMasterService,
-    private fb: FormBuilder) { }
-
+    private fb: FormBuilder) {
+    this.selectedRegion = this.regions[0];
+  }
+  districts
+  talukas
+  states
 
   ngOnInit(): void {
+
+    this.http.post<any>(this.url + '/city-master/getstate', {})
+      .subscribe(
+        (data) => {
+          this.states = data;
+        },
+      );
+    this.http.post<any>(this.url + '/city-master/district', {})
+      .subscribe(
+        (data) => {
+          this.districts = data;
+        },
+
+      );
+    this.http.post<any>(this.url + 'city-master/getTaluka', {})
+      .subscribe(
+        (data) => {
+          this.talukas = data;
+        },
+
+      );
+
+
     // Fetching Server side data
     this.dtExportButtonOptions = {
       pagingType: 'full_numbers',
@@ -142,21 +182,37 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: 'Distance',
           data: 'DISTANCE',
         },
-        {
-          title: 'Taluka Code',
-          data: 'TALUKA_CODE',
-        },
-        {
-          title: 'District Code',
-          data: 'DISTRICT_CODE',
-        },
-        {
-          title: 'State Code',
-          data: 'STATE_CODE',
-        },
+        // {
+        //   title: 'Taluka Code',
+        //   data: 'TALUKA_CODE',
+        // },
+        // {
+        //   title: 'District Code',
+        //   data: 'DISTRICT_CODE',
+        // },
+        // {
+        //   title: 'State Code',
+        //   data: 'STATE_CODE',
+        // },
         {
           title: 'Region',
           data: 'REGION_CODE',
+        },
+        {
+          title: 'State',
+          data: 'STATE',
+        },
+        {
+          title: 'District',
+          data: 'DISTRICT',
+        },
+        {
+          title: 'Taluka',
+          data: 'TALUKA',
+        },
+        {
+          title: 'City Type',
+          data: 'CITY_TYPE',
         },
       ],
       dom: 'Blrtip',
@@ -170,10 +226,14 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       CITY_CODE: [''],
       DISTANCE: ['', [Validators.pattern]],
       CITY_NAME: ['', [Validators.required, Validators.pattern]],
-      TALUKA_CODE: ['', [Validators.required, Validators.pattern]],
-      STATE_CODE: ['', [Validators.required, Validators.pattern]],
-      DISTRICT_CODE: ['', [Validators.required, Validators.pattern]],
+      // TALUKA_CODE: ['', [Validators.required, Validators.pattern]],
+      // STATE_CODE: ['', [Validators.required, Validators.pattern]],
+      // DISTRICT_CODE: ['', [Validators.required, Validators.pattern]],
       REGION_CODE: ['', [Validators.required, Validators.pattern]],
+      STATE: ['', [Validators.pattern]],
+      DISTRICT: ['', [Validators.pattern]],
+      TALUKA: ['', [Validators.pattern]],
+      CITY_TYPE: ['', [Validators.pattern]],
     });
   }
   // Method to insert data into database through NestJS
@@ -185,10 +245,14 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'CITY_CODE': formVal.CITY_CODE,
       'CITY_NAME': formVal.CITY_NAME,
       'DISTANCE': formVal.DISTANCE,
-      'TALUKA_CODE': formVal.TALUKA_CODE,
-      'DISTRICT_CODE': formVal.DISTRICT_CODE,
-      'STATE_CODE': formVal.STATE_CODE,
-      'REGION_CODE': formVal.REGION_CODE
+      'CITY_TYPE': this.cityTypeNumber,
+      'REGION_CODE': formVal.REGION_CODE,
+      'STATE': this.state,
+      'DISTRICT': formVal.DISTRICT,
+      'TALUKA': formVal.TALUKA,
+      'STATE_CODE': this.selectedState,
+      'DISTRICT_CODE': this.selectedDistrict,
+      'TALUKA_CODE': this.selectedTaluka,
     }
     this.citytMasterService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -218,10 +282,11 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'CITY_CODE': data.CITY_CODE,
         'CITY_NAME': data.CITY_NAME,
         'DISTANCE': data.DISTANCE,
-        'TALUKA_CODE': data.TALUKA_CODE,
-        'DISTRICT_CODE': data.DISTRICT_CODE,
-        'STATE_CODE': data.STATE_CODE,
-        'REGION_CODE': data.REGION_CODE
+        'REGION_CODE': data.REGION_CODE,
+        'STATE': data.STATE,
+        'DISTRICT': data.DISTRICT,
+        'TALUKA': data.TALUKA,
+        'CITY_TYPE': data.CITY_TYPE,
       })
     })
   }
@@ -242,7 +307,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.resetForm();
     })
-    
+
   }
   addNewData() {
     this.showButton = true;
@@ -328,13 +393,89 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
+  onStateChange(event) {
+    this.state = event.CITY_NAME
 
+
+    let obj = {
+      STATE_CODE: event.STATE_CODE
+    }
+    this.http.post<any>(this.url + '/city-master/getDistStatewise', obj)
+      .subscribe(
+        (data) => {
+          this.districts1 = data;
+        },
+
+      );
+
+  }
+  districts1: any
+  gettalukas = []
+  state
+  onDistrictChange(event) {
+
+    let obj = {
+      STATE_CODE: event.STATE_CODE,
+      DISTRICT_CODE: event.DISTRICT_CODE
+    }
+
+    this.http.post<any>(this.url + '/city-master/getTalStatewise', obj)
+      .subscribe(
+        (data) => {
+          this.talukas = data;
+          console.log(this.talukas)
+        },
+
+      );
+
+  }
+  selectedDistrict
+  selectedTaluka
+  onTalukaChange(event) {
+    this.selectedState = event.STATE_CODE;
+    this.selectedDistrict = event.DISTRICT_CODE;
+    this.selectedTaluka = event.TALUKA_CODE;
+  }
+  onCityNameChange(cityName: string) {
+    if (cityName) {
+      this.cityTypeNumber = this.getCityType(cityName);
+      this.CITY_TYPE = this.getCityTypeText(this.cityTypeNumber);
+    } else {
+      this.CITY_TYPE = '';
+    }
+  }
+
+  CITY_TYPE: string = '';
+  cityTypeNumber: number | null = null;
+
+  getCityTypeText(cityTypeNumber: number): string {
+    switch (cityTypeNumber) {
+      case 1: return '1 - State';
+      case 2: return '2 - District';
+      case 3: return '3 - Taluka';
+      case 4: return '4 - Other';
+      default: return '';
+    }
+  }
+  getCityType(cityName: string): number {
+    const lowerCityName = cityName.toLowerCase();
+
+    if (this.states.some(state => state.CITY_NAME.toLowerCase() === lowerCityName)) {
+      return 1; // State
+    } else if (this.districts.some(district => district.CITY_NAME.toLowerCase() === lowerCityName)) {
+      return 2; // District
+    } else if (this.talukas.some(taluka => taluka.CITY_NAME.toLowerCase() === lowerCityName)) {
+      return 3; // Taluka
+    } else {
+      return 4; // Other
+    }
+  }
 
 
 }

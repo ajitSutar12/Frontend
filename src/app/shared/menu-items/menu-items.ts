@@ -356,6 +356,16 @@ const MENUITEMS1 = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 47
+              },
+              {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
+              },
+              {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
               }
             ]
 
@@ -495,6 +505,12 @@ const MENUITEMS1 = [
                 name: 'Dividend Transfer Posting',
                 id: 72
               },
+
+              {
+                state: 'generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
+                id: 367
+              },
             ]
 
           },
@@ -569,6 +585,11 @@ const MENUITEMS1 = [
             state: 'TermDepositeAcRenewal',
             name: 'Term Deposit A/c Renewal',
             id: 85
+          },
+          {
+            state: 'investmentAccountRenewal',
+            name: 'Investment Account Renewal',
+            id: 375
           },
           {
             state: 'cashCreditAcRenewal',
@@ -764,11 +785,11 @@ const MENUITEMS1 = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -803,38 +824,10 @@ const MENUITEMS1 = [
             name: 'Inward Register',
             id: 131
           },
+
         ]
       },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
+
       {
         state: 'passing',
         short_label: 'D',
@@ -864,6 +857,43 @@ const MENUITEMS1 = [
             state: 'neftPassing',
             name: 'NEFT/RTGS Transaction Passing',
             id: 354
+          },
+        ]
+      },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
         ]
       },
@@ -937,6 +967,12 @@ const MENUITEMS1 = [
             id: 348
 
           },
+          {
+            state: 'memberguaranter',
+            name: 'Member Guaranter Detail',
+            id: 368
+
+          },
         ],
 
       },
@@ -969,6 +1005,11 @@ const MENUITEMS1 = [
             // ]
           },
           {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 377,
+          },
+          {
             state: 'goldSilverReceipt',
             name: 'Gold/Silver Receipt Print',
             id: 344
@@ -991,7 +1032,13 @@ const MENUITEMS1 = [
                 id: 107
               }
             ]
-          }
+          },
+          // {
+          //   state: 'tDReceiptPrinting',
+          //   name: 'TD Receipt Printing',
+          //   id: 368,
+          // },
+
         ]
       },
       {
@@ -1299,7 +1346,11 @@ const MENUITEMS1 = [
                 name: 'Excess Cash Balance Report',
                 id: 202
               },
-
+              {
+                state: 'KYCDocReceivedNotRec',
+                name: 'KYC Document Rec Not Rec',
+                id: 378
+              },
             ]
           },
           //
@@ -1548,11 +1599,40 @@ const MENUITEMS1 = [
               },
               {
                 state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
+                name: 'No Due Certificate',
                 type: 'sub',
                 id: 355,
               },
-
+              {
+                state: 'CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
+                type: 'sub',
+                id: 369,
+              },
+              {
+                state: 'CourtwiseDisputeLoanList',
+                name: 'Courtwise Dispute Loan List',
+                type: 'sub',
+                id: 370,
+              },
+              {
+                state: 'DisputeLoanList',
+                name: 'Dispute Loan List',
+                type: 'sub',
+                id: 371,
+              },
+              {
+                state: 'loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
+                type: 'sub',
+                id: 372,
+              },
+              {
+                state: 'healthCodewise',
+                name: 'Health Code Wise Report',
+                type: 'sub',
+                id: 373,
+              },
             ],
 
           },
@@ -1629,6 +1709,36 @@ const MENUITEMS1 = [
           //   name: 'Nottice',
           //   id: 252
           // },
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 364
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 366
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 367
+                    },
+                  ]
+                },
           // //
           // {
           //   state: 'Report_Frame',
@@ -1636,6 +1746,36 @@ const MENUITEMS1 = [
           //   id: 253
           // },
           //
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 363
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 364
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 366
+                    },
+                  ]
+                },
           {
             state: 'PigmyReport',
             name: 'Pigmy Report',
@@ -1787,6 +1927,21 @@ const MENUITEMS1 = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'swnidhi',
+                name: 'Swnidhi Report',
+                id: 376
+              },
+              {
+                state: 'MISInfo',
+                name: 'MIS Information',
+                id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
+              }
             ]
           },
           //
@@ -1920,11 +2075,7 @@ const MENUITEMS1 = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-          {
-            state: 'pigmyAppProcess',
-            name: 'Pigmy App Process',
-            id: 308
-          },
+          
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -2063,7 +2214,16 @@ const MENUITEMS1 = [
             name: 'Recurring Amount Transfer to GL',
             id: 334
           },
-
+          {
+            state: 'conversion',
+            name: 'Conversion',
+            id: 374
+          },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -2098,7 +2258,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
@@ -2107,6 +2267,12 @@ const MENUITEMS1 = [
                 id: 299
               },
             ]
+          },
+
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
           },
 
           {
@@ -2134,7 +2300,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'monthly recovery process',
-            name: 'Monthly recovery process',
+            name: 'Monthly Recovery Process',
             id: 360
           },
           {
@@ -2142,6 +2308,7 @@ const MENUITEMS1 = [
             name: 'Year End BranchWise',
             id: 361
           },
+
 
         ]
       },
@@ -3192,6 +3359,10 @@ const MENUITEMS = [
                 state: 'moratoriumperiodmaster',
                 name: 'Moratorium Period Master',
                 id: 47
+              }, {
+                state: 'disputedetail',
+                name: 'Dispute Detail',
+                id: 363
               }
             ]
 
@@ -3331,6 +3502,11 @@ const MENUITEMS = [
                 name: 'Dividend Transfer Posting',
                 id: 72
               },
+              {
+                state: 'generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
+                id: 367
+              },
             ]
 
           },
@@ -3405,6 +3581,11 @@ const MENUITEMS = [
             state: 'TermDepositeAcRenewal',
             name: 'Term Deposit A/c Renewal',
             id: 85
+          },
+          {
+            state: 'investmentAccountRenewal',
+            name: 'Investment Account Renewal',
+            id: 375
           },
           {
             state: 'cashCreditAcRenewal',
@@ -3600,11 +3781,11 @@ const MENUITEMS = [
               }
             ]
           },
-          // {
-          //   state: 'dDTransaction',
-          //   name: 'DD Transaction',
-          //   id: 125
-          // },
+          {
+            state: 'ddtransaction',
+            name: 'Check/DD Transaction',
+            id: 125
+          },
           {
             state: 'dividendPay',
             name: 'Dividend Pay',
@@ -3641,36 +3822,7 @@ const MENUITEMS = [
           },
         ]
       },
-      {
-        state: 'neftRtgs',
-        short_label: 'D',
-        name: 'NEFT / RTGS ',
-        type: 'sub',
-        icon: 'fa fa-money',
-        id: 349,
-        children: [
-          {
-            state: 'neftTransfer',
-            name: 'NEFT Transfer',
-            id: 350
-          },
-          {
-            state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
-            id: 351
-          },
-          {
-            state: 'billPayment',
-            name: 'Bill Payment',
-            id: 352
-          },
-          {
-            state: 'fundTransfer',
-            name: 'Fund Transfer',
-            id: 353
-          },
-        ]
-      },
+
       {
         state: 'passing',
         short_label: 'D',
@@ -3700,6 +3852,44 @@ const MENUITEMS = [
             state: 'neftPassing',
             name: 'NEFT/RTGS Transaction Passing',
             id: 354
+          },
+        ]
+      },
+      {
+        state: 'neftRtgs',
+        short_label: 'D',
+
+        name: 'Services ',
+        type: 'sub',
+        icon: 'fa fa-money',
+        id: 349,
+        children: [
+          {
+            state: 'neftTransfer',
+            name: 'NEFT Transfer',
+            id: 350
+          },
+          {
+            state: 'rtgsTransfer',
+            name: 'RTGS Transfer',
+            id: 351
+          },
+          {
+
+            state: 'billPayment',
+            name: 'Bill Payment',
+            id: 352
+          },
+          {
+            state: 'fundTransfer',
+            name: 'Fund Transfer',
+            id: 353
+          },
+
+          {
+            state: 'cibilScore',
+            name: 'Cibil Score',
+            id: 380
           },
         ]
       },
@@ -3773,6 +3963,12 @@ const MENUITEMS = [
             id: 348
 
           },
+          {
+            state: 'memberguaranter',
+            name: 'Member Guaranter Detail',
+            id: 368
+
+          },
         ],
 
       },
@@ -3805,6 +4001,11 @@ const MENUITEMS = [
             // ]
           },
           {
+            state: 'tDReceiptPrinting',
+            name: 'TD Receipt Printing',
+            id: 377,
+          },
+          {
             state: 'goldSilverReceipt',
             name: 'Gold/Silver Receipt Print',
             id: 344
@@ -3825,9 +4026,16 @@ const MENUITEMS = [
                 state: 'passbookEntryPrint',
                 name: 'Passbook Entry Print',
                 id: 107
-              }
+              },
+              
             ]
-          }
+          },
+          // {
+          //   state: 'tDReceiptPrinting',
+          //   name: 'TD Receipt Printing',
+          //   id: 368,
+          // },
+
         ]
       },
       {
@@ -4135,6 +4343,11 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 202
               },
+              {
+                state: 'KYCDocReceivedNotRec',
+                name: 'KYC Document Rec Not Rec',
+                id: 378
+              },
 
             ]
           },
@@ -4384,11 +4597,40 @@ const MENUITEMS = [
               },
               {
                 state: 'loanduecertificate',
-                name: 'Loan Due Certificate',
+                name: 'No Due Certificate',
                 type: 'sub',
                 id: 355,
               },
-
+              {
+                state: 'CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
+                type: 'sub',
+                id: 369,
+              },
+              {
+                state: 'CourtwiseDisputeList',
+                name: 'Courtwise Dispute Loan List',
+                type: 'sub',
+                id: 370,
+              },
+              {
+                state: 'DisputeLoanList',
+                name: 'Dispute Loan List',
+                type: 'sub',
+                id: 371,
+              },
+              {
+                state: 'loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
+                type: 'sub',
+                id: 372,
+              },
+              {
+                state: 'healthCodewise',
+                name: 'Health Code Wise Report',
+                type: 'sub',
+                id: 373,
+              },
             ],
 
           },
@@ -4466,6 +4708,36 @@ const MENUITEMS = [
           //   name: 'Nottice',
           //   id: 252
           // },
+{
+          state: 'nottice',
+                name: 'Nottice',
+                short_label: 'D',
+                type: 'sub',
+                icon: 'icon-home',
+                id: 362,
+                children: [
+                  {
+                    state: 'noticereport',
+                    name: 'Notice Report',
+                    id: 364
+                  },
+                  {
+                    state: 'noticeformat',
+                    name: 'Notice Format',
+                    id: 365
+                  },
+                  {
+                    state: 'blankNotice',
+                    name: 'Blank Notice Format',
+                    id: 366
+                  },
+                  {
+                    state: 'showNotice',
+                    name: 'Get Notice Format',
+                    id: 367
+                  },
+                ]
+              },
           // //
           // {
           //   state: 'Report_Frame',
@@ -4473,6 +4745,36 @@ const MENUITEMS = [
           //   id: 253
           // },
           //
+          {
+            state: 'nottice',
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 363
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 364
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 366
+                    },
+                  ]
+                },
           {
             state: 'PigmyReport',
             name: 'Pigmy Report',
@@ -4624,6 +4926,21 @@ const MENUITEMS = [
                 name: 'Excess Cash Balance Report',
                 id: 280
               },
+              {
+                state: 'swnidhi',
+                name: 'Swnidhi Report',
+                id: 376
+              },
+              {
+                state: 'MISInfo',
+                name: 'MIS Information',
+                id: 377
+              },
+              {
+                state: 'expensive',
+                name: 'Expensive List',
+                id: 381
+              }
             ]
           },
           //
@@ -4757,11 +5074,7 @@ const MENUITEMS = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-          {
-            state: 'pigmyAppProcess',
-            name: 'Pigmy App Process',
-            id: 308
-          },
+         
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -4899,7 +5212,16 @@ const MENUITEMS = [
             name: 'Recurring Amount Transfer to GL',
             id: 334
           },
-
+          {
+            state: 'conversion',
+            name: 'Conversion',
+            id: 374
+          },
+          {
+            state: 'remainder',
+            name: 'Remainder',
+            id: 379
+          },
         ]
       },
       {
@@ -4934,7 +5256,7 @@ const MENUITEMS = [
               },
               {
                 state: 'pigmyDayEnd',
-                name: 'pigmy Day End',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
@@ -4944,7 +5266,11 @@ const MENUITEMS = [
               },
             ]
           },
-
+          {
+            state: 'pigmyAppProcess',
+            name: 'Pigmy App Process',
+            id: 308
+          },
           {
             state: 'holiday',
             name: 'Holiday',
@@ -4978,6 +5304,7 @@ const MENUITEMS = [
             name: 'Year End BranchWise',
             id: 361
           },
+
         ]
       },
       {

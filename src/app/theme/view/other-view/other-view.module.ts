@@ -37,6 +37,9 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
+import { Iframe1Module } from '../../reports/daily-reports/iframe1/iframe1.module';
+import { Iframe2Module } from '../../reports/statement/iframe2/iframe2.module';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -52,7 +55,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DatepickerModule.forRoot(),
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    InterestPaidHistoryModule,
+    InterestPaidHistoryModule,Iframe1Module,Iframe5Module
 
   ],
   providers: [

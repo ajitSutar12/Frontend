@@ -38,7 +38,7 @@
                             <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group form-primary form-static-label" *ngIf="isSchemeShow1">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                             formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
@@ -50,6 +50,11 @@
                                         </ng-select>
                                     </span>
                                 </div>
+                                <div class="form-group input-group" *ngIf="isSchemeShow">
+                                    <span class="border-lable-flt">
+                                        <input type="text" class="form-control" id="AC_TYPE" disabled formControlName="AC_TYPE">
+                                    </span>
+                                </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                     class="alert alert-danger">
@@ -58,19 +63,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm" *ngIf="dormantac">
-                                <div><label style="color: #1e5bc5">Dormant Account</label></div>
-                            </div>
-                            <div class="col-sm" *ngIf="acclosedon">
-                                <div><label style="color: red; font-size: 15px;">Account Closed On:
-                                        {{acCloseDate}}</label></div>
-                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group form-primary form-static-label" *ngIf="isAcNo1">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
                                             formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
@@ -81,6 +80,11 @@
                                         </ng-select>
                                     </span>
                                 </div>
+                                <div class="form-group input-group" *ngIf="isAcNo">
+                                    <span class="border-lable-flt">
+                                        <input type="text" class="form-control" id="AC_NO" disabled formControlName="AC_NO">
+                                    </span>
+                                </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                     class="alert alert-danger">
@@ -88,6 +92,15 @@
                                         This field is required.
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-sm" *ngIf="dormantac">
+                                <div><label style="color: #1e5bc5">Dormant Account</label></div>
+                            </div>
+                            <div class="col-sm" style="float: right; color: rgb(14 168 14);"
+                            *ngIf="isOpen">Account Open</div>
+                            <div class="col-sm" *ngIf="acclosedon">
+                                <div><label style="color: red; font-size: 15px;">Account Closed On:
+                                        {{acCloseDate}}</label></div>
                             </div>
                             <div class="col-sm" *ngIf="freezeac">
                                 <div><label style="color: #1e5bc5">Freez

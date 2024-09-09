@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
 import * as moment from 'moment';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -13,7 +14,8 @@ export class CounterWorkDayEndComponent implements OnInit {
   ngdate: any;
   ngbdate
   systemInfo: any;
-  constructor(private _services: DayEndService) { }
+  isLoading: boolean = false;
+  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService) { }
 
   ngOnInit(): void {
     this._services.getSysparaDetails().subscribe(data => {
@@ -26,7 +28,11 @@ export class CounterWorkDayEndComponent implements OnInit {
     })
   }
 
+  isHotkeyShow: boolean = true
   DayEnd() {
+    this.isLoading = true;
+    var value = localStorage.setItem('key','0');
+    this.isHotkeyShow = false
     //get login details
     let user = JSON.parse(localStorage.getItem('user'));
     let flag
@@ -56,11 +62,13 @@ export class CounterWorkDayEndComponent implements OnInit {
               this._services.dayHandOver(obj).subscribe(data => {
                 Swal.fire('Success', 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
               }, err => {
+                this.isLoading = false;
                 if (err.error.statusCode == 400) {
                   Swal.fire('Cancelled', err.error.message, 'error');
                 }
               })
             }, err => {
+              this.isLoading = false;
               if (err.error.statusCode == 400) {
                 Swal.fire('Cancelled', err.error.message, 'error');
               }
@@ -68,6 +76,7 @@ export class CounterWorkDayEndComponent implements OnInit {
           } else if (
             result.dismiss === Swal.DismissReason.cancel
           ) {
+            this.isLoading = false;
             Swal.fire(
               'Cancelled',
               'Your Action is revert',
@@ -78,6 +87,7 @@ export class CounterWorkDayEndComponent implements OnInit {
       }
     }, err => {
       console.log(err);
+      this.isLoading = false;
     })
 
 

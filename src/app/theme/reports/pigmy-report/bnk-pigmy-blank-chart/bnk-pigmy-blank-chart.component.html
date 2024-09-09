@@ -38,7 +38,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="schemeCode" (change)="getIntro($event)">
+                                        [(ngModel)]="schemeCode" (change)="getIntro($event);schemechange($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
                                             {{values.label}} </ng-option>
                                     </ng-select>
@@ -80,9 +80,9 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_acc" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="startingAccount">
+                                        [(ngModel)]="startingAccount" (change)="getAccountDetails($event)">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
-                                            {{values.label}} {{values.name}}
+                                            {{values.AC_NO}} {{values.AC_NAME}}
                                         </ng-option>
                                     </ng-select>
                                 </span>
@@ -96,12 +96,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm" style="float: right; color: rgb(14 168 14);"
+                        *ngIf="isOpen">Account Open</div>
+                        <div class="col-sm" *ngIf="acclosedon">
+                            <div><label style="color: red; font-size: 15px;">Account Closed On:
+                                    {{acCloseDate}}</label></div>
+                        </div> 
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true;scrollToTop() ">View</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"(click)="close()">Close</button>

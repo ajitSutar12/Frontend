@@ -96,8 +96,8 @@ createForm(){
     branch: ['',[Validators.required]],
     fdate: ['',[Validators.required]],
     tdate: ['',[Validators.required]],
-    mininst: ['',[Validators.required]],
-    maxinst: ['',[Validators.required]]
+    // mininst: ['',[Validators.required]],
+    // maxinst: ['',[Validators.required]]
     
   });
 }
@@ -106,8 +106,10 @@ getBranch
 getbranch(event) {
   this.getBranch = event.branchName
 }
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+} 
 view(event:any) {
-    
   event.preventDefault();
   this.formSubmitted = true;
 

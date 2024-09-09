@@ -15,7 +15,7 @@
     <meta name="keywords" content="angular 10, bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" /> -->
     <!-- <meta name="author" content="Phoenixcoded" /> -->
 
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/BPK.jpg">
     <!-- <link href="https://fonts.googleapis.com/css?family=Maven Pro:300,400,500,700" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"> -->
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@500&display=swap" rel="stylesheet">
@@ -91,7 +91,9 @@
     ////////////////////////////////////BACK BUTTON GO UPTO PATH LOGIN PAGE THEN LOGOUT/////////////////////////////////
     window.addEventListener('popstate', function (event) {
 
-        if (window.location.href == 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple') { 
+
+        if (window.location.href == 'https://patsevacompservtech.com/COMPSERV/CBS/auth/login/simple') { 
+
            
 
             let data = localStorage.getItem('user');
@@ -104,14 +106,18 @@
             }
             $.ajax({
 
-                 url: 'http://103.174.87.104:7275/user-defination/logout',
+
+                 url: 'https://patsevacompservtech.com:7279/user-defination/logout',
+
                 method: 'POST',
                 data: obj,
                 success: function (result) { }
             })
             $.ajax({
 
-                 url: 'http://103.174.87.104:7275/user-defination/logoffhistory',
+
+                 url: 'https://patsevacompservtech.com:7279/user-defination/logoffhistory',
+
 
               method: 'POST',
                 data: obj,
@@ -169,14 +175,17 @@
                     }
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7275/user-defination/logout',
+
+                        url: 'https://patsevacompservtech.com:7279/user-defination/logout',
+
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
                     })
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7275/user-defination/logoffhistory',
+
+                        url: 'https://patsevacompservtech.com:7279/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -191,7 +200,8 @@
             }
             // your function for too long inactivity goes here
 
-            window.location.href = 'http://103.174.87.104/SHIVPRASADNATEPUTE/CBS/auth/login/simple';
+
+            window.location.href = 'https://patsevacompservtech.com/COMPSERV/CBS/auth/login/simple'; 
             window.close()
         }
 
@@ -210,7 +220,8 @@
                     let payload = { username: result.USER_NAME, sub: result.id, refreshToken };
                     $.ajax({
 
-                        url: 'http://103.174.87.104:7275/refresh-token',
+
+                        url: 'https://patsevacompservtech.com:7279/refresh-token',
                         method: 'POST',
                         data: payload,
                         success: function (result) {

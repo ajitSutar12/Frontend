@@ -96,9 +96,12 @@ ngForm: FormGroup;
     }
 }
 end() {}
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+} 
 src: any;
 view(event) {
-  debugger
+  // debugger
   event.preventDefault();
   this.formSubmitted = true;
 

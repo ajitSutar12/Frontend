@@ -100,27 +100,30 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     })
   }
   ngOnChanges() {
-    this.createForm()
-    this.showView = false
-    this.disableFields = true
-    this.ngbranch = this.accBranch
-    this.ngscheme = this.accScheme
-    this.getschemename = this.accSchemeName
-    this.getAccountlist()
-    this.accountedit = this.accAcNo
-    this.fromdate = this.accFromDate
-    this.todate = this.accToDate
-    this.accountEvent = this.accountEvent
-    this.changeAccountDetails(this.accountEvent)
-    this.getLedgerTransactionsDeatils()
-    this.angForm.controls['BRANCH_CODE'].disable()
-    this.angForm.controls['AC_TYPE'].disable()
-    this.angForm.controls['AC_NO'].disable()
-    this.angForm.controls['FROM_DATE'].disable()
-    this.angForm.controls['TO_DATE'].disable()
-    this.angForm.controls['AC_OPDATE'].disable()
-    this.angForm.controls['AMOUNT'].disable()
+    if (this.isShow) {
+      this.createForm()
+      this.showView = false
+      this.disableFields = true
+      this.ngbranch = this.accBranch
+      this.ngscheme = this.accScheme
+      this.getschemename = this.accSchemeName
+      this.getAccountlist()
+      this.accountedit = this.accAcNo
+      this.fromdate = this.accFromDate
+      this.todate = this.accToDate
+      this.accountEvent = this.accountEvent
+      this.changeAccountDetails(this.accountEvent)
+      this.getLedgerTransactionsDeatils()
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.angForm.controls['AC_TYPE'].disable()
+      this.angForm.controls['AC_NO'].disable()
+      this.angForm.controls['FROM_DATE'].disable()
+      this.angForm.controls['TO_DATE'].disable()
+      this.angForm.controls['AC_OPDATE'].disable()
+      this.angForm.controls['AMOUNT'].disable()
+    }
   }
+  isOpen: boolean = false
   changeAccountDetails(event) {
     this.tableData = []
     this.transactions = null
@@ -145,6 +148,8 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.AC_OPDATE,
       AMOUNT: maturedAmount
     })
+
+
     this.opendate = event.AC_OPDATE
     this.accountOpenDate = moment(event.AC_OPDATE, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
@@ -254,7 +259,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
 
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
-        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL'|| scheme.name == 'CA')
+        return (scheme.name == 'SB' || scheme.name == 'TD' || scheme.name == 'IV' || scheme.name == 'GS' || scheme.name == 'AG' || scheme.name == 'PG' || scheme.name == 'LN' || scheme.name == 'DS' || scheme.name == 'CC' || scheme.name == 'GL' || scheme.name == 'CA')
       });
       this.scheme = allscheme;
     })
@@ -262,7 +267,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
-  
+
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
@@ -300,6 +305,9 @@ export class LedgerViewComponent implements OnInit, OnChanges {
   }
 
   schemechange(event) {
+    this.acCloseDate = null
+    this.isOpen = false
+    this.freezeac = false
     this.getschemename = event.name
     this.ngscheme = event.value
     this.schemeACNo = null
@@ -383,8 +391,48 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     }
   }
 
+  jointAC
+  isJoint: boolean = false
+  grdName
+  custId
+  minor
+  tableDataMinor = []
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableDataMinor.some(item => item.grdName === grdName && item.custId === custId);
+
+    if (!exists && grdName && custId) {
+      this.tableDataMinor.push({ grdName: grdName, custId: custId });
+    }
+  }
+  AC_MINOR
   //get account details
   getAccountDetails(event) {
+    this.accountEvent = event
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable(this.grdName, this.custId);
+    this.AC_MINOR = event.acMinor
+    //  this.tableData = [];
+    this.minor = event.AC_MINOR
+    if (this.AC_MINOR == '1') {
+      this.isMinor = true
+      this.isOpen = false
+
+    }
+    else if (this.AC_MINOR == '0') {
+      this.isMinor = false
+    }
+    if (event.jointAcHolders && event.jointAcHolders.length > 0) {
+      this.isJoint = true
+      this.isOpen = false
+    }
+    else if (event.jointAccounts = '0') {
+      this.isJoint = false
+    }
     this.showLoader = false
     this.tableData = []
     this.transactions = null
@@ -401,7 +449,7 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.bankacno = event.bankacno
     this.dormantac = event.dormant
     this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
-    this.acCloseDate = event.acClose == null || event.acClose == '' ? '' : event.acClose
+    this.acCloseDate = event.acClose == null || event.acClose == '' ? null : event.acClose
     this.freezeac = event.freez == null || event.freez == '' ? false : true
     this.freezStataus = event.freez == null || event.freez == '' ? '' : event.freez
     let autoMaturedPayableAmt = event.autoMaturedPayableAmt == undefined ? 0 : event.autoMaturedPayableAmt
@@ -411,7 +459,23 @@ export class LedgerViewComponent implements OnInit, OnChanges {
       AC_OPDATE: event.opendate,
       AMOUNT: maturedAmount
     })
+    if (this.acCloseDate != null) {
+      this.acCloseDate = event.acClose
+      this.isOpen = false
+      this.freezeac = false
 
+    }
+    else if (this.freezeac == true) {
+      this.acCloseDate = null
+      this.isOpen = false
+      this.freezeac = true
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+      this.freezeac = false
+
+    }
     this.accountOpenDate = moment(event.opendate, 'DD/MM/YYYY')
     this.accountOpenDate = this.accountOpenDate._d
   }
@@ -554,4 +618,114 @@ export class LedgerViewComponent implements OnInit, OnChanges {
     this.schemeACNo = null
     this.getAccountlist()
   }
+  display
+  isMinor: boolean = false
+  IsJointView: boolean = false
+  onCloseHandled() {
+    this.display = 'none';
+  }
+  openModal(view) {
+    this.isOpen = false
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint = true
+      this.isMinor = false
+      this.display = "block";
+    }
+  }
+
+  isShow = true
+  isSchemeShow = false
+  isSchemeShow1 = true
+  isAcNo = false
+  isAcNo1 = true
+  ngAcc
+  editClick(data) {
+    this.isShow = false
+    this.isSchemeShow = true
+    this.isAcNo = true
+    this.isSchemeShow1 = false
+    this.isAcNo1 = false
+    this.scheme = []
+    this.tableData = []
+    this.opendate = data.AC_OPDATE
+
+    this.angForm.patchValue({
+      'AC_TYPE': data.S_APPL + " " + data.S_NAME,
+      'AC_NO': data.AC_NO + " " + data.AC_NAME
+
+    })
+
+    let toDate = moment(this.todate, 'DD/MM/YYYY')
+    let toDt = moment(toDate).format('DD/MM/YYYY')
+    let fromDate = moment(this.fromdate, 'DD/MM/YYYY')
+    let fromDatet = moment(fromDate).format('DD/MM/YYYY')
+    let obj = [data.AC_ACNOTYPE, data.AC_TYPE, data.BANKACNO, fromDatet, toDt, this.ngbranch]
+
+    this.http.post(this.url + '/ledger-view/ledgerView', obj).subscribe((data) => {
+      let closeBal = 0
+      let grandOpening = 0
+      grandOpening = Math.abs(data[0]?.openingBal)
+      closeBal = Math.abs(data[0]?.openingBal)
+      data[0]?.openingBal < 0 ? this.drcr = 'Cr' : this.drcr = 'Dr'
+      this.transactions = this.sort_by_key(data, 'TRAN_DATE');
+      // this.transactions = this.sortData(data);
+      let obj = {
+        TRAN_DATE: moment(this.angForm.controls['FROM_DATE'].value).format('DD/MM/YYYY'),
+        NARRATION: 'Opening Balance',
+        closeBalance: closeBal,
+        DR_CR: this.drcr
+      }
+      this.tableData.push(obj)
+      if (this.transactions.length >= 1) {
+        this.transactions.forEach((element) => {
+          if (element.TRAN_SOURCE_TYPE != 'Opening Balance' && element.TRAN_STATUS != '2' && element.take == true) {
+            //record wise other amount 
+            let otherAmt = 0
+            otherAmt = Number(element.OTHER1_AMOUNT) + Number(element.OTHER2_AMOUNT) + Number(element.OTHER3_AMOUNT) + Number(element.OTHER4_AMOUNT) + Number(element.OTHER5_AMOUNT) + Number(element.OTHER6_AMOUNT) + Number(element.OTHER7_AMOUNT) + Number(element.OTHER8_AMOUNT) + Number(element.OTHER9_AMOUNT) + Number(element.OTHER11_AMOUNT)
+            element['otherAmt'] = otherAmt
+
+            //total credit and debit amount
+            if (element.TRAN_STATUS != '0') {
+              if (element.TRAN_DRCR == 'D') { this.debitTotal = this.debitTotal + Number(element.TRAN_AMOUNT) }
+              if (element.TRAN_DRCR == 'C') { this.creditTotal = this.creditTotal + Number(element.TRAN_AMOUNT) }
+              //closing balance calculation
+              if (this.drcr == 'Cr') {
+                element.TRAN_DRCR == 'C' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
+                closeBal > 0 ? element['DR_CR'] = 'Cr' : element['DR_CR'] = 'Dr'
+                element['closeBalance'] = Math.abs(closeBal)
+              }
+              else if (this.drcr == 'Dr') {
+                element.TRAN_DRCR == 'D' ? closeBal = closeBal + Number(element.TRAN_AMOUNT) : closeBal = closeBal - Number(element.TRAN_AMOUNT)
+                closeBal > 0 ? element['DR_CR'] = 'Dr' : element['DR_CR'] = 'Cr'
+                element['closeBalance'] = Math.abs(closeBal)
+              }
+              //column wise total amount
+              element.INTEREST_AMOUNT != undefined ? this.normalInt = this.normalInt + Number(element.INTEREST_AMOUNT) : this.normalInt = this.normalInt + 0
+              element.RECPAY_INT_AMOUNT != undefined ? this.recpayInt = this.recpayInt + Number(element.RECPAY_INT_AMOUNT) : this.recpayInt = this.recpayInt + 0
+              element.OTHER10_AMOUNT != undefined ? this.overDueAmt = this.overDueAmt + Number(element.OTHER10_AMOUNT) : this.overDueAmt = this.overDueAmt + 0
+              element.PENAL_INTEREST != undefined ? this.penalInt = this.penalInt + Number(element.PENAL_INTEREST) : this.penalInt = this.penalInt + 0
+              element.REC_PENAL_INT_AMOUNT != undefined ? this.recpenalInt = this.recpenalInt + Number(element.REC_PENAL_INT_AMOUNT) : this.recpenalInt = this.recpenalInt + 0
+              element.ADDED_PENAL_INTEREST != undefined ? this.addedPenal = this.addedPenal + Number(element.ADDED_PENAL_INTEREST) : this.addedPenal = this.addedPenal + 0
+              this.otherAmount = this.otherAmount + otherAmt
+            }
+            else {
+              element['closeBalance'] = closeBal
+            }
+            this.tableData.push(element)
+          }
+        });
+      }
+      //grand total amount
+      this.grandTotal = this.creditTotal + grandOpening
+      this.totalDepositAmount = this.creditTotal + this.normalInt + this.recpayInt + this.overDueAmt + this.penalInt + this.recpenalInt + this.addedPenal + this.otherAmount
+
+    })
+
+  }
+
 }

@@ -1,22 +1,28 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Scheme Amount Transfer</h5>
+                <h5>{{'Utility.Scheme_Amount_Transfer.Title' | translate}}</h5>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Transfer Scheme From<sub
-                                    class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">{{'Utility.Scheme_Amount_Transfer.Transfer_Scheme_From' |
+                                translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedTSfrom" #scheme formControlName="trSfrom"
-                                        bindValue="value" bindLabel="label">
+                                        bindValue="value">
                                         <ng-option *ngFor="let item of ts_From" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                    <ng-select id="trSfrom" formControlName="trSfrom" title="Compulsory Selection"
+                                        placeholder="Scheme">
+                                        <ng-option *ngFor="let values of allScheme">
+                                            {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -30,16 +36,17 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Transfer Scheme To<sub
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">{{'Utility.Scheme_Amount_Transfer.Transfer_Scheme_To' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedTSto" #scheme formControlName="trSto"
-                                        bindValue="value" bindLabel="label"
-                                        (change)="getIntro($event);getTransferAccountList($event)">
-                                        <ng-option *ngFor="let item of ts_To" [value]="item">
+                                        bindValue="value" bindLabel="label">
+                                        <ng-option [disabled]="selectedValue.value==item.value"
+                                            *ngFor="let item of ts_To" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
                                 </span>
@@ -56,7 +63,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">A/c From<sub
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">{{'Utility.Scheme_Amount_Transfer.A/C_To1' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -79,7 +87,8 @@
 
                         </div>
 
-                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">A/c To<sub
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">{{'Utility.Scheme_Amount_Transfer.A/C_To' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -104,7 +113,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-3"> <label for="AC_BRANCH">Transfer Amount<sub
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">{{'Utility.Scheme_Amount_Transfer.Transfer_Amount' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -126,12 +136,64 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Account Number</td>
+                                        <td>Account Name</td>
+                                        <td>Ledger Balance</td>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of tableData">
+                                            <td>{{ row.accountNumber }}</td>
+                                            <td>{{ row.AccountName }}</td>
+                                            <td style="text-align: end;">{{ row.LedgerBalance }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Account Number</td>
+                                        <td>Account Name</td>
+                                        <td>Amount</td>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of tableData">
+                                            <td>{{ row.accountNumber }}</td>
+                                            <td>{{ row.AccountName }}</td>
+                                            <td style="text-align: end;">{{ row.Amount }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">{{'Utility.Action.close' |
+                                translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Update' |
+                                translate}}</button>
 
-                            <button class="btn  btn-outline-primary btn-sm">Update</button>
+                            <button class="btn  btn-outline-primary btn-sm">{{'Utility.Action.Cancel' |
+                                translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -142,5 +204,219 @@
 
 
         </div>
+    </div>
+</div> -->
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Scheme Amount Transfer</h5>
+            </div>
+            <form [formGroup]="angForm" novalidate>
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">Transfer Scheme From<sub class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedTSfrom" #scheme formControlName="schemefrom"
+                                        (change)="getScheme($event)">
+                                        <ng-option *ngFor="let item of Schemefrom" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['schemefrom'].invalid && (angForm.controls['schemefrom'].dirty || angForm.controls['schemefrom'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['schemefrom'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">Transfer Scheme To<sub
+                                    class="required">*</sub></label>
+                        </div>
+
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]=" selectedTSto" #scheme formControlName="schemeto"
+                                        (change)="getSchemeid($event)">
+                                        <ng-option *ngFor="let item of ts_To" [value]="item">
+                                            {{item.id}} {{item.label}}</ng-option>
+                                    </ng-select>
+
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['schemeto'].invalid && (angForm.controls['schemeto'].dirty || angForm.controls['schemeto'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['schemeto'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">A/c From<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedAcfrom" #scheme formControlName="acfrom"
+                                        (change)="getAcnofrom($event)">
+                                        <ng-option *ngFor="let item of ac_From" [value]="item">
+                                            {{item.acno}} {{item.ac_name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['acfrom'].invalid && (angForm.controls['acfrom'].dirty || angForm.controls['acfrom'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['acfrom'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">A/c To<sub
+                                    class="required">*</sub></label>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="selectedActo" #scheme formControlName="acto"
+                                        (change)="getAcno($event); getAccountNo($event)">
+                                        <ng-option *ngFor="let item of ac_To" [value]="item">
+                                            {{item.acno}} {{item.ac_name}}</ng-option>
+                                    </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['acto'].invalid && (angForm.controls['acto'].dirty || angForm.controls['acto'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['acto'].errors?.required">
+                                    This field is required.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3"> <label
+                                for="AC_BRANCH">Transfer Amount<sub
+                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group input-group">
+                                <span class="border-lable-flt">
+                                    <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
+                                        id="INSTALLMENT_NO" maxlength="10" formControlName="tramt"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" (change)="getvalue($event)">
+                                </span>
+                            </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['tramt'].invalid && (angForm.controls['tramt'].dirty || angForm.controls['tramt'].touched)"
+                                class="alert alert-danger">
+                                <div
+                                    *ngIf="angForm.controls['tramt'].errors?.pattern || angForm.controls['tramt'].errors?.required || angForm.controls['tramt'].errors?.maxlength">
+                                    This field is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <button class="btn  btn-outline-primary btn-sm" (click)=" calAmt(); ">Calculate</button>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <button class="btn  btn-outline-primary btn-sm" (click)="reset()">Cancel
+                                </button>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Account Number</td>
+                                        <td>Customar Id</td>
+                                        <td>Account Name</td>
+                                        <td>Ledger Balance</td>
+                                        
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of tableData">
+                                            <td>{{ row.ac_no }}</td>
+                                            <td>{{ row.ac_custid }}</td>
+                                            <td>{{ row.ac_name }}</td>
+                                            <td style="text-align: end;">{{ row.LEDGER_BAL}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="solid">
+
+                                <table class="table table-bordered table-hover compact">
+                                    <thead>
+                                        <td>Account Number</td>
+                                        <td>Customar Id</td>
+                                        <td>Account Name</td>
+                                        <td>Amount</td>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of secondtable">
+                                            <td>{{ row.ac_no }}</td>
+                                            <td>{{ row.ac_custid }}</td>
+                                            <td>{{ row.ac_name }}</td>
+                                            <td  style="text-align: end;">{{ row.amount }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- <button class="btn  btn-outline-primary btn-sm" (click)="close()">{{'Utility.Action.close' |
+                                translate}}</button> -->
+
+                            <button class="btn  btn-outline-primary btn-sm" (click)="Submit()">Submit</button>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+
     </div>
 </div>

@@ -96,7 +96,7 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
 
       BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
       Scheme_code: ["", [Validators.pattern, Validators.required]],
-      Scheme_acc: ["", [Validators.pattern, Validators.required]],
+      Scheme_acc: [""],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       radio: new FormControl('Details'),
@@ -160,7 +160,8 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
 
 
       case 'AG':
-        this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+        // this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+          this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + this.obj).subscribe(data => {
           this.startingacc = data;
 
           this.startingAccount = null
@@ -172,10 +173,35 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
 
     }
   }
-
+  acCloseDate
+  isOpen
+  acclosedon: boolean = false
+  getAccountDetails(event) {
+    this.acCloseDate = event.acClose == null || event.acClose == '' ? null: event.acClose
+    this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
+    if (this.acCloseDate != null) {
+      this.acCloseDate = event.acClose
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
+  }
+  schemechange(event) {
+  
+    this.acCloseDate = null
+    this.isOpen = false
+  }
+  close(){
+    this.resetForm()
+    this.isOpen = false
+  }
 
   //set open date, appointed date and expiry date
-
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   src: any;
   view(event) {
 
@@ -226,10 +252,6 @@ export class BnkPigmyCommissionRepoComponent implements OnInit {
   }
 
 
-
-  close() {
-    this.resetForm()
-  }
 
   // Reset Function
   resetForm() {

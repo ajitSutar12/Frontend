@@ -42,8 +42,8 @@
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <input appTheme type="text" #autofocus name="NAME" class="form-control" placeholder=" " id="NAME"
-                    required pattern="^[A-Za-z\./ -]+$" maxlength="100"
-                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
+                    required pattern="^[A-Za-z0-9\./ -]+$" maxlength="100"
+                    (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME" />
                   <label for="NAME">Description<sub class="required">* </sub></label>
                 </span>

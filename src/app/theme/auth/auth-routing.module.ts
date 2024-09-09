@@ -30,7 +30,9 @@ const routes: Routes = [
       {
         path: 'lock-screen',
         loadChildren: () => import('./lock-screen/lock-screen.module').then(m => m.LockScreenModule)
-      }
+      },
+      
+
     ]
   }
 ];

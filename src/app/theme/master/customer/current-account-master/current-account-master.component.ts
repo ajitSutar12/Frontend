@@ -251,6 +251,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   nextButton: boolean = true
   resetexpirydate: any
   imageObject = new Array();
+  joinDate: any;
   constructor(
     private http: HttpClient,
     private currentAccountMasterService: CurrentAccountMasterService,
@@ -648,6 +649,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       //joint ac
       JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
 
       //attorney
@@ -673,6 +676,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -758,8 +762,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'Document': this.imageObject
       }
       console.log(formVal.AC_TYPE);
-
+      this.isDisable = true
       this.currentAccountMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -791,7 +796,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+  name:any
+  ac_no:any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -799,6 +805,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.controls['AC_TYPE'].disable()
     this.currentAccountMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1621,13 +1629,18 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE
+
       })
     })
   }
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1637,6 +1650,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1706,6 +1721,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1718,6 +1735,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1774,8 +1793,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
     // this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
     // .handleClearClick();
@@ -2000,11 +2023,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       user: user.id
     }
     this.currentAccountMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Current Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Current Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2020,11 +2046,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       user: user.id
     }
     this.currentAccountMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Current Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Current Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -2067,11 +2096,14 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       LOG_DATE: this.logDate
     }
     this.currentAccountMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

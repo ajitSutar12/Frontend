@@ -13,9 +13,9 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                  <input  style="text-align: right;" type="text" name="S_APPL" class="form-control"
                     placeholder=" " id="S_APPL" required="" pattern="^[0-9]+$" title="Input allowed only  0-9"
-                    maxlength="3" minlength="3" #autofocus (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
+                    maxlength="3" minlength="3"  (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     min="901" max="999" (focusout)="checkDuplicate($event)" formControlName="S_APPL" />
 
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
@@ -38,7 +38,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
+                  <input  type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
                     required="" pattern="^[A-Za-z\./ -]+$" formControlName="S_SHNAME" maxlength="10"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     title="Input allowed only  A-Z a-z  - / . (Space)" />
@@ -63,7 +63,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
+                  <input  type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
                     pattern="^[A-Za-z\./ -]+$"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     formControlName="S_NAME" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)" />
@@ -91,12 +91,12 @@
 
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
+                  <ng-select  id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
                     placeholder="GL Account Number">
                     <ng-option *ngFor="let values of acMaster" [value]="values">
-                      {{values.label}}</ng-option>
+                      {{values.value}}  {{values.label}}</ng-option>
                   </ng-select>
                   <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>
                 </span>
@@ -107,7 +107,7 @@
             <div class="col-sm-4">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="MEMBER_TYPE" class="form-control" placeholder=" " id="MEMBER_TYPE"
+                  <input  type="text" name="MEMBER_TYPE" class="form-control" placeholder=" " id="MEMBER_TYPE"
                     required="" pattern="^[A-Za-z\./ -]+$"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     formControlName="MEMBER_TYPE" maxlength="1" title="Input allowed only  A-Z a-z  - / . (Space)" />

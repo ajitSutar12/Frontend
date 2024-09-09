@@ -30,16 +30,19 @@ export class AppComponent implements OnInit {
     this._hotkeysService.add(new Hotkey(['f2', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
       'ctrl+fn+f2', 'ctrl+fn+f3', 'ctrl+fn+f4', 'ctrl+fn+f5', 'ctrl+fn+f6', 'ctrl+fn+f7', 'shift+fn+f8', 'ctrl+fn+f8', 'ctrl+f3', 'ctrl+fn+f9', 'ctrl+fn+f10', 'ctrl+fn+f11', 'ctrl+fn+f12', 'ctrl+a', 'ctrl+shift+a', 'shift+f5', 'ctrl+fn+f5', 'ctrl+shift+d', 'ctrl+e'],
       (event: KeyboardEvent, combo: string): boolean => {
-        if (combo === 'ctrl+fn+f2' || combo === 'f2') {
-          this.router.navigate([]).then(result => { window.open(this.site + '/utility/calculator', '', "width=1200,height=500"); });
-        }
+        // if (combo === 'ctrl+fn+f2' || combo === 'f2') {
+        //   this.router.navigate([]).then(result => { window.open(this.site + '/utility/calculator', '', "width=1200,height=500"); });
+        // }
         // else if (combo === 'ctrl+fn+f3' || combo === 'f3') {
         //   this.router.navigate([]).then(result => { window.open(this.site + '/Vouchers', '', "width=1200,height=500"); });
         // }
         // else if (combo === 'ctrl+fn+f4' || combo === 'f4') {
         //   this.router.navigate([]).then(result => { window.open(this.site + '/multivouchers', '', "width=1200,height=500"); });
         // }
-        else if (combo === 'shift+fn+f8' || combo === 'f8') {
+        if (combo === 'ctrl+fn+f2' || combo === 'f2') {
+          this.router.navigate([]).then(result => { window.open(this.site + '/customerDoc', '', "width=1200,height=500"); });
+        }
+        if (combo === 'shift+fn+f8' || combo === 'f8') {
           this.router.navigate([]).then(result => { window.open(this.site + '/accountenq', '', "width=1200,height=500"); });
         }
         else if (combo === 'ctrl+f8' || combo === 'ctrl+fn+f8') {
@@ -48,18 +51,18 @@ export class AppComponent implements OnInit {
         else if (combo === 'ctrl+fn+f9' || combo === 'f9') {
           this.router.navigate([]).then(result => { window.open(this.site + '/ledgers', '', "width=1200,height=500"); });
         }
-        else if (combo === 'ctrl+fn+f11' || combo === 'f11') {
-          this.router.navigate([]).then(result => { window.open(this.site + '/managerview', '', "width=1200,height=500"); });
-        }
-        else if (combo === 'ctrl+fn+f12' || combo === 'f12') {
-          this.router.navigate([]).then(result => { window.open(this.site + '/centralpassing', '', "width=1200,height=500"); });
-        }
-        else if (combo === 'ctrl+f3' || combo === 'ctrl+f3') {
-          this.router.navigate([]).then(result => { window.open(this.site + '/voucherview', '', "width=1200,height=500"); });
-        }
-        else if (combo === 'shift+f5') {
-          this.router.navigate([]).then(result => { window.open(this.site + '/batchVouchers', '', "width=1200,height=500"); });
-        }
+        // else if (combo === 'ctrl+fn+f11' || combo === 'f11') {
+        //   this.router.navigate([]).then(result => { window.open(this.site + '/managerview', '', "width=1200,height=500"); });
+        // }
+        // else if (combo === 'ctrl+fn+f12' || combo === 'f12') {
+        //   this.router.navigate([]).then(result => { window.open(this.site + '/centralpassing', '', "width=1200,height=500"); });
+        // }
+        // else if (combo === 'ctrl+f3' || combo === 'ctrl+f3') {
+        //   this.router.navigate([]).then(result => { window.open(this.site + '/voucherview', '', "width=1200,height=500"); });
+        // }
+        // else if (combo === 'shift+f5') {
+        //   this.router.navigate([]).then(result => { window.open(this.site + '/batchVouchers', '', "width=1200,height=500"); });
+        // }
         return false;
       }, ['INPUT', 'TEXTAREA', 'SELECT']));
   }
@@ -70,8 +73,11 @@ export class AppComponent implements OnInit {
   //   this._hotkeysService.add(new Hotkey(['f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12',
   //     'ctrl+fn+f2', 'ctrl+fn+f3', 'ctrl+fn+f4', 'ctrl+fn+f5', 'ctrl+fn+f6', 'ctrl+fn+f7', 'shift+fn+f8', 'ctrl+fn+f8', 'ctrl+f3', 'ctrl+fn+f9', 'ctrl+fn+f10', 'ctrl+fn+f11', 'ctrl+fn+f12', 'ctrl+a', 'ctrl+shift+a', 'shift+f5', 'ctrl+fn+f5', 'ctrl+shift+d', 'ctrl+e'],
   //     (event: KeyboardEvent, combo: string): boolean => {
+  //       // if (combo === 'ctrl+fn+f2' || combo === 'f2') {
+  //       //   this.router.navigate([]).then(result => { window.open(this.site + '/utility/calculator', '', "width=1200,height=500"); });
+  //       // }
   //       if (combo === 'ctrl+fn+f2' || combo === 'f2') {
-  //         this.router.navigate([]).then(result => { window.open(this.site + '/utility/calculator', '', "width=1200,height=500"); });
+  //         this.router.navigate([]).then(result => { window.open('/customerDoc', '', "width=1200,height=500"); });
   //       }
   //       else if (combo === 'ctrl+fn+f3' || combo === 'f3') {
   //         this.router.navigate([]).then(result => { window.open('/Vouchers', '', "width=1200,height=500"); });

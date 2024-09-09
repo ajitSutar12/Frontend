@@ -92,7 +92,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'
                                         placeholder="GL Account Number">
-                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.label}}
+                                        <ng-option *ngFor="let values of acMaster" [value]="values">{{values.value}}  {{values.label}}
                                         </ng-option>
                                     </ng-select>
                                     <label for="S_GLACNO">GL Account Number<sub class="required"> * </sub></label>

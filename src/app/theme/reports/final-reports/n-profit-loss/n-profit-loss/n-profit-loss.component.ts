@@ -71,7 +71,9 @@ clicked:boolean=false;
   
   }
 
-  
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
 
   view(event) {
 
@@ -89,7 +91,10 @@ clicked:boolean=false;
       if(branch == 0){
         this.branchName='Consolidate';
      }
-      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate=" + stardate +"&endate="+endate+"&branched1="+this.ngbranch+"&bankName='" + bankName + "'&branchName='" + this.branchName + "'";
+     else{
+      this.branchName = branchName
+     }
+      this.iframeurl = this.report_url +"examples/nformProfitAndLossAccount.php?stardate=" + stardate +"&endate="+endate+"&branched1="+this.ngbranch+"&bankName='" + bankName + "'&branchName='" + this.branchName + "' ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

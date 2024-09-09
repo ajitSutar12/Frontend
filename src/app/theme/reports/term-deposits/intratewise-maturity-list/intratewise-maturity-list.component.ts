@@ -119,6 +119,9 @@ export class IntratewiseMaturityListComponent implements OnInit {
     });
   }
   end() {}
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     debugger;
     event.preventDefault();

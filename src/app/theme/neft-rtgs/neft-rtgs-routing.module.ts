@@ -25,6 +25,10 @@ const routes: Routes = [
         path: 'fundTransfer',
         loadChildren: () => import('./fund-transfer/fund-transfer.module').then(m => m.FundTransferModule)
       },
+      {
+        path: 'cibilScore',
+        loadChildren: () => import('./cibil-score/cibil-score.module').then(m => m.CibilScoreModule)
+      },
     ]
   }
   ];

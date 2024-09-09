@@ -113,6 +113,9 @@ export class BnkExpectStandInstructionComponent implements OnInit {
     });
   }
   src: any;
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   View(event) {
     event.preventDefault();
     this.formSubmitted = true;

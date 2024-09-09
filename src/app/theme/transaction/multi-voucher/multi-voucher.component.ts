@@ -245,10 +245,10 @@ export class MultiVoucherComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       branch_code: ['', [Validators.required]],
-      temp_over_draft: [''],
-      over_draft: [''],
+      // temp_over_draft: [''],
+      // over_draft: [''],
       token: [''],
-      particulars: [''],
+      NARRATION: [''],
       total_amt: [''],
       amt: [0],
       slip_no: [''],
@@ -321,7 +321,7 @@ export class MultiVoucherComponent implements OnInit {
   }
 
 
-  
+
 
   //get account no according scheme for introducer
   submitScheme: any;
@@ -610,9 +610,12 @@ export class MultiVoucherComponent implements OnInit {
           ele['date'] = null
         }
       }
+      let chequeDate = moment(obj.chequeDate).format('DD/MM/YYYY')
       obj['InputHead'] = this.headData;
       obj['tran_mode'] = this.submitTranMode;
+      obj['chequeDate'] = chequeDate
       obj['scheme'] = this.submitScheme;
+      obj['chequeDate'] = chequeDate
       obj['account_no'] = this.submitAccountNo;
       obj['amt'] = Number(this.angForm.controls['amt'].value).toFixed(2)
       obj['branch_code'] = this.selectedBranch
@@ -630,10 +633,10 @@ export class MultiVoucherComponent implements OnInit {
       this.mainMaster.push(obj);
       this.DayOpBal = 0
 
-      this.angForm.controls['temp_over_draft'].reset()
-      this.angForm.controls['over_draft'].reset()
+      // this.angForm.controls['temp_over_draft'].reset()
+      // this.angForm.controls['over_draft'].reset()
       this.angForm.controls['token'].reset()
-      // this.angForm.controls['particulars'].reset()
+      // this.angForm.controls['NARRATION'].reset()
       this.angForm.controls['total_amt'].reset()
       this.angForm.controls['amt'].reset()
       this.angForm.controls['slip_no'].reset()
@@ -866,7 +869,31 @@ export class MultiVoucherComponent implements OnInit {
   tempscheme
   //get customer today voucher data
   submitAccountNo: any;
+  // submitAccountNo: any;
+  isMinor: boolean = false
+  isJoint: boolean = false
+  minor
+  accountEvent
+  grdName
+  custId
   getVoucherData(item) {
+    this.accountEvent = item
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable(this.grdName, this.custId);
+    this.minor = item.AC_MINOR
+    if (item.AC_MINOR == '1') {
+      this.isMinor = true
+    }
+    else if (item.AC_MINOR == '0') {
+      this.isMinor = false
+    }
+    if (item.jointAccounts && item.jointAccounts.length > 0) {
+      this.isJoint = true
+    }
+    else if (item.jointAccounts = '0') {
+      this.isJoint = false
+    }
     this.DayOpBal = 0
     this.selectedMode = null
     this.angForm.controls['total_amt'].reset()
@@ -906,7 +933,9 @@ export class MultiVoucherComponent implements OnInit {
     let openingobj = {
       scheme: this.submitScheme.S_APPL,
       acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch: this.branchCode
+
     }
     //
     this._vservice.getledgerbalance(openingobj).subscribe(data => {
@@ -1108,9 +1137,11 @@ export class MultiVoucherComponent implements OnInit {
     this.angForm.patchValue({
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
+      bank: data.bank,
       amt: Number(data.amt).toFixed(2),
-      // particulars: data.NARRATION,
-      total_amt: data.total_amt
+      // NARRATION: data.NARRATION,
+      total_amt: data.total_amt,
+      // bank:data.bank
     })
     // this.changeMode(data.tran_mode);
     this.headData = []
@@ -1123,7 +1154,7 @@ export class MultiVoucherComponent implements OnInit {
       this.showChequeDetails = true;
     }
     this.showAdd = false;
-    this.showUpdate = false;
+    this.showUpdate = true;
     this.calculateVoucher()
     this.showlgindetails()
     this.SideDetails()
@@ -1131,7 +1162,7 @@ export class MultiVoucherComponent implements OnInit {
       chequeNo: data.chequeNo,
       chequeDate: data.chequeDate,
       amt: Number(data.amt).toFixed(2),
-      particulars: data.particulars,
+      NARRATION: data.NARRATION,
       total_amt: Number(data.total_amt).toFixed(2),
       bank: data.bank
     })
@@ -1155,10 +1186,10 @@ export class MultiVoucherComponent implements OnInit {
       this.showUpdate = false;
       this.EditFlag = false;
 
-      this.angForm.controls['temp_over_draft'].reset()
-      this.angForm.controls['over_draft'].reset()
+      // this.angForm.controls['temp_over_draft'].reset()
+      // this.angForm.controls['over_draft'].reset()
       this.angForm.controls['token'].reset()
-      // this.angForm.controls['particulars'].reset()
+      // this.angForm.controls['NARRATION'].reset()
       this.angForm.controls['total_amt'].reset()
       this.angForm.controls['amt'].reset()
       this.angForm.controls['slip_no'].reset()
@@ -1222,8 +1253,10 @@ export class MultiVoucherComponent implements OnInit {
         this.unapproveShow = false
       }
       this.mainMaster = data
+
       for (let ele of this.mainMaster) {
         ele['total_amt'] = Number(ele['total_amt']).toFixed(2)
+
       }
       this.selectedCode = data[0].scheme.S_ACNOTYPE;
       this.selectedSchemeCode()
@@ -1232,9 +1265,10 @@ export class MultiVoucherComponent implements OnInit {
       this.customer = data[0].account_no.id;
       this.submitAccountNo = data[0].account_no;
       this.selectedMode = data[0].tran_mode.id;
+      this.particular = data[0].NARRATION;
       this.angForm.patchValue({
         scheme: this.selectedScheme,
-        particulars: data[0].NARRATION,
+        NARRATION: data[0].NARRATION,
         amt: Number(data[0].amt).toFixed(2)
       })
       this.calculateVoucher()
@@ -1412,7 +1446,9 @@ export class MultiVoucherComponent implements OnInit {
     let obj = {
       scheme: this.submitScheme.S_APPL,
       acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
-      date: addInFrom
+      date: addInFrom,
+      branch: this.branchCode
+
     }
     //
     this._vservice.getpigmychartBalance(obj).subscribe(data2 => {
@@ -1462,6 +1498,8 @@ export class MultiVoucherComponent implements OnInit {
   url = environment.base_url;
   ShowDocuments: boolean = false
   showlgindetails() {
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
     if (this.angForm.controls['account_no'].value != null) {
       this.ShowDocuments = true
       this._CustomerIdService.getFormData(this.submitAccountNo.idmasterID).subscribe(data => {
@@ -2072,7 +2110,7 @@ export class MultiVoucherComponent implements OnInit {
 
     if (this.submitTranMode.id == 7 && this.selectedCode == 'SH') {
       this.angForm.controls['amt'].disable();
-      this.angForm.controls['particulars'].disable();
+      this.angForm.controls['NARRATION'].disable();
       let other2amounttotal
       this._vservice.calculateDividend(obj).subscribe(data => {
         other2amounttotal = data.Bcount
@@ -2087,7 +2125,7 @@ export class MultiVoucherComponent implements OnInit {
         });
         this.angForm.patchValue({
           'amt': data.count,
-          'particulars': str + ' Paid Dividend'
+          'NARRATION': str + ' Paid Dividend'
         })
       })
     }
@@ -2537,5 +2575,89 @@ export class MultiVoucherComponent implements OnInit {
   adjustsize() {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
+  }
+  resetForm() {
+
+    this.angForm.controls['token'].reset()
+    // this.angForm.controls['NARRATION'].reset()
+    this.angForm.controls['total_amt'].reset()
+    this.angForm.controls['amt'].reset()
+    this.angForm.controls['slip_no'].reset()
+    this.angForm.controls['tran_mode'].reset()
+    this.angForm.controls['account_no'].reset()
+    this.angForm.controls['scheme'].reset()
+    this.angForm.controls['scheme_type'].reset()
+    this.angForm.controls['type'].reset()
+    this.angForm.controls['chequeDate'].reset()
+    this.angForm.controls['chequeNo'].reset()
+    this.angForm.controls['bank'].reset()
+    this.angForm.controls['NARRATION'].reset()
+
+    this.DayOpBal = null;
+    this.Pass = null;
+    this.Unpass = null;
+    this.overdraftAmt = null;
+    this.opendate = null;
+    this.asondate = null;
+    this.sanctiondate = null;
+    this.expirydate = null;
+    this.renewaldate = null;
+    this.sanctionamt = null;
+    this.depositamt = null;
+    this.maturityamt = null;
+    this.ClearBalance = null;
+    this.AfterVoucher = null;
+
+
+    if (this.headData) {
+      this.headData = [];
+    }
+
+    if (this.mainMaster) {
+      this.mainMaster = [];
+    }
+
+    this.totalCredit = null;
+    this.totalDebit = null;
+
+  }
+
+  Cancel() {
+    this.resetForm()
+
+  }
+  IsJointView: boolean = false
+  display
+
+  isMinor1 = false
+  isJoint1 = false
+  openModal(view) {
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint = true
+      this.isMinor = false
+      this.display = "block";
+    }
+  }
+
+  tableData: any[] = [];
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableData.some(item => item.grdName === grdName && item.custId === custId);
+
+    if (!exists && grdName && custId) {
+      this.tableData.push({ grdName: grdName, custId: custId });
+    }
+  }
+  onCloseHandled() {
+    this.display = 'none';
+
   }
 }

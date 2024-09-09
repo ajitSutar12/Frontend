@@ -79,7 +79,7 @@
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngAccount"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required #FROM_AC
-                                        (focus)="onFocus(FROM_AC)" [selectOnTab]='true' (change)="checkValidaion()"
+                                        (focus)="onFocus(FROM_AC)" [selectOnTab]='true' (change)="getfrom($event);checkValidaion()"
                                         placeholder=" From Account">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
@@ -98,7 +98,7 @@
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To Account"
                                         #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
-                                        (change)="checkValidaion()">
+                                        (change)="getto($event);checkValidaion()">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
                                     </ng-select>

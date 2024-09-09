@@ -95,6 +95,9 @@ export class BnkRegStandingInstructionComponent implements OnInit {
     this.ngBranchCode = result.branch.id
   }
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event) {
     debugger
     event.preventDefault();

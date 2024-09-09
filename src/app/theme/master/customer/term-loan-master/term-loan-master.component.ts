@@ -676,6 +676,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     this.formSubmitted = true;
     let formVal = this.angForm.value;
@@ -806,9 +807,9 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'Vehicle': this.vehicleid,
         'Document': this.imageObject
       }
-
+      this.isDisable = true
       this.termLoanService.postData(dataToSend).subscribe(data => {
-
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1054,7 +1055,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   // }
 
   // Method For New Button
-
+  name: any
+  ac_no: any
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
     this.angForm.controls['AC_TYPE'].disable()
@@ -1068,7 +1070,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.columnShowButton = true
 
     this.termLoanService.getFormData(id).subscribe(data => {
-
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       this.createForm()
       this.tempbankacno = data.BANKACNO
       this.accountedit = data.BANKACNO
@@ -2503,11 +2506,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       user: user.id
     }
     this.termLoanService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Term Loan Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Term Loan Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -2524,11 +2530,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       user: user.id
     }
     this.termLoanService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Term Loan Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Term Loan Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -2584,11 +2593,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       LOG_DATE: this.logDate
     }
     this.termLoanService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

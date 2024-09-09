@@ -145,7 +145,9 @@ newcustid: any = null;
 
     }
   }
- 
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
     src: any;
     view(event) {
       debugger
@@ -190,8 +192,8 @@ newcustid: any = null;
   resetForm() {
     // this.createForm()
     // this.ngForm.controls.BRANCH_CODE.reset();
-    this.ngForm.controls.Starting_Account.reset();
-    this.ngForm.controls.Ending_Account.reset();
+    this.ngForm.controls.date.reset();
+    // this.ngForm.controls.Ending_Account.reset();
     this.showRepo = false;
     this.clicked=false;
   }

@@ -48,6 +48,7 @@
               "src/fake-data"
             ],
             "styles": [
+            
               "node_modules/font-awesome-scss/scss/font-awesome.scss",
               "src//assets/icon/icofont/css/icofont.scss",
               "src/scss/style.scss",
@@ -58,6 +59,8 @@
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
             "scripts": [
+             
+
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/datatables.net/js/jquery.dataTables.js",
               "node_modules/jszip/dist/jszip.js",

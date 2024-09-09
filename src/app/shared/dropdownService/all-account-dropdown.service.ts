@@ -17,7 +17,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/saving-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO ,bankacno:element.
+                        BANKACNO};
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -28,7 +29,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/current-account-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO,bankacno:element.
+                        BANKACNO };
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -39,7 +41,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/term-deposits-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO,bankacno:element.
+                        BANKACNO };
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -61,7 +64,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/pigmy-account-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO,bankacno:element.
+                        BANKACNO };
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -72,7 +76,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/term-loan-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO ,bankacno:element.
+                        BANKACNO};
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -83,7 +88,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/cash-credit-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO,bankacno:element.
+                        BANKACNO };
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -105,7 +111,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/anamat-gsm/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO ,bankacno:element.
+                        BANKACNO};
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -116,7 +123,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/share-master/alldata' + BranchCode)
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO ,bankacno:element.
+                        BANKACNO};
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;
@@ -239,7 +247,8 @@ export class AllAccountDropdownService {
         return this.http.get<any>(this.url + '/gl-account-master')
             .pipe(map(ele => {
                 ele.forEach(element => {
-                    let obj = { label: element.AC_NAME, value: element.AC_NO };
+                    let obj = { label: element.AC_NAME, value: element.AC_NO,bankacno:element.
+                        BANKACNO };
                     this.acMasterObject.push(obj)
                 });
                 return this.acMasterObject;

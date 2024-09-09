@@ -19,6 +19,18 @@ children:[
     path: 'loanBalanceBetTwoDates',
     loadChildren: () => import('./loan-balance-bet-two-dates/loan-balance-bet-two-dates.module').then(m => m.LoanBalanceBetTwoDatesModule)
   },
+  {
+    path: 'swnidhi',
+    loadChildren: () => import('./svnidhi/svnidhi.module').then(m => m.SvnidhiModule)
+  },
+  {
+    path: 'MISInfo',
+    loadChildren: () => import('./mis-information/mis-information.module').then(m => m.MisInformationModule)
+  },
+  {
+    path: 'expensive',
+    loadChildren: () => import('./expensive-list/expensive-list.module').then(m => m.ExpensiveListModule)
+  },
 ]
 }];
 @NgModule({

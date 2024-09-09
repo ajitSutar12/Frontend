@@ -130,7 +130,9 @@ obj: any;
     this.tScheme = event.name
 
   }
-  
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event){
    
       

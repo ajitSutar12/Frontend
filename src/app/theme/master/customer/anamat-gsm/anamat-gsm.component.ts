@@ -263,7 +263,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         //   title: "Member No",
         // },
         {
-          data: "AC_AREA",
+          data: "AC_ADDR",
           title: "Detail Address",
         },
         {
@@ -396,7 +396,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         AC_ADDR: permadd?.AC_ADDR,
         AC_GALLI: permadd?.AC_GALLI,
         AC_AREA: permadd?.AC_AREA,
-        AC_CTCODE: permadd?.city?.CITY_NAME,
+        AC_CTCODE: permadd?.city?.AC_CTCODE ,
         AC_PIN: permadd?.AC_PIN,
       })
 
@@ -432,6 +432,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm() {
     this.angForm = this.fb.group({
+      AC_OPDATE: new FormControl({ value: '', disabled: true }),
       AC_ACNOTYPE: ['GS'],
       AC_TYPE: ['', [Validators.required]],
       AC_NO: [''],
@@ -448,7 +449,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_CTCODE: [''],
       AC_PIN: [''],
       BANKACNO: [''],
-      AC_OPDATE: ['', [Validators.required]],
+      // AC_OPDATE: [''],
       AC_IS_RECOVERY: [],
       DEBIT: new FormControl('DEBIT'),
       AC_PARTICULAR: ['', [Validators.required, Validators.pattern]],
@@ -513,11 +514,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
-
+name:any
+ac_no:any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.angForm.controls['AC_TYPE'].disable()
     this.anamatGSMService.getFormData(id).subscribe((data) => {
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -690,11 +694,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.anamatGSMService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Anamat Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Anamat Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -713,11 +720,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       user: user.id
     }
     this.anamatGSMService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Anamat Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Anamat Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -756,11 +766,14 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       LOG_DATE: this.logDate
     }
     this.anamatGSMService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success', 
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();

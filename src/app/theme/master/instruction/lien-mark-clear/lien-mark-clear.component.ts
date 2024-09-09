@@ -166,7 +166,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         },
         {
           title: 'Loan Ac No',
-          data: 'AC_TYPE'
+          data: 'AC_NO'
         },
         {
           title: 'Loan Os Balance',
@@ -197,6 +197,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       RECEIPT_NO: [''],
       IS_LIEN_MARK_CLEAR: [''],
       AC_TYPE: [''],
+      AC_NO: [''],
       BALANCE_OF_LOAN_ACCOUNT: [''],
       AC_EXPIRE_DATE: [''],
     });
@@ -233,7 +234,8 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       DEPOSIT_AMT: formVal.DEPOSIT_AMT,
       RECEIPT_NO: formVal.RECEIPT_NO,
       IS_LIEN_MARK_CLEAR: formVal.IS_LIEN_MARK_CLEAR,
-      AC_TYPE: formVal.AC_TYPE,
+      // AC_TYPE: formVal.AC_TYPE,
+      AC_NO: formVal.AC_NO,
       BALANCE_OF_LOAN_ACCOUNT: formVal.BALANCE_OF_LOAN_ACCOUNT,
       AC_EXPIRE_DATE: formVal.AC_EXPIRE_DATE,
 
@@ -267,7 +269,8 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         DEPOSIT_AMT: data.DEPOSIT_AMT,
         RECEIPT_NO: data.RECEIPT_NO,
         IS_LIEN_MARK_CLEAR: data.IS_LIEN_MARK_CLEAR == '0' ? false : true,
-        AC_TYPE: data.AC_NO,
+        AC_NO: data.AC_NO,
+        AC_TYPE: data.AC_TYPE,
         BALANCE_OF_LOAN_ACCOUNT: data.BALANCE_OF_LOAN_ACCOUNT,
         AC_EXPIRE_DATE: data.AC_EXPIRE_DATE,
 

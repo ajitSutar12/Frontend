@@ -720,12 +720,13 @@
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="8"
-                                                                            maxlength="10" [(ngModel)]="openingDate"
+                                                                            maxlength="10" [(ngModel)]="opdate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             bsDatepicker #OPDATE="bsDatepicker"
-                                                                            (keydown.Tab)="OPDATE.hide()">
-                                                                        <label for="AC_OPDATE">Open Date<sub
-                                                                                class="required">*
+                                                                            (keydown.Tab)="OPDATE.hide()" disabled>
+                                                                        <label for="AC_OPDATE">Open Date
+                                                                            <sub
+                                                                                class="required" >*
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
@@ -1650,7 +1651,7 @@
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
-                                                                                                (click)="delNominee(indexOfelement)"
+                                                                                                (click)="delNominee(indexOfelement,data)"
                                                                                                 placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
@@ -1949,7 +1950,7 @@
                                                                 <button type="submit"
                                                                     class="btn btn-outline-primary btn-sm btn-submit"
                                                                     *ngIf="showButton" (click)="submit($event)"
-                                                                    (keydown.Tab)="focus()" appTheme>
+                                                                    (keydown.Tab)="focus()" appTheme [disabled]="angForm.invalid">
                                                                     Submit
                                                                 </button>
                                                                 <button class="btn btn-outline-primary btn-sm"
@@ -2083,3 +2084,6 @@
         </div>
     </div>
 </div>
+<div *ngIf="isDisable">
+    <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
+    </div>

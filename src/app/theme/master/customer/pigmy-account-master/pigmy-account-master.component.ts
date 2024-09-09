@@ -233,6 +233,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   maxDate: any
   AGENTBRANCH: any = null
   Recommended: any[]
+  joinDate: any;
 
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
@@ -528,6 +529,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       //joint ac
       JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [],
 
     });
@@ -1020,6 +1023,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   ngexpiry: any
   // Method to insert data into database through NestJS
+  isDisable=false
   submit(event) {
     let temdate
     let opdate
@@ -1116,7 +1120,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         'JointAccountData': this.multiJointAC,
         'Document': this.imageObject
       }
+      this.isDisable = true
       this.PigmyAccountMasterService.postData(dataToSend).subscribe(data => {
+        this.isDisable = false
         Swal.fire({
           icon: 'success',
           title: 'Account Created successfully!',
@@ -1147,6 +1153,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   AC_OPDATE: any
   updatecheckdata: any
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -1157,6 +1165,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     let exdate
     this.PigmyAccountMasterService.getFormData(id).subscribe(data => {
       this.updatecheckdata = data
+      this.name = data.AC_NAME
+      this.ac_no = data.BANKACNO
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -1349,7 +1359,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     })
   }
 
+  isDeleted: boolean = true
   disableForm(id) {
+    this.isDeleted = false
     this.editClickHandler(id, 0)
   }
 
@@ -1694,9 +1706,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.resetNominee()
   }
 
-  delNominee(id) {
-    this.multiNominee.splice(id, 1)
-  }
+  // delNominee(id) {
+  //   this.multiNominee.splice(id, 1)
+  // }
 
   resetNominee() {
     this.angForm.controls['AC_NNAME'].reset();
@@ -1719,7 +1731,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE,
+
       })
     })
   }
@@ -1727,6 +1741,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1736,6 +1753,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1781,6 +1800,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1793,6 +1814,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1820,14 +1843,16 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
 
 
-  delJointAc(id) {
-    this.multiJointAC.splice(id, 1)
-  }
+  // delJointAc(id) {
+  //   this.multiJointAC.splice(id, 1)
+  // }
 
   resetJointAC() {
     this.jointID = null
     this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.getSystemParaDate()
   }
 
@@ -1845,11 +1870,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.PigmyAccountMasterService.approve(obj).subscribe(data => {
-      Swal.fire(
-        'Approved',
-        'Pigmy Account approved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Pigmy Account Approved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1867,11 +1895,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       user: user.id
     }
     this.PigmyAccountMasterService.reject(obj).subscribe(data => {
-      Swal.fire(
-        'Rejected',
-        'Pigmy Account rejected successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Pigmy Account rejected successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
 
       var button = document.getElementById('trigger');
       button.click();
@@ -1915,11 +1946,14 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       LOG_DATE: this.logDate
     }
     this.PigmyAccountMasterService.unapporve(obj).subscribe(data => {
-      Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
-      );
+      Swal.fire({
+        icon: 'success',
+        title: 'Account unapproved successfully!',
+        html: `
+          <b>NAME : </b> ${this.name},<br>
+          <b>ACCOUNT NO : </b> ${this.ac_no}<br>
+        `
+      });
       var button = document.getElementById('trigger');
       button.click();
       this.reloadTablePassing.emit();
@@ -1927,6 +1961,30 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       console.log('something is wrong');
     })
   }
+
+  delNominee(id, data) {
+    if (this.isDeleted) {
+      this.multiNominee.splice(id, 1)
+      // console.log(data)
+
+      this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+      })
+    }
+
+  }
+
+  delJointAc(id, data) {
+
+    if (this.isDeleted) {
+      this.multiJointAC.splice(id, 1)
+
+      this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
+      })
+    }
+  }
+
 }
 
 

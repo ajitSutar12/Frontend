@@ -57,10 +57,10 @@ const routes: Routes = [
         loadChildren: () => import('./shares-reports/shares-reports.module').then(m => m.SharesReportsModule)
       },
       //
-      {
-        path: 'nottice',
-        loadChildren: () => import('./nottice/nottice.module').then(m => m.NotticeModule)
-      },
+      // {
+      //   path: 'nottice',
+      //   loadChildren: () => import('./nottice/nottice.module').then(m => m.NotticeModule)
+      // },
       //
       {
         path: 'otherReports',

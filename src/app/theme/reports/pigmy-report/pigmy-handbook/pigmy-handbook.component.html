@@ -10,9 +10,9 @@
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
@@ -32,15 +32,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-2"></div>
+
                         <div class="col-sm-12 col-md-2"><label for="">Agent Scheme <sub class="required">*</sub>
                             </label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
-                                        [(ngModel)]="schemeCode" (change)="getIntro($event)">
-                                        <ng-option *ngFor="let values of scheme" [value]="values"> {{values.id}}
-                                            {{values.label}} </ng-option>
+                                        [(ngModel)]="schemeCode" (change)="getIntro($event);schemechange($event)">
+                                        <ng-option *ngFor="let values of scheme" [value]="values">   {{values.id}}
+                                            {{values.label}}</ng-option>
                                     </ng-select>
                                 </span>
                             </div>
@@ -53,32 +55,40 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"><label for="">Agent code <sub class="required">*</sub></label>
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-1"><label for="">Agent code <sub class="required">*</sub></label>
                         </div>
-                        <div class="col-sm-12 col-md-2">
+                        <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select formControlName="Scheme_acc" bindValue="value" bindLabel="label"
+                                    <ng-select formControlName="AGENT_ACNO" bindValue="BANKACNO" bindLabel="label" (change)="getAccountDetails($event)"
                                         [(ngModel)]="startingAccount">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
-                                            {{values.label}}  {{values.name}} </ng-option>
+                                            {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
                                     </ng-select>
                                 </span>
                             </div>
 
                             <div class="form-group form-primary form-static-label"
-                                *ngIf="ngForm.controls['Scheme_acc'].invalid && (ngForm.controls['Scheme_acc'].dirty || ngForm.controls['Scheme_acc'].touched)"
+                                *ngIf="ngForm.controls['AGENT_ACNO'].invalid && (ngForm.controls['AGENT_ACNO'].dirty || ngForm.controls['AGENT_ACNO'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="ngForm.controls['Scheme_acc'].errors?.required">
+                                <div *ngIf="ngForm.controls['AGENT_ACNO'].errors?.required">
                                     This field is required
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                        <div class="col-sm-3 col-md-2" *ngIf="!isOpen"></div>
+                        <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
+                        *ngIf="isOpen">Account Open</div>
+                        <div class="col-sm-3 col-md-2" *ngIf="acclosedon">
+                            <div><label style="color: red; font-size: 15px;">Account Closed On:
+                                    {{acCloseDate}}</label></div>
+                        </div> 
                         <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">Date<sub
                                     class="required">*</sub></label></div>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="FROM_DATE" id="FROM_DATE"
@@ -102,7 +112,7 @@
                         <div class="col-md-9"></div>
                         <div class="col-sm-12 col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true;scrollToTop() ">View</button>
                         </div>
                         <div class="col-sm-12 col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm"
