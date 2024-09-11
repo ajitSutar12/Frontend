@@ -14,10 +14,10 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input  style="text-align: right;" type="text" name="S_APPL" class="form-control"
+                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control"
                     placeholder=" " id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     (focusout)="checkDuplicate($event)" pattern="^[0-9]+$" maxlength="3" minlength="3" min="101"
-                    max="150" title="Input allowed only 0-9" formControlName="S_APPL" >
+                    max="150" title="Input allowed only 0-9" formControlName="S_APPL" #autofocus>
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -41,7 +41,7 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input  type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
+                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="S_NAME" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
@@ -68,7 +68,7 @@
             <div class="col-sm-6">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input  type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
+                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME"
                     maxlength="15"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
@@ -102,7 +102,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
+                  <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglacno" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     [virtualScroll]="true" #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true' required
                     placeholder="GL Account Number">
@@ -130,7 +130,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl"
+                  <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl"
                     formControlName="S_INT_ACNO" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)"
                     [selectOnTab]='true' required placeholder="Interest GL Account">
@@ -414,7 +414,7 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input  style="text-align: right;" type="text" name="ROUNDOFF_FACTOR"
+                          <input appTheme style="text-align: right;" type="text" name="ROUNDOFF_FACTOR"
                             class="form-control" placeholder=" " maxlength="2" id="ROUNDOFF_FACTOR" required=""
                             pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58 )"
                             title="Input allowed only  0-9" formControlName="ROUNDOFF_FACTOR" />
@@ -452,7 +452,7 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input  style="text-align: right;" type="text" name="CHEQUEBOOK_MIN_BAL"
+                          <input appTheme style="text-align: right;" type="text" name="CHEQUEBOOK_MIN_BAL"
                             class="form-control" placeholder=" " id="CHEQUEBOOK_MIN_BAL" required=""
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
@@ -511,7 +511,7 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input  style="text-align: right;" type="text" name="MIN_BAL_FOR_INT"
+                          <input appTheme style="text-align: right;" type="text" name="MIN_BAL_FOR_INT"
                             class="form-control" placeholder=" " id="MIN_BAL_FOR_INT" required=""
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
@@ -561,7 +561,7 @@
                     <div class="col-sm-6">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input  style="text-align: right;" type="text" name="OVERDRAFT_INTEREST_RATE"
+                          <input appTheme style="text-align: right;" type="text" name="OVERDRAFT_INTEREST_RATE"
                             class="form-control" placeholder=" " id="OVERDRAFT_INTEREST_RATE" required=""
                             (focusout)="getDecimalPoint($event)" (keyup)="getDecimal($event)"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
@@ -603,7 +603,7 @@
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
                   <button class="btn btn-outline-primary btn-sm btn-submit" 
-                    (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" >
+                    (click)="submit()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">

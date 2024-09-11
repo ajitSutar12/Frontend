@@ -818,7 +818,7 @@
                                                                                 Total
                                                                             </td>
                                                                             <td [ngClass]="'td_right'">
-                                                                                {{transferTotalAmount}}
+                                                                                {{totalAmt}}
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -829,13 +829,13 @@
 
                                                     <div class="row">
                                                         <div class="col-md-3">
-                                                            Total Credit : {{transferTotalAmount}}
+                                                            Total Credit : {{totalAmt}}
                                                         </div>
                                                         <div class="col-md-3">
                                                             Total Debit : {{totalNetAmt}}
                                                         </div>
                                                         <div class="col-md-3">
-                                                            Difference: {{transferTotalAmount - totalNetAmt}}
+                                                            Difference: {{totalAmt - totalNetAmt}}
                                                         </div>
                                                     </div>
                                             </div>
@@ -887,7 +887,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -1087,7 +1087,321 @@
                                         <div class="fw-bolder transaction-title text-success"
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{days}}</div>
                                     </div>
+                                </div> -->
+
+
+                                <!-- Transfer pooja-->
+
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-primary rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Day Opening
+                                                    Balance
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-primary"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{DayOpBal}} {{extensionopenbal}}</div>
+                                    </div>
                                 </div>
+                                <div class="col-md-12" *ngIf="submitAccountNo?.AC_ACNOTYPE == 'PG'">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-primary rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Pigmy Amount
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-primary"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{pigmyamount}} Cr</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-success rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Passed</h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{Pass}} {{passextension}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-danger rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Unpassed</h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> <span>{{Unpass}} {{unpassextension}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-danger rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Uneffected
+                                                    Clearing
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> 0.00</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Overdraft
+                                                    Amount
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{overdraftAmt}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Open Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{opendate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShownotLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">As On Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{asondate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShowLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Sanction Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{sanctiondate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShowLNCC || ShownotLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Expiry Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{expirydate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShowLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Renewal Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{renewaldate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShowLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Sanctions Amount
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{sanctionamt}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShownotLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{depositamt}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="ShownotLNCC">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{maturityamt}}.00</div>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-success rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 15px;">Cleared Balance
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{ClearBalance}} {{typeclearbal}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-primary rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">After this
+                                                    voucher
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{AfterVoucher}} {{extenstionaftervoucher}}
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">

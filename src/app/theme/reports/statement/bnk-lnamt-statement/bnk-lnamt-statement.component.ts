@@ -35,7 +35,6 @@ export class BnkLNamtStatementComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   formSubmitted = false;
-
      //account
      memFrom
      memTo

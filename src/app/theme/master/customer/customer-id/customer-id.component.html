@@ -48,10 +48,9 @@
                                 <span class="border-lable-flt">
                                     <ng-select class="sticky-drpodown" appTheme bindValue="value" [(ngModel)]="ngTitle"
                                         id="AC_TITLE" bindLabel="label" formControlName="AC_TITLE"
-                                        title="Compulsory Selection" [virtualScroll]="true"
-                                        (change)="notApplicable($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="" #AC_TITLE (focus)="onFocus(AC_TITLE)"
-                                        [selectOnTab]='true' autofocus>
+                                        title="Compulsory Selection" [virtualScroll]="true" (change)="notApplicable($event)"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="" #AC_TITLE
+                                        (focus)="onFocus(AC_TITLE)" [selectOnTab]='true' autofocus>
 
                                         <ng-option *ngFor="let values of prifix" [value]="values">
                                             {{values.label}} </ng-option>
@@ -68,36 +67,36 @@
                             </div>
                             <!-- </div> -->
                         </div>
-                        <div class="col-sm-2" *ngIf="!showBeneficiaryName">
+                        <div class="col-sm-2" *ngIf="isable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME" class="form-control " placeholder=" "
-                                        id="L_NAME" required pattern="^[A-Za-z]+$" maxlength="15"
+                                        id="L_NAME"  pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         #lastname [(ngModel)]="lname" title="Input allowed only A-Z"
-                                        formControlName="L_NAME" required>
+                                        formControlName="L_NAME" >
                                     <label for="L_NAME">Last Name<sub class="required">* </sub></label>
 
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required">
                                     This field is required and Input allowed only A-Z
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
 
-                        <div class="col-sm-2" *ngIf="!showBeneficiaryName">
+                        <div class="col-sm-2" *ngIf="isable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME" class="form-control " placeholder=" "
-                                        id="F_NAME" required pattern="^[A-Za-z]+$" maxlength="15"
+                                        id="F_NAME"  pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="fname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -105,21 +104,21 @@
                                     <label for="F_NAME">First Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['F_NAME'].invalid && (angForm.controls['F_NAME'].dirty || angForm.controls['F_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required">
                                     This field is required and Input allowed only A-Z
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
-                        <div class="col-sm-2" *ngIf="!showBeneficiaryName">
+                        <div class="col-sm-2" *ngIf="isable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME" style="text-transform:uppercase"
-                                        class="form-control " placeholder=" " id="M_NAME" required pattern="^[A-Za-z]+$"
+                                        class="form-control " placeholder=" " id="M_NAME"  pattern="^[A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
                                         title="Input allowed only A-Z" (ngModelChange)="mname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
@@ -128,14 +127,14 @@
                                     <label for="M_NAME">Middle Name<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['M_NAME'].invalid && (angForm.controls['M_NAME'].dirty || angForm.controls['M_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['M_NAME'].errors?.pattern || angForm.controls['M_NAME'].errors?.required">
                                     This field is required and Input allowed only A-Z
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- <div class="col-sm-4">
                             <div class="form-group input-group">
@@ -148,22 +147,22 @@
                                 </span>
                             </div>
                         </div> -->
-
-                        <div class="col-sm-4" *ngIf="showBeneficiaryName">
+                        <!-- <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="BENEF_NAME" class="form-control " placeholder=" "
-                                        id="BENEF_NAME" required maxlength="30"   (ngModelChange)="onBeneficiaryNameChange($event)"
-                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                      
-                                        style="text-transform:uppercase;" [(ngModel)]="beneficiaryName"
-                                        title="Input allowed  only A-Z space" formControlName="BENEF_NAME">
-                                    <label for="BENEF_NAME">Beneficiary Name</label>
+                                    <input appTheme type="text" name="Firm_NAME" class="form-control " placeholder=" "
+                                        id="Firm_NAME"  pattern="^[A-Za-z]+$" maxlength="15"
+                                        (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
+                                        (ngModelChange)="lname = $event?.toUpperCase()"
+                                        style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
+                                        #lastname  title="Input allowed only A-Z"
+                                        formControlName="Firm_NAME" >
+                                    <label for="Firm_NAME">Firm Name<sub class="required">* </sub></label>
+
                                 </span>
                             </div>
-
-                        </div>
-                        
+                          
+                        </div> -->
                         <div class="col-sm-4" *ngIf="isable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -179,20 +178,16 @@
                         <div class="col-sm-4" *ngIf="isapplicable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+                                    <input type="text" name="BENEF_NAME" class="form-control" placeholder=" " id="BENEF_NAME"
                                         pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
-                                        [disabled]="isFullNameDisabled" [(ngModel)]="fullname"
-                                      
-                                        [value]="fullName"
-                                        formControlName="AC_NAME">
-                                    <label for="AC_NAME">Full Name</label>
+                                       [(ngModel)]="firmname"
+                                        formControlName="BENEF_NAME">
+                                    <label for="BENEF_NAME">Firm Name</label>
                                 </span>
                             </div>
 
                         </div>
-                    </div>
-                    <div class="row" *ngIf="isapplicable">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3" *ngIf="isapplicable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="PROP_NAME" class="form-control" placeholder=" "
@@ -201,20 +196,23 @@
                                     <label for="PROP_NAME">Proprietor/Chairman Name</label>
                                 </span>
                             </div>
-                        </div>
-                        <div class="col-sm-2">
+                        </div> 
+                        <div class="col-sm-3" *ngIf="isapplicable">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" style="text-align: right;" name="REG_NO" class="form-control"
                                         pattern="^[A-Za-z0-9]+$" title="Enter Uppercase letters and digits only"
                                         style="text-transform:uppercase;"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
-                                        placeholder=" " title=" Input allowed only  0-9" maxlength="22" minlength=" 22"
+                                        placeholder=" " title=" Input allowed only  0-9" maxlength="22" minlength="10"
                                         id="REG_NO" formControlName="REG_NO">
                                     <label for="REG_NO">Registration No.</label>
                                 </span>
                             </div>
                         </div>
+                    </div>
+                    <div class="row" *ngIf="isapplicable">
+                       
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -222,8 +220,8 @@
                                         id="REG_DATE" class="form-control " minlength="10" maxlength="10"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                                         [ngClass]="{'form-submitted': formSubmitted}" #REG_DATE="bsDatepicker"
-                                        (keydown.Tab)="REG_DATE.hide()" placement="left" #REG_DATE
-                                        formControlName="REG_DATE" [bsValue]="bsValue" bsDatepicker required>
+                                        (keydown.Tab)="REG_DATE.hide()" placement="right" #REG_DATE
+                                        formControlName="REG_DATE" [bsValue]="bsValue" bsDatepicker >
                                     <label for="REG_DATE">Registration Date</label>
                                 </span>
                             </div>
@@ -291,7 +289,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME_REG" class="form-control " placeholder=" "
@@ -311,7 +309,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME_REG" class="form-control " placeholder=" "
@@ -330,7 +328,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME_REG" style="text-transform:uppercase"
@@ -349,8 +347,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    <!-- </div>
+                    <div class="row"> -->
                         <div class="col-sm-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -370,35 +368,35 @@
                                     <ng-select class="sticky-drpodown"  bindValue="value" [(ngModel)]="mTitle"
                                         id="MAC_TITLE" bindLabel="label" formControlName="MAC_TITLE"
                                         title="Compulsory Selection" [virtualScroll]="true"
-                                        (change)="notApplicable($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="" #MAC_TITLE (focus)="onFocus(MAC_TITLE)"
+                                         [ngClass]="{'form-submitted': formSubmitted}"
+                                         placeholder="" #MAC_TITLE (focus)="onFocus(MAC_TITLE)"
                                         [selectOnTab]='true' >
 
-                                        <ng-option *ngFor="let values of prifix" [value]="values">
+                                        <ng-option *ngFor="let values of motherData" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
                                     <label for="AC_TYPE">Title </label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label"
+                            <!-- <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['MAC_TITLE'].invalid && (angForm.controls['MAC_TITLE'].dirty || angForm.controls['MAC_TITLE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['MAC_TITLE'].errors?.required">
                                     This is required field
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- </div> -->
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="ML_NAME" class="form-control " placeholder=" "
-                                        id="ML_NAME" required pattern="^[A-Za-z]+$" maxlength="15"
+                                    <input  type="text" name="ML_NAME" class="form-control " placeholder=" "
+                                        id="ML_NAME"  pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="mlname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
                                         #lastname [(ngModel)]="mlname" title="Input allowed only A-Z"
-                                        formControlName="ML_NAME" required>
+                                        formControlName="ML_NAME" >
                                     <label for="ML_NAME"> Mother Last Name</label>
 
                                 </span>
@@ -417,8 +415,8 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="MF_NAME" class="form-control " placeholder=" "
-                                        id="MF_NAME" required pattern="^[A-Za-z]+$" maxlength="15"
+                                    <input  type="text" name="MF_NAME" class="form-control " placeholder=" "
+                                        id="MF_NAME"  pattern="^[A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="mfname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -439,8 +437,8 @@
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input appTheme type="text" name="MM_NAME" style="text-transform:uppercase"
-                                        class="form-control " placeholder=" " id="MM_NAME" required pattern="^[A-Za-z]+$"
+                                    <input  type="text" name="MM_NAME" style="text-transform:uppercase"
+                                        class="form-control " placeholder=" " id="MM_NAME"  pattern="^[A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mmname"
                                         title="Input allowed only A-Z" (ngModelChange)="mmname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
@@ -1163,7 +1161,9 @@
                                             <td [ngClass]="data.AC_MEMBTYPE === '' ? 'td_center' : 'td_right'">
                                                 {{data.AC_MEMBTYPE === ''? '-' : data.AC_MEMBTYPE}}</td>
 
-                                            <td>{{data.AC_NAME}}</td>
+                                            <!-- <td>{{data.AC_NAME || data.BENEF_NAME}}</td> -->
+                                            <td>{{ data.AC_NAME && data.AC_NAME.trim() !== '' ? data.AC_NAME : data.BENEF_NAME }}</td>
+
                                             <td>{{data.MAC_NAME}}</td>
 
                                             <td [ngClass]="data.castMaster?.NAME === '' ? 'td_center' : 'td_left'">
