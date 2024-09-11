@@ -75,7 +75,7 @@ export class ExpensiveListComponent implements OnInit {
       branch_code: this.ngbranch,
       date: this.date
     }
-    this.http.post('http://192.168.1.176:7271/reports/profitLoss', obj1).subscribe((data: any) => {
+    this.http.post(this.url+'/reports/profitLoss', obj1).subscribe((data: any) => {
       // console.log(data);
       this.Start_code = data;
       this.end_code = data
@@ -161,8 +161,8 @@ View(event) {
   if (this.angForm.valid) {
     let obj = this.angForm.value
     this.showRepo = true;
-    let fromDate = moment(obj.date).format('DD/MM/YYYY');
-    let toDate = moment(obj.date).format('DD/MM/YYYY');
+    let fromDate = moment(obj.from_Date).format('DD/MM/YYYY');
+    let toDate = moment(obj.to_Date).format('DD/MM/YYYY');
     let branch = this.Branchname
     let type = this.type1
     let Rdio = obj.SUBMISSION

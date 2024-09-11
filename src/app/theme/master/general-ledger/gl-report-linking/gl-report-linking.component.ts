@@ -10,6 +10,7 @@ import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-maste
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { Console } from 'console';
 // import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 class DataTableResponse {
   data: any[];
@@ -17,8 +18,6 @@ class DataTableResponse {
   recordsFiltered: number;
   recordsTotal: number;
 }
-
-
 interface GlreportLink {
 
   SR_NO: number,
@@ -52,7 +51,9 @@ interface GlreportLink {
     ])
   ]
 })
+
 export class GlReportLinkingComponent implements OnInit {
+
 
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
@@ -71,20 +72,30 @@ export class GlReportLinkingComponent implements OnInit {
   //ddl
   drcr: any = [
     { id: 1, name: 'DEBIT' },
-    { id: 2, name: 'CREDIT' },];
+    { id: 2, name: 'CREDIT' },
+    { id: 3, name: 'NA' }
+  ];
+  defaultValue: number = 3; // The ID for 'NA'
+
 
   headName: any = [];
+  tabledata: any = [];
+  codedata: any = [];
+
   //ngmodel
   ngName
   ngHeadname
   ngReverse
   ngSub
   ngType
-  addButton: boolean = true;
-  updateButton: boolean = false;
+  // addButton: boolean = true;
+  updateButton: boolean = true;
+
+  searchAC_NO = '';
 
   // bsValue
   maxDate: any;
+  codeValues: any;
   constructor(private http: HttpClient, private fb: FormBuilder,
     private reportTypeDropdown: ReportTMasterDropdownService,
     // private schemeAccountNoService: SchemeAccountNoService,
@@ -98,7 +109,10 @@ export class GlReportLinkingComponent implements OnInit {
     })
   }
 
+  selectedDate: string | null = null;
+
   ngOnInit(): void {
+    
     this.createForm();
     this.dtExportButtonOptions = {
       pagingType: "full_numbers",
@@ -148,21 +162,21 @@ export class GlReportLinkingComponent implements OnInit {
         // }));
       },
       columns: [
-        {
-          title: 'Action',
-        },
+        // {
+        //   title: 'Action',
+        // },
         {
           title: 'Sr No',
           data: 'SR_NO'
         },
         {
           title: 'General Ledger Account No',
-          data: 'AC_NO'
+          data: 'acno'
         },
-        // {
-        //   title: 'General Ledger  Account Name',
-        //   data: 'AC_NAME'
-        // },
+        {
+          title: 'General Ledger  Account Name',
+          data: 'acname'
+        },
         {
           title: 'Effect From Date',
           data: 'EFFECT_DATE'
@@ -172,12 +186,12 @@ export class GlReportLinkingComponent implements OnInit {
           data: 'EFFECT_TO_DATE'
         },
         {
-          title: 'Head Code',
-          data: 'CODE_TYPE'
+          title: 'Head Code / Name',
+          data: 'CODE / NAME'
         },
         // {
         //   title: 'Head Name',
-        //   data: 'CODE_TYPE'
+        //   data: 'NAME'
         // },
         // {
         //   title: 'Default Balance Type',
@@ -188,9 +202,13 @@ export class GlReportLinkingComponent implements OnInit {
         //   data: 'REVERSE_CODE'
         // },
         // {
-        //   title: 'Sub Column',
-        //   data: 'SUB_COLUMN_NO'
+        //   title: 'Name',
+        //   data: 'NAME'
         // },
+        {
+          title: 'Sub Column',
+          data: 'SUB_COLUMN'
+        },
       ],
       dom: 'Blrtip',
     };
@@ -200,13 +218,91 @@ export class GlReportLinkingComponent implements OnInit {
     this.http.post(this.url + '/gl-account-master/reportMasterList', '').subscribe(data => {
       this.headName = data;
     })
+
+
   }
+
+  report
+  selectedCategory: string | null = null;
+
+  REPORT_TYPE
+  onExpensesClick(reportType: string): void {
+    this.selectedCategory = reportType; 
+    this.REPORT_TYPE = reportType;
+
+    const obj = {
+      REPORT_TYPE: this.REPORT_TYPE ? this.REPORT_TYPE : this.selectedCategory
+    };
+
+    this.http.post(this.url + '/gl-account-master/gllinkrecords', obj).subscribe(data => {
+      this.tabledata = data;
+      console.log("TABLE DATA......", this.tabledata);
+    });
+
+
+
+    this.http.post(this.url + '/gl-account-master/gllinkrecordsglreportmstrcode', obj).subscribe(data => {
+      this.codedata = data;
+      console.log("CODE DATA......", this.codedata);
+    
+      //code dropdown
+      // this.codeValues = this.codedata
+      //   .map(item => item.CODE)
+      //   .filter(code => code !== null && code !== '');
+
+      this.codeValues = this.codedata
+  .filter(item => item.CODE !== null && item.CODE !== '')
+  .map(item => ({ name: item.NAME, code: item.CODE }));
+
+      console.log("Code Values for Dropdown:", this.codeValues);
+    });
+  }
+
+  //data filter
+  // get filteredTableData() {
+  //   const searchTerm = this.searchAC_NO ? this.searchAC_NO.trim() : '';
+
+
+  //   if (!searchTerm) {
+  //     return this.tabledata;
+  //   }
+
+  //   const filtered = this.tabledata.filter(data =>
+  //     data.AC_NO.includes(searchTerm)
+  //   );
+
+  //   console.log('AC_NO Filtered Data:', filtered);
+  //   return filtered;
+  // }
+
+  // filteredData: any[] = [];
+  // filterTableData() {
+  //   let accountNumberFilter = this.angForm.get('accountNumber').value.trim().toLowerCase();
+  //   let codeFilter = this.angForm.get('code').value.trim().toLowerCase();
+  
+  //   this.filteredData = this.tabledata.filter(data => {
+  //     let accountNumber = data.acno ? data.acno.toString().toLowerCase() : '';
+  //     let code = data.CODE ? data.CODE.toString().toLowerCase() : '';
+      
+  //     let matchesAccountNumber = accountNumber.includes(accountNumberFilter);
+  //     let matchesCode = code.includes(codeFilter);
+      
+  //     return (accountNumberFilter ? matchesAccountNumber : true) && 
+  //            (codeFilter ? matchesCode : true);
+  //   });
+  // }
+
+
   createForm() {
     this.angForm = this.fb.group({
       AC_NO: ["", [Validators.required]],
       EFFECT_DATE: ["", [Validators.required]],
       EFFECT_TO_DATE: ["", [Validators.required]],
       CODE_TYPE: ["", [Validators.required]],
+      accountNumber: [''],
+      code: ['']
+
+
       // DEFAULT_BALTYPE: ["", [Validators.required]],
       // REVERSE_CODE: ["", [Validators.required]],
       // SUB_COLUMN_NO: ["", [Validators.required]],
@@ -216,75 +312,135 @@ export class GlReportLinkingComponent implements OnInit {
     });
   }
 
-  addData() {
-    const formVal = this.angForm.value;
-    var dataToSend = {
-      SR_NO: formVal.SR_NO,
-      AC_NO: formVal.AC_NO,
-      // AC_NAME:  formVal.AC_NAME,
-      EFFECT_DATE: moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
-      EFFECT_TO_DATE: moment(formVal.EFFECT_TO_DATE).format('DD/MM/YYYY'),
-      CODE: formVal.CODE,
-      CODE_TYPE: formVal.CODE_TYPE,
-      // DEFAULT_BALTYPE: formVal.DEFAULT_BALTYPE,
-      // REVERSE_CODE: formVal.REVERSE_CODE,
-      // SUB_COLUMN_NO: formVal.SUB_COLUMN_NO,
-    }
-    this.resetForm();
-    this.glLinkingMasterService.postLData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-    }, (error) => {
-      console.log(error)
-    })
-  }
+  // addData() {
+  //   const formVal = this.angForm.value;
+  //   var dataToSend = {
+  //     SR_NO: formVal.SR_NO,
+  //     AC_NO: formVal.AC_NO,
+  //     // AC_NAME:  formVal.AC_NAME,
+  //     EFFECT_DATE: moment(formVal.EFFECT_DATE).format('DD/MM/YYYY'),
+  //     EFFECT_TO_DATE: moment(formVal.EFFECT_TO_DATE).format('DD/MM/YYYY'),
+  //     CODE: formVal.CODE,
+  //     CODE_TYPE: formVal.CODE_TYPE,
+  //     // DEFAULT_BALTYPE: formVal.DEFAULT_BALTYPE,
+  //     // REVERSE_CODE: formVal.REVERSE_CODE,
+  //     // SUB_COLUMN_NO: formVal.SUB_COLUMN_NO,
+  //   }
+  //   this.resetForm();
+  //   this.glLinkingMasterService.postLData(dataToSend).subscribe(data1 => {
+  //     Swal.fire('Success!', 'Data Added Successfully !', 'success');
+  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //       dtInstance.ajax.reload()
+  //     });
+  //   }, (error) => {
+  //     console.log(error)
+  //   })
+  // }
 
   //function for edit button clicked
-  editClickHandler(id) {
-    this.addButton = false;
-    this.updateButton = true;
-    this.glLinkingMasterService.getFromLData(id).subscribe(data => {
-      this.updateID = data.id;
-      this.effectdate = moment(data.EFFECT_DATE, 'DD/MM/YYYY')
-      this.effectdate = this.effectdate._d
-      this.angForm.patchValue({
-        SR_NO: data.SR_NO,
-        AC_NO: data.AC_NO,
-        // AC_NAME:  data.AC_NAME,
-        EFFECT_DATE: data.EFFECT_DATE,
-        EFFECT_TO_DATE: data.EFFECT_TO_DATE,
-        CODE: data.CODE,
-        CODE_TYPE: Number(data.CODE_TYPE),
+  // editClickHandler(id) {
+    // this.addButton = false;
+    // this.updateButton = true;
+    // this.glLinkingMasterService.getFromLData(id).subscribe(data => {
+    //   this.updateID = data.id;
+    //   this.effectdate = moment(data.EFFECT_DATE, 'DD/MM/YYYY')
+    //   this.effectdate = this.effectdate._d
+    //   this.angForm.patchValue({
+    //     SR_NO: data.SR_NO,
+    //     AC_NO: data.AC_NO,
+    //     AC_NAME:  data.AC_NAME,
+    //     EFFECT_DATE: data.EFFECT_DATE,
+    //     EFFECT_TO_DATE: data.EFFECT_TO_DATE,
+    //     CODE: data.CODE,
+    //     CODE_TYPE: Number(data.CODE_TYPE),
         // DEFAULT_BALTYPE: data.DEFAULT_BALTYPE,
         // REVERSE_CODE: Number(data.REVERSE_CODE),
         // SUB_COLUMN_NO: data.SUB_COLUMN_NO,
-      })
-    })
-  }
+  //     })
+  //   })
+  // }
 
-  //function toggle update to add button
-  updateData() {
-    //  this.addButton = true;
-    // this.updateButton = false;
-    let data = this.angForm.value;
-    data['id'] = this.updateID;
-    let EFFECT_DATE = moment(data.EFFECT_DATE, 'DD/MM/YYYY')
-    data['EFFECT_DATE'] = moment(EFFECT_DATE).format('DD/MM/YYYY')
-    let EFFECT_TODATE = moment(data.EFFECT_TO_DATE, 'DD/MM/YYYY')
-    data['EFFECT_TO_DATE'] = moment(EFFECT_TODATE).format('DD/MM/YYYY')
 
-    this.glLinkingMasterService.updateLData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-      this.addButton = true;
-      this.updateButton = false;
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      this.resetForm();
-    })
+  updateCell(data: any, field: string, event: any): void {
+    if (data[field] !== event.target.innerText) {
+        data[field] = event.target.innerText; // Update the value
+        data.modified = true; // Mark as modified
+    }
+}
+
+// updateDropdown(data: any, field: string, event: any): void {
+//     if (data[field] !== event.target.value) {
+//         data[field] = event.target.value; // Update the value
+//         data.modified = true; // Mark as modified
+//     }
+// }
+
+updateDropdown(data: any, event: any): void {
+  const selectedCode = event.target.value;
+  
+  if (data.CODE !== selectedCode) {
+      const selectedItem = this.codeValues.find(item => item.code === selectedCode);
+      
+      if (selectedItem) {
+          data.CODE = selectedItem.code;
+          data.NAME = selectedItem.name;
+          data.modified = true; 
+      } else {
+          data.CODE = selectedCode;
+          data.NAME = ''; 
+          data.modified = true;
+      }
   }
+}
+
+updateData(): void {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'Do you want to update the record(s)?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, update it!',
+    cancelButtonText: 'No, cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const updatedData = this.tabledata
+        .filter(row => row.modified) 
+        .map(row => {
+          const updatedRow: any = {
+            AC_NO: row.AC_NO, 
+            acno: row.acno, 
+            acname: row.acname, 
+            id: row.id, 
+            EFFECT_TO_DATE : row.EFFECT_TO_DATE,
+            EFFECT_DATE : row.EFFECT_DATE,
+            NAME : row.NAME,
+            CODE : row.CODE,
+            SUB_COLUMN : row.SUB_COLUMN,
+            REPORT_TYPE: row.REPORT_TYPE != null ? row.REPORT_TYPE : this.selectedCategory
+
+          };
+          return updatedRow;
+        });
+
+      if (updatedData.length > 0) {
+        this.glLinkingMasterService.updateLData({ updatedData }).subscribe(() => {
+          Swal.fire('Success!', 'Record Updated Successfully!', 'success');
+          
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.ajax.reload();
+          });
+          this.resetForm();
+        });
+      } else {
+        Swal.fire('No Changes', 'There are no changes to update.', 'info');
+      }
+    } else {
+      Swal.fire('Cancelled', 'No changes were made.', 'error');
+    }
+  });
+}
 
   //reset form
   resetForm() {

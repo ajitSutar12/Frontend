@@ -45,7 +45,7 @@ const routes: Routes = [
         path: 'yearEndBranchwise',
         loadChildren: () => import('./year-end-branchwise/year-end-branchwise.module').then(m => m.YearEndBranchwiseModule)
       },
-
+      
 
     ]
   }

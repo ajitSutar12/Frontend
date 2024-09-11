@@ -2576,6 +2576,8 @@ export class MultiVoucherComponent implements OnInit {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
   }
+
+  // pooja
   resetForm() {
 
     this.angForm.controls['token'].reset()
@@ -2607,6 +2609,9 @@ export class MultiVoucherComponent implements OnInit {
     this.maturityamt = null;
     this.ClearBalance = null;
     this.AfterVoucher = null;
+
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
 
 
     if (this.headData) {

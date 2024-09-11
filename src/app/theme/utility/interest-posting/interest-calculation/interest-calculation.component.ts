@@ -157,6 +157,7 @@ export class InterestCalculationComponent implements OnInit {
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
           this.modalClass = 'modalHide';
           Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          this.selectedSchemeData = [];
           this.ngOnInit()
           this.showButton = true;
         },
@@ -168,7 +169,7 @@ export class InterestCalculationComponent implements OnInit {
           (error) => {
             console.log(error, 'err')
             this.modalClass = 'modalHide';
-            Swal.fire('Oops!', error?.error?.message, 'error');
+            Swal.fire('No Records Found!', error?.error?.message, 'warning');
             this.showButton = true;
           })
       }
@@ -196,12 +197,13 @@ export class InterestCalculationComponent implements OnInit {
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
           Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          this.selectedSchemeData = [];
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
           console.log(error, 'err')
           this.modalClass = 'modalHide';
-          Swal.fire('Oops!', error?.error?.message, 'error');
+          Swal.fire('No Records Found!', error?.error?.message, 'warning');
           this.showButton = true;
         })
       }
@@ -228,6 +230,7 @@ export class InterestCalculationComponent implements OnInit {
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
           Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          this.selectedSchemeData = [];
           this.ngOnInit()
           this.showButton = true;
         }, err => {

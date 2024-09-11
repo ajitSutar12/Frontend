@@ -147,7 +147,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   date: any;
   totalAmt: any = 0;
   showChequeDetails: boolean = false;
-  DayOpBal: number = 0.00;
+  DayOpBal: any = 0;
   headData: any;
   headShow: boolean = false;
   lastday: any;
@@ -504,7 +504,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
             cashRadio.disabled = true;
             let obj1 = { DEPO_AC_NO: event.bankacno };
 
-            this.http.post<any>('http://192.168.1.174:7265/term-deposits-master/ownDeposit', obj1).subscribe(
+            this.http.post<any>(this.url + '/term-deposits-master/ownDeposit', obj1).subscribe(
               (demo: any) => {
                 // console.log(demo);
                 this.getdata = demo
@@ -519,7 +519,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
                 let acType = { AC_TYPE: demo[0].AC_TYPE }
 
                 // Second POST request
-                this.http.post<any>('http://192.168.1.174:7265/scheme-parameters/AC_TYPE', acType).subscribe(
+                this.http.post<any>(this.url + '/scheme-parameters/AC_TYPE', acType).subscribe(
                   (response: any) => {
                     this.getscheme = response
                     if (response && response.length > 0) {
@@ -583,12 +583,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
         })
         this.intRateShow = 0
       }
-      if (data[0].preMature == '1') {
+      if (data[0].preMature == '1') {        //pooja
         this.angForm.patchValue({
-          InterestRate: Math.abs(Number(this.multiField) - Number(this.prematureRate))
+          InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)
         })
         this.afterMaturedInt = false
-        this.intRateShow = Math.abs(Number(this.multiField) - Number(this.prematureRate))
+        this.intRateShow = Number(data[0].prematureRate) - Number(this.prematureRate)
         if (data[0].post_Interest < 0) {
           this.angForm.patchValue({
             // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
@@ -697,7 +697,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     let obj = { DEPO_AC_NO: event.bankacno };
 
-    this.http.post<any>('http://192.168.1.157:4771/term-deposits-master/ownDeposit', obj)
+    this.http.post<any>(this.url + '/term-deposits-master/ownDeposit', obj)
       .subscribe(
         (data: any) => {
           this.getdata = data;
@@ -1200,7 +1200,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     };
 
-    this.http.post<any>('http://192.168.1.108:7266/voucher/getInputHeadBal', obj).subscribe((data1: any) => {
+    this.http.post<any>(this.url + '/voucher/getInputHeadBal', obj).subscribe((data1: any) => {
       this.balancedata = data1;
       // console.log(data1);
 
@@ -2235,117 +2235,213 @@ export class TermDepositAccountClosingComponent implements OnInit {
   DayOpBalance
   passextension
   unpassextension
+  // SideDetails() {
+  //   //debugger
+  //   this.AfterVoucher = 0
+  //   this.extenstionaftervoucher = ''
+  //   // this.angForm.controls['amt'].reset()
+  //   // this.angForm.controls['total_amt'].reset()
+  //   this.SideView = true
+  //   if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC' || this.submitCustomer.AC_ACNOTYPE == 'DS') {
+  //     this.ShowLNCC = true
+  //     this.ShownotLNCC = false
+  //     this.sanctionamt = (this.submitCustomer.AC_SANCTION_AMOUNT != null ? this.submitCustomer.AC_SANCTION_AMOUNT : 0)
+  //     this.sanctionamt = Number(this.sanctionamt).toFixed(2)
+  //     this.sanctiondate = (this.submitCustomer.AC_SANCTION_DATE != null ? this.submitCustomer.AC_SANCTION_DATE : '---')
+  //     this.expirydate = (this.submitCustomer.AC_EXPIRE_DATE != null ? this.submitCustomer.AC_EXPIRE_DATE : '---')
+  //     this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
+  //     this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
+  //     this.renewaldate = (this.submitCustomer.AC_OPEN_OLD_DATE != null ? this.submitCustomer.AC_OPEN_OLD_DATE : '---')
+  //   } else if (this.submitCustomer.AC_ACNOTYPE == 'TD' || this.submitCustomer.AC_ACNOTYPE == 'PG' || this.submitCustomer.AC_ACNOTYPE == 'IV') {
+  //     this.ShowLNCC = false
+  //     this.ShownotLNCC = true
+  //     this.expirydate = (this.submitCustomer.AC_EXPDT != null ? this.submitCustomer.AC_EXPDT : '---')
+  //     this.maturityamt = (this.submitCustomer.AC_MATUAMT != null ? this.submitCustomer.AC_MATUAMT : 0)
+  //     this.maturityamt = Number(this.maturityamt).toFixed(2)
+  //     this.depositamt = (this.submitCustomer.AC_SCHMAMT != null ? this.submitCustomer.AC_SCHMAMT : 0)
+  //     this.depositamt = Number(this.depositamt).toFixed(2)
+  //     this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
+  //     this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
+  //   } else {
+  //     this.ShowLNCC = false
+  //     this.ShownotLNCC = false
+  //   }
+  //   if (this.submitCustomer.AC_ACNOTYPE == 'PG') {
+  //     let obj = {
+  //       scheme: this.Submitscheme.S_APPL,
+  //       acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+  //       date: addInFrom,
+  //       branch: this.branchCODE
+
+  //     }
+  //     this._service.getpigmychartBalance(obj).subscribe(data2 => {
+  //       console.log(data2, 'pigmy');
+  //       this.pigmyamount = data2
+  //     })
+  //   }
+
+  //   this.submitCustomer.AC_ODAMT == undefined ? this.submitCustomer.AC_ODAMT = 0 : this.submitCustomer.AC_ODAMT = this.submitCustomer.AC_ODAMT
+  //   this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
+  //   this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
+  //   this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
+
+  //   var startdate = this.angForm.controls['date'].value
+
+  //   let formDT = moment(startdate, 'DD/MM/YYYY')
+  //   var addInFrom: any;
+  //   // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+  //   //   addInFrom = startdate;
+  //   // } else {
+  //   addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+  //   // }
+  //   let obj = {
+  //     scheme: this.Submitscheme.S_APPL,
+  //     acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+  //     date: addInFrom,
+  //     branch: this.branchCode
+
+  //   }
+
+  //   this._service.getledgerbalance(obj).subscribe(data => {
+
+  //     //debugger
+  //     this.DayOpBal = Math.abs(data);
+  //     this.DayOpBalance = Number(this.DayOpBal).toFixed(2)
+  //     if (data < 0) {
+  //       this.extensionopenbal = 'Cr'
+  //     } else {
+  //       this.extensionopenbal = 'Dr'
+  //     }
+  //     //debugger
+  //     this.tempDayOpBal = data;
+  //     if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0 && this.Submitscheme.S_INSTTYPE == '0') {
+  //       this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+  //     }
+  //     if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+  //       this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+  //     if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
+  //       this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+  //     if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+  //       this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
+  //     this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
+  //       this.Pass = Math.abs(data1.passedamt).toFixed(2)
+  //       this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
+  //       this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+  //       this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+  //       // this.ClearBalance = this.DayOpBal + this.Pass
+  //       var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+  //       var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+  //       var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
+
+  //       // let value = open + pass + data2;
+  //       // let value = open + pass + this.pigmyamount;
+  //       let value = open + pass;
+  //       if (value < 0) {
+  //         this.ClearBalance = Math.abs(value).toFixed(2)
+  //         this.typeclearbal = 'Dr'
+  //       } else {
+  //         this.ClearBalance = Math.abs(value).toFixed(2)
+  //         this.typeclearbal = 'Cr'
+  //       }
+  //     })
+  //   })
+
+  // }
+
+// change by pooja
   SideDetails() {
-    //debugger
+    // debugger
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     // this.angForm.controls['amt'].reset()
     // this.angForm.controls['total_amt'].reset()
     this.SideView = true
-    if (this.submitCustomer.AC_ACNOTYPE == 'LN' || this.submitCustomer.AC_ACNOTYPE == 'CC' || this.submitCustomer.AC_ACNOTYPE == 'DS') {
+    if (this.submitAccountNo.AC_ACNOTYPE == 'LN' || this.submitAccountNo.AC_ACNOTYPE == 'CC' || this.submitAccountNo.AC_ACNOTYPE == 'DS') {
       this.ShowLNCC = true
       this.ShownotLNCC = false
-      this.sanctionamt = (this.submitCustomer.AC_SANCTION_AMOUNT != null ? this.submitCustomer.AC_SANCTION_AMOUNT : 0)
+      this.sanctionamt = (this.submitAccountNo.AC_SANCTION_AMOUNT != null ? this.submitAccountNo.AC_SANCTION_AMOUNT : 0)
       this.sanctionamt = Number(this.sanctionamt).toFixed(2)
-      this.sanctiondate = (this.submitCustomer.AC_SANCTION_DATE != null ? this.submitCustomer.AC_SANCTION_DATE : '---')
-      this.expirydate = (this.submitCustomer.AC_EXPIRE_DATE != null ? this.submitCustomer.AC_EXPIRE_DATE : '---')
-      this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
-      this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
-      this.renewaldate = (this.submitCustomer.AC_OPEN_OLD_DATE != null ? this.submitCustomer.AC_OPEN_OLD_DATE : '---')
-    } else if (this.submitCustomer.AC_ACNOTYPE == 'TD' || this.submitCustomer.AC_ACNOTYPE == 'PG' || this.submitCustomer.AC_ACNOTYPE == 'IV') {
+      this.sanctiondate = (this.submitAccountNo.AC_SANCTION_DATE != null ? this.submitAccountNo.AC_SANCTION_DATE : '---')
+      this.expirydate = (this.submitAccountNo.AC_EXPIRE_DATE != null ? this.submitAccountNo.AC_EXPIRE_DATE : '---')
+      this.asondate = (this.submitAccountNo.AC_ASON_DATE != null ? this.submitAccountNo.AC_ASON_DATE : '---')
+      this.opendate = (this.submitAccountNo.AC_OPDATE != null ? this.submitAccountNo.AC_OPDATE : '---')
+      this.renewaldate = (this.submitAccountNo.AC_OPEN_OLD_DATE != null ? this.submitAccountNo.AC_OPEN_OLD_DATE : '---')
+    } else if (this.submitAccountNo.AC_ACNOTYPE == 'TD' || this.submitAccountNo.AC_ACNOTYPE == 'PG' || this.submitAccountNo.AC_ACNOTYPE == 'IV') {
       this.ShowLNCC = false
       this.ShownotLNCC = true
-      this.expirydate = (this.submitCustomer.AC_EXPDT != null ? this.submitCustomer.AC_EXPDT : '---')
-      this.maturityamt = (this.submitCustomer.AC_MATUAMT != null ? this.submitCustomer.AC_MATUAMT : 0)
+      this.expirydate = (this.submitAccountNo.AC_EXPDT != null ? this.submitAccountNo.AC_EXPDT : '---')
+      this.maturityamt = (this.submitAccountNo.AC_MATUAMT != null ? this.submitAccountNo.AC_MATUAMT : 0)
       this.maturityamt = Number(this.maturityamt).toFixed(2)
-      this.depositamt = (this.submitCustomer.AC_SCHMAMT != null ? this.submitCustomer.AC_SCHMAMT : 0)
+      this.depositamt = (this.submitAccountNo.AC_SCHMAMT != null ? this.submitAccountNo.AC_SCHMAMT : 0)
       this.depositamt = Number(this.depositamt).toFixed(2)
-      this.asondate = (this.submitCustomer.AC_ASON_DATE != null ? this.submitCustomer.AC_ASON_DATE : '---')
-      this.opendate = (this.submitCustomer.AC_OPDATE != null ? this.submitCustomer.AC_OPDATE : '---')
+      this.asondate = (this.submitAccountNo.AC_ASON_DATE != null ? this.submitAccountNo.AC_ASON_DATE : '---')
+      this.opendate = (this.submitAccountNo.AC_OPDATE != null ? this.submitAccountNo.AC_OPDATE : '---')
     } else {
       this.ShowLNCC = false
       this.ShownotLNCC = false
     }
-    if (this.submitCustomer.AC_ACNOTYPE == 'PG') {
-      let obj = {
-        scheme: this.Submitscheme.S_APPL,
-        acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
-        date: addInFrom,
-        branch: this.branchCODE
-
-      }
-      this._service.getpigmychartBalance(obj).subscribe(data2 => {
-        console.log(data2, 'pigmy');
-        this.pigmyamount = data2
-      })
-    }
-
-    this.submitCustomer.AC_ODAMT == undefined ? this.submitCustomer.AC_ODAMT = 0 : this.submitCustomer.AC_ODAMT = this.submitCustomer.AC_ODAMT
-    this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
-    this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
+    this.overdraftAmt = Number(this.submitAccountNo.AC_ODAMT) + Number(this.submitAccountNo.AC_SODAMT)
     this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
 
     var startdate = this.angForm.controls['date'].value
-
+    // startdate = startdate.subtract(1, 'd');
+    // startdate = startdate.format("DD-MM-YYYY");
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom: any;
-    // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
-    //   addInFrom = startdate;
-    // } else {
-    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
-    // }
+    if (this.submitScheme.S_ACNOTYPE == 'PG') {
+      addInFrom = startdate;
+    } else {
+      addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    }
     let obj = {
-      scheme: this.Submitscheme.S_APPL,
-      acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
+      scheme: this.submitScheme.S_APPL,
+      acno: this.submitScheme.S_APPL == '980' ? this.submitAccountNo.AC_NO : this.submitAccountNo.BANKACNO,
       date: addInFrom,
       branch: this.branchCode
 
     }
-
-    this._service.getledgerbalance(obj).subscribe(data => {
-
-      //debugger
-      this.DayOpBal = Math.abs(data);
-      this.DayOpBalance = Number(this.DayOpBal).toFixed(2)
-      if (data < 0) {
-        this.extensionopenbal = 'Cr'
-      } else {
-        this.extensionopenbal = 'Dr'
-      }
-      //debugger
-      this.tempDayOpBal = data;
-      if (this.submitCustomer.AC_ACNOTYPE == 'TD' && this.Submitscheme.INTEREST_RULE == "0" && this.Submitscheme.IS_RECURRING_TYPE == "0" && this.Submitscheme.IS_CALLDEPOSIT_TYPE == "0" && this.Submitscheme.REINVESTMENT == "0" && Number(this.DayOpBal) > 0 && this.Submitscheme.S_INSTTYPE == '0') {
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
-      }
-      if (this.Submitscheme?.S_ACNOTYPE == 'TD' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'PG' && this.Submitscheme?.WITHDRAWAL_APPLICABLE == '0')
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
-      if (this.Submitscheme?.S_ACNOTYPE == 'LN' && this.Submitscheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
-        this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4 && ele.id !== 9)
-      this._service.getPassedUnpassedBalance(obj).subscribe(data1 => {
-        this.Pass = Math.abs(data1.passedamt).toFixed(2)
-        this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
-        this.passextension = (data1.passextension != undefined ? data1.passextension : '')
-        this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
-        // this.ClearBalance = this.DayOpBal + this.Pass
-        var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
-        var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
-        var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
-
-        // let value = open + pass + data2;
-        // let value = open + pass + this.pigmyamount;
-        let value = open + pass;
-        if (value < 0) {
-          this.ClearBalance = Math.abs(value).toFixed(2)
-          this.typeclearbal = 'Dr'
+    //
+    this._vservice.getpigmychartBalance(obj).subscribe(data2 => {
+      this._vservice.getledgerbalance(obj).subscribe(data => {
+        this.DayOpBal = Math.abs(data);
+        this.DayOpBal = Number(this.DayOpBal).toFixed(2)
+        if (data < 0) {
+          this.extensionopenbal = 'Cr'
         } else {
-          this.ClearBalance = Math.abs(value).toFixed(2)
-          this.typeclearbal = 'Cr'
+          this.extensionopenbal = 'Dr'
         }
+        this.tempDayOpBal = data;
+        if (this.submitScheme.S_ACNOTYPE == 'TD' && this.submitScheme.INTEREST_RULE == "0" && this.submitScheme.IS_RECURRING_TYPE == "0" && this.submitScheme.IS_CALLDEPOSIT_TYPE == "0" && this.submitScheme.REINVESTMENT == "0" && Math.abs(Number(this.DayOpBal)) > 0 && this.submitScheme.S_INSTTYPE == '0') {
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 1)
+        }
+        if (this.submitScheme?.S_ACNOTYPE == 'TD' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'PG' && this.submitScheme?.WITHDRAWAL_APPLICABLE == '0')
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        if (this.submitScheme?.S_ACNOTYPE == 'LN' && this.submitScheme?.IS_DEPO_LOAN == '1' && Number(this.DayOpBal) > 0)
+          this.tranModeList = this.tranModeList.filter(ele => ele.id !== 4)
+        this._vservice.getPassedUnpassedBalance(obj).subscribe(data1 => {
+          //
+          this.Pass = Math.abs(data1.passedamt).toFixed(2)
+          this.Unpass = Math.abs(data1.unpassamt).toFixed(2)
+          this.passextension = (data1.passextension != undefined ? data1.passextension : '')
+          this.unpassextension = (data1.unpassextension != undefined ? data1.unpassextension : '')
+          // this.ClearBalance = this.DayOpBal + this.Pass
+          var open = (this.tempDayOpBal <= 0 ? Math.abs(this.tempDayOpBal) : (-this.tempDayOpBal))
+          var pass = (data1.passedamt <= 0 ? Math.abs(data1.passedamt) : (-data1.passedamt))
+          var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
+          this.pigmyamount = data2
+          let value = open + pass + data2;
+          if (value < 0) {
+            this.ClearBalance = Math.abs(value).toFixed(2)
+            this.typeclearbal = 'Dr'
+          } else {
+            this.ClearBalance = Math.abs(value).toFixed(2)
+            this.typeclearbal = 'Cr'
+          }
+        })
       })
     })
-
   }
   updateheadbalance(ChequeDate) {
 
@@ -3389,217 +3485,379 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   updatecheckdata
+  // editClickHandler(id) {
+  //   this._TDService.getFormData(id).subscribe((data1) => {
+  //     this.angForm.enable();
+  //     this.updatecheckdata = data1
+  //     if (data1.TRAN_STATUS == '0') {
+  //       this.showButton = false;
+  //       this.updateShow = true;
+  //       this.newbtnShow = true;
+  //       this.approveShow = true;
+  //       this.rejectShow = true
+  //       this.unapproveShow = false
+  //     } else if (data1.TRAN_STATUS != '0') {
+  //       this.showButton = false;
+  //       this.updateShow = false;
+  //       this.newbtnShow = true;
+  //       this.approveShow = false;
+  //       this.rejectShow = false
+  //       this.unapproveShow = true
+  //     } else {
+  //       this.showButton = false;
+  //       this.updateShow = false;
+  //       this.newbtnShow = true;
+  //       this.approveShow = false;
+  //       this.rejectShow = false
+  //       this.unapproveShow = false
+  //     }
+  //     this.date = data1.TRAN_DATE
+  //     this.updateID = data1.id;
+  //     this.getschemename = data1.TRAN_ACNOTYPE
+  //     this.selectedScheme = Number(data1.TRAN_ACTYPE)
+  //     this.selectedBranch = data1.BRANCH_CODE
+  //     this.customerId = data1.customerID
+  //     this.dormant = data1.dormant
+  //     this.monthDays = data1.SCHEME.S_INTCALTP
+
+  //     data1.IS_PREMATURE_CLOSE == '1' ? this.preMature = true : this.preMature = false
+  //     this.getIntroducer()
+  //     this.customer = data1.TRAN_ACNO
+  //     this.bankacno = data1.TRAN_ACNO
+  //     let mem = [this.bankacno, this.getschemename, this.selectedScheme]
+  //     this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
+  //       if (Number(data[0].LedgerBal) > 0) {
+  //         Swal.fire('Oops', 'Account cannot close', 'error')
+  //         return
+  //       }
+  //       this.DayOpBal = data[0].AC_SCHMAMT
+  //       this.Pass = data[0].AC_MATUAMT
+  //       this.INTRATE = data[0].AC_INTRATE
+  //       this.lastIntDate = data[0].AC_LINTEDT
+  //       this.opDate = data[0].AC_OPDATE
+  //       this.asOnDate = data[0].AC_ASON_DATE
+  //       this.maturityDate = data[0].AC_EXPDT
+  //       this.recNo = data[0].AC_REF_RECEIPTNO
+  //       this.operator = data[0].operation
+  //       this.months = data[0].AC_MONTHS
+  //       this.days = data[0].AC_DAYS
+  //       this.interestCategory = data[0].AC_INTCATA
+  //       this.preMature = data[0].preMature
+
+  //       this.angForm.patchValue({
+  //         LEDGER_BAL: Number(Math.abs(data[0].LedgerBal)).toFixed(2),
+  //         PAYABLE_INTAMT: Number(Math.abs(data[0].payableInterest)).toFixed(2),
+  //         TDS_AMT: Number(data[0].tds_amt),
+  //         PENAL_INT: Number(data[0].penalInterest)
+  //       })
+  //       if (this.isInterestApplicable == '1') {
+  //         this.angForm.patchValue({
+  //           InterestRate: data[0].AC_INTRATE
+  //         })
+  //         this.intRateShow = data[0].AC_INTRATE
+  //       }
+  //       else {
+  //         this.angForm.patchValue({
+  //           InterestRate: '0'
+  //         })
+  //         this.intRateShow = 0
+  //       }
+  //       if (data[0].post_Interest < 0) {
+  //         this.angForm.patchValue({
+  //           // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
+  //           NET_INTAMT: Number(data[0].post_Interest).toFixed(0),
+  //           POSTED_INT: 0,
+  //         })
+  //         this.NET_EXC_INTAMT = Number(data[0].post_Interest)
+  //       }
+  //       else if (data[0].post_Interest > 0) {
+  //         this.angForm.patchValue({
+  //           POSTED_INT: Number(data[0].post_Interest).toFixed(2),
+  //           NET_INTAMT: 0
+  //           // EXCESS_INT: 0
+  //         })
+  //         this.NET_EXC_INTAMT = 0
+  //       }
+  //       else {
+  //         this.angForm.patchValue({
+  //           POSTED_INT: 0,
+  //           NET_INTAMT: 0
+  //           // EXCESS_INT: 0
+  //         })
+  //         this.NET_EXC_INTAMT = 0
+  //       }
+
+  //       if (data[0].preMature == '1') {
+  //         this.angForm.patchValue({
+  //           InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)
+  //         })
+  //         this.afterMaturedInt = false
+  //         this.intRateShow = Number(data[0].prematureRate) - Number(this.prematureRate)
+  //         this.getMonthDays()
+  //       }
+  //       else {
+  //         this.angForm.patchValue({
+  //           InterestRate: data[0].AC_INTRATE
+  //         })
+  //         this.intRateShow = data[0].AC_INTRATE
+  //         if (this.interestUptoCalDate == '1') {
+  //           this.afterMaturedInt = false
+  //           this.angForm.patchValue({
+  //             TOTAL_INT: Math.round(data[0].InterestAmount)  //FUNCTION AMT
+  //           })
+  //         }
+  //         else {
+  //           this.afterMaturedInt = true
+  //           var b = moment(this.maturityDate, "DD/MM/YYYY");
+  //           var a = moment(this.date, "DD/MM/YYYY");
+  //           let Days = b.diff(a, 'days');
+  //           let total_int = Math.abs(Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 100))
+  //           this.angForm.patchValue({
+  //             TOTAL_INT: Math.round(total_int)
+  //           })
+  //         }
+
+  //         if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
+  //           var b = moment(this.maturityDate, "DD/MM/YYYY");
+  //           var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+  //           let maturedDays = Math.abs(a.diff(b, 'days'))
+  //           let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
+  //           this.angForm.patchValue({
+  //             InterestRate: this.afterMatureIntRate,
+  //             MaturedDays: maturedDays,
+  //             TOTAL_INT: Math.round(total_int)
+  //           })
+  //           this.intRateShow = this.afterMatureIntRate
+  //           this.afterMaturedInt = false
+  //         }
+  //         else {
+  //           this.afterMaturedInt = true
+  //           var b = moment(this.maturityDate, "DD/MM/YYYY");
+  //           var a = moment(this.date, "DD/MM/YYYY")
+  //           let maturedDays = Math.abs(a.diff(b, 'days'))
+  //           this.angForm.patchValue({
+  //             MaturedDays: maturedDays,
+  //           })
+  //         }
+  //       }
+  //       let total_int = this.angForm.controls['TOTAL_INT'].value
+  //       let post_int = this.angForm.controls['POSTED_INT'].value
+  //       let netInt = (Math.abs(Number(total_int) - Number(post_int))).toFixed(0)
+  //       this.angForm.patchValue({
+  //         NET_INTAMT: (netInt)
+  //       })
+  //       this.NET_EXC_INTAMT = Number(total_int) - Number(post_int)
+  //       let ledgerAmt = Number(this.angForm.controls['LEDGER_BAL'].value)
+  //       let netAmt = Number(this.angForm.controls['NET_INTAMT'].value)
+  //       let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
+  //       let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
+  //       let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
+  //       this.totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt).toFixed(2) : (ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt).toFixed(2)
+  //       this.angForm.patchValue({
+  //         NETPAYABLEAMT: this.totalNetAmt
+  //       })
+  //       this.getNetPayAmount()
+  //       if (data1.TRAN_TYPE == 'TR') {
+  //         this.isTransfer = true
+  //         this.multigrid = data1.multigrid
+  //       }
+  //       else {
+  //         this.isTransfer = false
+  //       }
+  //       this.transferTotalAmount = Number(data1.NET_PAYABLE_AMOUNT)
+  //       this.angForm.patchValue({
+  //         type: data1.TRAN_TYPE == 'CS' ? 'cash' : data1.TRAN_TYPE == 'TR' ? 'transfer' : '',
+  //         TRAN_NO: data1.TRAN_NO,
+  //         branch_code: data1.BRANCH_CODE,
+  //         selectedScheme: Number(data1.SCHEME.S_NAME),
+  //         account_no: data1.TRAN_ACNO,
+  //         date: data1.TRAN_DATE,
+  //         SAVING_PIGMY: data1.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
+  //         chequeNo: data1.CHEQUE_NO,
+  //         ChequeDate: data1.CHEQUE_DATE,
+  //         LEDGER_BAL: Number(data1.LEDGER_BAL).toFixed(2),
+  //         // Token_Num: data1.TOKEN_NO,
+  //         PENAL_INT: data1.PENAL_INTEREST_AMOUNT,
+  //         InterestRate: data1.INTEREST_RATE,
+  //         maturedIntAmt: data1.AFT_MATURE_INT_AMT,
+  //         maturedInterest: data1.AFT_MATURE_INT_RATE,
+  //         POSTED_INT: data1.PAID_INTEREST_AMOUNT,
+  //         TOTAL_INT: data1.TOTAL_INTEREST_AMOUNT,
+  //         narration: data1.NARRATION,
+  //         NET_INTAMT: data1.NET_INTEREST_AMOUNT,
+  //         NETPAYABLEAMT: data1.NET_PAYABLE_AMOUNT,
+  //         PAYABLE_INTAMT: Number(data1.PAYABLE_INTEREST_AMOUNT).toFixed(2),
+  //         TDS_AMT: data1.TDS_AMOUNT,
+  //         SURCHARGE_AMT: data1.SURCHARGE_AMOUNT,
+  //         EXCESS_INT: data1.EXCESS_INT != 0 ? this.NET_EXC_INTAMT = data1.EXCESS_INT : this.NET_EXC_INTAMT = 0
+  //       })
+  //       // this.getEditData()
+  //       this.showCustomerDeatils()
+  //     })
+
+  //   })
+  // }
+  //change by pooja and mahesh sir
   editClickHandler(id) {
     this._TDService.getFormData(id).subscribe((data1) => {
       this.angForm.enable();
-      this.updatecheckdata = data1
+      this.updatecheckdata = data1;
+
+
       if (data1.TRAN_STATUS == '0') {
         this.showButton = false;
         this.updateShow = true;
         this.newbtnShow = true;
         this.approveShow = true;
-        this.rejectShow = true
-        this.unapproveShow = false
+        this.rejectShow = true;
+        this.unapproveShow = false;
       } else if (data1.TRAN_STATUS != '0') {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
         this.approveShow = false;
-        this.rejectShow = false
-        this.unapproveShow = true
+        this.rejectShow = false;
+        this.unapproveShow = true;
       } else {
         this.showButton = false;
         this.updateShow = false;
         this.newbtnShow = true;
         this.approveShow = false;
-        this.rejectShow = false
-        this.unapproveShow = false
+        this.rejectShow = false;
+        this.unapproveShow = false;
       }
-      this.date = data1.TRAN_DATE
+
+
+      this.date = data1.TRAN_DATE;
       this.updateID = data1.id;
-      this.getschemename = data1.TRAN_ACNOTYPE
-      this.selectedScheme = Number(data1.TRAN_ACTYPE)
-      this.selectedBranch = data1.BRANCH_CODE
-      this.customerId = data1.customerID
-      this.dormant = data1.dormant
-      this.monthDays = data1.SCHEME.S_INTCALTP
+      this.getschemename = data1.TRAN_ACNOTYPE;
+      this.selectedScheme = Number(data1.TRAN_ACTYPE);
+      this.selectedBranch = data1.BRANCH_CODE;
+      this.customerId = data1.customerID;
+      this.dormant = data1.dormant;
+      this.monthDays = data1.SCHEME.S_INTCALTP;
+      this.preMature = data1.IS_PREMATURE_CLOSE == '1';
 
-      data1.IS_PREMATURE_CLOSE == '1' ? this.preMature = true : this.preMature = false
-      this.getIntroducer()
-      this.customer = data1.TRAN_ACNO
-      this.bankacno = data1.TRAN_ACNO
-      let mem = [this.bankacno, this.getschemename, this.selectedScheme]
-      this.http.get(this.url + '/term-deposit-account-closing/details/' + mem).subscribe((data) => {
-        if (Number(data[0].LedgerBal) > 0) {
-          Swal.fire('Oops', 'Account cannot close', 'error')
-          return
-        }
-        this.DayOpBal = data[0].AC_SCHMAMT
-        this.Pass = data[0].AC_MATUAMT
-        this.INTRATE = data[0].AC_INTRATE
-        this.lastIntDate = data[0].AC_LINTEDT
-        this.opDate = data[0].AC_OPDATE
-        this.asOnDate = data[0].AC_ASON_DATE
-        this.maturityDate = data[0].AC_EXPDT
-        this.recNo = data[0].AC_REF_RECEIPTNO
-        this.operator = data[0].operation
-        this.months = data[0].AC_MONTHS
-        this.days = data[0].AC_DAYS
-        this.interestCategory = data[0].AC_INTCATA
-        this.preMature = data[0].preMature
+      this.getIntroducer();
+      this.customer = data1.TRAN_ACNO;
+      this.bankacno = data1.TRAN_ACNO;
 
-        this.angForm.patchValue({
-          LEDGER_BAL: Number(Math.abs(data[0].LedgerBal)).toFixed(2),
-          PAYABLE_INTAMT: Number(Math.abs(data[0].payableInterest)).toFixed(2),
-          TDS_AMT: Number(data[0].tds_amt),
-          PENAL_INT: Number(data[0].penalInterest)
-        })
-        if (this.isInterestApplicable == '1') {
-          this.angForm.patchValue({
-            InterestRate: data[0].AC_INTRATE
-          })
-          this.intRateShow = data[0].AC_INTRATE
-        }
-        else {
-          this.angForm.patchValue({
-            InterestRate: '0'
-          })
-          this.intRateShow = 0
-        }
-        if (data[0].post_Interest < 0) {
-          this.angForm.patchValue({
-            // EXCESS_INT: Number(data[0].post_Interest).toFixed(2),
-            NET_INTAMT: Number(data[0].post_Interest).toFixed(0),
-            POSTED_INT: 0,
-          })
-          this.NET_EXC_INTAMT = Number(data[0].post_Interest)
-        }
-        else if (data[0].post_Interest > 0) {
-          this.angForm.patchValue({
-            POSTED_INT: Number(data[0].post_Interest).toFixed(2),
-            NET_INTAMT: 0
-            // EXCESS_INT: 0
-          })
-          this.NET_EXC_INTAMT = 0
-        }
-        else {
-          this.angForm.patchValue({
-            POSTED_INT: 0,
-            NET_INTAMT: 0
-            // EXCESS_INT: 0
-          })
-          this.NET_EXC_INTAMT = 0
-        }
+      this.http.get(this.url + '/term-deposit-account-closing/details/' + [this.bankacno, this.getschemename, this.selectedScheme])
+        .subscribe((data) => {
 
-        if (data[0].preMature == '1') {
+
           this.angForm.patchValue({
-            InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)
-          })
-          this.afterMaturedInt = false
-          this.intRateShow = Number(data[0].prematureRate) - Number(this.prematureRate)
-          this.getMonthDays()
-        }
-        else {
-          this.angForm.patchValue({
-            InterestRate: data[0].AC_INTRATE
-          })
-          this.intRateShow = data[0].AC_INTRATE
-          if (this.interestUptoCalDate == '1') {
-            this.afterMaturedInt = false
+            LEDGER_BAL: Number(data[0].LedgerBal).toFixed(2),
+            PAYABLE_INTAMT: Number(data[0].payableInterest).toFixed(2),
+            TDS_AMT: Number(data[0].tds_amt),
+            PENAL_INT: Number(data[0].penalInterest)
+          });
+
+          if (this.isInterestApplicable == '1') {
             this.angForm.patchValue({
-              TOTAL_INT: Math.round(data[0].InterestAmount)  //FUNCTION AMT
-            })
+              InterestRate: data[0].AC_INTRATE
+            });
+            this.intRateShow = data[0].AC_INTRATE;
+          } else {
+            this.angForm.patchValue({
+              InterestRate: '0'
+            });
+            this.intRateShow = 0;
           }
-          else {
-            this.afterMaturedInt = true
-            var b = moment(this.maturityDate, "DD/MM/YYYY");
-            var a = moment(this.date, "DD/MM/YYYY");
-            let Days = b.diff(a, 'days');
-            let total_int = Math.abs(Days * (parseFloat(this.angForm.controls['InterestRate'].value) / 100))
+
+          if (data[0].post_Interest < 0) {
             this.angForm.patchValue({
-              TOTAL_INT: Math.round(total_int)
-            })
+              NET_INTAMT: Number(data[0].post_Interest).toFixed(0),
+              POSTED_INT: 0
+            });
+            this.NET_EXC_INTAMT = Number(data[0].post_Interest);
+          } else if (data[0].post_Interest > 0) {
+            this.angForm.patchValue({
+              POSTED_INT: Number(data[0].post_Interest).toFixed(2),
+              NET_INTAMT: 0
+            });
+            this.NET_EXC_INTAMT = 0;
+          } else {
+            this.angForm.patchValue({
+              POSTED_INT: 0,
+              NET_INTAMT: 0
+            });
+            this.NET_EXC_INTAMT = 0;
+          }
+
+          if (data[0].preMature == '1') {
+            this.angForm.patchValue({
+              InterestRate: Number(data[0].prematureRate) - Number(this.prematureRate)
+            });
+            this.afterMaturedInt = false;
+            this.intRateShow = Number(data[0].prematureRate) - Number(this.prematureRate);
+          } else {
+            this.angForm.patchValue({
+              InterestRate: data[0].AC_INTRATE
+            });
+            this.intRateShow = data[0].AC_INTRATE;
           }
 
           if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '') {
-            var b = moment(this.maturityDate, "DD/MM/YYYY");
-            var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
-            let maturedDays = Math.abs(a.diff(b, 'days'))
-            let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
             this.angForm.patchValue({
-              InterestRate: this.afterMatureIntRate,
-              MaturedDays: maturedDays,
-              TOTAL_INT: Math.round(total_int)
-            })
-            this.intRateShow = this.afterMatureIntRate
-            this.afterMaturedInt = false
+              InterestRate: this.afterMatureIntRate
+            });
+            this.intRateShow = this.afterMatureIntRate;
+            this.afterMaturedInt = false;
+          } else {
+            this.afterMaturedInt = true;
           }
-          else {
-            this.afterMaturedInt = true
-            var b = moment(this.maturityDate, "DD/MM/YYYY");
-            var a = moment(this.date, "DD/MM/YYYY")
-            let maturedDays = Math.abs(a.diff(b, 'days'))
-            this.angForm.patchValue({
-              MaturedDays: maturedDays,
-            })
-          }
-        }
-        let total_int = this.angForm.controls['TOTAL_INT'].value
-        let post_int = this.angForm.controls['POSTED_INT'].value
-        let netInt = (Math.abs(Number(total_int) - Number(post_int))).toFixed(0)
-        this.angForm.patchValue({
-          NET_INTAMT: (netInt)
-        })
-        this.NET_EXC_INTAMT = Number(total_int) - Number(post_int)
-        let ledgerAmt = Number(this.angForm.controls['LEDGER_BAL'].value)
-        let netAmt = Number(this.angForm.controls['NET_INTAMT'].value)
-        let TDSAmt = Number(this.angForm.controls['TDS_AMT'].value)
-        let surchargeAmt = Number(this.angForm.controls['SURCHARGE_AMT'].value)
-        let penalAmt = Number(this.angForm.controls['PENAL_INT'].value)
-        this.totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0 ? (ledgerAmt + netAmt - TDSAmt - surchargeAmt - penalAmt).toFixed(2) : (ledgerAmt - Math.abs(netAmt) - TDSAmt - surchargeAmt - penalAmt).toFixed(2)
-        this.angForm.patchValue({
-          NETPAYABLEAMT: this.totalNetAmt
-        })
-        this.getNetPayAmount()
-        if (data1.TRAN_TYPE == 'TR') {
-          this.isTransfer = true
-          this.multigrid = data1.multigrid
-        }
-        else {
-          this.isTransfer = false
-        }
-        this.transferTotalAmount = Number(data1.NET_PAYABLE_AMOUNT)
-        this.angForm.patchValue({
-          type: data1.TRAN_TYPE == 'CS' ? 'cash' : data1.TRAN_TYPE == 'TR' ? 'transfer' : '',
-          TRAN_NO: data1.TRAN_NO,
-          branch_code: data1.BRANCH_CODE,
-          selectedScheme: Number(data1.SCHEME.S_NAME),
-          account_no: data1.TRAN_ACNO,
-          date: data1.TRAN_DATE,
-          SAVING_PIGMY: data1.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
-          chequeNo: data1.CHEQUE_NO,
-          ChequeDate: data1.CHEQUE_DATE,
-          LEDGER_BAL: Number(data1.LEDGER_BAL).toFixed(2),
-          // Token_Num: data1.TOKEN_NO,
-          PENAL_INT: data1.PENAL_INTEREST_AMOUNT,
-          InterestRate: data1.INTEREST_RATE,
-          maturedIntAmt: data1.AFT_MATURE_INT_AMT,
-          maturedInterest: data1.AFT_MATURE_INT_RATE,
-          POSTED_INT: data1.PAID_INTEREST_AMOUNT,
-          TOTAL_INT: data1.TOTAL_INTEREST_AMOUNT,
-          narration: data1.NARRATION,
-          NET_INTAMT: data1.NET_INTEREST_AMOUNT,
-          NETPAYABLEAMT: data1.NET_PAYABLE_AMOUNT,
-          PAYABLE_INTAMT: Number(data1.PAYABLE_INTEREST_AMOUNT).toFixed(2),
-          TDS_AMT: data1.TDS_AMOUNT,
-          SURCHARGE_AMT: data1.SURCHARGE_AMOUNT,
-          EXCESS_INT: data1.EXCESS_INT != 0 ? this.NET_EXC_INTAMT = data1.EXCESS_INT : this.NET_EXC_INTAMT = 0
-        })
-        // this.getEditData()
-        this.showCustomerDeatils()
-      })
 
-    })
+          if (data1.TRAN_TYPE == 'TR') {
+            this.isTransfer = true;
+            this.multigrid = data1.multigrid;
+          } else {
+            this.isTransfer = false;
+          }
+
+          // this.transferTotalAmount = Number(data1.NET_PAYABLE_AMOUNT);
+          this.angForm.patchValue({
+            type: data1.TRAN_TYPE == 'CS' ? 'cash' : data1.TRAN_TYPE == 'TR' ? 'transfer' : '',
+            TRAN_NO: data1.TRAN_NO,
+            branch_code: data1.BRANCH_CODE,
+            selectedScheme: Number(data1.SCHEME.S_NAME),
+            ac_no: data1.TRAN_ACNO,
+            date: data1.TRAN_DATE,
+            SAVING_PIGMY: data1.TRAN_TYPE == 'CS' ? 'FormC' : 'FormT',
+            chequeNo: data1.CHEQUE_NO,
+            ChequeDate: data1.CHEQUE_DATE,
+            LEDGER_BAL: Number(data1.LEDGER_BAL).toFixed(2),
+            PENAL_INT: data1.PENAL_INTEREST_AMOUNT,
+            InterestRate: data1.INTEREST_RATE,
+            maturedIntAmt: data1.AFT_MATURE_INT_AMT,
+            maturedInterest: data1.AFT_MATURE_INT_RATE,
+            POSTED_INT: data1.PAID_INTEREST_AMOUNT,
+            TOTAL_INT: data1.TOTAL_INTEREST_AMOUNT,
+            narration: data1.NARRATION,
+            NET_INTAMT: data1.NET_INTEREST_AMOUNT,
+            NETPAYABLEAMT: data1.NET_PAYABLE_AMOUNT,
+            PAYABLE_INTAMT: Number(data1.PAYABLE_INTEREST_AMOUNT).toFixed(2),
+            TDS_AMT: data1.TDS_AMOUNT,
+            SURCHARGE_AMT: data1.SURCHARGE_AMOUNT,
+            EXCESS_INT: data1.EXCESS_INT != 0 ? data1.EXCESS_INT : 0
+          });
+          this.totalNetAmt = Number(this.NET_EXC_INTAMT) >= 0
+            ? (Number(this.angForm.controls['LEDGER_BAL'].value) + Number(this.angForm.controls['NET_INTAMT'].value) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2)
+            : (Number(this.angForm.controls['LEDGER_BAL'].value) - Math.abs(Number(this.angForm.controls['NET_INTAMT'].value)) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2);
+
+
+            this.totalAmt = Number(this.NET_EXC_INTAMT) >= 0
+            ? (Number(this.angForm.controls['LEDGER_BAL'].value) + Number(this.angForm.controls['NET_INTAMT'].value) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2)
+            : (Number(this.angForm.controls['LEDGER_BAL'].value) - Math.abs(Number(this.angForm.controls['NET_INTAMT'].value)) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2);
+
+
+          this.angForm.patchValue({
+            NETPAYABLEAMT: this.totalNetAmt
+          });
+
+          this.showCustomerDeatils();
+        });
+    });
   }
 
   updateData() {
