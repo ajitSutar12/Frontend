@@ -231,7 +231,7 @@ export class LoanProjectionComponent implements OnInit {
     let totint1 = []
     let index1 = []
 
-    let replaceUndefined = (value) => value === undefined ? ' ' : value;
+    let replaceUndefined = (value) => value === undefined ? 0 : value;
     index1 = index.map(index => `${replaceUndefined(index)}<br/><br/>`);
     Days1 = Days.map(Days => `${replaceUndefined(Days)}<br/><br/>`);
     Bal1 = Bal.map(Bal => `${replaceUndefined(Bal)}<br/><br/>`);

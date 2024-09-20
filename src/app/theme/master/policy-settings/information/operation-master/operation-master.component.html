@@ -2,22 +2,22 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Operation Master</h5>
+                <h5>{{'master.Operation_Code.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Operation_Code.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Operation_Code.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
 
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " maxlength="4"
                                         disabled id="OperationCode" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="CODE">
-                                    <label for="OperationCode">Operation Code</label>
+                                    <label for="OperationCode">{{'master.Operation_Code.Operation_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                     #autofocus id="Description" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="Description">Description<sub class="required">* </sub></label>
+                                    <label for="Description">{{'master.Operation_Code.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -36,15 +36,15 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'master.Validation.Val1' | translate}} <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                            [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()" [disabled]="angForm.invalid">Update</button>&nbsp;
+                            [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Operation_Code.Submit' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">{{'master.Operation_Code.Cancel' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()" [disabled]="angForm.invalid">{{'master.Operation_Code.Update' | translate}}</button>&nbsp;
                                 
                         </div>
 
@@ -79,7 +79,7 @@
                                 </tbody>
                                 <tbody *ngIf="operation?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -19,6 +19,8 @@ import { environment } from '../../../../environments/environment';
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -171,6 +173,7 @@ export class VoucherEntryComponent implements OnInit {
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
   DayOpBalance: string;
+  setLang:any;
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -183,8 +186,16 @@ export class VoucherEntryComponent implements OnInit {
     private _CustomerIdService: CustomerIdService,
     private _bankmasterService: BankMasterService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
@@ -324,6 +335,8 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   resetscheme() {
+    this.isMinor = false
+    this.isJoint = false
     if (this.tempschmetype != this.selectedCode) {
       this.selectedScheme = null
       this.selectedMode = null
@@ -669,8 +682,10 @@ export class VoucherEntryComponent implements OnInit {
       }
     }
   }
-  // Reset Function
+  // Reset Function pooja
   resetForm() {
+    this.isMinor = false
+    this.isJoint = false;
     this.angForm.controls.temp_over_draft.reset();
     this.angForm.controls.bank.reset();
     this.angForm.controls.chequeNo.reset();
@@ -686,7 +701,7 @@ export class VoucherEntryComponent implements OnInit {
     this.angForm.controls.token.reset();
     this.angForm.controls.over_draft.reset();
     this.angForm.controls.Intdate.reset();
-    
+
     this.DayOpBalance = null;
     this.Pass = null;
     this.Unpass = null;
@@ -702,13 +717,14 @@ export class VoucherEntryComponent implements OnInit {
     this.ClearBalance = null;
     this.AfterVoucher = null;
 
-    
-   
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
+
     if (this.headData) {
       this.headData = [];
     }
-    
-    
+
+
   }
 
   //get Amount Details
@@ -2655,7 +2671,13 @@ export class VoucherEntryComponent implements OnInit {
   opendate = ''
   renewaldate = ''
   SideDetails() {
-    //debugger
+    //POJADAM 050924
+    var startdate = this.angForm.controls['date'].value
+    let formDT = moment(startdate, 'DD/MM/YYYY')
+    var addInFrom: any;
+   
+    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     // this.angForm.controls['amt'].reset()
@@ -2685,12 +2707,13 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowLNCC = false
       this.ShownotLNCC = false
     }
+    
     if (this.submitCustomer.AC_ACNOTYPE == 'PG') {
       let obj = {
         scheme: this.Submitscheme.S_APPL,
         acno: this.Submitscheme.S_APPL == '980' ? this.submitCustomer.AC_NO : this.submitCustomer.BANKACNO,
         date: addInFrom,
-        branch: this.branchCODE
+        branch: this.branchCode
 
       }
       this._service.getpigmychartBalance(obj).subscribe(data2 => {
@@ -2703,15 +2726,15 @@ export class VoucherEntryComponent implements OnInit {
     this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
     this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
     this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
+//POJADAM 050924
+    // var startdate = this.angForm.controls['date'].value
 
-    var startdate = this.angForm.controls['date'].value
-
-    let formDT = moment(startdate, 'DD/MM/YYYY')
-    var addInFrom: any;
-    // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
-    //   addInFrom = startdate;
-    // } else {
-    addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
+    // let formDT = moment(startdate, 'DD/MM/YYYY')
+    // var addInFrom: any;
+    // // if (this.Submitscheme.S_ACNOTYPE == 'PG') {
+    // //   addInFrom = startdate;
+    // // } else {
+    // addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
     // }
     let obj = {
       scheme: this.Submitscheme.S_APPL,
@@ -2753,8 +2776,8 @@ export class VoucherEntryComponent implements OnInit {
         var unpass = (data1.unpassamt <= 0 ? Math.abs(data1.unpassamt) : (-data1.unpassamt))
 
         // let value = open + pass + data2;
-        // let value = open + pass + this.pigmyamount;
-        let value = open + pass;
+        let value = open + pass + this.pigmyamount;  //POJADAM 050924
+        // let value = open + pass;
         if (value < 0) {
           this.ClearBalance = Math.abs(value).toFixed(2)
           this.typeclearbal = 'Dr'

@@ -40,6 +40,7 @@ import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
 import { data } from 'jquery';
 import { InterestInstructionComponent } from '../../instruction/interest-instruction/interest-instruction.component';
+import { TranslateService } from '@ngx-translate/core';
 
 class DataTableResponse {
   data: any[];
@@ -261,6 +262,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
   AC_OPDATE: any;
   intinstruction: any;
   joinDate: any;
+  setLang:any;
 
   constructor(public TitleService: TitleService,
     public AccountcodeService: AccountcodeService,
@@ -283,6 +285,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     private _termDepositScheme: TermDepositSchemeService,
     private _InterestInstruction: InterestInstructionService,
     public sanitizer: DomSanitizer,
+    private translate:TranslateService
   ) {
     if (this.childMessage != undefined) {
 
@@ -296,6 +299,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -351,74 +356,74 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         // {
         //   title: 'Scheme Type',
         //   data: 'AC_ACNOTYPE'
         // },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Deposite_Account_Master.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Deposite_Account_Master.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Deposite_Account_Master.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Deposite_Account_Master.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Deposite_Account_Master.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Deposite_Account_Master.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Deposite_Account_Master.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Birth Date',
+          title: this.translate.instant('master.Deposite_Account_Master.Birth_Date'),
           data: 'AC_MBDATE'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Deposite_Account_Master.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'As On Date',
+          title: this.translate.instant('master.Deposite_Account_Master.As_On_Date'),
           data: 'AC_ASON_DATE'
         },
         {
-          title: 'Maturity Date',
+          title: this.translate.instant('master.Deposite_Account_Master.Maturity_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt No.',
+          title: this.translate.instant('master.Deposite_Account_Master.Receipt_No'),
           data: 'AC_REF_RECEIPTNO'
         },
         {
-          title: 'Deposit Amount',
+          title: this.translate.instant('master.Deposite_Account_Master.Dep_Amount'),
           data: 'AC_SCHMAMT'
         },
         {
-          title: 'Maturity Amount',
+          title: this.translate.instant('master.Deposite_Account_Master.Maturity_Amount'),
           data: 'AC_MATUAMT'
         },
         {
-          title: 'Minor Details',
+          title: this.translate.instant('master.Deposite_Account_Master.Minor'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Signature Authority',
+          title: this.translate.instant('master.Deposite_Account_Master.Sign'),
           data: 'SIGNATURE_AUTHORITY'
         },
 
@@ -468,7 +473,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.scheme = data;
       this.selectedValue = this.scheme[0].value
       this.scheme[0].IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
-      // this.getReceiptNumber()
+      this.getReceiptNumber()
 
       this._termDepositScheme.getFormData(this.selectedValue).subscribe(data => {
         if (data.UNIT_OF_PERIOD == "B") {
@@ -1589,8 +1594,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.scheme.forEach(async (element) => {
         if (element.value == this.selectedValue) {
            
-          schecode = element.id
-          schename = element.name
+          schecode = element.name
+          schename = element.id
         }
       })
       if (this.tempopendate != this.openingDate) {
@@ -1708,6 +1713,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           dtInstance.ajax.reload()
         });
       }, (error) => {
+        this.isDisable = false
+        Swal.fire('Please Input Proper Data!');
         console.log(error)
       })
 
@@ -2994,22 +3001,22 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
     })
     event.IS_RECURRING_TYPE == '1' ? this.showRDagent = true : this.showRDagent = false
   }
-  // getReceiptNumber() {
-  //   let data: any = localStorage.getItem('user');
-  //   let result = JSON.parse(data);
-  //   let branchCode = result.branch.id;
-  //   let obj = {
-  //     scheme: this.selectedValue,
-  //     BRANCH_CODE: branchCode
-  //   }
-  //   this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
-  //     this.angForm.patchValue({
-  //       AC_REF_RECEIPTNO: data
-  //     })
-  //     this.receiptNo = data
-  //     data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
-  //   })
-  // }
+  getReceiptNumber() {
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    let obj = {
+      scheme: this.selectedValue,
+      BRANCH_CODE: branchCode
+    }
+    this.http.post(this.url + '/term-deposits-master/getReceiptNumber', obj).subscribe(data => {
+      this.angForm.patchValue({
+        AC_REF_RECEIPTNO: data
+      })
+      this.receiptNo = data
+      data == null ? this.angForm.controls['AC_REF_RECEIPTNO'].enable() : this.angForm.controls['AC_REF_RECEIPTNO'].disable()
+    })
+  }
   closeModal() {
     var button = document.getElementById('trigger');
     button.click();
@@ -3178,13 +3185,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_INTRATE: null
       });
     }
-    this.getFormData()
+    this.getFormData(event.label)
   }
   iid
   month
   days
   rate
-  getFormData() {
+  getFormData(eventLabel: string) {
     let obj = {
       'id': this.Intid
     }
@@ -3205,6 +3212,20 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           }
 
         });
+        var maturityDt = moment(this.angForm.controls['AC_ASON_DATE'].value, 'DD/MM/YYYY')
+        var year = maturityDt.format('YYYY');
+        var month = maturityDt.format('M');
+        var day = maturityDt.format('D');
+        var maturityMonth = Number(month) + Number( this.month )
+        var maturityDay = Number(day) + Number( this.days)
+        var date = new Date(Number(year), maturityMonth-1, Number(maturityDay));
+        var maturityDate = moment(date).format("DD/MM/YYYY")
+        this.expiryDate = maturityDate
+         if (eventLabel === 'DAMDUPPAT'){
+        this.angForm.patchValue({
+          AC_EXPDT: maturityDate
+        })
+      }
       }
     })
   }

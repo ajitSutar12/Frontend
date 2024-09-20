@@ -2,9 +2,9 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Lien Mark or Clear</h5>
+        <h5>{{'master.Lien_Mark_or_Clear.Title' | translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
         </h6>
       </div>
 
@@ -16,7 +16,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="DEPO_AC_TYPE" class="form-control" placeholder=" " id="DEPO_AC_TYPE"
                     formControlName="DEPO_AC_TYPE" disabled>
-                  <label for="DEPO_AC_TYPE">Scheme</label>
+                  <label for="DEPO_AC_TYPE">{{'master.Lien_Mark_or_Clear.Scheme' | translate}}</label>
                 </span>
               </div>
             </div>
@@ -40,7 +40,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="DEPO_AC_NO" class="form-control" placeholder=" " id="DEPO_AC_NO"
                     formControlName="DEPO_AC_NO" disabled>
-                  <label for="DEPO_AC_NO">Account No</label>
+                  <label for="DEPO_AC_NO">{{'master.Lien_Mark_or_Clear.Account_No' | translate}}</label>
                 </span>
               </div>
             </div>
@@ -84,7 +84,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="To" class="form-control" placeholder=" " id="LedgerBalance"
                     formControlName="LEDGER_BAL" disabled>
-                  <label for="LedgerBalance">Ledger Balance</label>
+                  <label for="LedgerBalance">{{'master.Lien_Mark_or_Clear.Ledger_Balance' | translate}}</label>
                 </span>
               </div>
             </div>
@@ -93,7 +93,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="To" class="form-control" placeholder=" " id="DepositAmount"
                     pattern="\d{1,20}(\.\d{2})?" formControlName="DEPOSIT_AMT" disabled>
-                  <label for="DepositAmount">Deposit Amount</label>
+                  <label for="DepositAmount">{{'master.Lien_Mark_or_Clear.Deposit_Amount' | translate}}</label>
                 </span>
               </div>
             </div>
@@ -102,7 +102,7 @@
                 <span class="border-lable-flt">
                   <input type="text" name="To" class="form-control" placeholder=" " id="TDReceiptNo"
                     formControlName="RECEIPT_NO" disabled>
-                  <label for="TDReceiptNo">TD Receipt No.</label>
+                  <label for="TDReceiptNo">{{'master.Lien_Mark_or_Clear.TD_Receipt_No' | translate}}</label>
                 </span>
               </div>
             </div>
@@ -111,13 +111,13 @@
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input class="border-checkbox" type="checkbox" id="checkbox1" value="checkbox"
                     [checked]="isIsLienMarkClear == true" formControlName="IS_LIEN_MARK_CLEAR">
-                  <label class="border-checkbox-label" for="checkbox1">Is Lien Mark Clear ?</label>
+                  <label class="border-checkbox-label" for="checkbox1">{{'master.Lien_Mark_or_Clear.Is_Lien_Mark_Clear' | translate}}</label>
                 </div>
               </div>
 
             </div>
           </div>
-          <h6>Term Loan Details</h6>
+          <h6>{{'master.Lien_Mark_or_Clear.Term_Loan_Details' | translate}}</h6>
           <div class="card-block">
             <div class="row">
               <div class="col-sm">
@@ -125,7 +125,7 @@
                   <span class="border-lable-flt">
                     <input type="text" name="To" class="form-control" formControlName="AC_NO" placeholder=" "
                       id="LoanAcNo" disabled>
-                    <label for="LoanAcNo">Loan A/c No.</label>
+                    <label for="LoanAcNo">{{'master.Lien_Mark_or_Clear.Loan_A/c_No' | translate}}</label>
                   </span>
                 </div>
               </div>
@@ -134,7 +134,7 @@
                   <span class="border-lable-flt">
                     <input type="text" name="To" class="form-control" placeholder=" "
                       formControlName="BALANCE_OF_LOAN_ACCOUNT" id="LoanOsBalance" disabled>
-                    <label for="LoanOsBalance">Loan O/s Balance</label>
+                    <label for="LoanOsBalance">{{'master.Lien_Mark_or_Clear.Loan_O/s_Balance' | translate}}</label>
                   </span>
                 </div>
               </div>
@@ -143,14 +143,14 @@
                   <span class="border-lable-flt">
                     <input type="text" class="form-control" placeholder=" " max="9999-12-31"
                       formControlName="AC_EXPIRE_DATE" onfocus="(this.type='date')" id="date" disabled />
-                    <label for="date">Loan Expiry Date </label>
+                    <label for="date">{{'master.Lien_Mark_or_Clear.Loan_Expiry_Date' | translate}} </label>
                   </span>
                 </div>
               </div>
               <div class="col-sm">
                 <!-- <button class="btn btn-primary ripple light" (click)="submit()" *ngIf="showButton"
                   [disabled]="angForm.invalid">Add</button> -->
-                <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+                <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">{{'master.Action.Update' | translate}}</button>
               </div>
             </div>
           </div>
@@ -191,7 +191,7 @@
                 </tbody>
                 <tbody *ngIf="lienMaster?.length == 0">
                   <tr>
-                    <td colspan="6" class="no-data-available">No data!</td>
+                    <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                   </tr>
                 </tbody>
                 <tfoot #filters class="filters">

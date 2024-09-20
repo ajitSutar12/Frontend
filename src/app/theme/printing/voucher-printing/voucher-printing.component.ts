@@ -15,6 +15,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 
 import { ReportFrameComponent } from "../../reports/report-frame/report-frame.component";
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -98,6 +99,7 @@ export class VoucherPrintingComponent implements OnInit {
     // { label: 'Loss', value: 'LOS' },
     // { label: 'Transfer', value: 'TRE' },
   ]
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -110,7 +112,7 @@ export class VoucherPrintingComponent implements OnInit {
     private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer, private systemParameter: SystemMasterParametersService,
     private http: HttpClient,
-
+    private translate: TranslateService
 
   ) {
     this.dates = moment().format('DD/MM/YYYY');
@@ -148,6 +150,10 @@ export class VoucherPrintingComponent implements OnInit {
     })
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.dates = data.CURRENT_DATE;
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     //display defalut date
@@ -305,65 +311,65 @@ export class VoucherPrintingComponent implements OnInit {
     // let branch = userData.branch.CODE;
     this.voucherNo
     // if (this.ngForm.valid) {
-      let obj = this.ngForm.value
-      this.showRepo = true;
+    let obj = this.ngForm.value
+    this.showRepo = true;
 
-      if (this.dates == userData.branch.syspara.CURRENT_DATE) {
-        obj['DATE'] = userData.branch.syspara.CURRENT_DATE
-      }
-      else {
-        let date = moment(this.dates).format('DD/MM/YYYY');
-        let tDate = moment(date, 'DD/MM/YYYY')
-        obj['DATE'] = date
-      }
-      // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-      // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
+    if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+      obj['DATE'] = userData.branch.syspara.CURRENT_DATE
+    }
+    else {
+      let date = moment(this.dates).format('DD/MM/YYYY');
+      let tDate = moment(date, 'DD/MM/YYYY')
+      obj['DATE'] = date
+    }
+    // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
 
-      let scheme = obj.Scheme_code
-      // let branch = obj.BRANCH_CODE
-      let voucherNo = obj.VOUCHER_NO
-      let voucherType = obj.VOUCHER_TYPE
-      let tranType = obj.TRAN_TYPE
+    let scheme = obj.Scheme_code
+    // let branch = obj.BRANCH_CODE
+    let voucherNo = obj.VOUCHER_NO
+    let voucherType = obj.VOUCHER_TYPE
+    let tranType = obj.TRAN_TYPE
 
-     
 
-      let drcrtype
-      if (obj.drcr === 'Debit') {
-        drcrtype = 0
-      }
-      else if (obj.drcr === 'Credit') {
-        drcrtype = 1
-      }
-      else if (obj.drcr === 'Both') {
-        drcrtype = 2
-      }
-      // this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
-      // console.log(this.iframe5url);
-      // this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
-      let type
-      if (obj.VOUCHER_TYPE === 'MV') {
-        type = 4
-      }
-      else if (obj.VOUCHER_TYPE === 'DC') {
-        type = 5
-      }
+    let drcrtype
+    if (obj.drcr === 'Debit') {
+      drcrtype = 0
+    }
+    else if (obj.drcr === 'Credit') {
+      drcrtype = 1
+    }
+    else if (obj.drcr === 'Both') {
+      drcrtype = 2
+    }
+    // this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='"+voucherNo+"'&voucher_type='"+voucherType+"'&tran_type='"+tranType+"'&Branch='" + branchName + "'&branchcode='" +  this.branchC  + "'";
+    // console.log(this.iframe5url);
+    // this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
-      if (voucherType == 'VC') {
-        this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tranType + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&bankName='" + bankName + "'";
-        console.log(this.iframe5url);
-        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-      }
-      else if (voucherType == 'MV') {
-        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "&type=" + type + "&bankName='" + bankName+"";
-        console.log(this.iframe5url);
-        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-      }
-      else if (voucherType == 'DC') {
-        this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "&type=" + type + "&code=" + code + "";
-        console.log(this.iframe5url);
-        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-      }
+    let type
+    if (obj.VOUCHER_TYPE === 'MV') {
+      type = 4
+    }
+    else if (obj.VOUCHER_TYPE === 'DC') {
+      type = 5
+    }
+
+    if (voucherType == 'VC') {
+      this.iframe5url = this.report_url + "examples/VoucherPrinting.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + tranType + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&bankName='" + bankName + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else if (voucherType == 'MV') {
+      this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "&type=" + type + "&bankName='" + bankName + "";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else if (voucherType == 'DC') {
+      this.iframe5url = this.report_url + "examples/multiVoucher.php?&Branchname='" + this.branchName + "'&date='" + obj.DATE + "'&VoucharNo='" + voucherNo + "'&voucher_type='" + voucherType + "'&tran_type='" + 'TR' + "'&Branch='" + branchName + "'&branchcode='" + this.branchC + "'&flag=" + drcrtype + "&type=" + type + "&code=" + code + "";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
 
 
     // }

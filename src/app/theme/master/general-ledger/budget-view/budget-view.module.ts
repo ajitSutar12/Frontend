@@ -15,7 +15,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @NgModule({
@@ -31,6 +33,13 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
     
   ],
   declarations: [BudgetViewComponent,],
@@ -48,3 +57,6 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
 ]
 })
 export class BudgetViewModule { }
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

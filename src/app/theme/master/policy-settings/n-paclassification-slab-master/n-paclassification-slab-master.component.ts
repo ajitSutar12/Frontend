@@ -9,6 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
 import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -86,10 +89,19 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
 
   isDisableMonth: boolean = false
   isDisableDay: boolean = false
+  setLang: any;
 
-  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,) {
+  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,private translate:TranslateService,private systemParameter: SystemMasterParametersService,
+
+
+  ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {
@@ -142,15 +154,13 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          data: 'EFFECT_DATE',
-          title: 'Effect Date'
+          title: this.translate.instant('master.NPA_Classification_Master.Effictive_Date'),
         },
         {
-          data: 'NPA_BASE_DAYS',
-          title: 'Base Days'
+          title: this.translate.instant('master.NPA_Classification_Master.Base_days'),
         }
       ],
       dom: "Blrtip",

@@ -15,6 +15,7 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
 import * as moment from 'moment';
 // Displaying Sweet Alert
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-dead-stock-transaction',
   templateUrl: './dead-stock-transaction.component.html',
@@ -93,6 +94,7 @@ export class DeadStockTransactionComponent implements OnInit {
   deadstockDetailAmount = {}
   backamount
   itemQuan: number
+  setLang:any
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
@@ -102,6 +104,7 @@ export class DeadStockTransactionComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
+    private translate:TranslateService
   ) {
     this.selectedValue=null
     if (this.childMessage != undefined) {
@@ -117,6 +120,8 @@ export class DeadStockTransactionComponent implements OnInit {
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     this.transferBranches = [];
   }

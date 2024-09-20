@@ -18,7 +18,7 @@ import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -112,6 +112,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
   maxDate: any
   minDate: Date
   expiryDate: string;
+  setLang:any;
   constructor(private fb: FormBuilder,
     private bankMasterService: BankMasterService,
     private ownbranchMasterService: ClearingbranchMasterService,
@@ -120,6 +121,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     private investmentService: InvestmentService,
     private http: HttpClient,    private _termDepositScheme: TermDepositSchemeService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
@@ -129,6 +131,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -189,55 +193,68 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          // title: 'Scheme',
+          title: this.translate.instant('master.Investment_Ac_Opening.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          // title: 'Account Number',
+          title: this.translate.instant('master.Investment_Ac_Opening.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Member Name',
+          // title: 'Member Name',
+          title: this.translate.instant('master.Investment_Ac_Opening.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Bank Code',
+          // title: 'Bank Code',
+          title: this.translate.instant('master.Investment_Ac_Opening.Bank_Code'),
           data: 'INVEST_BANK'
         },
         {
-          title: 'Branch Code',
+          // title: 'Branch Code',
+          title: this.translate.instant('master.Investment_Ac_Opening.Branch_Code'),
           data: 'INVEST_BRANCH'
         },
         {
-          title: 'Account Open Date',
+          // title: 'Account Open Date',
+          title: this.translate.instant('master.Investment_Ac_Opening.Ac_Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'As On Date',
+          // title: 'As On Date',
+          title: this.translate.instant('master.Investment_Ac_Opening.As_On_Date'),
           data: 'AC_ASON_DATE'
         },
         {
-          title: 'Maturity Date',
+          // title: 'Maturity Date',
+          title: this.translate.instant('master.Investment_Ac_Opening.Maturity_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Receipt Number',
+          // title: 'Receipt Number',
+          title: this.translate.instant('master.Investment_Ac_Opening.Receipt_No'),
           data: 'AC_REF_RECEIPTNO'
         },
         {
-          title: 'Interest Rate',
+          // title: 'Interest Rate',
+          title: this.translate.instant('master.Investment_Ac_Opening.Interest'),
           data: 'AC_INTRATE'
         },
         {
-          title: 'Deposit Amount',
+          // title: 'Deposit Amount',
+          title: this.translate.instant('master.Investment_Ac_Opening.Deposit_Amount'),
           data: 'AC_SCHMAMT'
         },
 
         {
-          title: 'Maturity Amount',
+          // title: 'Maturity Amount',
+          title: this.translate.instant('master.Investment_Ac_Opening.Maturity_Amount'),
           data: 'AC_MATUAMT'
         },
 

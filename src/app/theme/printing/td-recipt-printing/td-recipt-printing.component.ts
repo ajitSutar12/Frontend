@@ -13,7 +13,8 @@ import { VoucherEntryService } from '../../transaction/voucher-entry/voucher-ent
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { HttpClient } from '@angular/common/http';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import {NumberToWordsService} from './NumberToWordsService.service';
+import { NumberToWordsService } from './NumberToWordsService.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-td-recipt-printing',
@@ -61,15 +62,18 @@ export class TdReciptPrintingComponent implements OnInit {
   url = environment.base_url;
   amountInWords: string;
   isTextareaVisible: boolean = false;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private _service: VoucherEntryService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private savingMasterService: SavingMasterService,private numberToWordsService: NumberToWordsService,
-    private _SchemeCodeDropdown: SchemeCodeDropdownService,private http: HttpClient,
+    private savingMasterService: SavingMasterService, private numberToWordsService: NumberToWordsService,
+    private _SchemeCodeDropdown: SchemeCodeDropdownService, private http: HttpClient,
     private sanitizer: DomSanitizer, private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService
+
 
   ) { }
 
@@ -99,6 +103,10 @@ export class TdReciptPrintingComponent implements OnInit {
     //display defalut date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.defaultDate = data.CURRENT_DATE;
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -127,17 +135,17 @@ export class TdReciptPrintingComponent implements OnInit {
     });
   }
 
-schemenm
+  schemenm
   accdetails
   getIntro(event) {
-this.schemenm=event.label
-    let obj={
-      "actype":event.value,
-      "branch":  this.BranchCode,
+    this.schemenm = event.label
+    let obj = {
+      "actype": event.value,
+      "branch": this.BranchCode,
     }
-    this.http.post(this.url+'/term-deposits-master/getreciptacc', obj).subscribe(
+    this.http.post(this.url + '/term-deposits-master/getreciptacc', obj).subscribe(
       (data: any) => {
-          this.introducerACNo = data;
+        this.introducerACNo = data;
       },
       error => {
         console.error('Error fetching data:', error);
@@ -149,7 +157,7 @@ this.schemenm=event.label
     this.getbankAcNo = event.bankacno
   }
 
- 
+
   isReceivedTds($event) {
 
     if ($event.target.checked) {
@@ -162,33 +170,33 @@ this.schemenm=event.label
 
   AC_NAME
   OPDATE
-AC_EXPDT
-AC_DAYS
-AC_MONTHS
-AC_MATUAMT
-AC_SCHMAMT
-AC_ASON_DATE
-AC_REF_RECEIPTNO
-AC_NO
-CITY_NAME
-AC_INTRATE
-AC_NNAME
+  AC_EXPDT
+  AC_DAYS
+  AC_MONTHS
+  AC_MATUAMT
+  AC_SCHMAMT
+  AC_ASON_DATE
+  AC_REF_RECEIPTNO
+  AC_NO
+  CITY_NAME
+  AC_INTRATE
+  AC_NNAME
   getIntTrans(event) {
     this.firstno = event.BANKACNO
-    this.AC_ASON_DATE=event.AC_ASON_DATE
-    this.AC_NAME=event.AC_NAME
-    this.OPDATE=event.AC_OPDATE
-    this.AC_EXPDT=event.AC_EXPDT
-    this.AC_DAYS=event.AC_DAYS
-    this.AC_MONTHS=event.AC_MONTHS
-    this.AC_MATUAMT=event.AC_MATUAMT
-    this.AC_SCHMAMT=event.AC_SCHMAMT
-    this.AC_REF_RECEIPTNO=event.AC_REF_RECEIPTNO
-    this.AC_NO=event.AC_NO
-    this.CITY_NAME=event.CITY_NAME
-    this.AC_INTRATE=event.AC_INTRATE
-    this.AC_NNAME=event.AC_NNAME
-  }  
+    this.AC_ASON_DATE = event.AC_ASON_DATE
+    this.AC_NAME = event.AC_NAME
+    this.OPDATE = event.AC_OPDATE
+    this.AC_EXPDT = event.AC_EXPDT
+    this.AC_DAYS = event.AC_DAYS
+    this.AC_MONTHS = event.AC_MONTHS
+    this.AC_MATUAMT = event.AC_MATUAMT
+    this.AC_SCHMAMT = event.AC_SCHMAMT
+    this.AC_REF_RECEIPTNO = event.AC_REF_RECEIPTNO
+    this.AC_NO = event.AC_NO
+    this.CITY_NAME = event.CITY_NAME
+    this.AC_INTRATE = event.AC_INTRATE
+    this.AC_NNAME = event.AC_NNAME
+  }
   getIntTrans1(event) {
     this.lastno = event.BANKACNO
   }
@@ -218,20 +226,20 @@ AC_NNAME
       let firstno = this.firstno
       let lastno = this.lastno
 
-      let AC_NAME= this.AC_NAME
-      let AC_EXPDT=this.AC_EXPDT
-      let OPDATE=this.OPDATE
-      let AC_DAYS=this.AC_DAYS
-      let AC_MONTHS=this.AC_MONTHS
-      let schemenm=this.schemenm
-      let AC_ASON_DATE=this.AC_ASON_DATE
-      let AC_MATUAMT=this.AC_MATUAMT
-      let AC_SCHMAMT=this.AC_SCHMAMT
+      let AC_NAME = this.AC_NAME
+      let AC_EXPDT = this.AC_EXPDT
+      let OPDATE = this.OPDATE
+      let AC_DAYS = this.AC_DAYS
+      let AC_MONTHS = this.AC_MONTHS
+      let schemenm = this.schemenm
+      let AC_ASON_DATE = this.AC_ASON_DATE
+      let AC_MATUAMT = this.AC_MATUAMT
+      let AC_SCHMAMT = this.AC_SCHMAMT
       // let AC_REF_RECEIPTNO=this.AC_REF_RECEIPTNO
-      let AC_NO=this.AC_NO
-      let CITY_NAME=this.CITY_NAME
-      let AC_INTRATE=this.AC_INTRATE
-      let AC_NNAME=this.AC_NNAME
+      let AC_NO = this.AC_NO
+      let CITY_NAME = this.CITY_NAME
+      let AC_INTRATE = this.AC_INTRATE
+      let AC_NNAME = this.AC_NNAME
       let AC_REF_RECEIPTNO = this.AC_REF_RECEIPTNO ? this.AC_REF_RECEIPTNO : this.AC_NO;
       this.amountInWords = this.numberToWordsService.convertToWords(this.AC_SCHMAMT);
       this.letterTemplate = `                                                                                         

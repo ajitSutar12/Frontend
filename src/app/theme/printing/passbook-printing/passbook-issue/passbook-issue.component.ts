@@ -16,6 +16,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-passbook-issue',
@@ -60,14 +61,16 @@ export class PassbookIssueComponent implements OnInit {
   tScheme: any;
   obj: any[];
   startAcNo: any[];
+  setLang: any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
+    private translate: TranslateService,
     public customerIdService: CustomerIdService, private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private sanitizer: DomSanitizer) {
-      this.todate = moment().format('DD/MM/YYYY');
+    this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -104,6 +107,10 @@ export class PassbookIssueComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -172,11 +179,11 @@ export class PassbookIssueComponent implements OnInit {
           this.startAcNo = data;
         })
         break;
-        case 'CA':
-          this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
-            this.startAcNo = data;
-          })
-          break;
+      case 'CA':
+        this.schemeAccountNoService.getCurrentAccountSchemeList1(this.obj).subscribe(data => {
+          this.startAcNo = data;
+        })
+        break;
     }
   }
 

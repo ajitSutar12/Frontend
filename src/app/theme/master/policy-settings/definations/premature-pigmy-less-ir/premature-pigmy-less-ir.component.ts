@@ -18,6 +18,8 @@ import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -112,7 +114,9 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public SchemeTypes: SchemeTypeDropdownService,
     private prematurePigmyService: PrematurePigmyService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,
+    private translate:TranslateService,
+  ) {
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -170,15 +174,15 @@ export class PrematurePigmyLessIRComponent implements OnInit {
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Effective Date',
+          title: this.translate.instant('master.Premature_Pigmy_Less_Interest_Rate.Effective_Date'),
           data: 'EFFECT_DATE'
         },
 
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Premature_Pigmy_Less_Interest_Rate.Schema_Type'),
           data: 'AC_ACNOTYPE'
         }
       ],

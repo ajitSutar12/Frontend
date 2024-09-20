@@ -100,8 +100,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
 
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
+    this.tScheme = event.label
     this.tScheme = event.name
-
   }
 
   createForm() {
@@ -144,11 +144,8 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       obj['DATE']=date
     }
       let scheme = obj.Scheme_code
-
       let branch = obj.BRANCH_CODE;
-
       let schemeName = this.tScheme
-
       let flag = obj.Show_Only_Top;
 
       if(flag == null || flag == false){
@@ -160,7 +157,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account; 
 
-      this.iframe5url = this.report_url + "examples/TD_list_and_Recurring_Overdue.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&branch_code='" + branch + "'&edate='" + obj.DATE + "'&trandrcr='D'&TRANACTYPE='6'&TRANSTATUS='1'&AC_ACNOTYPE='"+ schemeName + "'&ACACNOTYPE='TD'&AC_TYPE='" + scheme + "'&flag1=" + flag + "";
+      this.iframe5url = this.report_url + "examples/recurring_overdue.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&branch_code='" + branch + "'&edate='" + obj.DATE + "'&AC_ACNOTYPE='"+ schemeName + "'&AC_TYPE='" + scheme + "'&flag1=" + flag + "";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

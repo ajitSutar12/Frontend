@@ -8,7 +8,7 @@ import { PassbookEntryPrintRoutingModule } from './passbook-entry-print-routing.
 import {DataTablesModule} from 'angular-datatables';
 import { SelectModule } from 'ng-select';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -22,6 +22,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
+
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -37,7 +41,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    //Translation
+ TranslateModule.forRoot({
+  loader:{
+    provide: TranslateLoader,
+    useFactory: HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [PassbookEntryPrintComponent],
   exports:[PassbookEntryPrintComponent],
@@ -63,3 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ], 
 })
 export class PassbookEntryPrintModule { }
+//Translation
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

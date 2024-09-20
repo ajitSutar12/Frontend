@@ -39,6 +39,11 @@ import { SecurityDetailsModule } from '../../maintainance/security-details/secur
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/theme/theme.module';
+
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -58,7 +63,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+
+    //Translation
+ TranslateModule.forRoot({
+  loader:{
+    provide: TranslateLoader,
+    useFactory: HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
+
   ],
   declarations: [TermLoanMasterComponent],
   exports: [TermLoanMasterComponent],
@@ -97,3 +112,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ]
 })
 export class TermLoanMasterModule { }
+
+//Translation
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

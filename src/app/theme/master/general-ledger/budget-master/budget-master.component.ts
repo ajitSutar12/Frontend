@@ -11,6 +11,9 @@ import { HttpClient } from '@angular/common/http';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import * as moment from "moment";
 
 
 // For fetching values from backend
@@ -65,6 +68,8 @@ export class BudgetMasterComponent implements OnInit {
   dataSend: any;
 item: any;
   updatevalue: any;
+  setLang: any;
+  maxDate: any;
 
 
 
@@ -72,8 +77,16 @@ item: any;
     private fb: FormBuilder,
     private http: HttpClient, private _budget: BudgetserviceService,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig, private translate: TranslateService, 
+    private systemParameter: SystemMasterParametersService
 
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
+      this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {

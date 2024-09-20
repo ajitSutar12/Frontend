@@ -18,6 +18,8 @@ import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -90,6 +92,7 @@ export class DepreciationRateMasterComponent implements OnInit {
 
 
   constructor(
+    private translate:TranslateService,
     private http: HttpClient,
     private fb: FormBuilder,
     // for dropdown
@@ -158,18 +161,18 @@ export class DepreciationRateMasterComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Last Depreciation Date',
+          title: this.translate.instant('master.Depreciation_Rate_Master.Last_Depreciation_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Category Code',
+          title: this.translate.instant('master.Depreciation_Rate_Master.Categary_Code'),
           data: 'CATEGORY'
         },
         {
-          title: 'Depreciation Rate',
+          title: this.translate.instant('master.Depreciation_Rate_Master.Depreciation_Rate'),
           data: 'DEPR_RATE'
         }
       ],

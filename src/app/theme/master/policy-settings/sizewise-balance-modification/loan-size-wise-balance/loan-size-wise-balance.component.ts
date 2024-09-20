@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { animate, style, transition, trigger } from '@angular/animations';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-loan-size-wise-balance',
   templateUrl: './loan-size-wise-balance.component.html',
@@ -25,7 +27,10 @@ import { HttpClient } from '@angular/common/http';
 export class LoanSizeWiseBalanceComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
-  constructor(private fb: FormBuilder, private http: HttpClient,) { }
+  constructor(private fb: FormBuilder, private http: HttpClient,
+    private translate:TranslateService,
+
+  ) { }
   //api 
   url = environment.base_url;
   //AMOUNT
