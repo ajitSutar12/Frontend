@@ -32,7 +32,6 @@ export class BnkTDStatementComponent implements OnInit{
   ngForm: FormGroup;
   iframe5url:any='';
   clicked:boolean=false;
-
   //api
   url = environment.base_url;
   report_url = environment.report_url;

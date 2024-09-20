@@ -1589,8 +1589,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.scheme.forEach(async (element) => {
         if (element.value == this.selectedValue) {
            
-          schecode = element.id
-          schename = element.name
+          schecode = element.name
+          schename = element.id
         }
       })
       if (this.tempopendate != this.openingDate) {
@@ -1708,6 +1708,8 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           dtInstance.ajax.reload()
         });
       }, (error) => {
+        this.isDisable = false
+        Swal.fire('Please Input Proper Data!');
         console.log(error)
       })
 
@@ -3178,13 +3180,13 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
         AC_INTRATE: null
       });
     }
-    this.getFormData()
+    this.getFormData(event.label)
   }
   iid
   month
   days
   rate
-  getFormData() {
+  getFormData(eventLabel: string) {
     let obj = {
       'id': this.Intid
     }
@@ -3205,6 +3207,20 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
           }
 
         });
+        var maturityDt = moment(this.angForm.controls['AC_ASON_DATE'].value, 'DD/MM/YYYY')
+        var year = maturityDt.format('YYYY');
+        var month = maturityDt.format('M');
+        var day = maturityDt.format('D');
+        var maturityMonth = Number(month) + Number( this.month )
+        var maturityDay = Number(day) + Number( this.days)
+        var date = new Date(Number(year), maturityMonth-1, Number(maturityDay));
+        var maturityDate = moment(date).format("DD/MM/YYYY")
+        this.expiryDate = maturityDate
+         if (eventLabel === 'DAMDUPPAT'){
+        this.angForm.patchValue({
+          AC_EXPDT: maturityDate
+        })
+      }
       }
     })
   }

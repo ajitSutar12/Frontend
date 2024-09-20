@@ -688,9 +688,34 @@ export class AccountEnquiryComponent implements OnInit {
   OD_EXPIRE_DATE
   AC_OD_ASSIGNBY
 
+
+
+  jointAC
+  // isJoint: boolean = false
+  grdName
+  custId
+  minor
+  tableDataMinor = []
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableDataMinor.some(item => item.grdName === grdName && item.custId === custId);
+
+    if (!exists && grdName && custId) {
+      this.tableDataMinor.push({ grdName: grdName, custId: custId });
+    }
+  }
+  AC_MINOR
   //get account details
 
   getAccountDetails(event) {
+    this.accountEvent = event
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable(this.grdName, this.custId);
+
 
     this.customerImg = 'assets/images/nouser.png';
     this.signture = 'assets/images/nosignature.png'
@@ -781,15 +806,15 @@ export class AccountEnquiryComponent implements OnInit {
       //   }
       // });
 
-      event?.jointAccounts?.forEach((element, index) => {
-        if (index === 0) {
-          this.jointHolderName = element.JOINT_ACNAME;
-          this.jointCustId = element.JOINT_AC_CUSTID;
-        } else {
-          this.jointHolderName += '/' + element.JOINT_ACNAME;
-          this.jointCustId = '';
-        }
-      });
+      // event?.jointAccounts?.forEach((element, index) => {
+      //   if (index === 0) {
+      //     this.jointHolderName = element.JOINT_ACNAME;
+      //     this.jointCustId = element.JOINT_AC_CUSTID;
+      //   } else {
+      //     this.jointHolderName += '/' + element.JOINT_ACNAME;
+      //     this.jointCustId = '';
+      //   }
+      // });
       this.isJoint = event?.jointAccounts?.length > 0;
 
       this.idmaster = event.idmaster
@@ -851,7 +876,15 @@ export class AccountEnquiryComponent implements OnInit {
           this.signture = 'assets/images/nosignature.png'
         }
       })
-
+      event?.jointAccounts?.forEach((element, index) => {
+        if (index === 0) {
+          this.jointHolderName = element.JOINT_ACNAME;
+          this.jointCustId = element.JOINT_AC_CUSTID;
+        } else {
+          this.jointHolderName += '/' + element.JOINT_ACNAME;
+          this.jointCustId = '';
+        }
+      });
     }
   }
 
@@ -1816,5 +1849,18 @@ export class AccountEnquiryComponent implements OnInit {
   close() {
     this.onCloseHandled();
 
+  }
+  openModal1(view) {
+    this.isOpen = false
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint = true
+      this.isMinor = false
+      this.display = "block";
+    }
   }
 }

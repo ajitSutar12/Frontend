@@ -16,7 +16,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        placeholder="Branch" required>
+                                        placeholder="Branch" required (change)="getBranch($event);">
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="col-md-3">
+                        <!-- <div class="col-md-3">
                             <div class="checkbox checkbox-primary">
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="PRINT" formControlName="PRINT">
@@ -119,7 +119,7 @@
                                         Accounts?</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row"></div>
                     <div class="row">

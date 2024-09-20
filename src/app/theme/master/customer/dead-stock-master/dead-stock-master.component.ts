@@ -512,12 +512,16 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.angForm.controls['OP_BAL_DATE'].reset()
         this.angForm.patchValue({
           // ITEM_TYPE: data.ITEM_TYPE,
+          SUPPLIER_NAME: data.SUPPLIER_NAME,    //editClickhandler patch
+          OP_BALANCE:data.OP_BALANCE,           //editClickhandler patch value 
+          LAST_DEPR_DATE:data.LAST_DEPR_DATE,
           ITEM_CODE: data.ITEM_CODE,
           ITEM_NAME: data.ITEM_NAME,
           // OP_BALANCE:data.OP_BALANCE,
           OP_QUANTITY: data.OP_QUANTITY,
           PURCHASE_RATE: data.PURCHASE_RATE,
-          PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+          // PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+          PURCHASE_OP_QUANTITY: data.PURCHASE_QUANTITY, //editClickhandler patch
           PURCHASE_VALUE: data.PURCHASE_VALUE,
           PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
           // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),

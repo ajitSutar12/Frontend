@@ -827,7 +827,7 @@ const MENUITEMS1 = [
 
         ]
       },
-
+      
       {
         state: 'passing',
         short_label: 'D',
@@ -879,7 +879,6 @@ const MENUITEMS1 = [
             id: 351
           },
           {
-
             state: 'billPayment',
             name: 'Bill Payment',
             id: 352
@@ -889,7 +888,6 @@ const MENUITEMS1 = [
             name: 'Fund Transfer',
             id: 353
           },
-
           {
             state: 'cibilScore',
             name: 'Cibil Score',
@@ -971,6 +969,12 @@ const MENUITEMS1 = [
             state: 'memberguaranter',
             name: 'Member Guaranter Detail',
             id: 368
+
+          },
+          {
+            state: 'KYCDocument',
+            name: 'KYC Document',
+            id: 378
 
           },
         ],
@@ -2308,7 +2312,7 @@ const MENUITEMS1 = [
             name: 'Year End BranchWise',
             id: 361
           },
-
+         
 
         ]
       },
@@ -3822,7 +3826,7 @@ const MENUITEMS = [
           },
         ]
       },
-
+     
       {
         state: 'passing',
         short_label: 'D',
@@ -3858,7 +3862,6 @@ const MENUITEMS = [
       {
         state: 'neftRtgs',
         short_label: 'D',
-
         name: 'Services ',
         type: 'sub',
         icon: 'fa fa-money',
@@ -3875,7 +3878,6 @@ const MENUITEMS = [
             id: 351
           },
           {
-
             state: 'billPayment',
             name: 'Bill Payment',
             id: 352
@@ -3885,7 +3887,6 @@ const MENUITEMS = [
             name: 'Fund Transfer',
             id: 353
           },
-
           {
             state: 'cibilScore',
             name: 'Cibil Score',
@@ -3967,6 +3968,12 @@ const MENUITEMS = [
             state: 'memberguaranter',
             name: 'Member Guaranter Detail',
             id: 368
+
+          },
+          {
+            state: 'KYCDocument',
+            name: 'KYC Document',
+            id: 378
 
           },
         ],
@@ -5304,7 +5311,7 @@ const MENUITEMS = [
             name: 'Year End BranchWise',
             id: 361
           },
-
+          
         ]
       },
       {

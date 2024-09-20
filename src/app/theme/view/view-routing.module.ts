@@ -61,6 +61,10 @@ const routes: Routes = [
         path: 'memberguaranter',
         loadChildren: () => import('./member-guaranter-details/member-guaranter-details.module').then(m => m.MemberGuaranterDetailsModule)
       },
+      {
+        path: 'KYCDocument',
+        loadChildren: () => import('./kyc-document/kyc-document.module').then(m => m.KYCDocumentModule)
+      },
     ]
   }
 ];

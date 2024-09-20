@@ -93,11 +93,14 @@ export class RecePayRepComponent implements OnInit {
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
       this.angForm.controls['BRANCH_CODE'].enable()
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
   scrollToTop() {
@@ -108,7 +111,7 @@ export class RecePayRepComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
-    let branchName = userData.branch.NAME;
+    // let branchName = userData.branch.NAME;
 
     if (this.angForm.valid) {
       this.showRepo = true;
@@ -131,7 +134,7 @@ export class RecePayRepComponent implements OnInit {
       if (branchCode == 0) {
         this.branchName = 'Consolidate';
       }
-      this.iframeurl = this.report_url + "examples/Receiptconsine.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchName=" + branchName + "&print=" + print + "&penal=" + penal + "&bankName=" + bankName + "&branched=" + branchCode + " ";
+      this.iframeurl = this.report_url + "examples/Receiptconsine.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchName=" + this.branchName + "&print=" + print + "&penal=" + penal + "&bankName=" + bankName + "&branched=" + branchCode + " ";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }
@@ -150,7 +153,10 @@ export class RecePayRepComponent implements OnInit {
     this.showRepo = false;
     this.clicked = false;
   }
-
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
+  }
 
 
 }
