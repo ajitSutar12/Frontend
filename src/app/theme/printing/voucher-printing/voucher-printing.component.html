@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Voucher Printing</h5>
+                <h5>{{'Printing.Action.T4' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Printing.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'Printing.Action.F2' | translate}}
                 </h6>
             </div>
             <form [formGroup]="ngForm">
@@ -14,7 +14,7 @@
                         <div class="col-sm">
                             <div class="row">
 
-                                <div class="col-sm-2 col-md-1"> <label for="AC_BRANCH">Branch Code<sub
+                                <div class="col-sm-2 col-md-1"> <label for="AC_BRANCH">{{'Printing.Action.Branch_Code' | translate}}<sub
                                             class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
@@ -32,12 +32,12 @@
                                         *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                            This field is required
+                                           <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
+                                <div class="col-sm-12 col-md-1"> <label for=" Date">{{'Printing.Action.Date' | translate}}<sub
                                             class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-12 col-md-2">
@@ -56,13 +56,13 @@
                                         class="alert alert-danger">
                                         <div
                                             *ngIf="ngForm.controls['DATE'].errors?. maxlength || ngForm.controls['DATE'].errors?. minlength || ngForm.controls['DATE'].errors?.required">
-                                            This field is required
+                                           <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-1">
-                                    <label for="vtype">Source Type<sub class="required">*</sub></label>
+                                    <label for="vtype">{{'Printing.Action.Source_Type' | translate}}<sub class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
                                     <div class="form-group form-primary form-static-label">
@@ -78,12 +78,12 @@
                                         *ngIf="ngForm.controls['VOUCHER_TYPE'].invalid && (ngForm.controls['VOUCHER_TYPE'].dirty || ngForm.controls['VOUCHER_TYPE'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="ngForm.controls['VOUCHER_TYPE'].errors?.required">
-                                            This field is required
+                                           <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-1" *ngIf="show">
-                                    <label for="TranType">Transaction Type<sub class="required">*
+                                    <label for="TranType">{{'Printing.Action.Transaction_Type' | translate}}<sub class="required">*
                                         </sub></label>
                                 </div>
                                 <div class="col-sm-2 col-md-2" *ngIf="show">
@@ -100,7 +100,7 @@
                                         *ngIf="ngForm.controls['TRAN_TYPE'].invalid && (ngForm.controls['TRAN_TYPE'].dirty || ngForm.controls['TRAN_TYPE'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="ngForm.controls['TRAN_TYPE'].errors?.required">
-                                            This field is required
+                                           <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@
 
                             <div class="row">
 
-                                <div class="col-sm-2 col-md-1" *ngIf="isdepoClose"> <label for="DC_NO">DC Number<sub
+                                <div class="col-sm-2 col-md-1" *ngIf="isdepoClose"> <label for="DC_NO">{{'Printing.Action.DC_NO' | translate}}<sub
                                             class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-2 col-md-2" *ngIf="isdepoClose">
@@ -128,12 +128,12 @@
                                         *ngIf="ngForm.controls['DC_NO'].invalid && (ngForm.controls['DC_NO'].dirty || ngForm.controls['DC_NO'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="ngForm.controls['DC_NO'].errors?.required">
-                                            This field is required
+                                           <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-2 col-md-1"> <label for="VOUCHER_NO">Voucher Number<sub
+                                <div class="col-sm-2 col-md-1"> <label for="VOUCHER_NO">{{'Printing.Action.Voucher_Num' | translate}}<sub
                                             class="required">*</sub></label>
                                 </div>
                                 <div class="col-sm-2 col-md-2">
@@ -150,7 +150,7 @@
                                         *ngIf="ngForm.controls['VOUCHER_NO'].invalid && (ngForm.controls['VOUCHER_NO'].dirty || ngForm.controls['VOUCHER_NO'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="ngForm.controls['VOUCHER_NO'].errors?.required">
-                                            This field is required
+                                           <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -160,17 +160,17 @@
                                             <label>
                                                 <input type="radio" name="drcr" value="Debit" formControlName="drcr"
                                                     [checked]="true">
-                                                <i class="helper"></i>Debit </label>
+                                                <i class="helper"></i>{{'Printing.Action.Debit' | translate}} </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
                                                 <input type="radio" name="drcr" value="Credit" formControlName="drcr">
-                                                <i class="helper"></i>Credit </label>
+                                                <i class="helper"></i>{{'Printing.Action.Credit' | translate}} </label>
                                         </div>
                                         <div class="radio radio-inline">
                                             <label>
                                                 <input type="radio" name="drcr" value="Both" formControlName="drcr">
-                                                <i class="helper"></i>Both </label>
+                                                <i class="helper"></i>{{'Printing.Action.Both' | translate}} </label>
                                         </div>
                                     </div>
                                 </div>
@@ -180,10 +180,10 @@
                             <div class="row">
 
                                 <div class="col-sm">
-                                    <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                    <button class="btn  btn-outline-primary btn-sm" (click)="close()">{{'Printing.Action.Close' | translate}}</button>
 
                                     <button class="btn  btn-outline-primary btn-sm"
-                                        (click)="view($event); clicked = true ">Print</button>
+                                        (click)="view($event); clicked = true ">{{'Printing.Action.Print' | translate}}</button>
 
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                                 <div class="col-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Report Frame</h5>
+                                            <h5>{{'View.Action.Report_Frame' | translate}}</h5>
                                         </div>
                                         <div *ngIf="showRepo">
                                             <app-iframe5 [url]='iframe5url'></app-iframe5>

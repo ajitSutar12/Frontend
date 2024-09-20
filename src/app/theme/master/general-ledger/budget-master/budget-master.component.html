@@ -75,15 +75,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Budget Allocation Master</h5>
+                <!-- <h5>Budget Allocation Master</h5> -->
+                <h5>{{'main.generalLedger.budget-master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.budget_master.F1' | translate}}(<sub class="required"> * </sub>) {{'master.budget_master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">
+                            <!-- Branch Code -->
+                            {{'master.budget_master.branch_code' | translate}}<sub
                             class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -101,11 +104,14 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                                      <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">Budget Year</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">
+                            <!-- Budget Year -->
+                            {{'master.budget_master.budgetYear' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -119,7 +125,8 @@
                                 *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIN_YEAR'].errors?.required">
-                                    This field is required.
+                                                      <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -132,20 +139,24 @@
                                     <label>
                                         <input type="radio" formControlName="BUDGET_MASTER" name="BUDGET_MASTER" value="expenditure"
                                             id="expenditure"[checked]="true" (change)="Budget($event)">
-                                        <i class="helper"></i>Expenditure
-                                    </label>
+                                        <i class="helper"></i>
+                                        <!-- Expenditure -->
+                                        {{'master.budget_master.Expenditure' | translate}}  </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" value="income" formControlName="BUDGET_MASTER" id="income"
                                             name="BUDGET_MASTER" (change)="BudgetIncome($event)">
-                                        <i class="helper"></i>Income
-                                    </label>
+                                        <i class="helper"></i>
+                                        <!-- Income -->
+                                        {{'master.budget_master.income' | translate}}</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">Add</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">
+                                <!-- Add -->
+                                {{'master.budget_master.add' | translate}}</button>
                         </div>
                         
                     </div>
@@ -155,9 +166,13 @@
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
                                       <tr>
-                                        <td>Account Number</td>
-                                        <td>Account Name</td>
-                                        <td>Allocated Budget Amount</td>
+                                        <!-- <td>Account Number</td> -->
+                                        <td>{{'master.budget_master.acno' | translate}}</td>
+                                        <!-- <td>Account Name</td> -->
+                                        <td>{{'master.budget_master.ac_name' | translate}}</td>
+                                        <!-- <td>Allocated Budget Amount</td> -->
+                                        <td>{{'master.budget_master.alloc_budget_amt' | translate}}</td>
+
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -179,11 +194,15 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="update"
-                                (click)="updateData(item)">Update</button>
+                                (click)="updateData(item)">
+                                <!-- Update -->
+                                {{'master.budget_master.Update' | translate}}</button>
 
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">
+                                <!-- Close -->
+                                {{'master.budget_master.Close' | translate}}</button>
                         </div>
                     </div>
                 </div>

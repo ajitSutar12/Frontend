@@ -11,7 +11,7 @@ import { BankService } from './bank-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -83,7 +83,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private bankService: BankService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate:TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -138,26 +138,32 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Bank_Master.Action'),
         },
         {
-          title: 'Bank Code',
+          // title: 'Bank Code',
+          title:this.translate.instant('master.Bank_Master.Bank_code') ,
           data: 'BANK_CODE'
         },
         {
-          title: 'Bank Name',
+          // title: 'Bank Name',
+          title: this.translate.instant('master.Bank_Master.Bank_Name'),
           data: 'BANK_NAME'
         },
         {
-          title: 'Bank Short Name',
+          // title: 'Bank Short Name',
+          title: this.translate.instant('master.Bank_Master.Bank_short_Name'),
           data: 'BANK_SHORTNAME'
         },
         {
-          title: 'Ledger Code',
+          // title: 'Ledger Code',
+          title: this.translate.instant('master.Bank_Master.Ledger_Code'),
           data: 'LEDGER_CODE'
         },
         {
-          title: 'Participation in Clearing',
+          // title: 'Participation in Clearing',
+          title: this.translate.instant('master.Bank_Master.PARTICIPATE_IN_CLEARING'),
           data: 'PARTICIPATE_IN_CLEARING'
         }
       ],

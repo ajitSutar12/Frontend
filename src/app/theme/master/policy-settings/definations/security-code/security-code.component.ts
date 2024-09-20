@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
+import { TranslateService } from '@ngx-translate/core';
 
 
 // Handling datatable data
@@ -86,6 +87,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public securityCodeService: SecurityCodeService,
     private http: HttpClient,
     private fb: FormBuilder,
+    private translate:TranslateService
   ) { this.createForm(); }
 
 
@@ -137,60 +139,62 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
+
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         }, {
-          title: 'Security Code',
+          title: this.translate.instant('master.Security_Code_Maintenance.Security_Code'),
           data: 'SECU_CODE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Security_Code_Maintenance.Description'),
           data: 'SECU_NAME'
         }, {
-          title: 'Margin',
+          title: this.translate.instant('master.Security_Code_Maintenance.Margin'),
           data: 'MARGIN'
         }, {
-          title: 'Fire Policy',
+          title: this.translate.instant('master.Security_Code_Maintenance.Fire_Policy'),
           data: 'FIRE_POLICY'
         }, {
-          title: 'Market Shares',
+          title: this.translate.instant('master.Security_Code_Maintenance.Market_Shares'),
           data: 'MARKET_SHARE'
         }, {
-          title: 'Book Debts',
+          title: this.translate.instant('master.Security_Code_Maintenance.Book_Debts'),
           data: 'BOOK_DEBTS'
         }, {
-          title: 'Pledge Stock',
+          title: this.translate.instant('master.Security_Code_Maintenance.Pledge_Stock'),
           data: 'PLEDGE_STOCK'
         }, {
-          title: 'Stock Statement',
+          title: this.translate.instant('master.Security_Code_Maintenance.Stock_Statement'),
           data: 'STOCK_STATEMENT'
         }, {
-          title: 'LIC',
+          title: this.translate.instant('master.Security_Code_Maintenance.LIC'),
           data: 'GOVT_SECU_LIC'
         }, {
-          title: 'Customer Insurance',
+          title: this.translate.instant('master.Security_Code_Maintenance.Customer_Insurance'),
           data: 'CUST_INSURANCE'
         }, {
-          title: 'Plantand Machinery',
+          title: this.translate.instant('master.Security_Code_Maintenance.Plant_Machinary'),
           data: 'PLANT_MACHINARY'
         }, {
-          title: 'Furniture & Fixture',
+          title: this.translate.instant('master.Security_Code_Maintenance.Furniture_Fixture'),
           data: 'FURNITURE_FIXTURE'
         }, {
-          title: 'Vehicle',
+          title: this.translate.instant('master.Security_Code_Maintenance.Vehicle'),
           data: 'VEHICLE'
         }, {
-          title: 'OwnDeposit',
+          title: this.translate.instant('master.Security_Code_Maintenance.Own_Deposit'),
           data: 'OWN_DEPOSIT'
         }, {
-          title: 'Land & Buildings',
+          title: this.translate.instant('master.Security_Code_Maintenance.Land_Buildings'),
           data: 'LAND_BUILDING'
         }, {
-          title: 'Gold & Silver',
+          title: this.translate.instant('master.Security_Code_Maintenance.Gold_Silver'),
           data: 'GOLD_SILVER'
         }, {
-          title: 'Other Securities',
+          title: this.translate.instant('master.Security_Code_Maintenance.Other_securities'),
           data: 'OTHER_SECURITY'
         },
       ],

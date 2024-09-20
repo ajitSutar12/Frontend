@@ -29,7 +29,7 @@ import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -234,7 +234,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   AGENTBRANCH: any = null
   Recommended: any[]
   joinDate: any;
-
+  setLang:any;
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
     public IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
@@ -251,6 +251,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private systemParameter: SystemMasterParametersService,
     private directorMasterDropdown: DirectorMasterDropdownService,
     public sanitizer: DomSanitizer,
+    private translate:TranslateService,
     private datePipe: DatePipe,) {
     if (this.childMessage != undefined) {
 
@@ -261,6 +262,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -321,61 +324,76 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          // title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          // title: 'Account Number',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          // title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          // title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Manual Reference Number',
+          // title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail Address',
+          // title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          // title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Opening Date',
+          // title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Expiry Date',
+          // title: 'Expiry Date',
+          title: this.translate.instant('master.Customer.Expiry_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Period',
+          // title: 'Period',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Period'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Default Deposite Amount',
+          // title: 'Default Deposite Amount',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Default_Dep_Amount'),
           data: 'AC_SCHMAMT'
         },
         {
-          title: 'Agent Code',
+          // title: 'Agent Code',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Agent_Code'),
           data: 'AGENT_ACNO'
         }, {
-          title: 'Minor Details',
+          // title: 'Minor Details',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Minor_Details'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
+          // title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Loan_Against_Collection'),
           data: 'PG_COMM_TYPE'
         },
 

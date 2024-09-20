@@ -3,9 +3,14 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Investment Account Opening</h5>
-                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                <!-- <h5>Investment Account Opening</h5> -->
+                   <h5>{{'master.Investment_Ac_Opening.T1'|translate}}</h5>
+                <!-- <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6> -->
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    {{'master.Action.F1'|translate}}
+                    (<sub class="required"> * </sub>){{'master.Action.F2'|translate}}
                 </h6>
             </div>
             <form action="javascript:" appTheme [formGroup]="angForm" novalidate #myform="ngForm">
@@ -22,14 +27,18 @@
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
+                                    <!-- <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label> -->
+                                    <label for="AC_TYPE">{{'master.Investment_Ac_Opening.Scheme'|translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                <!-- <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
                                     This field is required
+                                </div> -->
+                                <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -38,7 +47,8 @@
                                 <span class="border-lable-flt">
                                     <input style="text-align: right;" type="text" name="AC_NO" class="form-control"
                                         placeholder=" " id="AC_NO" formControlName="AC_NO" disabled>
-                                    <label for="AC_NO">Account Number</label>
+                                    <!-- <label for="AC_NO">Account Number</label> -->
+                                    <label for="AC_NO">{{'master.Investment_Ac_Opening.Ac_No'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -56,15 +66,19 @@
                                         <ng-option *ngFor="let values of BankCode" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="INVEST_BANK">Bank Code <sub class="required"> * </sub></label>
+                                    <!-- <label for="INVEST_BANK">Bank Code <sub class="required"> * </sub></label> -->
+                                    <label for="INVEST_BANK">{{'master.Investment_Ac_Opening.Bank_Code'|translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['INVEST_BANK'].invalid && (angForm.controls['INVEST_BANK'].dirty || angForm.controls['INVEST_BANK'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INVEST_BANK'].errors?.required">
-                                    This field is required
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
+                                <!-- <div *ngIf="angForm.controls['INVEST_BANK'].errors?.required">
+                                    This field is required
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm">
@@ -78,15 +92,19 @@
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="INVEST_BRANCH">Branch Code <sub class="required"> * </sub></label>
+                                    <label for="INVEST_BRANCH">{{'master.Investment_Ac_Opening.Branch_Code'|translate}}  <sub class="required"> * </sub></label>
+                                    <!-- <label for="INVEST_BRANCH">Branch Code <sub class="required"> * </sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['INVEST_BRANCH'].invalid && (angForm.controls['INVEST_BRANCH'].dirty || angForm.controls['INVEST_BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INVEST_BRANCH'].errors?.required">
-                                    This field is required
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
+                                <!-- <div *ngIf="angForm.controls['INVEST_BRANCH'].errors?.required">
+                                    This field is required
+                                </div> -->
                             </div>
                         </div>
 
@@ -98,7 +116,8 @@
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                                         pattern="^[A-Za-z\./ -]+$" formControlName="AC_NAME"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" disabled>
-                                    <label for="AC_NAME">Bank Name</label>
+                                    <!-- <label for="AC_NAME">Bank Name</label> -->
+                                    <label for="AC_NAME">{{'master.Investment_Ac_Opening.Bank_Name'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -110,16 +129,21 @@
                                         pattern="^[A-Za-z0-9]+$" maxlength="20"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 48 && $event.charCode < 58) || ($event.charCode >= 97 && $event.charCode <= 122)"
                                         title="Input allowed only 0-9" formControlName="AC_REF_RECEIPTNO">
-                                    <label for="AC_REF_RECEIPTNO">Receipt Number <sub class="required">*</sub></label>
+                                        <label for="AC_REF_RECEIPTNO">{{'master.Investment_Ac_Opening.Receipt_No'|translate}} <sub class="required">*</sub></label>
+                                    <!-- <label for="AC_REF_RECEIPTNO">Receipt Number <sub class="required">*</sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_REF_RECEIPTNO'].invalid && (angForm.controls['AC_REF_RECEIPTNO'].dirty || angForm.controls['AC_REF_RECEIPTNO'].touched)"
                                 class="alert alert-danger">
                                 <div
+                                *ngIf="angForm.controls['AC_REF_RECEIPTNO'].errors?.required || angForm.controls['AC_REF_RECEIPTNO'].errors?.maxlength">
+                                {{'master.Validation.Val_Receipt'|translate}}
+                            </div>
+                                <!-- <div
                                     *ngIf="angForm.controls['AC_REF_RECEIPTNO'].errors?.required || angForm.controls['AC_REF_RECEIPTNO'].errors?.pattern || angForm.controls['AC_REF_RECEIPTNO'].errors?.maxlength">
                                     This field is required and Input allowed only 0-9
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -133,15 +157,19 @@
                                         #AC_OPDATE="bsDatepicker" (keydown.Tab)="AC_OPDATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker>
-                                    <label for="AC_OPDATE">Account Open Date<sub class="required"> * </sub></label>
+                                        <label for="AC_OPDATE">{{'master.Investment_Ac_Opening.Ac_Open_Date'|translate}}<sub class="required"> * </sub></label>
+                                    <!-- <label for="AC_OPDATE">Account Open Date<sub class="required"> * </sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
-                                    This field is required
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
+                                <!-- <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
+                                    This field is required
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -155,21 +183,26 @@
                                         #AC_ASON_DATE="bsDatepicker" (keydown.Tab)="AC_ASON_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker>
-                                    <label for="AC_ASON_DATE">As On Date<sub class="required"> * </sub></label>
+                                        <label for="AC_ASON_DATE">{{'master.Investment_Ac_Opening.As_On_Date'|translate}}<sub class="required"> * </sub></label>
+                                    <!-- <label for="AC_ASON_DATE">As On Date<sub class="required"> * </sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_ASON_DATE'].invalid && (angForm.controls['AC_ASON_DATE'].dirty || angForm.controls['AC_ASON_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_ASON_DATE'].errors?.required">
-                                    This field is required
+                                    {{'master.Validation.Val1'|translate}}
                                 </div>
+                                <!-- <div *ngIf="angForm.controls['AC_ASON_DATE'].errors?.required">
+                                    This field is required
+                                </div> -->
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-2">
-                            <h6>Deposit Period:</h6>
+                            <h6>{{'master.Investment_Ac_Opening.Deposit_Period'|translate}}:</h6>
+                            <!-- <h6>Deposit Period:</h6> -->
                         </div>
                         <div class="col-sm">
                             <div class="form-group input-group">
@@ -180,16 +213,22 @@
                                         (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_MONTHS">
-                                    <label for="AC_MONTHS">Months<sub class="required">*</sub></label>
+                                        <label for="AC_MONTHS">{{'master.Investment_Ac_Opening.Months'|translate}}<sub class="required">*</sub></label>
+                                    <!-- <label for="AC_MONTHS">Months<sub class="required">*</sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_MONTHS'].invalid && (angForm.controls['AC_MONTHS'].dirty || angForm.controls['AC_MONTHS'].touched)"
                                 class="alert alert-danger">
                                 <div
+                                *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required">
+                                <!-- This field is required and Input allowed only 0-9 -->
+                                {{'master.Validation.Val_Receipt'|translate}}
+                            </div>
+                                <!-- <div
                                     *ngIf="angForm.controls['AC_MONTHS'].errors?.pattern || angForm.controls['AC_MONTHS'].errors?.required">
                                     This field is required and Input allowed only 0-9
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm">
@@ -200,7 +239,8 @@
                                         title="Input allowed only 0-9" (ngModelChange)="setMaturityDate()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_DAYS">
-                                    <label for="AC_DAYS">Days <sub class="required">*</sub></label>
+                                        <label for="AC_DAYS">{{'master.Investment_Ac_Opening.Days'|translate}} <sub class="required">*</sub></label>
+                                    <!-- <label for="AC_DAYS">Days <sub class="required">*</sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -208,8 +248,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_DAYS'].errors?.pattern || angForm.controls['AC_DAYS'].errors?.required">
-                                    This field is required and Input allowed only 0-9
+                                    <!-- This field is required and Input allowed only 0-9 -->
+                                    {{'master.Validation.Val_Receipt'|translate}}
                                 </div>
+                                <!-- <div
+                                    *ngIf="angForm.controls['AC_DAYS'].errors?.pattern || angForm.controls['AC_DAYS'].errors?.required">
+                                    This field is required and Input allowed only 0-9
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -223,15 +268,19 @@
                                         #AC_EXPDT="bsDatepicker" (keydown.Tab)="AC_EXPDT.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker disabled>
-                                    <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label>
+                                        <label for="AC_EXPDT">{{'master.Investment_Ac_Opening.Maturity_Date'|translate}}<sub class="required"> * </sub></label>
+                                    <!-- <label for="AC_EXPDT">Maturity Date<sub class="required"> * </sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_EXPDT'].invalid && (angForm.controls['AC_EXPDT'].dirty || angForm.controls['AC_EXPDT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_EXPDT'].errors?.required">
+                                    {{'master.Validation.Val1'|translate}}
+                               </div>
+                                <!-- <div *ngIf="angForm.controls['AC_EXPDT'].errors?.required">
                                     This field is required
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -245,17 +294,23 @@
                                         (focusout)="getDecimalPoint($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="AC_SCHMAMT" [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="AC_SCHMAMT">Deposit Amount<sub class="required">*
+                                        <label for="AC_SCHMAMT">{{'master.Investment_Ac_Opening.Deposit_Amount'|translate}}<sub class="required">*
                                         </sub></label>
+                                    <!-- <label for="AC_SCHMAMT">Deposit Amount<sub class="required">*
+                                        </sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_SCHMAMT'].invalid && (angForm.controls['AC_SCHMAMT'].dirty || angForm.controls['AC_SCHMAMT'].touched)"
                                 class="alert alert-danger">
                                 <div
+                                    *ngIf=" angForm.controls['AC_SCHMAMT'].errors?.required">
+                                    {{'master.Validation.Val_Receipt'|translate}}
+                                </div>
+                                <!-- <div
                                     *ngIf="angForm.controls['AC_SCHMAMT'].errors?.pattern || angForm.controls['AC_SCHMAMT'].errors?.required">
                                     This field is required and Input allowed only 0-9
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -267,7 +322,8 @@
                                         (keyup)="checkmargin($event);getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         formControlName="AC_INTRATE">
-                                    <label for="AC_INTRATE">Interest Rate % <sub class="required">*</sub></label>
+                                        <label for="AC_INTRATE">{{'master.Investment_Ac_Opening.Interest'|translate}}<sub class="required">*</sub></label>
+                                    <!-- <label for="AC_INTRATE">Interest Rate % <sub class="required">*</sub></label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -275,8 +331,12 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
-                                    This field is required and Input allowed only . 0-9
+                                    {{'master.Validation.Val_Receipt'|translate}}
                                 </div>
+                                <!-- <div
+                                    *ngIf="angForm.controls['AC_INTRATE'].errors?.pattern || angForm.controls['AC_INTRATE'].errors?.required">
+                                    This field is required and Input allowed only . 0-9
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -287,15 +347,19 @@
                                         (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         formControlName="AC_MATUAMT" [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="AC_MATUAMT">Maturity Amount</label>
+                                        <label for="AC_MATUAMT">{{'master.Investment_Ac_Opening.Maturity_Amount'|translate}}</label>
+                                    <!-- <label for="AC_MATUAMT">Maturity Amount</label> -->
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_MATUAMT'].invalid && (angForm.controls['AC_MATUAMT'].dirty || angForm.controls['AC_MATUAMT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_MATUAMT'].errors?.pattern">
-                                    Input allowed only 0-9
+                                    {{'master.Validation.Val_Pin_Code'|translate}}
                                 </div>
+                                <!-- <div *ngIf="angForm.controls['AC_MATUAMT'].errors?.pattern">
+                                    Input allowed only 0-9
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-sm-3">
@@ -308,13 +372,14 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="AC_CLOSEDT"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         [bsValue]="bsValue" bsDatepicker disabled />
-                                    <label for="AC_CLOSEDT">Account Closed Date </label>
+                                        <label for="AC_CLOSEDT">{{'master.Investment_Ac_Opening.Ac_Closed_Date'|translate}} </label>
+                                    <!-- <label for="AC_CLOSEDT">Account Closed Date </label> -->
                                 </span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm" style="float: right;">
+                        <!-- <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
                                 Submit
@@ -332,6 +397,30 @@
                                 Approve</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unApprove()">
                                 Unapprove</button>
+                        </div> -->
+                        <div class="col-sm" style="float: right;">
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
+                                (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
+                                {{'master.Action.Submit'|translate}}
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
+                                {{'master.Action.Close'|translate}}
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
+                                {{'master.Action.Cancel'|translate}}
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                                {{'master.Action.Update'|translate}}
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
+                                {{'master.Action.Reject'|translate}}
+                            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
+                                {{'master.Action.Approve'|translate}}
+                            </button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unApprove()">
+                                {{'master.Action.Unapprove'|translate}}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -390,7 +479,8 @@
                                 </tbody>
                                 <tbody *ngIf="investmentMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <!-- <td colspan="6" class="no-data-available">No data!</td> -->
+                                        <td colspan="6" class="no-data-available">{{'master.Customer.No_Data'|translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

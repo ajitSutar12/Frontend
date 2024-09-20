@@ -21,6 +21,8 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -114,7 +116,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private _service: VoucherEntryService,
     private ownbranchMasterService: OwnbranchMasterService,
-
+    private translate:TranslateService,
     private config: NgSelectConfig,) { }
 
 
@@ -174,25 +176,25 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Company_Group_Master.Code'),
           data: 'COMP_CODE'
         }, {
-          title: 'Name',
+          title: this.translate.instant('master.Company_Group_Master.Name'),
           data: 'NAME'
         }, {
-          title: 'Address',
+          title: this.translate.instant('master.Company_Group_Master.Address'),
           data: 'ADDRESS'
         }, {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Company_Group_Master.Scheme_Type'),
           data: 'AC_ACNOTYPE'
         }, {
-          title: 'Scheme code',
+          title: this.translate.instant('master.Company_Group_Master.Scheme_Code'),
           data: 'AC_TYPE'
         }, {
-          title: 'A/c No',
+          title: this.translate.instant('master.Company_Group_Master.Account_Number'),
           data: 'AC_NO'
         }],
       dom: 'Blrtip',

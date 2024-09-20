@@ -2,9 +2,14 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Narration Master</h5>
+                <!-- <h5>Narration Master</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6> -->
+                <h5>{{'master.Naration_Master.Title' | translate}}</h5>
+
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    {{'master.Naration_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Naration_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,7 +22,7 @@
                                         [ngClass]="{'form-submitted': formSubmitted}" #autofocus placeholder=" "
                                         id="label-name" required="" 
                                         formControlName="NARRATION">
-                                    <label for="label-name">Narration<sub class="required">* </sub></label>
+                                    <label for="label-name">{{'master.Naration_Master.Narration' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -25,7 +30,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NARRATION'].errors?.pattern || angForm.controls['NARRATION'].errors?.required || angForm.controls['NARRATION'].errors?.maxlength">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -33,14 +38,20 @@
 
                         <div class="col-sm" *ngIf="showButton">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>
+                                {{'master.Naration_Master.Submit' | translate}}    <!-- Submit -->
+                            </button>
 
                         </div>
                         <div class="col-sm" style="float: left;" *ngIf="updateShow">
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                [disabled]="angForm.invalid" [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid" [disabled]="angForm.invalid">
+                                {{'master.Naration_Master.Update' | translate}}    <!-- Update -->
+                            </button>&nbsp;
 
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData()">
+                                {{'master.Naration_Master.Cancel' | translate}}    <!-- Cancel -->
+                            </button>
                         </div>
 
                     </div> 
@@ -72,7 +83,9 @@
                                 </tbody>
                                 <tbody *ngIf="narrations?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">
+                                            {{'master.Action.No_Data' | translate}}     <!-- No data! -->
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

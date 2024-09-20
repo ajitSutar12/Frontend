@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { DeadStockPurchaseService } from './dead-stock-purchase.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { Data } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -92,7 +93,7 @@ export class DeadStockPurchaseComponent implements OnInit {
   unapproveShow: boolean = false;
   Tamount: any = 0;
   billDateMax
-
+  setLang:any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -101,7 +102,7 @@ export class DeadStockPurchaseComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private config: NgSelectConfig,
+    private config: NgSelectConfig, private translate:TranslateService,
   ) {
     if (this.childMessage != undefined) {
 
@@ -117,6 +118,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.billDateMax = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.billDateMax = this.billDateMax._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

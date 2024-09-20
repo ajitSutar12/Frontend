@@ -11,6 +11,10 @@ import { ReportTMasterDropdownService } from "../../../../shared/dropdownService
 import { DataTableDirective } from "angular-datatables";
 import { GlAccountsMasterService } from "../gl-accounts-master/gl-accounts-master.service";
 import { Console } from "console";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+
+import { TranslateService } from "@ngx-translate/core";
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -107,13 +111,22 @@ export class GlReportMasterComponent implements OnInit {
   page: number = 1;
   updateTableData: any;
   abrData = [];
+  setLang: any;
 
 
   constructor(private http: HttpClient, private fb: FormBuilder,
     private reportTypeDropdown: ReportTMasterDropdownService,
     private glReportMasterService: GlAccountsMasterService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) { }
+    private changeDetectorRef: ChangeDetectorRef,
+    private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -193,57 +206,57 @@ export class GlReportMasterComponent implements OnInit {
       ],
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: "Report Type",
+          title: this.translate.instant('master.GL_Report_Master.Report_Type'),
           data: "REPORT_TYPE",
         },
         {
-          title: "Code",
+          title: this.translate.instant('master.GL_Report_Master.Code'),
           data: "CODE",
         },
         {
-          title: "Name",
+          title: this.translate.instant('master.GL_Report_Master.Name'),
           data: "NAME",
         },
         {
-          title: "Code Type",
+          title: this.translate.instant('master.GL_Report_Master.Code_Type'),
           data: "CODE_TYPE",
         },
         {
-          title: "Serial Number",
+          title: this.translate.instant('master.GL_Report_Master.sr_no'),
           data: "SERIAL_NO",
         },
         {
           title: "FIRST_SRNO ",
           data: "FIRST_SRNO",
-        },        {
+        }, {
           title: "Second_SRNO",
           data: "Second_SRNO",
-        },        {
+        }, {
           title: "Third_SRNO",
           data: "Third_SRNO",
-        },        {
+        }, {
           title: "HO_LIQ_CODE1",
           data: "HO_LIQ_CODE1",
-        },        {
+        }, {
           title: "HO_LIQ_CODE2",
           data: "HO_LIQ_CODE2",
-        },        {
+        }, {
           title: "ALTERNET_CODE",
           data: "ALTERNET_CODE",
         },
         {
-          title: "Percentage",
+          title: this.translate.instant('master.GL_Report_Master.Percentage'),
           data: "PERCENTAGE",
         },
         {
-          title: "Percentage Consideartion",
+          title: this.translate.instant('master.GL_Report_Master.Percentage_of_Cosideration'),
           data: "PERCENTAGE_CONSIDARATION",
         },
         {
-          title: "Percentage of Code",
+          title: this.translate.instant('master.GL_Report_Master.Percentage_of_Code'),
           data: "PERCENTAGE_OF_CODE",
         },
       ],
@@ -602,11 +615,11 @@ export class GlReportMasterComponent implements OnInit {
         // CODE_TYPE: formVal.CODE_TYPE,
         // SERIAL_NO: formVal.SERIAL_NO,
         HO_LIQ_CODE2: formVal.HOcode2,
-      HO_LIQ_CODE1 : formVal.HOcode1,
-      ALTERNET_CODE : formVal.AltCode,
-      FIRST_SRNO: formVal.fno,
-      Second_SRNO: formVal.sno,
-      Third_SRNO: formVal.tno,
+        HO_LIQ_CODE1: formVal.HOcode1,
+        ALTERNET_CODE: formVal.AltCode,
+        FIRST_SRNO: formVal.fno,
+        Second_SRNO: formVal.sno,
+        Third_SRNO: formVal.tno,
         PERCENTAGE_OF_CODE: formVal.PERCENTAGE_OF_CODE,
         // ADD_PL_AMOUNT: (formVal.ADD_PL_AMOUNT == true ? '1' : '0'),
         // INPUT_ALLOWED: (formVal.INPUT_ALLOWED == true ? '1' : '0'),
@@ -622,8 +635,8 @@ export class GlReportMasterComponent implements OnInit {
         NAME: formVal.NAME,
         // CODE_TYPE: formVal.CODE_TYPE,
         FIRST_SRNO: formVal.fno,
-      Second_SRNO: formVal.sno,
-      Third_SRNO: formVal.tno,
+        Second_SRNO: formVal.sno,
+        Third_SRNO: formVal.tno,
       }
     }
     else if (this.Btn6) {
@@ -672,10 +685,10 @@ export class GlReportMasterComponent implements OnInit {
         ADD_PL_AMOUNT: (formVal.ADD_PL_AMOUNT == true ? '1' : '0'),
         INPUT_ALLOWED: (formVal.INPUT_ALLOWED == true ? '1' : '0'),
         IS_PRINT_IN_REPORT: (formVal.IS_PRINT_IN_REPORT == true ? '1' : '0'),
-       
+
       }
     }
-   
+
     else if (this.Btn9) {
       this.dataToSend = {
         REPORT_TYPE: 'FRIDAY LIRUIDITY',
@@ -691,7 +704,7 @@ export class GlReportMasterComponent implements OnInit {
         // ADD_PL_AMOUNT: (formVal.ADD_PL_AMOUNT == true ? '1' : '0'),
         INPUT_ALLOWED: (formVal.INPUT_ALLOWED == true ? '1' : '0'),
         IS_PRINT_IN_REPORT: (formVal.IS_PRINT_IN_REPORT == true ? '1' : '0'),
-       
+
       }
     }
     else if (this.Btn10) {
@@ -708,7 +721,7 @@ export class GlReportMasterComponent implements OnInit {
         ADD_PL_AMOUNT: (formVal.ADD_PL_AMOUNT == true ? '1' : '0'),
         INPUT_ALLOWED: (formVal.INPUT_ALLOWED == true ? '1' : '0'),
         IS_PRINT_IN_REPORT: (formVal.IS_PRINT_IN_REPORT == true ? '1' : '0'),
-       
+
       }
     }
 

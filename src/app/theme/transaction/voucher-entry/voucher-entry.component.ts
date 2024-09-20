@@ -19,6 +19,8 @@ import { environment } from '../../../../environments/environment';
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-voucher-entry',
@@ -171,6 +173,7 @@ export class VoucherEntryComponent implements OnInit {
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
   DayOpBalance: string;
+  setLang:any;
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -183,8 +186,16 @@ export class VoucherEntryComponent implements OnInit {
     private _CustomerIdService: CustomerIdService,
     private _bankmasterService: BankMasterService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage);
     }
@@ -324,6 +335,8 @@ export class VoucherEntryComponent implements OnInit {
   }
 
   resetscheme() {
+    this.isMinor = false
+    this.isJoint = false
     if (this.tempschmetype != this.selectedCode) {
       this.selectedScheme = null
       this.selectedMode = null
@@ -671,6 +684,8 @@ export class VoucherEntryComponent implements OnInit {
   }
   // Reset Function pooja
   resetForm() {
+    this.isMinor = false
+    this.isJoint = false;
     this.angForm.controls.temp_over_draft.reset();
     this.angForm.controls.bank.reset();
     this.angForm.controls.chequeNo.reset();

@@ -7,7 +7,9 @@ import { SchemeAccountNoService } from '../../../../shared/dropdownService/schem
 import { InterestPostingFlagUpdationService } from './interest-posting-flag-updation.service'
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
 @Component({
   selector: 'app-interest-posting-flag-updation',
@@ -43,11 +45,18 @@ export class InterestPostingFlagUpdationComponent implements OnInit {
   filterArray: any[];
   gridData: any;
   modalClass: string = 'modalHide';
+  setLang: string;
   constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
     private _service: InterestPostingFlagUpdationService,
-    private ownbranchMasterService: OwnbranchMasterService,) { }
+    private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })}
 
   ngOnInit(): void {
     this.createForm();

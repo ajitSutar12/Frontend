@@ -2,46 +2,62 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h5>GL Report Linking</h5>
-          <h6 style="float: right;"><sub class="required">*</sub>Required Fields</h6>
+          <!-- <h5>GL Report Linking</h5> -->
+          <h5>{{'master.GL_Report_Linking.Title' | translate}}</h5>
+          <h6 style="float: right;">{{'master.Action.F1' | translate}}<sub class="required">*</sub>{{'master.Action.F2' | translate}}</h6>
         </div>
         <form [formGroup]="angForm" novalidate #myform="ngForm">
           <div class="card-block">
   
-            <!-- <h1>{{ selectedCategory }}</h1> -->
   
             <div class="row">
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'EXPENSES' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('EXPENSES')">EXPENSES</button>
+                style="color: black;" (click)="onExpensesClick('EXPENSES')">
+                <!-- EXPENSES -->
+                {{'master.GL_Report_Linking.EXPENSES' | translate}}</button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'SUBSIDARY' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('SUBSIDARY')">SUBSIDARY</button>
+                style="color: black;" (click)="onExpensesClick('SUBSIDARY')">
+                <!-- SUBSIDARY -->
+                {{'master.GL_Report_Linking.SUBSIDARY' | translate}}</button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'CRAR' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('CRAR')">CRAR</button>
+                style="color: black;" (click)="onExpensesClick('CRAR')">
+                <!-- CRAR -->
+                {{'master.GL_Report_Linking.CRAR' | translate}}  </button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'Daily Liquidity' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('Daily Liquidity')">Daily Liquidity</button>
+                style="color: black;" (click)="onExpensesClick('Daily Liquidity')">
+                <!-- Daily Liquidity -->
+                {{'master.GL_Report_Linking.Daily Liquidity' | translate}}</button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'ABR-ALR' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('ABRALR')">ABR-ALR</button>
+                style="color: black;" (click)="onExpensesClick('ABRALR')">
+                <!-- ABR-ALR -->
+                {{'master.GL_Report_Linking.ABR-ALR' | translate}}</button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'CRR' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('CRR')">CRR</button>
+                style="color: black;" (click)="onExpensesClick('CRR')">
+                <!-- CRR -->
+                {{'master.GL_Report_Linking.CRR' | translate}}</button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'SLR' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('SLR')">SLR</button>
+                style="color: black;" (click)="onExpensesClick('SLR')">
+                <!-- SLR -->
+                {{'master.GL_Report_Linking.SLR' | translate}}</button>
   
               <button type="button" class="btn btn-outline-primary btn-sm"
                 [ngStyle]="{'background-color': selectedCategory === 'NIDHI' ? 'green' : 'transparent'}"
-                style="color: black;" (click)="onExpensesClick('NIDHI')">NIDHI</button>
+                style="color: black;" (click)="onExpensesClick('NIDHI')">
+                <!-- NIDHI -->
+                {{'master.GL_Report_Linking.NIDHI' | translate}}</button>
             </div>
 
             <h3 style="text-align: center;">{{ selectedCategory }}</h3>
@@ -52,7 +68,8 @@
   
                   <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
                     *ngIf="updateButton">
-                    Update
+                    <!-- Update -->
+                    {{'master.Action.Update' | translate}}
                   </button>
                 </div>
               </div>
@@ -178,7 +195,9 @@
                             
                               <tbody *ngIf="tabledata?.length == 0">
                                 <tr>
-                                  <td colspan="9" class="no-data-available">No data!</td>
+                                  <td colspan="9" class="no-data-available">
+                                    <!-- No data! -->
+                                    {{'master.Action.No_Data' | translate}}</td>
                                 </tr>
                               </tbody>
   

@@ -28,6 +28,8 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service'
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+
 @Directive({
   selector: 'autofocus'
 })
@@ -243,6 +245,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('ctdTabset') ctdTabset;
   ngappointeddate: any
   ngexpiryddate: any
+  setLang: any;
 
   constructor(
     private http: HttpClient,
@@ -261,7 +264,9 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private _cityMasterService: cityMasterService,
     private _ownbranchMaster: OwnbranchMasterService,
     private config: NgSelectConfig,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    private translate: TranslateService
+  ) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -272,6 +277,8 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -332,42 +339,53 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action'
+          // title: 'Action'
+          title: this.translate.instant('master.Action.Action')
+
         },
         {
-          title: 'Scheme',
+          // title: 'Scheme',
+          title: this.translate.instant('master.Saving_Acc_Master.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          // title: 'Account Number',
+          title: this.translate.instant('master.Saving_Acc_Master.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Member Name',
+          // title: 'Member Name',
+          title: this.translate.instant('master.Saving_Acc_Master.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Detail Address',
+          // title: 'Detail Address',
+          title: this.translate.instant('master.Saving_Acc_Master.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          // title: 'City',
+          title: this.translate.instant('master.Saving_Acc_Master.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Opening Date',
+          // title: 'Opening Date',
+          title: this.translate.instant('master.Saving_Acc_Master.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Manual Reference Number',
+          // title: 'Manual Reference Number',
+          title: this.translate.instant('master.Saving_Acc_Master.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Minor Details',
+          // title: 'Minor Details',
+          title: this.translate.instant('master.Saving_Acc_Master.Minor'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Birth Date',
+          // title: 'Birth Date',
+          title: this.translate.instant('master.Saving_Acc_Master.Birth_Date'),
           data: 'AC_MBDATE'
         },
       ],

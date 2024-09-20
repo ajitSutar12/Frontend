@@ -11,6 +11,7 @@ import { ReportTypeMasterService } from './report-type-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -68,7 +69,7 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
   constructor(
     private http: HttpClient,
     private reportTypeMasterService: ReportTypeMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -123,17 +124,18 @@ export class ReportTypeMasterComponent implements OnInit, AfterViewInit, OnDestr
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
+
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Report_type_Master.Report_type_Code'),
           data: 'CODE',
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Report_type_Master.Name'),
           data: 'NAME',
         },
 

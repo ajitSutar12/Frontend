@@ -26,6 +26,7 @@ import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/pref
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
 import * as moment from 'moment';
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -151,6 +152,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   logDate
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -160,7 +162,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private cityMasterService: cityMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
-    private systemParameter: SystemMasterParametersService
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
     if (this.childMessage != undefined) {
 
@@ -171,6 +174,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -233,26 +238,26 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
         {
           data: "AC_TYPE",
-          title: "Scheme",
+          title: this.translate.instant('master.Anamat_Sub_Master.Scheme'),
         },
         {
           data: 'BANKACNO',
-          title: "Account Number",
+          title: this.translate.instant('master.Anamat_Sub_Master.Ac_No'),
         },
         {
           data: "AC_CUSTID",
-          title: "Customer ID",
+          title: this.translate.instant('master.Anamat_Sub_Master.Cust_Id'),
         },
         {
           data: "AC_NAME",
-          title: "Member Name",
+          title: this.translate.instant('master.Anamat_Sub_Master.Member_Name'),
         },
         // {
         //   data: "AC_MEMBTYPE",
@@ -263,20 +268,20 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         //   title: "Member No",
         // },
         {
-          data: "AC_ADDR",
-          title: "Detail Address",
+          data: "AC_AREA",
+          title: this.translate.instant('master.Anamat_Sub_Master.Detail_add'),
         },
         {
           data: "AC_CTCODE",
-          title: "City",
+          title: this.translate.instant('master.Anamat_Sub_Master.City'),
         },
         {
           data: "AC_OPDATE",
-          title: "Opening date",
+          title: this.translate.instant('master.Anamat_Sub_Master.Open_Date'),
         },
         {
           data: "AC_PARTICULAR",
-          title: "Reason",
+          title: this.translate.instant('master.Anamat_Sub_Master.Reason'),
         },
       ],
       dom: "Blrtip",

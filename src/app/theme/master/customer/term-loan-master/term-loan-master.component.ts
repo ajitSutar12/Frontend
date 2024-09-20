@@ -42,6 +42,8 @@ import { SecurityMasterdropdownService } from '../../../../shared/dropdownServic
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { RepayModeService } from '../../../../shared/dropdownService/repay-mode.service';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from "@ngx-translate/core";
+
 //date pipe
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
@@ -323,6 +325,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   selectedImgArrayDetails = [];
   urlMap: SafeResourceUrl
   maxDate
+  setLang: any;
   constructor(
     private http: HttpClient,
     private termLoanService: TermLoanService,
@@ -354,6 +357,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     public router: Router,
     private config: NgSelectConfig,
     public sanitizer: DomSanitizer,
+    private translate: TranslateService
   ) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
@@ -362,6 +366,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -422,78 +430,78 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Customer.Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Renewal Date',
+          title: this.translate.instant('master.Cash_Credit_Master.Renewal'),
           data: 'AC_OPEN_OLD_DATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail',
+          title: this.translate.instant('master.Customer.Detail'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Sanction Date',
+          title: this.translate.instant('master.Cash_Credit_Master.Sanction_Date'),
           data: 'AC_SANCTION_DATE'
         },
         {
-          title: 'Period',
+          title: this.translate.instant('master.Cash_Credit_Master.Period'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Expiry Date',
+          title: this.translate.instant('master.Customer.Expiry_Date'),
           data: 'AC_EXPIRE_DATE'
         },
         {
-          title: 'Sanction Limit',
+          title: this.translate.instant('master.Cash_Credit_Master.Sanction_Limit'),
           data: 'AC_SANCTION_AMOUNT'
         },
         {
-          title: 'Drawing Power',
+          title: this.translate.instant('master.Cash_Credit_Master.Drawing_Power'),
           data: 'AC_DRAWPOWER_AMT'
         },
         {
-          title: 'Interest Rate',
+          title: this.translate.instant('master.Cash_Credit_Master.Interest'),
           data: 'AC_INTRATE'
         },
         {
-          title: 'Installment',
+          title: this.translate.instant('master.Cash_Credit_Master.Install'),
           data: 'AC_INSTALLMENT'
         },
         {
-          title: 'Sanction Authority',
+          title: this.translate.instant('master.Cash_Credit_Master.Sanction_Authority'),
           data: 'AC_AUTHORITY'
         },
         {
-          title: 'Purpose',
+          title: this.translate.instant('master.Cash_Credit_Master.Purpose'),
           data: 'AC_PURPOSE'
         }
       ],
@@ -580,7 +588,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     });
 
     this.getData();
-
+  
 
   };
 
@@ -676,7 +684,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
-  isDisable=false
+  isDisable = false
   submit(event) {
     this.formSubmitted = true;
     let formVal = this.angForm.value;

@@ -15,6 +15,7 @@ import { DividendPostingService } from './dividend-posting.service'
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { date } from 'ngx-custom-validators/src/app/date/validator';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -83,13 +84,18 @@ export class DividendPostingComponent implements OnInit {
   ngwarrentDate: any
 
   private dataSub: Subscription = null;
-
+  setLang:any;
   constructor(private fb: FormBuilder,
     private http: HttpClient,
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
-    private _service: DividendPostingService,
+    private _service: DividendPostingService,private translate:TranslateService,
     private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
   }
 
   ngOnInit(): void {
@@ -140,17 +146,20 @@ export class DividendPostingComponent implements OnInit {
       // ajax: 'fake-data/dividend-posting.json',
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: 'Scheme Code',
+          // title: 'Scheme Code',
+          title: this.translate.instant('master.Dividend_Posting.Scheme_Code'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Warrant Date',
+          // title: 'Warrant Date',
+          title: this.translate.instant('master.Dividend_Posting.Warrant_Date'),
           data: 'WARRENT_DATE'
         },],
       dom: "Blrtip",

@@ -12,7 +12,8 @@ import readXlsxFile from 'read-excel-file'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { userInfo } from 'os';
 import { NgSelectComponent } from '@ng-select/ng-select'
-
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-batch-voucher',
@@ -57,14 +58,22 @@ export class BatchVoucherComponent implements OnInit {
   minDate: Date;
   showImportDiv: boolean = false;
   dataArray: any;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
     private _service: BatchVoucherService,
     private CompanyGroupMasterDropdownService: CompanyGroupMasterDropdownService,
-    private _multiService: MultiVoucherService
+    private _multiService: MultiVoucherService,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
