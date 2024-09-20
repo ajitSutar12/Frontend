@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -88,7 +89,9 @@ export class SchemeLinkingWithDComponent implements OnInit, AfterViewInit, OnDes
     public SchemeTypes: SchemeTypeDropdownService,
     private http: HttpClient, public Scheme4Service: Scheme4Service,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) { this.createForm(); }
+    private config: NgSelectConfig,
+    private translate:TranslateService,
+  ) { this.createForm(); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {

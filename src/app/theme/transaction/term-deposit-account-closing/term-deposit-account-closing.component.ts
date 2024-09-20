@@ -646,31 +646,49 @@ export class TermDepositAccountClosingComponent implements OnInit {
             TOTAL_INT: Math.round(total_int)
           })
         }
+
         if (this.maturityDate1 == this.date) {
           this.angForm.patchValue({
             InterestRate: this.INTRATE,
             MaturedDays: data[0].totDays,
             TOTAL_INT: Math.round(data[0].InterestAmount)
-          })
-        }
-        if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '' && this.maturityDate1 < this.date) {
 
+          })
+
+
+
+        }
+
+        if (this.afterMatureIntRate != 0 && this.afterMatureIntRate != '' && this.maturityDate1 < this.date) {
+          // var b = moment(this.date, "DD/MM/YYYY");
+          // var a = this.lastIntDate != '' && this.lastIntDate != null ? moment(this.lastIntDate, 'DD/MM/YYYY') : (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+          // let maturedDays = Math.abs(a.diff(b, 'days'))
+          // let total_int = Number(this.angForm.controls['TOTAL_INT'].value) + Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
           var a1 = moment(this.date, "DD/MM/YYYY")
           this.afterMaturedInt = true
           var b = moment(this.maturityDate1, "DD/MM/YYYY");
           var a = moment(this.date, "DD/MM/YYYY")
           let maturedDaysDiff = Math.abs(a1.diff(b, 'days'))
-          let maturedDaysDiffAmount = Math.round((Number(data[0].AC_SCHMAMT) * Math.abs(this.afterMatureIntRate * maturedDaysDiff)) / 36500).toFixed(2)
-
           this.angForm.patchValue({
             maturedInterest: this.afterMatureIntRate,
             InterestRate: this.INTRATE,
             afterMaturityDays: maturedDaysDiff,
-            maturedIntAmt: maturedDaysDiffAmount,
             MaturedDays: data[0].totDays,
             TOTAL_INT: Math.round(data[0].InterestAmount)
           })
-
+          // this.intRateShow = this.afterMatureIntRate
+          // this.afterMaturedInt = false
+          // var b = moment(this.maturityDate, "DD/MM/YYYY");
+          // var a = (this.asOnDate != '' && this.asOnDate != null) ? moment(this.asOnDate, "DD/MM/YYYY") : moment(this.opDate, "DD/MM/YYYY")
+          // let maturedDays = Math.abs(a.diff(b, 'days'))
+          // let total_int = Math.abs(maturedDays * (parseFloat(this.afterMatureIntRate) / 100))
+          // this.angForm.patchValue({
+          //   InterestRate: this.afterMatureIntRate,
+          //   MaturedDays: maturedDays,
+          //   TOTAL_INT: Math.round(total_int)
+          // })
+          // this.intRateShow = this.afterMatureIntRate
+          // this.afterMaturedInt = false
         }
         // else if (this.maturityDate1 == this.date) {
         //   var a1 = moment(this.date, "DD/MM/YYYY").subtract(1, 'days')
@@ -3073,8 +3091,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.transferACID = this.multigrid[id].id;
     this.transferGrid = this.multigrid[id]
     this.jointShowButton = false;
-    this.jointUpdateShow = true;
-
+    this.jointUpdateShow = false;
 
     this.particulars = this.multigrid[id].NARRATION,
       this.amount = this.multigrid[id].TRAN_AMOUNT,
@@ -3785,7 +3802,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
           if (data[0].post_Interest < 0) {
             this.angForm.patchValue({
               NET_INTAMT: Number(data[0].post_Interest).toFixed(0),
-              POSTED_INT: Number(data[0].post_Interest)
+              POSTED_INT: 0
             });
             this.NET_EXC_INTAMT = Number(data[0].post_Interest);
           } else if (data[0].post_Interest > 0) {
@@ -3878,6 +3895,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
             NETPAYABLEAMT: this.totalNetAmt
           });
 
+          
           this.showCustomerDeatils();
         });
     });

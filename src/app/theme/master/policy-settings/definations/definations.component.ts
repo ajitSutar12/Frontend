@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import{environment} from '../../../../../environments/environment'
+import{environment} from '../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 @Component({
   selector: 'app-definations',
   templateUrl: './definations.component.html',
@@ -22,10 +25,25 @@ export class DefinationsComponent implements OnInit {
   sizeslabwarTrue: boolean = false;
 
 
-  constructor(private_router: Router) {
+  
+  setLang:any;
+
+  constructor(private_router: Router, private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) {
+    
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
+
   }
   ngOnInit(): void {
   }
+
+  
 //for list routing
   OpenLink(val) {
   

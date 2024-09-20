@@ -20,7 +20,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -114,8 +114,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     private fb: FormBuilder,
     public SizeSlabWiseService: SizeSlabWiseService,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,) {
-    this.systemParameter.getFormData(1).subscribe(data => {
+    private config: NgSelectConfig,private translate:TranslateService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
@@ -169,14 +169,14 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Deposit_Interest.Scheme'),
           data: 'ACNOTYPE'
         },
         {
-          title: 'Interest Category',
+          title: this.translate.instant('master.Deposit_Interest.Interest_Category'),
           data: 'INT_CATEGORY'
         }
       ],

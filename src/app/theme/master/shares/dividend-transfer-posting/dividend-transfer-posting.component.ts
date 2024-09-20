@@ -9,7 +9,9 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { environment } from 'src/environments/environment';
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
-import { DividendTransferPostingService } from './dividend-transfer-posting.service'
+import { DividendTransferPostingService } from './dividend-transfer-posting.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-dividend-transfer-posting',
   templateUrl: './dividend-transfer-posting.component.html',
@@ -61,9 +63,15 @@ export class DividendTransferPostingComponent implements OnInit {
     AccountNo: "",
   };
   warrentDate: any;
-
+  setLang:any;
   constructor(private fb: FormBuilder, private http: HttpClient, private config: NgSelectConfig, private _service: DividendTransferPostingService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService) { }
+    private schemeCodeDropdownService: SchemeCodeDropdownService, public SchemeCodeService: SchemeCodeService, private translate:TranslateService,private systemParameter: SystemMasterParametersService,) { 
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+    }
 
   ngOnInit(): void {
     this.createForm();
@@ -71,22 +79,27 @@ export class DividendTransferPostingComponent implements OnInit {
       ajax: 'fake-data/dividend-transfer-posting.json',
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm"id="editbtn">Edit</button>' + ' ' + '<button  id="delbtn" class="btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: 'Warrant Date',
+          // title: 'Warrant Date',
+          title: this.translate.instant('master.Dividend_Transfar_Posting.Warrant_Date'),
           data: 'WarrantDate'
         }, {
-          title: 'Transfer To Reserve Fund Or Other Account',
+          // title: 'Transfer To Reserve Fund Or Other Account',
+          title: this.translate.instant('master.Dividend_Transfar_Posting.Transfer_To_Reserver_F_Or_Other_Acc'),
           data: 'TransferToReserveFundOrOtherAccount'
         }, {
-          title: 'Scheme Code',
+          // title: 'Scheme Code',
+          title: this.translate.instant('master.Dividend_Transfar_Posting.Scheme_Code'),
           data: 'SchemeCode'
         }, {
-          title: 'Account No',
+          // title: 'Account No',
+          title: this.translate.instant('master.Dividend_Transfar_Posting.Select_Acc'),
           data: 'AccountNo'
         }],
       dom: "Blrtip",

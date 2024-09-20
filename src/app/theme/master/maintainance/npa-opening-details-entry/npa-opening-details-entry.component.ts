@@ -9,6 +9,8 @@ import { environment } from "src/environments/environment";
 import { first } from 'rxjs/operators';
 import { Subject } from "rxjs";
 import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-branch-master-dropdown.service'
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Angular Datatable Directive
 import { DataTableDirective } from "angular-datatables";
 import { NgSelectComponent } from '@ng-select/ng-select';
@@ -64,12 +66,19 @@ export class NpaOpeningDetailsEntryComponent implements OnInit, AfterViewInit, O
   gridData: any;
   Code: any;
   filtername: any;
+  setLang:any;
   modalClass: string = 'modalHide';
   constructor(private fb: FormBuilder, private http: HttpClient,
     private _npaService: NpaOpeningDetailsEntryService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private ownbranchMasterService: OwnbranchMasterService,) { }
+    private ownbranchMasterService: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService,)  { this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })}
 
   ngOnInit(): void {
     this.dtOptions = {

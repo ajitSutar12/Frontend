@@ -2,34 +2,34 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>GL Report Master</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h5>{{'master.GL_Report_Master.Title' | translate}}</h5>
+                <h6 style="float: right;">{{'master.Action.F1' | translate}}<sub class="required">*
+                    </sub>{{'master.Action.F2' | translate}}</h6>
             </div>
             <form [formGroup]="ngForm">
                 <div class="card-block">
 
                     <div class="row">
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn1()">EXPENSES</button>
+                            (click)="Btnn1()">{{'master.GL_Report_Master.EXPENSES' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn2()">SUBSIDARY</button>
+                            (click)="Btnn2()">{{'master.GL_Report_Master.SUBSIDARY' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn3()">CRAR</button>
+                            (click)="Btnn3()">{{'master.GL_Report_Master.CRAR' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn4()">Daily
-                            Liquidity</button>
+                            (click)="Btnn4()">{{'master.GL_Report_Master.Daily_Liquidity' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn5()">ABR-ALR</button>
+                            (click)="Btnn5()">{{'master.GL_Report_Master.ABR_ALR' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn6()">CRR</button>
+                            (click)="Btnn6()">{{'master.GL_Report_Master.CRR' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn7()">SLR</button>
+                            (click)="Btnn7()">{{'master.GL_Report_Master.SLR' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn8()">NIDHI</button>
+                            (click)="Btnn8()">{{'master.GL_Report_Master.NIDHI' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn9()">Friday Liquidity</button>
+                            (click)="Btnn9()">{{'master.GL_Report_Master.Friday_Liquidity' | translate}}</button>
                         <button type="button" class="btn btn-outline-primary btn-sm" style="color: black;"
-                            (click)="Btnn10()">MIS Info</button>
+                            (click)="Btnn10()">{{'master.GL_Report_Master.MIS_Info' | translate}}</button>
 
 
                     </div>
@@ -37,13 +37,14 @@
                     <div class="solid">
                         <!-- btn1 -->
                         <div *ngIf="Btn1">
-                            <h4>EXPENSES</h4>
+                            <h4>{{'master.GL_Report_Master.EXPENSES' | translate}}</h4>
                             <div class="solid">
 
                                 <div class="row">
 
                                     <div class="col-md-1">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -59,13 +60,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -80,7 +82,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -91,9 +93,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -102,9 +104,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -115,12 +117,13 @@
 
                         <!-- btn2 -->
                         <div *ngIf="Btn2">
-                            <h4>SUBSIDARY</h4>
+                            <h4>{{'master.GL_Report_Master.SUBSIDARY' | translate}}</h4>
                             <div class="solid">
 
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -136,13 +139,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -157,7 +161,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -168,9 +172,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -179,9 +183,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -191,12 +195,13 @@
                         </div>
                         <!-- btn3 -->
                         <div *ngIf="Btn3">
-                            <h4>CRAR</h4>
+                            <h4>{{'master.GL_Report_Master.CRAR' | translate}}</h4>
                             <div class="solid">
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code1">Code <sub class="required">*</sub></label>
+                                        <label for="code1">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -212,13 +217,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE1'].errors?. maxlength || ngForm.controls['CODE1'].errors?. minlength || ngForm.controls['CODE1'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -233,14 +239,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
 
                                     <div class="col-md-2">
-                                        <label for="code">First NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -258,12 +265,13 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Second NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -282,12 +290,13 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Third NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Third_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -305,15 +314,15 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
 
-                                    <div class="col-sm-12 col-md-1"> <label for="type">Type<sub
-                                                class="required">*</sub></label>
+                                    <div class="col-sm-12 col-md-1"> <label for="type">{{'master.GL_Report_Master.Type'
+                                            | translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
@@ -327,7 +336,7 @@
                                             *ngIf="ngForm.controls['CODE_TYPE'].invalid && (ngForm.controls['CODE_TYPE'].dirty || ngForm.controls['CODE_TYPE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['CODE_TYPE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -337,9 +346,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="ADD_PL_AMOUNT"
                                                     formControlName="ADD_PL_AMOUNT" />
-                                                <label class="border-checkbox-label" for="ADD_PL_AMOUNT">Add Profit and
-                                                    Loss
-                                                    Amount</label>
+                                                <label class="border-checkbox-label"
+                                                    for="ADD_PL_AMOUNT">{{'master.GL_Report_Master.Add_Profit_and_Loss_Amount'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -350,7 +359,8 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Code <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -367,7 +377,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -377,9 +387,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -390,7 +400,8 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -407,15 +418,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
 
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Cosideration <sub
-                                                class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -431,7 +442,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?. maxlength || ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?. minlength || ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -441,9 +452,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -452,11 +463,12 @@
                         </div>
                         <!-- btn4 -->
                         <div *ngIf="Btn4">
-                            <h4>Daily Liquidity Master</h4>
+                            <h4>{{'master.GL_Report_Master.Daily_Liquidity' | translate}}</h4>
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -472,13 +484,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -493,7 +506,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -501,7 +514,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">First NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -519,12 +533,13 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Second NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -543,12 +558,13 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Third NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Third_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -566,14 +582,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label for="AltCode">Alternative Liquidity Code <sub
-                                                    class="required">*</sub></label>
+                                            <label for="AltCode">{{'master.GL_Report_Master.Alternative_Liquidity_Code'
+                                                | translate}} <sub class="required">*</sub></label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
@@ -589,13 +605,14 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="ngForm.controls['AltCode'].errors?.maxlength || ngForm.controls['AltCode'].errors?.minlength || ngForm.controls['AltCode'].errors?.required">
-                                                    This field is required
+                                                    <!-- This field is required -->{{'Utility.Validation.Val1' |
+                                                    translate}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="HOcode1"> HO Liquidity Code 1 <sub
-                                                    class="required">*</sub></label>
+                                            <label for="HOcode1">{{'master.GL_Report_Master.HO_Liquidity_Code_1' |
+                                                translate}}<sub class="required">*</sub></label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
@@ -611,13 +628,14 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="ngForm.controls['HOcode1'].errors?.maxlength || ngForm.controls['HOcode1'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                    This field is required
+                                                    <!-- This field is required -->{{'Utility.Validation.Val1' |
+                                                    translate}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
-                                            <label for="HOcode2">HO Liquidity Code 2<sub
-                                                    class="required">*</sub></label>
+                                            <label for="HOcode2">{{'master.GL_Report_Master.HO_Liquidity_Code_2' |
+                                                translate}}<sub class="required">*</sub></label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
@@ -633,7 +651,8 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="ngForm.controls['HOcode2'].errors?.maxlength || ngForm.controls['HOcode2'].errors?.minlength || ngForm.controls['HOcode2'].errors?.required">
-                                                    This field is required
+                                                    <!-- This field is required -->{{'Utility.Validation.Val1' |
+                                                    translate}}
                                                 </div>
                                             </div>
                                         </div>
@@ -645,7 +664,8 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Code <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -661,12 +681,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -683,13 +704,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Cosideration <sub
-                                                class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -708,7 +729,7 @@
                                             *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].invalid && (ngForm.controls['PERCENTAGE_CONSIDARATION'].dirty || ngForm.controls['PERCENTAGE_CONSIDARATION'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -717,11 +738,12 @@
                         </div>
                         <!-- btn5 -->
                         <div *ngIf="Btn5">
-                            <h4>ABR-ALR</h4>
+                            <h4>{{'master.GL_Report_Master.ABR_ALR' | translate}}</h4>
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -737,12 +759,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -757,14 +780,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">First NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -782,12 +806,13 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Second NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -806,12 +831,13 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Third NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Third_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -829,7 +855,7 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -841,11 +867,12 @@
 
                         <!-- btn6 -->
                         <div *ngIf="Btn6">
-                            <h4>CRR</h4>
+                            <h4>{{'master.GL_Report_Master.CRR' | translate}}</h4>
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -861,12 +888,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -881,12 +909,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">First NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -904,7 +933,7 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -912,7 +941,8 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
-                                        <label for="code">Second NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -931,7 +961,7 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -940,9 +970,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -951,9 +981,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -963,11 +993,12 @@
                         </div>
                         <!-- btn7 -->
                         <div *ngIf="Btn7">
-                            <h4>SLR</h4>
+                            <h4>{{'master.GL_Report_Master.SLR' | translate}}</h4>
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -983,12 +1014,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -1003,12 +1035,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">First NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -1026,14 +1059,15 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Second NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -1052,7 +1086,7 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -1061,9 +1095,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1072,9 +1106,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1084,12 +1118,13 @@
                         </div>
                         <!-- btn8 -->
                         <div *ngIf="Btn8">
-                            <h4>NIDHI</h4>
+                            <h4>{{'master.GL_Report_Master.NIDHI' | translate}}</h4>
                             <div class="solid">
 
                                 <div class="row">
                                     <div class="col-md-1">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1105,13 +1140,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -1126,12 +1162,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="code">Second NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -1150,7 +1187,7 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -1162,9 +1199,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1173,9 +1210,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1184,9 +1221,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="ADD_PL_AMOUNT"
                                                     formControlName="ADD_PL_AMOUNT" />
-                                                <label class="border-checkbox-label" for="ADD_PL_AMOUNT">Add Profit and
-                                                    Loss
-                                                    Amount</label>
+                                                <label class="border-checkbox-label"
+                                                    for="ADD_PL_AMOUNT">{{'master.GL_Report_Master.Add_Profit_and_Loss_Amount'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1197,12 +1234,13 @@
 
                         <!-- btn9 -->
                         <div *ngIf="Btn9">
-                            <h4>Friday Liquidity</h4>
+                            <h4>{{'master.GL_Report_Master.Friday_Liquidity' | translate}}</h4>
                             <div class="solid">
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1218,13 +1256,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -1239,7 +1278,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -1247,7 +1286,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">SR NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.sr_no' | translate}} <sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -1265,13 +1305,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="poc">Percentage <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1288,12 +1329,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Code <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1309,14 +1351,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="poc">Alternative Friday Name<sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Alternative_Friday_Name' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -1331,7 +1374,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['FNAME'].errors?.maxlength || ngForm.controls['FNAME'].errors?.minlength || ngForm.controls['FNAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -1340,9 +1383,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1351,9 +1394,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1365,12 +1408,13 @@
                         </div>
                         <!-- btn 10 -->
                         <div *ngIf="Btn10">
-                            <h4>MIS INFO</h4>
+                            <h4>{{'master.GL_Report_Master.MIS_Info' | translate}}</h4>
                             <div class="solid">
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">Code <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1386,13 +1430,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="code">Name <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
@@ -1407,7 +1452,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -1415,7 +1460,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="code">SR NO <sub class="required">*</sub></label>
+                                        <label for="code">{{'master.GL_Report_Master.sr_no' | translate}} <sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -1433,13 +1479,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
-                                        <label for="poc">Percentage <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
+                                                class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1456,12 +1503,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Code <sub class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
@@ -1477,15 +1525,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <label for="poc">Percentage of Cosideration <sub
-                                                class="required">*</sub></label>
+                                        <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' |
+                                            translate}}<sub class="required">*</sub></label>
                                     </div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group form-primary form-static-label">
@@ -1504,7 +1552,7 @@
                                             *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].invalid && (ngForm.controls['PERCENTAGE_CONSIDARATION'].dirty || ngForm.controls['PERCENTAGE_CONSIDARATION'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
-                                                This field is required
+                                                <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -1513,9 +1561,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
-                                                <label class="border-checkbox-label" for="INPUT_ALLOWED">Linking Input
-                                                    Allowed
-                                                    ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -1524,9 +1572,9 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
-                                                <label class="border-checkbox-label" for="IS_PRINT_IN_REPORT">Is Print
-                                                    in GL
-                                                    Report ?</label>
+                                                <label class="border-checkbox-label"
+                                                    for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
+                                                    | translate}}</label>
                                             </div>
                                         </div>
                                     </div>

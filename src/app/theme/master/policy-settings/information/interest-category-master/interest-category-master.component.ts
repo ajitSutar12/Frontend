@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { IOption } from 'ng-select';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -87,7 +88,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     private http: HttpClient,
     private interestCategoryMasterService: InterestCategoryMasterService,
     public SchemeTypes: SchemeTypeDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -135,17 +136,17 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Interest_Category_Master.Action')
         },
         {
-          title: 'Interest Category Code',
+          title:  this.translate.instant('master.Interest_Category_Master.Interest_Category_Code'),
           data: 'CODE'
         },
         {
-          title: 'ACNOTYPE',
+          title:  this.translate.instant('master.Interest_Category_Master.AcNoType'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Description',
+          title:  this.translate.instant('master.Interest_Category_Master.Description'),
           data: 'NAME'
         },
       ],

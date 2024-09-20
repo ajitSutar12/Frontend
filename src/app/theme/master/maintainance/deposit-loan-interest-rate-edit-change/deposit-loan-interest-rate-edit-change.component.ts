@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-deposit-loan-interest-rate-edit-change',
@@ -52,14 +53,18 @@ export class DepositLoanInterestRateEditChangeComponent implements OnInit, OnDes
   gridData: any;
 
   modalClass: string = 'modalHide';
+  setLang: string;
   constructor(private fb: FormBuilder, private _SchemeCodeDropdown: SchemeCodeDropdownService,
     private http: HttpClient, private _schemeAccountNoService: SchemeAccountNoService,
     private _ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private _interestRateChange: DepositLoanInterestRateEditChangeService) {
+    private _interestRateChange: DepositLoanInterestRateEditChangeService,
+    private translate:TranslateService) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.minDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.minDate = this.minDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

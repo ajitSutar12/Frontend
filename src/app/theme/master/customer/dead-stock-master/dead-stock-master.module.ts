@@ -9,12 +9,14 @@ import { DeadstockmasterService } from './dead-stock-master.service'
 import { ItemCatMasterDropdownService } from '../../../../shared/dropdownService/item-category-master-dropdown.service';
 import { DepriciationCatDropdownMasterService } from '../../../../shared/dropdownService/depriciation-category-master-dropdown.service';
 import { ACMasterDropdownService } from '../../../../shared/dropdownService/ac-master-dropdown.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
@@ -27,7 +29,14 @@ import { ThemeModule } from 'src/app/theme/theme.module';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [
     DeadStockMasterComponent
@@ -49,3 +58,6 @@ import { ThemeModule } from 'src/app/theme/theme.module';
   ]
 })
 export class DeadStockMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

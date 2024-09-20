@@ -225,6 +225,16 @@
                                                                 type="text">
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>After Maturity Days</td>
+                                                        <td>
+                                                            <input style="width:50% ; text-align: right;" disabled
+                                                                class="form-control" (focus)="selectAllContent($event)"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                                maxlength="12" formControlName="afterMaturityDays"
+                                                                type="text">
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </div>
                                         </div>

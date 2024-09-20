@@ -11,6 +11,7 @@ import { BudgetViewService } from "./budget-view.service"
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import * as moment from "moment";
 import { DomSanitizer } from "@angular/platform-browser";
+import { TranslateService } from '@ngx-translate/core';
 
 
 // For fetching values from backend
@@ -62,6 +63,7 @@ export class BudgetViewComponent implements OnInit {
   data: any;
   insert: any;
   yearDetails: Object;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -70,14 +72,19 @@ export class BudgetViewComponent implements OnInit {
     private config: NgSelectConfig,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
+    private translate: TranslateService, 
 
 
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {

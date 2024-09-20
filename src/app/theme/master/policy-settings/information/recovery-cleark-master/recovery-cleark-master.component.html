@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Recovery Cleark Master</h5>
+                <h5>{{'master.Recovery_Cleark_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Recovery_Cleark_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Recovery_Cleark_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,11 +17,15 @@
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="CODE"
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="CODE"
                                         disabled>
-                                    <label for="CODE">Recovery Cleark Code</label>
+                                    <label for="CODE">
+                                        {{'master.Recovery_Cleark_Master.Recovery_Cleark_Code' | translate}}    <!-- Recovery Cleark Code -->
+                                    </label>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">
+                            {{'master.Recovery_Cleark_Master.Branch_Code' | translate}} <!-- Branch Code -->
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -41,7 +45,7 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1' | translate}} <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
@@ -52,7 +56,7 @@
                                         id="NAME" #autofocus required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="NAME">Description<sub class="required">* </sub></label>
+                                    <label for="NAME">{{'master.Recovery_Cleark_Master.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -60,7 +64,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'master.Validation.Val1' | translate}}<!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -70,11 +74,11 @@
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit()"
                                 *ngIf="showButton" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                appTheme>Submit</button>
+                                appTheme>{{'master.Recovery_Cleark_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">{{'master.Recovery_Cleark_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Recovery_Cleark_Master.Update' | translate}}</button>&nbsp;
 
                         </div>
                     </div>
@@ -107,7 +111,7 @@
                                 </tbody>
                                 <tbody *ngIf="recoveryClearkMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

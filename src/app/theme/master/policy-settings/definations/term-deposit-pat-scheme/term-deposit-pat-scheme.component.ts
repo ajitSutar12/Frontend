@@ -22,6 +22,8 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -117,8 +119,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private config: NgSelectConfig,) {
-    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    private config: NgSelectConfig,
+    private translate:TranslateService) {
+      // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -171,17 +174,22 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       },
       columns: [
         {
-          title: 'Action'
+          // title: 'Action'
+          title: this.translate.instant('master.Action.Action')
+
         },
         {
-          title: 'Effected Date',
+          // title: 'Effected Date',
+          title: this.translate.instant('master.Term_Deposit.Effective_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          // title: 'Scheme Type',
+          title: this.translate.instant('master.Term_Deposit.Scheme_Type'),
           data: 'AC_TYPE'
         }, {
-          title: 'Interest Category',
+          // title: 'Interest Category',
+          title: this.translate.instant('master.Term_Deposit.Interest_Category'),
           data: 'INT_CATEGORY'
         },
       ],

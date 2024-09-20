@@ -36,6 +36,8 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from "@ngx-translate/core";
+
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -117,6 +119,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   custData;
   datemax: any;
+  setLang: any;
   addNewCustomer(value) {
     this.newCustomerEvent.emit(value);
   }
@@ -231,18 +234,20 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
 
+    private translate: TranslateService
+
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
-      // if (this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY'))
-      // {
-      //   this.el.nativeElement.className = "form-control ng-untouched ng-valid"
-      // };
 
+      //Translation 
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
+
   }
 
   ngOnInit(): void {
@@ -310,79 +315,79 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: " Customer ID",
+          title: this.translate.instant('master.Customer_Id.Customer_id'),
           data: "AC_NO",
         },
         {
-          title: "Member Number",
+          title: this.translate.instant('master.Customer_Id.Member_Number'),
           data: "AC_MEMBNO",
         },
         {
-          title: "Member Scheme",
+          title: this.translate.instant('master.Customer_Id.Member_Scheme'),
           data: "AC_MEMBTYPE",
         },
 
         {
-          title: "Full Name",
+          title: this.translate.instant('master.Customer_Id.Full_Name'),
           data: "AC_NAME",
         },
         {
-          title: "Mother Full Name",
+          title: this.translate.instant('master.Customer_Id.Mother_full_Name'),
           data: "MAC_NAME",
         },
         {
-          title: "Cast",
+          title: this.translate.instant('master.Customer_Id.cast'),
           data: "AC_CAST",
         },
         {
-          title: "Occupation",
+          title: this.translate.instant('master.Customer_Id.Occupation'),
           data: "AC_OCODE",
         },
         {
-          title: "Risk Category",
+          title: this.translate.instant('master.Customer_Id.Risk_Category'),
           data: "AC_RISKCATG",
         },
         {
-          title: "Adhar Card Number",
+          title: this.translate.instant('master.Customer_Id.Adhar_Number'),
           data: "AC_ADHARNO",
         },
         {
-          title: "PAN Number",
+          title: this.translate.instant('master.Customer_Id.Pan_Number'),
           data: "AC_PANNO",
         },
         {
-          title: "GST Number",
+          title: this.translate.instant('master.Customer_Id.gst_no'),
           data: "GST_NO",
         },
         {
-          title: "TAN Number",
+          title: this.translate.instant('master.Customer_Id.tan_no'),
           data: "TAN_NO",
         },
         {
-          title: "Registration Number",
+          title: this.translate.instant('master.Customer_Id.reg_no'),
           data: "REG_NO",
         },
         {
-          title: "Registration Date",
+          title: this.translate.instant('master.Customer_Id.reg_date'),
           data: "REG_DATE",
         },
         {
-          title: "Proprietor Name",
+          title: this.translate.instant('master.Customer_Id.Proprietor'),
           data: "PROP_NAME",
         },
         {
-          title: "Birth Date",
+          title: this.translate.instant('master.Customer_Id.Birth_Date'),
           data: "AC_BIRTH_DT",
         },
         {
-          title: "Mobile Number",
+          title: this.translate.instant('master.Customer_Id.Mobile_Number'),
           data: "AC_MOBILENO",
         },
         {
-          title: "Email ID",
+          title: this.translate.instant('master.Customer_Id.Email'),
           data: "AC_EMAILID",
         },
       ],
@@ -1098,6 +1103,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
+  // ngAfterViewChecked() {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     dtInstance.ajax.reload()
+  //   });
+  // }
 
   ngAfterViewInit(): void {
     //  this.ngSelect.focus();

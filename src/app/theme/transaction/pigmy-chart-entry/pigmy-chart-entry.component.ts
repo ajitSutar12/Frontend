@@ -14,7 +14,8 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables'; 
-import { NgSelectComponent } from '@ng-select/ng-select'
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -93,6 +94,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+  setLang: any;
 
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
@@ -101,7 +103,14 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     private schemeAccountNoService: SchemeAccountNoService,
     private _pigmy: PigmyChartEntryService,
     private http: HttpClient,
-  ) { }
+    private translate:TranslateService
+  ) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -158,29 +167,29 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Transaction.Action.Action'),
         },
         {
-          title: 'Date',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Date'),
           data: 'TRAN_DATE'
         }, {
-          title: 'Agent Account Type',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Agent_Account_Type'),
           data: 'AGENT_ACTYPE'
         },
         {
-          title: 'Agent Account Number',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Agent_Account_Type'),
           data: 'AGENT_ACNO'
         },
         {
-          title: 'Branch Code',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Branch_Code'),
           data: 'BRANCHCODE'
         },
         {
-          title: 'Chart Number',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Chart_Number'),
           data: 'CHART_NO'
         },
         {
-          title: 'Total Amount',
+          title:this.translate.instant('Transaction.Pigmy_Chart.Total_Amount'),
           data: 'TRAN_AMOUNT'
         },
 

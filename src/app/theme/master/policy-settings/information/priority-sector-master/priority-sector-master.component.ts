@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { PrioritySectorMasterService } from './priority-sector-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,7 +74,7 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
   constructor(
     private http: HttpClient,
     private prioritySectorMasterService: PrioritySectorMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -126,26 +127,26 @@ export class PrioritySectorMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Priority_Sector_Code.Action')
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Priority_Sector_Code.Code'),
           data: 'CODE'
         },
         {
-          title: 'Sub Code',
+          title: this.translate.instant('master.Priority_Sector_Code.Subcode'),
           data: 'SUB1_CODE'
         },
         {
-          title: '2nd Sub code',
+          title: this.translate.instant('master.Priority_Sector_Code.Second_Subcode'),
           data: 'SUB2_CODE'
         },
         {
-          title: '3rd Sub Code',
+          title: this.translate.instant('master.Priority_Sector_Code.Third_Subcode'),
           data: 'SUB3_CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Priority_Sector_Code.Description'),
           data: 'NAME'
         }
       ],

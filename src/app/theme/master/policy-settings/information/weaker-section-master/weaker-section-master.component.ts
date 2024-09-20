@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { WeakerService } from './weaker-section-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -70,7 +71,7 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
   constructor(
     private http: HttpClient,
     private weakerService: WeakerService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -117,14 +118,14 @@ export class WeakerSectionMasterComponent implements OnInit, AfterViewInit, OnDe
       },
       columns: [
         {
-          title: 'Action',
+          title:this.translate.instant('master.Weaker_Section_Master.Action'),
         },
         {
-          title: 'Weaker Section Code',
+          title:this.translate.instant('master.Weaker_Section_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Weaker_Section_Master.Description'),
           data: 'NAME'
         },
       ],
