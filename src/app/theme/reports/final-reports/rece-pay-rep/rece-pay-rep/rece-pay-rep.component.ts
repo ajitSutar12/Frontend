@@ -149,7 +149,7 @@ export class RecePayRepComponent implements OnInit {
   // Reset Function
   resetForm() {
     // this.createForm()
-    this.angForm.controls.BRANCH_CODE.reset();
+    // this.angForm.controls.BRANCH_CODE.reset();
     this.showRepo = false;
     this.clicked = false;
   }

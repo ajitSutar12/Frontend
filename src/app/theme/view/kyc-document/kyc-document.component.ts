@@ -87,6 +87,9 @@ export class KYCDocumentComponent implements OnInit {
   closeKYCView() {
     this.selectedCustomer = null;
   }
+  capitalizeFirstLetter(status: string): string {
+    return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+  }
 
   viewPhotos(customer: CustomerDetails) {
     this.selectedCustomerPhotos = customer;
@@ -94,9 +97,6 @@ export class KYCDocumentComponent implements OnInit {
 
   closePhotoView() {
     this.selectedCustomerPhotos = null;
-  }
-  capitalizeFirstLetter(status: string): string {
-    return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
   }
 }
 

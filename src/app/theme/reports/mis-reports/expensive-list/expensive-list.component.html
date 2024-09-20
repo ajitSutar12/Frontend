@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Expensive List</h5>
+                <h5>Expenses List</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -107,9 +107,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select formControlName="StartCode">
-                                        <ng-option *ngFor="let item of Start_code">
-                                            {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                    <ng-select formControlName="StartCode" (change)="getStart($event)">
+                                        <ng-option *ngFor="let item of Start_code" [value]="item">
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
                                     </ng-select>
 
                                 </span>
@@ -128,9 +128,9 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select formControlName="endcode">
-                                        <ng-option *ngFor="let item of end_code">
-                                            {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
+                                    <ng-select formControlName="endcode" (change)="getEnd($event)">
+                                        <ng-option *ngFor="let item of end_code" [value]="item">
+                                            {{item.CODE}} {{item.NAME}}</ng-option>
                                     </ng-select>
 
                                 </span>

@@ -177,7 +177,9 @@ export class BnkAcStatementComponent implements OnInit {
     this.getInterestTransfer()
   }
   //get acnotype from selected scheme
+  schemeName
   getIntTrans(event) {
+    this.schemeName = event.id + " " + event.label
     this.acCloseDate = null
     this.isOpen = false
     this.getschemename = event.name
@@ -185,7 +187,7 @@ export class BnkAcStatementComponent implements OnInit {
   }
   getIntTranscus(event) {
     this.getbankAcNo = event.bankacno
-    this.name = event.name
+    this.name = event.value + " " + event.name
 
     if (event.acClose != null) {
       this.acCloseDate = event.acClose
@@ -327,6 +329,37 @@ export class BnkAcStatementComponent implements OnInit {
         })
         break;
 
+      case 'PG':
+        // this.schemeAccountNoService.getPigmyAccountSchemeList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAccountMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngAcnoFrom = null
+          this.introducerACNo = data;
+          this.ngAcnoTo = null
+        })
+        break;
+
+      case 'AG':
+        // this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getPigmyAgentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+          this.ngAcnoFrom = null
+          this.introducerACNo = data;
+          this.ngAcnoTo = null
+        })
+        break;
+
+      case 'IV':
+        // this.schemeAccountNoService.getInvestmentSchemeList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getInvestmentMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+
+          this.introducerACNo = data;
+          this.ngAcnoFrom = null
+          this.introducerACNo = data;
+          this.ngAcnoTo = null
+        })
+        break;
+
       case 'GL':           //pooja
 
         this.schemeAccountNoService.getGeneralLedgerMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
@@ -389,7 +422,7 @@ export class BnkAcStatementComponent implements OnInit {
 
       // this.iframeurl = this.report_url+"examples/AccountStatement1.php?&stadate='" + stadate +"'&edate='" + edate + "'&sdate='"+sdate+"'&branchName="+branchName+"&branchCode='"+this.ngBranchCode+"'&scheme='"+scheme+"'&fromacc='"+fromacc+"'&toacc='"+fromacc+"'&custid='"+custid+"'&custidwise='"+custidwise+"'&rangewise='"+rangewise+"'&bankName=" + bankName + "'&AC_ACNOTYPE='" +this.getschemename + "'";
 
-      this.iframeurl = this.report_url + "examples/accountStatement2.php?&fromdate='" + stadate + "'&todate='" + edate + "'&fromacc=" + fromacc + "&AC_ACNOTYPE='" + this.getschemename + "&branchName='" + branchName + "'&bankName='" + bankName + "'&name='" + this.name + "'";
+      this.iframeurl = this.report_url + "examples/accountStatement2.php?&fromdate='" + stadate + "'&todate='" + edate + "'&fromacc=" + fromacc + "&AC_ACNOTYPE='" + this.getschemename + "&branchName='" + branchName + "'&bankName='" + bankName + "'&name='" + this.name + "'&schemeName='" + this.schemeName + "'";
 
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
