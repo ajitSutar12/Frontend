@@ -14,13 +14,19 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" [(ngModel)]="ngdate" name="DATE"
-                                        class="form-control" formControlName="DATE" disabled>
+                                    <input type="text" [(ngModel)]="ngdate" name="DATE" class="form-control"
+                                        formControlName="DATE" disabled>
                                 </span>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()" [disabled]="daybeginProcess">Day Begin</button>
+                            <div *ngIf="isNotDisable">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()">Day Begin</button>
+                            </div>
+                            <div *ngIf="isDisable">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()"
+                                    [disabled]="true">Day Begin</button>
+                            </div>
                             <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
                         </div>
                     </div>

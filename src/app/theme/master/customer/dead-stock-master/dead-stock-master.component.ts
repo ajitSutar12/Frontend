@@ -517,7 +517,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           LAST_DEPR_DATE:data.LAST_DEPR_DATE,
           ITEM_CODE: data.ITEM_CODE,
           ITEM_NAME: data.ITEM_NAME,
-          // OP_BALANCE:data.OP_BALANCE,
+          // OP_BALANCE:data.OP_BALANCE, //patch value
           OP_QUANTITY: data.OP_QUANTITY,
           PURCHASE_RATE: data.PURCHASE_RATE,
           // PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,

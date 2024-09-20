@@ -55,7 +55,7 @@
                                                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
                                                     required placeholder="Scheme">
                                                     <ng-option *ngFor="let values of allScheme" [value]="values">
-                                                        {{values.id}} {{values.label}} </ng-option>
+                                                        <div [ngClass]="{'movable-text': isOptionTooLong(values)}">  {{values.id}} {{values.label}}</div> </ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -83,8 +83,7 @@
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
                                                         <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
-                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ?
-                                                        "-"
+                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ? "-"
                                                         :
                                                         values?.idmaster?.custAddress[0]?.city?.CITY_NAME }}
                                                         <!-- <div *ngFor="let val of values.idmaster" > 
@@ -128,7 +127,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                  
                                     <div class="col-sm col-md">
                                         <button class="btn btn-outline-primary btn-sm" (click)="getTransactionDetails()"
                                             [disabled]="angForm.invalid">Refresh</button>
@@ -148,7 +146,7 @@
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length ==0"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length !=0">
-                                        <div><label style="color: #f52121">Lien Account</label></div>
+                                        <div><label style="color: #1e5bc5">Lien Account</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!dormantac"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="dormantac">
@@ -765,9 +763,6 @@
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_MONTHS==''||
                                                 accountEvent?.AC_MONTHS==null? 0:
                                                 accountEvent?.AC_MONTHS}}</label></span> Months
-                                        <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_DAYS==''||
-                                                accountEvent?.AC_DAYS==null ? 0:accountEvent?.AC_DAYS}}</label></span>
-                                        Days
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Overdue Date : </label></span>
@@ -839,8 +834,7 @@
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
                                                 == 'E'? 'EMI' : (accountEvent?.INSTALLMENT_METHOD == 'R'? 'Reducing' :
                                                 (accountEvent?.INSTALLMENT_METHOD == 'I'? 'Plain' :
-                                                (accountEvent?.INSTALLMENT_METHOD == 'Null' ||
-                                                accountEvent?.INSTALLMENT_METHOD == null? 'With Interest' :
+                                                (accountEvent?.INSTALLMENT_METHOD == 'Null'? 'With Interest' :
                                                 '---')))}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
@@ -863,12 +857,7 @@
                                         <span><label>+ Interest : </label></span>
                                     </div>
                                     <div class="col-sm-1"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
-                                                == 'E'? 0 :(accountEvent?.INSTALLMENT_METHOD == 'Null' ||
-                                                accountEvent?.INSTALLMENT_METHOD == null? 0 :
-                                                loantransactionData?.currentInt)}}
-                                                <!-- {{loantransactionData?.currentInt}} -->
-                                            </label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.currentInt}}</label></span>
                                         <!-- </div>
                                     <div class="col-sm-2"> -->
                                         = <span
@@ -1143,13 +1132,6 @@
                                             *ngIf="customerIdView"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Customer ID</a>
                                     </li>
-                                    <li class="mb-75">
-                                        <!-- <a><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info</a> -->
-                                        <a href="javascript:void(0);" (click)="openModal()">
-                                          <i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info
-                                        </a>
-                                      </li>
-                                    
                                 </ul>
                             </div>
                         </div>
@@ -2340,45 +2322,19 @@
                                     <tbody>
                                         <tr *ngFor="let data of productViewArr; let indexOfelement=index;">
                                             <td *ngFor="let ele of data | keyvalue;">{{ele.value}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>{{productTotal | number: '1.2-2'}}</td>
+                                            <!-- <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                        </tr>
-                                        <tr *ngIf="isloanDetails">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>- Interest Received</td>
-                                            <td>{{loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                        </tr>
-                                        <tr *ngIf="isloanDetails">
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total Interest</td>
-                                            <td>{{productTotal-loanreceivedInterest | number: '1.2-2'}}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2410,28 +2366,3 @@
     </div>
 </app-modal-basic>
 <div [class]="modalClass"><!-- Place at bottom of page --> </div>
-
-
-
-<div class="modal text-black" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: rgb(148, 19, 131);">
-          <label style="color: white;">OD INFORMATION</label>
-          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div><label>Temporary Amount  :  {{AC_ODAMT}}</label></div>
-          <div><label>Periodical Amount  :  {{AC_SODAMT}}</label></div>
-          <div><label>Sanctioned By  :  {{AC_OD_ASSIGNBY}}</label></div>
-          <div><label>Expire Date  :  {{OD_EXPIRE_DATE}}</label></div>
-          <div><label>OD Days  :  {{AC_ODDAYS}}</label></div>
-        </div>
-        <div class="modal-footer">
-          <button style="background-color: rgb(230, 97, 9);" type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>

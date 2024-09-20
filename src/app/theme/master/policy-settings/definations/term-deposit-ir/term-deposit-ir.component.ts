@@ -207,7 +207,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
       var filtered = data.filter(function (scheme) {
 
-        return (scheme.name== 'TD');
+        return (scheme.id== 'TD');
       });
       this.scheme = filtered;
       filtered.forEach((item: any) => {

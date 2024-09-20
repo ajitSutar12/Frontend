@@ -32,7 +32,7 @@ interface CityMaster {
 })
 export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild("autofocus") myInputField: ElementRef;
 
   //api 
   url = environment.base_url;
@@ -352,7 +352,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -438,7 +438,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedDistrict
   selectedTaluka
   onTalukaChange(event) {
-    this.selectedState = event.STATE_CODE;
+    this.selectedState =  this.selectedState
     this.selectedDistrict = event.DISTRICT_CODE;
     this.selectedTaluka = event.TALUKA_CODE;
   }

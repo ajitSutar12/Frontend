@@ -974,7 +974,7 @@ const MENUITEMS1 = [
           {
             state: 'KYCDocument',
             name: 'KYC Document',
-            id: 378
+            id: 382
 
           },
         ],
@@ -3973,7 +3973,7 @@ const MENUITEMS = [
           {
             state: 'KYCDocument',
             name: 'KYC Document',
-            id: 378
+            id: 382
 
           },
         ],

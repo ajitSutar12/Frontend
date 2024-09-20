@@ -169,8 +169,11 @@ export class BatchVoucherComponent implements OnInit {
 
       let bankCode = this.sysparaData.BANK_CODE;
       let schData = this.schemeData.filter(ele => ele.id == this.company_data?.AC_TYPE);
+      let  bacno = (bankCode + barnchCode[0].name + schData[0].S_APPL + this.company_data.AC_NO);
+
       let obj = {
-        acno: schData[0].S_APPL == '980' ? this.company_data.AC_NO : this.company_data.BANKACNO,
+        // acno: schData[0].S_APPL == '980' ? this.company_data.AC_NO : this.company_data.BANKACNO,
+        acno: schData[0].S_APPL == '980' ? this.company_data.AC_NO : bacno,
         scheme: schData[0].S_APPL,
         date: this.date
       }
