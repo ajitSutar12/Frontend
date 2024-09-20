@@ -34,6 +34,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { LockerRMasterDropDownService } from '../../../../shared/dropdownService/lockerrack-master-dropdown.service'
 import { LockerRWMasterDropDownService } from '../../../../shared/dropdownService/lockerrackwise-master-dropdown.service'
+
+//Translation
+import { TranslateService } from "@ngx-translate/core";
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -236,6 +240,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   imageObject = new Array();
   isDisabled: boolean = true;
   joinDate: any;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private LockerMasterService: LockerMasterService,
@@ -254,6 +259,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     public sanitizer: DomSanitizer,
     private lockerrackmasterService: LockerRMasterDropDownService,
     private lockerrackwisemasterService: LockerRWMasterDropDownService,
+    private translate: TranslateService,
     private fb: FormBuilder) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -268,6 +274,10 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -329,35 +339,35 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Locker_Master.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Locker_Master.Ac_No'),
           data: ' BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Customer_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
 
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Locker_Master.Open_Date'),
           data: 'AC_OPDATE'
         },
         // {
@@ -629,7 +639,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  isDisable=false
+  isDisable = false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;

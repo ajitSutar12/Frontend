@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -79,7 +80,7 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
     private http: HttpClient,
     private lockerSizeMasterService: LockerSizeMasterService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -138,16 +139,17 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
+
         },
         {
-          title: 'Size Serial No',
+          title: this.translate.instant('master.Locker_Size_Master.Size_Serial_Number'),
           data: 'SIZE_SR_NO'
         }, {
-          title: 'Locker Size',
+          title: this.translate.instant('master.Locker_Size_Master.Locker_Size'),
           data: 'SIZE_NAME'
         }, {
-          title: 'Locker Rent Deposit',
+          title: this.translate.instant('master.Locker_Size_Master.Locker_Rent_Deposit'),
           data: 'RENT'
         },
       ],

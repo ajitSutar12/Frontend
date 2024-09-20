@@ -57,7 +57,7 @@ interface CurrentScheme {
 })
 export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
 
   //api 
   url = environment.base_url;
@@ -562,7 +562,7 @@ export class CurrentSchemeComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');

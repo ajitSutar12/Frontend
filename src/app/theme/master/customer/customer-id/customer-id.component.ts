@@ -36,6 +36,8 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
+import { TranslateService } from "@ngx-translate/core";
+
 // const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 // Handling datatable data
 class DataTableResponse {
@@ -94,7 +96,7 @@ interface CustomerMaster {
   TAN_NO: number;
   GST_NO: number;
   REG_NO: number;
-  REG_DATE:string;
+  REG_DATE: string;
   PROP_NAME: string;
 }
 
@@ -117,6 +119,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
 
   custData;
   datemax: any;
+  setLang: any;
   addNewCustomer(value) {
     this.newCustomerEvent.emit(value);
   }
@@ -231,18 +234,20 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     public sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
 
+    private translate: TranslateService
+
   ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
-      // if (this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY'))
-      // {
-      //   this.el.nativeElement.className = "form-control ng-untouched ng-valid"
-      // };
 
+      //Translation 
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
+
   }
 
   ngOnInit(): void {
@@ -296,7 +301,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters["filterData"] = this.filterData;
         this.http
           .post<DataTableResponse>(
-            this.url+"/customer-id",
+            this.url + "/customer-id",
             dataTableParameters
           )
           .subscribe((resp) => {
@@ -310,79 +315,79 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: " Customer ID",
+          title: this.translate.instant('master.Customer_Id.Customer_id'),
           data: "AC_NO",
         },
         {
-          title: "Member Number",
+          title: this.translate.instant('master.Customer_Id.Member_Number'),
           data: "AC_MEMBNO",
         },
         {
-          title: "Member Scheme",
+          title: this.translate.instant('master.Customer_Id.Member_Scheme'),
           data: "AC_MEMBTYPE",
         },
 
         {
-          title: "Full Name",
+          title: this.translate.instant('master.Customer_Id.Full_Name'),
           data: "AC_NAME",
         },
         {
-          title: "Mother Full Name",
+          title: this.translate.instant('master.Customer_Id.Mother_full_Name'),
           data: "MAC_NAME",
         },
         {
-          title: "Cast",
+          title: this.translate.instant('master.Customer_Id.cast'),
           data: "AC_CAST",
         },
         {
-          title: "Occupation",
+          title: this.translate.instant('master.Customer_Id.Occupation'),
           data: "AC_OCODE",
         },
         {
-          title: "Risk Category",
+          title: this.translate.instant('master.Customer_Id.Risk_Category'),
           data: "AC_RISKCATG",
         },
         {
-          title: "Adhar Card Number",
+          title: this.translate.instant('master.Customer_Id.Adhar_Number'),
           data: "AC_ADHARNO",
         },
         {
-          title: "PAN Number",
+          title: this.translate.instant('master.Customer_Id.Pan_Number'),
           data: "AC_PANNO",
         },
         {
-          title: "GST Number",
+          title: this.translate.instant('master.Customer_Id.gst_no'),
           data: "GST_NO",
         },
         {
-          title: "TAN Number",
+          title: this.translate.instant('master.Customer_Id.tan_no'),
           data: "TAN_NO",
         },
         {
-          title: "Registration Number",
+          title: this.translate.instant('master.Customer_Id.reg_no'),
           data: "REG_NO",
         },
         {
-          title: "Registration Date",
+          title: this.translate.instant('master.Customer_Id.reg_date'),
           data: "REG_DATE",
         },
         {
-          title: "Proprietor Name",
+          title: this.translate.instant('master.Customer_Id.Proprietor'),
           data: "PROP_NAME",
         },
         {
-          title: "Birth Date",
+          title: this.translate.instant('master.Customer_Id.Birth_Date'),
           data: "AC_BIRTH_DT",
         },
         {
-          title: "Mobile Number",
+          title: this.translate.instant('master.Customer_Id.Mobile_Number'),
           data: "AC_MOBILENO",
         },
         {
-          title: "Email ID",
+          title: this.translate.instant('master.Customer_Id.Email'),
           data: "AC_EMAILID",
         },
       ],
@@ -430,11 +435,11 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     };
 
     this.prefixMaster.getPrefixMasterList().pipe(first()).subscribe((data) => {
-        this.prifix = data;
-      });
-    this.prefixMaster.getRegionalPrefixMasterList().pipe(first()).subscribe((data) => { 
-       this.regPrifix = data;
-      });
+      this.prifix = data;
+    });
+    this.prefixMaster.getRegionalPrefixMasterList().pipe(first()).subscribe((data) => {
+      this.regPrifix = data;
+    });
     this.documentMasterService
       .getDocumentMasterList()
       .pipe(first())
@@ -488,9 +493,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_MEMBTYPE: [""],
       AC_MEMBNO: [""],
       AC_TITLE: ["", [Validators.required]],
-      F_NAME: ["", [Validators.pattern, Validators.required]],
-      M_NAME: ["", [Validators.pattern, Validators.required]],
-      L_NAME: ["", [Validators.pattern, Validators.required]],
+      F_NAME: [""],
+      M_NAME: [""],
+      L_NAME: [""],
       BENEF_NAME: [""],
       AC_TITLE_REG: [""],
       F_NAME_REG: [""],
@@ -530,15 +535,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       BRANCH_CODE: [],
       PROP_NAME: [""],
       REG_NO: [""],
-      REG_DATE:[""],
+      REG_DATE: [""],
       GST_NO: [""],
       TAN_NO: [""],
       COP_NO: [""],
-      ML_NAME:[""],
-      MF_NAME:[""],
-      MAC_NAME:[""],
-      MM_NAME:[""],
-      MAC_TITLE:[""],
+      ML_NAME: [""],
+      MF_NAME: [""],
+      MAC_NAME: [""],
+      MM_NAME: [""],
+      MAC_TITLE: [""],
+      Firm_NAME: [""]
     });
     this.documentUpload()
   }
@@ -565,7 +571,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.SUBMIT_DATE = false
     }
     let formVal = this.angForm.value;
-    // let fullName = '';
+
+    let fullName = '';
     // if (this.showBeneficiaryName && formVal.BENEF_NAME) {
     //   fullName = formVal.BENEF_NAME?.toUpperCase();
     // } else {
@@ -576,15 +583,16 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       let result = JSON.parse(data);
       let branchCode = result.branchId
       const formVal = this.angForm.value;
-      let fullName = '';
-      if (this.showBeneficiaryName && formVal.BENEF_NAME) {
-        fullName = formVal.BENEF_NAME?.toUpperCase();
-      } else {
-        fullName = (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase();
-      }
-       //mother full name
-       let mfullname = '';
-       mfullname = formVal.ML_NAME + ' ' + formVal.MF_NAME + ' ' + formVal.MM_NAME;
+      let fullname = formVal.AC_NAME
+      // let fullName = '';
+      // if (this.showBeneficiaryName && formVal.BENEF_NAME) {
+      //   fullName = formVal.BENEF_NAME?.toUpperCase();
+      // } else {
+      //   fullName = (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase();
+      // }
+      //mother full name
+      let mfullname = '';
+      mfullname = formVal.ML_NAME + ' ' + formVal.MF_NAME + ' ' + formVal.MM_NAME;
       const dataToSend = {
         'AC_NO': formVal.AC_NO,
         'AC_MEMBTYPE': formVal.AC_MEMBTYPE,
@@ -593,15 +601,15 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
         'F_NAME': formVal.F_NAME?.toUpperCase(),
         'M_NAME': formVal.M_NAME?.toUpperCase(),
         'L_NAME': formVal.L_NAME?.toUpperCase(),
-        'BENEF_NAME':formVal.BENEF_NAME?.toUpperCase(),
-        // 'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
-       'AC_NAME':fullName,
-       'MF_NAME': formVal.MF_NAME?.toUpperCase(),
+        'BENEF_NAME': formVal.BENEF_NAME?.toUpperCase(),
+        'AC_NAME': (formVal.L_NAME + ' ' + formVal.F_NAME + ' ' + formVal.M_NAME)?.toUpperCase(),
+        //  'AC_NAME':fullName,
+        'MF_NAME': formVal.MF_NAME?.toUpperCase(),
         'MM_NAME': formVal.MM_NAME?.toUpperCase(),
         'ML_NAME': formVal.ML_NAME?.toUpperCase(),
-        'MAC_TITLE': formVal.AC_TITLE,
-        'MAC_NAME':mfullname,
-       
+        'MAC_TITLE': formVal.MAC_TITLE,
+        'MAC_NAME': mfullname,
+
         'AC_TITLE_REG': formVal.AC_TITLE_REG.regValue,
         'F_NAME_REG': formVal.F_NAME_REG?.toUpperCase(),
         'M_NAME_REG': formVal.M_NAME_REG?.toUpperCase(),
@@ -825,7 +833,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   customerDoc
   //Method for append data into fields
 
-  motherFullName=true;
+  motherFullName = true;
   file = null
   editClickHandler(id) {
     this.autofacus = false;
@@ -842,13 +850,25 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngCast = data.AC_CAST
       this.ngfinyear = data.tdsForm?.FIN_YEAR
       if (data.MAC_NAME === "null" || data.MAC_NAME === null || data.MAC_NAME === '') {
-        this.motherFullName = false; 
+        this.motherFullName = false;
       } else {
-        this.motherFullName = true; 
+        this.motherFullName = true;
         this.angForm.patchValue({
-          MAC_NAME: data.MAC_NAME 
+          MAC_NAME: data.MAC_NAME
         });
       }
+      if (data.BENEF_NAME) {
+        this.isapplicable = true;
+        this.isable = false
+        this.firmname = data.BENEF_NAME;
+        this.angForm.patchValue({
+          BENEF_NAME: data.BENEF_NAME
+        });
+      } else {
+        this.isapplicable = false;
+
+      }
+
       this.ngSubmitDate = (data.tdsForm?.SUBMIT_DATE == 'Invalid date' || data.tdsForm?.SUBMIT_DATE == '' || data.tdsForm?.SUBMIT_DATE == null) ? submitdate = '' : submitdate = data.tdsForm?.SUBMIT_DATE,
         this.angForm.patchValue({
           AC_NO: data.AC_NO,
@@ -864,14 +884,14 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
           MF_NAME: data.MF_NAME,
           ML_NAME: data.ML_NAME,
           MM_NAME: data.MM_NAME,
-          BENEF_NAME:data.BENEF_NAME,
+          BENEF_NAME: data.BENEF_NAME,
           AC_NAME: data.AC_NAME,
-          PROP_NAME:data.PROP_NAME,
-          REG_NO:data.REG_NO,
-          REG_DATE:data.REG_DATE,
-          GST_NO:data.GST_NO,
-          TAN_NO:data.TAN_NO,
-          COP_NO:data.COP_NO,
+          PROP_NAME: data.PROP_NAME,
+          REG_NO: data.REG_NO,
+          REG_DATE: data.REG_DATE,
+          GST_NO: data.GST_NO,
+          TAN_NO: data.TAN_NO,
+          COP_NO: data.COP_NO,
           F_NAME_REG: data.F_NAME_REG,
           M_NAME_REG: data.M_NAME_REG,
           L_NAME_REG: data.L_NAME_REG,
@@ -942,9 +962,9 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
             this.selectedImagePreview = selectedObj[id];
             this.imageObject.push(selectedObj)
             this.selectedImgArrayDetails.push(selectedObj);
-            let url = Object.values(selectedObj)[0]; 
+            let url = Object.values(selectedObj)[0];
             this.file = this.extractImageName(url);
-            this.customerDoc.push({'name':this.file})
+            this.customerDoc.push({ 'name': this.file })
           }
           this.customerDoc = DocArr
           // this. viewImagePreview(id)
@@ -978,8 +998,8 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['MF_NAME'] = this.mfname?.toUpperCase()
     data['ML_NAME'] = this.mlname?.toUpperCase()
     data['MM_NAME'] = this.mmname?.toUpperCase()
-    data['BENEF_NAME']=data.BENEF_NAME?.toUpperCase()
-    data['AC_TITLE_REG'] = data.AC_TITLE_REG.regValue 
+    data['BENEF_NAME'] = data.BENEF_NAME?.toUpperCase()
+    data['AC_TITLE_REG'] = data.AC_TITLE_REG
     data['F_NAME_REG'] = data.F_NAME_REG?.toUpperCase()
     data['M_NAME_REG'] = data.M_NAME_REG?.toUpperCase()
     data['L_NAME_REG'] = data.L_NAME_REG?.toUpperCase()
@@ -987,12 +1007,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
     data['AC_ADD_REG'] = data.AC_ADD_REG
     data['BRANCH_CODE'] = branchCode
     data['AC_PANNO'] = data.AC_PANNO
-    data['COP_NO']=data.COP_NO
-    data['TAN_NO']=data.TAN_NO
-    data['GST_NO']=data.GST_NO
-    data['REG_NO']=data.REG_NO
-    data['REG_DATE']=data.REG_DATE
-    data['PROP_NAME']=data.PROP_NAME
+    data['COP_NO'] = data.COP_NO
+    data['TAN_NO'] = data.TAN_NO
+    data['GST_NO'] = data.GST_NO
+    data['REG_NO'] = data.REG_NO
+    data['REG_DATE'] = data.REG_DATE
+    data['PROP_NAME'] = data.PROP_NAME
 
     if (this.updatecheckdata.AC_BIRTH_DT != data.AC_BIRTH_DT) {
       (data.AC_BIRTH_DT == 'Invalid date' || data.AC_BIRTH_DT == '' || data.AC_BIRTH_DT == null) ? (date = '', data['AC_BIRTH_DT'] = date) : (date = data.AC_BIRTH_DT, data['AC_BIRTH_DT'] = moment(date).format('DD/MM/YYYY'));
@@ -1083,6 +1103,12 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
   }
+
+  // ngAfterViewChecked() {
+  //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+  //     dtInstance.ajax.reload()
+  //   });
+  // }
 
   ngAfterViewInit(): void {
     //  this.ngSelect.focus();
@@ -1399,7 +1425,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               this.urlMap = '';
             } else if (selectedImage.startsWith('data:application/pdf')) {
               this.isImgPreview = false;
-              this.isPdf = true; 
+              this.isPdf = true;
               this.selectedImagePreview = '';
               this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
             } else if (selectedImage.toLowerCase().endsWith('.jpg') || selectedImage.toLowerCase().endsWith('.png') || selectedImage.toLowerCase().endsWith('.jpeg')) {
@@ -1409,19 +1435,19 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
               this.urlMap = '';
             } else if (selectedImage.toLowerCase().endsWith('.pdf')) {
               this.isImgPreview = false;
-              this.isPdf = true; 
+              this.isPdf = true;
               this.selectedImagePreview = '';
               this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
             } else {
               this.isImgPreview = false;
-              this.isPdf = false; 
+              this.isPdf = false;
               this.selectedImagePreview = '';
               this.urlMap = '';
             }
             throw 'Break';
           } else {
             this.isImgPreview = false;
-            this.isPdf = false; 
+            this.isPdf = false;
             this.selectedImagePreview = '';
             this.urlMap = '';
           }
@@ -1429,7 +1455,7 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     } else {
       this.isImgPreview = false;
-      this.isPdf = false; 
+      this.isPdf = false;
       this.selectedImagePreview = '';
       this.urlMap = '';
     }
@@ -1643,22 +1669,49 @@ export class CustomerIdComponent implements OnInit, AfterViewInit, OnDestroy {
   //   return hiddenTitles.includes(this.ngTitle);
   // }
 
-  notApplicable(event) {
-    let titlesToShowBeneficiary = ['PROF.', 'ADV.', 'DR.', 'MANDAL', 'M/S', 'SANSTHA'];
-    this.showBeneficiaryName = titlesToShowBeneficiary.includes(event.value);
-    this.updateFullName();
-  }
-  beneficiaryName = '';
-  onBeneficiaryNameChange(event) {
-    this.beneficiaryName = event?.toUpperCase();
-    this.updateFullName();
-  }
+  // notApplicable(event) {
+  //   let titlesToShowBeneficiary = ['PROF.', 'ADV.', 'DR.', 'MANDAL', 'M/S', 'SANSTHA'];
+  //   this.showBeneficiaryName = titlesToShowBeneficiary.includes(event.value);
+  //   this.updateFullName();
+  // }
+  // beneficiaryName = '';
+  // onBeneficiaryNameChange(event) {
+  //   this.beneficiaryName = event?.toUpperCase();
+  //   this.updateFullName();
+  // }
 
-  updateFullName() {
-    if (this.showBeneficiaryName && this.beneficiaryName) {
-      this.fullname = this.beneficiaryName;
-    } else {
-      this.fullname = `${this.lname} ${this.fname} ${this.mname}`.trim().toUpperCase();
+  // updateFullName() {
+  //   if (this.showBeneficiaryName && this.beneficiaryName) {
+  //     this.fullname = this.beneficiaryName;
+  //   } else {
+  //     this.fullname = `${this.lname} ${this.fname} ${this.mname}`.trim().toUpperCase();
+  //   }
+  // }
+
+
+
+  // isapplicable: boolean = false
+  // isable: boolean = true
+  // showBeneficiaryName:boolean=false
+  firmname
+  notApplicable(event) {
+    if (event.value == 'PROF.' || event.value == 'ADV.' || event.value == 'DR.' || event.value == 'MANDAL' || event.value == 'M/S' || event.value == 'SANSTHA') {
+      this.isapplicable = true
+      this.isable = false
+      this.showBeneficiaryName = true
+      let formVal = this.angForm.value;
+      this.firmname = formVal.BENEF_NAME;
+    }
+    else {
+      this.isapplicable = false
+      this.isable = true
+      this.showBeneficiaryName = false
+      this.angForm.controls['AC_NAME'].reset()
     }
   }
+  motherData = [
+    { label: 'Shrimati', value: 'Shrimati' },
+    { label: 'Sou', value: 'Sou' },
+    { label: 'Kai', value: 'Kai' }
+  ];
 }

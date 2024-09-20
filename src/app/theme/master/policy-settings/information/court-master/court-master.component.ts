@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { CourtMasterService } from './court-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,7 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private courtMasterService: CourtMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -125,14 +126,14 @@ export class CourtMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Court_Master.Action')
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Court_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Court_Master.Name'),
           data: 'NAME'
         },
 

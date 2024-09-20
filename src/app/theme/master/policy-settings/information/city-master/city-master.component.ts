@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { CitytMasterService } from './city-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -32,7 +33,7 @@ interface CityMaster {
 })
 export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
-  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  // @ViewChild("autofocus") myInputField: ElementRef;
 
   //api 
   url = environment.base_url;
@@ -84,7 +85,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private citytMasterService: CitytMasterService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private translate:TranslateService) {
     this.selectedRegion = this.regions[0];
   }
   districts
@@ -165,21 +166,21 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.City_Master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'City Code',
+          title:this.translate.instant('master.City_Master.City_Code'),
           data: 'CITY_CODE',
         },
         {
-          title: 'City Name',
+          title:this.translate.instant('master.City_Master.City_Name'),
           data: 'CITY_NAME',
         },
         {
-          title: 'Distance',
+          title:this.translate.instant('master.City_Master.Distance'),
           data: 'DISTANCE',
         },
         // {
@@ -195,23 +196,23 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         //   data: 'STATE_CODE',
         // },
         {
-          title: 'Region',
+          title:this.translate.instant('master.City_Master.Region'),
           data: 'REGION_CODE',
         },
         {
-          title: 'State',
+          title:this.translate.instant('master.City_Master.STATE'),
           data: 'STATE',
         },
         {
-          title: 'District',
+          title:this.translate.instant('master.City_Master.DISTRICT'),
           data: 'DISTRICT',
         },
         {
-          title: 'Taluka',
+          title:this.translate.instant('master.City_Master.TALUKA'),
           data: 'TALUKA',
         },
         {
-          title: 'City Type',
+          title:this.translate.instant('master.City_Master.City'),
           data: 'CITY_TYPE',
         },
       ],
@@ -352,7 +353,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.myInputField.nativeElement.focus();
+    // this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#informationtable tfoot tr').appendTo('#informationtable thead');
@@ -438,7 +439,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedDistrict
   selectedTaluka
   onTalukaChange(event) {
-    this.selectedState = event.STATE_CODE;
+    this.selectedState =  this.selectedState
     this.selectedDistrict = event.DISTRICT_CODE;
     this.selectedTaluka = event.TALUKA_CODE;
   }

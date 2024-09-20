@@ -3,9 +3,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Payable Dividend Transfer Instruction</h5>
+                <!-- <h5>Payable Dividend Transfer Instruction</h5> -->
+                <h5>{{'master.Dividend_Transfer_entry.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate (ngSubmit)="submit()" #myform="ngForm">
@@ -18,11 +19,11 @@
                                         formControlName="AC_TYPE" title="Compulsory Selection" [virtualScroll]="true"
                                         (change)="getmemNo($event)" [ngClass]="{'form-submitted': formSubmitted}"
                                         #AC_TYPE (focus)="onFocus(AC_TYPE)" [selectOnTab]='true'
-                                        required placeholder="Scheme" autofocus>
+                                        required placeholder="" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
+                                    <label for="AC_TYPE">{{'master.Dividend_Transfer_entry.Scheme' | translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
@@ -31,7 +32,7 @@
                                     angForm.controls['AC_TYPE'].touched)
                                 " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                 </div>
                             </div>
                         </div>
@@ -42,11 +43,13 @@
                                         formControlName="AC_NO" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
                                         #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
-                                        placeholder="Member Number" (change)="getData($event)">
+                                        placeholder="" (change)="getData($event)">
                                         <ng-option *ngFor="let values of memnoACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_NO">Member Number <sub class="required"> * </sub></label>
+                                    <label for="AC_NO">
+                                        {{'master.Dividend_Transfer_entry.Member_Number' | translate}}   <!-- Member Number  -->
+                                        <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="
@@ -55,7 +58,7 @@
                                 angForm.controls['AC_NO'].touched)
                             " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required
+                                    {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                 </div>
                             </div>
                         </div>
@@ -68,11 +71,11 @@
                                         formControlName="DIV_TRANSFER_BRANCH" bindLabel="label" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DIV_TRANSFER_BRANCH (focus)="onFocus(DIV_TRANSFER_BRANCH)" [selectOnTab]='true'
-                                        (change)="getBranch($event)" placeholder="Branch">
+                                        (change)="getBranch($event)" placeholder="">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="DIV_TRANSFER_BRANCH">Branch</label>
+                                    <label for="DIV_TRANSFER_BRANCH">{{'master.Dividend_Transfer_entry.Branch' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -83,12 +86,14 @@
                                         formControlName="DIV_TRANSFER_ACTYPE" bindLabel="label" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DIV_TRANSFER_ACTYPE (focus)="onFocus(DIV_TRANSFER_ACTYPE)" [selectOnTab]='true'
-                                        (change)="getDivTrans($event)" placeholder="Account Type">
+                                        (change)="getDivTrans($event)" placeholder="">
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="DIV_TRANSFER_ACTYPE">Account
-                                        Type</label>
+                                    <label for="DIV_TRANSFER_ACTYPE">
+                                        {{'master.Dividend_Transfer_entry.Account_Type' | translate}}  <!-- Account
+                                        Type -->
+                                    </label>
                                 </span>
                             </div>
                         </div>
@@ -99,13 +104,15 @@
                                         formControlName="DIV_TRANSFER_ACNO" bindLabel="AC_NO" [virtualScroll]="true"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                                         #DIV_TRANSFER_ACNO (focus)="onFocus(DIV_TRANSFER_ACNO)" [selectOnTab]='true'
-                                        (focus)="getDiviTransfer()" placeholder="Account Number">
+                                        (focus)="getDiviTransfer()" placeholder="">
                                         <ng-option *ngFor="let values of divTransferNO" [value]="values">
                                             {{values.label}} {{values.name}}
                                         </ng-option>
                                     </ng-select>
-                                    <label for="DIV_TRANSFER_ACNO">Account
-                                        Number</label>
+                                    <label for="DIV_TRANSFER_ACNO">
+                                        {{'master.Dividend_Transfer_entry.Account_Number' | translate}}  <!-- Account
+                                        Number -->
+                                    </label>
                                 </span>
                             </div>
                         </div>
@@ -113,7 +120,7 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit"
-                                (click)="updateDataPyatrans()" appTheme>Update</button>
+                                (click)="updateDataPyatrans()" appTheme>{{'master.Action.Update' | translate}}</button>
                         </div>
                     </div>
 

@@ -89,7 +89,7 @@
                                                 <ng-select bindValue="bankacno" [(ngModel)]="customer" #accountNumber
                                                     (focus)="onFocus(accountNumber)" [selectOnTab]='true' appTheme
                                                     formControlName="account_no" (change)="getAccountDetails($event)">
-                                                    <ng-option *ngFor="let item of introducerACNo" [value]="item">
+                                                    <ng-option *ngFor="let item of getacc" [value]="item">
                                                         <div [ngClass]="{'movable-text': isOptionTooLong(item)}">
                                                             {{item.label}} {{item.name}}</div>
                                                     </ng-option>
@@ -204,6 +204,17 @@
                                                                 formControlName="maturedInterest" type="text">
                                                         </td>
                                                     </tr>
+                                                    
+                                                    <tr>
+                                                        <td>After Maturity Days</td>
+                                                        <td>
+                                                            <input style="width:50% ; text-align: right;" disabled
+                                                                class="form-control" (focus)="selectAllContent($event)"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                                maxlength="12" formControlName="afterMaturityDays"
+                                                                type="text">
+                                                        </td>
+                                                    </tr>
                                                     <tr>
                                                         <td>Interest Amount</td>
                                                         <td>
@@ -211,6 +222,16 @@
                                                                 class="form-control" (focus)="selectAllContent($event)"
                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                 maxlength="12" formControlName="maturedIntAmt"
+                                                                type="text">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>After Maturity Days</td>
+                                                        <td>
+                                                            <input style="width:50% ; text-align: right;" disabled
+                                                                class="form-control" (focus)="selectAllContent($event)"
+                                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
+                                                                maxlength="12" formControlName="afterMaturityDays"
                                                                 type="text">
                                                         </td>
                                                     </tr>
@@ -502,10 +523,10 @@
                                                             </span>
                                                         </div>
                                                     </div>
-                                                   
+
                                                 </div>
                                                 <div class="row">
-                                                   
+
                                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">Scheme
                                                             Type<sub class="required">*</sub></label></div>
                                                     <div class="col-sm-2">
@@ -535,12 +556,12 @@
                                                     <div class="col-sm-12 col-md-6">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
-                                                                <ng-select [(ngModel)]="selectedScheme" bindValue="id"
+                                                                <ng-select [(ngModel)]="selectedScheme1" 
                                                                     appTheme (change)="getIntroducer1($event)"
-                                                                    formControlName="scheme" #selectScheme
+                                                                    formControlName="scheme1"
                                                                     (focus)="onFocus(selectScheme)"
                                                                     [selectOnTab]='true'>
-                                                                    <ng-option *ngFor="let item of allScheme"
+                                                                    <ng-option *ngFor="let item of allScheme1"
                                                                         [value]="item">
                                                                         <div
                                                                             [ngClass]="{'movable-text': isOptionTooLong(item)}">
@@ -552,9 +573,9 @@
                                                             </span>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
+                                                            *ngIf="angForm.controls['scheme1'].invalid && (angForm.controls['scheme1'].dirty || angForm.controls['scheme1'].touched)"
                                                             class="alert alert-danger">
-                                                            <div *ngIf="angForm.controls['scheme'].errors?.required">
+                                                            <div *ngIf="angForm.controls['scheme1'].errors?.required">
                                                                 This field is required
                                                             </div>
                                                         </div>
@@ -569,8 +590,8 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
-                                                                <ng-select [(ngModel)]="customer" bindValue="id"
-                                                                    formControlName="account_no" #selectAcc
+                                                                <ng-select [(ngModel)]="customer1" 
+                                                                    formControlName="ac_no" #selectAcc
                                                                     (focus)="onFocus(selectAcc)" [selectOnTab]='true'
                                                                     appTheme [virtualScroll]="true"
                                                                     (change)="getVoucherData($event);SideDetails();checkAccountCondition();showlgindetails()">
@@ -584,10 +605,9 @@
                                                             </span>
                                                         </div>
                                                         <div class="form-group form-primary form-static-label"
-                                                            *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
+                                                            *ngIf="angForm.controls['ac_no'].invalid && (angForm.controls['ac_no'].dirty || angForm.controls['ac_no'].touched)"
                                                             class="alert alert-danger">
-                                                            <div
-                                                                *ngIf="angForm.controls['account_no'].errors?.required">
+                                                            <div *ngIf="angForm.controls['ac_no'].errors?.required">
                                                                 This field is required
                                                             </div>
                                                         </div>
@@ -759,85 +779,84 @@
                                                 </div>
 
                                                 <br>
-                                                    <div class="row">
-                                                        <div class="col-md-8"></div>
-                                                        <div class="col-md-4">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                                                *ngIf="jointShowButton"
-                                                                (click)="addTransferAccount()">Add
-                                                                Account</button>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="updateTransferAcccount()"
-                                                                *ngIf="jointUpdateShow">Update Account</button>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-md-8"></div>
+                                                    <div class="col-md-4">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                                            *ngIf="jointShowButton" (click)="addTransferAccount()">Add
+                                                            Account</button>
+                                                        <button class="btn btn-outline-primary btn-sm"
+                                                            (click)="updateTransferAcccount()"
+                                                            *ngIf="jointUpdateShow">Update Account</button>
                                                     </div>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="table-responsive">
-                                                                <table class="table table-bordered table-hover compact">
-                                                                    <thead>
-                                                                        <td>Action</td>
-                                                                        <td>Scheme</td>
-                                                                        <td>Account Number</td>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover compact">
+                                                                <thead>
+                                                                    <td>Action</td>
+                                                                    <td>Scheme</td>
+                                                                    <td>Account Number</td>
 
-                                                                        <td>Particulars</td>
-                                                                        <td style="text-align: right;">Amount</td>
-                                                                    </thead>
+                                                                    <td>Particulars</td>
+                                                                    <td style="text-align: right;">Amount</td>
+                                                                </thead>
 
-                                                                    <tbody *ngIf="multigrid.length != 0">
-                                                                        <tr *ngFor="let data of multigrid;
+                                                                <tbody *ngIf="multigrid.length != 0">
+                                                                    <tr *ngFor="let data of multigrid;
                                                                         let indexOfelement = index">
-                                                                            <td [ngClass]="'td_center'"> <span
-                                                                                    class="fa fa-fw fa-edit field-icon"
-                                                                                    id="editbutton"
-                                                                                    (click)="editTransferAccount(indexOfelement)"
-                                                                                    placement="top"
-                                                                                    ngbTooltip="Edit"></span>
-                                                                            </td>
-                                                                            <td [ngClass]="'td_right'">{{
-                                                                                data.Scheme==
-                                                                                undefined || data.Scheme==null
-                                                                                ? data.depoCloseTranAc.S_APPL:
-                                                                                data.Scheme
-                                                                                }}
-                                                                            </td>
-                                                                            <td [ngClass]="'td_right'">{{
-                                                                                data.TRANSFER_ACNO
-                                                                                }}
-                                                                            </td>
-                                                                            <td>{{ data.NARRATION }}</td>
-                                                                            <td [ngClass]="'td_right'">{{
-                                                                                data.TRAN_AMOUNT
-                                                                                }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr *ngIf="multigrid.length != 0">
+                                                                        <td [ngClass]="'td_center'"> <span
+                                                                                class="fa fa-fw fa-edit field-icon"
+                                                                                id="editbutton"
+                                                                                (click)="editTransferAccount(indexOfelement)"
+                                                                                placement="top"
+                                                                                ngbTooltip="Edit"></span>
+                                                                        </td>
+                                                                        <td [ngClass]="'td_right'">{{
+                                                                            data.Scheme==
+                                                                            undefined || data.Scheme==null
+                                                                            ? data.depoCloseTranAc.S_APPL:
+                                                                            data.Scheme
+                                                                            }}
+                                                                        </td>
+                                                                        <td [ngClass]="'td_right'">{{
+                                                                            data.TRANSFER_ACNO
+                                                                            }}
+                                                                        </td>
+                                                                        <td>{{ data.NARRATION }}</td>
+                                                                        <td [ngClass]="'td_right'">{{
+                                                                            data.TRAN_AMOUNT
+                                                                            }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr *ngIf="multigrid.length != 0">
 
-                                                                            <td colspan="4" style="text-align: right;">
-                                                                                Total
-                                                                            </td>
-                                                                            <td [ngClass]="'td_right'">
-                                                                                {{transferTotalAmount}}
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                        <td colspan="4" style="text-align: right;">
+                                                                            Total
+                                                                        </td>
+                                                                        <td [ngClass]="'td_right'">
+                                                                            {{totalAmt}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="row">
-                                                        <div class="col-md-3">
-                                                            Total Credit : {{transferTotalAmount}}
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            Total Debit : {{totalNetAmt}}
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            Difference: {{transferTotalAmount - totalNetAmt}}
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        Total Credit : {{totalAmt}}
                                                     </div>
+                                                    <div class="col-md-3">
+                                                        Total Debit : {{totalNetAmt}}
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        Difference: {{totalAmt - totalNetAmt}}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -887,7 +906,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -907,7 +926,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -926,7 +945,7 @@
                                                 aria-hidden="true"></i> {{Pass}}.00</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-info rounded float-start">
                                             <div class="avatar-content">
@@ -944,7 +963,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -963,7 +982,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md">
+                                <div class="col-md"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -980,7 +999,7 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{opDate}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-info rounded float-start">
                                             <div class="avatar-content">
@@ -999,7 +1018,7 @@
                                             {{asOnDate==null?'---':asOnDate}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -1018,7 +1037,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -1036,7 +1055,7 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{recNo}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-info rounded float-start">
                                             <div class="avatar-content">
@@ -1054,7 +1073,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -1071,7 +1090,7 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{months}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12"  *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -1088,6 +1107,319 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{days}}</div>
                                     </div>
                                 </div>
+
+                                <!-- Transfer -->
+
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-primary rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Day Opening
+                                                    Balance
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-primary"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{DayOpBal}} {{extensionopenbal}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="submitAccountNo?.AC_ACNOTYPE == 'PG'">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-primary rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Pigmy Amount
+                                                </h6>
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-primary"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{pigmyamount}} Cr</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-success rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Passed</h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{Pass}} {{passextension}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-danger rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Unpassed</h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> <span>{{Unpass}} {{unpassextension}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-danger rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Uneffected
+                                                    Clearing
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-danger"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> 0.00</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Overdraft
+                                                    Amount
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{overdraftAmt}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Open Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{opendate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">As On Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{asondate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Sanction Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{sanctiondate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Expiry Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{expirydate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Renewal Date
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> {{renewaldate}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Sanctions Amount
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{sanctionamt}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Deposit Amount
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{depositamt}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-info rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">Maturity Amount
+
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-info"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{maturityamt}}.00</div>
+                                    </div>
+                                </div>
+                                <div class="col-md" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-success rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 15px;">Cleared Balance
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{ClearBalance}} {{typeclearbal}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="hideShow1">
+                                    <div class="transaction-item">
+                                        <div class="d-flex">
+                                            <div class="avatar bg-light-primary rounded float-start">
+                                                <div class="avatar-content">
+                                                    <i class="fa fa-google-wallet field-icon"></i>
+                                                </div>
+                                            </div>
+                                            <div class="transaction-percentage">
+                                                <h6 class="transaction-title" style="font-size: 12px;">After this
+                                                    voucher
+                                                </h6>
+                                                <!-- <small>Starbucks</small> -->
+                                            </div>
+                                        </div>
+                                        <div class="fw-bolder transaction-title text-success"
+                                            style="margin-left: auto;order: 2;font-size: 12px;"> <i class="fa fa-inr"
+                                                aria-hidden="true"></i> {{AfterVoucher}} {{extenstionaftervoucher}}
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-12">
                                     <div class="card">
                                         <div class="card-body">

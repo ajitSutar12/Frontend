@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Clearing Branch Master</h5>
+                <h5>{{'master.clearing_branch_master.clearing_branch_master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.clearing_branch_master.F1' | translate}}(<sub class="required"> * </sub>){{'master.clearing_branch_master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +16,7 @@
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="BranchCode"
                                         pattern="^[0-9]+$" disabled title="Input allowed only  0-9"
                                         formControlName="CODE">
-                                    <label for="BranchCode">Branch Code</label>
+                                    <label for="BranchCode">{{'master.clearing_branch_master.branch_code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="BranchName">Branch Name<sub class="required">* </sub></label>
+                                    <label for="BranchName">{{'master.clearing_branch_master.branch_name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -36,7 +36,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'Utility.Validation.Val1' | translate}} <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -45,11 +45,11 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngAcNo" id="AC_NO" formControlName="AC_NO"
                                     #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
-                                        title="Compulsory Selection" placeholder="Account Number">
+                                        title="Compulsory Selection" placeholder=" ">
                                         <ng-option *ngFor="let values of acno" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_NO">Account Number</label>
+                                    <label for="AC_NO">{{'master.clearing_branch_master.Account_number' | translate}}</label>
                                 </span>
                             </div>
                             <!-- <div class="form-group input-group">
@@ -78,11 +78,11 @@
                         </div>
                         <div class="col-sm-3">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.clearing_branch_master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.clearing_branch_master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.clearing_branch_master.Update' | translate}}</button>&nbsp;
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                                 </tbody>
                                 <tbody *ngIf="clearingBranches?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available"> {{'master.Action.No_Data' | translate}}  </td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

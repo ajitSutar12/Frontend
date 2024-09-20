@@ -14,6 +14,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import *  as moment from 'moment';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-gold-silver-receipt-print',
   templateUrl: './gold-silver-receipt-print.component.html',
@@ -59,6 +60,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
   showRepo: boolean;
   getbankAcNo1: any;
   clicked: boolean = false;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -66,6 +68,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
+    private translate:TranslateService,
     private systemParameter: SystemMasterParametersService, private sanitizer: DomSanitizer,
 
   ) {
@@ -75,6 +78,9 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
       this.minDate = this.maxDate
       this.ngreturndate = data.CURRENT_DATE
       this.logDate = data.CURRENT_DATE
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
   }
@@ -194,7 +200,7 @@ export class GoldSilverReceiptPrintComponent implements OnInit {
       let schemeCode = obj.AC_TYPE;
 
 
-      this.iframe5url = this.report_url + "examples/goldsilverreceiptprint.php?startDate='" + startDate + "'&branchName='" + branchName + "'&branch='" +  this.ngBranchCode + "'&accountno='" + accountno + "'&scheme= '" + scheme + "'&schemeCode= " + schemeCode +
+      this.iframe5url = this.report_url + "examples/goldsilverreceiptprint.php?startDate='" + startDate + "'&branchName='" + branchName + "'&branch='" + this.ngBranchCode + "'&accountno='" + accountno + "'&scheme= '" + scheme + "'&schemeCode= " + schemeCode +
         " &bankName=" + bankName + "";
       console.log(this.iframe5url);
 

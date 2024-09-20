@@ -36,6 +36,7 @@ import * as moment from 'moment';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'// Handling datatable data
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -245,6 +246,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public visible = false;
   public visibleAnimate = false;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private ShareMasterService: ShareMasterService,
@@ -264,7 +266,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    private translate:TranslateService) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -275,6 +278,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+
+
+       //Translation 
+       this.setLang = data.SET_LANGUAGE
+       this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -334,54 +342,54 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Master_Shares_Holders.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Member Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Member_Number'),
           data: 'AC_NO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Master_Shares_Holders.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Master_Shares_Holders.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Employee Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Emp_No'),
           data: 'EMP_NO'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Represented by',
+          title: this.translate.instant('master.Master_Shares_Holders.Represent_by'),
           data: 'AC_SREPRESENT'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Master_Shares_Holders.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Master_Shares_Holders.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Open Date',
+          title: this.translate.instant('master.Master_Shares_Holders.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Branch Code',
+          title: this.translate.instant('master.Master_Shares_Holders.Branch_Code'),
           data: 'AC_BRANCH'
         },
       ],

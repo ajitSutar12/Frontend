@@ -87,7 +87,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   //api 
   url = environment.base_url;
 
-  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -863,7 +863,7 @@ export class TermLoanSchemeComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');

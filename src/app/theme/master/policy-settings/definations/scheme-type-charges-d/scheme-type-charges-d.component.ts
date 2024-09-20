@@ -18,6 +18,8 @@ import { environment } from '../../../../../../environments/environment'
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -120,7 +122,9 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
     private schemeTypeChargesService: SchemeTypeChargesService,
     private aCMasterService: ACMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,
+    private translate:TranslateService,
+  ) {
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
@@ -177,25 +181,25 @@ export class SchemeTypeChargesDComponent implements OnInit, AfterViewInit, OnDes
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Effect Date',
+          title: this.translate.instant('master.Scheme_Type_Charges_Defination.Effective_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Scheme_Type_Charges_Defination.Scheme_Type'),
           data: 'ACNOTYPE'
         },
 
 
         {
-          title: 'Charges Type',
+          title: this.translate.instant('master.Scheme_Type_Charges_Defination.Charges_Type'),
           data: 'CHARGES_TYPE'
         },
 
         {
-          title: 'Charges GL Account',
+          title: this.translate.instant('master.Scheme_Type_Charges_Defination.Charges_GL_Acc'),
           data: 'CHARGES_GL_ACNO'
         }
       ],
