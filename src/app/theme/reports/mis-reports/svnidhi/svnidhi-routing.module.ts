@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: SvnidhiComponent,
     data: {
-      title: 'Frozen Account',
+      title: 'Swanidhi',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

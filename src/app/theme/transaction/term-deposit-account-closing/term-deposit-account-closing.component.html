@@ -837,7 +837,7 @@
                                                                             Total
                                                                         </td>
                                                                         <td [ngClass]="'td_right'">
-                                                                            {{totalAmt}}
+                                                                            {{transferTotalAmount}}
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -848,13 +848,13 @@
 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        Total Credit : {{totalAmt}}
+                                                        Total Credit : {{transferTotalAmount}}
                                                     </div>
                                                     <div class="col-md-3">
                                                         Total Debit : {{totalNetAmt}}
                                                     </div>
                                                     <div class="col-md-3">
-                                                        Difference: {{totalAmt - totalNetAmt}}
+                                                        Difference: {{transferTotalAmount - totalNetAmt}}
                                                     </div>
                                                 </div>
                                             </div>

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-svnidhi',
@@ -15,18 +16,20 @@ export class SvnidhiComponent implements OnInit {
   todate: string;
   maxDate: Date;
   minDate: Date;
+  setLang: any;
 
   constructor(private ownbranchMasterService: OwnbranchMasterService,
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
-  
+    private translate: TranslateService,
+
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-   }
+  }
   ngForm!: FormGroup;
   branch_code: any;
   ngbranch: any;
@@ -40,22 +43,25 @@ export class SvnidhiComponent implements OnInit {
   ngOnInit(): void {
     // debugger
     this.createForm();
-   
-       this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branch_code = data;
       console.log(this.branch_code)
     });
 
- this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-  this.todate = data.CURRENT_DATE;
-});
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
   }
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: [""],
-    
-      Suite_Date: [""], 
-     
+
+      Suite_Date: [""],
+
     })
   }
   getBranch(event) {
@@ -66,7 +72,7 @@ export class SvnidhiComponent implements OnInit {
 
     this.branch = event.value
   }
-  
+
   view(event) {
     // debugger
 
@@ -86,17 +92,18 @@ export class SvnidhiComponent implements OnInit {
       this.showRepo = true;
       let Date = moment(obj.Suite_Date).format('DD/MM/YYYY');
       // let Scheme_code =   this.schcode
-      let BRANCH_CODE = obj.BRANCH_CODE;}
+      let BRANCH_CODE = obj.BRANCH_CODE;
     }
-    close() {
-      this.resetForm()
-  
-    }
-    resetForm() {
-      this.ngForm.controls.Suite_Date.reset();
-      this.ngForm.controls.BRANCH_CODE.reset();
-     
-      this.showRepo = false;
-      this.clicked = false;
-    }
+  }
+  close() {
+    this.resetForm()
+
+  }
+  resetForm() {
+    this.ngForm.controls.Suite_Date.reset();
+    this.ngForm.controls.BRANCH_CODE.reset();
+
+    this.showRepo = false;
+    this.clicked = false;
+  }
 }

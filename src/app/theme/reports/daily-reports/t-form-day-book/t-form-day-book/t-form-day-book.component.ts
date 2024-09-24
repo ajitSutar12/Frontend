@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import { NgSelectConfig } from "@ng-select/ng-select";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-t-form-day-book',
@@ -46,9 +46,11 @@ export class TFormDayBookComponent implements OnInit {
     { id: 1, value: "Summary" },
     { id: 2, value: "Details" },
   ];
+  setLang: any;
   constructor(private fb: FormBuilder, private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     private config: NgSelectConfig,
+    private translate: TranslateService,
     public router: Router, private _ownbranchmasterservice: OwnbranchMasterService,) {
     this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -68,6 +70,9 @@ export class TFormDayBookComponent implements OnInit {
     //get date from syspara current_date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.date = data.CURRENT_DATE
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     let data: any = localStorage.getItem('user');
@@ -104,7 +109,7 @@ export class TFormDayBookComponent implements OnInit {
   // }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   src: any;
   view(event) {
 
@@ -116,7 +121,7 @@ export class TFormDayBookComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
-    
+
 
     if (this.ngForm.controls['Print_Code'].value == "Detail" && this.ngForm.valid) {
       this.showRepo = true;
@@ -130,7 +135,7 @@ export class TFormDayBookComponent implements OnInit {
       } else {
         Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
-      
+
 
       // let Date = this.date;
       let Branch = obj.Branch;

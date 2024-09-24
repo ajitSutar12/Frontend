@@ -77,7 +77,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="L_NAME" class="form-control " placeholder=" "
-                                        id="L_NAME" pattern="^[A-Za-z]+$" maxlength="15"
+                                        id="L_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -104,7 +104,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="F_NAME" class="form-control " placeholder=" "
-                                        id="F_NAME" pattern="^[A-Za-z]+$" maxlength="15"
+                                        id="F_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="fname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -128,7 +128,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="M_NAME" style="text-transform:uppercase"
-                                        class="form-control " placeholder=" " id="M_NAME" pattern="^[A-Za-z]+$"
+                                        class="form-control " placeholder=" " id="M_NAME" pattern="^[\u0900-\u097F A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15" [(ngModel)]="mname"
                                         title="Input allowed only A-Z" (ngModelChange)="mname = $event?.toUpperCase()"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
@@ -152,7 +152,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase" disabled
+                                        pattern="^[\u0900-\u097F A-Za-z]+$" style="text-transform:uppercase" disabled
                                         [(ngModel)]="fullname" value="{{lname + ' ' + fname + ' ' + mname}}"
                                         formControlName="AC_NAME">
                                     <label for="AC_NAME">Full Name</label>
@@ -163,7 +163,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="Firm_NAME" class="form-control " placeholder=" "
-                                        id="Firm_NAME"  pattern="^[A-Za-z]+$" maxlength="15"
+                                        id="Firm_NAME"  pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="lname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -179,7 +179,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
+                                        pattern="^[\u0900-\u097F A-Za-z]+$" style="text-transform: uppercase"
                                         [disabled]="isFullNameDisabled" [(ngModel)]="fullname"
                                         [value]="lname + ' ' + fname + ' ' + mname" formControlName="AC_NAME" disabled>
                                     <!-- <label for="AC_NAME">Full Name</label> -->
@@ -192,7 +192,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="BENEF_NAME" class="form-control" placeholder=" "
-                                        id="BENEF_NAME" pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
+                                        id="BENEF_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" style="text-transform: uppercase"
                                         [(ngModel)]="firmname" formControlName="BENEF_NAME">
                                     <!-- <label for="BENEF_NAME">Firm Name</label> -->
                                     <label for="BENEF_NAME">{{'master.Customer_Id.Firm_Name' | translate}}</label>
@@ -204,7 +204,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="PROP_NAME" class="form-control" placeholder=" "
-                                        id="PROP_NAME" pattern="^[A-Za-z\./ -]+$" style="text-transform:uppercase"
+                                        id="PROP_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" style="text-transform:uppercase"
                                         formControlName="PROP_NAME">
                                     <!-- <label for="PROP_NAME">Proprietor/Chairman Name</label> -->
                                     <label for="PROP_NAME">{{'master.Customer_Id.Proprietor' | translate}}</label>
@@ -416,7 +416,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="ML_NAME" class="form-control " placeholder=" " id="ML_NAME"
-                                        pattern="^[A-Za-z]+$" maxlength="15"
+                                        pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="mlname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -442,7 +442,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MF_NAME" class="form-control " placeholder=" " id="MF_NAME"
-                                        pattern="^[A-Za-z]+$" maxlength="15"
+                                        pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="15"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122)"
                                         (ngModelChange)="mfname = $event?.toUpperCase()"
                                         style="text-transform:uppercase;" [ngClass]="{'form-submitted': formSubmitted}"
@@ -465,7 +465,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MM_NAME" style="text-transform:uppercase"
-                                        class="form-control " placeholder=" " id="MM_NAME" pattern="^[A-Za-z]+$"
+                                        class="form-control " placeholder=" " id="MM_NAME" pattern="^[\u0900-\u097F A-Za-z]+$"
                                         [ngClass]="{'form-submitted': formSubmitted}" maxlength="15"
                                         [(ngModel)]="mmname" title="Input allowed only A-Z"
                                         (ngModelChange)="mmname = $event?.toUpperCase()"
@@ -490,7 +490,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="MAC_NAME" class="form-control" placeholder=" "
-                                        id="MAC_NAME" pattern="^[A-Za-z\./ -]+$" style="text-transform: uppercase"
+                                        id="MAC_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" style="text-transform: uppercase"
                                         [(ngModel)]="mfullname" [value]="mlname + ' ' + mfname + ' ' + mmname"
                                         formControlName="MAC_NAME" disabled>
                                     <!-- <label for="MAC_NAME">Full Name</label> -->

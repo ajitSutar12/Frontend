@@ -5,7 +5,6 @@ import { SetpasswordRoutingModule } from './setpassword-routing.module';
 import { SetpasswordComponent } from './setpassword.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
 
 
 @NgModule({
@@ -17,6 +16,6 @@ import { AuthService } from '../auth.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService]
+  providers: []
 })
 export class SetpasswordModule { }

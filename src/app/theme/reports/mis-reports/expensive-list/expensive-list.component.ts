@@ -8,6 +8,8 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { DepositLoanInterestRateEditChangeService } from 'src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-expensive-list',
@@ -45,15 +47,23 @@ export class ExpensiveListComponent implements OnInit {
   clicked: boolean = false;
   iframeurl: any = ' ';
   url = environment.base_url;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private fb: FormBuilder,
     private _interestRateChange: DepositLoanInterestRateEditChangeService,
+    private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService
 
-
-  ) { }
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
   Start_code
   ngOnInit(): void {
     this.createForm();
@@ -75,8 +85,8 @@ export class ExpensiveListComponent implements OnInit {
       branch_code: this.ngbranch,
       date: this.date
     }
-    this.http.post(this.url+'/gl-account-master/getexpensedat', obj1).subscribe((data: any) => {
-    // this.http.post('http://localhost:7272/gl-account-master/getexpensedat', {}).subscribe((data: any) => {
+    this.http.post(this.url + '/gl-account-master/getexpensedat', obj1).subscribe((data: any) => {
+      // this.http.post('http://localhost:7272/gl-account-master/getexpensedat', {}).subscribe((data: any) => {
       // console.log(data);
       let sortedData = data.sort((a, b) => a.CODE - b.CODE);
       this.Start_code = sortedData;
@@ -182,7 +192,7 @@ export class ExpensiveListComponent implements OnInit {
       else if (type == 'Both') {
         flag = 2;
       }
-      this.iframeurl = this.report_url + "examples/Expensisdetailreport.php?startDate='" + fromDate + "'&endDate='" + toDate + "'&Rdio='" + Rdio + "'&type='" + type + "'&scheme='" + branchName + "'&branch='" + branch + "&bankName=" + bankName + "&flag=" + flag + "&startCode=" + this.startdt + "&endCode=" + this.enddt +"&flg=" + flg + "";
+      this.iframeurl = this.report_url + "examples/Expensisdetailreport.php?startDate='" + fromDate + "'&endDate='" + toDate + "'&Rdio='" + Rdio + "'&type='" + type + "'&scheme='" + branchName + "'&branch='" + branch + "&bankName=" + bankName + "&flag=" + flag + "&startCode=" + this.startdt + "&endCode=" + this.enddt + "&flg=" + flg + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }
     else {

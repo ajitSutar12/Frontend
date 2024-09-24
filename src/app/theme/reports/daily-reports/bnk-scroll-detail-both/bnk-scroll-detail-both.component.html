@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Scroll Book Debit/Credit/Both</h5>
+                <h5>{{'master.Scroll_Book_Debit/Credit/Both.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
 
@@ -12,7 +12,7 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-sm-12 col-md-2">
-                            <label for=""> Branch <sub class="required">*</sub></label>
+                            <label for=""> {{'master.Scroll_Book_Debit/Credit/Both.Branch' | translate}} <sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -30,12 +30,12 @@
                                 *ngIf="angForm.controls['Branch'].invalid && (angForm.controls['Branch'].dirty || angForm.controls['Branch'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['Branch'].errors?.required">
-                                    This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-2">
-                            <label for=""> Scroll Type<sub class="required">*</sub></label>
+                            <label for="">{{'master.Scroll_Book_Debit/Credit/Both.Scroll_Type' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-radio">
@@ -44,7 +44,7 @@
                                     <label>
                                         <input type="radio" name="Scroll_Type" value="cash"
                                             formControlName="Scroll_Type" [checked]="true"  [(ngModel)]="selectedScrollType">
-                                        <i class="helper"></i>Cash </label>
+                                        <i class="helper"></i>{{'master.Scroll_Book_Debit/Credit/Both.Cash' | translate}}  </label>
                                 </div>
 
 
@@ -52,7 +52,7 @@
                                     <label>
                                         <input type="radio" name="Scroll_Type" value="transfer"
                                             formControlName="Scroll_Type"  [(ngModel)]="selectedScrollType" (change)="onScrollTypeChange()">
-                                        <i class="helper"></i>Transfer</label>
+                                        <i class="helper"></i>{{'master.Scroll_Book_Debit/Credit/Both.Transfer' | translate}}</label>
                                 </div>
 
 
@@ -64,7 +64,7 @@
                                         angForm.controls['Scroll_Type'].touched)
                                       " class="alert alert-danger">
                                     <div *ngIf="angForm.controls['Scroll_Type'].errors?.required">
-                                        This field is required
+                                      <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>
@@ -72,7 +72,7 @@
                         </div>
                        
                         <div class="col-sm-12 col-md-1">
-                            <label for="">Date <sub class="required">*</sub></label>
+                            <label for="">{{'master.Scroll_Book_Debit/Credit/Both.Date' | translate}} <sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -90,7 +90,7 @@
                                 *ngIf="angForm.controls['CURRENT_DATE'].invalid &&
                                      (angForm.controls['CURRENT_DATE'].dirty ||angForm.controls['CURRENT_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CURRENT_DATE'].errors?.required">
-                                    This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
 
                             </div>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="row">
  <div class="col-sm-12 col-md-2" *ngIf="selectedScrollType === 'cash'">
-                            <label for=""> Cashier Code</label>
+                            <label for=""> {{'master.Scroll_Book_Debit/Credit/Both.Cashier_Code' | translate}}</label>
                         </div>
                         <div class="col-sm-12 col-md-2" *ngIf="selectedScrollType === 'cash'">
                             <div class="form-group form-primary form-static-label">
@@ -117,13 +117,13 @@
                                 *ngIf="angForm.controls['Cashier_Code'].invalid && (angForm.controls['Cashier_Code'].dirty || angForm.controls['Cashier_Code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['Cashier_Code'].errors?.required">
-                                    This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                         
                         <div class="col-sm-12 col-md-2">
-                            <label for="">Print Side<sub class="required">*</sub></label>
+                            <label for="">{{'master.Scroll_Book_Debit/Credit/Both.Print_Side' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-radio">
@@ -132,7 +132,7 @@
                                     <label>
                                         <input type="radio" name="Print_Code" value="Debit" formControlName="Print_Code"
                                             [checked]="true">
-                                        <i class="helper"></i>Debit </label>
+                                        <i class="helper"></i>{{'master.Scroll_Book_Debit/Credit/Both.Debit' | translate}} </label>
                                 </div>
 
 
@@ -140,14 +140,14 @@
                                     <label>
                                         <input type="radio" name="Print_Code" value="Credit"
                                             formControlName="Print_Code">
-                                        <i class="helper"></i>Credit </label>
+                                        <i class="helper"></i>{{'master.Scroll_Book_Debit/Credit/Both.Credit' | translate}} </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="Print_Code" value="Both" formControlName="Print_Code">
-                                        <i class="helper"></i>Both</label>
+                                        <i class="helper"></i>{{'master.Scroll_Book_Debit/Credit/Both.Both' | translate}}</label>
                                 </div>
 
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -156,7 +156,7 @@
                                         angForm.controls['Print_Code'].touched)
                                       " class="alert alert-danger">
                                     <div *ngIf="angForm.controls['Print_Code'].errors?.required">
-                                        This field is required
+                                      <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>
@@ -198,7 +198,7 @@
                                         angForm.controls['radio'].touched)
                                       " class="alert alert-danger">
                                     <div *ngIf="angForm.controls['radio'].errors?.required">
-                                        This field is required
+                                     {{'master.Validation.Val1' | translate}}
                                     </div>
 
                                 </div>
@@ -209,11 +209,11 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                [disabled]="clicked" (click)="view($event);clicked = true;scrollToTop()">View</button>
+                                [disabled]="clicked" (click)="view($event);clicked = true;scrollToTop()">{{'master.Action.View' | translate}}</button>
                         </div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">Close</button>
+                                (click)="close()">{{'master.Action.Close' | translate}}</button>
                         </div>
                     </div>
 
@@ -222,7 +222,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>{{'master.Scroll_Book_Debit/Credit/Both.Report_Frame' | translate}}</h5>
                                         <div *ngIf="showRepo">
 
                                             <app-iframe1 [url]='iframe1url'></app-iframe1>

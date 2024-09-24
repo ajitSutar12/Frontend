@@ -71,7 +71,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="Name" class="form-control" placeholder=" "
-                                        required="" value="" id="ITEM_NAME" pattern="^[A-Za-z\./ -]+$"
+                                        required="" value="" id="ITEM_NAME" pattern="^[\u0900-\u097F A-Za-z]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="ITEM_NAME" [ngClass]="{'form-submitted': formSubmitted}" />
@@ -191,7 +191,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" "
-                                        id="SUPPLIER_NAME" value="" pattern="^[A-Za-z\./ -]+$"
+                                        id="SUPPLIER_NAME" value="" pattern="^[\u0900-\u097F A-Za-z]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="SUPPLIER_NAME" [ngClass]="{'form-submitted': formSubmitted}"
