@@ -11,7 +11,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { DeadstockmasterService } from "../../../master/customer/dead-stock-master/dead-stock-master.service";
 import { HttpClient } from "@angular/common/http";
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: "app-ded-dep-catwiselist",
   templateUrl: "./ded-dep-catwiselist.component.html",
@@ -43,6 +43,7 @@ export class DedDepCatwiselistComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   dates
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -52,143 +53,151 @@ export class DedDepCatwiselistComponent implements OnInit {
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private deadstockmasterService: DeadstockmasterService
+    private deadstockmasterService: DeadstockmasterService,
+
+    private translate: TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  
     this.defaultDate = moment().format("DD/MM/YYYY");
-    // this.dates = moment().format('DD/MM/YYYY');
+// this.dates = moment().format('DD/MM/YYYY');
 
-    this.maxDate = new Date();
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate());
+this.maxDate = new Date();
+this.minDate = new Date();
+this.minDate.setDate(this.minDate.getDate() - 1);
+this.maxDate.setDate(this.maxDate.getDate());
   }
 
-  ngOnInit(): void {
-    this.createForm();
-    //branch List
-    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe((data) => {
-      this.branchOption = data;
-    });
-    //depriciation category
-    this.DepriciationCatDropdownMaster.getDepriciationMasterList().pipe(first()).subscribe((data) => {
-      this.DeprCategoryoption = data;
-    });
-    //starting and ending code
-    this.http.get(this.url + "/dead-stock-master").subscribe((data) => {
-      this.startingacc = data;
-      this.endingacc = data;
-    });
+ngOnInit(): void {
+  this.createForm();
+  //branch List
+  this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe((data) => {
+    this.branchOption = data;
+  });
+  //depriciation category
+  this.DepriciationCatDropdownMaster.getDepriciationMasterList().pipe(first()).subscribe((data) => {
+    this.DeprCategoryoption = data;
+  });
+  //starting and ending code
+  this.http.get(this.url + "/dead-stock-master").subscribe((data) => {
+    this.startingacc = data;
+    this.endingacc = data;
+  });
+}
+//validation
+createForm() {
+  this.ngForm = this.fb.group({
+    BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
+    DEPR_CATEGORY: [""],
+    // Ending_Account: [""],
+    // ITEM_TYPE: ["", [Validators.pattern, Validators.required]],
+    FROM_DATE: ["", [Validators.pattern, Validators.required]],
+    radio: new FormControl('all'),
+  });
+  let data: any = localStorage.getItem("user");
+  let result = JSON.parse(data);
+  if (result.RoleDefine[0].Role.id == 1) {
+    this.ngbranch = result.branch.id;
+    this.ngForm.controls["BRANCH_CODE"].enable();
+  } else {
+    this.ngForm.controls["BRANCH_CODE"].disable();
+    this.ngbranch = result.branch.id;
   }
-  //validation
-  createForm() {
-    this.ngForm = this.fb.group({
-      BRANCH_CODE: ["", [Validators.pattern, Validators.required]],
-      DEPR_CATEGORY: [""],
-      // Ending_Account: [""],
-      // ITEM_TYPE: ["", [Validators.pattern, Validators.required]],
-      FROM_DATE: ["", [Validators.pattern, Validators.required]],
-      radio: new FormControl('all'),
-    });
-    let data: any = localStorage.getItem("user");
-    let result = JSON.parse(data);
-    if (result.RoleDefine[0].Role.id == 1) {
-      this.ngbranch = result.branch.id;
-      this.ngForm.controls["BRANCH_CODE"].enable();
+}
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+}
+src: any;
+view(event) {
+
+  event.preventDefault();
+  this.formSubmitted = true;
+
+  let userData = JSON.parse(localStorage.getItem("user"));
+  let bankName = userData.branch.syspara.BANK_NAME;
+  let branchName = userData.branch.NAME;
+
+  if (this.ngForm.valid) {
+    let obj = this.ngForm.value;
+    this.showRepo = true;
+
+
+    let Date: any;
+    if (this.defaultDate == obj.FROM_DATE) {
+      Date = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
     } else {
-      this.ngForm.controls["BRANCH_CODE"].disable();
-      this.ngbranch = result.branch.id;
+      Date = moment(obj.FROM_DATE).format("DD/MM/YYYY");
+    };
+
+
+    let branch = obj.BRANCH_CODE;
+    let Rdio = obj.radio;
+    let allCat = obj.allCat;
+
+    let flag;
+    if (obj.radio == 'Category') {
+      flag = 0;
+    } else if (obj.radio == 'all') {
+      flag = 1;
+    } else {
+      flag = 2;
     }
-  }
-  scrollToTop() {
-    window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
-  src: any;
-  view(event) {
-
-    event.preventDefault();
-    this.formSubmitted = true;
-
-    let userData = JSON.parse(localStorage.getItem("user"));
-    let bankName = userData.branch.syspara.BANK_NAME;
-    let branchName = userData.branch.NAME;
-
-    if (this.ngForm.valid) {
-      let obj = this.ngForm.value;
-      this.showRepo = true;
 
 
-      let Date: any;
-      if (this.defaultDate == obj.FROM_DATE) {
-        Date = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      } else {
-        Date = moment(obj.FROM_DATE).format("DD/MM/YYYY");
-      };
+
+    this.iframeurl = this.report_url + "examples/deadstockdepriCategory.php?startDate='" + Date + "'&branch='" + branch + "'&branchName='" + branchName + "'&radio=" + Rdio + "'&bankName='" + bankName + "'&flag=" + flag + "&getCategoryNo=" + this.getCategoryNo + "&getCategoryName='" + this.getCategoryName + "'";
+
+    console.log(this.iframeurl)
+
+    this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.iframeurl
+    );
 
 
-      let branch = obj.BRANCH_CODE;
-      let Rdio = obj.radio;
-      let allCat = obj.allCat;
-      
-      let flag;
-      if (obj.radio == 'Category') {
-        flag = 0;
-      } else if (obj.radio == 'all') {
-        flag = 1;
-      } else {
-        flag = 2; 
+  } else {
+    Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
+      () => {
+        this.clicked = false;
       }
-
-     
-
-      this.iframeurl = this.report_url + "examples/deadstockdepriCategory.php?startDate='" + Date + "'&branch='" + branch + "'&branchName='" + branchName + "'&radio=" + Rdio + "'&bankName='" + bankName + "'&flag=" + flag +  "&getCategoryNo=" + this.getCategoryNo + "&getCategoryName='" + this.getCategoryName + "'";
-
-      console.log(this.iframeurl)
-
-      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.iframeurl
-      );
-
-
-    } else {
-      Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
-        () => {
-          this.clicked = false;
-        }
-      );
-    }
+    );
   }
+}
 
-  close() {
-    this.resetForm();
-  }
+close() {
+  this.resetForm();
+}
 
-  // Reset Function
-  resetForm() {
-    this.showRepo = false;
-    this.ngForm.controls.DEPR_CATEGORY.reset();
-    // this.ngForm.controls.FROM_DATE.reset();
-    this.ngForm.controls.radio.reset();
-    this.clicked = false;
-  }
+// Reset Function
+resetForm() {
+  this.showRepo = false;
+  this.ngForm.controls.DEPR_CATEGORY.reset();
+  // this.ngForm.controls.FROM_DATE.reset();
+  this.ngForm.controls.radio.reset();
+  this.clicked = false;
+}
 
-  isShowCategory: boolean = false
-  formVal
-  showCategory() {
-    this.isShowCategory = true
-  }
-  hideCategory() {
-    this.isShowCategory = false
-  }
-  hideCategoryAll(){
-    this.isShowCategory = false
+isShowCategory: boolean = false
+formVal
+showCategory() {
+  this.isShowCategory = true
+}
+hideCategory() {
+  this.isShowCategory = false
+}
+hideCategoryAll(){
+  this.isShowCategory = false
 
-  }
+}
 
-  getCategoryNo
-  getCategoryName
-  getCategory(event) {
-    this.getCategoryNo = event.value
-    this.getCategoryName = event.label
-  }
+getCategoryNo
+getCategoryName
+getCategory(event) {
+  this.getCategoryNo = event.value
+  this.getCategoryName = event.label
+}
 
 }

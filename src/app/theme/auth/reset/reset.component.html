@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <div class="col-sm-8 col-md-6">
+            <h5 class="text-center" style="color: rgb(87, 75, 75);">Reset Password</h5>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-sm-8 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form [formGroup]="resetForm">
+                        <div class="form-group">
+                            <label for="old_password">Login ID</label>
+                            <input type="text" class="form-control" id="old_password" formControlName="CUST_ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="old_password">Old Password</label>
+                            <input type="password" class="form-control" id="old_password" formControlName="oldPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="new_password">New Password</label>
+                            <input type="password" class="form-control" id="new_password" formControlName="newPassword">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm_password" formControlName="confirmPassword">
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary" (click)="onSubmit()">Reset Password</button>
+                            <button type="button" class="btn btn-danger ml-2" (click)="cancel()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

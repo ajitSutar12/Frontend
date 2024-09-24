@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { first } from 'rxjs/operators';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-dedsk-bal-list-depre',
@@ -59,6 +59,7 @@ export class BnkDedskBalListDepreComponent implements OnInit {
   id: any;
   Cust_ID: any[] //customer id from idmaster
   newcustid: any = null;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -66,7 +67,9 @@ export class BnkDedskBalListDepreComponent implements OnInit {
     private systemParameter:SystemMasterParametersService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
-    private deadstockmasterService: DeadstockmasterService
+    private deadstockmasterService: DeadstockmasterService,
+    
+  private translate:TranslateService
   ) {
     this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -84,6 +87,9 @@ export class BnkDedskBalListDepreComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.date = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     //dead stock 

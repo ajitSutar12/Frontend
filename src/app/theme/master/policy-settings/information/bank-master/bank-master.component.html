@@ -25,7 +25,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme name="BANK_NAME" class="form-control" placeholder=" " #autofocus
-                                        id="BankName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        id="BankName" required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) 
                                     || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BANK_NAME"
@@ -46,7 +46,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme name="BANK_SHORTNAME" class="form-control" placeholder=" "
-                                        id="BankShortName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="25"
+                                        id="BankShortName" required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="25"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="BANK_SHORTNAME" [ngClass]="{'form-submitted': formSubmitted}">

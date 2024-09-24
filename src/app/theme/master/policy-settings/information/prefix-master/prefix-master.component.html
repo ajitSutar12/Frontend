@@ -25,7 +25,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="PREFIX" class="form-control" placeholder=" "
-                                        id="PREFIX" #autofocus pattern="^[A-Za-z\./ -]+$"
+                                        id="PREFIX" #autofocus pattern="^[\u0900-\u097F A-Za-z]+$"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="PREFIX">
                                     <label for="PREFIX">{{'master.Prefix_Master.Prefix' | translate}}<sub class="required">* </sub></label>

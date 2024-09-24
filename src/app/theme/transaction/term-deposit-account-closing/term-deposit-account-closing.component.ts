@@ -223,7 +223,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   ngOnInit(): void {
     this.createForm();
 
-
+    this.jointShowButton = true;
+    this.jointUpdateShow = false;
     //Day opening Amount
     // this.DayOpBal = 1000;
     // get session branch data
@@ -2946,7 +2947,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
       ACNO: this.customer,
       NARRATION: formVal.particulars,
       TRAN_AMOUNT: formVal.total_amt,
-      AC_CLOSED: '0'
+      AC_CLOSED: '0',
+      depoCloseTranAc: {
+        S_APPL: formVal.scheme1.S_APPL,
+        S_NAME: formVal.scheme1.S_NAME,
+      }
+
     }
     // console.log(this.multigrid)
 
@@ -3062,7 +3068,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         // this.resetgrid();
 
       }
-      // this.resetgrid()
+      this.resetgrid()
     }
   }
 
@@ -3091,29 +3097,49 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.transferACID = this.multigrid[id].id;
     this.transferGrid = this.multigrid[id]
     this.jointShowButton = false;
-    this.jointUpdateShow = false;
+    this.jointUpdateShow = true;
 
     this.particulars = this.multigrid[id].NARRATION,
       this.amount = this.multigrid[id].TRAN_AMOUNT,
       this.selectedCode = this.multigrid[id].TRANSFER_ACNOTYPE,
       this.selectedScheme1 = this.multigrid[id].depoCloseTranAc.S_APPL + " " + this.multigrid[id].depoCloseTranAc.S_NAME,
+      this.angForm.patchValue({
+        amount: this.multigrid[id].TRAN_AMOUNT,
+        total_amt: this.multigrid[id].TRAN_AMOUNT,
+      })
 
-
-      this.customer1 = this.multigrid[id].TRANSFER_ACNO
+    this.customer1 = this.multigrid[id].TRANSFER_ACNO
 
     this.ngacno = this.multigrid[id].ACNO
     this.selectedTransScheme = this.multigrid[id].TRANSFER_ACTYPE
+    // this.selectedScheme1 = this.multigrid[id].scheme1
   }
 
   updateTransferAcccount() {
+    this.transferTotalAmount = 0
     let index = this.transferIndex;
     let formVal = this.angForm.value;
     var object = {
-      Scheme: this.submitScheme.S_NAME,
-      TRANSFER_ACNO: this.submitAccountNo.AC_NO,
-      TRANSFER_ACTYPE: this.selectedTransScheme,
+      // Scheme: this.submitScheme.S_NAME,
+      // TRANSFER_ACNO: this.submitAccountNo.AC_NO,
+      // TRANSFER_ACTYPE: this.selectedTransScheme,
+      // NARRATION: formVal.particulars,
+      // TRAN_AMOUNT: formVal.amount,
+
+      Scheme: this.schemeget,
+
+      // TRANSFER_ACNOTYPE: this.transferSchemeDetails.name,
+      TRANSFER_ACNO: this.submitAccountNo.BANKACNO,
+      TRANSFER_ACTYPE: this.submitAccountNo.AC_TYPE,
+      TRANSFER_ACNOTYPE: formVal.scheme_type,
+      ACNO: this.customer,
       NARRATION: formVal.particulars,
-      TRAN_AMOUNT: formVal.amount,
+      TRAN_AMOUNT: formVal.total_amt,
+      AC_CLOSED: '0',
+      depoCloseTranAc: {
+        S_APPL: formVal.scheme1.S_APPL,
+        S_NAME: formVal.scheme1.S_NAME,
+      }
     }
     if (formVal.scheme == "" || formVal.scheme == null) {
       Swal.fire("Warning!", "Please Select Scheme!", "error");
@@ -3165,12 +3191,18 @@ export class TermDepositAccountClosingComponent implements OnInit {
             termAmount = Number(this.transferAccountDetails.depositAmount) - Number(ledgerBal)
           })
           let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
-          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          this.multigrid.forEach(element => {
+            this.transferTotalAmount += element.TRAN_AMOUNT
+          });
           if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
             if (formVal.amount >= termAmount) {
               this.multigrid[index] = object
               this.jointShowButton = true;
               this.jointUpdateShow = false;
+              this.multigrid.forEach(element => {
+                this.transferTotalAmount += element.TRAN_AMOUNT
+              });
               this.resetgrid();
             }
             else {
@@ -3195,12 +3227,15 @@ export class TermDepositAccountClosingComponent implements OnInit {
             ledgerBal = bal
             if (Number(ledgerBal) == Number(formVal.amount)) {
               object['AC_CLOSED'] = '1'
-              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
               let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
               if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
                 this.multigrid[index] = object
                 this.jointShowButton = true;
                 this.jointUpdateShow = false;
+                this.multigrid.forEach(element => {
+                  this.transferTotalAmount += element.TRAN_AMOUNT
+                });
                 this.resetgrid();
               }
               else {
@@ -3210,11 +3245,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
             }
             else if (Number(ledgerBal) > Number(formVal.amount)) {
               let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
-              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
               if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
                 this.multigrid[index] = object
                 this.jointShowButton = true;
                 this.jointUpdateShow = false;
+                this.multigrid.forEach(element => {
+                  this.transferTotalAmount += element.TRAN_AMOUNT
+                });
                 this.resetgrid();
               }
               else {
@@ -3229,11 +3267,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
         }
         else {
           let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
-          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
           if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
             this.multigrid[index] = object
             this.jointShowButton = true;
             this.jointUpdateShow = false;
+            this.multigrid.forEach(element => {
+              this.transferTotalAmount += Number(element.TRAN_AMOUNT)
+            });
             this.resetgrid();
           }
           else {
@@ -3450,13 +3491,14 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   resetgrid() {
+    this.headShow = false
     this.angForm.controls["Tscheme"].reset();
     this.angForm.controls["particulars"].reset();
     this.angForm.controls["TschemeAC"].reset();
     this.angForm.controls["amount"].reset();
     this.angForm.controls["scheme_type"].reset();
-    // this.angForm.controls["scheme"].reset();
-    // this.angForm.controls["account_no"].reset();
+    this.angForm.controls["scheme1"].reset();
+    this.angForm.controls["ac_no"].reset();
     this.angForm.controls["tran_mode"].reset();
     this.angForm.controls["total_amt"].reset();
     this.angForm.controls["chequeNo"].reset();
@@ -3852,6 +3894,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
               this.selectedCode = this.multigrid[0].TRANSFER_ACNOTYPE,
               this.selectedScheme1 = this.multigrid[0].depoCloseTranAc.S_APPL + " " + this.multigrid[0].depoCloseTranAc.S_NAME,
               this.customer1 = this.multigrid[0].TRANSFER_ACNO
+            this.angForm.patchValue({
+              amount: this.multigrid[0].TRAN_AMOUNT,
+              total_amt: this.multigrid[0].TRAN_AMOUNT,
+            })
           } else {
             this.isTransfer = false;
           }
@@ -3890,12 +3936,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
             ? (Number(this.angForm.controls['LEDGER_BAL'].value) + Number(this.angForm.controls['NET_INTAMT'].value) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2)
             : (Number(this.angForm.controls['LEDGER_BAL'].value) - Math.abs(Number(this.angForm.controls['NET_INTAMT'].value)) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2);
 
-
+          this.transferTotalAmount = this.totalAmt
           this.angForm.patchValue({
             NETPAYABLEAMT: this.totalNetAmt
           });
 
-          
+
           this.showCustomerDeatils();
         });
     });
@@ -4241,6 +4287,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   scheme_type
 
   ResetForm() {
+    this.resetgrid()
     this.ngOnInit()
     this.resetForm()
     this.particulars = ''

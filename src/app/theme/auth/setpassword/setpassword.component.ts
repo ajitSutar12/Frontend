@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { NgPasswordValidatorOptions } from "ng-password-validator";
-import { AuthService } from '../auth.service';
+
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -14,10 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SetpasswordComponent implements OnInit {
   inputValue: string;
-  // options: NgPasswordValidatorOptions = {
-  //   placement: "bottom",
-  //   "animation-duration": 500
-  // };
+
   currentPassword: any;
   newPassword: any;
   confirmPassword: any;
@@ -26,7 +22,7 @@ export class SetpasswordComponent implements OnInit {
   url = environment.base_url
 
 
-  constructor(private _authService: AuthService, private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     document.querySelector('body').setAttribute('themebg-pattern', 'theme1');
@@ -52,26 +48,20 @@ export class SetpasswordComponent implements OnInit {
     let password1 = ((document.getElementById("Create_Password") as HTMLInputElement).value);
     let password2 = ((document.getElementById("Confirm_Password") as HTMLInputElement).value);
 
-    // If password not entered
     if (password1 == '') {
       Swal.fire("Warning!", "Please enter Password !", "warning");
-
     }
-
-
-    // If confirm password not entered
     else if (password2 == '') {
       Swal.fire("Warning!", "Please enter confirm password!", "warning");
-
     }
-
     else if (password1 != password2) {
       Swal.fire("Warning!", "Password did not match: Please try again...!", "warning");
     }
-
   }
+
   //reset password
   resetpassword() {
+  
     if (this.currentPassword == '') {
       Swal.fire('Oops!', 'Please insert you current password', 'error');
     }
@@ -87,6 +77,7 @@ export class SetpasswordComponent implements OnInit {
       }
 
       this.http.post(this.url + '/user-defination/confirmpasswordreset', setpassword).subscribe(data => {
+      
         Swal.fire('Success!', 'Password Reset Successfully', 'success');
         this.router.navigate(['/auth/login/simple']);
 
@@ -94,6 +85,20 @@ export class SetpasswordComponent implements OnInit {
         Swal.fire('Oops!', error.error.message, 'error');
 
       })
+    }
+  }
+
+
+ 
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
+
+  togglePasswordVisibility(field: string) {
+    if (field === 'new') {
+      this.showNewPassword = !this.showNewPassword;
+    } else if (field === 'confirm') {
+      this.showConfirmPassword = !this.showConfirmPassword;
     }
   }
 }
