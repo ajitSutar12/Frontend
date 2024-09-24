@@ -58,6 +58,20 @@
                 style="color: black;" (click)="onExpensesClick('NIDHI')">
                 <!-- NIDHI -->
                 {{'master.GL_Report_Linking.NIDHI' | translate}}</button>
+
+                <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'FRIDAY LIRUIDITY' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('FRIDAY LIRUIDITY')">
+                <!-- FRIDAY LIRUIDITY -->
+                {{'master.GL_Report_Master.Friday_Liquidity' | translate}}
+              </button>
+
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'MISINFO' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('MISINFO')">
+                <!-- MISINFO -->
+                {{'master.GL_Report_Master.MIS_Info' | translate}}
+              </button>
             </div>
 
             <h3 style="text-align: center;">{{ selectedCategory }}</h3>
@@ -160,10 +174,10 @@
                                            bsDatepicker>
                                   </td> -->
                                   
-                                   <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_DATE', $event)" [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_left'">
+                                  <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_DATE', $event)" [ngClass]="data.EFFECT_DATE ? 'td_left' : ''">
                                     {{ data.EFFECT_DATE }}
                                   </td>
-                                  <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_TO_DATE', $event)" [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_left'">
+                                  <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_TO_DATE', $event)" [ngClass]="data.EFFECT_TO_DATE ? 'td_left' : ''">
                                     {{ data.EFFECT_TO_DATE }}
                                   </td>
                                   <!-- <td>
@@ -195,7 +209,7 @@
                             
                               <tbody *ngIf="tabledata?.length == 0">
                                 <tr>
-                                  <td colspan="9" class="no-data-available">
+                                  <td colspan="6" class="no-data-available">
                                     <!-- No data! -->
                                     {{'master.Action.No_Data' | translate}}</td>
                                 </tr>
