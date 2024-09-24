@@ -164,6 +164,7 @@
                                                                             placeholder=" " id="EMP_NO" maxlength="16"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                             formControlName="EMP_NO">
                                                                         <label
                                                                             for="EMP_NO">{{'master.Master_Shares_Holders.Emp_No'
@@ -725,6 +726,7 @@
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_TPIN"
                                                                                 pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                                 minlength="6" maxlength="6"
                                                                                 title="Input allowed only  0-9"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -1003,6 +1005,7 @@
                                                                             name="AC_SBNO" class="form-control"
                                                                             placeholder=" "
                                                                             pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                             minlength="1" maxlength="16"
                                                                             title="Input allowed only 0-9" id="AC_SBNO"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -1416,6 +1419,7 @@
                                                                                             (focusout)="age()"
                                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                             pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                                             min="1" max="100"
                                                                                             title="Input allowed only 0-9"
                                                                                             id="AGE"
@@ -1658,6 +1662,7 @@
                                                                                             class="form-control"
                                                                                             placeholder=" " id="AC_NPIN"
                                                                                             pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                                             minlength="6" maxlength="6"
                                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                             title="Input allowed only  0-9"

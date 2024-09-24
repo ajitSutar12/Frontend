@@ -11,10 +11,13 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import{IframeModule} from '../iframe/iframe.module'
+import { IframeModule } from '../iframe/iframe.module'
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 // import { Iframe1Component } from '../iframe1/iframe1/iframe1.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -30,11 +33,19 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    IframeModule
+    IframeModule,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
 
   ],
-  exports:[BnkAmbalListComponent],
-  providers:[    SystemMasterParametersService,
+  exports: [BnkAmbalListComponent],
+  providers: [SystemMasterParametersService,
     OwnbranchMasterService,
     SchemeCodeDropdownService,
     SchemeTypeDropdownService,
@@ -53,3 +64,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ]
 })
 export class BnkAmbalListModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

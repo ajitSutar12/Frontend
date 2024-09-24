@@ -1,0 +1,73 @@
+<div class="authors-table-container">
+  <h2>Customer KYC Details</h2>
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search customers...">
+  </div>
+  <br>
+  <div class="table-scrollable">
+    <table class="authors-table">
+      <thead>
+        <tr>
+          <th class="customer-name-column" style="font-weight: bold;">CUSTOMER NAME</th>
+          <th class="center-align" style="font-weight: bold;">ID</th>
+          <th class="center-align" style="font-weight: bold;">STATUS</th>
+          <th class="center-align" style="font-weight: bold;">KYC DOCUMENT</th>
+          <th class="customer-name-column" style="text-align: center;font-weight: bold;">DOCUMENT IMAGES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of filteredCustomerDetails">
+          <td class="author-info customer-name-column">
+            <div class="customer-details">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-2">
+                    <img [src]="customer.photo_path ? url+'/' + customer.photo_path : 'assets/images/nouser.png'"
+                    class="photo-image hover-effect">
+                  </div>
+                  <div class="col-md-10" style="margin-top: 18px;">
+                    {{customer.AC_NAME}}
+                  </div>
+                </div>
+              </div>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-10">
+                    <div class="author-name"> Email: {{customer.AC_EMAILID}} | Address: {{customer.AC_ADDR}}
+                      {{customer.AC_HONO}} {{customer.AC_WARD}} {{customer.AC_PIN}} {{customer.
+                      AC_AREA}} {{customer.AC_CTCODE}}</div>
+                    <div class="customer-other-details">
+                      Mob No: {{customer.AC_MOBILENO}} | Pan No: {{customer.AC_PANNO}} | Adhar No: {{customer.AC_PANNO}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="center-align">
+            <div>{{customer.id}}</div>
+          </td>
+          <td class="center-align">
+            <span class="status-badge"
+              [ngClass]="{'pending': customer.document_status === 'pending', 'received': customer.document_status === 'received'}">
+              {{ capitalizeFirstLetter(customer.document_status) }}
+            </span>
+
+          </td>
+          <td class="center-align">
+            <button class="kyc-button" (click)="viewKYCDocument(customer)">KYC</button>
+          </td>
+          <td class="center-align">
+            <div *ngIf="selectedCustomer === customer" class="photos-container">
+
+              <img [src]="uploadphoto2 ? uploadphoto2 : 'assets/images/nouser.png'" class="photoimage">
+              <img [src]="uploadphoto1 ? uploadphoto1 : 'assets/images/nouser.png'" class="photoimage">
+              <img [src]="uploadphoto3 ? uploadphoto3 : 'assets/images/nosignature.png'" class="photoimage">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -39,7 +39,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   formSubmitted = false;
   selectedOption: string = 'Detail';
 
-
   //fromgroup
   ngForm: FormGroup
   minvalue: any;

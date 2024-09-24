@@ -450,6 +450,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         style="text-align: right;" id="AC_MONTHS"
                                                                         maxlength="3"   pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                         title="Input allowed only  0-9"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         formControlName="AC_MONTHS"
@@ -477,6 +478,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_DAYS" style="text-align: right;"
                                                                         pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                         title="Input allowed only  0-9" maxlength="4"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                         formControlName="AC_DAYS"
@@ -585,6 +587,7 @@
                                                                         class="form-control" placeholder=" "
                                                                         style="text-align: right;" id="AC_MATUAMT"
                                                                         pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                         title="Input allowed only  0-9" maxlength="13"
                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                                                         formControlName="AC_MATUAMT" disabled>
@@ -1229,6 +1232,7 @@
                                                                         <input type="text" name="AC_TPIN"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_TPIN"   pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                             minlength="6" maxlength="6"
                                                                             title="Input allowed only  0-9"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -1645,6 +1649,7 @@
                                                                                         (focusout)="age()"
                                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                         pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                                         min="1" max="100"
                                                                                         title="Input allowed only 0-9"
                                                                                         id="AGE"
@@ -1889,6 +1894,7 @@
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NPIN"
                                                                                         pattern="^[\u0900-\u097F A-Za-z]+$"
+
                                                                                         minlength="6" maxlength="6"
                                                                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                         title="Input allowed only  0-9"

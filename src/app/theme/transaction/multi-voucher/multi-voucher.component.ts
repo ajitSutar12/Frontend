@@ -17,6 +17,9 @@ import { VoucherEntryService } from '../voucher-entry/voucher-entry.service'
 import { BankMasterService } from '../../../shared/dropdownService/bank-Master-dropdown.service'
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -159,6 +162,7 @@ export class MultiVoucherComponent implements OnInit {
   unapproveShow: boolean = false;
   loginUser: any;
   modalClass: string = 'modalHide';
+  setLang: any;
   constructor(
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -173,8 +177,15 @@ export class MultiVoucherComponent implements OnInit {
     private router: Router,
     private _CustomerIdService: CustomerIdService,
     private _ACMasterDropdownService: ACMasterDropdownService,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
 
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -2576,6 +2587,8 @@ export class MultiVoucherComponent implements OnInit {
     this.myDiv.nativeElement.style.height = 'auto';
     this.myDiv.nativeElement.style.height = `${this.myDiv.nativeElement.scrollHeight}px`;
   }
+
+  // pooja
   resetForm() {
 
     this.angForm.controls['token'].reset()
@@ -2607,6 +2620,9 @@ export class MultiVoucherComponent implements OnInit {
     this.maturityamt = null;
     this.ClearBalance = null;
     this.AfterVoucher = null;
+
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
 
 
     if (this.headData) {

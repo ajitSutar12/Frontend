@@ -66,7 +66,11 @@ export class DayBeginComponent implements OnInit {
   }
 
   //Day Begain Function below
+  isDisable = false
+  isNotDisable = true
   dayBegin() {
+    this.isDisable = true
+    this.isNotDisable = false
     //get login details
     let user = localStorage.getItem('user');
     let current_date = this.ngdate;

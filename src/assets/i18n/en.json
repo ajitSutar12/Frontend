@@ -202,7 +202,11 @@
             "AmountBalList": "AmountWise Balance List",
             "DeadStockDepCatList": "Deadstock Depriciation Categorywise List",
             "BalConCertificate": "Balance Confirmation Ceritificate",
-            "shortballist": "Short Balance List"
+
+            "shortballist": "Short Balance List",
+            "Categorywise": "Categorywise",
+            "All_Categorywise": "All Categorywise",
+            "All": "All"
         },
         "registers": {
             "registers": "Registers",
@@ -384,29 +388,28 @@
         }
     },
     "master": {
-        "budget_view":{
-    "budget_master": "Budget Master",
-    "Branch_Code": "Branch Code",
-    "budgetYear": "Budget Year",
-    "Expenditure": "Expenditure",
-    "income": "Income",
-    "F1": "Fields marked with",
-    "F2": "are mandatory ",
-    "Close_btn": "Close",
-    "Update": "Update",
-    "add": "Add",
-    "Date": "Date",
-    "ac_name":"Account Name",
-    "budget_23_24":"Budget Amount 2023-2024",
-    "Current_Balance":"Current Balance",
-    "Excess_Amount":"Excess Amount",
-    "Percentage":"Percentage",
-    "Less_Amount":"Less Amount",
-    "budget_24_25":"Budget Amount 2024-2025",
-    "View_btn":"View"
 
-
-},
+        "budget_view": {
+            "budget_master": "Budget Master",
+            "Branch_Code": "Branch Code",
+            "budgetYear": "Budget Year",
+            "Expenditure": "Expenditure",
+            "income": "Income",
+            "F1": "Fields marked with",
+            "F2": "are mandatory ",
+            "Close_btn": "Close",
+            "Update": "Update",
+            "add": "Add",
+            "Date": "Date",
+            "ac_name": "Account Name",
+            "budget_23_24": "Budget Amount 2023-2024",
+            "Current_Balance": "Current Balance",
+            "Excess_Amount": "Excess Amount",
+            "Percentage": "Percentage",
+            "Less_Amount": "Less Amount",
+            "budget_24_25": "Budget Amount 2024-2025",
+            "View_btn": "View"
+        },
         "budget_master": {
             "budget_master": "Budget Master",
             "branchCode": "Branch Code",
@@ -422,7 +425,8 @@
             "F2": "are mandatory ",
             "Close": "Close",
             "Update": "Update",
-            "alloc_budget_amt":"Allocated Budget Amount"
+
+            "alloc_budget_amt": "Allocated Budget Amount"
         },
         "No_Data": " No data!",
         "Naration_Master": {
@@ -1055,7 +1059,8 @@
             "Account_Name": "Account Name",
             "Narration": "Narration",
             "Add_in_Principle": "Add in Principle",
-            "Create_GL_Entry" : "Create GL Entry"
+
+            "Create_GL_Entry": "Create GL Entry"
         },
         "TDS_Form_Submission": {
             "Title": "TDS Form Submission",
@@ -1095,9 +1100,10 @@
             "Name": "Name ",
             "Type": "Type",
             "Add_Profit_and_Loss_Amount": "Add Profit and Loss Amount",
-            "sr_no": "sr no",
+
+            "sr_no": "Sr No",
             "Percentage_of_Code": "Percentage of Code",
-            "Linking_Input_Allowed": "Linking Input Allowed",
+            "Linking_Input_Allowed": "Linking Input Allowed?",
             "Percentage": "Percentage",
             "Percentage_of_Cosideration": "Percentage of Cosideration",
             "Is_Print_in_GL_Report": "Is Print in GL Report",
@@ -1110,26 +1116,36 @@
             "SLR": "SLR",
             "NIDHI": "NIDHI",
             "Friday_Liquidity": "Friday Liquidity",
-            "MIS_Info": "MIS Info"
+
+            "MIS_Info": "MIS Info",
+            "First_No": "First No",
+            "Second_No": "Second No",
+            "Third_No": "Third No",
+            "Alternative_Liquidity_Code": "Alternative Liquidity Code",
+            "HO_Liquidity_Code_1": "HO Liquidity Code 1",
+            "HO_Liquidity_Code_2": "HO Liquidity Code 2",
+            "Alternative_Friday_Name": "Alternative Friday Name"
         },
         "GL_Report_Linking": {
             "Title": "GL Report Linking",
             "GL_Account": "GL Account",
-            "acname":"General Ledger  Account Name",
+
+            "acname": "General Ledger  Account Name",
             "Effect_From_Date": "Effect From Date",
             "Effect_To_Date": "Effect To Date",
             "Head_Name": "Head Name",
             "Code_Type": "Code Type",
             "sr_no": "sr no",
-            "sub_coloum" :"SUB COLUMN ",
-            "EXPENSES":"EXPENSES",
-            "SUBSIDARY":"SUBSIDARY",
-            "CRAR":"CRAR",
-            "Daily Liquidity":"Daily Liquidity",
-            "ABR-ALR":"ABR-ALR",
-            "CRR":"CRR",
-            "SLR":"SLR",
-            "NIDHI":"NIDHI"
+
+            "sub_coloum": "SUB COLUMN ",
+            "EXPENSES": "EXPENSES",
+            "SUBSIDARY": "SUBSIDARY",
+            "CRAR": "CRAR",
+            "Daily Liquidity": "Daily Liquidity",
+            "ABR-ALR": "ABR-ALR",
+            "CRR": "CRR",
+            "SLR": "SLR",
+            "NIDHI": "NIDHI"
         },
         "Deposit_Loan_Intrest_Rate_Edit_Change": {
             "Title": "Deposit Loan Intrest Rate Edit Change",
@@ -1177,6 +1193,7 @@
             "Remove":"Remove",
             "Select_All": "Select All",
             "Unselect_All": "Unselect All"
+
 
 
         },
@@ -1407,8 +1424,9 @@
             "Power": "POWER OF ATTORNEY",
             "Ad_Attorney": "Add Attorney",
             "preview": "No File For Preview",
-             "Is_AutoMailer_Required": "Is AutoMailer Required",
-              "JOINT_DATE": "JOINT DATE"
+
+            "Is_AutoMailer_Required": "Is AutoMailer Required",
+            "JOINT_DATE": "JOINT DATE"
         },
         "Deposite_Account_Master": {
             "T1": "Deposite Account Master",
@@ -1861,6 +1879,7 @@
             "Schema_Code": "Scheme Code",
             "Account_Open":"Account Open",
             "Account_Closed_On":"Account Closed On:"
+
         },
         "View_Ac_Enquiry": {
             "T1": "Account Enquiry",
@@ -2648,6 +2667,7 @@
             "T13": "A/B Type Deposit List",
             "T14": "Deposit PaidList",
             "T15": "Interest RateWise List",
+
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Starting_Date": "Starting Date ",
@@ -2727,6 +2747,7 @@
             "T21": "Health Codewise Overdue Report",
             "T22":"Courtwise Dispute Loan List",
             "T23":"Dispute Loan Detail List",
+
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Start_Date": "Start Date",
@@ -2772,13 +2793,25 @@
             "Detail":"Detail",
             "Summary":"Summary"
 
+
         },
         "Ms_Reports": {
             "T1": "Excess Cash Balance Reports",
             "Branch": "Branch",
             "Start_Date": "Start Date",
             "End_Date": "End Date",
-            "Report_Frame": "Report Frame"
+
+            "Report_Frame": "Report Frame",
+            "Date": "Date",
+            "Swanidhi" : "Swanidhi",
+            "MIS_INFO" : "MIS Information",
+
+            "From_Date": "From Date",
+            "To_Date": "To Date",
+            "Type": "Type",
+            "Start_Code" : "Start Code",
+            "End_Code" : "End Code",
+            "expenses_list" : "Expenses List"
         },
         "Final_Reports": {
             "T1": "Trial Balance List (Concise)",
@@ -2850,6 +2883,7 @@
             "T13": "Dormant Account List",
             "Scheme_Type": " Scheme Type",
             "T14":"Deposit Amount Movement"
+
         },
         "Customer_View": {
             "T1": "Customer View",
@@ -3011,7 +3045,10 @@
             "Find": "Find CD Ratio",
             "LOANS": "LOANS",
             "PART_A": "PART A",
-            "PART_B": "PART B"
+
+            "PART_B": "PART B",
+            "Cash": "Cash",
+            "Transfer": "Transfer"
         },
         "Voucher_Entry": {
             "Title": "Voucher Entry",
@@ -4121,6 +4158,7 @@
             "View": "View",
             "Report_Frame": "Report Frame",
             "Scheme_Code":"Scheme Code "
+
         },
         "Pigmy_Machine_Process": {
             "Title": "Pigm Machine Process",
@@ -4732,6 +4770,8 @@
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
+
+            "view": "View",
             "Update": "Update",
             "Submit": "Submit",
             "No_Data": "No_Data",
@@ -4818,6 +4858,7 @@
             "Purpose": "Purpose",
             "All_Passing": "All Passing",
             "Supplier_Name": "Supplier Name"
+
         },
         "Voucher": {
             "Title": "Voucher",
@@ -5018,7 +5059,10 @@
             "Starting_Account": "Starting Account",
             "Date": "Date",
             "Ending_Code": "Ending Code",
-            "Range_Ending_Code": "Range Ending Code"
+
+            "Range_Ending_Code": "Range Ending Code",
+             "Account_Open": "Account_Open",
+             "Closed_Account":"Closed Account"
         },
         "General_Acc_Statement": {
             "Title": "General Account Statement"
@@ -5128,6 +5172,8 @@
             "Narration_Master": "Narration Master",
             "Scheme": "Scheme",
             "From": "From",
+
+            "To":"To",
             "T4": "Voucher Printing",
             "Date": "Date",
             "Source_Type": "Source Type",
@@ -5141,7 +5187,17 @@
             "From_Date": "From Date",
             "To_Date": "To Date",
             "Drag_and_Drop": "Drag and Drop",
-            "Drag_me_around": " Drag me around"
+
+            "Drag_me_around": " Drag me around",
+            "Passbook_Printed_Successfully": "Passbook Printed Successfully ?",
+            "Yes": "Yes",
+            "No": "No",
+            "td_printing": "TD-Receipt Printing",
+
+            "Credit": "Credit",
+            "Debit": "Debit",
+            "Both": "Both",
+            "DC_NO": "DC Number"
         }
     },
     "View": {
@@ -5149,7 +5205,8 @@
             "F1": "Field marked with",
             "F2": "are mandatory",
             "T1": "Ledger View",
-            "Branch": "Branch",
+
+            "Branch": "Branch", 
             "Scheme": "Scheme ",
             "Scheme_Code": "Scheme Code ",
             "Acc_Num": "Account Number",
@@ -5294,7 +5351,9 @@
             "Deposit_Amount": "Deposit Amount",
             "Labels": "Labels",
             "Cashier_Code": "Cashier Code",
-            "TOTAL": "TOTAL"
+
+            "TOTAL": "TOTAL",
+            "Account_Open": "Account_Open"
         }
     },
     "utility": {

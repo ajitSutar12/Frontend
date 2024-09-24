@@ -5,7 +5,6 @@ import { OtpformRoutingModule } from './otpform-routing.module';
 import { OtpformComponent } from './otpform.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
 
 
 @NgModule({
@@ -18,6 +17,6 @@ import { AuthService } from '../auth.service';
     ReactiveFormsModule
   ],
   exports:[OtpformComponent],
-  providers:[AuthService]
+  providers:[]
 })
 export class OtpformModule { }

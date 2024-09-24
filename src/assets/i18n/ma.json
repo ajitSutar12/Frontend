@@ -201,7 +201,11 @@
             "AmountBalList": "रक्कमेप्रमाणे शिल्लक लिस्ट",
             "DeadStockDepCatList": "डेडस्टॉक घसारा प्रवर्ग प्रमाणे यादी",
             "BalConCertificate": "खाते शिल्लक प्रमाणपत्र",
-            "shortballist": "शॉर्ट शिल्लक यादी"
+
+            "shortballist": "शॉर्ट शिल्लक यादी",
+            "Categorywise": "प्रवर्गाप्रमाणे",
+            "All_Categorywise": "सर्व प्रवर्गाप्रमाणे",
+            "All": "सर्व"
         },
         "registers": {
             "registers": "रजिस्टर",
@@ -1118,7 +1122,8 @@
             "Percentage_of_Cosideration": "सहवासाची टक्केवारी",
             "Is_Print_in_GL_Report": "जीएल अहवालात मुद्रित आहे",
             "Code_Type": "कोड प्रकार",
-            "Friday_Liquidity": "Friday Liquidity",
+
+            "Friday_Liquidity": "फ्रायडे लिक्विडिटी",
             "MIS_Info": "MIS इन्फो",
             "EXPENSES": "खर्च ",
             "SUBSIDARY": "पोट किर्द ",
@@ -1127,7 +1132,15 @@
             "ABR_ALR": "ए.बी.आर-ए.एल.आर ",
             "CRR": "सी.आर.आर ",
             "SLR": "एस.एल.आर ",
-            "NIDHI": "निधी "
+
+            "NIDHI": "निधी ",
+            "First_No": "सुरवातीचा नं",
+            "Second_No": "मधला नं",
+            "Third_No": "शेवटचा नं",
+            "Alternative_Liquidity_Code": "Alternative Liquidity Code",
+            "HO_Liquidity_Code_1": "HO Liquidity Code 1",
+            "HO_Liquidity_Code_2": "HO Liquidity Code 2",
+            "Alternative_Friday_Name": "Alternative Friday Name"
         },
         "GL_Report_Linking": {
             "Title": "जी एल अहवाल लिंकिंग",
@@ -1154,6 +1167,7 @@
             "F2": "अनिवार्य आहेत ",
             "Submit": "जमा करा ",
             "Cancel": "रद्द करा",
+
             "Update": "अपडेट ",
             "Close": "बंद करा",
             "Next": "पुढे",
@@ -1178,6 +1192,10 @@
             "Remove": "रद्द करा",
             "Select_All": "सर्व निवडा",
             "Unselect_All" : "सर्वांची निवड रद्द करा"
+
+            "Cancel": "रद्द करा"
+
+
         },
         "Customer_Id": {
             "T1": "ग्राहक कोड मास्टर ",
@@ -1261,6 +1279,7 @@
             "Nominee": "वारस /भाग माहिती ",
             "Doc": "कागदपत्रे ",
             "Regional_Details": "प्रादेशिक तपशील",
+
             "Category": "प्रवर्ग कोड ",
             "Emp_No": "कर्मचारी क्र",
             "Birth_Date": "जन्म दिनांक ",
@@ -1859,6 +1878,7 @@
             "Scheme_Code": "स्किम कोड ",
             "Account_Open":"अकाऊंट ओपन ",
             "Account_Closed_On":"खाते बंद केले:"
+
         },
         "View_Ac_Enquiry": {
             "T1": "खाते चौकशी ",
@@ -2509,7 +2529,8 @@
             "Depreciation": "घसारा"
         },
         "Daily_Reports": {
-            "Title": "तपशीलवार/सारांशासह दिवसाच्या पुस्तकातून टी",
+
+            "Title": "टी नमूना रोजकीर्द ",
             "Branch": "शाखा",
             "Type": "प्रकार",
             "Detail": "तपशील",
@@ -2651,6 +2672,7 @@
             "T13": " ए/बी प्रकार ठेव यादी",
             "T14": " डिपॉझिट पेडलिस्ट",
             "T15": "व्याजदरानुसार यादी",
+
             "Branch": "शाखा",
             "Scheme_Code": "योजना कोड",
             "Starting_Date": "आरंभ दिनांक ",
@@ -2730,6 +2752,7 @@
             "T21":"आरोग्य कोडनिहाय अतिदेय अहवाल",
             "T22":"न्यायालयनिहाय विवाद कर्ज यादी",
             "T23":"विवाद कर्ज तपशील सूची",
+
             "Branch": "शाखा",
             "Scheme_Code": "योजना कोड",
             "Date": "दिनांक",
@@ -2775,13 +2798,24 @@
             "Detail":"तपशील",
             "Summary":"सारांश"
 
+
         },
         "Ms_Reports": {
             "T1": "जादा रोख शिल्लक अहवाल",
             "Branch": "शाखा",
             "Start_Date": "आरंभ दिनांक",
             "End_Date": "अखेर दिनांक",
-            "Report_Frame": "अहवाल फ्रेम"
+
+            "Report_Frame": "अहवाल फ्रेम",
+            "Date": "दिनांक",
+            "Swanidhi": "स्वनिधी ",
+            "MIS_INFO": "MIS इन्फो",
+            "From_Date": "आरंभ दिनांक",
+            "To_Date": "अखेर दिनांक",
+            "Type": "प्रकार",
+            "Start_Code": "सुरवातीचा कोड ",
+            "End_Code": "शेवटचा कोड",
+            "expenses_list": "खर्च"
         },
         "Final_Reports": {
             "T1": "चाचणी शिल्लक सूची (संक्षिप्त)",
@@ -2798,6 +2832,7 @@
             "Date": "दिनांक",
             "T7": "ताळेबंद",
             "T3": "एन नमूना ताळेबंद पत्रक",
+
             "Report_Date": "अहवाल तारीख",
             "L_Date": " अंतिम अहवाल तारीख",
             "T4": "नफा आणि तोटा खाते",
@@ -2855,6 +2890,7 @@
             "T13": "निष्क्रिय खात्यांची यादी",
             "Scheme_Type": " योजना प्रकार ",
             "T14":"ठेव रकमेची हालचाल"
+
         },
         "Customer_View": {
             "T1": "ग्राहक दृश्य",
@@ -3016,7 +3052,10 @@
             "Find": "सीडी प्रमाण शोधा",
             "LOANS": "कर्ज",
             "PART_A": "भाग अ",
-            "PART_B": "भाग ब"
+
+            "PART_B": "भाग ब",
+            "Cash": "कॅश ",
+            "Transfer": "ट्रान्सफर "
         },
         "Voucher_Entry": {
             "Title": "व्हाउचर दुरुस्ती",
@@ -4126,6 +4165,7 @@
             "View": "पहा",
             "Report_Frame": "अहवाल फ्रेम",
             "Scheme_Code":"स्किम कोड "
+
         },
         "Pigmy_Machine_Process": {
             "Title": "पिग्मी मशीन प्रक्रिया",
@@ -4835,6 +4875,7 @@
             "Purpose": "उद्देश",
             "All_Passing": "सर्व पासिंग",
             "Supplier_Name" :"सप्लायरचे नाव"
+
         },
         "Voucher": {
             "Title": "पावती ",
@@ -5158,7 +5199,16 @@
             "From_Date": "या तारखेपासून",
             "To_Date": "आजपर्यंत",
             "Drag_and_Drop": "ड्रॅग आणि ड्रॉप करा",
-            "Drag_me_around": "मला आसपास ओढा"
+
+            "Drag_me_around": "मला आसपास ओढा",
+            "Passbook_Printed_Successfully": "पासबूक प्रिंटेड सक्सेसफुली..! ",
+            "Yes": "होय ",
+            "No": "नाही",
+            "td_printing": "TD-पावती छपाई",
+            "Credit": "जमा ",
+            "Debit": "नावे ",
+            "Both": "सर्व ",
+            "DC_NO": "DC नंबर "
         }
     },
     "View": {
@@ -5311,7 +5361,19 @@
             "Deposit_Amount": "ठेव रक्कम",
             "Labels": "लेबल्स",
             "Cashier_Code": "रोखपाल कोड",
-            "TOTAL": "एकूण"
+
+            "TOTAL": "एकूण",
+            "Minor_account": "अज्ञान पालन",
+            "Joint_account": "जॉइंट अकाऊंट",
+            "Minor": "मायनर",
+            "Joint": "जॉइंट",
+            "CustomerID": "कस्टमर आयडी",
+            "Operation": "व्यवहार प्रकार ",
+             "Click_to_Show" : "क्लिक करा ",
+             "JOINT_DATE": "आरंभ दिनांक",
+             "account_open": "खाते चालू "
+
+
         }
     },
     "utility": {
