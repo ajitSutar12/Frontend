@@ -6,14 +6,12 @@ import { first } from "rxjs/operators";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import Swal from 'sweetalert2';
 import { environment } from "src/environments/environment";
-
-
-
 import * as moment from 'moment';
-
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { DomSanitizer} from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-bnk-lnamount-movement-detail',
   templateUrl: './bnk-lnamount-movement-detail.component.html',
@@ -56,11 +54,13 @@ Types = [
   { id: 2, value: "Details" },
   { id: 3, value: "Subsidairy Grouping" },
 ];
+  setLang: string;
 constructor(   private fb: FormBuilder,
   private _ownbranchmasterservice: OwnbranchMasterService,
   public schemeCodeDropdownService: SchemeCodeDropdownService,
   private systemParameter:SystemMasterParametersService,
-  private sanitizer: DomSanitizer,   
+  private sanitizer: DomSanitizer, 
+  private translate:TranslateService ,
     public router: Router, )
     {  this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -97,6 +97,8 @@ constructor(   private fb: FormBuilder,
     //display date
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
   //for starting and ending date
     this.systemParameter.getFormData(1).subscribe(data => {

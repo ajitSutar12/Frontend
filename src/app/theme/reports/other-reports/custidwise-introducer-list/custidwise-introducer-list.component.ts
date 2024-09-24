@@ -21,6 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/customer-id-master-dropdown.service";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -65,6 +66,7 @@ maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -72,11 +74,16 @@ maxDate: Date;
     private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-    private customerID: CustomerIDMasterDropdownService,    private schemeAccountNoService: SchemeAccountNoService,
+    private customerID: CustomerIDMasterDropdownService,   
+     private schemeAccountNoService: SchemeAccountNoService,
+     private translate:TranslateService
 
-
-   
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

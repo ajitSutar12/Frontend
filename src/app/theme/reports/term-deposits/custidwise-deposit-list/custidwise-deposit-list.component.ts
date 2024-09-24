@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-custidwise-deposit-list',
   templateUrl: './custidwise-deposit-list.component.html',
@@ -49,13 +51,18 @@ ngForm: FormGroup;
    iframe5url: any = ' ';
   introducerACNo: any;
   ngIntroducer: any;
+  setLang: string;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private customerID: CustomerIDMasterDropdownService,    private savingMasterService: SavingMasterService,
+    private customerID: CustomerIDMasterDropdownService,   
+     private savingMasterService: SavingMasterService,
 
     public customerIdService: CustomerIdService,
-    private sanitizer: DomSanitizer) {this.todate = moment().format('DD/MM/YYYY');
+    private sanitizer: DomSanitizer,
+    private translate:TranslateService) 
+    {
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -79,6 +86,8 @@ ngForm: FormGroup;
   this.systemParameter.getFormData(1).subscribe(data => {
     let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
     this.todate = data.CURRENT_DATE
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
     
     this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
     this.fromdate = this.fromdate._d

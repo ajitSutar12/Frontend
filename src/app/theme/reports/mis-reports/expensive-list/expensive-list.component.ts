@@ -85,6 +85,7 @@ export class ExpensiveListComponent implements OnInit {
       branch_code: this.ngbranch,
       date: this.date
     }
+
     this.http.post(this.url + '/gl-account-master/getexpensedat', obj1).subscribe((data: any) => {
       // this.http.post('http://localhost:7272/gl-account-master/getexpensedat', {}).subscribe((data: any) => {
       // console.log(data);
@@ -192,6 +193,7 @@ export class ExpensiveListComponent implements OnInit {
       else if (type == 'Both') {
         flag = 2;
       }
+
       this.iframeurl = this.report_url + "examples/Expensisdetailreport.php?startDate='" + fromDate + "'&endDate='" + toDate + "'&Rdio='" + Rdio + "'&type='" + type + "'&scheme='" + branchName + "'&branch='" + branch + "&bankName=" + bankName + "&flag=" + flag + "&startCode=" + this.startdt + "&endCode=" + this.enddt + "&flg=" + flg + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
     }

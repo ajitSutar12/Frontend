@@ -14,7 +14,9 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [DisputeLoandetailsComponent],
@@ -31,6 +33,14 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   providers: [
     SchemeCodeDropdownService, 
@@ -40,3 +50,6 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
   ]
 })
 export class DisputeLoandetailsModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

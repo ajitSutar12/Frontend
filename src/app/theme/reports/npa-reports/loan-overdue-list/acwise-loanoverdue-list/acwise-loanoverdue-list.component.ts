@@ -2,7 +2,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -38,6 +38,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
   formSubmitted = false;
   selectedOption: string = 'Detail';
+
   //fromgroup
   ngForm: FormGroup
   minvalue: any;
@@ -95,6 +96,8 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   isShow: boolean = true
   @ViewChild('ctdTabset') ctdTabset;
   id: any;
+  Print_Code: number;
+  form: any;
 
   // selectedItemsString: any;
   // isShow: boolean = true
@@ -179,8 +182,8 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
     }
 
-
   }
+
 
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
@@ -246,6 +249,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   createForm() {
     this.ngForm = this.fb.group({
+      Print_Code: [''],
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["", [Validators.required]],
       END_DATE: ['', [Validators.required]],
@@ -256,8 +260,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       npa_per: [''],
       checkboxValue: [''],
 
-
-
     });
 
   }
@@ -267,7 +269,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   checkInterestFlag(id: any, bankacno: any, flag: any) {
     let isIntUpdate: boolean = false
     if (flag.target.checked) {
-      this.selectedItems.push({"id" : bankacno});
+      this.selectedItems.push({ "id": bankacno });
       console.log(this.selectedItems);
     }
     else {
@@ -289,9 +291,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   selectedArrayItem: any[]
   // selectedArrayItem: any[]
+
+
+
   view(event) {
 
    

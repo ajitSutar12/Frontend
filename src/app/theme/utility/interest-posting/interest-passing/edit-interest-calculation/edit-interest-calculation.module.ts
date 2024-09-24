@@ -23,7 +23,7 @@ import {SchemeAccountNoService} from '../../../../../shared/dropdownService/sche
     FormsModule,
     ReactiveFormsModule,
     
-    i
+    
   ],
   declarations: [ EditInterestCalculationComponent],
   providers:[OwnbranchMasterService,SchemeCodeDropdownService,SchemeAccountNoService,{
