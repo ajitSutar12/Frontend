@@ -10,6 +10,9 @@ import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
 import { data } from 'jquery';
 import { InstallmentMethodService } from 'src/app/shared/dropdownService/installment-method.service';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 @Component({
   selector: 'app-loan-installment-inquiry',
   templateUrl: './loan-installment-inquiry.component.html',
@@ -33,8 +36,19 @@ export class LoanInstallmentInquiryComponent implements OnInit {
 
   installmentType: string
   installment: Array<IOption> = this.installmentMethodService.getCharacters();
+  setLang: any;
 
-  constructor(private fb: FormBuilder, private repayModeService: RepayModeService, private _services: OtherViewService, private installmentMethodService: InstallmentMethodService,) { }
+  constructor(private fb: FormBuilder, private repayModeService: RepayModeService,
+     private _services: OtherViewService, private installmentMethodService: InstallmentMethodService,
+     private translate:TranslateService,
+     private systemParameter: SystemMasterParametersService,
+    ) { 
+      this.systemParameter.getFormData(1).subscribe(data => {
+      
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+      }
   ngOnInit(): void {
     this.createForm()
     this.dataSub = this.repayModeService.loadCharacters().subscribe((options) => {

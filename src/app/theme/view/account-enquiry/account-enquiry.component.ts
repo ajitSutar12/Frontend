@@ -1781,5 +1781,6 @@ export class AccountEnquiryComponent implements OnInit {
       this.display = "block";
     }
   }
+  
 }
 
