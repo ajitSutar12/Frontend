@@ -2,16 +2,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Pigmy Agent Commission Report</h5>
+                <h5>{{'master.Pigmy_Agent_Report.T5'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}}
                 </h6>
             </div>
 
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="scheme">Branch <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label
+                                for="scheme">{{'master.Pigmy_Agent_Report.Branch'|translate}} <sub
+                                    class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -28,11 +30,13 @@
                                 *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"><label for="">Agent Scheme <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"><label for="">{{'master.Pigmy_Agent_Report.Agent_Scheme'|translate}} <sub class="required">*</sub></label>
+                        </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -48,18 +52,21 @@
                                 *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2"><label for="">{{'master.Pigmy_Agent_Report.Agent_No'|translate}} <sub class="required">*</sub></label>
                         </div>
-                        <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="">Agent Number <sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-5">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select formControlName="Scheme_acc" bindValue="BANKACNO" bindLabel="label"
-                                        [(ngModel)]="startingAccount" (change)="getAgentName($event);getAccountDetails($event)">
+                                        [(ngModel)]="startingAccount"
+                                        (change)="getAgentName($event);getAccountDetails($event)">
                                         <ng-option *ngFor="let values of startingacc" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
                                     </ng-select>
@@ -70,19 +77,20 @@
                                 *ngIf="ngForm.controls['Scheme_acc'].invalid && (ngForm.controls['Scheme_acc'].dirty || ngForm.controls['Scheme_acc'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['Scheme_acc'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm" style="float: right; color: rgb(14 168 14);"
-                        *ngIf="isOpen">Account Open</div>
+                        <div class="col-sm" style="float: right; color: rgb(14 168 14);" *ngIf="isOpen"> {{'master.Pigmy_Agent_Report.Account_Open'|translate}}
+                        </div>
                         <div class="col-sm" *ngIf="acclosedon">
-                            <div><label style="color: red; font-size: 15px;">Account Closed On:
+                            <div><label style="color: red; font-size: 15px;">{{'master.Pigmy_Agent_Report.Account_Closed_On:'|translate}}
                                     {{acCloseDate}}</label></div>
-                        </div> 
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="START_DATE">Starting Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="START_DATE">{{'master.Pigmy_Agent_Report.Start_Date'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
@@ -91,7 +99,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                         class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                       formControlName="START_DATE" appButton minlength="10" maxlength="10"
+                                        formControlName="START_DATE" appButton minlength="10" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -100,11 +108,12 @@
                                 *ngIf="ngForm.controls['START_DATE'].invalid && (ngForm.controls['START_DATE'].dirty || ngForm.controls['START_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['START_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                    .
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">Ending Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">{{'master.Pigmy_Agent_Report.End_Date'|translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -123,7 +132,8 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['END_DATE'].errors?.required || ngForm.controls['END_DATE'].invalid ">
-                                    This field is required.
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                    .
                                 </div>
                             </div>
                         </div>
@@ -133,14 +143,14 @@
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio" value="Details" formControlName="radio">
-                                        <i class="helper"></i>Details </label>
+                                        <i class="helper"></i>{{'master.Pigmy_Agent_Report.Detail'|translate}} </label>
                                 </div>
 
 
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="radio" value="Summary" formControlName="radio">
-                                        <i class="helper"></i>Summary </label>
+                                        <i class="helper"></i>{{'master.Pigmy_Agent_Report.Summary'|translate}} </label>
                                 </div>
 
 
@@ -156,7 +166,8 @@
                                 ngForm.controls['radio'].touched)
                               " class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['radio'].errors?.required">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                     </div>
 
                                 </div>
@@ -165,15 +176,16 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="row">
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true;scrollToTop() ">View</button>
+                                (click)="view($event); clicked = true;scrollToTop() ">{{'master.Action.View'|translate}}</button>
                         </div>
                         <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                (click)="close()">{{'master.Action.Close'|translate}}</button>
                         </div>
                     </div>
 
@@ -181,14 +193,14 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Pigmy_Agent_Report.Report_Frame'|translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url'></app-iframe5>
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
 
 
                 </div>

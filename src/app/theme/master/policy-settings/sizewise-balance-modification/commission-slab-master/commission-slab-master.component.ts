@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { SystemMasterParametersService } from '../../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -47,7 +49,10 @@ export class CommissionSlabMasterComponent implements OnInit {
   // page: number = 1;
   //filter variable
   filterData = {};
-  constructor(private fb: FormBuilder, private http: HttpClient, private systemParameter: SystemMasterParametersService,) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService,
+
+  ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d

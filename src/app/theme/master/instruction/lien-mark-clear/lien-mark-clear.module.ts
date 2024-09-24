@@ -6,10 +6,12 @@ import { DataTablesModule } from 'angular-datatables';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { lienService } from './lien-mark-clear.service'
-import { LienMarkClearComponent } from './lien-mark-clear.component'
+import { LienMarkClearComponent } from './lien-mark-clear.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   imports: [
@@ -18,7 +20,14 @@ import { LienMarkClearComponent } from './lien-mark-clear.component'
     LienMarkClearRoutingModule,
     SelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   declarations: [LienMarkClearComponent],
   providers: [{
@@ -30,3 +39,7 @@ import { LienMarkClearComponent } from './lien-mark-clear.component'
     SchemeCodeDropdownService, SchemeAccountNoService]
 })
 export class LienMarkClearModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

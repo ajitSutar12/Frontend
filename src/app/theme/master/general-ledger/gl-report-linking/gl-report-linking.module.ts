@@ -11,6 +11,9 @@ import { ReportTMasterDropdownService } from 'src/app/shared/dropdownService/rep
 import { StatementCodeDropdownService } from 'src/app/shared/dropdownService/statement-code-dropdown.service';
 import { GlAccountsMasterService } from '../gl-accounts-master/gl-accounts-master.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -22,8 +25,18 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
     NgbModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [GlReportLinkingComponent],
   providers:[ReportTMasterDropdownService,StatementCodeDropdownService,GlAccountsMasterService,SystemMasterParametersService]
 })
 export class GlReportLinkingModule { }
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

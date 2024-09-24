@@ -14,6 +14,8 @@ import { GlAccountsMasterService } from './gl-accounts-master.service';
 import { HttpClient } from '@angular/common/http'
 import { first } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment'
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 // Handling datatable data
 class DataTableResponse {
@@ -103,12 +105,22 @@ export class GlAccountsMasterComponent implements OnInit {
     { name: 'Michael', email: 'michael@email.com', age: 15, country: 'Colombia', child: { state: 'Inactive' } },
     { name: 'Nicolás', email: 'nicole@email.com', age: 43, country: 'Colombia', child: { state: 'Inactive' } }
   ];
+  setLang: any;
 
   constructor(
     private http: HttpClient,
     private glAccountsMasterService: GlAccountsMasterService,
     private statement: StatementCodeDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService
+  ) {
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
     // 
     this.statement.getStatementCodeList().pipe(first()).subscribe(data => {
@@ -258,18 +270,18 @@ export class GlAccountsMasterComponent implements OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'General Ledger Code',
+          title: this.translate.instant('master.Account_Master.General_Ledger_Code'),
           data: 'AC_NO'
         },
         {
-          title: 'General Ledger Name',
+          title: this.translate.instant('master.Account_Master.General_Ledger_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Statement Code',
+          title: this.translate.instant('master.Account_Master.Statement_code'),
           data: 'head_name'
         },
         {
@@ -354,7 +366,7 @@ export class GlAccountsMasterComponent implements OnInit {
       this.forEditgetAccountList(data.PARENT_NODE)
       let stateData = this.statementCode.filter(ele => ele.id == Number(data.AC_BCD));
       let parentData = this.statementCode.filter(ele => ele.id == Number(data.PARENT_NODE));
-      this.ngBranchCode =  parentData[0]
+      this.ngBranchCode = parentData[0]
       this.selectedStatementcode = stateData[0];
       this.angForm.patchValue({
         'AC_NO': data.AC_NO,

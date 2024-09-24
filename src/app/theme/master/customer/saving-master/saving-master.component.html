@@ -3,9 +3,10 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Saving Account Master</h5>
+        <!-- <h5>Saving Account Master</h5> -->
+        <h5>{{'master.Saving_Acc_Master.T1'| translate}}</h5>
         <h6 style="float: right; font-size: 12px; color: black" class="requiredlable">
-          Fields marked with (<sub class="required"> * </sub>) are mandatory
+          {{'master.Action.F1'| translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'| translate}}
         </h6>
       </div>
       <div class="card-block">
@@ -17,12 +18,14 @@
                 <span class="border-lable-flt" autofocus>
                   <ng-select bindValue="value" appTheme [(ngModel)]="selectedValue" id="AC_TYPE"
                     formControlName="AC_TYPE" [disabled]="AC_TYPE" title="Compulsory Selection" [virtualScroll]="true"
-                    [ngClass]="{ 'form-submitted': formSubmitted }" required placeholder="Scheme" #ACTYPE
+                    [ngClass]="{ 'form-submitted': formSubmitted }" required  #ACTYPE
                     (focus)="onFocus(ACTYPE)" [selectOnTab]='true'>
                     <ng-option *ngFor="let values of scheme" [value]="values">
                       {{ values.label }}</ng-option>
                   </ng-select>
-                  <label for="AC_TYPE">Scheme <sub class="required"> * </sub></label>
+                  <label for="AC_TYPE">
+                    <!-- Scheme  -->
+                    {{'master.Saving_Acc_Master.Scheme'| translate}}<sub class="required"> * </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -31,7 +34,7 @@
                     angForm.controls['AC_TYPE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
               </div>
             </div>
@@ -42,11 +45,13 @@
                   <ng-select [(ngModel)]="newcustid" appTheme id="AC_CUSTID" bindValue="value"
                     formControlName="AC_CUSTID" [ngClass]="{ 'form-submitted': formSubmitted }" [virtualScroll]="true"
                     (change)="customer($event)" style="width: 85%" title="Compulsory Selection" required
-                    placeholder="Customer Id" #CUSTID (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
+                     #CUSTID (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
                     <ng-option *ngFor="let values of Cust_ID" [value]="values">
                       {{ values.label }}</ng-option>
                   </ng-select>
-                  <label for="AC_CUSTID">Customer Id<sub class="required"> * </sub></label>
+                  <label for="AC_CUSTID">
+                    <!-- Customer Id -->
+                    {{'master.Saving_Acc_Master.Customer_Id'| translate}}<sub class="required"> * </sub></label>
                   <span class="fa fa-fw fa-plus-circle field-icon" id="custicon" (click)="modalLarge.show()"
                     placement="bottom" ngbTooltip="Add New Customer"></span>
                 </span>
@@ -57,13 +62,15 @@
                     angForm.controls['AC_CUSTID'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
               </div>
             </div>
             <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
               <div class="app-modal-header">
-                <h4 class="modal-title">Customer ID</h4>
+                <h4 class="modal-title">
+                  <!-- Customer ID -->
+                  {{'master.Saving_Acc_Master.Cust_Id'| translate}}</h4>
                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -76,7 +83,8 @@
               <div class="app-modal-footer">
                 <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
                   (click)="modalLarge.hide(); onCloseModal()">
-                  Close
+                  <!-- Close -->
+                  {{'master.Action.Close'| translate}}
                 </button>
               </div>
             </app-modal-basic>
@@ -85,7 +93,9 @@
                 <span class="border-lable-flt">
                   <input type="text" name="AC_TITLE" class="form-control" placeholder=" " id="AC_TITLE"
                     formControlName="AC_TITLE" disabled />
-                  <label for="AC_TITLE">Title</label>
+                  <label for="AC_TITLE">
+                    <!-- Title -->
+                    {{'master.Saving_Acc_Master.Title'| translate}}</label>
                 </span>
               </div>
             </div>
@@ -94,7 +104,9 @@
                 <span class="border-lable-flt">
                   <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
                     formControlName="AC_NAME" disabled />
-                  <label for="AC_NAME">Name</label>
+                  <label for="AC_NAME">
+                    <!-- Name -->
+                    {{'master.Saving_Acc_Master.Name'| translate}}</label>
                 </span>
               </div>
             </div>
@@ -105,12 +117,16 @@
                 <span class="border-lable-flt">
                   <input type="text" name="BANKACNO" class="form-control" placeholder=" " id="BANKACNO"
                     formControlName="BANKACNO" disabled />
-                  <label for="BANKACNO">Account Number</label>
+                  <label for="BANKACNO">
+                    <!-- Account Number -->
+                    {{'master.Saving_Acc_Master.Ac_No'| translate}}</label>
                 </span>
               </div>
             </div>
             <div class="col-sm-2" *ngIf="multiJointAC?.length != 0">
-              <label style="color: #1e5bc5">JOINT ACCOUNT</label>
+              <label style="color: #1e5bc5">
+                <!-- JOINT ACCOUNT -->
+                {{'master.Saving_Acc_Master.Joint'| translate}}</label>
             </div>
           </div>
           <!-- Start of Tab forms -->
@@ -118,7 +134,7 @@
             <div class="col-sm">
               <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
                 <!-- start of basic tab -->
-                <ngb-tab title="Basic" id="Basic">
+                <ngb-tab title="{{'master.Saving_Acc_Master.Basic'| translate}}" id="Basic">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="card border-primary">
@@ -135,7 +151,9 @@
                                       'form-submitted': formSubmitted
                                     }" formControlName="AC_OPDATE" required bsDatepicker #OPDATE="bsDatepicker"
                                     placement="right" (keydown.Tab)="OPDATE.hide()">
-                                  <label for="AC_OPDATE">Opening Date<sub class="required">*
+                                  <label for="AC_OPDATE">
+                                    <!-- Opening Date -->
+                                    {{'master.Saving_Acc_Master.Open_Date'| translate}}<sub class="required">*
                                     </sub></label>
                                 </span>
                               </div>
@@ -148,7 +166,7 @@
                                     angForm.controls['AC_OPDATE'].errors
                                       ?.required
                                   ">
-                                  This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -157,7 +175,10 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_MEMBTYPE" class="form-control" placeholder=" "
                                     id="AC_MEMBTYPE" formControlName="AC_MEMBTYPE" disabled />
-                                  <label for="AC_MEMBTYPE">Member Scheme</label>
+                                  <label for="AC_MEMBTYPE">
+                                    <!-- Member Scheme -->
+                                    {{'master.Saving_Acc_Master.Member'| translate}}
+                                  </label>
                                 </span>
                               </div>
                             </div>
@@ -166,7 +187,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_MEMBNO" class="form-control" placeholder=" "
                                     id="AC_MEMBNO" formControlName="AC_MEMBNO" disabled />
-                                  <label for="AC_MEMBNO">Member Number</label>
+                                  <label for="AC_MEMBNO">
+                                    <!-- Member Number -->
+                                    {{'master.Saving_Acc_Master.Member_Number'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -179,7 +202,9 @@
                                       dateInputFormat: 'DD/MM/YYYY'
                                     }" (focusout)="disabledate(date.value)" [bsValue]="bsValue"
                                     formControlName="AC_BIRTH_DT" disabled bsDatepicker />
-                                  <label for="AC_BIRTH_DT">Birth Date</label>
+                                  <label for="AC_BIRTH_DT">
+                                    <!-- Birth Date -->
+                                    {{'master.Saving_Acc_Master.Birth_Date'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -188,7 +213,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_CAST" class="form-control" placeholder=" " id="AC_CAST"
                                     formControlName="AC_CAST" disabled />
-                                  <label for="AC_CAST">Cast</label>
+                                  <label for="AC_CAST">
+                                    <!-- Cast -->
+                                    {{'master.Saving_Acc_Master.Cast'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -201,7 +228,9 @@
                                     placeholder=" " id="REF_ACNO" pattern="^[A-Za-z0-9\./ -]+$"
                                     title="Input allowed only  A-Z a-z 0-9 - / . (Space)" maxlength="25"
                                     formControlName="REF_ACNO" />
-                                  <label for="REF_ACNO">Manual Reference Number</label>
+                                  <label for="REF_ACNO">
+                                    <!-- Manual Reference Number -->
+                                    {{'master.Saving_Acc_Master.Manual_No'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -215,7 +244,7 @@
                                     angForm.controls['REF_ACNO'].errors
                                       ?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z 0-9 - / . (Space)
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -224,7 +253,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_OCODE" class="form-control" placeholder=" " id="AC_OCODE"
                                     formControlName="AC_OCODE" disabled />
-                                  <label for="AC_OCODE">Occupation</label>
+                                  <label for="AC_OCODE">
+                                    <!-- Occupation -->
+                                    {{'master.Saving_Acc_Master.Occupation'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -233,12 +264,14 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="AC_CATG" appTheme bindValue="value" [(ngModel)]="ngCategory"
                                     formControlName="AC_CATG" bindLabel="label" title="Compulsory Selection" [ngClass]="{
-                                      'form-submitted': formSubmitted }" required placeholder="Category" #AC_CATG
+                                      'form-submitted': formSubmitted }" required  #AC_CATG
                                     (focus)="onFocus(AC_CATG)" [virtualScroll]="true" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of category" [value]="values">
                                       {{ values.label }}</ng-option>
                                   </ng-select>
-                                  <label for="AC_CATG">Category<sub class="required">
+                                  <label for="AC_CATG">
+                                    <!-- Category -->
+                                    {{'master.Saving_Acc_Master.Category'| translate}}<sub class="required">
                                       *
                                     </sub></label>
                                 </span>
@@ -251,7 +284,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_CATG'].errors?.required
                                   ">
-                                  This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -263,12 +296,14 @@
                                     formControlName="AC_OPR_CODE" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{
                                       'form-submitted': formSubmitted
-                                    }" required placeholder="Operation" #OPR_CODE (focus)="onFocus(OPR_CODE)"
+                                    }" required  #OPR_CODE (focus)="onFocus(OPR_CODE)"
                                     [virtualScroll]="true" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of operation" [value]="values">
                                       {{ values.label }}</ng-option>
                                   </ng-select>
-                                  <label for="AC_OPR_CODE">Operation<sub class="required">
+                                  <label for="AC_OPR_CODE">
+                                    Operation
+                                    {{'master.Saving_Acc_Master.Operation'| translate}}<sub class="required">
                                       *
                                     </sub></label>
                                 </span>
@@ -282,7 +317,7 @@
                                     angForm.controls['AC_OPR_CODE'].errors
                                       ?.required
                                   ">
-                                  This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -295,12 +330,14 @@
                                     formControlName="AC_BALCATG" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{
                                       'form-submitted': formSubmitted
-                                    }" required placeholder="Balance Category " #BALCATG (focus)="onFocus(BALCATG)"
+                                    }" required #BALCATG (focus)="onFocus(BALCATG)"
                                     [virtualScroll]="true" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of bal_category" [value]="values">
                                       {{ values.label }}</ng-option>
                                   </ng-select>
-                                  <label for="BC_NAME">Balance Category<sub class="required">
+                                  <label for="BC_NAME">
+                                    <!-- Balance Category -->
+                                    {{'master.Saving_Acc_Master.Bal_Category'| translate}}<sub class="required">
                                       *
                                     </sub></label>
                                 </span>
@@ -314,7 +351,7 @@
                                     angForm.controls['AC_BALCATG'].errors
                                       ?.required
                                   ">
-                                  This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -325,12 +362,14 @@
                                     formControlName="AC_INTCATA" bindLabel="label" title="Compulsory Selection"
                                     [ngClass]="{
                                       'form-submitted': formSubmitted
-                                    }" required placeholder="Interest Category" #INTCATA (focus)="onFocus(INTCATA)"
+                                    }" required  #INTCATA (focus)="onFocus(INTCATA)"
                                     [virtualScroll]="true" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of int_category" [value]="values">
                                       {{ values.label }}</ng-option>
                                   </ng-select>
-                                  <label for="AC_INTCATA">Interest Category<sub class="required">
+                                  <label for="AC_INTCATA">
+                                    <!-- Interest Category -->
+                                    {{'master.Saving_Acc_Master.Interest_Category'| translate}}<sub class="required">
                                       *
                                     </sub></label>
                                 </span>
@@ -344,7 +383,7 @@
                                     angForm.controls['AC_INTCATA'].errors
                                       ?.required
                                   ">
-                                  This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -353,7 +392,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_PANNO" class="form-control" placeholder=" " id="AC_PANNO"
                                     formControlName="AC_PANNO" disabled />
-                                  <label for="AC_PANNO">PAN Number</label>
+                                  <label for="AC_PANNO">
+                                    <!-- PAN Number -->
+                                    {{'master.Saving_Acc_Master.Pan_Number'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -362,7 +403,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_ADHARNO" class="form-control" placeholder=" "
                                     id="AC_ADHARNO" formControlName="AC_ADHARNO" disabled />
-                                  <label for="AC_ADHARNO">Aadhar Number</label>
+                                  <label for="AC_ADHARNO">
+                                    <!-- Aadhar Number -->
+                                    {{'master.Saving_Acc_Master.Adhar_Number'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -375,9 +418,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                   <input type="checkbox" class="border-checkbox" id="IS_REQUIRED_AUTOMAILER"
                                     formControlName="IS_REQUIRED_AUTOMAILER">
-                                  <label class="border-checkbox-label" for="IS_REQUIRED_AUTOMAILER">Is AutoMailer
-                                    Required
-                                  </label>
+                                  <label class="border-checkbox-label" for="IS_REQUIRED_AUTOMAILER">
+                                    <!-- Is AutoMailer Required -->
+                                    {{'master.Saving_Acc_Master.Is_AutoMailer_Required'| translate}}</label>
 
                                 </div>
                               </div>
@@ -425,7 +468,8 @@
                             </div> -->
                             <div class="col-sm" style="float: right; margin-top: 6px">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('address')">
-                                Next
+                                <!-- Next -->
+                                {{'master.Action.Next'| translate}}
                               </button>
                             </div>
                           </div>
@@ -436,7 +480,7 @@
                 </ngb-tab>
                 <!-- end of basic tab -->
                 <!-- start of Address tab -->
-                <ngb-tab title="Address" role="tab" data-toggle="tab" id="address">
+                <ngb-tab title="{{'master.Saving_Acc_Master.Address'| translate}}" role="tab" data-toggle="tab" id="address">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="card border-primary">
@@ -444,7 +488,9 @@
                           <div class="row">
                             <div class="col-sm">
                               <h6 style="text-align: center; font-size: 16px">
-                                --------- Permanent Address ---------
+                                <!-- --------- Permanent Address --------- -->
+                                --------- {{'master.Saving_Acc_Master.Per_Add'| translate}} ---------
+
                               </h6>
                             </div>
                           </div>
@@ -454,7 +500,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_HONO" class="form-control" placeholder=" " id="AC_HONO"
                                     formControlName="AC_HONO" disabled />
-                                  <label for="AC_HONO">House</label>
+                                  <label for="AC_HONO">
+                                    <!-- House -->
+                                    {{'master.Saving_Acc_Master.House'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -465,7 +513,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_HONO'].errors?.pattern
                                   ">
-                                  Input allowed only A-Z a-z 0-9 - / . (Space)
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val_ward'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -474,7 +522,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_WARD" class="form-control" placeholder=" " id="AC_WARD"
                                     formControlName="AC_WARD" disabled />
-                                  <label for="AC_WARD">Ward</label>
+                                  <label for="AC_WARD">
+                                    <!-- Ward -->
+                                    {{'master.Saving_Acc_Master.Ward'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -485,7 +535,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_WARD'].errors?.pattern
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -494,7 +544,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GALLI" class="form-control" placeholder=" " id="AC_GALLI"
                                     formControlName="AC_GALLI" disabled />
-                                  <label for="AC_GALLI">Galli</label>
+                                  <label for="AC_GALLI">
+                                    <!-- Galli -->
+                                    {{'master.Saving_Acc_Master.Galli'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -505,7 +557,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_GALLI'].errors?.pattern
                                   ">
-                                  Input allowed only A-Z a-z 0-9 - / . (Space)
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -514,7 +566,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_AREA" class="form-control" placeholder=" " id="AC_AREA"
                                     formControlName="AC_AREA" disabled />
-                                  <label for="AC_AREA">Area</label>
+                                  <label for="AC_AREA">
+                                    <!-- Area -->
+                                    {{'master.Saving_Acc_Master.Area'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -525,7 +579,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_AREA'].errors?.pattern
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -534,7 +588,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_ADDR" class="form-control" placeholder=" " id="AC_ADDR"
                                     formControlName="AC_ADDR" disabled />
-                                  <label for="AC_ADDR">Detail</label>
+                                  <label for="AC_ADDR">
+                                    <!-- Detail -->
+                                    {{'master.Saving_Acc_Master.Detail'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -545,7 +601,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_ADDR'].errors?.pattern
                                   ">
-                                  Input allowed only A-Z a-z 0-9 - / . (Space)
+                                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -556,7 +612,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_CTCODE" bindValue="id" class="form-control"
                                     placeholder=" " id="AC_CTCODE" formControlName="AC_CTCODE" disabled />
-                                  <label for="AC_CTCODE">City</label>
+                                  <label for="AC_CTCODE">
+                                    <!-- City -->
+                                    {{'master.Saving_Acc_Master.City'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -565,7 +623,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_PIN" class="form-control" placeholder=" " id="AC_PIN"
                                     formControlName="AC_PIN" disabled />
-                                  <label for="AC_PIN">Pin Code</label>
+                                  <label for="AC_PIN">
+                                    <!-- Pin Code -->
+                                    {{'master.Saving_Acc_Master.Pin_Code'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -576,7 +636,7 @@
                                 <div *ngIf="
                                     angForm.controls['AC_PIN'].errors?.pattern
                                   ">
-                                  Input allowed only 0-9
+                                  <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -585,7 +645,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_PHNO" class="form-control" placeholder=" " id="AC_PHNO"
                                     formControlName="AC_PHNO" disabled />
-                                  <label for="AC_PHNO">Residential Number</label>
+                                  <label for="AC_PHNO">
+                                    <!-- Residential Number -->
+                                    {{'master.Saving_Acc_Master.Residential'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -594,7 +656,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_MOBNO" class="form-control" placeholder=" " id="AC_MOBNO"
                                     formControlName="AC_MOBNO" disabled />
-                                  <label for="AC_MOBNO">Mobile Number</label>
+                                  <label for="AC_MOBNO">
+                                    <!-- Mobile Number -->
+                                    {{'master.Saving_Acc_Master.Mobile'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -603,7 +667,9 @@
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_EMAIL" class="form-control" placeholder=" " id="AC_EMAIL"
                                     formControlName="AC_EMAIL" disabled />
-                                  <label for="AC_EMAIL">Email</label>
+                                  <label for="AC_EMAIL">
+                                    <!-- Email -->
+                                    {{'master.Saving_Acc_Master.Email'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -611,7 +677,9 @@
                           <div class="row">
                             <div class="col-sm">
                               <h6 style="text-align: center; font-size: 16px">
-                                --------- Temporory Address ---------
+                                <!-- --------- Temporory Address --------- -->
+                                --------- {{'master.Saving_Acc_Master.Temp_Add'| translate}} ---------
+
                               </h6>
                             </div>
                           </div>
@@ -621,9 +689,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                   <input class="border-checkbox" type="checkbox" id="AC_ADDFLAG"
                                     formControlName="AC_ADDFLAG" (click)="tempAsPermanent()" />
-                                  <label class="border-checkbox-label" for="AC_ADDFLAG">Is Temporory Address same as
-                                    Permanent
-                                    Address</label>
+                                  <label class="border-checkbox-label" for="AC_ADDFLAG">
+                                    <!-- Is Temporory Address same as Permanent Address -->
+                                    {{'master.Saving_Acc_Master.Confirm'| translate}}</label>
                                 </div>
                               </div>
                             </div>
@@ -637,7 +705,9 @@
                                       id="AC_THONO" pattern="^[A-Za-z0-9\./ -]+$" maxlength="25"
                                       title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                       formControlName="AC_THONO" />
-                                    <label for="AC_THONO">House</label>
+                                    <label for="AC_THONO">
+                                      <!-- House -->
+                                      {{'master.Saving_Acc_Master.House'| translate}}</label>
                                   </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -649,7 +719,7 @@
                                       angForm.controls['AC_THONO'].errors
                                         ?.pattern
                                     ">
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -659,7 +729,9 @@
                                     <input type="text" name="AC_TWARD" class="form-control" placeholder=" "
                                       id="AC_TWARD" pattern="^[A-Za-z\./ -]+$" maxlength="10"
                                       title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TWARD" />
-                                    <label for="AC_TWARD">Ward</label>
+                                    <label for="AC_TWARD">
+                                      <!-- Ward -->
+                                      {{'master.Saving_Acc_Master.Ward'| translate}}</label>
                                   </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -671,7 +743,7 @@
                                       angForm.controls['AC_TWARD'].errors
                                         ?.pattern
                                     ">
-                                    Input allowed only A-Z a-z - / . (Space)
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -682,7 +754,9 @@
                                       id="AC_TGALLI" pattern="^[A-Za-z0-9\./ -]+$"
                                       title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                       formControlName="AC_TGALLI" />
-                                    <label for="AC_TGALLI">Galli</label>
+                                    <label for="AC_TGALLI">
+                                      <!-- Galli -->
+                                      {{'master.Saving_Acc_Master.Galli'| translate}}</label>
                                   </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -694,7 +768,7 @@
                                       angForm.controls['AC_TGALLI'].errors
                                         ?.pattern
                                     ">
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -704,7 +778,10 @@
                                     <input type="text" name="AC_TAREA" class="form-control" placeholder=" "
                                       id="AC_TAREA" pattern="^[A-Za-z\./ -]+$" maxlength="60"
                                       title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TAREA" />
-                                    <label for="AC_TAREA">Area</label>
+                                    <label for="AC_TAREA">
+                                      <!-- Area -->
+                                      {{'master.Saving_Acc_Master.Area'| translate}}
+                                    </label>
                                   </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -716,7 +793,7 @@
                                       angForm.controls['AC_TAREA'].errors
                                         ?.pattern
                                     ">
-                                    Input allowed only A-Z a-z - / . (Space)
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -726,7 +803,9 @@
                                     <input type="text" name="AC_TADDR" class="form-control" placeholder=" "
                                       title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_TADDR"
                                       formControlName="AC_TADDR" />
-                                    <label for="AC_TADDR">Detail</label>
+                                    <label for="AC_TADDR">
+                                      <!-- Detail -->
+                                      {{'master.Saving_Acc_Master.Detail'| translate}}</label>
                                   </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -738,7 +817,7 @@
                                       angForm.controls['AC_TADDR'].errors
                                         ?.pattern
                                     ">
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -751,11 +830,13 @@
                                       #CITY_NAME (focus)="onFocus(CITY_NAME)" [selectOnTab]='true'
                                       [virtualScroll]="true" formControlName="AC_TCTCODE" title="Compulsory Selection"
                                       [ngClass]="{'form-submitted': formSubmitted
-                                      }" placeholder="City">
+                                      }" >
                                       <ng-option *ngFor="let values of city" [value]="values">
                                         {{ values.CITY_NAME }}</ng-option>
                                     </ng-select>
-                                    <label for="CITY_NAME">City</label>
+                                    <label for="CITY_NAME">
+                                      <!-- City -->
+                                      {{'master.Saving_Acc_Master.City'| translate}}</label>
                                   </span>
                                 </div>
                               </div>
@@ -768,7 +849,9 @@
                                         ($event.charCode >= 48 &&
                                           $event.charCode < 58)
                                       " formControlName="AC_TPIN" />
-                                    <label for="AC_TPIN">Pin Code</label>
+                                    <label for="AC_TPIN">
+                                      <!-- Pin Code -->
+                                      {{'master.Saving_Acc_Master.Pin_Code'| translate}}</label>
                                   </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label" *ngIf="
@@ -784,7 +867,7 @@
                                       angForm.controls['AC_TPIN'].errors
                                         ?.maxlength
                                     ">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                   </div>
                                 </div>
                               </div>
@@ -793,8 +876,8 @@
                           <div class="row">
                             <div class="col-sm" style="float: right; margin-top: 6px">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('introducer')">
-                                Next
-                              </button>
+                                <!-- Next -->
+                                {{'master.Action.Next'|translate}}</button>
                             </div>
                           </div>
                         </div>
@@ -804,7 +887,7 @@
                 </ngb-tab>
                 <!-- End of Address tab -->
                 <!-- start of Introducer/Minor Details tab  -->
-                <ngb-tab title="Introducer/Minor Details" id="introducer">
+                <ngb-tab title="{{'master.Saving_Acc_Master.Intro'| translate}}" id="introducer">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="card border-primary">
@@ -815,7 +898,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                   <input class="border-checkbox" type="checkbox" id="ac_minor" name="AC_MINOR"
                                   [checked]="angForm.controls['AC_MINOR'].value === 'true'" formControlName="AC_MINOR" maxlength="100" disabled />
-                                  <label class="border-checkbox-label" for="ac_minor">Minor Details</label>
+                                  <label class="border-checkbox-label" for="ac_minor">
+                                    <!-- Minor Details -->
+                                    {{'master.Saving_Acc_Master.Minor'| translate}}</label>
                                 </div>
                               </div>
                             </div>
@@ -828,7 +913,9 @@
                                       dateInputFormat: 'DD/MM/YYYY'
                                     }" (focusout)="disabledate(date.value)" formControlName="AC_MBDATE" disabled
                                     bsDatepicker />
-                                  <label for="AC_MBDATE">Birth Date</label>
+                                  <label for="AC_MBDATE">
+                                    <!-- Birth Date -->
+                                    {{'master.Saving_Acc_Master.Birth_Date'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -842,7 +929,9 @@
                                         : ''
                                     " title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
                                     formControlName="AC_GRDNAME" [required]="introducerReq" />
-                                  <label for="AC_GRDNAME">Guardian Name</label>
+                                  <label for="AC_GRDNAME">
+                                    <!-- Guardian Name -->
+                                    {{'master.Saving_Acc_Master.Guardian'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -858,7 +947,7 @@
                                     angForm.controls['AC_GRDNAME'].errors
                                       ?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -872,7 +961,9 @@
                                         : ''
                                     " title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="25"
                                     formControlName="AC_GRDRELE" [required]="introducerReq" />
-                                  <label for="AC_GRDRELE">Relation</label>
+                                  <label for="AC_GRDRELE">
+                                    <!-- Relation -->
+                                    {{'master.Saving_Acc_Master.Relation'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -888,7 +979,7 @@
                                     angForm.controls['AC_GRDRELE'].errors
                                       ?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -902,7 +993,9 @@
                                         : ''
                                     " title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
                                     formControlName="SIGNATURE_AUTHORITY" />
-                                  <label for="SIGNATURE_AUTHORITY">Signature Authority</label>
+                                  <label for="SIGNATURE_AUTHORITY">
+                                    <!-- Signature Authority -->
+                                    {{'master.Saving_Acc_Master.Sign'| translate}}</label>
                                 </span>
                               </div>
                               <div class="form-group form-primary form-static-label" *ngIf="
@@ -919,7 +1012,7 @@
                                     angForm.controls['SIGNATURE_AUTHORITY']
                                       .errors?.maxlength
                                   ">
-                                  Input allowed only A-Z a-z - / . (Space)
+                                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                               </div>
                             </div>
@@ -927,7 +1020,10 @@
                           <div class="row">
                             <div class="col-sm">
                               <h6>
-                                <b style="color: dodgerblue">INTRODUCER</b>
+                                <b style="color: dodgerblue">
+                                  <!-- INTRODUCER -->
+                                  {{'master.Saving_Acc_Master.Int'| translate}}
+                                </b>
                               </h6>
                             </div>
                           </div>
@@ -938,12 +1034,14 @@
                                   <ng-select id="AC_INTROBRANCH" bindValue="value" [(ngModel)]="code"
                                     formControlName="AC_INTROBRANCH" bindLabel="label" title="Compulsory Selection"
                                     [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted }"
-                                    (change)="getBranch()" placeholder="Branch" #INTROBRANCH
+                                    (change)="getBranch()" #INTROBRANCH
                                     (focus)="onFocus(INTROBRANCH)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of branch_code" [value]="values">
                                       {{ values.label }}</ng-option>
                                   </ng-select>
-                                  <label for="AC_INTROBRANCH">Branch</label>
+                                  <label for="AC_INTROBRANCH">
+                                    <!-- Branch -->
+                                    {{'master.Saving_Acc_Master.Branch'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -954,12 +1052,14 @@
                                     formControlName="AC_INTROID" bindLabel="label" title="Compulsory Selection"
                                     [virtualScroll]="true" [ngClass]="{
                                       'form-submitted': formSubmitted
-                                    }" (change)="getIntro($event)" placeholder="Account Type" #INTROID
+                                    }" (change)="getIntro($event)"  #INTROID
                                     (focus)="onFocus(INTROID)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of allScheme" [value]="values">
                                       {{ values.id }} {{ values.label }}</ng-option>
                                   </ng-select>
-                                  <label for="AC_INTROID">Account Type</label>
+                                  <label for="AC_INTROID">
+                                    <!-- Account Type -->
+                                    {{'master.Saving_Acc_Master.Ac_Type'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -969,13 +1069,15 @@
                                   <ng-select id="AC_INTRACNO" bindValue="AC_NO" [(ngModel)]="ngIntroducer"
                                     formControlName="AC_INTRACNO" bindLabel="AC_NO" title="Compulsory Selection"
                                     [virtualScroll]="true" [ngClass]="{ 'form-submitted': formSubmitted}"
-                                    (focus)="getIntroducer()" [virtualScroll]="true" placeholder="Account Number"
+                                    (focus)="getIntroducer()" [virtualScroll]="true"
                                     #INTRACNO (focus)="onFocus(INTRACNO)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of introducerACNo" [value]="values">
                                       {{ values.AC_NO }} {{ values.AC_NAME }}
                                     </ng-option>
                                   </ng-select>
-                                  <label for="AC_INTRACNO">Account Number</label>
+                                  <label for="AC_INTRACNO">
+                                    <!-- Account Number -->
+                                    {{'master.Saving_Acc_Master.Ac_No'| translate}}</label>
                                 </span>
                               </div>
                             </div>
@@ -983,7 +1085,8 @@
                           <div class="row">
                             <div class="col-sm" style="float: right; margin-top: 6px">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('nominee')">
-                                Next
+                                <!-- Next -->
+                                {{'master.Action.Next'|translate}}
                               </button>
                             </div>
                           </div>
@@ -994,7 +1097,7 @@
                 </ngb-tab>
                 <!-- End of Introducer/Minor Details tab  -->
                 <!-- start of Nominee/joint acs tab  -->
-                <ngb-tab title="Nominee/Joint a/cs/Attorney" id="nominee">
+                <ngb-tab title="{{'master.Saving_Acc_Master.Nominee'| translate}}" id="nominee">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="card border-primary">
@@ -1007,7 +1110,9 @@
                                     (click)="nominee($event)" />
                                   <label class="border-checkbox-label" for="nomineeId"
                                     [ngClass]="{ isActive: nomineeTrue }"><b
-                                      style="color: dodgerblue">NOMINEE</b></label>
+                                      style="color: dodgerblue">
+                                      <!-- NOMINEE -->
+                                      {{'master.Saving_Acc_Master.Nomi'| translate}}</b></label>
                                 </div>
                               </div>
                             </div>
@@ -1034,7 +1139,9 @@
                                                   $event.charCode <= 122) ||
                                                 $event.charCode <= 32)
                                             " />
-                                          <label for="AC_NNAME">Name<sub class="required">*
+                                          <label for="AC_NNAME">
+                                            <!-- Name -->
+                                            {{'master.Saving_Acc_Master.Name'| translate}}<sub class="required">*
                                             </sub></label>
                                         </span>
                                       </div>
@@ -1051,8 +1158,7 @@
                                             angForm.controls['AC_NNAME'].errors
                                               ?.maxlength
                                           ">
-                                          Input allowed only A-Z a-z - / .
-                                          (Space)
+                                          <!-- Input allowed only A-Z a-z - / .(Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1071,7 +1177,9 @@
                                               'form-submitted': formSubmitted
                                             }" maxlength="25" title="Input allowed only  A-Z a-z  - / . (Space)"
                                             formControlName="AC_NRELA" />
-                                          <label for="AC_NRELA">Relation<sub class="required">*
+                                          <label for="AC_NRELA">
+                                            <!-- Relation -->
+                                            {{'master.Saving_Acc_Master.Relation'| translate}}<sub class="required">*
                                             </sub></label>
                                         </span>
                                       </div>
@@ -1088,8 +1196,7 @@
                                             angForm.controls['AC_NRELA'].errors
                                               ?.maxlength
                                           ">
-                                          Input allowed only A-Z a-z - / .
-                                          (Space)
+                                          <!-- Input allowed only A-Z a-z - / .(Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1103,7 +1210,9 @@
                                               dateInputFormat: 'DD/MM/YYYY'
                                             }" formControlName="AC_NDATE" [minDate]="maxDate" bsDatepicker
                                             #NDATE="bsDatepicker" (keydown.Tab)="NDATE.hide()" />
-                                          <label for="AC_NDATE">Nomination Date<sub class="required">*
+                                          <label for="AC_NDATE">
+                                            <!-- Nomination Date -->
+                                            {{'master.Saving_Acc_Master.Nomi_Date'| translate}}<sub class="required">*
                                             </sub></label>
                                         </span>
                                       </div>
@@ -1118,7 +1227,7 @@
                                             angForm.controls['AC_NDATE'].errors
                                               ?.required
                                           ">
-                                          This fiels is required
+                                          <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1131,7 +1240,9 @@
                                                 $event.charCode < 58)
                                             " pattern="^[0-9]+$" min="1" max="100" title="Input allowed only 0-9"
                                             id="AGE" formControlName="AGE" />
-                                          <label for="AGE">Age</label>
+                                          <label for="AGE">
+                                            <!-- Age -->
+                                            {{'master.Saving_Acc_Master.Age'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1146,7 +1257,7 @@
                                               ?.min ||
                                             angForm.controls['AGE'].errors?.max
                                           ">
-                                          This fiels is required
+                                          <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1158,7 +1269,9 @@
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                             formControlName="AC_NHONO" />
-                                          <label for="AC_NHONO">House</label>
+                                          <label for="AC_NHONO">
+                                            <!-- House -->
+                                            {{'master.Saving_Acc_Master.House'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1172,8 +1285,8 @@
                                             angForm.controls['AC_NHONO'].errors
                                               ?.pattern
                                           ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                         <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1185,7 +1298,9 @@
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             formControlName="AC_NWARD" />
-                                          <label for="AC_NWARD">Ward</label>
+                                          <label for="AC_NWARD">
+                                            <!-- Ward -->
+                                            {{'master.Saving_Acc_Master.Ward'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1199,8 +1314,8 @@
                                             angForm.controls['AC_NWARD'].errors
                                               ?.pattern
                                           ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                         <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1214,7 +1329,9 @@
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                             formControlName="AC_NGALLI" />
-                                          <label for="AC_NGALLI">Galli</label>
+                                          <label for="AC_NGALLI">
+                                            <!-- Galli -->
+                                            {{'master.Saving_Acc_Master.Galli'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1229,8 +1346,8 @@
                                             angForm.controls['AC_NGALLI'].errors
                                               ?.pattern
                                           ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                           <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1241,7 +1358,9 @@
                                             id="AC_NAREA" pattern="^[A-Za-z\./ -]+$" maxlength="60"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             style="text-transform: capitalize" formControlName="AC_NAREA" />
-                                          <label for="AC_NAREA">Area</label>
+                                          <label for="AC_NAREA">
+                                            <!-- Area -->
+                                            {{'master.Saving_Acc_Master.Area'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1255,8 +1374,8 @@
                                             angForm.controls['AC_NAREA'].errors
                                               ?.pattern
                                           ">
-                                          Input allowed only A-Z a-z - / .
-                                          (Space)
+                                          Input    <!-- Input allowed only A-Z a-z - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1267,7 +1386,9 @@
                                             pattern="^[A-Za-z0-9\./ -]+$" style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_NADDR"
                                             formControlName="AC_NADDR" />
-                                          <label for="AC_NADDR">Detail</label>
+                                          <label for="AC_NADDR">
+                                            <!-- Detail -->
+                                            {{'master.Saving_Acc_Master.Detail'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1281,8 +1402,8 @@
                                             angForm.controls['AC_NADDR'].errors
                                               ?.pattern
                                           ">
-                                          Input allowed only A-Z a-z 0-9 - / .
-                                          (Space)
+                                          Inp <!-- Input allowed only A-Z a-z 0-9 - / .
+                                          (Space) -->{{'master.Validation.Val1'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1293,10 +1414,12 @@
                                             [virtualScroll]="true" bindLabel="CITY_NAME" formControlName="AC_NCTCODE"
                                             [ngClass]="{
                                               'form-submitted': formSubmitted
-                                            }" placeholder="City" #CITY_NAME (focus)="onFocus(CITY_NAME)"
+                                            }"  #CITY_NAME (focus)="onFocus(CITY_NAME)"
                                             [selectOnTab]='true'>
                                           </ng-select>
-                                          <label for="AC_NCTCODE">City<sub class="required">
+                                          <label for="AC_NCTCODE">
+                                            <!-- City -->
+                                            {{'master.Saving_Acc_Master.City'| translate}}<sub class="required">
                                               *
                                             </sub></label>
                                         </span>
@@ -1311,7 +1434,9 @@
                                               ($event.charCode >= 48 &&
                                                 $event.charCode < 58)
                                             " title="Input allowed only  0-9" formControlName="AC_NPIN" />
-                                          <label for="AC_NPIN">Pin Code</label>
+                                          <label for="AC_NPIN">
+                                            <!-- Pin Code -->
+                                            {{'master.Saving_Acc_Master.Pin_Code'| translate}}</label>
                                         </span>
                                       </div>
                                       <div class="form-group form-primary form-static-label" *ngIf="
@@ -1327,7 +1452,7 @@
                                             angForm.controls['AC_NPIN'].errors
                                               ?.maxlength
                                           ">
-                                          Input allowed only 0-9
+                                          <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                         </div>
                                       </div>
                                     </div>
@@ -1335,11 +1460,13 @@
                                   <div class="row" style="float: right">
                                     <button type="submit" class="btn btn-outline-primary btn-sm"
                                       *ngIf="nomineeShowButton" (click)="addNominee()">
-                                      Add Nominee
+                                      <!-- Add Nominee -->
+                                      {{'master.Action.Add_nomi'| translate}}
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateNominee()"
                                       *ngIf="nomineeUpdateShow">
-                                      Update Nominee
+                                      <!-- Update Nominee -->
+                                      {{'master.Action.Update_nomi'| translate}}
                                     </button>
                                   </div>
                                 </div>
@@ -1351,18 +1478,18 @@
                               <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                   <thead>
-                                    <td>Action</td>
-                                    <td>Name</td>
-                                    <td>Relation</td>
-                                    <td>Age</td>
-                                    <td>Nomination Date</td>
-                                    <td>House</td>
-                                    <td>Ward</td>
-                                    <td>Details</td>
-                                    <td>Galli</td>
-                                    <td>Area</td>
-                                    <td>City</td>
-                                    <td>Pin code</td>
+                                    <td>{{'master.Action.Action'|translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Name'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Relation'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Age'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Nomi_Date'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.House'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Ward'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Detail'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Galli'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Area'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.City'| translate}}</td>
+                                    <td>{{'master.Saving_Acc_Master.Pin_Code'| translate}}</td>
                                   </thead>
                                   <tbody *ngIf="multiNominee?.length != 0">
                                     <tr *ngFor="
@@ -1500,7 +1627,8 @@
                                   <tbody *ngIf="multiNominee?.length == 0">
                                     <tr>
                                       <td colspan="12" class="no-data-available" style="text-align: center">
-                                        No data!
+                                        <!-- No data! -->
+                                        {{'master.Saving_Acc_Master.No_Data'| translate}}
                                       </td>
                                     </tr>
                                   </tbody>
@@ -1515,8 +1643,9 @@
                                   <input class="border-checkbox" type="checkbox" id="jointAccount"
                                     (click)="jointAccount($event)" />
                                   <label class="border-checkbox-label" for="jointAccount"
-                                    [ngClass]="{ isActive: JointAccountsTrue }"><b style="color: dodgerblue">JOINT
-                                      ACCOUNTS</b></label>
+                                    [ngClass]="{ isActive: JointAccountsTrue }"><b style="color: dodgerblue">
+                                      <!-- JOINT ACCOUNTS -->
+                                      {{'master.Saving_Acc_Master.Joint'| translate}}</b></label>
                                 </div>
                               </div>
                             </div>
@@ -1533,12 +1662,14 @@
                                           formControlName="JOINT_AC_CUSTID" (change)="getJointCustomer($event)"
                                           [virtualScroll]="true" [virtualScroll]="true" [ngClass]="{
                                             'form-submitted': formSubmitted
-                                          }" title="Compulsory Selection" placeholder="Customer Id" #AC_CUSTID
+                                          }" title="Compulsory Selection"  #AC_CUSTID
                                           (focus)="onFocus(AC_CUSTID)" [selectOnTab]='true'>
                                           <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{ values.label }}</ng-option>
                                         </ng-select>
-                                        <label for="JOINT_AC_CUSTID">Customer Id<sub class="required">*
+                                        <label for="JOINT_AC_CUSTID">
+                                          <!-- Customer Id -->
+                                          {{'master.Saving_Acc_Master.Customer_Id'| translate}}<sub class="required">*
                                           </sub></label>
                                       </span>
                                     </div>
@@ -1548,7 +1679,9 @@
                                       <span class="border-lable-flt">
                                         <input type="text" name="JOINT_ACNAME" class="form-control" placeholder=" "
                                           id="JOINT_ACNAME" formControlName="JOINT_ACNAME" disabled />
-                                        <label for="JOINT_ACNAME">Name</label>
+                                        <label for="JOINT_ACNAME">
+                                          <!-- Name -->
+                                          {{'master.Saving_Acc_Master.Name'| translate}}</label>
                                       </span>
                                     </div>
                                   </div>
@@ -1562,7 +1695,9 @@
                                             dateInputFormat: 'DD/MM/YYYY'
                                           }" formControlName="JOINT_DATE" [minDate]="maxDate" bsDatepicker
                                           #NDATE="bsDatepicker" (keydown.Tab)="NDATE.hide()" />
-                                        <label for="JOINT_DATE">Join Date<sub class="required">*
+                                        <label for="JOINT_DATE">
+                                          <!-- Join Date -->
+                                          {{'master.Saving_Acc_Master.JOINT_DATE'| translate}}<sub class="required">*
                                           </sub></label>
                                       </span>
                                     </div>
@@ -1577,8 +1712,8 @@
                                           angForm.controls['JOINT_DATE'].errors
                                             ?.required
                                         ">
-                                        This fiels is required
-                                      </div>
+                                          <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
+                                        </div>
                                     </div>
                                   </div>
                                   <div class="col-sm">
@@ -1586,7 +1721,9 @@
                                       <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input class="border-checkbox" type="checkbox" name="OPERATOR" id="operator"
                                           formControlName="OPERATOR" checked />
-                                        <label class="border-checkbox-label" for="operator">Operation<span
+                                        <label class="border-checkbox-label" for="operator">
+                                          <!-- Operation -->
+                                          {{'master.Saving_Acc_Master.Operation'| translate}}<span
                                             class="required">
                                           </span></label>
                                       </div>
@@ -1595,11 +1732,13 @@
                                   <div class="col-sm-3">
                                     <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="jointShowButton"
                                       (click)="addJointAcccount()">
-                                      Add Account
+                                      <!-- Add Account -->
+                                      {{'master.Action.Add_Ac'| translate}}
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateJointAcccount()"
                                       *ngIf="jointUpdateShow">
-                                      Update Account
+                                      <!-- Update Account -->
+                                      {{'master.Action.Update_Ac'| translate}}
                                     </button>
                                   </div>
                                 </div>
@@ -1611,12 +1750,22 @@
                               <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                   <thead>
-                                    <td style="max-width: 10px">Action</td>
-                                    <td style="max-width: 20px">Customer ID</td>
-                                    <td>Name</td>
-                                    <td style="max-width: 15px">Joint Date</td>
+                                    <td style="max-width: 10px">
+                                      <!-- Action -->
+                                      {{'master.Action.Action'| translate}}</td>
+                                    <td style="max-width: 20px">
+                                      <!-- Customer ID -->
+                                      {{'master.Saving_Acc_Master.Cust_Id'| translate}}</td>
+                                    <td>
+                                      <!-- Name -->
+                                      {{'master.Saving_Acc_Master.Name'| translate}}</td>
+                                    <td style="max-width: 15px">
+                                      Joint Date
+                                      {{'master.Saving_Acc_Master.JOINT_DATE'| translate}}</td>
 
-                                    <td style="max-width: 15px">Operation</td>
+                                    <td style="max-width: 15px">
+                                      <!-- Operation -->
+                                      {{'master.Saving_Acc_Master.Operation'| translate}}</td>
                                   </thead>
                                   <tbody *ngIf="multiJointAC?.length != 0">
                                     <tr *ngFor="
@@ -1679,7 +1828,8 @@
                                   <tbody *ngIf="multiJointAC?.length == 0">
                                     <tr>
                                       <td class="no-data-available" colspan="4" style="text-align: center">
-                                        No data!
+                                        <!-- No data! -->
+                                        {{'master.Saving_Acc_Master.No_Data'| translate}}
                                       </td>
                                     </tr>
                                   </tbody>
@@ -1695,7 +1845,9 @@
                                     (click)="ispowerof($event)" />
                                   <label class="border-checkbox-label" for="powerofattorney" [ngClass]="{
                                       isActive: PowerofAttorneyTrue
-                                    }"><b style="color: dodgerblue">POWER OF ATTORNEY</b></label>
+                                    }"><b style="color: dodgerblue">
+                                      <!-- POWER OF ATTORNEY -->
+                                      {{'master.Saving_Acc_Master.Power'| translate}}</b></label>
                                 </div>
                               </div>
                             </div>
@@ -1718,7 +1870,9 @@
                                                 $event.charCode <= 122) ||
                                               $event.charCode <= 32)
                                           " />
-                                        <label for="ATTERONEY_NAME">Name<sub class="required">*
+                                        <label for="ATTERONEY_NAME">
+                                          <!-- Name -->
+                                          {{'master.Saving_Acc_Master.Name'| translate}}<sub class="required">*
                                           </sub></label>
                                       </span>
                                     </div>
@@ -1738,8 +1892,8 @@
                                           angForm.controls['ATTERONEY_NAME']
                                             .errors?.maxlength
                                         ">
-                                        This field is required and Input allowed
-                                        only A-Z a-z - / . (Space)
+                                         <!-- This field is required and Input allowed
+                                        only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                       </div>
                                     </div>
                                   </div>
@@ -1753,7 +1907,9 @@
                                             dateInputFormat: 'DD/MM/YYYY'
                                           }" [maxDate]="maxDate" formControlName="DATE_APPOINTED" bsDatepicker
                                           #DATE_APPOINTED="bsDatepicker" (keydown.Tab)="DATE_APPOINTED.hide()" />
-                                        <label for="DATE_APPOINTED">Appointed on<sub class="required">*
+                                        <label for="DATE_APPOINTED">
+                                          <!-- Appointed on -->
+                                          {{'master.Saving_Acc_Master.Appointed'| translate}}<sub class="required">*
                                           </sub></label>
                                       </span>
                                     </div>
@@ -1769,7 +1925,7 @@
                                           angForm.controls['DATE_APPOINTED']
                                             .errors?.required
                                         ">
-                                        This field is required
+                                        <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                       </div>
                                     </div>
                                   </div>
@@ -1783,7 +1939,9 @@
                                           }" (bsValueChange)="checkdate($event)" [minDate]="maxDate"
                                           formControlName="DATE_EXPIRY" bsDatepicker #DATE_EXPIRY="bsDatepicker"
                                           (keydown.Tab)="DATE_EXPIRY.hide()" />
-                                        <label for="DATE_EXPIRY">Expiry Date<sub class="required">*
+                                        <label for="DATE_EXPIRY">
+                                          <!-- Expiry Date -->
+                                          {{'master.Saving_Acc_Master.Expiry_Date'| translate}}<sub class="required">*
                                           </sub></label>
                                       </span>
                                     </div>
@@ -1791,11 +1949,13 @@
                                   <div class="col-sm">
                                     <button type="button" class="btn btn-outline-primary btn-sm"
                                       *ngIf="attorneyShowButton" (click)="addAttorney()">
-                                      Add Attorney
+                                      <!-- Add Attorney -->
+                                      {{'master.Saving_Acc_Master.Ad_Attorney'| translate}}
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" (click)="updateAttorney()"
                                       *ngIf="attorneyUpdateShow">
-                                      Update
+                                      <!-- Update -->
+                                      {{'master.Action.Update'| translate}}
                                     </button>
                                   </div>
                                 </div>
@@ -1807,12 +1967,21 @@
                               <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                   <thead>
-                                    <td style="max-width: 10px">Action</td>
-                                    <td>Name</td>
-                                    <td style="max-width: 15px">
-                                      Appointed on
+                                    <td style="max-width: 10px">
+                                      <!-- Action -->
+                                      {{'master.Action.Action'| translate}}
                                     </td>
-                                    <td style="max-width: 15px">Expiry Date</td>
+                                    <td>
+                                      <!-- Name -->
+                                      {{'master.Saving_Acc_Master.Name'| translate}}
+                                    </td>
+                                    <td style="max-width: 15px">
+                                      <!-- Appointed on -->
+                                      {{'master.Saving_Acc_Master.Appointed'| translate}}
+                                    </td>
+                                    <td style="max-width: 15px">
+                                      <!-- Expiry Date -->
+                                      {{'master.Saving_Acc_Master.Expiry_Date'| translate}}</td>
                                   </thead>
                                   <tbody *ngIf="multiAttorney?.length != 0">
                                     <tr *ngFor="
@@ -1870,7 +2039,8 @@
                                   <tbody *ngIf="multiAttorney?.length == 0">
                                     <tr>
                                       <td class="no-data-available" colspan="4" style="text-align: center">
-                                        No data!
+                                        <!-- No data! -->
+                                        {{'master.Saving_Acc_Master.No_Data'| translate}}
                                       </td>
                                     </tr>
                                   </tbody>
@@ -1881,7 +2051,8 @@
                           <div class="row">
                             <div class="col-sm" style="float: right; margin-top: 6px">
                               <button class="btn btn-outline-primary btn-sm" (click)="switchNgBTab('documents')">
-                                Next
+                                <!-- Next -->
+                                {{'master.Action.Next'| translate}}
                               </button>
                             </div>
                           </div>
@@ -1892,7 +2063,7 @@
                 </ngb-tab>
                 <!-- End of Nominee/joint acs tab  -->
                 <!-- start of Documents tab  -->
-                <ngb-tab title="Documents" id="documents">
+                <ngb-tab title="{{'master.Saving_Acc_Master.Document'| translate}}" id="documents">
                   <ng-template ngbTabContent>
                     <div [@fadeInOutTranslate] class="m-t-15">
                       <div class="card border-primary">
@@ -1902,11 +2073,22 @@
                               <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                   <thead>
-                                    <td>Code</td>
-                                    <td>Description</td>
-                                    <td>Upload Attachment</td>
-                                    <td>View Document </td>
-                                    <td>Is Linked Document Uploaded</td>
+                                    <!-- code -->
+                                    <td>{{'master.Saving_Acc_Master.Code'| translate}}</td>
+                                    <td>
+                                      <!-- Description -->
+                                      {{'master.Saving_Acc_Master.Description'| translate}}
+                                    </td>
+                                    <td>
+                                      <!-- Upload Attachment -->
+                                      {{'master.Saving_Acc_Master.Upload'| translate}}
+                                    </td>
+                                    <td>
+                                      <!-- View Document -->
+                                      {{'master.Saving_Acc_Master.View'| translate}} </td>
+                                    <td>
+                                      <!-- Is Linked Document Uploaded -->
+                                      {{'master.Saving_Acc_Master.Up_Load'| translate}}</td>
                                   </thead>
                                   <tbody *ngIf="customerDoc?.length != 0">
                                     <tr *ngFor="let data of customerDoc;
@@ -1953,14 +2135,17 @@
                                   </tbody>
                                   <tbody *ngIf="customerDoc?.length == 0">
                                     <tr>
-                                      <td class="no-data-available" colspan="5" style="text-align: center;">No data!
-                                      </td>
+                                      <td class="no-data-available" colspan="5" style="text-align: center;">
+                                        <!-- No data! -->
+                                        {{'master.Saving_Acc_Master.No_Data'| translate}}</td>
                                     </tr>
                                   </tbody>
                                 </table>
                                 <app-modal-basic #modalLarge [dialogClass]="'modal-lg'">
                                   <div class="app-modal-header">
-                                    <h4 class="modal-title">Document</h4>
+                                    <h4 class="modal-title">
+                                      <!-- Document -->
+                                      {{'master.Saving_Acc_Master.Document'| translate}}</h4>
                                     <button type="button" class="close basic-close" (click)="modalLarge.hide()">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -1970,15 +2155,17 @@
                                       <div *ngIf="isImgPreview" class='embed-responsive' style='padding-bottom:60%'>
                                         <embed [src]="urlMap" width="10px" height="50px" />
                                       </div>
-                                      <p *ngIf="!isImgPreview">No File For
-                                        Preview</p>
+                                      <p *ngIf="!isImgPreview">
+                                        <!-- No File For Preview -->
+                                        {{'master.Saving_Acc_Master.preview'| translate}}</p>
                                     </perfect-scrollbar>
                                   </div>
 
                                   <div class="app-modal-footer">
                                     <button type="button" class="btn btn-outline-primary btn-sm"
                                       (click)="modalLarge.hide()">
-                                      Close
+                                      <!-- Close -->
+                                      {{'master.Action.Close'| translate}}
                                     </button>
                                   </div>
                                 </app-modal-basic>
@@ -1989,21 +2176,29 @@
                             <div class="col-sm" style="float: right">
                               <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit($event)" (keydown.Tab)="focus()" appTheme [disabled]="angForm.invalid">
-                                Submit
+                                <!-- Submit -->
+                                {{'master.Action.Submit'| translate}}
                               </button>
                               <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
-                                Close</button>
+                                <!-- Close -->
+                                {{'master.Action.Close'| translate}}</button>
                               <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                                Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <!-- Cancel -->
+                                {{'master.Action.Cancel'| translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                               <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <!-- Update -->
+                                {{'master.Action.Update'| translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                               <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <!-- Reject -->
+                                {{'master.Action.Reject'| translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                               <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                Approve
+                                <!-- Approve -->
+                                {{'master.Action.Approve'| translate}}
                               </button>
                               <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
-                                (click)="unApprove()"> Unapprove</button>
+                                (click)="unApprove()"> 
+                                <!-- Unapprove -->
+                                {{'master.Action.Unapprove'| translate}} </button>
                             </div>
                           </div>
                         </div>
@@ -2103,7 +2298,9 @@
                 </tbody>
                 <tbody *ngIf="savingMaster?.length == 0">
                   <tr>
-                    <td colspan="10" class="no-data-available">No data!</td>
+                    <!-- <td colspan="10" class="no-data-available">No data!</td> -->
+                    <td colspan="10" class="no-data-available">{{'master.Saving_Acc_Master.No_Data'| translate}}</td>
+
                   </tr>
                 </tbody>
                 <tfoot #filters class="filters">

@@ -1,295 +1,299 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>GL Report Linking</h5>
-                <h6 style="float: right;"><sub class="required">*</sub>Required Fields</h6>
-            </div>
-            <form [formGroup]="angForm" novalidate #myform="ngForm">
-                <div class="card-block">
-                    <div class="solid">
-                        <div class="row">
-                            
-                            <div class="col-md-2">
-                                <label for="glacname">GL Account<sub class="required">*</sub></label>
-                            </div>
-                            <div class="col-sm-12 col-md-5">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select appTheme [(ngModel)]="ngName" id="AC_NO" bindValue="AC_NO"
-                                            bindLabel="label" formControlName="AC_NO" title="Compulsory Selection"
-                                            placeholder="Code Type">
-                                            <ng-option *ngFor="let values of schemeACNo" [value]="values">
-                                                {{values.AC_NO}} {{values.AC_NAME}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="EFFECT_DATE">Effect From Date<sub class="required">* </sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="EFFECT_DATE"
-                                            id="EFFECT_DATE" class="form-control " [maxDate]="maxDate" minlength="10" maxlength="10"
-                                            [(ngModel)]="effectdate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                            #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
-                                            placement="right" formControlName="EFFECT_DATE" bsDatepicker required>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                        Enter Valid Date
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-2">
-                                <label for="EFFECT_TO_DATE">Effect To Date<sub class="required">* </sub></label>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group input-group">
-                                    <span class="border-lable-flt">
-                                        <input type="text" appTheme appButton placeholder="dd/mm/yyyy" name="EFFECT_TO_DATE"
-                                            id="EFFECT_TO_DATE" class="form-control " [minDate]="effectdate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" minlength="10"s maxlength="10"
-                                            #EFFECT_TO_DATE="bsDatepicker" (keydown.Tab)="EFFECT_TO_DATE.hide()"
-                                            placement="right" formControlName="EFFECT_TO_DATE" bsDatepicker required>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['EFFECT_TO_DATE'].invalid && (angForm.controls['EFFECT_TO_DATE'].dirty || angForm.controls['EFFECT_TO_DATE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['EFFECT_TO_DATE'].errors?.required">
-                                        Enter Valid Date
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-md-1">
-                                <label for="headName">Head Name<sub class="required">*</sub></label>
-                            </div>
-                            <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngHeadname" id="CODE_TYPE"
-                                            bindLabel="NAME" bindValue="id" formControlName="CODE_TYPE"
-                                            title="Compulsory Selection" placeholder="Code Type">
-                                            <ng-option *ngFor="let values of headName" [value]="values">
-                                                {{values.CODE}} {{values.NAME}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['CODE_TYPE'].invalid && (angForm.controls['CODE_TYPE'].dirty || angForm.controls['CODE_TYPE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['CODE_TYPE'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- <div class="row">
-
-                            <div class="col-md-2">
-                                <label for="defaultType">Default Balance Type<sub class="required">*</sub>
-                                </label>
-                            </div>
-                            <div class="col-sm-12 col-md-2">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngType" id="DEFAULT_BALTYPE"
-                                            bindLabel="label" bindValue="name" formControlName="DEFAULT_BALTYPE"
-                                            title="Compulsory Selection" placeholder="">
-                                            <ng-option *ngFor="let values of drcr" [value]="values">
-                                                {{values.name}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['DEFAULT_BALTYPE'].invalid && (angForm.controls['DEFAULT_BALTYPE'].dirty || angForm.controls['DEFAULT_BALTYPE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['DEFAULT_BALTYPE'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-1">
-                                <label for="reverseCode">Reverse Code<sub class="required">*</sub>
-                                </label>
-                            </div>
-                           
-                            <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngReverse" id="REVERSE_CODE"
-                                            bindLabel="NAME" formControlName="REVERSE_CODE" bindValue="id"
-                                            title="Compulsory Selection" placeholder="Code Type">
-                                            <ng-option *ngFor="let values of headName" [value]="values">
-                                                {{values.CODE}} {{values.NAME}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['REVERSE_CODE'].invalid && (angForm.controls['REVERSE_CODE'].dirty || angForm.controls['REVERSE_CODE'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['REVERSE_CODE'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-1">
-                                <label for="reverseCode">Sub Column<sub class="required">*</sub>
-                                </label>
-                            </div>
-                           
-                            <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
-                                    <span class="border-lable-flt">
-                                        <ng-select bindValue="value" appTheme [(ngModel)]="ngSub" id="SUB_COLUMN_NO"
-                                            bindLabel="NAME" bindValue="id" formControlName="SUB_COLUMN_NO"
-                                            title="Compulsory Selection" placeholder="Code Type">
-                                            <ng-option *ngFor="let values of headName" [value]="values">
-                                                {{values.CODE}} {{values.NAME}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </span>
-                                </div>
-                                <div class="form-group form-primary form-static-label"
-                                    *ngIf="angForm.controls['SUB_COLUMN_NO'].invalid && (angForm.controls['SUB_COLUMN_NO'].dirty || angForm.controls['SUB_COLUMN_NO'].touched)"
-                                    class="alert alert-danger">
-                                    <div *ngIf="angForm.controls['SUB_COLUMN_NO'].errors?.required">
-                                        This field is required
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> -->
-
-
-                        <div class="row">
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="addData()"
-                                [disabled]="angForm.invalid"
-                                    *ngIf="addButton"  >
-                                    Add
-                                </button>
-                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                [disabled]="angForm.invalid"
-                                    *ngIf="updateButton" >
-                                    Update
-                                </button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card shadow">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="col-sm">
-                                                <div class="table-responsive">
-                                                    <table datatable [dtOptions]="dtExportButtonOptions"
-                                                        class="table table-striped table-bordered table-hover compact"
-                                                        id="customermastertable">
-                                                        <tbody *ngIf="glreportLink?.length != 0">
-                                                            <tr *ngFor="let data of glreportLink">
-                                                                <td> <span class="fa fa-fw fa-edit field-icon"
-                                                                        id="editbutton"
-                                                                        (click)="editClickHandler(data.id)"
-                                                                        placement="bottom" ngbTooltip="Edit"></span>
-                                                                </td>
-                                                                <td
-                                                                    [ngClass]="data.SR_NO === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.SR_NO === "" ? "-" : data.SR_NO }}
-                                                                </td>
-                                                                <td
-                                                                    [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.AC_NO === "" ? "-" : data.AC_NO }}
-                                                                </td>
-                                                                <!-- <td [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.AC_NAME === "" ? "-" : data.AC_NAME }}
-                                                                </td> -->
-                                                                <td
-                                                                    [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.EFFECT_DATE === "" ? "-" : data.EFFECT_DATE
-                                                                    }}
-                                                                </td>
-                                                                <td
-                                                                    [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.EFFECT_TO_DATE === "" ? "-" :
-                                                                    data.EFFECT_TO_DATE }}
-                                                                </td>
-                                                                <!-- <td [ngClass]="data.CODE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.CODE === "" ? "-" : data.CODE }}
-                                                                </td> -->
-                                                                <td
-                                                                    [ngClass]="data.CODE_TYPE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.CODE_TYPE === "" ? "-" : data.CODE_TYPE }}
-                                                                </td>
-                                                                <!-- <td
-                                                                    [ngClass]="data.DEFAULT_BALTYPE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.DEFAULT_BALTYPE === "" ? "-" :
-                                                                    data.DEFAULT_BALTYPE }}
-                                                                </td>
-                                                                <td
-                                                                    [ngClass]="data.REVERSE_CODE === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.REVERSE_CODE === "" ? "-" :
-                                                                    data.REVERSE_CODE }}
-                                                                </td>
-                                                                <td
-                                                                    [ngClass]="data.SUB_COLUMN_NO === '' ? 'td_center' : 'td_right'">
-                                                                    {{ data.SUB_COLUMN_NO === "" ? "-" :
-                                                                    data.SUB_COLUMN_NO }}
-                                                                </td> -->
-
-
-
-                                                            </tr>
-                                                        </tbody>
-                                                        <tbody *ngIf="glreportLink?.length == 0">
-                                                            <tr>
-                                                                <td colspan="6" class="no-data-available">No data!</td>
-                                                            </tr>
-                                                        </tbody>
-
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </form>
+      <div class="card">
+        <div class="card-header">
+          <!-- <h5>GL Report Linking</h5> -->
+          <h5>{{'master.GL_Report_Linking.Title' | translate}}</h5>
+          <h6 style="float: right;">{{'master.Action.F1' | translate}}<sub class="required">*</sub>{{'master.Action.F2' | translate}}</h6>
         </div>
+        <form [formGroup]="angForm" novalidate #myform="ngForm">
+          <div class="card-block">
+  
+  
+            <div class="row">
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'EXPENSES' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('EXPENSES')">
+                <!-- EXPENSES -->
+                {{'master.GL_Report_Linking.EXPENSES' | translate}}</button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'SUBSIDARY' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('SUBSIDARY')">
+                <!-- SUBSIDARY -->
+                {{'master.GL_Report_Linking.SUBSIDARY' | translate}}</button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'CRAR' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('CRAR')">
+                <!-- CRAR -->
+                {{'master.GL_Report_Linking.CRAR' | translate}}  </button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'Daily Liquidity' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('Daily Liquidity')">
+                <!-- Daily Liquidity -->
+                {{'master.GL_Report_Linking.Daily Liquidity' | translate}}</button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'ABR-ALR' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('ABRALR')">
+                <!-- ABR-ALR -->
+                {{'master.GL_Report_Linking.ABR-ALR' | translate}}</button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'CRR' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('CRR')">
+                <!-- CRR -->
+                {{'master.GL_Report_Linking.CRR' | translate}}</button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'SLR' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('SLR')">
+                <!-- SLR -->
+                {{'master.GL_Report_Linking.SLR' | translate}}</button>
+  
+              <button type="button" class="btn btn-outline-primary btn-sm"
+                [ngStyle]="{'background-color': selectedCategory === 'NIDHI' ? 'green' : 'transparent'}"
+                style="color: black;" (click)="onExpensesClick('NIDHI')">
+                <!-- NIDHI -->
+                {{'master.GL_Report_Linking.NIDHI' | translate}}</button>
+            </div>
+
+            <h3 style="text-align: center;">{{ selectedCategory }}</h3>
+
+            <div class="solid">
+              <div class="row">
+                <div class="col-md">
+  
+                  <button type="button" class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                    *ngIf="updateButton">
+                    <!-- Update -->
+                    {{'master.Action.Update' | translate}}
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="card shadow">
+                    <div class="card-block">
+                      <div class="row">
+                        <div class="col-sm">
+                          <div class="table-responsive">
+  
+                            <!-- <form [formGroup]="angForm">
+                                                          <input formControlName="accountNumber" (input)="filterTableData()" placeholder="Search by Account Number">
+                                                          <input formControlName="code" (input)="filterTableData()" placeholder="Search by Code">
+                                                        </form> -->
+  
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                              class="table table-striped table-bordered table-hover compact" id="customermastertable">
+  
+                              <!-- <tbody *ngIf="tabledata?.length != 0">
+                                <tr *ngFor="let data of tabledata let i = index">
+                                  <td>{{ i + 1 }}</td>
+                                  <td contenteditable="true" [ngClass]="data.acno === '' ? 'td_center' : 'td_left'">
+                                    {{ data.acno === "" ? "-" : data.acno }}
+                                  </td>
+                                  <td contenteditable="true" [ngClass]="data.acname === '' ? 'td_center' : 'td_left'">
+                                    {{ data.acname === "" ? "-" : data.acname }}
+                                  </td>
+                                  <td contenteditable="true"
+                                    [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_DATE === "" ? "-" : data.EFFECT_DATE
+                                    }}
+                                  </td>
+                                  <td contenteditable="true"
+                                    [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_TO_DATE === "" ? "-" :
+                                    data.EFFECT_TO_DATE }}
+                                  </td>
+                                   <td contenteditable="true">
+                                    <select>
+                                      <option value="">-</option>
+                                      <option *ngFor="let CODE of codeValues" [value]="CODE">{{ CODE }} - {{NAME}}</option>
+                                    </select>
+                                  </td> 
+                                  
+                                  <td contenteditable="true">
+                                    <select [ngStyle]="{ 'width': '400px' }">
+                                      <option value="">{{ data.CODE }} - {{ data.NAME }}</option>
+                                      <option *ngFor="let item of codeValues" [value]="item.code">{{ item.code }} - {{ item.name }}</option>
+                                      <option *ngIf="data.NAME && data.CODE" [value]="data.CODE">{{ data.CODE }} - {{ data.NAME }}</option>
+                                    </select>
+                                  </td>
+                                  
+  
+                                  <td contenteditable="true" [ngClass]="data.SUB_COLUMN === '' ? 'td_center' : 'td_left'">
+                                    <div class="custom-select-wrapper">
+                                      <select [(ngModel)]="defaultValue">
+                                        <option *ngFor="let item of drcr" [value]="item.id">{{ item.name }}</option>
+                                      </select>
+  
+  
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody> -->
+  
+  
+                              <tbody *ngIf="tabledata?.length != 0">
+                                <tr *ngFor="let data of tabledata; let i = index">
+                                  <td>{{ i + 1 }}</td>
+                                  <td contenteditable="true" (blur)="updateCell(data, 'acno', $event)" [ngClass]="data.acno === '' ? 'td_center' : 'td_left'">
+                                    {{ data.acno }}
+                                  </td>
+                                  <td contenteditable="true"  (blur)="updateCell(data, 'acname', $event)" [ngClass]="data.acname === '' ? 'td_center' : 'td_left'">
+                                    {{ data.acname }}
+                                  </td>
+                                  <!-- <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_DATE', $event)" [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_DATE }}  <input type="date" [(ngModel)]="selectedDate">
+                                  </td> -->
+  
+                                  <!-- <td>
+                                    <input type="text" placeholder="dd/mm/yyyy" id="EFFECT_DATE" class="form-control"
+                                           [(ngModel)]="data.EFFECT_DATE" name="EFFECT_DATE"
+                                           [bsValue]="data.EFFECT_DATE"
+                                           [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                           appButton 
+                                           (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                           bsDatepicker>
+                                  </td> -->
+                                  
+                                   <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_DATE', $event)" [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_DATE }}
+                                  </td>
+                                  <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_TO_DATE', $event)" [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_TO_DATE }}
+                                  </td>
+                                  <!-- <td>
+                                    <select (change)="updateDropdown(data, 'CODE', $event)" [ngStyle]="{ 'width': '400px' }">
+                                      <option value="">{{ data.CODE }} - {{ data.NAME }}</option>
+                                      <option *ngFor="let item of codeValues" [value]="item.code">{{ item.code }} - {{ item.name }}</option>
+                                      <option *ngIf="data.NAME && data.CODE" [value]="data.CODE">{{ data.CODE }} - {{ data.NAME }}</option>
+                                    </select>
+                                  </td> -->
+                                  <td>
+                                    <select (change)="updateDropdown(data, $event)" [ngStyle]="{ 'width': '400px' }">
+                                      <option value="">{{ data.CODE }} - {{ data.NAME }}</option>
+                                      <option *ngFor="let item of codeValues" [value]="item.code">{{ item.code }} - {{ item.name }}</option>
+                                      <option *ngIf="data.NAME && data.CODE" [value]="data.CODE">{{ data.CODE }} - {{ data.NAME }}</option>
+                                    </select>
+                                  </td>
+                                  
+                                  <td>
+                                    <select (change)="updateDropdown(data, 'SUB_COLUMN', $event)">
+                                      <!-- Static option for 'NA' -->
+                                      <option value="NA">NA</option>
+                                      <!-- Dynamic options from drcr array -->
+                                      <option *ngFor="let item of drcr" [value]="item.id">{{ item.name }}</option>
+                                    </select>
+                                  </td>
+                                  
+                                </tr>
+                              </tbody>
+                            
+                              <tbody *ngIf="tabledata?.length == 0">
+                                <tr>
+                                  <td colspan="9" class="no-data-available">
+                                    <!-- No data! -->
+                                    {{'master.Action.No_Data' | translate}}</td>
+                                </tr>
+                              </tbody>
+  
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+  
+              <!-- <div class="row">
+                <div class="col-12">
+                  <div class="card shadow">
+                    <div class="card-block">
+                      <div class="row">
+                        <div class="col-sm">
+                          <div class="table-responsive">
+                            <table datatable [dtOptions]="dtExportButtonOptions"
+                              class="table table-striped table-bordered table-hover compact" id="customermastertable">
+                              <thead>
+                                <tr>
+                                  <th>Account Number</th>
+                                  <th>Account Name</th>
+                                  <th>Effect Date</th>
+                                  <th>Effect To Date</th>
+                                  <th>Code</th>
+                                  <th>Name</th>
+                                  <th>Sub Column</th>
+                                </tr>
+                                <tr>
+                                  <th colspan="7">
+                                    <form [formGroup]="angForm" class="search-form">
+                                      <input formControlName="accountNumber" (input)="filterTableData()"
+                                        placeholder="Search by Account Number">
+                                      <input formControlName="code" (input)="filterTableData()"
+                                        placeholder="Search by Code">
+                                    </form>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody *ngIf="tabledata?.length != 0">
+                                <tr *ngFor="let data of filteredData">
+                                  <td contenteditable="true" [ngClass]="data.AC_NO === '' ? 'td_center' : 'td_left'">
+                                    {{ data.AC_NO === "" ? "-" : data.AC_NO }}
+                                  </td>
+                                  <td contenteditable="true" [ngClass]="data.AC_NAME === '' ? 'td_center' : 'td_left'">
+                                    {{ data.AC_NAME === "" ? "-" : data.AC_NAME }}
+                                  </td>
+                                  <td contenteditable="true"
+                                    [ngClass]="data.EFFECT_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_DATE === "" ? "-" : data.EFFECT_DATE }}
+                                  </td>
+                                  <td contenteditable="true"
+                                    [ngClass]="data.EFFECT_TO_DATE === '' ? 'td_center' : 'td_left'">
+                                    {{ data.EFFECT_TO_DATE === "" ? "-" : data.EFFECT_TO_DATE }}
+                                  </td>
+                                  <td contenteditable="true">
+                                    <select>
+                                      <option value="">-</option>
+                                      <option *ngFor="let CODE of codeValues" [value]="CODE">{{ CODE }}</option>
+                                    </select>
+                                  </td>
+                                  <td contenteditable="true" [ngClass]="data.NAME === '' ? 'td_center' : 'td_left'">
+                                    {{ data.NAME === "" ? "-" : data.NAME }}
+                                  </td>
+                                  <td contenteditable="true" [ngClass]="data.SUB_COLUMN === '' ? 'td_center' : 'td_left'">
+                                    <div class="custom-select-wrapper">
+                                      <select [(ngModel)]="defaultValue">
+                                        <option value="">NA</option>
+                                        <option *ngFor="let item of drcr" [value]="item.id">{{ item.name }}</option>
+                                      </select>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              <tbody *ngIf="tabledata?.length == 0">
+                                <tr>
+                                  <td colspan="7" class="no-data-available">No data!</td>
+                                </tr>
+                              </tbody>
+  
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+  
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>

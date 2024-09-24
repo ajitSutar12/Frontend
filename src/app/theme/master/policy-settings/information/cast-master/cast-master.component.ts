@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../../environments/environment'
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -71,7 +71,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private castMasterService: CastMasterService,
-    private http: HttpClient) { this.createForm(); }
+    private http: HttpClient,private translate:TranslateService) { this.createForm(); }
 
 
   ngOnInit(): void {
@@ -120,15 +120,15 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Cast_master.Action'),
 
         },
         {
-          title: 'Category Code',
+          title: this.translate.instant('master.Cast_master.Cast_Code'),
           data:'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Cast_master.Descaption'),
           data:'NAME'
         }
       ],

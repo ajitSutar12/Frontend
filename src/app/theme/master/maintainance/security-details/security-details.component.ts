@@ -17,6 +17,9 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { VoucherEntryService } from '../../../transaction/voucher-entry/voucher-entry.service'
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @Component({
   selector: 'app-security-details',
@@ -74,6 +77,7 @@ export class SecurityDetailsComponent implements OnInit {
   private dataSub: Subscription = null;
   schemeACNo: any;
   getscheme: any;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private_router: Router,
@@ -85,8 +89,16 @@ export class SecurityDetailsComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
     private _voucher: VoucherEntryService,
+    private config: NgSelectConfig,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+     }
 
-    private config: NgSelectConfig,) { }
   ngOnInit(): void {
     this.createForm()
     let data: any = localStorage.getItem('user');
@@ -170,7 +182,7 @@ export class SecurityDetailsComponent implements OnInit {
     this.accountedit1 = null
     this.ngsecurityCode = null
     if (this.ngBranchCode == null)
-      Swal.fire('Please select branch')
+      Swal.fire(`${this.translate.instant('Swal_Msg.branch')}`)
     // else if (this.schemeedit == null)
     //   Swal.fire('Please select Scheme')
     else {
@@ -838,6 +850,9 @@ export class SecurityDetailsComponent implements OnInit {
 
   onFocus(ele: NgSelectComponent) {
     ele.open()
+  }
+  selectLanguage(event:any){
+    this.translate.use(event.target.value);
   }
 
 }

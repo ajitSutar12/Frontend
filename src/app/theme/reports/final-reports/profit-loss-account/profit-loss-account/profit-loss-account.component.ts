@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from "src/environments/environment";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -33,10 +34,13 @@ export class ProfitLossAccountComponent implements OnInit {
   ngbranch
   branchOption: any;
   branchName
+  setLang: string;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,) {
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService) 
+    {
+
     // this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -57,6 +61,8 @@ export class ProfitLossAccountComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.fromdate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
   }

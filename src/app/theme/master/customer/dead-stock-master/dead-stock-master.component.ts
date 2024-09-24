@@ -32,7 +32,8 @@ import { first } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import * as moment from 'moment';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
-import { NgSelectComponent } from '@ng-select/ng-select'
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from "@ngx-translate/core";
 
 // Handling datatable data
 class DataTableResponse {
@@ -142,6 +143,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   ngGlAC: any = null
   maxDate: any;
   purValue: any
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -150,6 +152,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     private DepriciationCatDropdownMaster: DepriciationCatDropdownMasterService,
     private ACMasterDropdownService: ACMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
@@ -160,6 +163,8 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -214,47 +219,58 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       },
       columns: [
         {
-          title: "Action",
+          // title: "Action",
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: "Item Code",
+          // title: "Item Code",
+          title: this.translate.instant('master.Dead_Stock_Master.Item_Code'),
           data: "ITEM_CODE",
         },
         {
-          title: "Item Name",
+          // title: "Item Name",
+          title: this.translate.instant('master.Dead_Stock_Master.Item_Name'),
           data: "ITEM_NAME",
         },
         {
-          title: "SupplierName",
+          // title: "SupplierName",
+          title: this.translate.instant('master.Dead_Stock_Master.Supp_Name'),
           data: "SUPPLIER_NAME",
         },
         {
-          title: "Purchase Date",
+          // title: "Purchase Date",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Date'),
           data: "PURCHASE_DATE",
         },
         {
-          title: "Depreciation Category",
+          // title: "Depreciation Category",
+          title: this.translate.instant('master.Dead_Stock_Master.Dep_Category'),
           data: "DEPR_CATEGORY",
         },
         {
-          title: "Purchase Quantity",
+          // title: "Purchase Quantity",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Qty'),
           data: "PURCHASE_QUANTITY",
         },
         {
-          title: "Purchase Rate",
+          // title: "Purchase Rate",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Rate'),
           data: "PURCHASE_RATE",
         },
 
         {
-          title: "Purchase Value",
+          // title: "Purchase Value",
+          title: this.translate.instant('master.Dead_Stock_Master.Purchase_Val'),
           data: "PURCHASE_VALUE",
         },
         {
-          title: "Last Depreciation Date",
+          // title: "Last Depreciation Date",
+          title: this.translate.instant('master.Dead_Stock_Master.Last_Dep_Date'),
           data: "LAST_DEPR_DATE",
         },
         {
-          title: "GL Account Number",
+          // title: "GL Account Number",
+          title: this.translate.instant('master.Dead_Stock_Master.GL_Ac_No'),
           data: "GL_ACNO",
         },
       ],
@@ -512,12 +528,16 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.angForm.controls['OP_BAL_DATE'].reset()
         this.angForm.patchValue({
           // ITEM_TYPE: data.ITEM_TYPE,
+          SUPPLIER_NAME: data.SUPPLIER_NAME,    //editClickhandler patch
+          OP_BALANCE:data.OP_BALANCE,           //editClickhandler patch value 
+          LAST_DEPR_DATE:data.LAST_DEPR_DATE,
           ITEM_CODE: data.ITEM_CODE,
           ITEM_NAME: data.ITEM_NAME,
-          // OP_BALANCE:data.OP_BALANCE,
+          // OP_BALANCE:data.OP_BALANCE, //patch value
           OP_QUANTITY: data.OP_QUANTITY,
           PURCHASE_RATE: data.PURCHASE_RATE,
-          PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+          // PURCHASE_OP_QUANTITY: data.PURCHASE_OP_QUANTITY,
+          PURCHASE_OP_QUANTITY: data.PURCHASE_QUANTITY, //editClickhandler patch
           PURCHASE_VALUE: data.PURCHASE_VALUE,
           PURCHASE_DATE: (data.PURCHASE_DATE == 'Invalid date' || data.PURCHASE_DATE == '' || data.PURCHASE_DATE == null) ? date = '' : date = data.PURCHASE_DATE,
           // DEPR_CATEGORY: Number(data.DEPR_CATEGORY),

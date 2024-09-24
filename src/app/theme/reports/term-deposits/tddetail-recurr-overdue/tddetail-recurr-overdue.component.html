@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Term Deposit Details List and Recurring Overdue </h5>
+                <h5>{{'master.Term_Deposit_Reports.T7' | translate}}  </h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable"> 
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card">
@@ -13,7 +13,7 @@
                 <div class="card-block"> 
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
+                        <div class="col-sm-12 col-md-1"> <label for="Branch">{{'master.Term_Deposit_Reports.Branch' | translate}} <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -35,11 +35,11 @@
                                 *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for=" Date">{{'master.Term_Deposit_Reports.Scheme_Code' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-3">
@@ -58,12 +58,13 @@
                                 *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                    This field is required
+                                                                      <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for=" Date">{{'master.Term_Deposit_Reports.Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -80,7 +81,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="ngForm.controls['DATE'].errors?. maxlength || ngForm.controls['DATE'].errors?. minlength || ngForm.controls['DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -93,7 +94,7 @@
                                     <input type="checkbox" class="border-checkbox" id="Show_Only_Top"
                                         formControlName="Show_Only_Top">
                                     <label class="border-checkbox-label" for="Show_Only_Top">
-                                        Want to print the due date ?</label>
+                                        {{'master.Term_Deposit_Reports.Print' | translate}}</label>
                                 </div>
                             </div>
                         </div> 
@@ -102,18 +103,18 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true;scrollToTop() ">View</button>
+                                (click)="view($event); clicked = true;scrollToTop() ">{{'master.Action.View' | translate}}</button>
 
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close' | translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Term_Deposit_Reports.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url' ></app-iframe5>

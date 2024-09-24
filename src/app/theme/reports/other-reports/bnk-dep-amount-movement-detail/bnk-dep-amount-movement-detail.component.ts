@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { DomSanitizer} from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-bnk-dep-amount-movement-detail',
   templateUrl: './bnk-dep-amount-movement-detail.component.html',
@@ -49,13 +51,20 @@ export class BnkDepAmountMovementDetailComponent implements OnInit {
        { id: 2, value: "Details" },
        { id: 3, value: "Subsidairy Grouping" },
      ];
+  setLang: string;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter:SystemMasterParametersService,
     private sanitizer: DomSanitizer,   
-      public router: Router, )
-      {  this.todate = moment().format('DD/MM/YYYY');
+      public router: Router,  private translate:TranslateService)
+      { 
+        this.systemParameter.getFormData(1).subscribe(data => {
+    
+          this.setLang = data.SET_LANGUAGE
+          this.translate.setDefaultLang(this.setLang);
+        })
+         this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
       this.minDate.setDate(this.minDate.getDate() - 1);

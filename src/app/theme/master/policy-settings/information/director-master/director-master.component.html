@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Director Master</h5>
+                <h5>{{'master.Director_Master.Director_Master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Director_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Director_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -15,7 +15,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="CODE"
                                         disabled formControlName="CODE">
-                                    <label for="CODE">Director Code</label>
+                                    <label for="CODE">{{'master.Director_Master.Director_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH_CODE">Branch</label>
+                                    <label for="BRANCH_CODE">{{'master.Director_Master.Branch' | translate}}</label>
                                 </span>
                             </div>
                             <!-- 
@@ -48,7 +48,7 @@
                                         #autofocus required pattern="^[A-Za-z\./ -]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="NAME">Director Name<sub class="required">* </sub></label>
+                                    <label for="NAME">{{'master.Director_Master.Director_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -56,7 +56,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'Utility.Validation.Val1' | translate}} <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                                         title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="60"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         formControlName="DESIGNATION">
-                                    <label for="DESIGNATION">Designation<sub class="required">* </sub></label>
+                                    <label for="DESIGNATION">{{'master.Director_Master.Designation' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -76,7 +76,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['DESIGNATION'].errors?.pattern || angForm.controls['DESIGNATION'].errors?.required || angForm.controls['DESIGNATION'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'Utility.Validation.Val1' | translate}}<!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
                                     <textarea appTheme type="text" name="address" class="form-control" placeholder=" "
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)" id="AC_ADDR1" required
                                         formControlName="AC_ADDR1" maxlength="100"></textarea>
-                                    <label for="AC_ADDR1">Address<sub class="required">* </sub></label>
+                                    <label for="AC_ADDR1">{{'master.Director_Master.Address' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -96,7 +96,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_ADDR1'].errors?.pattern || angForm.controls['AC_ADDR1'].errors?.required || angForm.controls['AC_ADDR1'].errors?.maxlength">
-                                    Input allowed only A-Z a- 0-9 - / . (Space)
+                                    {{'Utility.Validation.Val_ward' | translate}}  <!-- Input allowed only A-Z a- 0-9 - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                     <textarea type="text" name="address" class="form-control" placeholder=" "
                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_ADDR2"
                                         formControlName="AC_ADDR2" maxlength="100"></textarea>
-                                    <label for="AC_ADDR2">Address</label>
+                                    <label for="AC_ADDR2">{{'master.Director_Master.Address' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -114,7 +114,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_ADDR2'].errors?.pattern || angForm.controls['AC_ADDR2'].errors?.maxlength">
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    {{'Utility.Validation.Val_ward' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                     <textarea type="text" name="address" class="form-control" placeholder=" "
                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)" id="AC_ADDR3"
                                         formControlName="AC_ADDR3" maxlength="100"></textarea>
-                                    <label for="AC_ADDR3">Address</label>
+                                    <label for="AC_ADDR3">{{'master.Director_Master.Address' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -132,7 +132,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_ADDR3'].errors?.pattern || angForm.controls['AC_ADDR3'].errors?.maxlength">
-                                    Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    {{'Utility.Validation.Val_ward' | translate}} <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -147,11 +147,11 @@
                                     <ng-select bindValue="value" [(ngModel)]="ngCity" id="AC_CTCODE"
                                         formControlName="AC_CTCODE"  #AC_CTCODE (focus)="onFocus(AC_CTCODE)" [selectOnTab]='true'
                                          title="Compulsory Selection" [virtualScroll]="true"
-                                        placeholder="City Code">
+                                        placeholder=" ">
                                         <ng-option *ngFor="let values of city" [value]="values">
                                             {{values.name}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_CTCODE">City Code</label>
+                                    <label for="AC_CTCODE">{{'master.Director_Master.City_Code' | translate}}</label>
                                 </span>
                             </div>
                             <!-- <div class="form-group input-group">
@@ -179,7 +179,7 @@
                                         id="AC_PIN" pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="6"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="AC_PIN">
-                                    <label for="AC_PIN">Pin Code</label>
+                                    <label for="AC_PIN">{{'master.Director_Master.Pin_Code' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -187,7 +187,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_PIN'].errors?.pattern || angForm.controls['AC_PIN'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Pin_Code' | translate}} <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -196,7 +196,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox1"
                                         formControlName="IS_CURRENT_BODY_MEMBER">
-                                    <label class="border-checkbox-label" for="checkbox1">Current Body Member
+                                    <label class="border-checkbox-label" for="checkbox1">{{'master.Director_Master.Current_Body_Member' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9"
                                         formControlName="AC_MOBILENO">
-                                    <label for="AC_MOBILENO">Mobile Number</label>
+                                    <label for="AC_MOBILENO">{{'master.Director_Master.Mobile_Number' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -221,7 +221,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_MOBILENO'].errors?.pattern || angForm.controls['AC_MOBILENO'].errors?.maxlength || angForm.controls['AC_MOBILENO'].errors?.minlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Pin_Code' | translate}} <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox2"
                                         formControlName="SMS_REQUIRED">
-                                    <label class="border-checkbox-label" for="checkbox2">Require SMS facility
+                                    <label class="border-checkbox-label" for="checkbox2">{{'master.Director_Master.Require_SMS_facility' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -238,11 +238,11 @@
 
                         <div class="col-md-4">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Director_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.Director_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Director_Master.Update' | translate}}</button>&nbsp;
 
                         </div>
                     </div>
@@ -282,7 +282,7 @@
                                 </tbody>
                                 <tbody *ngIf="directorMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">
