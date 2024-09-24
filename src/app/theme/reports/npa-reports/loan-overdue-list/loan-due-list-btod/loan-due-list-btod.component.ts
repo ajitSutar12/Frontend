@@ -96,8 +96,8 @@ createForm(){
     branch: ['',[Validators.required]],
     fdate: ['',[Validators.required]],
     tdate: ['',[Validators.required]],
-    // mininst: ['',[Validators.required]],
-    // maxinst: ['',[Validators.required]]
+    mininst: ['',[Validators.required]],
+    maxinst: ['',[Validators.required]]
     
   });
 }

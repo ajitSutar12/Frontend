@@ -201,7 +201,10 @@
             "AmountBalList": "रक्कमेप्रमाणे शिल्लक लिस्ट",
             "DeadStockDepCatList": "डेडस्टॉक घसारा प्रवर्ग प्रमाणे यादी",
             "BalConCertificate": "खाते शिल्लक प्रमाणपत्र",
-            "shortballist": "शॉर्ट शिल्लक यादी"
+            "shortballist": "शॉर्ट शिल्लक यादी",
+            "Categorywise": "प्रवर्गाप्रमाणे",
+            "All_Categorywise": "सर्व प्रवर्गाप्रमाणे",
+            "All": "सर्व"
         },
         "registers": {
             "registers": "रजिस्टर",
@@ -2514,7 +2517,7 @@
             "Depreciation": "घसारा"
         },
         "Daily_Reports": {
-            "Title": "तपशीलवार/सारांशासह दिवसाच्या पुस्तकातून टी",
+            "Title": "टी नमूना रोजकीर्द ",
             "Branch": "शाखा",
             "Type": "प्रकार",
             "Detail": "तपशील",
@@ -2766,7 +2769,16 @@
             "Branch": "शाखा",
             "Start_Date": "आरंभ दिनांक",
             "End_Date": "अखेर दिनांक",
-            "Report_Frame": "अहवाल फ्रेम"
+            "Report_Frame": "अहवाल फ्रेम",
+            "Date": "दिनांक",
+            "Swanidhi": "स्वनिधी ",
+            "MIS_INFO": "MIS इन्फो",
+            "From_Date": "आरंभ दिनांक",
+            "To_Date": "अखेर दिनांक",
+            "Type": "प्रकार",
+            "Start_Code": "सुरवातीचा कोड ",
+            "End_Code": "शेवटचा कोड",
+            "expenses_list": "खर्च"
         },
         "Final_Reports": {
             "T1": "चाचणी शिल्लक सूची (संक्षिप्त)",

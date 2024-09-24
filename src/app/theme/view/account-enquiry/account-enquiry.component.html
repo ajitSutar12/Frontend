@@ -147,7 +147,7 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                  
                                     <div class="col-sm col-md">
                                         <button class="btn btn-outline-primary btn-sm" (click)="getTransactionDetails()"
                                             [disabled]="angForm.invalid">Refresh</button>
@@ -1165,7 +1165,7 @@
                                     <li class="mb-75">
                                         <!-- <a><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info</a> -->
                                         <a href="javascript:void(0);" (click)="openModal()">
-                                            <i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info
+                                          <i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info
                                         </a>
                                     </li>
 
@@ -2434,24 +2434,12 @@
 
 <div class="modal text-black" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
     <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: rgb(148, 19, 131);">
-                <label style="color: white;">OD INFORMATION</label>
-                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div><label>Temporary Amount : {{AC_ODAMT}}</label></div>
-                <div><label>Periodical Amount : {{AC_SODAMT}}</label></div>
-                <div><label>Sanctioned By : {{AC_OD_ASSIGNBY}}</label></div>
-                <div><label>Expire Date : {{OD_EXPIRE_DATE}}</label></div>
-                <div><label>OD Days : {{AC_ODDAYS}}</label></div>
-            </div>
-            <div class="modal-footer">
-                <button style="background-color: rgb(230, 97, 9);" type="button" class="btn btn-default"
-                    (click)="onCloseHandled()">Close</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: rgb(148, 19, 131);">
+          <label style="color: white;">OD INFORMATION</label>
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
     </div>
 </div>
@@ -2569,5 +2557,9 @@
                 <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
             </div>
         </div>
+        <div class="modal-footer">
+          <button style="background-color: rgb(230, 97, 9);" type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>

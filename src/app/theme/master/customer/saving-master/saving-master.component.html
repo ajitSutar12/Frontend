@@ -727,7 +727,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TWARD" class="form-control" placeholder=" "
-                                      id="AC_TWARD" pattern="^[A-Za-z\./ -]+$" maxlength="10"
+                                      id="AC_TWARD" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="10"
                                       title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TWARD" />
                                     <label for="AC_TWARD">
                                       <!-- Ward -->
@@ -776,7 +776,7 @@
                                 <div class="form-group input-group">
                                   <span class="border-lable-flt">
                                     <input type="text" name="AC_TAREA" class="form-control" placeholder=" "
-                                      id="AC_TAREA" pattern="^[A-Za-z\./ -]+$" maxlength="60"
+                                      id="AC_TAREA" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="60"
                                       title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="AC_TAREA" />
                                     <label for="AC_TAREA">
                                       <!-- Area -->
@@ -923,7 +923,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GRDNAME" class="form-control" placeholder=" "
-                                    id="AC_GRDNAME" pattern="^[A-Za-z\./ -]+$" [ngClass]="
+                                    id="AC_GRDNAME" pattern="^[\u0900-\u097F A-Za-z]+$" [ngClass]="
                                       introducerReq === true
                                         ? 'formSubmitted'
                                         : ''
@@ -955,7 +955,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="AC_GRDRELE" class="form-control" placeholder=" "
-                                    id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$" [ngClass]="
+                                    id="AC_GRDRELE" pattern="^[\u0900-\u097F A-Za-z]+$" [ngClass]="
                                       introducerReq === true
                                         ? 'formSubmitted'
                                         : ''
@@ -987,7 +987,7 @@
                               <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                   <input type="text" name="SIGNATURE_AUTHORITY" class="form-control" placeholder=" "
-                                    id="SIGNATURE_AUTHORITY" pattern="^[A-Za-z\./ -]+$" [ngClass]="
+                                    id="SIGNATURE_AUTHORITY" pattern="^[\u0900-\u097F A-Za-z]+$" [ngClass]="
                                       introducerReq === true
                                         ? 'formSubmitted'
                                         : ''
@@ -1129,7 +1129,7 @@
                                           <input type="text" appTheme name="AC_NNAME" class="form-control"
                                             placeholder=" " [ngClass]="{
                                               'form-submitted': formSubmitted
-                                            }" id="AC_NNAME" pattern="^[A-Za-z\./ -]+$"
+                                            }" id="AC_NNAME" pattern="^[\u0900-\u097F A-Za-z]+$"
                                             style="text-transform: capitalize"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             formControlName="AC_NNAME" maxlength="100" (keypress)="
@@ -1166,7 +1166,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" appTheme name="AC_NRELA" class="form-control"
-                                            placeholder=" " id="AC_NRELA" pattern="^[A-Za-z\./ -]+$"
+                                            placeholder=" " id="AC_NRELA" pattern="^[\u0900-\u097F A-Za-z]+$"
                                             style="text-transform: capitalize" (keypress)="
                                               (($event.charCode >= 65 &&
                                                 $event.charCode <= 90) ||
@@ -1355,7 +1355,7 @@
                                       <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                           <input type="text" name="AC_NAREA" class="form-control" placeholder=" "
-                                            id="AC_NAREA" pattern="^[A-Za-z\./ -]+$" maxlength="60"
+                                            id="AC_NAREA" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="60"
                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                             style="text-transform: capitalize" formControlName="AC_NAREA" />
                                           <label for="AC_NAREA">
@@ -1861,7 +1861,7 @@
                                     <div class="form-group input-group">
                                       <span class="border-lable-flt">
                                         <input appTheme type="text" name="ATTERONEY_NAME" class="form-control"
-                                          placeholder=" " id="ATTERONEY_NAME" pattern="^[A-Za-z\./ -]+$"
+                                          placeholder=" " id="ATTERONEY_NAME" pattern="^[\u0900-\u097F A-Za-z]+$"
                                           title="Input allowed only  A-Z a-z  - / . (Space)"
                                           formControlName="ATTERONEY_NAME" maxlength="100" (keypress)="
                                             (($event.charCode >= 65 &&

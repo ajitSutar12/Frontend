@@ -1016,7 +1016,7 @@
                                                                     <input type="text" name="AC_DIRECTOR_RELATION"
                                                                         class="form-control" placeholder=" "
                                                                         id="AC_DIRECTOR_RELATION"
-                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         formControlName="AC_DIRECTOR_RELATION" disabled>
@@ -1401,7 +1401,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TWARD"
                                                                             class="form-control" placeholder=" "
-                                                                            id="AC_TWARD" pattern="^[A-Za-z\./ -]+$"
+                                                                            id="AC_TWARD" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                             maxlength="10"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             formControlName="AC_TWARD" />
@@ -1454,7 +1454,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_TAREA"
                                                                             class="form-control" placeholder=" "
-                                                                            id="AC_TAREA" pattern="^[A-Za-z\./ -]+$"
+                                                                            id="AC_TAREA" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                             maxlength="60"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             formControlName="AC_TAREA" />
@@ -2676,7 +2676,7 @@
                                                                     <input type="text" name="D_AC_REMARK"
                                                                         class="form-control" placeholder=" "
                                                                         id="D_AC_REMARK" value=""
-                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                        pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                         formControlName="D_AC_REMARK">
                                                                     <label for="D_AC_REMARK">{{'master.Customer.Remark'|translate}}</label>

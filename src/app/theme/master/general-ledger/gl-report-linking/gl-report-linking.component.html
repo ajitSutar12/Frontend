@@ -61,6 +61,7 @@
               </button>
 
               <button type="button" class="btn btn-outline-primary btn-sm"
+
                 [ngStyle]="{'background-color': selectedCategory === 'FRIDAY LIRUIDITY' ? 'green' : 'transparent'}"
                 style="color: black;" (click)="onExpensesClick('FRIDAY LIRUIDITY')">
                 <!-- FRIDAY LIRUIDITY -->
@@ -73,7 +74,7 @@
                 <!-- MISINFO -->
                 {{'master.GL_Report_Master.MIS_Info' | translate}}
               </button>
-                
+
             </div>
 
             <h3 style="text-align: center;">{{ selectedCategory }}</h3>

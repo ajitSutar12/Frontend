@@ -204,7 +204,7 @@
                                                                 formControlName="maturedInterest" type="text">
                                                         </td>
                                                     </tr>
-                                                    
+
                                                     <tr>
                                                         <td>After Maturity Days</td>
                                                         <td>
@@ -556,8 +556,8 @@
                                                     <div class="col-sm-12 col-md-6">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
-                                                                <ng-select [(ngModel)]="selectedScheme1" 
-                                                                    appTheme (change)="getIntroducer1($event)"
+                                                                <ng-select [(ngModel)]="selectedScheme1" appTheme
+                                                                    (change)="getIntroducer1($event)"
                                                                     formControlName="scheme1"
                                                                     (focus)="onFocus(selectScheme)"
                                                                     [selectOnTab]='true'>
@@ -590,7 +590,7 @@
                                                     <div class="col-sm-6">
                                                         <div class="form-group form-primary form-static-label">
                                                             <span class="border-lable-flt">
-                                                                <ng-select [(ngModel)]="customer1" 
+                                                                <ng-select [(ngModel)]="customer1"
                                                                     formControlName="ac_no" #selectAcc
                                                                     (focus)="onFocus(selectAcc)" [selectOnTab]='true'
                                                                     appTheme [virtualScroll]="true"
@@ -695,9 +695,9 @@
 
                                                 <!-- Multiple Transaction details data show here -->
 
-                                                <div class="row" *ngIf="headShow">
+                                                <div class="row">
                                                     <div class="col-md-12">
-                                                        <div class="solid">
+                                                        <div class="solid" *ngIf="headShow">
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <table
@@ -837,7 +837,7 @@
                                                                             Total
                                                                         </td>
                                                                         <td [ngClass]="'td_right'">
-                                                                            {{totalAmt}}
+                                                                            {{transferTotalAmount}}
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -848,13 +848,13 @@
 
                                                 <div class="row">
                                                     <div class="col-md-3">
-                                                        Total Credit : {{totalAmt}}
+                                                        Total Credit : {{transferTotalAmount}}
                                                     </div>
                                                     <div class="col-md-3">
                                                         Total Debit : {{totalNetAmt}}
                                                     </div>
                                                     <div class="col-md-3">
-                                                        Difference: {{totalAmt - totalNetAmt}}
+                                                        Difference: {{transferTotalAmount - totalNetAmt}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -906,7 +906,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -926,7 +926,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -945,7 +945,7 @@
                                                 aria-hidden="true"></i> {{Pass}}.00</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-info rounded float-start">
                                             <div class="avatar-content">
@@ -963,7 +963,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -982,7 +982,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md"  *ngIf="hideShow">
+                                <div class="col-md" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -999,7 +999,7 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{opDate}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-info rounded float-start">
                                             <div class="avatar-content">
@@ -1018,7 +1018,7 @@
                                             {{asOnDate==null?'---':asOnDate}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -1037,7 +1037,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -1055,7 +1055,7 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{recNo}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-info rounded float-start">
                                             <div class="avatar-content">
@@ -1073,7 +1073,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-primary rounded float-start">
                                             <div class="avatar-content">
@@ -1090,7 +1090,7 @@
                                             style="margin-left: auto;order: 2;font-size: 12px;">{{months}}</div>
                                     </div>
                                 </div>
-                                <div class="col-md-12"  *ngIf="hideShow">
+                                <div class="col-md-12" *ngIf="hideShow">
                                     <div class="transaction-item">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">

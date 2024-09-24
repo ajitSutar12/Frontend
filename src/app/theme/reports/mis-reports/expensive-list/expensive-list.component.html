@@ -2,20 +2,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Expenses List</h5>
+                <h5>{{'master.Ms_Reports.expenses_list' |translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' |
+                    translate}}
                 </h6>
             </div>
             <form [formGroup]="angForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="Branch">Branch
+                        <div class="col-sm-12 col-md-1"> <label for="Branch">{{'master.Ms_Reports.Branch' |translate}}
                                 <sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="ngbranch" formControlName="BRANCH"
+                                    <ng-select [(ngModel)]="ngbranch" formControlName="BRANCH"  bindValue="value" bindLabel="label"
                                         (change)="getbranch($event)">
                                         <ng-option *ngFor="let item of branchOption" [value]="item.value">
                                             {{item.label}}</ng-option>
@@ -27,13 +28,13 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="col-sm-12 col-md-1">
-                            <label>From Date<sub class="required">*</sub></label>
+                            <label>{{'master.Ms_Reports.From_Date' |translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -41,21 +42,22 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="from_Date" id="from_Date" appDateValidation
                                         class="form-control"  formControlName="from_Date" appButton
                                         minlength="10" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        
-                                        bsDatepicker  (change)="getdata($event)">
+
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker (change)="getdata($event)">
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['from_Date'].invalid &&
                             (angForm.controls['from_Date'].dirty ||angForm.controls['from_Date'].touched) "
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['from_Date'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
 
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-1">
-                            <label>To Date<sub class="required">*</sub></label>
+                            <label>{{'master.Ms_Reports.To_Date' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -63,7 +65,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="to_Date" id="to_Date"
                                         class="form-control" appDateValidation formControlName="to_Date" appButton
                                         minlength="10" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                       
+
                                         bsDatepicker>
                                 </span>
                             </div>
@@ -71,38 +73,38 @@
                             (angForm.controls['to_Date'].dirty ||angForm.controls['to_Date'].touched) "
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['to_Date'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
 
                             </div>
 
 
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="Branch">Type
-                            <sub class="required">*</sub></label></div>
-                    <div class="col-sm-12 col-md-2">
-                        <div class="form-group form-primary form-static-label">
-                            <span class="border-lable-flt">
-                                <ng-select [(ngModel)]="ngType" formControlName="type"
-                                (change)="getType($event)">
-                                <ng-option *ngFor="let item of type" [value]="item">
-                                    {{item.type}}</ng-option>
-                            </ng-select>
+                        <div class="col-sm-12 col-md-1"> <label for="Branch">{{'master.Ms_Reports.Type' |translate}}
+                                <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group form-primary form-static-label">
+                                <span class="border-lable-flt">
+                                    <ng-select [(ngModel)]="ngType" formControlName="type" (change)="getType($event)">
+                                        <ng-option *ngFor="let item of type" [value]="item">
+                                            {{item.type}}</ng-option>
+                                    </ng-select>
 
-                            </span>
-                        </div>
-                        <div class="form-group form-primary form-static-label"
-                            *ngIf="angForm.controls['type'].invalid && (angForm.controls['type'].dirty || angForm.controls['type'].touched)"
-                            class="alert alert-danger">
-                            <div *ngIf="angForm.controls['type'].errors?.required">
-                                This field is required
+                                </span>
                             </div>
-                        </div>
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['type'].invalid && (angForm.controls['type'].dirty || angForm.controls['type'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="angForm.controls['type'].errors?.required">
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+                                </div>
+                            </div>
 
-                    </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-1"> <label for="Start_code">Start code<sub class="required">*</sub></label>
+                        <div class="col-sm-1"> <label for="Start_code">{{'master.Ms_Reports.Start_Code' |translate}}<sub
+                                    class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -118,12 +120,12 @@
                                 *ngIf="angForm.controls['StartCode'].invalid && (angForm.controls['StartCode'].dirty || angForm.controls['StartCode'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['StartCode'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="Start_code">End code<sub
-                                    class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="Start_code">{{'master.Ms_Reports.End_Code'
+                                |translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -139,25 +141,25 @@
                                 *ngIf="angForm.controls['endcode'].invalid && (angForm.controls['endcode'].dirty || angForm.controls['endcode'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['endcode'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                       
-                        <div class="col-md-1"><label for="status">Status</label></div>
+
+                        <div class="col-md-1"><label for="status">{{'membincdec.Status' |translate}}</label></div>
                         <div class="col-md-2">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
                                             value="SUBMISSION" [checked]="true">
-                                        <i class="helper"></i>Detail</label>
+                                        <i class="helper"></i>{{'membincdec.Detail' |translate}}</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="SUBMISSION" formControlName="SUBMISSION"
                                             value="RETURN">
-                                        <i class="helper"></i>Summary</label>
+                                        <i class="helper"></i>{{'membincdec.Status' |translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -166,18 +168,20 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="View($event)">View</button>
+                                (click)="View($event)">{{'master.Action.View' |
+                                translate}}</button>
 
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close' |
+                                translate}}</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Ms_Reports.Report_Frame' |translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <div *ngIf="showRepo">

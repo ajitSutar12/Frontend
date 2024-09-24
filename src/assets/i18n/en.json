@@ -201,7 +201,10 @@
             "AmountBalList": "AmountWise Balance List",
             "DeadStockDepCatList": "Deadstock Depriciation Categorywise List",
             "BalConCertificate": "Balance Confirmation Ceritificate",
-            "shortballist": "Short Balance List"
+            "shortballist": "Short Balance List",
+            "Categorywise": "Categorywise",
+            "All_Categorywise": "All Categorywise",
+            "All": "All"
         },
         "registers": {
             "registers": "Registers",
@@ -2758,7 +2761,17 @@
             "Branch": "Branch",
             "Start_Date": "Start Date",
             "End_Date": "End Date",
-            "Report_Frame": "Report Frame"
+            "Report_Frame": "Report Frame",
+            "Date": "Date",
+            "Swanidhi" : "Swanidhi",
+            "MIS_INFO" : "MIS Information",
+
+            "From_Date": "From Date",
+            "To_Date": "To Date",
+            "Type": "Type",
+            "Start_Code" : "Start Code",
+            "End_Code" : "End Code",
+            "expenses_list" : "Expenses List"
         },
         "Final_Reports": {
             "T1": "Trial Balance List (Concise)",

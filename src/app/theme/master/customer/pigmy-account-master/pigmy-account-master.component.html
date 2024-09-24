@@ -145,7 +145,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_SHORT_NAME" required=""
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                             style="text-transform:uppercase;"
                                                                             title="Input allowed only  A-Z  - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 97 && $event.charCode <= 122)"
@@ -996,7 +996,7 @@
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="AC_TWARD"
                                                                                 class="form-control" placeholder=" "
-                                                                                id="AC_TWARD" pattern="^[A-Za-z\./ -]+$"
+                                                                                id="AC_TWARD" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                 maxlength="10"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="AC_TWARD" />
@@ -1057,7 +1057,7 @@
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="AC_TAREA"
                                                                                 class="form-control" placeholder=" "
-                                                                                id="AC_TAREA" pattern="^[A-Za-z\./ -]+$"
+                                                                                id="AC_TAREA" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                 maxlength="60"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="AC_TAREA" />
@@ -1241,7 +1241,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_GRDNAME"
                                                                             class="form-control" placeholder=" "
-                                                                            id="AC_GRDNAME" pattern="^[A-Za-z\./ -]+$"
+                                                                            id="AC_GRDNAME" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             maxlength="100" formControlName="AC_GRDNAME"
                                                                             [required]="introducerReq" />
@@ -1279,7 +1279,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <input type="text" name="AC_GRDRELE"
                                                                             class="form-control" placeholder=" "
-                                                                            id="AC_GRDRELE" pattern="^[A-Za-z\./ -]+$"
+                                                                            id="AC_GRDRELE" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             maxlength="25" formControlName="AC_GRDRELE"
                                                                             [required]="introducerReq" />
@@ -1318,7 +1318,7 @@
                                                                         <input type="text" name="SIGNATURE_AUTHORITY"
                                                                             class="form-control" placeholder=" "
                                                                             id="SIGNATURE_AUTHORITY"
-                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             maxlength="100"
                                                                             formControlName="SIGNATURE_AUTHORITY" />
@@ -1505,7 +1505,7 @@
                                                                                             placeholder=" "
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             id="AC_NNAME"
-                                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                             style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             formControlName="AC_NNAME"
@@ -1551,7 +1551,7 @@
                                                                                             class="form-control"
                                                                                             placeholder=" "
                                                                                             id="AC_NRELA"
-                                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                             style="text-transform: capitalize;"
                                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -1824,7 +1824,7 @@
                                                                                             class="form-control"
                                                                                             placeholder=" "
                                                                                             id="AC_NAREA"
-                                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                             maxlength="60"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             style="text-transform: capitalize;"

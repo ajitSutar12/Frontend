@@ -27,3 +27,20 @@ h1{
 h1 span{
   background-color: white;
 }
+.scrollable-modal-body {
+  max-height: 600px; 
+  overflow-y: auto;
+  overflow-x: hidden; 
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  
+  height: 100%;
+ 
+  background-color: rgba(204, 42, 42, 0.5);
+
+  z-index: 9998;
+}
