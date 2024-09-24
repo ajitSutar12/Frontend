@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoanInstallmentInquiryComponent } from './loan-installment-inquiry.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../user-auth.interceptor';
 import { LoanInstallmentInquiryRoutingModule } from './loan-installment-inquiry-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,7 +9,9 @@ import { SharedModule } from '../../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
-
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +21,14 @@ import { InstallmentMethodService } from '../../../../shared/dropdownService/ins
     NgSelectModule,
     DatepickerModule,
     BsDatepickerModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   providers: [InstallmentMethodService,
     {
@@ -32,3 +40,6 @@ import { InstallmentMethodService } from '../../../../shared/dropdownService/ins
   exports: [LoanInstallmentInquiryComponent]
 })
 export class LoanInstallmentInquiryModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -291,7 +291,7 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
         obj['FROM_DATE'] = date;
       }
 
-      let scheme = obj.AC_TYPE;
+      let scheme = this.getschemename;
       let branch = obj.BRANCH_CODE;
 
       let firstno = this.firstno;
