@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: ExpensiveListComponent ,
     data: {
-      title: 'Excess Cash Report ',
+      title: 'Expenses List',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

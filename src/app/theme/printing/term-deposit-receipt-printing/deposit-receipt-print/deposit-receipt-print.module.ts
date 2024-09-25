@@ -9,11 +9,6 @@ import { DepositReceiptPrintRoutingModule } from './deposit-receipt-print-routin
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { DragDropModule } from '@angular/cdk/drag-drop'
-//Translation
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
-
 
 
 @NgModule({
@@ -23,21 +18,9 @@ import { HttpClient } from '@angular/common/http';
     DataTablesModule,
     FormsModule, ReactiveFormsModule,
     SelectModule,
-    // DragDropModule,
-    //Translation
- TranslateModule.forRoot({
-  loader:{
-    provide: TranslateLoader,
-    useFactory: HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    // DragDropModule
   ],
   declarations: [DepositReceiptPrintComponent],
   providers: [SchemeCodeService, StartingacnoService, EndingacnoService]
 })
 export class DepositReceiptPrintModule { }
-//Translation
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

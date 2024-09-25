@@ -2,17 +2,19 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5> NPA Register Percentage</h5>
+                <!-- <h5> NPA Register Percentage</h5> -->
+                <h5> {{'master.Report_NPA_Registration.T2'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
-                </h6>
+                    {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}}</h6>
             </div>
             <div class="card">
 
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch <sub
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">
+                                {{'master.Report_NPA_Registration.Branch'|translate}}  <!-- Branch  -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-4">
@@ -35,12 +37,14 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.val1'|translate}}    <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">
+                                {{'master.Report_NPA_Registration.Scheme_Code'|translate}}    <!-- Scheme Code -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2 col-md-4">
@@ -58,7 +62,7 @@
                                     *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}} <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +96,9 @@
                         </div>
                     </div> -->
 
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">NPA DATE<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">
+                                {{'master.Report_NPA_Registration.NPA_Date'|translate}}   <!-- NPA DATE -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2 col-md-4">
@@ -124,20 +130,28 @@
                                         <label>
                                             <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="betamt"
                                                 [(ngModel)]="radioValue">
-                                            <i class="helper"></i>In Beetween Sanction Amount </label>
+                                            <i class="helper"></i>
+                                            {{'master.Report_NPA_Registration.In_Bet_Amount'|translate}} 
+                                            <!-- In Beetween Sanction Amount  -->
+                                        </label>
 
                                     </div>
                                     <div class="radio radio-inline">
                                         <label>
                                             <input type="radio" name="OD_TEMP" [(ngModel)]="radioValue"
                                                 formControlName="OD_TEMP" value="betbal">
-                                            <i class="helper"></i>In Beetween Balance</label>
+                                            <i class="helper"></i>
+                                            {{'master.Report_NPA_Registration.In_Bet_Bal'|translate}} <!-- In Beetween Balance -->
+                                        </label>
                                     </div>
                                     <div class="radio radio-inline">
                                         <label>
                                             <input type="radio" name="OD_TEMP" formControlName="OD_TEMP" value="allacc" [(ngModel)]="radioValue"
                                                  (change)="percentageDetail($event)">
-                                            <i class="helper"></i>All Account </label>
+                                            <i class="helper"></i>
+                                            {{'master.Report_NPA_Registration.All_Ac'|translate}} 
+                                            <!-- All Account -->
+                                         </label>
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +167,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md"> <label for=" Date">From<sub
+                                    <div class="col-sm-12 col-md"> <label for=" Date">
+                                        {{'master.Report_NPA_Registration.From'|translate}}   <!-- From -->
+                                        <sub
                                                 class="required">*</sub></label>
                                     </div>
 
@@ -166,7 +182,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for=" Date">To<sub
+                                    <div class="col-sm-12 col-md-2"> <label for=" Date">
+                                        {{'master.Report_NPA_Registration.To'|translate}}   <!-- To -->
+                                        <sub
                                                 class="required">*</sub></label>
                                     </div>
 
@@ -190,7 +208,8 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="npa_per"
                                          formControlName="npa_per" >
-                                        <label class="border-checkbox-label" for="npa_per">Print NPA Standard Account
+                                        <label class="border-checkbox-label" for="npa_per">
+                                            {{'master.Report_NPA_Registration.Print_Npa_Ac'|translate}}   <!-- Print NPA Standard Account -->
                                         </label>
                                     </div>
                                 </div>
@@ -200,8 +219,9 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue"
                                          formControlName="checkboxValue" >
-                                        <label class="border-checkbox-label" for="checkboxValue">Print Only Process NPA
-                                            Account
+                                        <label class="border-checkbox-label" for="checkboxValue">
+                                            {{'master.Report_NPA_Registration.print_only'|translate}} <!-- Print Only Process NPA
+                                            Account -->
                                         </label>
                                     </div>
                                 </div>
@@ -215,18 +235,23 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event);scrollToTop()">View</button>
+                                    (click)="view($event);scrollToTop()">
+                                    {{'master.Action.View'|translate}}   <!-- View -->
+                                </button>
 
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">
+                                    {{'master.Action.Close'|translate}}   <!-- Close -->
+                                </button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>{{'master.Report_NPA_Registration.Report_Frame'|translate}}</h5>
+                                        <!-- <h5>Report Frame</h5> -->
                                     </div>
                                     <div *ngIf="showRepo">
                                         <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
