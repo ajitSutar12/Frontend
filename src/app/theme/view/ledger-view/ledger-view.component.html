@@ -2,16 +2,19 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Ledger View</h5>
+                <!-- <h5>Ledger View</h5> -->
+                <h5>{{'View.Action.T1' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'View.Action.F1' | translate}} (<sub class="required"> * </sub>)  {{'View.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">Branch <sub
+                            <div class="col-sm-12 col-md-1"> <label for="BRANCH_CODE">
+                                <!-- Branch  -->
+                                {{'View.Action.Branch' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
@@ -19,7 +22,7 @@
                                         <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
                                             [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}"
-                                            (change)="getBranch()" placeholder="Branch" #BRANCH_CODE
+                                            (change)="getBranch()" placeholder="{{'View.Action.Branch' | translate}}" #BRANCH_CODE
                                             (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true' autofocus>
                                             <ng-option *ngFor="let values of branchOption" [value]="values">
                                                 {{values.label}}</ng-option>
@@ -31,84 +34,109 @@
                                     *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
+                            <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">
+                                <!-- Scheme -->
+                                {{'View.Action.Scheme' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group form-primary form-static-label" *ngIf="isSchemeShow1">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="SchemeCode" bindValue="value" [(ngModel)]="ngscheme"
                                             formControlName="AC_TYPE" bindLabel="label" (change)="schemechange($event)"
                                             [virtualScroll]="true" title="Compulsory Selection" required
-                                            placeholder="Scheme Code" #AC_TYPE (focus)="onFocus(AC_TYPE)"
+                                            placeholder="{{'View.Action.Scheme_Code' | translate}}" #AC_TYPE (focus)="onFocus(AC_TYPE)"
                                             [selectOnTab]='true'>
                                             <ng-option *ngFor="let values of scheme" [value]="values">
                                                 {{values.id}} {{values.label}}</ng-option>
                                         </ng-select>
                                     </span>
                                 </div>
+                                <div class="form-group input-group" *ngIf="isSchemeShow">
+                                    <span class="border-lable-flt">
+                                        <input type="text" class="form-control" id="AC_TYPE" disabled formControlName="AC_TYPE" (change)="getIntro1($event)">
+                                    </span>
+                                </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_NO">Account Number<sub
+                            <div class="col-sm-12 col-md-2"> <label for="AC_NO">
+                                <!-- Account Number -->
+                                {{'View.Action.Acc_Num' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-4">
-                                <div class="form-group form-primary form-static-label">
+                                <div class="form-group form-primary form-static-label" *ngIf="isAcNo1">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="AC_NO" bindValue="value" [(ngModel)]="accountedit"
                                             formControlName="AC_NO" bindLabel="label" [virtualScroll]="true"
                                             (change)="getAccountDetails($event)" title="Compulsory Selection" required
                                             #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'
-                                            placeholder="Account No." [disabled]="disableFields">
+                                            placeholder="{{'View.Action.Acc_no' | translate}}"  [disabled]="disableFields">
                                             <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                 {{values.label}} {{values.name}}</ng-option>
                                         </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group input-group" *ngIf="isAcNo">
+                                    <span class="border-lable-flt">
+                                        <input type="text" class="form-control" id="AC_NO" disabled formControlName="AC_NO">
                                     </span>
                                 </div>
                                 <div class="form-group form-primary form-static-label"
                                     *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm" *ngIf="freezeac">
-                                <div><label style="color: #1e5bc5">Freez
-                                        Status:{{freezStataus}}</label></div>
+                                <div><label style="color: #1e5bc5">
+                                    <!-- Freez Status: -->
+                                    {{'View.Action.Freez_Status' | translate}} : {{freezStataus}}</label></div>
                             </div>
                             <div class="col-sm" style="float: right; color: rgb(14 168 14);"
-                            *ngIf="isOpen">Account Open</div>
+                            *ngIf="isOpen">
+                            <!-- Account Open --> {{'View.Action.account_open' | translate}}
+                        </div>
                             <div class="col-sm" *ngIf="acclosedon">
-                                <div><label style="color: red; font-size: 15px;">Account Closed On:
+                                <div><label style="color: red; font-size: 15px;">
+                                    <!-- Account Closed On: -->{{'View.Action.Account_Closed_On' | translate}}: 
                                         {{acCloseDate}}</label></div>
                             </div>
                             <div class="col-sm" style="float: right; color: rgb(14 168 14);"
-                                        *ngIf="isMinor">Minor Account
+                                        *ngIf="isMinor">
+                                        <!-- Minor Account -->
+                                        {{'View.Action.Minor_account' | translate}}
                                         <a class="blinking" *ngIf="isMinor" (click)="openModal('minor')"
-                                            style="color: blue;font-style: italic;font-size: x-small;">*Click to
-                                            Show</a>
+                                            style="color: blue;font-style: italic;font-size: x-small;">*
+                                            <!-- Click to Show -->
+                                            {{'View.Action.Click_to_Show' | translate}}</a>
                                     </div>
                                     <div class="col-sm" style="float: right; color: rgb(14 168 14);"
-                                        *ngIf="isJoint">Joint Account 
+                                        *ngIf="isJoint">
+                                        <!-- Joint Account  -->{{'View.Action.Joint_account' | translate}}
                                         <a *ngIf="isJoint" class="blinking"
                                             (click)="openModal('joint')"
-                                            style="color: blue;font-style: italic;font-size: x-small;">*Click to
-                                            Show</a>
+                                            style="color: blue;font-style: italic;font-size: x-small;">*
+                                           <!-- Click to Show -->
+                                           {{'View.Action.Click_to_Show' | translate}}</a>
                                     </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date<sub
+                            <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">
+                                <!-- From Date -->
+                                {{'View.Action.From_Date' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
@@ -128,11 +156,13 @@
                                     *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date<sub
+                            <div class="col-sm-12 col-md-2"> <label for="TO_DATE">
+                                <!-- To Date -->
+                                {{'View.Action.To_Date' | translate}}<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <!-- <div class="form-group input-group">
@@ -166,16 +196,19 @@
                                     *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-3" style="font-size:13px;">
-                                <button class="btn btn-primary" disabled></button>&nbsp; Unpassed Accounts
+                                <button class="btn btn-primary" disabled></button>&nbsp; 
+                                <!-- Unpassed Accounts -->{{'View.Action.Un_passed' | translate}}
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">Account Opening Date</label></div>
+                            <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">
+                                <!-- Account Opening Date -->
+                                {{'View.Action.Acc_Opening_Date' | translate}}</label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -189,12 +222,14 @@
                                     *ngIf="angForm.controls['AC_OPDATE'].invalid && (angForm.controls['AC_OPDATE'].dirty || angForm.controls['AC_OPDATE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
-                                        This field is required.
+                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-2"><label for="AMOUNT">Matured But Not Paid Amount</label>
+                            <div class="col-sm-12 col-md-2"><label for="AMOUNT">
+                                <!-- Matured But Not Paid Amount -->
+                                {{'View.Action.Matu_But_Paid_Am' | translate}}</label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -206,12 +241,14 @@
 
                             </div>
                             <div class="col-sm-3" style="font-size:13px;">
-                                <button class="btn" style="background-color: #bc31e9;" disabled></button>&nbsp;Interest
-                                Vouchers
+                                <button class="btn" style="background-color: #bc31e9;" disabled></button>&nbsp;
+                                <!-- Interest Vouchers -->{{'View.Action.Interest_Vouchers' | translate}}
                             </div>
                             <div class="col-sm" *ngIf="showView">
                                 <button class="btn btn-outline-primary btn-sm" (click)="getTransactionsDeatils()"
-                                    (keydown.Tab)="focus()">View</button>
+                                    (keydown.Tab)="focus()">
+                                    <!-- View -->
+                                    {{'View.Action.View' | translate}}</button>
                             </div>
                         </div>
                     </div>
@@ -241,22 +278,22 @@
             <div class="table-responsive fixTableHead">
                 <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
                     <thead>
-                        <td class="td_center">Date</td>
-                        <td>Cheque Number</td>
-                        <td>Particulars</td>
-                        <td class="td_center">Tran Type</td>
-                        <td class="td_right">Debit Amount</td>
-                        <td class="td_right">Credit Amount</td>
-                        <td class="td_right">Closing Balance</td>
-                        <td>Normal Interest</td>
-                        <td>Recbl/Payable Interest</td>
-                        <td>Overdue Interest</td>
-                        <td>Penal Interest</td>
-                        <td>Receivable Penal</td>
-                        <td class="td_right">Other Amount</td>
-                        <td>Added Penal</td>
-                        <td class="td_right">Voucher Number</td>
-                        <td class="td_center">Officer ID</td>
+                        <td class="td_center">{{'View.Action.Date' | translate}}</td>
+                        <td>{{'View.Action.Cheque_Number' | translate}}</td>
+                        <td>{{'View.Action.Particulars' | translate}}</td>
+                        <td class="td_center">{{'View.Action.Tran_Type' | translate}}</td>
+                        <td class="td_right">{{'View.Action.Debit_Amount' | translate}}</td>
+                        <td class="td_right">{{'View.Action.Credit_Amount' | translate}}</td>
+                        <td class="td_right">{{'View.Action.Closing_Balance' | translate}}</td>
+                        <td>{{'View.Action.Normal_Interest' | translate}}</td>
+                        <td>{{'View.Action.Recbl_Payable_Interest' | translate}}</td>
+                        <td>{{'View.Action.Overdue_Interest' | translate}}</td>
+                        <td>{{'View.Action.Penal_Interest' | translate}}</td>
+                        <td>{{'View.Action.Receivable_Penal' | translate}}</td>
+                        <td class="td_right">{{'View.Action.Other_Amount' | translate}}</td>
+                        <td>{{'View.Action.Added_Penal' | translate}}</td>
+                        <td class="td_right">{{'View.Action.Voucher_Number' | translate}}</td>
+                        <td class="td_center">{{'View.Action.Officer_ID' | translate}}</td>
                     </thead>
                     <tbody *ngIf="tableData?.length != 0">
                         <!-- <tr *ngFor="let data of tableData; let indexOfelement = index"
@@ -295,11 +332,11 @@
                         <tr style="font-weight: 600px;">
                             <td></td>
                             <td></td>
-                            <td>Total</td>
+                            <td>{{'View.Action.Total' | translate}}</td>
                             <td></td>
                             <td class="td_right">{{(debitTotal | number:'1.2-2':'en')}}</td>
                             <td class="td_right">{{(creditTotal | number:'1.2-2':'en')}}</td>
-                            <td>Balance</td>
+                            <td>{{'View.Action.Balance' | translate}}</td>
                             <td class="td_right">{{(normalInt | number:'1.2-2':'en')}}</td>
                             <td class="td_right">{{(recpayInt | number:'1.2-2':'en')}}</td>
                             <td class="td_right">{{(overDueAmt | number:'1.2-2':'en')}}</td>
@@ -313,7 +350,8 @@
                         <tr style="font-weight: 600px;">
                             <td></td>
                             <td></td>
-                            <td style="font-weight: 600px;">Total Deposit Amount</td>
+                            <!-- <td style="font-weight: 600px;">Total Deposit Amount</td> -->
+                            <td style="font-weight: 600px;">{{'View.Action.Total_Deposit_Amount' | translate}}</td>
                             <td></td>
                             <td></td>
                             <td style="font-weight: 600px;" class="td_right">{{(totalDepositAmount |
@@ -332,7 +370,8 @@
                         <tr style="color: green;">
                             <td></td>
                             <td></td>
-                            <td style=" font-size: 13px;"><strong> Grand Total</strong></td>
+                            <!-- <td style=" font-size: 13px;"><strong> Grand Total</strong></td> -->
+                            <td style=" font-size: 13px;"><strong> {{'View.Action.Grand_Total' | translate}}</strong></td>
                             <td></td>
                             <td></td>
                             <td style=" font-size: 13px;" class="td_right"><strong>{{(grandTotal |
@@ -352,7 +391,7 @@
                     <tbody *ngIf="tableData?.length == 0">
                         <tr>
                             <td colspan="13" class="no-data-available" style="text-align: center;">
-                                No data!
+                                {{'View.Action.No_Data' | translate}}
                             </td>
                         </tr>
                     </tbody>
@@ -365,8 +404,16 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header custom-modal-header">
-                <h4 class="modal-title">{{ isMinor ? 'Minor Account' : 'Joint Account' }}</h4>
-                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
+                <h4 class="modal-title">
+                    <!-- {{ isMinor ? 'Minor Account' : 'Joint Account' }} -->
+                    <span *ngIf="isMinor">
+                        {{ 'View.Action.Minor_account' | translate }}
+                      </span>
+                      <span *ngIf="isJoint">
+                        {{ 'View.Action.Joint_account' | translate }}
+                      </span>
+                      
+                </h4>                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
                         aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
@@ -385,8 +432,11 @@
                                         <table class="table table-striped table-bordered table-hover compact">
                                             <thead class="custom-header" >
                                                 <tr >
-                                                    <th style= "background-color: purple;color:white; max-width: 20px" >Customer ID</th>
-                                                    <th style= "background-color: purple;color:white">Name</th>
+                                                    <th style= "background-color: purple;color:white; max-width: 20px" >{{'View.Action.CustomerID' | translate}}
+                                                    </th>
+                                                    <th style= "background-color: purple;color:white">
+                                                        <!-- Name --> {{'View.Action.Name' | translate}}
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -401,10 +451,18 @@
                                         <table class="table table-striped table-bordered table-hover compact"
                                             *ngIf="accountEvent?.jointAcHolders?.length != 0 && accountEvent?.jointAcHolders !=undefined">
                                             <thead>
-                                                <td style="max-width: 20px">Customer ID</td>
-                                                <td>Name</td>
-                                                <td>Joint Date</td>
-                                                <td style="max-width: 15px">Operation</td>
+                                                <td style="max-width: 20px">
+                                                    <!-- Customer ID -->
+                                                    {{'View.Action.CustomerID' | translate}}
+                                                </td>
+                                                <td><!-- Name --> {{'View.Action.Name' | translate}} </td>
+                                                <td>
+                                                    <!-- Joint Date -->
+                                                    {{'View.Action.JOINT_DATE' | translate}}
+                                                </td>
+                                                <td style="max-width: 15px">
+                                                    <!-- Operation -->{{'View.Action.Operation' | translate}}
+                                                </td>
                                             </thead>
                                             <tbody *ngIf="jointAcHolders?.length != 0">
                                                 <tr *ngFor="
@@ -471,7 +529,10 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+                <button type="button" class="btn btn-default" (click)="onCloseHandled()">
+                    {{'View.Action.Close' | translate}}  <!-- Close -->
+
+                </button>
             </div>
         </div>
     </div>

@@ -51,7 +51,7 @@ interface ShareScheme {
 export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
   formSubmitted = false;
   demo: Boolean = false;
-  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // @ViewChild('autofocus', { read: ElementRef }) myEditField: ElementRef;
 
   //api 
@@ -434,7 +434,7 @@ export class SharesSchemeComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();
+    this.myInputField.nativeElement.focus();
 
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -2,25 +2,33 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Day Begin</h5>
+                <h5>{{'Utility.Action.Day_Begin' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F1' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="DATE">Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="DATE">{{'Utility.Action.Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" [(ngModel)]="ngdate" name="DATE"
-                                        class="form-control" formControlName="DATE" disabled>
+                                    <input type="text" [(ngModel)]="ngdate" name="DATE" class="form-control"
+                                        formControlName="DATE" disabled>
                                 </span>
                             </div>
                         </div>
                         <div class="col-sm-2">
-                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()" [disabled]="daybeginProcess">Day Begin</button>
+<!--                             <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()" [disabled]="daybeginProcess">{{'Utility.Action.Day_End' | translate}}</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm">{{'Utility.Action.Cancel' | translate}}</button> -->
+                            <div *ngIf="isNotDisable">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()">Day Begin</button>
+                            </div>
+                            <div *ngIf="isDisable">
+                                <button type="button" class="btn btn-outline-primary btn-sm" (click)="dayBegin()"
+                                    [disabled]="true">Day Begin</button>
+                            </div>
                             <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button>
                         </div>
                     </div>
@@ -29,8 +37,8 @@
             <div class="row" *ngIf="daybeginProcess">
                 <div class="col-md-12 text-center">
                     <img src="assets/Loading.gif">
-                    <h3>{{ngdate}} Day Begin work in progress.....</h3>
-                    <h5>Please Don't Refresh the page</h5>
+                    <h3>{{'Utility.Action.Day_Begin_work' | translate}}</h3>
+                    <h5>{{'Utility.Action.Please_Don' | translate}}</h5>
                 </div>
             </div>
         </div>

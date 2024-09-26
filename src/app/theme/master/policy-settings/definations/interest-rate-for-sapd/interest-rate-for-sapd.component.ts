@@ -21,6 +21,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -113,7 +115,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,private translate:TranslateService) {
     // this.datemax =new Date() ;
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -123,7 +125,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
     })
 
   }
-
+  tdname
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
@@ -169,21 +171,27 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       },
       columns: [
         {
-          title: 'Action'
+          // title: 'Action'
+          title: this.translate.instant('master.Action.Action')
+
         },
         {
-          title: 'Effected Date',
+          // title: 'Effected Date',
+          title: this.translate.instant('master.Interest_Rate.Effected_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          // title: 'Scheme Type',
+          title: this.translate.instant('master.Interest_Rate.Scheme_Type'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Interest Category',
+          // title: 'Interest Category',
+          title: this.translate.instant('master.Interest_Rate.Interest_Category'),
           data: 'INT_CATEGORY'
         },
         {
-          title: 'Interest Rate',
+          // title: 'Interest Rate',
+          title: this.translate.instant('master.Interest_Rate.Interest_Rate'),
           data: 'INT_RATE'
         }
       ],
@@ -195,6 +203,9 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
         return (scheme.name == 'PG' || scheme.name == 'SB');
       });
       this.allScheme = filtered;
+      filtered.forEach((item: any) => {
+        this.tdname = item.name;
+      })
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
       this.interestcategory = data;
@@ -230,7 +241,8 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       //'EFFECT_DATE': formVal.EFFECT_DATE,
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
-      'INT_RATE': formVal.INT_RATE
+      'INT_RATE': formVal.INT_RATE,
+      'TYPE': this.tdname
     }
     this.savingandPigmyInterestRatesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');

@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { DocumentMasterService } from './document-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -74,7 +75,7 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private http: HttpClient,
     private documentMasterService: DocumentMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -122,13 +123,14 @@ export class DocumentMasterComponent implements OnInit, AfterViewInit, OnDestroy
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
+
         },
         {
-          title: 'Document Master Code',
+          title: this.translate.instant('master.Document_Master.Document_Master_Code'),
           data: 'CODE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Document_Master.Description'),
           data: 'NAME'
         },
       ],

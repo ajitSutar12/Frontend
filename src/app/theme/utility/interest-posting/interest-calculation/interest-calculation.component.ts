@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 import { async } from 'rxjs/internal/scheduler/async';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -26,6 +28,8 @@ export class InterestCalculationComponent implements OnInit {
   //api
   url = environment.base_url;
 
+  //Loader
+  isloader: boolean = false
 
   // date variables
   maxDate: Date;
@@ -62,6 +66,7 @@ export class InterestCalculationComponent implements OnInit {
   selectedSchemeData: any;
   schemewiseRadio: boolean = true;
   modalClass: string = 'modalHide';
+  setLang: string;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -70,8 +75,14 @@ export class InterestCalculationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _serviceScheme: CurrentSchemeService
+    private _serviceScheme: CurrentSchemeService,
+    private translate:TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -131,6 +142,7 @@ export class InterestCalculationComponent implements OnInit {
     this.selectedSchemeData = this.schemeDataList.filter(c => c.S_ACNOTYPE == code)
   }
   submit() {
+    // this.isloader = true
     var FormValue = this.angForm.value;
     if (FormValue.INT_CAL == "") {
       Swal.fire("Oops...", "Please choose any option for Interest Calculation", "error");
@@ -140,7 +152,8 @@ export class InterestCalculationComponent implements OnInit {
         Swal.fire("Oops...", "Please select required field value", "error");
         return;
       } else {
-        this.modalClass = 'modalShow';
+        // this.modalClass = 'modalShow';
+        this.isloader = true
         this.showButton = false;
         let datetobind = moment(FormValue.INT_UPTO_DATE, 'DD/MM/YYYY')
         let apiObj = {
@@ -154,9 +167,14 @@ export class InterestCalculationComponent implements OnInit {
         }
 
         //Send Data for Interest Calculation Scheme Wise;
+
+      
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
-          this.modalClass = 'modalHide';
+          this.isloader = false
+          // this.modalClass = 'modalHide';
           Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+         
+          this.selectedSchemeData = [];
           this.ngOnInit()
           this.showButton = true;
         },
@@ -166,9 +184,11 @@ export class InterestCalculationComponent implements OnInit {
           //   this.showButton = true;
           // })
           (error) => {
+            this.isloader = false
             console.log(error, 'err')
-            this.modalClass = 'modalHide';
-            Swal.fire('Oops!', error?.error?.message, 'error');
+            // this.modalClass = 'modalHide';
+            this.isloader = false
+            Swal.fire('No Records Found!', error?.error?.message, 'warning');
             this.showButton = true;
           })
       }
@@ -176,7 +196,8 @@ export class InterestCalculationComponent implements OnInit {
       if (FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || FormValue.FROM_AC == '' || FormValue.TO_AC == '') {
         Swal.fire("Oops...", "Please select required field value", "error");
       } else {
-        this.modalClass = 'modalShow';
+        // this.modalClass = 'modalShow';
+        this.isloader = true
         this.showButton = false;
         let apiObj = {
           option: 1,
@@ -194,14 +215,17 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
-          this.modalClass = 'modalHide';
+          // this.modalClass = 'modalHide';
+          this.isloader = false
           Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          this.selectedSchemeData = [];
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
           console.log(error, 'err')
-          this.modalClass = 'modalHide';
-          Swal.fire('Oops!', error?.error?.message, 'error');
+          // this.modalClass = 'modalHide';
+          this.isloader = false
+          Swal.fire('No Records Found!', error?.error?.message, 'warning');
           this.showButton = true;
         })
       }
@@ -209,7 +233,8 @@ export class InterestCalculationComponent implements OnInit {
       if (FormValue.BRANCH1 == '' || FormValue.AC_TYPE1 == '' || this.InterestArr.length == 0) {
         Swal.fire("Oops...", "Please select required field value", "error");
       } else {
-        this.modalClass = 'modalShow';
+        // this.modalClass = 'modalShow';
+        this.isloader = true
         this.showButton = false;
         let AccountData = this.InterestArr.map(x => `'${x}'`).join(',')
 
@@ -226,8 +251,10 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
-          this.modalClass = 'modalHide';
+          // this.modalClass = 'modalHide';
+          this.isloader = true
           Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
+          this.selectedSchemeData = [];
           this.ngOnInit()
           this.showButton = true;
         }, err => {
@@ -278,7 +305,7 @@ export class InterestCalculationComponent implements OnInit {
 
   //get scheme wise account number
   getSchemeAcno(event) {
-    debugger
+  
     let obj = [this.ngscheme, this.ngBranchCode]
     this.ngfromac = null
     this.ngtoac = null

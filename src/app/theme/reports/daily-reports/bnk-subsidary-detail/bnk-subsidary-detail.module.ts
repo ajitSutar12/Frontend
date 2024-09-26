@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {SharedModule} from '../../../../shared/shared.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../../../shared/shared.module';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,12 +12,15 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkSubsidaryDetailComponent } from './bnk-subsidary-detail.component';
-import {BnkSubsidaryDetailRoutingModule} from './bnk-subsidary-detail-routing.module'
+import { BnkSubsidaryDetailRoutingModule } from './bnk-subsidary-detail-routing.module'
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
-import{Iframe1Module} from '../iframe1/iframe1.module'
+import { Iframe1Module } from '../iframe1/iframe1.module'
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -34,13 +37,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     BnkSubsidaryDetailRoutingModule,
-    Iframe1Module
+    Iframe1Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
 
 
   ],
 
   declarations: [BnkSubsidaryDetailComponent],
-  exports:[BnkSubsidaryDetailComponent],
+  exports: [BnkSubsidaryDetailComponent],
   providers: [
     {
 
@@ -59,6 +70,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SchemeAccountNoService,
     SchemeTypeDropdownService
   ],
-  schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
 })
 export class BnkSubsidaryDetailModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

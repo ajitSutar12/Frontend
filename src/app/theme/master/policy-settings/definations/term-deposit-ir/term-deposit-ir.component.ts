@@ -21,6 +21,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -128,7 +130,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
     private intrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
     private systemParameter: SystemMasterParametersService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig,
+    private translate:TranslateService) {
+   
     // this.datemax = new Date().getFullYear()+'-'+("0"+(new Date().getMonth()+1)).slice(-2)+'-'+("0"+new Date().getDate()).slice(-2);
     // console.log(this.datemax);
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -137,7 +141,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       this.minDate = this.maxDate
     })
   }
-
+  tdname
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
@@ -183,17 +187,22 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       },
       columns: [
         {
-          title: 'Action'
+          // title: 'Action'
+          title: this.translate.instant('master.Action.Action')
+
         },
         {
-          title: 'Effected Date',
+          // title: 'Effected Date',
+          title: this.translate.instant('master.Interest.Effective_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          // title: 'Scheme Type',
+          title: this.translate.instant('master.Interest.Scheme_Type'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Interest Category',
+          // title: 'Interest Category',
+          title: this.translate.instant('master.Interest.Interest_Category'),
           data: 'INT_CATEGORY'
         },
       ],
@@ -207,9 +216,12 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
       var filtered = data.filter(function (scheme) {
 
-        return (scheme.id == 'TD');
+        return (scheme.id== 'TD');
       });
       this.scheme = filtered;
+      filtered.forEach((item: any) => {
+        this.tdname = item.name;
+      })
       // this.scheme = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
@@ -258,6 +270,7 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
         'ACNOTYPE': formVal.ACNOTYPE,
         'INT_CATEGORY': formVal.INT_CATEGORY,
         'FieldData': this.multiField,
+        'TYPE': this.tdname
       }
       this.termDepositInterestRateService.postData(dataToSend).subscribe(data1 => {
         Swal.fire('Success!', 'Data Added Successfully !', 'success');

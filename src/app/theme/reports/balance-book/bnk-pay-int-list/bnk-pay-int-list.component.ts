@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { DomSanitizer } from "@angular/platform-browser";
 import { environment } from "src/environments/environment";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-pay-int-list',
@@ -21,50 +21,52 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
   providers: [SchemeCodeDropdownService, OwnbranchMasterService]
 })
 export class BnkPayIntListComponent implements OnInit {
-  iframeurl:any='';
-  clicked:boolean=false;
+  iframeurl: any = '';
+  clicked: boolean = false;
   //date
   maxDate: Date;
   minDate: Date;
   date: any = null
-  
+
 
   ngForm: FormGroup;
   //dropdown
   scheme: any[];
-  
+
   branchOption: any[];
   // for dropdown ng module
   ngbranch: any = null;
   schemeCode: any = null;
 
   formSubmitted = false;
-    //api
-    url = environment.base_url;
-    report_url = environment.report_url;
-    
-    showRepo: boolean = false;
+  //api
+  url = environment.base_url;
+  report_url = environment.report_url;
 
-    dropdowndata = [{
-      label : 'TD',
-      value : 'TD'
-    },{
-      label : 'SB',
-      value : 'SB'
-    },{
-      label : 'PG',
-      value : 'PG'
-    }]
+  showRepo: boolean = false;
 
-  constructor(    private fb: FormBuilder,
+  dropdowndata = [{
+    label: 'TD',
+    value: 'TD'
+  }, {
+    label: 'SB',
+    value: 'SB'
+  }, {
+    label: 'PG',
+    value: 'PG'
+  }]
+  setLang: any;
+
+  constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
     private sanitizer: DomSanitizer,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter:SystemMasterParametersService,
-    ) { 
-      this.date = moment().format('DD/MM/YYYY');
-      this.maxDate = new Date();
+    private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService,
+  ) {
+    this.date = moment().format('DD/MM/YYYY');
+    this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
@@ -88,78 +90,82 @@ export class BnkPayIntListComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.date = data.CURRENT_DATE;
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
-// validations for ngForm
-createForm() {
-  this.ngForm = this.fb.group({
-    BRANCH_CODE: ['', [Validators.required]],
-    Scheme_code: ['', [Validators.required]],
-    Date: ['', [Validators.required]],   
-    Print_Closed_Accounts: [''],
-   
-  });
+  // validations for ngForm
+  createForm() {
+    this.ngForm = this.fb.group({
+      BRANCH_CODE: ['', [Validators.required]],
+      Scheme_code: ['', [Validators.required]],
+      Date: ['', [Validators.required]],
+      Print_Closed_Accounts: [''],
 
-  let data: any = localStorage.getItem('user');
-  let result = JSON.parse(data);
-  if (result.RoleDefine[0].Role.id == 1) {
-    this.ngbranch = result.branch.id
-    this.ngForm.controls['BRANCH_CODE'].enable()
+    });
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
-  else {
-    this.ngForm.controls['BRANCH_CODE'].disable()
-    this.ngbranch = result.branch.id
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
   }
-}
-scrollToTop() {
-  window.scrollTo({ top: 200, behavior: 'smooth' });
-} 
-view(event) {
-  // debugger
-  event.preventDefault();
-  this.formSubmitted = true;
+  view(event) {
+    // debugger
+    event.preventDefault();
+    this.formSubmitted = true;
 
-  let userData = JSON.parse(localStorage.getItem('user'));
-  let bankName = userData.branch.syspara.BANK_NAME;
-  let branchName = userData.branch.NAME
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
 
-  if(this.ngForm.valid){
+    if (this.ngForm.valid) {
 
-  this.showRepo = true;
-  let obj = this.ngForm.value
-  // let Date = moment(obj.Date).format('DD/MM/YYYY');
+      this.showRepo = true;
+      let obj = this.ngForm.value
+      // let Date = moment(obj.Date).format('DD/MM/YYYY');
 
-  let Date:any;
-  if (this.date == obj.Date) {
-    Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
-  }else{ 
-    Date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
-  };
+      let Date: any;
+      if (this.date == obj.Date) {
+        Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        Date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
 
-  let scheme = obj.Scheme_code;
-  let branch = obj.BRANCH_CODE;
+      let scheme = obj.Scheme_code;
+      let branch = obj.BRANCH_CODE;
 
-  let PrintClosedAccounts =obj.Print_Closed_Accounts;
-  if(PrintClosedAccounts == null || PrintClosedAccounts == false){
-    PrintClosedAccounts = 0;
-  }else{
-    PrintClosedAccounts = 1;
+      let PrintClosedAccounts = obj.Print_Closed_Accounts;
+      if (PrintClosedAccounts == null || PrintClosedAccounts == false) {
+        PrintClosedAccounts = 0;
+      } else {
+        PrintClosedAccounts = 1;
+      }
+
+
+      this.iframeurl = this.report_url + "examples/PayableIntBal.php?Date='" + Date + "'&scheme=" + scheme + "&branch=" + this.ngbranch + "&PrintClosedAccounts=" + PrintClosedAccounts + "&bankName=" + bankName + " ";
+      console.log(this.iframeurl);
+      this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
+
   }
 
-
- this.iframeurl=this.report_url+ "examples/PayableIntBal.php?Date='" + Date + "'&scheme=" + scheme + "&branch="+this.ngbranch+"&PrintClosedAccounts="+PrintClosedAccounts +"&bankName=" + bankName + " ";
- console.log(this.iframeurl);
- this.iframeurl=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
-}
-else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-}
-
-}
-
-close(){
-  this.resetForm()
+  close() {
+    this.resetForm()
   }
 
   resetForm() {
@@ -167,7 +173,7 @@ close(){
     this.ngForm.controls.Scheme_code.reset();
     this.ngForm.controls.Print_Closed_Accounts.reset();
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
 
 }

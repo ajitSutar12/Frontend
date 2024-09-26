@@ -124,7 +124,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   showdiv = false;
   //api 
   url = environment.base_url;
-  // @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
+  @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
   // For reloading angular datatable after CRUD operation
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -1562,7 +1562,7 @@ export class TermDepositSchemeComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngAfterViewInit(): void {
-    // this.myInputField.nativeElement.focus();
+    this.myInputField.nativeElement.focus();
     this.dtTrigger.next();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       $('#schemeparametertable tfoot tr').appendTo('#schemeparametertable thead');

@@ -15,6 +15,7 @@ import { SalaryDMasterdropdownService } from '../../../../../shared/dropdownServ
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -89,7 +90,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     private subSalaryDivisionService: SubSalaryService,
     private subSalaryDivision: SalaryDMasterdropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
-
+    private translate:TranslateService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
   }
@@ -149,21 +150,25 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
 
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Sub Code',
+          // title: 'Sub Code',
+          title: this.translate.instant('master.Sub_Salary_Div_Master.Code'),
           data: 'CODE'
         },
         {
-          title: 'Division Code',
+          // title: 'Division Code',
+          title: this.translate.instant('master.Sub_Salary_Div_Master.Division_code'),
           data: 'SAL_CODE'
         },
         {
-          title: 'Name',
+          // title: 'Name',
+          title: this.translate.instant('master.Sub_Salary_Div_Master.Name'),
           data: 'NAME'
         }
       ],

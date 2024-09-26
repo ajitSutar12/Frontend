@@ -2,9 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Manager View GL - Position</h5>
+                <!-- <h5>Manager View GL - Position</h5> -->
+                <h5>{{'master.Manager_View_GL_Postion.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,8 +17,9 @@
                                     <input type="text" name="SR_NO" class="form-control" placeholder=" " #type
                                         pattern="\d{1,20}(\.\d{2})?" id="SR_NO" maxlength="20" disabled
                                         title="Input allowed only  0-9" formControlName="SR_NO" >
-                                    <label for="SR_NO">Sr.No.
-                                    </label>
+                                    <label for="SR_NO">
+                                        <!-- Sr.No. -->
+                                        {{'master.Manager_View_GL_Postion.Sr_No' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -34,19 +36,21 @@
                                   <ng-select id="TYPE" appTheme bindValue="value" [(ngModel)]="ngtype"
                                     formControlName="TYPE" bindLabel="label" title="Compulsory Selection"
                                     [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Type"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required 
                                     #type (focus)="onFocus(type)" [selectOnTab]='true' autofocus>
                                     <ng-option *ngFor="let values of schemetype" [value]="values"> 
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="TYPE">Type<sub class="required"> * </sub></label>
+                                  <label for="TYPE">
+                                    <!-- Type -->
+                                    {{'master.Manager_View_GL_Postion.Type' | translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['TYPE'].invalid && (angForm.controls['TYPE'].dirty || angForm.controls['TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -57,19 +61,21 @@
                                   <ng-select id="STATEMENT_CODE" appTheme bindValue="id" [(ngModel)]="ngstatement"
                                     formControlName="STATEMENT_CODE" bindLabel="head_name" title="Compulsory Selection"
                                     [virtualScroll]="true" (change)="getSchemeCo($event);getStatement($event)"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Statement Code"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required 
                                     #stcode (focus)="onFocus(stcode)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of StatementCodeDropdown" [value]="values">
                                         {{values.id}} {{values.head_name}}</ng-option> 
                                   </ng-select>
-                                  <label for="STATEMENT_CODE">Statement Code<sub class="required"> * </sub></label> 
+                                  <label for="STATEMENT_CODE">
+                                    <!-- Statement Code -->
+                                    {{'master.Manager_View_GL_Postion.Statement_Code' | translate}}<sub class="required"> * </sub></label> 
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['STATEMENT_CODE'].invalid && (angForm.controls['STATEMENT_CODE'].dirty || angForm.controls['STATEMENT_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['STATEMENT_CODE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required --> {{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -110,12 +116,14 @@
                                 <span class="border-lable-flt">
                                   <ng-select id="PERCENTAGE_TO_WORKING_CAPITAL" appTheme bindValue="value" [(ngModel)]="ngcapital"
                                     formControlName="PERCENTAGE_TO_WORKING_CAPITAL" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="% to W.Capital"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required 
                                     #towcap (focus)="onFocus(towcap)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of PercentageToWCapital" [value]="values">
                                       {{values.label}}</ng-option>
                                   </ng-select>
-                                  <label for="PERCENTAGE_TO_WORKING_CAPITAL">% to W.Capital<sub class="required"> * </sub></label>
+                                  <label for="PERCENTAGE_TO_WORKING_CAPITAL">
+                                    <!-- % to W.Capital -->
+                                    {{'master.Manager_View_GL_Postion.%_to_w_capital' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             
@@ -132,12 +140,14 @@
                                 <span class="border-lable-flt">
                                 <ng-select id="IS_DISPLAY" appTheme bindValue="value" [(ngModel)]="ngdisplay"
                                     formControlName="IS_DISPLAY" bindLabel="label" title="Compulsory Selection" [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Display to View"
+                                    [ngClass]="{'form-submitted': formSubmitted}" required 
                                     #disptview (focus)="onFocus(disptview)" [selectOnTab]='true'>
                                     <ng-option *ngFor="let values of DisplayToView" [value]="values">
                                     {{values.label}}</ng-option>
                                 </ng-select>
-                                <label for="IS_DISPLAY">Display to View<sub class="required"> * </sub></label>
+                                <label for="IS_DISPLAY">
+                                    <!-- Display to View -->
+                                    {{'master.Manager_View_GL_Postion.Display_t_view' | translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             
@@ -153,9 +163,16 @@
            
             <div class="row">
                 <div class="col-sm">
-                    <button class="btn btn-outline-primary btn-sm btn-submit"  (click)="submit();type.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
-                    <button class="btn btn-outline-primary btn-sm" (click)="updateData();type.focus()" *ngIf="updateShow">Update</button>&nbsp;
-                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData();type.focus()" *ngIf="newbtnShow">Cancel</button>
+                    <button class="btn btn-outline-primary btn-sm btn-submit"  (click)="submit();type.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
+                        <!-- Submit -->
+                        {{'master.Action.Submit' | translate}} </button>
+                    <button class="btn btn-outline-primary btn-sm" (click)="updateData();type.focus()" *ngIf="updateShow">
+                        <!-- Update -->
+                        {{'master.Action.Update' | translate}}
+                    </button>&nbsp;
+                    <button class="btn btn-outline-primary btn-sm" (click)="addNewData();type.focus()" *ngIf="newbtnShow">
+                        <!-- Cancel -->
+                        {{'master.Action.Cancel' | translate}}</button>
                 </div>
             </div>
         </div>
@@ -193,7 +210,9 @@
                                 </tbody>
                                 <tbody *ngIf="managerView?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">
+                                            <!-- No data! -->
+                                            {{'master.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

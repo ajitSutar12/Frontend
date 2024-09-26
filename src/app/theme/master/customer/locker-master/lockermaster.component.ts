@@ -34,6 +34,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { LockerRMasterDropDownService } from '../../../../shared/dropdownService/lockerrack-master-dropdown.service'
 import { LockerRWMasterDropDownService } from '../../../../shared/dropdownService/lockerrackwise-master-dropdown.service'
+
+//Translation
+import { TranslateService } from "@ngx-translate/core";
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -235,6 +239,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   resetexpirydate: any
   imageObject = new Array();
   isDisabled: boolean = true;
+  joinDate: any;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private LockerMasterService: LockerMasterService,
@@ -253,6 +259,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     public sanitizer: DomSanitizer,
     private lockerrackmasterService: LockerRMasterDropDownService,
     private lockerrackwisemasterService: LockerRWMasterDropDownService,
+    private translate: TranslateService,
     private fb: FormBuilder) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -267,6 +274,10 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -328,35 +339,35 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Locker_Master.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Locker_Master.Ac_No'),
           data: ' BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Customer_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
 
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Locker_Master.Open_Date'),
           data: 'AC_OPDATE'
         },
         // {
@@ -608,6 +619,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       //joint ac
       JOINT_AC_CUSTID: ['',],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
     })
     let data: any = localStorage.getItem('user');
@@ -626,7 +639,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   // Method to insert data into database through NestJS
-  isDisable=false
+  isDisable = false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -1626,7 +1639,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE
+
       })
     })
   }
@@ -1639,6 +1654,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1648,6 +1666,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1714,6 +1734,9 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID,
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1726,6 +1749,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1777,8 +1802,12 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   resetJointAC() {
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
   }

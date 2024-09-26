@@ -10,6 +10,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-mis-information',
@@ -24,7 +25,7 @@ export class MisInformationComponent implements OnInit {
   minDate: any;
   bsValue = new Date();
   formSubmitted = false;
-  branchOption: any[];  
+  branchOption: any[];
 
   // Created Form Group
   angForm: FormGroup;
@@ -37,6 +38,7 @@ export class MisInformationComponent implements OnInit {
   iframe5url: any = '';
   scheme_code: any;
   branchName: any;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -44,12 +46,18 @@ export class MisInformationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private translate: TranslateService,
   ) {
     this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {
@@ -64,6 +72,9 @@ export class MisInformationComponent implements OnInit {
       this.todate = data.CURRENT_DATE
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
   createForm() {

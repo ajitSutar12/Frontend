@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe5.module';
 
 import {SharedModule} from '../../../../shared/shared.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BnkGurDetailsListComponent } from './bnk-gur-details-list.component';
 import {BnkGurDetailsListRoutingModule} from './bnk-gur-details-list-routing.module';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
-import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/customer-id-master-dropdown.service";;
+import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/customer-id-master-dropdown.service";
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -32,7 +35,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     BnkGurDetailsListRoutingModule,
-    Iframe5Module
+    Iframe5Module,
+
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
 
   declarations: [BnkGurDetailsListComponent],
@@ -55,3 +66,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ]
 })
 export class BnkGurDetailsListModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

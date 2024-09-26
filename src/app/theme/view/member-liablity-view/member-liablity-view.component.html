@@ -88,7 +88,7 @@
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
-                            <div class="form-group form-primary form-static-label">
+                            <div class="form-group form-primary form-static-label" *ngIf="isSchemeShow1">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedshScheme" #scheme formControlName="scheme"
                                         bindValue="value" bindLabel="label"
@@ -96,6 +96,12 @@
                                         <ng-option *ngFor="let item of sh_Scheme" [value]="item">
                                             {{item.id}} {{item.label}}</ng-option>
                                     </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group input-group" *ngIf="isSchemeShow">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="scheme" disabled
+                                        formControlName="scheme">
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -111,13 +117,19 @@
                         <div class="col-sm-12 col-md-2"> <label for="">Customer<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
-                            <div class="form-group form-primary form-static-label">
+                            <div class="form-group form-primary form-static-label" *ngIf="isCustomer1">
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedmemNo" #scheme formControlName="memNo"
                                         bindValue="bankacno" bindLabel="NAME" (change)="getIntro1($event);">
                                         <ng-option *ngFor="let item of director" [value]="item">
                                             {{item.label}} {{item.name}}</ng-option>
                                     </ng-select>
+                                </span>
+                            </div>
+                            <div class="form-group input-group" *ngIf="isCustomer">
+                                <span class="border-lable-flt">
+                                    <input type="text" class="form-control" id="memNo" disabled
+                                        formControlName="memNo">
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"

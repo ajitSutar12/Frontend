@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { PurposeMasterService } from './purpose-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -74,7 +75,7 @@ export class PurposeMasterComponent implements OnInit, AfterViewInit, OnDestroy 
   constructor(
     private http: HttpClient,
     private purposeMasterService: PurposeMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     // Fetching Server side data
@@ -127,14 +128,14 @@ export class PurposeMasterComponent implements OnInit, AfterViewInit, OnDestroy 
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Purpose_Master.Action')
         },
         {
-          title: 'Code',
+          title:this.translate.instant('master.Purpose_Master.Purpose_Code'),
           data: 'CODE'
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Purpose_Master.Description'),
           data: 'NAME'
         },
 

@@ -157,6 +157,10 @@ const routes: Routes = [
         path: 'conversion',
         loadChildren: () => import('./conversion/conversion.module').then(m => m.ConversionModule)
       },
+      {
+        path: 'remainder',
+        loadChildren: () => import('./remainder/remainder.module').then(m => m.RemainderModule)
+      },
     ]
   }
 ];

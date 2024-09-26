@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class RecePayRepDetailsComponent implements OnInit {
  iframeurl: any = ' ';
  clicked:boolean=false;
   branchName: string;
+  setLang: string;
 
 
   constructor(private fb: FormBuilder,
@@ -47,6 +49,8 @@ export class RecePayRepDetailsComponent implements OnInit {
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -68,6 +72,8 @@ export class RecePayRepDetailsComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -93,11 +99,14 @@ export class RecePayRepDetailsComponent implements OnInit {
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
       this.angForm.controls['BRANCH_CODE'].enable()
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
       this.ngbranch = result.branch.id
+      this.branchName = result.branch.NAME
+
     }
   }
 
@@ -144,7 +153,7 @@ export class RecePayRepDetailsComponent implements OnInit {
 
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
-    let branchName = userData.branch.NAME;
+    // let branchName = userData.branch.NAME;
    
 
     if (this.angForm.valid) {
@@ -184,9 +193,7 @@ export class RecePayRepDetailsComponent implements OnInit {
         this.branchName='Consolidate';
      }
      else
-     {
-      this.branchName = branchName;
-     }
+     
       this.iframeurl = this.report_url + "examples/Receiptdetail.php?start2date='" + start2date + "'&end1date='" + end1date + "'&branchCode='" + branchCode + "'&tran=" + tran + "&print=" + print + "&penal=" + penal + "'&bankName=" + bankName + "&branchName=" + this.branchName + "&flag=" + flag + "";
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
@@ -205,6 +212,10 @@ export class RecePayRepDetailsComponent implements OnInit {
     // this.angForm.controls.BRANCH_CODE.reset();
     this.showRepo = false;
     this.clicked = false;
+  }
+  getBranch(event) {
+    this.ngbranch = event.value
+    this.branchName = event.branchName
   }
 
 }

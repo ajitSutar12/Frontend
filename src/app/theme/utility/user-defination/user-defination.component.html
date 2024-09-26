@@ -2,8 +2,8 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>User Defination </h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
+                <h5>{{'Utility.User_Defination.Title' | translate}}</h5>
+                <h6 style="float: right;">{{'Utility.Action.F1' | translate}}<sub class="required">* </sub>: {{'Utility.Action.F2' | translate}}</h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
@@ -14,7 +14,7 @@
                                     <input type="text" name="F_NAME" maxlength="2000" class="form-control" #autofocus
                                         placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="F_NAME">
-                                    <label for="label-name">First Name<sub class="required">* </sub></label>
+                                    <label for="label-name">{{'Utility.User_Defination.First_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -22,7 +22,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['F_NAME'].errors?.pattern || angForm.controls['F_NAME'].errors?.required || angForm.controls['F_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -30,17 +30,17 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="L_NAME" maxlength="2000" class="form-control"
-                                        placeholder=" " id="label-name" required="" pattern="^[A-Za-z\./ -]+$"
+                                        placeholder=" " id="label-name" required=""
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="L_NAME">
-                                    <label for="label-name">Last Name<sub class="required">* </sub></label>
+                                    <label for="label-name">{{'Utility.User_Defination.Last_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['L_NAME'].invalid && (angForm.controls['L_NAME'].dirty || angForm.controls['L_NAME'].touched)"
                                 class="alert alert-danger">
                                 <div
-                                    *ngIf="angForm.controls['L_NAME'].errors?.pattern || angForm.controls['L_NAME'].errors?.required || angForm.controls['L_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    *ngIf="angForm.controls['L_NAME'].errors?.required || angForm.controls['L_NAME'].errors?.maxlength">
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -53,14 +53,14 @@
                                         #DOB="bsDatepicker" [bsValue]="bsValue" bsDatepicker required #DOB
                                         formControlName="DOB">
 
-                                    <label for="DOB">Birth Date</label>
+                                    <label for="DOB">{{'Utility.User_Defination.Birth_Date' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['DOB'].invalid && (angForm.controls['DOB'].dirty || angForm.controls['DOB'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DOB'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                     <input type="text" name="MOB_NO" class="form-control" placeholder=" "
                                         pattern="[7-9 0]{1}[0-9]{9,10}" title="Input allowed only  0-9" id="MOB_NO"
                                         formControlName="MOB_NO" maxlength="10" minlength="10">
-                                    <label for="MOB_NO">Mobile<sub class="required">* </sub></label>
+                                    <label for="MOB_NO">{{'Utility.User_Defination.Mobile' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -80,7 +80,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.required || angForm.controls['MOB_NO'].errors?.pattern || angForm.controls['MOB_NO'].errors?.minlength  || angForm.controls['MOB_NO'].errors?.maxlength">
-                                    Input allowed only 0-9 and It starts by either for 7 or 8 or 9
+                                    <!-- Input allowed only 0-9 and It starts by either for 7 or 8 or 9 -->{{'Utility.Validation.Val_Mobile' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                     <input type="text" name="EMAIL" class="form-control" placeholder=" "
                                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter valid Email"
                                         id="EMAIL" formControlName="EMAIL">
-                                    <label for="EMAIL">Email<sub class="required">* </sub></label>
+                                    <label for="EMAIL">{{'Utility.User_Defination.Email' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -99,7 +99,7 @@
                                 <!-- *ngIf="angForm.controls['EMAIL'].errors?.pattern" -->
                                 <div
                                     *ngIf="angForm.controls['EMAIL'].errors?.pattern || angForm.controls['EMAIL'].errors?.required || angForm.controls['EMAIL'].errors?.pattern">
-                                    Enter valid Email
+                                    <!-- Enter valid Email -->{{'Utility.Validation.Val_Email' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                 </ng-select> -->
                                 <span class="border-lable-flt">
                                     <ng-select bindValue="value" bindLabel="label" [(ngModel)]="selectedRoleName"
-                                        (change)="newFunction($event)" formControlName="ROLE" placeholder="Role"
+                                        (change)="newFunction($event)" formControlName="ROLE" placeholder="{{'Utility.User_Defination.Role' | translate}}"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of ROLEX" [value]="values">
                                             {{values.label}}</ng-option>
@@ -125,7 +125,7 @@
                                 *ngIf="angForm.controls['ROLE'].invalid && (angForm.controls['ROLE'].dirty || angForm.controls['ROLE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ROLE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                         placeholder=" " id="label-name" required="" pattern="^[A-Za-z0-9\./ -]+$"
                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                         formControlName="USER_NAME" (focusout)="checkUserName()">
-                                    <label for="USER_NAME">User Name<sub class="required">* </sub></label>
+                                    <label for="USER_NAME">{{'Utility.User_Defination.User_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -146,7 +146,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['USER_NAME'].errors?.pattern || angForm.controls['USER_NAME'].errors?.required || angForm.controls['USER_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z 0-9 - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'Utility.Validation.Val_ward' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select bindValue="value" bindLabel="label" [(ngModel)]="branchId" id="Branch"
-                                        formControlName="branchId" placeholder="Branch" [selectOnTab]='true' #brnch
+                                        formControlName="branchId" placeholder="{{'Utility.User_Defination.Branch' | translate}}" [selectOnTab]='true' #brnch
                                         (focus)="onFocus(brnch)">
                                         <ng-option *ngFor="let values of barnchData" [value]="values">
                                             {{values.label}}</ng-option>
@@ -165,7 +165,7 @@
                                 *ngIf="angForm.controls['branchId'].invalid && (angForm.controls['branchId'].dirty || angForm.controls['branchId'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['branchId'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                             </div>
                         </div> -->
                         <div class="col-md-1">
-                            <label for="status"> Status</label>
+                            <label for="status">{{'Utility.User_Defination.Status' | translate}}</label>
                         </div>
                         <div class="col-md">
                             <div class="form-radio">
@@ -193,14 +193,14 @@
                                     <label class="inputRadio">
                                         <input type="radio" name="STATUS" checked="checked" value="active"
                                             formControlName="STATUS">
-                                        <i class="helper"></i>Active
+                                        <i class="helper"></i>{{'Utility.User_Defination.Active' | translate}}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="STATUS" checked="checked" value="inactive"
                                             formControlName="STATUS">
-                                        <i class="helper"></i>Inactive
+                                        <i class="helper"></i>{{'Utility.User_Defination.Inactive' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -208,7 +208,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <label for="LOG_STATUS">Login Status</label>
+                            <label for="LOG_STATUS">{{'Utility.User_Defination.Login_Status' | translate}}</label>
                         </div>
                         <div class="col-md">
                             <div class="form-radio">
@@ -216,14 +216,14 @@
                                     <label class="inputRadio">
                                         <input type="radio" name="LOG_STATUS" checked="checked" value="active"
                                             formControlName="LOG_STATUS">
-                                        <i class="helper"></i>Active
+                                        <i class="helper"></i>{{'Utility.User_Defination.Active' | translate}}
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="LOG_STATUS" checked="checked" value="inactive"
                                             formControlName="LOG_STATUS">
-                                        <i class="helper"></i>Inactive
+                                        <i class="helper"></i>{{'Utility.User_Defination.Inactive' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -232,11 +232,11 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm"
-                                (click)="resetForm()">Cancel</button>&nbsp;&nbsp;&nbsp;
+                                (click)="resetForm()">{{'Utility.Action.Cancel' | translate}}</button>&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid">Add</button>&nbsp;&nbsp;&nbsp;
+                                [disabled]="angForm.invalid">{{'Utility.Action.Add' | translate}}</button>&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow">Update</button>&nbsp;&nbsp;&nbsp;
+                                *ngIf="updateShow">{{'Utility.Action.Update' | translate}}</button>&nbsp;&nbsp;&nbsp;
                         </div>
 
                     </div>

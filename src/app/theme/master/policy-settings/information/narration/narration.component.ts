@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { NarrationService } from './narration.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -72,7 +73,7 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
   constructor(
     private http: HttpClient,
     private narrationService: NarrationService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private translate:TranslateService) {
   }
 
   ngOnInit(): void {
@@ -130,13 +131,15 @@ export class NarrationComponent implements AfterViewInit, OnDestroy, OnInit {
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Naration_Master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Narration',
+          // title: 'Narration',
+          title:this.translate.instant('master.Naration_Master.Narration'),
           data: 'NARRATION',
         }
       ],

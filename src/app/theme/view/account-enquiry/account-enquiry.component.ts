@@ -124,10 +124,7 @@ export class AccountEnquiryComponent implements OnInit {
   leftMonth
   introducerName
   totalInterest = 0
-  isOpen: boolean = false
-  isMinor:boolean=false
-  isJoint:boolean=false
-  jointCustId
+  display: string;
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,
@@ -215,9 +212,6 @@ export class AccountEnquiryComponent implements OnInit {
   }
   IS_WEEKLY_REPAY
   schemechange(event) {
-
-    this.acCloseDate = null
-    this.isOpen = false
     this.schemeACNo = null
     this.accountedit = null
     this.getschemename = event.name
@@ -677,14 +671,45 @@ export class AccountEnquiryComponent implements OnInit {
     }
   }
 
+  AC_ODAMT
+  AC_ODDAYS
+  AC_SODAMT
+  OD_EXPIRE_DATE
+  AC_OD_ASSIGNBY
 
 
+
+  jointAC
+  isJoint: boolean = false
+  grdName
+  custId
+  minor
+  tableDataMinor = []
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
+
+    const exists = this.tableDataMinor.some(item => item.grdName === grdName && item.custId === custId);
+
+    if (!exists && grdName && custId) {
+      this.tableDataMinor.push({ grdName: grdName, custId: custId });
+    }
+  }
+  AC_MINOR
   //get account details
-  
   getAccountDetails(event) {
     this.viewView(event)
 
     this.accountEvent = event
+
+    this.AC_ODAMT = event.AC_ODAMT;
+    this.AC_ODDAYS = event.AC_ODDAYS;
+    this.AC_SODAMT = event.AC_SODAMT;
+    // this.OD_EXPIRE_DATE = event.OD_EXPIRE_DATE;
+    // this.AC_OD_ASSIGNBY = event.AC_OD_ASSIGNBY;
+
+
     this.customerIDArr = null
     // console.log('accountEvent?.AC_MEMBNO', this.accountEvent?.AC_MEMBNO)
     this.accountData = event
@@ -752,26 +777,14 @@ export class AccountEnquiryComponent implements OnInit {
       this.AC_NO = event.AC_NO
       this.LAST_OD_DATE = event.LAST_OD_DATE
       this.nominee = event?.nomineeDetails
-      // event?.jointAccounts?.forEach((element, index) => {
-      //   if (index == 0) {
-      //     this.jointHolderName = element.JOINT_ACNAME
-      //   }
-      //   else {
-      //     this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
-      //   }
-      // });
-
       event?.jointAccounts?.forEach((element, index) => {
-        if (index === 0) {
-            this.jointHolderName = element.JOINT_ACNAME;
-            this.jointCustId = element.JOINT_AC_CUSTID;
-        } else {
-            this.jointHolderName += '/' + element.JOINT_ACNAME;
-            this.jointCustId = '';
+        if (index == 0) {
+          this.jointHolderName = element.JOINT_ACNAME
         }
-    });
-    this.isJoint = event?.jointAccounts?.length > 0;
-    
+        else {
+          this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
+        }
+      });
       this.idmaster = event.idmaster
       let periodOverdraft = event.AC_SODAMT == undefined || event.AC_SODAMT == null ? 0 : Number(event.AC_SODAMT)
       let tempOverdraft = event.AC_ODAMT == undefined || event.AC_ODAMT == null ? 0 : Number(event.AC_ODAMT)
@@ -779,32 +792,12 @@ export class AccountEnquiryComponent implements OnInit {
       this.overdraftAmt = overdraftAmount
       this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
       this.acCloseDate = event.AC_CLOSEDT == null || event.AC_CLOSEDT == '' ? null : event.AC_CLOSEDT
+      this.OD_EXPIRE_DATE = event.OD_EXPIRE_DATE == null || event.OD_EXPIRE_DATE == '' ? null : event.OD_EXPIRE_DATE
+      this.AC_OD_ASSIGNBY = event.AC_OD_ASSIGNBY == null || event.AC_OD_ASSIGNBY == '' ? null : event.AC_OD_ASSIGNBY
+
       this.freezeac = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? false : true
       this.freezStataus = event.AC_FREEZE_STATUS == null || event.AC_FREEZE_STATUS == '' ? '' : event.AC_FREEZE_STATUS
       let maturedAmount = Number(event.autoMaturedPayableAmt) + Number(event.autoMaturedIntrestAmt)
-
-      if (this.acCloseDate != null) {
-        this.acCloseDate = event.AC_CLOSEDT
-        this.isOpen = false
-      }
-      else {
-        this.acCloseDate = null
-        this.isOpen = true
-      }
-
-      if(event.AC_MINOR=='1'){
-        this.isMinor=true
-      }
-      else  if(event.AC_MINOR=='0'){
-        this.isMinor=false
-      }
-      if(event.jointAccounts && event.jointAccounts.length > 0){
-        this.isJoint=true
-      }
-      else if(event.jointAccounts='0'){
-        this.isJoint=false
-      }
-
       this.angForm.patchValue({
         AC_CLOSEDT: event.closeDate,
         AMOUNT: maturedAmount,
@@ -832,7 +825,7 @@ export class AccountEnquiryComponent implements OnInit {
 
     }
   }
-
+  jointCustId
   transactionData
   GLtransactionData
   SHtransactionData
@@ -1400,7 +1393,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.payableInterestArr = []
       let obj = [
         this.ngscheme,
-        this.bankacno
+        this.AC_NO
       ]
       this.http.get<any>(this.url + '/ledger-view/interestInstructionView/' + obj).subscribe((data) => {
         this.interestInstructionArr = data
@@ -1534,9 +1527,9 @@ export class AccountEnquiryComponent implements OnInit {
       for (let ele of this.productViewArr) {
         this.productTotal = Number(this.productTotal) + Number(ele['amount'])
       }
-      // this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
-      //   this.loanreceivedInterest = data
-      // })
+      this.http.post<any>(this.url + '/ledger-view/loanreceivedInterest/', { lastinterestDate: this.accountEvent?.AC_LINTEDT == null || this.accountEvent?.AC_LINTEDT == '' ? this.accountEvent?.AC_OPDATE : this.accountEvent?.AC_LINTEDT, bankacno: this.bankacno }).subscribe((data) => {
+        this.loanreceivedInterest = data
+      })
     }
     else if (view == 'accountInfo') {
       this.IsJointView = false
@@ -1678,7 +1671,7 @@ export class AccountEnquiryComponent implements OnInit {
         this.customerIDArr = data
       })
     }
-
+    
   }
   selectedImagePreview: any;
   documentUrl = this.url + '/'
@@ -1760,4 +1753,34 @@ export class AccountEnquiryComponent implements OnInit {
     }
     return GetRoundOffAmount;
   }
+
+  openModal() {
+    this.display = "block";
+    
+  }
+  onCloseHandled() {
+    this.display = "none";
+  }
+
+  // close() {
+  //   this.onCloseHandled();
+
+  // }
+  isOpen:boolean=false
+  isMinor:boolean=false
+  openModal1(view) {
+    this.isOpen = false
+    if (view == 'minor') {
+      this.isMinor = true
+      this.isJoint = false
+      this.display = "block";
+    }
+    else if (view == 'joint') {
+      this.isJoint = true
+      this.isMinor = false
+      this.display = "block";
+    }
+  }
+  
 }
+

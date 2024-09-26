@@ -2,16 +2,20 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Budget View</h5>
+                <!-- <h5>Budget View</h5> -->
+                <h5>{{'main.generalLedger.budget-view' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.budget_view.F1' | translate}}(<sub class="required"> * </sub>) {{'master.budget_view.F2' |
+                    translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">
+                                <!-- Branch Code -->
+                                {{'master.budget_view.branch_code' | translate}}<sub class="required">*</sub></label>
+                        </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -28,11 +32,13 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">Budget Year</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="FIN_YEAR">
+                                <!-- Budget Year -->
+                                {{'master.budget_view.budgetYear' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <!-- <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -70,16 +76,18 @@
                                 *ngIf="angForm.controls['FIN_YEAR'].invalid && (angForm.controls['FIN_YEAR'].dirty || angForm.controls['FIN_YEAR'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FIN_YEAR'].errors?.required">
-                                    This field is required
-                                </div>
+                                                      <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                                    </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">
+                            <!-- Date -->
+                            {{'master.budget_view.Date' | translate}}
+<sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="OPENINGDATE" id="OPENINGDATE"
+                                    <input type="text"  name="OPENINGDATE" id="OPENINGDATE"
                                         class="form-control" [(ngModel)]="defaultDate" appButton minlength="10"
                                         maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         [maxDate]="maxDate" formControlName="OPENINGDATE" bsDatepicker required>
@@ -90,8 +98,8 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['OPENINGDATE'].errors?.pattern || angForm.controls['OPENINGDATE'].errors?.required || angForm.controls['OPENINGDATE'].errors?.maxlength">
-                                    This is required Field .Input Date in format DD/MM/YYYY
-                                </div>
+                                                      <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                                    </div>
                             </div>
                         </div>
 
@@ -104,15 +112,17 @@
                                         <input type="radio" formControlName="BUDGET_MASTER" name="BUDGET_MASTER"
                                             value="expenditure" id="expenditure" [checked]="true"
                                             (change)="Budget($event)">
-                                        <i class="helper"></i>Expenditure
-                                    </label>
+                                        <i class="helper"></i>
+                                          <!-- Expenditure -->
+                                          {{'master.budget_view.Expenditure' | translate}}  </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" value="income" formControlName="BUDGET_MASTER" id="income"
                                             name="BUDGET_MASTER" (change)="BudgetIncome($event)">
-                                        <i class="helper"></i>Income
-                                    </label>
+                                        <i class="helper"></i>
+                                         <!-- Income -->
+                                         {{'master.budget_view.income' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +137,9 @@
                             </div>
                         </div> -->
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">Add</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="showButton">
+                                 <!-- Add -->
+                                 {{'master.budget_view.add' | translate}}</button>
                         </div>
 
                     </div>
@@ -137,14 +149,24 @@
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
                                         <tr>
-                                            <td>Account Name</td>
-                                            <td>Budget Amount 2023-2024</td>
-                                            <td>Current Balance</td>
-                                            <td>Excess Amount</td>
-                                            <td>Percentage</td>
-                                            <td>Less Amount</td>
-                                            <td>Percentage</td>
-                                            <td>Budget Amount 2024-2025</td>
+                                            <!-- <td>Account Name</td> -->
+                                            <td>{{'master.budget_view.ac_name' | translate}}</td>
+                                            <!-- <td>Budget Amount 2023-2024</td> -->
+                                            <td>{{'master.budget_view.budget_23_24' | translate}}</td>
+                                            <!-- <td>Current Balance</td> -->
+                                            <td>{{'master.budget_view.Current_Balance' | translate}}</td>
+                                            <!-- <td>Excess Amount</td> -->
+                                            <td>{{'master.budget_view.Excess_Amount' | translate}}</td>
+                                            <!-- <td>Percentage</td> -->
+                                            <td>{{'master.budget_view.Percentage' | translate}}</td>
+                                            <!-- <td>Less Amount</td> -->
+                                            <td>{{'master.budget_view.Less_Amount' | translate}}</td>
+                                            <!-- <td>Percentage</td> -->
+                                            <td>{{'master.budget_view.Percentage' | translate}}</td>
+                                            <!-- <td>Budget Amount 2024-2025</td> -->
+                                            <td>{{'master.budget_view.budget_24_25' | translate}}</td>
+
+                                             
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -166,14 +188,21 @@
                     <div class="row"></div>
                     <div class="row">
 
-                        <div class="col-md-9"></div>
-                        <div class="col-md-2">
+                        <div class="col-md-8"></div>
+                        <div class="col-md-4">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">
+                                <!-- View -->
+                                {{'master.budget_view.View_btn' | translate}}
+                            </button>
                         </div>
                         <div class="col-md-1">
+
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">Close</button>
+                                (click)="close()">
+                                <!-- Close -->
+                                {{'master.budget_view.Close_btn' | translate}}
+                            </button>
                         </div>
                     </div>
                     <div class="row">

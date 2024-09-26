@@ -34,6 +34,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { data } from 'jquery';
 import { title } from 'process';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -251,6 +253,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   nextButton: boolean = true
   resetexpirydate: any
   imageObject = new Array();
+  joinDate: any;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private currentAccountMasterService: CurrentAccountMasterService,
@@ -267,6 +271,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     public sanitizer: DomSanitizer,
+    private translate:TranslateService,
+
     private fb: FormBuilder) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -281,6 +287,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -341,42 +349,42 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action')
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: ' BANKACNO'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Proprietor Name',
+          title: this.translate.instant('master.Customer.Proprietor_Name'),
           data: 'AC_PROPRITOR_NAME'
         },
         {
-          title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
       ],
@@ -648,6 +656,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       //joint ac
       JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [true],
 
       //attorney
@@ -1626,13 +1636,18 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE
+
       })
     })
   }
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1642,6 +1657,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1711,6 +1728,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1723,6 +1742,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1779,8 +1800,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
     // this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.angForm.patchValue({
-      JOINT_ACNAME: ''
+      JOINT_ACNAME: '',
+      JOINT_DATE: ''
+
     })
     this.jointID.clearFilter();
     // .handleClearClick();

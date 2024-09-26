@@ -2,9 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Company Group Link Master</h5>
+                <!-- <h5>Company Group Link Master</h5> -->
+                <h5>{{'master.Company_Group_Link_Master.Company_Group_Link_Master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Company_Group_Link_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Company_Group_Link_Master.F2' | translate}}
                 </h6>
             </div>
 
@@ -15,12 +16,12 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
-                                        bindLabel="label" title="Compulsory Selection" placeholder="Branch Code"
+                                        bindLabel="label" title="Compulsory Selection" placeholder=""
                                         formControlName="BRANCH_CODE" (change)="getData()">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH_CODE">Branch</label>
+                                    <label for="BRANCH_CODE">{{'master.Company_Group_Link_Master.Branch' | translate}}</label>
                                 </span>
                             </div>
 
@@ -32,11 +33,11 @@
                                     <ng-select appTheme id="COMP_CODE" bindValue="value" [(ngModel)]="ngcompany"
                                         formControlName="COMP_CODE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required #COMP_CODE
-                                        (focus)="onFocus(COMP_CODE)" [selectOnTab]='true' placeholder="Company Code">
+                                        (focus)="onFocus(COMP_CODE)" [selectOnTab]='true' placeholder=" ">
                                         <ng-option *ngFor="let values of companyCode" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
-                                    <label for="COMP_CODE">Company Code<sub class="required"> * </sub></label>
+                                    <label for="COMP_CODE">{{'master.Company_Group_Link_Master.Company_Code' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -44,7 +45,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['COMP_CODE'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required
+                                    {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                 </div>
                             </div>
                         </div>
@@ -54,13 +55,13 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="CODE" bindValue="value" [(ngModel)]="ngcode"
                                         formControlName="CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme Code"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder=""
                                         #CODE (focus)="onFocus(CODE)" [selectOnTab]='true'
                                         (change)="getAccount($event)">
                                         <ng-option *ngFor="let values of schemeCode" [value]="values">
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="CODE">Scheme Code<sub class="required"> * </sub></label>
+                                    <label for="CODE">{{'master.Company_Group_Link_Master.Schema_Code' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -68,7 +69,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['CODE'].errors?.required|| angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required
+                                    {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
                                 </div>
                             </div>
                         </div>
@@ -79,12 +80,12 @@
                                     <ng-select appTheme id="FROM_AC" bindValue="value" [(ngModel)]="ngAccount"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required #FROM_AC
-                                        (focus)="onFocus(FROM_AC)" [selectOnTab]='true' (change)="checkValidaion()"
-                                        placeholder=" From Account">
+                                        (focus)="onFocus(FROM_AC)" [selectOnTab]='true' (change)="getfrom($event);checkValidaion()"
+                                        placeholder="">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="FROM_AC">From Account<sub class="required"> * </sub></label>
+                                    <label for="FROM_AC">{{'master.Company_Group_Link_Master.From_Account' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                         </div>
@@ -96,13 +97,13 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="TO_AC" bindValue="value" [(ngModel)]="ngToAccount"
                                         formControlName="TO_AC" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="To Account"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder=""
                                         #TO_AC (focus)="onFocus(TO_AC)" [selectOnTab]='true'
-                                        (change)="checkValidaion()">
+                                        (change)="getto($event);checkValidaion()">
                                         <ng-option *ngFor="let values of account" [value]="values">
                                             {{values.value}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="TO_AC">To Account<sub class="required"> * </sub></label>
+                                    <label for="TO_AC">{{'master.Company_Group_Link_Master.To_Account' | translate}}<sub class="required"> * </sub></label>
                                 </span>
 
                             </div>
@@ -115,12 +116,11 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td>Action</td>
-                                        <td>Account Type</td>
-                                        <td>Account Number</td>
-                                        <td>Account Name</td>
-                                        <td>Default Amount</td>
-
+                                        <td>{{'master.Company_Group_Link_Master.Action' | translate}}</td>
+                                        <td>{{'master.Company_Group_Link_Master.A_Type' | translate}}</td>
+                                        <td>{{'master.Company_Group_Link_Master.A_No' | translate}}</td>
+                                        <td>{{'master.Company_Group_Link_Master.A_Name' | translate}}</td>
+                                        <td>{{'master.Company_Group_Link_Master.Default_Amount' | translate}}</td>
                                     </thead>
                                     <tbody *ngIf="multiData?.multiData != 0">
                                         <tr *ngFor="let data of multiData; let indexOfelement = index">
@@ -146,7 +146,7 @@
                                     <tbody *ngIf="multiData?.length == 0">
                                         <tr>
                                             <td colspan="12" class="no-data-available" style="text-align: center;">
-                                                No data!
+                                                {{'master.Action.No_Data' | translate}}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -202,7 +202,7 @@
                                 </tbody>
                                 <tbody *ngIf="companyGroupLinkMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

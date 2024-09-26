@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Priority Sector Master</h5>
+                <h5>{{'master.Priority_Sector_Code.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Priority_Sector_Code.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Priority_Sector_Code.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,7 +17,7 @@
                                     <input type="text" name="Account" class="form-control" placeholder=" " maxlength="4"
                                         disabled id="Prioritysectorcode" pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="CODE">
-                                    <label for="Prioritysectorcode">Priority Sector Code</label>
+                                    <label for="Prioritysectorcode">{{'master.Priority_Sector_Code.Priority_Sector_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" #autofocus
                                         id="Subcode" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="SUB1_CODE">
-                                    <label for="Subcode">Subcode</label>
+                                    <label for="Subcode">{{'master.Priority_Sector_Code.Subcode' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -37,7 +37,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SUB1_CODE'].errors?.pattern || angForm.controls['SUB1_CODE'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'master.Validation.Val_Pin_Code' | translate}}<!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                         placeholder=" " maxlength="4"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="Secondsubcode"
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="SUB2_CODE">
-                                    <label for="Secondsubcode">Second Subcode</label>
+                                    <label for="Secondsubcode">{{'master.Priority_Sector_Code.Second_Subcode' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -56,7 +56,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SUB2_CODE'].errors?.pattern ||angForm.controls['SUB2_CODE'].errors?.maxlength ">
-                                    Input allowed only 0-9
+                                    {{'master.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                         placeholder=" " maxlength="4"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="Thirdsubcode"
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="SUB3_CODE">
-                                    <label for="Thirdsubcode">Third Subcode</label>
+                                    <label for="Thirdsubcode">{{'master.Priority_Sector_Code.Third_Subcode' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -77,7 +77,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SUB3_CODE'].errors?.pattern ||angForm.controls['SUB2_CODE'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'master.Validation.Val_Pin_Code' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -86,9 +86,9 @@
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " maxlength="300"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        id="Description" required="" pattern="^[A-Za-z\./ -]+$"
+                                        id="Description" required="" pattern="^[\u0900-\u097F A-Za-z]+$"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="Description">Description<sub class="required">* </sub></label>
+                                    <label for="Description">{{'master.Priority_Sector_Code.Description' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -96,19 +96,19 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required ||angForm.controls['SUB2_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'master.Validation.Val1' | translate}} <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit()"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Priority_Sector_Code.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()"
-                                *ngIf="newbtnShow">Cancel
+                                *ngIf="newbtnShow">{{'master.Priority_Sector_Code.Cancel' | translate}}
                             </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow"
-                                [disabled]="angForm.invalid">Update</button>
+                                [disabled]="angForm.invalid">{{'master.Priority_Sector_Code.Update' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                                 </tbody>
                                 <tbody *ngIf="prioritySectorMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

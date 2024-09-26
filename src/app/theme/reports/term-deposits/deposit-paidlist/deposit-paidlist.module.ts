@@ -11,10 +11,11 @@ import { Iframe5Module } from 'src/app/theme/reports/pigmy-report/iframe5/iframe
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [DepositPaidlistComponent],
@@ -27,7 +28,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    }),
   ],
   providers:[
     OwnbranchMasterService,
@@ -46,3 +54,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     }]
 })
 export class DepositPaidlistModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

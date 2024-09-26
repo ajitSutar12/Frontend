@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>City Master</h5>
+                <h5>{{'master.City_Master.City_Master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.City_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.City_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +16,7 @@
                                     <input type="text" name="CITY_CODE" class="form-control" placeholder=" "
                                         maxlength="4" id="label-name" disabled pattern="^[0-9]+$"
                                         title="Input allowed only  0-9" formControlName="CITY_CODE">
-                                    <label for="label-name">City Code</label>
+                                    <label for="label-name">{{'master.City_Master.City_Code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -24,13 +24,13 @@
                         <div class="col-md-3">
                             <span class="border-lable-flt">
                                 <ng-select id="states" [items]="states" bindLabel="CITY_NAME" bindValue="CITY_NAME"
-                                    placeholder="Select State" formControlName="STATE" [(ngModel)]="selectedState "
+                                    placeholder=" " formControlName="STATE" [(ngModel)]="selectedState "
                                     (change)="onStateChange($event)">
                                     <ng-option *ngFor="let value of states" [value]="value">
                                         {{value.CITY_NAME}}
                                     </ng-option>
                                 </ng-select>
-                                <label for="state">State<sub class="required"> * </sub></label>
+                                <label for="state">{{'master.City_Master.STATE' | translate}}<sub class="required"> * </sub></label>
                             </span>
                         </div>
 
@@ -43,7 +43,7 @@
                                     <ng-option *ngFor="let values of districts1" [value]="values">
                                         {{values.CITY_CODE}} - {{values.CITY_NAME}}</ng-option>
                                 </ng-select>
-                                <label for="district">District<sub class="required"> * </sub></label>
+                                <label for="district">{{'master.City_Master.DISTRICT' | translate}}<sub class="required"> * </sub></label>
                             </span>
                         </div>
 
@@ -56,7 +56,7 @@
                                         {{values.CITY_CODE}} - {{values.CITY_NAME}}
                                     </ng-option>
                                 </ng-select>
-                                <label for="taluka">Taluka<sub class="required"> * </sub></label>
+                                <label for="taluka">{{'master.City_Master.TALUKA' | translate}}<sub class="required"> * </sub></label>
                             </span>
                         </div>
 
@@ -67,12 +67,12 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="CITY_NAME" class="form-control" placeholder=" "
-                                        #autofocus id="CityName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                       id="CityName" required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="CITY_NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}"
                                         (input)="onCityNameChange($event.target.value)">
-                                    <label for="CityName">City Name<sub class="required">* </sub></label>
+                                    <label for="CityName">{{'master.City_Master.City_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" class="form-control" [value]="CITY_TYPE" readonly
                                         formControlName="CITY_TYPE">
-                                    <label>City Type</label>
+                                    <label>{{'master.City_Master.City' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         id="Distance" pattern="^[0-9.]+$" title="Input allowed only  0-9"
                                         formControlName="DISTANCE">
-                                    <label for="Distance">Distance from Branch(in km)</label>
+                                    <label for="Distance">{{'master.City_Master.Distance_from_Branch(in Km)' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -101,7 +101,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['DISTANCE'].errors?.pattern ||angForm.controls['DISTANCE'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Pin_Code' | translate}}  <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                                     <ng-select id="region" [(ngModel)]="selectedRegion" placeholder=" "
                                         formControlName="REGION_CODE" [items]="regions">
                                     </ng-select>
-                                    <label for="Region">Region<sub class="required">* </sub></label>
+                                    <label for="Region">{{'master.City_Master.Region' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                         </div>
@@ -122,11 +122,11 @@
                         <div class="col-sm-3">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                appTheme>Submit</button>
+                                appTheme>{{'master.City_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.City_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                                [disabled]="angForm.invalid">Update</button>
+                                [disabled]="angForm.invalid">{{'master.City_Master.Update' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                                 </tbody>
                                 <tbody *ngIf="cityMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

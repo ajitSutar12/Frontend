@@ -6,7 +6,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -16,6 +16,8 @@ import { SchemeCodeDropdownService } from '../../../shared/dropdownService/schem
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { SchemeAccountNoService } from '../../../shared/dropdownService/schemeAccountNo.service'
 import { PigmyChartEntryService } from './pigmy-chart-entry.service'
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     NgbModule,
@@ -28,7 +30,14 @@ import { PigmyChartEntryService } from './pigmy-chart-entry.service'
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [PigmyChartEntryComponent],
   providers: [SystemMasterParametersService, SchemeCodeDropdownService,
@@ -42,3 +51,6 @@ import { PigmyChartEntryService } from './pigmy-chart-entry.service'
   ],
 })
 export class PigmyChartEntryModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

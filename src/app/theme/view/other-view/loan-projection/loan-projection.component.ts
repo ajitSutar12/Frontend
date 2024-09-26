@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { event } from 'jquery';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-loan-projection',
@@ -50,6 +52,7 @@ export class LoanProjectionComponent implements OnInit {
   TDS_RATE: number;
   todate: any;
   showRepo: boolean = false;
+  setLang: any;
   constructor(
     private repayModeService: RepayModeService,
     private installmentMethodService: InstallmentMethodService,
@@ -57,6 +60,8 @@ export class LoanProjectionComponent implements OnInit {
     private _services: OtherViewService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
+    private translate:TranslateService
+
 
   ) {
     this.resolutionDate = new Date();
@@ -67,6 +72,8 @@ export class LoanProjectionComponent implements OnInit {
       this.resolutionDate = this.resolutionDate._d
       this.maxDate = this.maxDate._d
       this.minDate = this.minDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -124,7 +131,7 @@ export class LoanProjectionComponent implements OnInit {
   Iframe1Module: any = '';
   report_url = environment.report_url
   Process() {
-    this.showRepo = true;
+    // this.showRepo = true;
     let obj = this.angForm.value;
     obj['user'] = JSON.parse(localStorage.getItem('user'));
     this.modalClass = 'modalShow';
@@ -135,50 +142,7 @@ export class LoanProjectionComponent implements OnInit {
       console.log(this.resultData)
       let tableData = []
 
-      let Bal = []
-      let CrAmt = []
-      let Days = []
-      let DrAmt = []
-      let Product = []
-      let totint = []
-      let index = []
 
-   
-      for (let i = 0; i < this.resultData.length; i++) {
-        index.push(i + 1)
-        Bal.push(this.resultData[i].Bal);
-        CrAmt.push(this.resultData[i].CrAmt);
-        Days.push(this.resultData[i].Days);
-        DrAmt.push(this.resultData[i].DrAmt);
-        Product.push(this.resultData[i].Product);
-        totint.push(this.resultData[i].instNo);
-      }
-
-      let Bal1 = []
-      let CrAmt1 = []
-      let Days1 = []
-      let DrAmt1 = []
-      let Product1 = []
-      let totint1 = []
-      let index1 = []
-
-      let replaceUndefined = (value) => value === undefined ? ' ' : value;
-      index1 = index.map(index => `${replaceUndefined(index)}<br/><br/>`);
-      Days1 = Days.map(Days => `${replaceUndefined(Days)}<br/><br/>`);
-      Bal1 = Bal.map(Bal => `${replaceUndefined(Bal)}<br/><br/>`);
-      CrAmt1 = CrAmt.map(CrAmt => `${Math.abs(replaceUndefined(CrAmt))}<br/><br/>`);
-      DrAmt1 = DrAmt.map(DrAmt => `${replaceUndefined(DrAmt)}<br/><br/>`);
-      Product1 = Product.map(Product => `${Math.abs(replaceUndefined(Product))}<br/><br/>`);
-      totint1 = totint.map(totint => `${replaceUndefined(totint)}<br/><br/>`);
-
-
-      let userData = JSON.parse(localStorage.getItem('user'));
-      let bankName = userData.branch.syspara.BANK_NAME;
-      let branchName = userData.branch.NAME
-
-      this.Iframe1Module = this.report_url + "examples/loanP.php?&Bal1=" + Bal1 + "&CrAmt1=" + CrAmt1 + "&Days1=" + Days1 + "&DrAmt1=" + DrAmt1 + "&Product1=" + Product1 + "&totint1=" + totint1 + "&bankName=" + bankName + "&branchName=" + branchName + "&index1=" + index1 + "";
-      console.log(this.Iframe1Module);
-      this.Iframe1Module = this.sanitizer.bypassSecurityTrustResourceUrl(this.Iframe1Module);
 
     }, err => {
       this.modalClass = 'modalHide';
@@ -190,6 +154,9 @@ export class LoanProjectionComponent implements OnInit {
     this.showRepo = false;
     this.ngOnInit();
     this.resultData = []
+  }
+  cancel() {
+    this.showRepo = false;
   }
   getDecimalPoint(event) {
     if (event.target.value != '')
@@ -224,6 +191,73 @@ export class LoanProjectionComponent implements OnInit {
         PERIOD: 12
       })
     }
+  }
+  rePaymentMode
+  getRepay(event) {
+    this.rePaymentMode = event.label
+  }
+
+  getInstallmentType
+  getInstallment(event) {
+    this.getInstallmentType = event.label
+  }
+
+  interestPosting
+  getPosting(event) {
+    this.interestPosting = event.label
+  }
+
+  view() {
+    this.showRepo = true
+    let obj = this.angForm.value;
+    let Bal = []
+    let CrAmt = []
+    let Days = []
+    let DrAmt = []
+    let Product = []
+    let totint = []
+    let index = []
+
+
+    for (let i = 0; i < this.resultData.length; i++) {
+      index.push(i + 1)
+      Bal.push(this.resultData[i].Bal);
+      CrAmt.push(this.resultData[i].CrAmt);
+      Days.push(this.resultData[i].Days);
+      DrAmt.push(this.resultData[i].DrAmt);
+      Product.push(this.resultData[i].Product);
+      totint.push(this.resultData[i].instNo);
+    }
+
+    let Bal1 = []
+    let CrAmt1 = []
+    let Days1 = []
+    let DrAmt1 = []
+    let Product1 = []
+    let totint1 = []
+    let index1 = []
+
+    let replaceUndefined = (value) => value === undefined ? 0 : value;
+    index1 = index.map(index => `${replaceUndefined(index)}<br/><br/>`);
+    Days1 = Days.map(Days => `${replaceUndefined(Days)}<br/><br/>`);
+    Bal1 = Bal.map(Bal => `${replaceUndefined(Bal)}<br/><br/>`);
+    CrAmt1 = CrAmt.map(CrAmt => `${Math.abs(replaceUndefined(CrAmt))}<br/><br/>`);
+    DrAmt1 = DrAmt.map(DrAmt => `${replaceUndefined(DrAmt)}<br/><br/>`);
+    Product1 = Product.map(Product => `${Math.abs(replaceUndefined(Product))}<br/><br/>`);
+    totint1 = totint.map(totint => `${replaceUndefined(totint)}<br/><br/>`);
+
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
+
+    let date: any;
+    date = moment(obj.RESOLUTION_DATE, 'DD/MM/YYYY').format('DD/MM/YYYY')
+
+
+    this.Iframe1Module = this.report_url + "examples/loanP.php?&Bal1=" + Bal1 + "&CrAmt1=" + CrAmt1 + "&Days1=" + Days1 + "&DrAmt1=" + DrAmt1 + "&Product1=" + Product1 + "&totint1=" + totint1 + "&bankName=" + bankName + "&branchName=" + branchName + "&index1=" + index1 + "&INSTALLMENTS=" + obj.INSTALLMENTS + "&loan=" + obj.LOAN + "&PERIOD=" + obj.PERIOD + "&TDS_RATE=" + obj.TDS_RATE + "&RESOLUTION_DATE=" + date + "&rePaymentMode=" + this.rePaymentMode + "&getInstallmentType=" + this.getInstallmentType + "&interestPosting=" + this.interestPosting + "";
+    console.log(this.Iframe1Module);
+    this.Iframe1Module = this.sanitizer.bypassSecurityTrustResourceUrl(this.Iframe1Module);
   }
 }
 

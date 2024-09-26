@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-glconsist-repo',
@@ -36,13 +36,16 @@ export class BnkGLConsistRepoComponent implements OnInit {
   bsValue = new Date();
   allSchemeCode: any;
   report_url = environment.report_url;
+  setLang: any;
 
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,
     private voucherservice: VoucherEntryService,
-    private sanitizer: DomSanitizer,) {
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService,
+  ) {
     this.defaultDate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -65,6 +68,9 @@ export class BnkGLConsistRepoComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.defaultDate = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     this.voucherservice.getSchemeCodeList().subscribe(data => {
@@ -119,7 +125,7 @@ export class BnkGLConsistRepoComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
     // debugger
     event.preventDefault();
@@ -147,7 +153,7 @@ export class BnkGLConsistRepoComponent implements OnInit {
       let print = obj.Print;
       let penal = obj.Penal;
 
-      this.iframeurl = this.report_url+"examples/GeneralLedgerConsistancy.php?sdate='" + sdate +"'&branch='"+this.ngbranch +"'&schemed='"+schemed+"'&print='"+print+"'&penal='"+penal+"' &bankName='" + bankName + "'";
+      this.iframeurl = this.report_url + "examples/GeneralLedgerConsistancy.php?sdate='" + sdate + "'&branch='" + this.ngbranch + "'&schemed='" + schemed + "'&print='" + print + "'&penal='" + penal + "' &bankName='" + bankName + "'";
       console.log(this.iframeurl);
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 

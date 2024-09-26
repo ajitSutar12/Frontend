@@ -11,8 +11,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { GlAccountsMasterService } from './gl-accounts-master.service'
 import { StatementCodeDropdownService } from '../../../../shared/dropdownService/statement-code-dropdown.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,10 +28,18 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     NgbModule,
     NgSelectModule,
 
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [GlAccountsMasterComponent],
-  providers: [GlAccountsMasterService, StatementCodeDropdownService,
+  providers: [GlAccountsMasterService,SystemMasterParametersService, StatementCodeDropdownService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
@@ -34,3 +47,7 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
     },]
 })
 export class GlAccountsMasterModule { }
+//Translation
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

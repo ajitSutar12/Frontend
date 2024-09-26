@@ -20,7 +20,7 @@ import { environment } from '../../../../../../environments/environment';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { AllAccountDropdownService } from '../../../../../shared/dropdownService/all-account-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -101,7 +101,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     public companyGroupService: CompanyGroupMasterDropdownService,
     private _allAcc: AllAccountDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
-
+    private translate:TranslateService,
     private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
@@ -157,22 +157,22 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Company Code',
+          title: this.translate.instant('master.Company_Group_Link_Master.Company_Code'),
           data: 'COMP_CODE'
         },
         {
-          title: 'Scheme Code',
+          title: this.translate.instant('master.Company_Group_Link_Master.Schema_Code'),
           data: 'CODE'
         },
         {
-          title: 'From Account',
+          title: this.translate.instant('master.Company_Group_Link_Master.From_Account'),
           data: 'FROM_AC'
         },
         {
-          title: 'To Account',
+          title: this.translate.instant('master.Company_Group_Link_Master.To_Account'),
           data: 'TO_AC'
         },
 
@@ -231,8 +231,10 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       const dataToSend = {
         'COMP_CODE': formVal.COMP_CODE,
         'CODE': formVal.CODE,
-        'FROM_AC': formVal.FROM_AC,
-        'TO_AC': formVal.TO_AC,
+        // 'FROM_AC': formVal.FROM_AC,
+        // 'TO_AC': formVal.TO_AC,
+        'FROM_AC': this.fromac,
+        'TO_AC': this.toac,
         'BRANCH_CODE': this.ngBranchCode,
         'Company_Data': this.multiData
       }
@@ -297,7 +299,16 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
   //Method for update data 
   updateData() {
-    let data = this.angForm.value;
+    // let data = this.angForm.value;
+    let formVal = this.angForm.value;
+    const data = {
+      'COMP_CODE': formVal.COMP_CODE,
+      'CODE': formVal.CODE,
+      'FROM_AC': this.fromac,
+      'TO_AC': this.toac,
+      'BRANCH_CODE': this.ngBranchCode,
+      'Company_Data': this.multiData
+    }
     data['id'] = this.updateID;
     this.companyGroupLinkMasterService.updateData(data).subscribe(() => {
       Swal.fire('Success!', 'Record Updated Successfully !', 'success');
@@ -480,6 +491,15 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         })
         break;
     }
+
+  }
+  fromac
+  getfrom(event) {
+    this.fromac = event.bankacno
+  }
+  toac
+  getto(event) {
+    this.toac = event.bankacno
 
   }
   multiData: any

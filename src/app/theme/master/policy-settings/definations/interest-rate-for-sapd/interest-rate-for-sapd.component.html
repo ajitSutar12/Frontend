@@ -2,9 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Saving and Pigmy Interest Rates</h5>
+                <!-- <h5>Saving and Pigmy Interest Rates</h5> -->
+                <h5>{{'master.Interest_Rate.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm"> 
@@ -21,19 +22,21 @@
                                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="id" title="Compulsory Selection"
                                         [virtualScroll]="true"
-                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                         [ngClass]="{'form-submitted': formSubmitted}" required 
                                         #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus >
                                         <ng-option *ngFor="let values of allScheme" [value]="values" >
                                             {{values.id}} {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="ACNOTYPE">Scheme<sub class="required"> * </sub></label>
+                                    <label for="ACNOTYPE">
+                                        <!-- Scheme -->
+                                        {{'master.Interest_Rate.Scheme' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['ACNOTYPE'].invalid && (angForm.controls['ACNOTYPE'].dirty || angForm.controls['ACNOTYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['ACNOTYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -48,19 +51,21 @@
                                     <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
                                         formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" required [virtualScroll]="true"
-                                        placeholder="Interest Category"  #intcat (focus)="onFocus(intcat)"
+                                          #intcat (focus)="onFocus(intcat)"
                                          [selectOnTab]='true'  >
                                         <ng-option *ngFor="let values of interestcategory" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="INT_CATEGORY">Interest Category<sub class="required"> * </sub></label>
+                                    <label for="INT_CATEGORY">
+                                        <!-- Interest Category -->
+                                        {{'master.Interest_Rate.Interest_Category' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INT_CATEGORY'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -80,14 +85,16 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker #EFFECT_DATE="bsDatepicker"
                                         (keydown.Tab)="EFFECT_DATE.hide()">
-                                    <label for="EFFECT_DATE">Effective Date<sub class="required">* </sub></label>
+                                    <label for="EFFECT_DATE">
+                                        <!-- Effective Date -->
+                                        {{'master.Interest_Rate.Effective_Date' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -99,7 +106,9 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                                         (keyup)="checkmargin($event)" title="Input allowed only  0-9"
                                         formControlName="INT_RATE">
-                                    <label for="INT_RATE">Interest Rate<sub class="required">* </sub></label>
+                                    <label for="INT_RATE">
+                                        <!-- Interest Rate -->
+                                        {{'master.Interest_Rate.Interest_Rate' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -107,7 +116,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.required">
-                                    This field is required and Input allowed only . 0-9
+                                    <!-- This field is required and Input allowed only . 0-9 -->{{'master.Validation.Val_Receipt' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -116,11 +125,17 @@
                     <div class="row">
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit();scheme.focus()"
-                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>
+                                <!-- Submit -->
+                                {{'master.Action.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData();scheme.focus()"
-                                *ngIf="updateShow">Update</button>&nbsp;
+                                *ngIf="updateShow">
+                                <!-- Update -->
+                                {{'master.Action.Update' | translate}}</button>&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData();scheme.focus()"
-                                *ngIf="newbtnShow">Cancel</button>
+                                *ngIf="newbtnShow">
+                                <!-- Cancel -->
+                                {{'master.Action.Cancel' | translate}}</button>
                         </div>
                     </div>
  
@@ -154,8 +169,9 @@
                                 </tbody>
                                 <tbody *ngIf="savingandPigmyInterestRate?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!
-                                        </td>
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">
+                                            <!-- No data! -->
+                                            {{'master.Action.No_Data' | translate}} </td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

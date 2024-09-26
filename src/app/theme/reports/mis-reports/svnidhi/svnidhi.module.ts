@@ -12,11 +12,14 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [SvnidhiComponent],
-  exports:[SvnidhiComponent],
+  exports: [SvnidhiComponent],
   imports: [
     CommonModule,
     SvnidhiRoutingModule,
@@ -26,8 +29,20 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers:[SchemeCodeDropdownService,OwnbranchMasterService,SchemeAccountNoService,SystemMasterParametersService]
+  providers: [SchemeCodeDropdownService, OwnbranchMasterService, SchemeAccountNoService, SystemMasterParametersService]
 })
 export class SvnidhiModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

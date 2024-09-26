@@ -29,7 +29,7 @@ import * as moment from 'moment';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -233,7 +233,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   maxDate: any
   AGENTBRANCH: any = null
   Recommended: any[]
-
+  joinDate: any;
+  setLang:any;
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
     public IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
@@ -250,6 +251,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private systemParameter: SystemMasterParametersService,
     private directorMasterDropdown: DirectorMasterDropdownService,
     public sanitizer: DomSanitizer,
+    private translate:TranslateService,
     private datePipe: DatePipe,) {
     if (this.childMessage != undefined) {
 
@@ -260,6 +262,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -320,61 +324,76 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          // title: 'Scheme',
+          title: this.translate.instant('master.Customer.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          // title: 'Account Number',
+          title: this.translate.instant('master.Customer.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Customer ID',
+          // title: 'Customer ID',
+          title: this.translate.instant('master.Customer.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          // title: 'Member Name',
+          title: this.translate.instant('master.Customer.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Manual Reference Number',
+          // title: 'Manual Reference Number',
+          title: this.translate.instant('master.Customer.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Detail Address',
+          // title: 'Detail Address',
+          title: this.translate.instant('master.Customer.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          // title: 'City',
+          title: this.translate.instant('master.Customer.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Opening Date',
+          // title: 'Opening Date',
+          title: this.translate.instant('master.Customer.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Expiry Date',
+          // title: 'Expiry Date',
+          title: this.translate.instant('master.Customer.Expiry_Date'),
           data: 'AC_EXPDT'
         },
         {
-          title: 'Period',
+          // title: 'Period',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Period'),
           data: 'AC_MONTHS'
         },
         {
-          title: 'Default Deposite Amount',
+          // title: 'Default Deposite Amount',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Default_Dep_Amount'),
           data: 'AC_SCHMAMT'
         },
         {
-          title: 'Agent Code',
+          // title: 'Agent Code',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Agent_Code'),
           data: 'AGENT_ACNO'
         }, {
-          title: 'Minor Details',
+          // title: 'Minor Details',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Minor_Details'),
           data: 'AC_MINOR'
         },
         {
-          title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
+          // title: 'Is Calculate Separate Pigmy Commission for Loan Against Collection',
+          title: this.translate.instant('master.Pigmy_Ac_Master.Loan_Against_Collection'),
           data: 'PG_COMM_TYPE'
         },
 
@@ -528,6 +547,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       //joint ac
       JOINT_AC_CUSTID: [''],
       JOINT_ACNAME: ['', [Validators.pattern]],
+      JOINT_DATE: [''],
+
       OPERATOR: [],
 
     });
@@ -1728,7 +1749,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.tempjoint = event.value
     this.customerIdService.getFormData(event.value).subscribe(data => {
       this.angForm.patchValue({
-        JOINT_ACNAME: data.AC_NAME
+        JOINT_ACNAME: data.AC_NAME,
+        JOINT_DATE: data.JOINT_DATE,
+
       })
     })
   }
@@ -1736,6 +1759,9 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
   addJointAcccount() {
     const formVal = this.angForm.value;
+    let date1 = moment(formVal.JOINT_DATE).format('DD/MM/YYYY');
+    this.joinDate = date1;
+
     let value
     if (formVal.OPERATOR == true) {
       value = 'Yes'
@@ -1745,6 +1771,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: this.joint,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: this.joinDate,
+
       OPERATOR: value,
     }
     if (formVal.AC_CUSTID != "") {
@@ -1790,6 +1818,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.angForm.patchValue({
       JOINT_AC_CUSTID: this.multiJointAC[id].JOINT_AC_CUSTID.toString(),
       JOINT_ACNAME: this.multiJointAC[id].JOINT_ACNAME,
+      JOINT_DATE: this.multiJointAC[id].JOINT_DATE,
+
       OPERATOR: this.multiJointAC[id].OPERATOR
     })
   }
@@ -1802,6 +1832,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     var object = {
       JOINT_AC_CUSTID: formVal.JOINT_AC_CUSTID,
       JOINT_ACNAME: formVal.JOINT_ACNAME,
+      JOINT_DATE: formVal.JOINT_DATE,
+
       OPERATOR: formVal.OPERATOR,
       id: this.jointACID
     }
@@ -1837,6 +1869,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.jointID = null
     this.angForm.controls['JOINT_AC_CUSTID'].reset();
     this.angForm.controls['JOINT_ACNAME'].reset();
+    this.angForm.controls['JOINT_DATE'].reset();
+
     this.getSystemParaDate()
   }
 

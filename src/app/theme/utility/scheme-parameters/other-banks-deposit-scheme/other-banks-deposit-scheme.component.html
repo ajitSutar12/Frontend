@@ -13,10 +13,10 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input  style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
+                  <input appTheme style="text-align: right;" type="text" name="S_APPL" class="form-control" placeholder=" "
                     id="S_APPL" required="" (keypress)="($event.charCode >= 48 && $event.charCode < 58)" min="701"
                     max="799" (focusout)="checkDuplicate($event)" pattern="^[0-9]+$" maxlength="3"
-                    title="Input allowed only 0-9" formControlName="S_APPL"  />
+                    title="Input allowed only 0-9" formControlName="S_APPL" #autofocus />
                   <label for="S_APPL">Scheme Code<sub class="required">* </sub></label>
                 </span>
               </div>
@@ -37,7 +37,7 @@
             <div class="col-sm-7">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input  type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
+                  <input appTheme type="text" name="S_NAME" class="form-control" placeholder=" " id="Description" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_NAME" />
@@ -62,7 +62,7 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input  type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
+                  <input appTheme type="text" name="S_SHNAME" class="form-control" placeholder=" " id="S_SHNAME" required=""
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z\./ -]+$" maxlength="10" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="S_SHNAME" />
@@ -94,7 +94,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac" formControlName="S_GLACNO"
+                  <ng-select appTheme id="S_GLACNO" bindValue="value" [(ngModel)]="ngglac" formControlName="S_GLACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     #S_GLACNO (focus)="onFocus(S_GLACNO)" [selectOnTab]='true'  [virtualScroll]="true"
                     required placeholder="GL Account Number">
@@ -124,7 +124,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl" formControlName="S_INT_ACNO"
+                  <ng-select appTheme id="S_INT_ACNO" bindValue="value" [(ngModel)]="nginterestgl" formControlName="S_INT_ACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     #S_INT_ACNO (focus)="onFocus(S_INT_ACNO)" [selectOnTab]='true' [virtualScroll]="true"
                     required placeholder="Interest GL Account">
@@ -157,7 +157,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivable"
+                  <ng-select appTheme id="S_RECBL_PYBL_INT_ACNO" bindValue="value" [(ngModel)]="ngreceivable"
                     formControlName="S_RECBL_PYBL_INT_ACNO" bindLabel="label" title="Compulsory Selection"  [virtualScroll]="true"
                     #S_RECBL_PYBL_INT_ACNO (focus)="onFocus(S_RECBL_PYBL_INT_ACNO)" [selectOnTab]='true' 
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Receivable Interest Account">
@@ -187,7 +187,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalac" formControlName="S_PENAL_ACNO"
+                  <ng-select appTheme id="S_PENAL_ACNO" bindValue="value" [(ngModel)]="ngpenalac" formControlName="S_PENAL_ACNO"
                     bindLabel="label" title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                     #S_PENAL_ACNO (focus)="onFocus(S_PENAL_ACNO)" [selectOnTab]='true'   [virtualScroll]="true"
                     placeholder="Penal Interest Account">
@@ -220,7 +220,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngreceivablepenal"
+                  <ng-select appTheme id="S_RECBL_PENAL_ACNO" bindValue="value" [(ngModel)]="ngreceivablepenal"
                     formControlName="S_RECBL_PENAL_ACNO" bindLabel="label" title="Compulsory Selection"
                     [ngClass]="{'form-submitted': formSubmitted}" required  [virtualScroll]="true"
                     #S_RECBL_PENAL_ACNO (focus)="onFocus(S_RECBL_PENAL_ACNO)" [selectOnTab]='true' 
@@ -252,7 +252,7 @@
               </div> -->
               <div class="form-group form-primary form-static-label">
                 <span class="border-lable-flt">
-                  <ng-select  id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
+                  <ng-select appTheme id="S_CASH_INT_ACNO" bindValue="value" [(ngModel)]="ngcashint"
                     formControlName="S_CASH_INT_ACNO" bindLabel="label" title="Compulsory Selection"
                     #S_CASH_INT_ACNO (focus)="onFocus(S_CASH_INT_ACNO)" [selectOnTab]='true'   [virtualScroll]="true"
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Cash Interest Account">
@@ -597,7 +597,7 @@
                         </ng-select> -->
                         <div class="form-group form-primary form-static-label">
                           <span class="border-lable-flt">
-                            <ng-select  id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngnotapplicable"
+                            <ng-select appTheme id="COMPOUND_INT_BASIS" bindValue="value" [(ngModel)]="ngnotapplicable"
                               [disabled]="COMPOUND_INT_BASIS" formControlName="COMPOUND_INT_BASIS" bindLabel="label"  [virtualScroll]="true"
                               title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
                               #COMPOUND_INT_BASIS (focus)="onFocus(COMPOUND_INT_BASIS)" [selectOnTab]='true'
@@ -615,7 +615,7 @@
                       <div class="col-sm-4">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input  style="text-align: right" type="text" name="NAME" class="form-control" placeholder=" " id="COMPOUND_INT_DAYS"
+                            <input appTheme style="text-align: right" type="text" name="NAME" class="form-control" placeholder=" " id="COMPOUND_INT_DAYS"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                               maxlength="3" formControlName="COMPOUND_INT_DAYS" [disabled]="COMPOUND_INT_DAYS" />
                             <label for="COMPOUND_INT_DAYS">Compound Interest Days<sub class="required">*
@@ -646,7 +646,7 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input  style="text-align: right;" type="text" class="form-control" placeholder=" "
+                          <input appTheme style="text-align: right;" type="text" class="form-control" placeholder=" "
                             id="S_PRODUCT_DAY_BASE" formControlName="S_PRODUCT_DAY_BASE"
                             [(ngModel)]="S_PRODUCT_DAY_BASE"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)" name="S_PRODUCT_DAY_BASE"
@@ -697,7 +697,7 @@
                     <div class="col-sm">
                       <div class="form-group input-group">
                         <span class="border-lable-flt">
-                          <input  style="text-align: right;" type="text" class="form-control" placeholder=" "
+                          <input appTheme style="text-align: right;" type="text" class="form-control" placeholder=" "
                             id="S_PRODUCT_DAY_BASE_END" pattern="^[0-9]+$" title="Input allowed only  0-9" max="31"
                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                             formControlName="S_PRODUCT_DAY_BASE_END" [(ngModel)]="S_PRODUCT_DAY_BASE_END"
@@ -798,7 +798,7 @@
                             </ng-select> -->
                             <div class="form-group form-primary form-static-label">
                               <span class="border-lable-flt">
-                                <ng-select  id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallment"
+                                <ng-select appTheme id="INSTALLMENT_BASIS" bindValue="value" [(ngModel)]="nginstallment"
                                   formControlName="INSTALLMENT_BASIS" bindLabel="label" [disabled]="INSTALLMENT_BASIS"  [virtualScroll]="true"
                                   title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}" required
                                   #INSTALLMENT_BASIS (focus)="onFocus(INSTALLMENT_BASIS)" [selectOnTab]='true'
@@ -870,7 +870,7 @@
                       <div class="col-sm">
                         <div class="form-group input-group">
                           <span class="border-lable-flt">
-                            <input  style="text-align: right;" type="text" class="form-control" placeholder=" " value="0"
+                            <input appTheme style="text-align: right;" type="text" class="form-control" placeholder=" " value="0"
                               id="DEPOSIT_PENAL_INT_CALC_DAY" pattern="^[0-9]+$" title="Input allowed only  0-9"
                               max="31" formControlName="DEPOSIT_PENAL_INT_CALC_DAY"
                               (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -1060,7 +1060,7 @@
                         </ng-select> -->
                         <div class="form-group form-primary form-static-label">
                           <span class="border-lable-flt">
-                            <ng-select  id="UNIT_OF_PERIOD" bindValue="value" [(ngModel)]="ngunit"
+                            <ng-select appTheme id="UNIT_OF_PERIOD" bindValue="value" [(ngModel)]="ngunit"
                               formControlName="UNIT_OF_PERIOD" bindLabel="label" title="Compulsory Selection"
                               #UNIT_OF_PERIOD (focus)="onFocus(UNIT_OF_PERIOD)" [selectOnTab]='true'  [virtualScroll]="true"
                               [ngClass]="{'form-submitted': formSubmitted}" placeholder="Unit of TD Period">
@@ -1381,7 +1381,7 @@
               <div class="row" style="float: right;">
                 <div class="col-sm m-b-20">
                   <button class="btn btn-outline-primary btn-sm btn-submit"  (click)="submit()"
-                    *ngIf="showButton" (keydown.Tab)="focus()" >
+                    *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                     Submit
                   </button>
                   <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">

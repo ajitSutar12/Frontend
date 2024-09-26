@@ -9,7 +9,7 @@ import { SelectModule } from 'ng-select';
 
 import {DataTablesModule} from 'angular-datatables';
 import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -23,6 +23,9 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -38,7 +41,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    //Translation
+ TranslateModule.forRoot({
+  loader:{
+    provide: TranslateLoader,
+    useFactory: HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
   ],
   declarations: [PassbookIssueComponent],
   exports:[PassbookIssueComponent],
@@ -64,3 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ], 
 })
 export class PassbookIssueModule { }
+//Translation
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { OwnbranchMasterService } from '../../../../../shared/dropdownService/own-branch-master-dropdown.service'
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -89,7 +90,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     private salaryDivisionService: SalaryDivisionService,
     private ownbranchMaster: OwnbranchMasterService,
     private fb: FormBuilder,
-    private config: NgSelectConfig,) {
+    private config: NgSelectConfig, private translate:TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -152,25 +153,30 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Code',
+          // title: 'Code',
+          title: this.translate.instant('master.Salary_Div_Master.Code'),
           data: 'CODE'
         },
         {
-          title: 'Full Name',
+          // title: 'Full Name',
+          title: this.translate.instant('master.Salary_Div_Master.Full_Name'),
           data: 'NAME'
         },
         {
-          title: 'District Name',
+          // title: 'District Name',
+          title: this.translate.instant('master.Salary_Div_Master.District_name'),
           data: 'DISTRICT_NAME'
         },
         {
-          title: 'Branch Code',
+          // title: 'Branch Code',
+          title: this.translate.instant('master.Salary_Div_Master.Branch_Code'),
           data: 'BRANCH_CODE'
         },
       ], dom: 'Blrtip',

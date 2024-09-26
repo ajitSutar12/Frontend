@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ForgotComponent } from './forgot.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ForgotComponent} from './forgot.component';
 
 const routes: Routes = [
   {
@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ForgotComponent,
     data: {
       title: 'Forgot'
-    },
+    }
   }
 ];
 
