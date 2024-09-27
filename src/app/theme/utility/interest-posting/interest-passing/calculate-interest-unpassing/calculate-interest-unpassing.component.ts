@@ -7,6 +7,8 @@ import { environment } from 'src/environments/environment';
 import { EditInterestCalculationComponent } from '../edit-interest-calculation/edit-interest-calculation.component';
 import { EditInterestCalculationService } from '../edit-interest-calculation/edit-interest-calculation.service';
 import Swal from "sweetalert2";
+import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-calculate-interest-unpassing',
@@ -34,11 +36,22 @@ export class CalculateInterestUnpassingComponent implements OnInit {
   showMsg: boolean = true;
 
   tableData: any = [];
+  setLang: any;
+
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: EditInterestCalculationService
-  ) { }
+    private _service: EditInterestCalculationService,
+    private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService
+
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
 
@@ -103,7 +116,7 @@ export class CalculateInterestUnpassingComponent implements OnInit {
 
   submit() {
     if (this.AddDataList.length == 0) {
-      Swal.fire('Oops..!', "Please select scheme data", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Please_select_scheme')}`, "warning");
     } else {
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = {
@@ -112,7 +125,7 @@ export class CalculateInterestUnpassingComponent implements OnInit {
         user: user
       }
       this.http.post(this.url + '/voucher/EntryunpassInterestEntry', obj).subscribe(data => {
-        Swal.fire('Success', "Unpassing successfully", 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Unpassing_successfully')}`, 'success');
         this.AddDataList = [];
         this.tableData = [];
         this.ngOnInit()
