@@ -12,7 +12,9 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [LoanCCACOpenSanctionDatewiseComponent],
@@ -29,6 +31,14 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   providers:[
     SystemMasterParametersService,
@@ -37,3 +47,6 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
   ],
 })
 export class LoanCCACOpenSanctionDatewiseModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

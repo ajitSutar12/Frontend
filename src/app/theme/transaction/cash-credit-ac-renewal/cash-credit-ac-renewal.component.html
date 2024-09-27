@@ -2,16 +2,20 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Cash Credit And Loan Renewal</h5>
+                <!-- <h5>Cash Credit And Loan Renewal</h5> -->
+                <h5>{{'Transaction.Cash_Credit_Ac.T1'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'Transaction.Action.F1'|translate}} (<sub class="required"> * </sub>)
+                    {{'Transaction.Action.F2'|translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">
+                                <!-- Branch -->
+                                {{'Transaction.Cash_Credit_Ac.Branch'|translate}}<sub class="required">*</sub></label>
+                        </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -28,13 +32,15 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">
+                                <!-- Scheme -->
+                                {{'Transaction.Cash_Credit_Ac.Scheme'|translate}}<sub class="required">*</sub></label>
+                        </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -53,12 +59,14 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_NO">Account Number<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="AC_NO">
+                                <!-- Account Number -->
+                                {{'Transaction.Cash_Credit_Ac.Ac_No'|translate}}<sub class="required">*</sub></label>
+                        </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -83,7 +91,7 @@
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                 </div>
                             </div>
 
@@ -91,13 +99,15 @@
                                 *ngIf="angForm.controls['AC_NO'].invalid && (angForm.controls['AC_NO'].dirty || angForm.controls['AC_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_NO'].errors?.required">
-                                    This field is required.
+                                    This field is required. 
                                 </div>
                             </div> -->
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="RENEWAL_DATE">Renewal Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="RENEWAL_DATE">
+                                <!-- Renewal Date -->
+                                {{'Transaction.Cash_Credit_Ac.Renewal_Date'|translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -109,11 +119,13 @@
                                 *ngIf="angForm.controls['RENEWAL_DATE'].invalid && (angForm.controls['RENEWAL_DATE'].dirty || angForm.controls['RENEWAL_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['RENEWAL_DATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">Account Opening Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AC_OPDATE">
+                                <!-- Account Opening Date -->
+                                {{'Transaction.Cash_Credit_Ac.Ac_Open_Date'|translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -122,8 +134,9 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-3"><label for="AC_RENEWAL_COUNTER">Account Renewal Numbers of
-                                Times</label></div>
+                        <div class="col-sm-12 col-md-3"><label for="AC_RENEWAL_COUNTER">
+                                <!-- Account Renewal Numbers of Times -->
+                                {{'Transaction.Cash_Credit_Ac.Ac_Open_Date'|translate}}</label></div>
                         <div class="col-md-1">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -137,13 +150,15 @@
                                 *ngIf="angForm.controls['AC_RENEWAL_COUNTER'].invalid && (angForm.controls['AC_RENEWAL_COUNTER'].dirty || angForm.controls['AC_RENEWAL_COUNTER'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_RENEWAL_COUNTER'].errors?.required">
-                                    Input allowed only 0-9.
+                                    <!-- Input allowed only 0-9. -->{{'Transaction.Validation.Bill_Val'|translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_INTCATA">Interest Category<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_INTCATA">
+                                <!-- Interest Category -->
+                                {{'Transaction.Cash_Credit_Ac.Interest_Category'|translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
@@ -161,11 +176,13 @@
                                 *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_INTCATA'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="LAST_INTDATE">Last Interest Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="LAST_INTDATE">
+                                <!-- Last Interest Date -->
+                                {{'Transaction.Cash_Credit_Ac.Last_Int_Date'|translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -178,7 +195,7 @@
                                 *ngIf="angForm.controls['LAST_INTDATE'].invalid && (angForm.controls['LAST_INTDATE'].dirty || angForm.controls['LAST_INTDATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['LAST_INTDATE'].errors?.required">
-                                    This field is required.
+                                    <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -186,7 +203,9 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="solid">
-                                <h3><span>Old Details</span></h3>
+                                <h3><span>
+                                        <!-- Old Details -->
+                                        {{'Transaction.Cash_Credit_Ac.Old_Detail'|translate}}</span></h3>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-3"> <label for="OLDAC_MONTHS">Period in Months</label>
                                     </div>
@@ -199,7 +218,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_EXPIRE_DATE">Expiry Date</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_EXPIRE_DATE">
+                                            <!-- Expiry Date -->
+                                            {{'Transaction.Cash_Credit_Ac.Expiry_Date'|translate}}</label>
                                     </div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -212,8 +233,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_AMOUNT">Sanction
-                                            Amount</label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_AMOUNT">
+                                            <!-- Sanction Amount -->
+                                            {{'Transaction.Cash_Credit_Ac.Sanction_Amount'|translate}}</label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -224,8 +246,9 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_DATE">Sanction
-                                            Date</label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SANCTION_DATE">
+                                            <!-- Sanction Date -->
+                                            {{'Transaction.Cash_Credit_Ac.Sanction_Date'|translate}}</label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -237,8 +260,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SECURITY_AMT">Security
-                                            Amount</label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_SECURITY_AMT">
+                                            <!-- Security Amount -->
+                                            {{'Transaction.Cash_Credit_Ac.Security_Amount'|translate}}</label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -248,8 +272,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_DRAWPOWER_AMT">Drawing
-                                            Power Amount</label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_DRAWPOWER_AMT">
+                                            <!-- Drawing Power Amount -->
+                                            {{'Transaction.Cash_Credit_Ac.Drawing_Power_Amount'|translate}}</label>
+                                    </div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -261,8 +287,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_INSTALLMENT">Installment
-                                            Amount</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="OLDAC_INSTALLMENT">
+                                            <!-- Installment Amount -->
+                                            {{'Transaction.Cash_Credit_Ac.Install_Amount'|translate}}</label>
                                     </div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -279,9 +306,12 @@
                         </div>
                         <div class="col-sm">
                             <div class="solid">
-                                <h3><span>Renewal Details</span></h3>
+                                <!-- <h3><span>Renewal Details</span></h3> -->
+                                <h3><span>{{'Transaction.Cash_Credit_Ac.Renewal_Detail'|translate}}</span></h3>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_MONTHS">Period in Months<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_MONTHS">
+                                            <!-- Period in Months -->
+                                            {{'Transaction.Cash_Credit_Ac.Period'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -298,18 +328,21 @@
                                             *ngIf="angForm.controls['AC_MONTHS'].invalid && (angForm.controls['AC_MONTHS'].dirty || angForm.controls['AC_MONTHS'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_MONTHS'].errors?.required">
-                                                This field is required and input allowed 0-9
+                                                <!-- This field is required and input allowed 0-9 -->{{'Transaction.Validation.P_Val'|translate}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_EXPIRE_DATE">Expiry Date<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_EXPIRE_DATE">
+                                            <!-- Expiry Date -->
+                                            {{'Transaction.Cash_Credit_Ac.Expiry_Date'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="AC_EXPIRE_DATE"
                                                     id="AC_EXPIRE_DATE" class="form-control" [(ngModel)]="ngexpirydate"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appTheme appButton minlength="10" maxlength="10"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appTheme appButton
+                                                    minlength="10" maxlength="10"
                                                     [ngClass]="{'form-submitted': formSubmitted}"
                                                     #AC_EXPIRE_DATE="bsDatepicker" (keydown.Tab)="AC_EXPIRE_DATE.hide()"
                                                     placement="left" formControlName="AC_EXPIRE_DATE"
@@ -321,13 +354,15 @@
                                             *ngIf="angForm.controls['AC_EXPIRE_DATE'].invalid && (angForm.controls['AC_EXPIRE_DATE'].dirty || angForm.controls['AC_EXPIRE_DATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_EXPIRE_DATE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_SANCTION_AMOUNT">Sanction Amount<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_SANCTION_AMOUNT">
+                                            <!-- Sanction Amount -->
+                                            {{'Transaction.Cash_Credit_Ac.Sanction_Amount'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -346,21 +381,24 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="angForm.controls['AC_SANCTION_AMOUNT'].errors?.required || angForm.controls['AC_SANCTION_AMOUNT'].errors?.maxlength">
-                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                                <!-- Input allowed only 0-9 .(after decimal 2 digits) -->
+                                                {{'Transaction.Validation.S_Amt'|translate}}
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_SANCTION_DATE">Sanction Date<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_SANCTION_DATE">
+                                        <!-- Sanction Date -->
+                                        {{'Transaction.Cash_Credit_Ac.Sanction_Date'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="AC_SANCTION_DATE"
                                                     id="AC_SANCTION_DATE" class="form-control"
-                                                    [(ngModel)]="ngsansctiondate" appTheme appButton minlength="10" maxlength="10"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}"
+                                                    [(ngModel)]="ngsansctiondate" appTheme appButton minlength="10"
+                                                    maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                    [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}"
                                                     formControlName="AC_SANCTION_DATE" #AC_SANCTION_DATE="bsDatepicker"
                                                     (keydown.Tab)="AC_SANCTION_DATE.hide()" placement="left"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
@@ -371,13 +409,15 @@
                                             *ngIf="angForm.controls['AC_SANCTION_DATE'].invalid && (angForm.controls['AC_SANCTION_DATE'].dirty || angForm.controls['AC_SANCTION_DATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_SANCTION_DATE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_SECURITY_AMT">Security Amount<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_SECURITY_AMT">
+                                        <!-- Security Amount -->
+                                        {{'Transaction.Cash_Credit_Ac.Security_Amount'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -397,14 +437,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf=" angForm.controls['AC_SECURITY_AMT'].errors?.required || angForm.controls['AC_SECURITY_AMT'].errors?.maxlength">
-                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                                <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Transaction.Validation.S_Amt'|translate}}
                                             </div>
                                         </div>
 
                                     </div>
 
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_DRAWPOWER_AMT">Drawing Power
-                                            Amount<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_DRAWPOWER_AMT">
+                                        <!-- Drawing Power Amount -->
+                                        {{'Transaction.Cash_Credit_Ac.Drawing_Power_Amount'|translate}}<sub class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -423,7 +464,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="angForm.controls['AC_DRAWPOWER_AMT'].errors?.required || angForm.controls['AC_DRAWPOWER_AMT'].errors?.maxlength">
-                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                                <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Transaction.Validation.S_Amt'|translate}}
                                             </div>
                                         </div>
 
@@ -431,7 +472,9 @@
 
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="AC_INSTALLMENT">Installment Amount<sub
+                                    <div class="col-sm-12 col-md-3"> <label for="AC_INSTALLMENT">
+                                        <!-- Installment Amount -->
+                                       {{'Transaction.Cash_Credit_Ac.Install_Amount'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -451,7 +494,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="angForm.controls['AC_INSTALLMENT'].errors?.required || angForm.controls['AC_INSTALLMENT'].errors?.maxlength">
-                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                                <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Transaction.Validation.S_Amt'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -463,9 +506,12 @@
                     <div class="row">
                         <div class="col-sm">
                             <div class="solid">
-                                <h3><span>Resolution Details</span></h3>
+                                <!-- <h3><span>Resolution Details</span></h3> -->
+                                <h3><span>{{'Transaction.Cash_Credit_Ac.Resolution_Detail'|translate}}</span></h3>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-2"><label for="AC_RESO_NO">Number<sub
+                                    <div class="col-sm-12 col-md-2"><label for="AC_RESO_NO">
+                                        <!-- Number -->
+                                        {{'Transaction.Cash_Credit_Ac.No'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
@@ -484,11 +530,13 @@
                                             *ngIf="angForm.controls['AC_RESO_NO'].invalid && (angForm.controls['AC_RESO_NO'].dirty || angForm.controls['AC_RESO_NO'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_RESO_NO'].errors?.required">
-                                                This field is required Input allowed only 0-9
+                                                <!-- This field is required Input allowed only 0-9 -->{{'Transaction.Validation.P_Val'|translate}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_RESO_DATE">Date<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_RESO_DATE">
+                                        <!-- Date -->
+                                        {{'Transaction.Cash_Credit_Ac.Date'|translate}}<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-4">
                                         <div class="form-group input-group">
@@ -496,9 +544,10 @@
                                                 <input type="text" placeholder="dd/mm/yyyy" name="AC_RESO_DATE"
                                                     id="AC_RESO_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" appTheme appButton minlength="10" maxlength="10"
-                                                    formControlName="AC_RESO_DATE" #AC_RESO_DATE="bsDatepicker"
-                                                    (keydown.Tab)="AC_RESO_DATE.hide()" placement="top"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" appTheme appButton
+                                                    minlength="10" maxlength="10" formControlName="AC_RESO_DATE"
+                                                    #AC_RESO_DATE="bsDatepicker" (keydown.Tab)="AC_RESO_DATE.hide()"
+                                                    placement="top"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -507,7 +556,7 @@
                                             *ngIf="angForm.controls['AC_RESO_DATE'].invalid && (angForm.controls['AC_RESO_DATE'].dirty || angForm.controls['AC_RESO_DATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['AC_RESO_DATE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -516,10 +565,12 @@
                         </div>
                         <div class="col-sm">
                             <div class="solid">
-                                <h3><span>Interest Details</span></h3>
+                                <!-- <h3><span>Interest Details</span></h3> -->
+                                <h3><span>{{'Transaction.Cash_Credit_Ac.Int_Detail'|translate}}</span></h3>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="INT_RATE">Normal Interest
-                                            Rate(%)</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="INT_RATE">
+                                        <!-- Normal Interest Rate(%) -->
+                                        {{'Transaction.Cash_Credit_Ac.Normal_Int'|translate}}</label>
                                     </div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -538,13 +589,14 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="angForm.controls['INT_RATE'].errors?.required || angForm.controls['INT_RATE'].errors?.maxlength">
-                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                                <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Transaction.Validation.S_Amt'|translate}}
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-3"> <label for="PENAL_INT_RATE">Penal Interest
-                                            Rate(%)</label></div>
+                                    <div class="col-sm-12 col-md-3"> <label for="PENAL_INT_RATE">
+                                        <!-- Penal Interest Rate(%) -->
+                                        {{'Transaction.Cash_Credit_Ac.Penal_Int'|translate}}</label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -562,13 +614,15 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="angForm.controls['PENAL_INT_RATE'].errors?.required || angForm.controls['PENAL_INT_RATE'].errors?.maxlength">
-                                                Input allowed only 0-9 .(after decimal 2 digits)
+                                                <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Transaction.Validation.S_Amt'|translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3"> <label for="EFFECT_DATE">Effective Date</label>
+                                    <div class="col-sm-12 col-md-3"> <label for="EFFECT_DATE">
+                                        <!-- Effective Date -->
+                                        {{'Transaction.Cash_Credit_Ac.Effect_Date'|translate}}</label>
                                     </div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group input-group">
@@ -576,9 +630,10 @@
                                                 <input type="text" placeholder="dd/mm/yyyy" name="EFFECT_DATE"
                                                     id="EFFECT_DATE" class="form-control" [(ngModel)]="ngeffectivedate"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
-                                                    [ngClass]="{'form-submitted': formSubmitted}" appButton minlength="10" maxlength="10"
-                                                    formControlName="EFFECT_DATE" #EFFECT_DATE="bsDatepicker"
-                                                    (keydown.Tab)="EFFECT_DATE.hide()" placement="top"
+                                                    [ngClass]="{'form-submitted': formSubmitted}" appButton
+                                                    minlength="10" maxlength="10" formControlName="EFFECT_DATE"
+                                                    #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
+                                                    placement="top"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -587,7 +642,7 @@
                                             *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                                This field is required.
+                                                <!-- This field is required. -->{{'Transaction.Validation.Val1'|translate}}
                                             </div>
                                         </div>
                                     </div>
@@ -599,21 +654,29 @@
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" appTheme
                                 *ngIf="showButton" [disabled]="angForm.invalid" (click)="submit();branchcode.focus()">
-                                Renew
+                                <!-- Renew -->
+                                {{'Transaction.Action.Renew'|translate}}
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
-                                Close</button>
+                                <!-- Close -->
+                                {{'Transaction.Action.Close'|translate}}</button>
+
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                                Cancel
+                                <!-- Cancel -->
+                                {{'Transaction.Action.Cancel'|translate}}
+
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <!-- <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
                                 Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <!-- Reject -->
+                                {{'Transaction.Action.Reject'|translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                Approve</button>
+                                <!-- Approve -->
+                                {{'Transaction.Action.Approve'|translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unApprove()">
-                                Unapprove</button>
+                                <!-- Unapprove -->
+                                {{'Transaction.Action.Unapprove'|translate}}</button>
                         </div>
                     </div>
                 </div>

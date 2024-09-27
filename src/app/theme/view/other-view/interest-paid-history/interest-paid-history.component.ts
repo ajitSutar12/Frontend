@@ -9,6 +9,9 @@ import { OwnbranchMasterService } from '../../../../shared/dropdownService/own-b
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { log } from 'console';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 @Component({
   selector: 'app-interest-paid-history',
   templateUrl: './interest-paid-history.component.html',
@@ -45,15 +48,24 @@ export class InterestPaidHistoryComponent implements OnInit, OnChanges {
   accountOpeningDate = null
   showView: boolean = true
   dtExportButtonOptions: any = {};
+  setLang: any;
   constructor(private fb: FormBuilder,
     private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) {
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnChanges() {

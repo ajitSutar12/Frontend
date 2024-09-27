@@ -25,7 +25,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="footer-email" class="form-control" placeholder=" "
-                                        #autofocus id="BC_NAME" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        #autofocus id="BC_NAME" required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BC_NAME">
                                     <label for="BC_NAME">{{'master.Minimum_Balance_Master.Balance_Categaray_Name' | translate}}<sub class="required">* </sub></label>

@@ -81,7 +81,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_TITLE" class="form-control" placeholder=" "
-                                        id="AC_TITLE" pattern="^[A-Za-z\./ -]+$" formControlName="AC_TITLE" disabled>
+
+                                        id="AC_TITLE" pattern="^[\u0900-\u097F A-Za-z]+$" formControlName="AC_TITLE" disabled>
                                     <label for="AC_TITLE">{{'master.Customer.Title'|translate}}</label>
                                 </span>
                             </div>
@@ -90,7 +91,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
-                                        pattern="^[A-Za-z\./ -]+$" disabled formControlName="AC_NAME">
+
+                                        pattern="^[\u0900-\u097F A-Za-z]+$" disabled formControlName="AC_NAME">
                                     <label for="AC_NAME">{{'master.Customer.Name'|translate}}</label>
                                 </span>
                             </div>
@@ -217,7 +219,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_WARD"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_WARD" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_WARD" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                         formControlName="AC_WARD" disabled>
                                                                     <label for="AC_WARD">{{'master.Customer.Ward'|translate}}</label>
                                                                 </span>
@@ -239,7 +241,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_AREA"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_AREA" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_AREA" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                         formControlName="AC_AREA" disabled>
                                                                     <label for="AC_AREA">{{'master.Customer.Area'|translate}}</label>
                                                                 </span>
@@ -263,7 +265,7 @@
                                                                 <span class="border-lable-flt">
                                                                     <input type="text" name="AC_CTCODE"
                                                                         class="form-control" placeholder=" "
-                                                                        id="AC_CTCODE" pattern="^[A-Za-z\./ -]+$"
+                                                                        id="AC_CTCODE" pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                         formControlName="AC_CTCODE" disabled>
                                                                     <label for="AC_CTCODE">{{'master.Customer.City'|translate}}</label>
                                                                 </span>
@@ -440,7 +442,7 @@
                                                                                         placeholder=" "
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
                                                                                         id="AC_NNAME"
-                                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                                        pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                         style="text-transform: capitalize;"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         formControlName="AC_NNAME"
@@ -476,7 +478,7 @@
                                                                                         name="AC_NRELA"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NRELA"
-                                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                                        pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                         style="text-transform: capitalize;"
                                                                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                                                                         [ngClass]="{'form-submitted': formSubmitted}"
@@ -688,7 +690,7 @@
                                                                                     <input type="text" name="AC_NAREA"
                                                                                         class="form-control"
                                                                                         placeholder=" " id="AC_NAREA"
-                                                                                        pattern="^[A-Za-z\./ -]+$"
+                                                                                        pattern="^[\u0900-\u097F A-Za-z]+$"
                                                                                         maxlength="60"
                                                                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                         style="text-transform: capitalize;"

@@ -9,11 +9,13 @@ import { DepriciationCatDropdownMasterService } from '../../../../shared/dropdow
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { DeadstockmasterService } from "../../../master/customer/dead-stock-master/dead-stock-master.service";
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import{IframeModule} from '../iframe/iframe.module'
-
+import { IframeModule } from '../iframe/iframe.module'
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   declarations: [DedDepCatwiselistComponent],
   imports: [
@@ -24,12 +26,20 @@ import{IframeModule} from '../iframe/iframe.module'
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    IframeModule
+    IframeModule,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   exports: [
     DedDepCatwiselistComponent
   ],
-  providers: [ OwnbranchMasterService,
+  providers: [OwnbranchMasterService,
     DepriciationCatDropdownMasterService,
     SystemMasterParametersService,
     DeadstockmasterService,
@@ -39,7 +49,7 @@ import{IframeModule} from '../iframe/iframe.module'
       useValue: PERFECT_SCROLLBAR_CONFIG,
 
     },
-   
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
@@ -48,3 +58,7 @@ import{IframeModule} from '../iframe/iframe.module'
   ]
 })
 export class DedDepCatwiselistModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

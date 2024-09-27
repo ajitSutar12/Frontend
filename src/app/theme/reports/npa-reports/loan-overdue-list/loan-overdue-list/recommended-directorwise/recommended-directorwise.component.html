@@ -1,0 +1,263 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Directorwise Recommended Report</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="ngForm">
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-8">
+                                <div class="form-radio">
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio" formControlName="radio" value="0"
+                                                [checked]="true">
+                                            <i class="helper"></i>All </label>
+                                    </div>
+                                    <div class="radio radio-inline">
+                                        <label>
+                                            <input type="radio" name="radio" formControlName="radio" value="1">
+                                            <i class="helper"></i>Overdue</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">Branch<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            (change)="getBranch($event)" formControlName="BRANCH_CODE" bindLabel="label"
+                                            placeholder="Branch">
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"><label for=" Date">Scheme Code<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-3 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select formControlName="Scheme_code" bindValue="value" bindLabel="label"
+                                            [(ngModel)]="scode" (change)="getTransferAccountList($event)">
+                                            <ng-option *ngFor="let values of scheme" [value]="values">
+                                                {{values.id}} {{values.label}} </ng-option>
+                                        </ng-select>
+
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for="Start_code">Start Name<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="Start_code" bindValue="value" [(ngModel)]="start"
+                                             formControlName="Start_code" bindLabel="label"
+                                            placeholder="Start_code">
+                                            <ng-option *ngFor="let values of director" [value]="values">
+                                                {{values.value}} {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Start_code'].invalid && (ngForm.controls['Start_code'].dirty || ngForm.controls['Start_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['Start_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for="Start_code">End Name<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt">
+                                        <ng-select id="End_code" bindValue="value" [(ngModel)]="end"
+                                             formControlName="End_code" bindLabel="label" 
+                                            placeholder="End_code">
+                                            <ng-option *ngFor="let values of director" [value]="values">
+                                                {{values.value}} {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['End_code'].invalid && (ngForm.controls['End_code'].dirty || ngForm.controls['End_code'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="ngForm.controls['End_code'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Due installment From<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="number" placeholder="" name="Min_save" id="Min_save"
+                                            class="form-control" [(ngModel)]="minvalue" formControlName="Min_save"
+                                            minlength="10" maxlength="10">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Min_save'].invalid && (ngForm.controls['Min_save'].dirty || ngForm.controls['Min_save'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['Min_save'].errors?. maxlength || ngForm.controls['Min_save'].errors?. minlength || ngForm.controls['Min_save'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Due installment To <sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="number" placeholder="" name="Max_save" id="Max_save"
+                                            class="form-control" [(ngModel)]="maxvalue" formControlName="Max_save"
+                                            minlength="10" maxlength="10">
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['Max_save'].invalid && (ngForm.controls['Max_save'].dirty || ngForm.controls['Max_save'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['Max_save'].errors?. maxlength || ngForm.controls['Max_save'].errors?. minlength || ngForm.controls['Max_save'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> -->
+                        <div class="row">
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">Date<sub
+                                        class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
+                                            [(ngModel)]="todate" formControlName="END_DATE" appButton minlength="8"
+                                            maxlength="10" (change)="getDate()"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="ngForm.controls['END_DATE'].invalid && (ngForm.controls['END_DATE'].dirty || ngForm.controls['END_DATE'].touched)"
+                                    class="alert alert-danger">
+                                    <div
+                                        *ngIf="ngForm.controls['END_DATE'].errors?. maxlength || ngForm.controls['END_DATE'].errors?. minlength || ngForm.controls['END_DATE'].errors?.required">
+                                        This field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm col-md-6">
+                                <div class="checkbox checkbox-primary ">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input type="checkbox" class="border-checkbox" id="checkboxValue" value="checkbox1"
+                                            formControlName="checkboxValue">
+                                        <label class="border-checkbox-label" for="checkboxValue">
+                                            </label>Consider OD Amount for loan-overdue-list
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-6">
+                                <div class="checkbox checkbox-primary ">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input type="checkbox" class="border-checkbox" id="checkboxValue1"  value="checkbox2"
+                                            formControlName="checkboxValue1">
+                                        <label class="border-checkbox-label" for="checkboxValue1">Print current Body Member only ?
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm col-md-6">
+                                <div class="checkbox checkbox-primary ">
+                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                        <input type="checkbox" class="border-checkbox" id="checkboxValue2" value="checkbox3"
+                                            formControlName="checkboxValue2">
+                                        <label class="border-checkbox-label" for="checkboxValue2">Print Current Interest ?
+                                            </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                         -->
+
+                        <div class="row">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                                    (click)="view($event); clicked = true;scrollToTop()">View</button>
+
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Report Frame</h5>
+                                    </div>
+                                    <div *ngIf="showRepo">
+                                        <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

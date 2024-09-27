@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-custidwise-intpaidlist',
   templateUrl: './custidwise-intpaidlist.component.html',
@@ -40,13 +42,22 @@ ngForm: FormGroup;
   // for dropdown ng module
     ngbranch: any = null;
     ngcust: any = null;
+  setLang: any;
   constructor( private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService,
-    ) {  this.todate = moment().format('DD/MM/YYYY');
+    private translate:TranslateService
+
+    ) {  
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

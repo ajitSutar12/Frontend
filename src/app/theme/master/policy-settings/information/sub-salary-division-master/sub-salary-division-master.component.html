@@ -75,7 +75,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="NAME"
-                                        required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
                                     <label for="Name">{{'master.Sub_Salary_Div_Master.Name' | translate}}<sub class="required">* </sub></label>
@@ -94,7 +94,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AT_POST" class="form-control" placeholder=" " id="AT_POST"
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        pattern="^[A-Za-z\./ -]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
+                                        pattern="^[\u0900-\u097F A-Za-z]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="100"
                                         formControlName="AT_POST">
                                     <label for="AT_POST">{{'master.Sub_Salary_Div_Master.At_post' | translate}}</label>
                                 </span>
@@ -110,7 +110,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="TALUKA_NAME" class="form-control" placeholder=" "
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        id="TALUKA_NAME" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        id="TALUKA_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="TALUKA_NAME">
                                     <label for="TALUKA_NAME">{{'master.Sub_Salary_Div_Master.Taluka_name' | translate}}</label>
                                 </span>
@@ -126,7 +126,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="DISTRICT_NAME" class="form-control" placeholder=" "
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
-                                        id="DISTRICT_NAME" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        id="DISTRICT_NAME" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="DISTRICT_NAME">
                                     <label for="DISTRICT_NAME">{{'master.Sub_Salary_Div_Master.District_name' | translate}}</label>

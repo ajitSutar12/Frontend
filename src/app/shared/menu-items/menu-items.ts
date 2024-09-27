@@ -1943,7 +1943,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'expensive',
-                name: 'Expensive List',
+                name: 'Expenses List',
                 id: 381
               }
             ]
@@ -4945,7 +4945,7 @@ const MENUITEMS = [
               },
               {
                 state: 'expensive',
-                name: 'Expensive List',
+                name: 'Expenses List',
                 id: 381
               }
             ]

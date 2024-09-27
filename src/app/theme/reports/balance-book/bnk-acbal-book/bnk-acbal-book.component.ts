@@ -16,7 +16,7 @@ import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-maste
 import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SavingMasterService } from '../../../master/customer/saving-master/saving-master.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -65,6 +65,7 @@ export class BnkACBalBookComponent implements OnInit {
   master: any;
 
   schemeType
+  setLang: any;
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
@@ -75,7 +76,7 @@ export class BnkACBalBookComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private savingMasterService: SavingMasterService,
     private _ACMasterDropdownService: ACMasterDropdownService,
-
+    private translate: TranslateService,
 
     private sanitizer: DomSanitizer,
     private config: NgSelectConfig,
@@ -115,6 +116,9 @@ export class BnkACBalBookComponent implements OnInit {
 
       this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
         this.defaultDate = data.CURRENT_DATE;
+        //Translation
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
       })
 
     })
@@ -263,7 +267,7 @@ export class BnkACBalBookComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
 
   view(event) {
 

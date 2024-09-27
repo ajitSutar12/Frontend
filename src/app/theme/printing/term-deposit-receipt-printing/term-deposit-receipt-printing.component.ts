@@ -70,8 +70,10 @@ export class TermDepositReceiptPrintingComponent implements OnInit {
   SAPPL: any;
   receiptAmt: any;
   ledgerBalance: number;
-  setLang:any;
-  constructor(  
+  setLang: any;
+  result
+  constructor(
+
     private fb: FormBuilder,
     private _service: VoucherEntryService,
     private translate:TranslateService,
@@ -130,21 +132,26 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.defaultDate = data.CURRENT_DATE;
     })
-      let data: any = localStorage.getItem('user');
-      let result = JSON.parse(data);
-      if (result.RoleDefine[0].Role.id == 1) {
-        this.ngbranch = result.branch.id
-        this.ngForm.controls['BRANCH_CODE'].enable()
-        this.branchName = result.branch.NAME
-  
-      }
-      else {
-        this.ngForm.controls['BRANCH_CODE'].disable()
-        this.ngbranch = result.branch.id
-        this.branchName = result.branch.NAME
-  
-      }
-}
+    let data: any = localStorage.getItem('user');
+     this.result = JSON.parse(data);
+    if (this.result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = this.result.branch.id
+      this.ngForm.controls['BRANCH_CODE'].enable()
+      this.branchName = this.result.branch.NAME
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }
+    else {
+      this.ngForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = this.result.branch.id
+      this.branchName = this.result.branch.NAME
+      this.BranchCode = this.result.branch.CODE
+
+    }
+  }
+
 
 
 
@@ -210,68 +217,10 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
 
   }
   getIntTrans1(event) {
-    this.lastno =  event.BANKACNO
-    }
-  // view(event) {
-
-  //   event.preventDefault();
-  //   this.formSubmitted = true;
+    this.lastno = event.BANKACNO
+  }
   
-  //   let userData = JSON.parse(localStorage.getItem('user'));
-  //   let bankName = userData.branch.syspara.BANK_NAME;
-  //   let branchName = userData.branch.NAME;
-    
-  //   if(this.ngForm.valid){
-  //   let obj = this.ngForm.value
-  //   this.showRepo = true;
-  
-  //   if(this.defaultDate == userData.branch.syspara.CURRENT_DATE)
-  //   {
-  //     obj['FROM_DATE'] =userData.branch.syspara.CURRENT_DATE
-  //   }
-  //   else{
-  //   let date = moment(this.defaultDate).format('DD/MM/YYYY');
-  //   let tDate = moment(date, 'DD/MM/YYYY')
-  //   obj['FROM_DATE']=date 
-  // }
-  //   // let startDate = moment(obj.FROM_DATE).format('DD/MM/YYYY');
-  //   // var sdate = moment(obj.FROM_DATE).startOf('quarter').format('DD/MM/YYYY');
-  
-  //   let scheme = obj.AC_TYPE 
-  //   let branch = obj.BRANCH_CODE
 
-  //   let firstno = this.firstno 
-  //   let lastno = this.lastno 
-
-  //     //     //for tdreceipt Number
-  //     // let obj1 = {
-  //     //   type: this.vtype,
-  //     //   branch: this.ngbranch,
-  //     //   tran_type: this.tranType,
-  //     //   date : sdate
-      
-  
-  //     // }
-  //     // this.http.post<any>(this.url + '/voucher/tranList', obj1).subscribe((data) => {
-  //     //   this.glDetails = data
-  //     //   console.log(this.glDetails)
-  //     // }) 
-
-
-
-
-  //  this.iframe5url= this.report_url+"examples/TDReceiptPrint.php/?&Date='"+ obj.FROM_DATE +"'&scheme='"+ scheme +"'&branchname='"+ this.branchName +"'&BRANCH_CODE='"+ branch +"'&Bankname='"+ bankName +"'&AC_ACNOTYPE='"+ scheme +"'&BANKACNO1='"+ firstno +"'&BANKACNO2='"+ firstno +"'"
-  //  console.log(this.iframe5url);
-  //  this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-   
-   
-   
-  // }
-  // else {
-  //   Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-  // }
-  
-  // } 
   iframeVisible: boolean = false;
   view(event): void {
     event.preventDefault();
@@ -291,8 +240,9 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
         let date = moment(this.defaultDate).format('DD/MM/YYYY');
         obj['FROM_DATE'] = date;
       }
-  
-      let scheme = obj.AC_TYPE;
+
+      let scheme = this.getschemename;
+
       let branch = obj.BRANCH_CODE;
   
       let firstno = this.firstno;
@@ -303,7 +253,8 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
         scheme:   this.SAPPL,
         acno: this.firstno,
         date: obj.FROM_DATE,
-        branch: obj.BRANCH_CODE
+        branch: this.result.RoleDefine[0].Role.id == 1 ? obj.BRANCH_CODE : this.BranchCode, 
+
       }
 
       this._service.getledgerbalance(obj1).subscribe(data => {
