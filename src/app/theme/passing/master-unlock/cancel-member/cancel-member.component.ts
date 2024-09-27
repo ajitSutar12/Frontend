@@ -4,7 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
-import { MembershipCancellationComponent } from '../../../transaction/share-transactions/membership-cancellation/membership-cancellation.component'
+import { MembershipCancellationComponent } from '../../../transaction/share-transactions/membership-cancellation/membership-cancellation.component';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -48,7 +50,14 @@ export class CancelMemberComponent implements OnInit, AfterViewInit {
   // Store data from backend
   memberCancel: MembershipCancellation[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  setLang:any;
+  constructor(private http: HttpClient, private systemParameter: SystemMasterParametersService,private translate:TranslateService,) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) 
+   }
 
   memberCancelData: any
 
@@ -108,23 +117,23 @@ export class CancelMemberComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title: this.translate.instant('master.All.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title: this.translate.instant('master.All.Amount'),
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Time',
+          title: this.translate.instant('master.All.Time'),
           data: 'TRAN_TIME'
         },
 
         {
-          title: 'Scheme Type',
+          title:this.translate.instant('master.All.Scheme_Type'),
           data: 'TRAN_ACTYPE'
         },
         // {
@@ -133,7 +142,7 @@ export class CancelMemberComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Account Number',
+          title:this.translate.instant('master.All.Account_Number'),
           data: 'TRAN_ACNO'
         },
         // {
@@ -141,7 +150,7 @@ export class CancelMemberComponent implements OnInit, AfterViewInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title: 'User',
+          title: this.translate.instant('master.All.User'),
           data: 'USER_CODE'
         },
         // {
