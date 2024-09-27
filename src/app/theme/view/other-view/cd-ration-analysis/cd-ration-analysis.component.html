@@ -2,9 +2,9 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h5>CD Ratio Analysis</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
-            </div>
+                <!-- <h5>CD Ratio Analysis</h5> -->
+                <h5>{{'master.Other_View.CD_Ratio_Analysis' | translate}}</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: {{'master.Action.F2' | translate}}</h6>            </div>
             <div class="blink" *ngIf="show">{{cdratiototal | number : '1.0-2'}}</div>
             <form action="javascript:" appSubmit [formGroup]="angForm">
                 <div class="card-block">
@@ -13,7 +13,9 @@
                             <div class="row">
 
                                 <div class="col-md-2">
-                                    <label for="Branch">Branch<sub class="required">* </sub></label>
+                                    <label for="Branch">
+                                        <!-- Branch -->
+                                        {{'master.Other_View.Branch' | translate}}<sub class="required">* </sub></label>
                                 </div>
                                 <div class="col-sm-6">
 
@@ -22,7 +24,7 @@
                                             <ng-select id="BRANCH" appTheme bindValue="name" [(ngModel)]="ngbranch_code"
                                                 formControlName="BRANCH" bindLabel="label" [virtualScroll]="true"
                                                 title="Compulsory Selection" (change)="getbranch($event)"
-                                                placeholder="Branch Code" #BRANCH (focus)="onFocus(BRANCH)"
+                                                placeholder="{{'master.Other_View.Branch' | translate}}" #BRANCH (focus)="onFocus(BRANCH)"
                                                 [selectOnTab]='true'>
                                                 <ng-option *ngFor="let values of branch_code" [value]="values">
                                                     {{values.label}}</ng-option>
@@ -33,13 +35,15 @@
                                         *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-2"> <label for=" Date"> Date<sub class="required">*</sub></label>
+                                <div class="col-md-2"> <label for=" Date"> 
+                                    <!-- Date -->
+                                    {{'master.Other_View.Date' | translate}}<sub class="required">*</sub></label>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group input-group">
@@ -55,7 +59,7 @@
                                         *ngIf="angForm.controls['DATE'].invalid && (angForm.controls['DATE'].dirty || angForm.controls['DATE'].touched)"
                                         class="alert alert-danger">
                                         <div *ngIf="angForm.controls['DATE'].errors?.required">
-                                            This field is required
+                                            <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                         </div>
                                     </div>
                                 </div>
@@ -87,21 +91,23 @@
                         <div class="col-md-7" >
                             <div class="row">
                                 <div class="col-md-3 align-self-center" style="font-size: 15px; color: black">
-                                    C.D.Ratio =
+                                    <!-- C.D.Ratio = --> {{'master.Other_View.Ratio' | translate}} =
                                 </div>
                                 <div class="col-md align-self-end" style="font-size: 15px; color: black">
 
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOANS - (FUND AVAILABLE FOR
-                                    LOANS) x 100
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <!-- LOANS - (FUND AVAILABLE FOR LOANS) x 100 -->
+                                    {{'master.Other_View.Loan' | translate}}
                                     <hr style="height:2px;border-width:0;color:gray;background-color:gray">
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    DEPOSITS
+                                    <!-- DEPOSITS -->  {{'master.Other_View.DEPOSITS' | translate}}
                                 </div>
 
                             </div>
                             <div class="row">
-                                <label class="col-md" style=" color: black">Funds Available For Loans Contains Two Part
-                                    A & b and calculated as A - B</label>
+                                <label class="col-md" style=" color: black">
+                                    <!-- Funds Available For Loans Contains Two Part A & b and calculated as A - B -->
+                                    {{'master.Other_View.Funds' | translate}}</label>
                             </div>
 
                         </div>
@@ -115,7 +121,8 @@
                                 <div class="col-md-12 col-xl-12">
                                     <div class="md-tabs">
                                         <ngb-tabset (tabChange)="fetchNews($event)">
-                                            <ngb-tab title="DEPOSITS" (click)="tab('Deposits')">
+                                            <!-- <ngb-tab title="DEPOSITS" (click)="tab('Deposits')"> -->
+                                                <ngb-tab title="{{'master.Other_View.DEPOSITS' | translate}}" (click)="tab('Deposits')">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
@@ -127,11 +134,15 @@
                                                                                 [dtTrigger]="dtTrigger"
                                                                                 class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
-                                                                                    <td class="td_right">Scheme Code
-                                                                                    </td>
-                                                                                    <td>Scheme Name</td>
-                                                                                    <td>Accept</td>
-                                                                                    <td>Balance</td>
+                                                                                    <td class="td_right">
+                                                                                        <!-- Scheme Code -->
+                                                                                        {{'master.Other_View.Scheme_Code' | translate}}   </td>
+                                                                                    <!-- <td>Scheme Name</td> -->
+                                                                                    <td>{{'master.Other_View.Scheme_Name' | translate}}</td>
+                                                                                    <!-- <td>Accept</td> -->
+                                                                                    <td>{{'master.Other_View.Accept' | translate}}</td>
+                                                                                    <!-- <td>Balance</td> -->
+                                                                                    <td>{{'master.Other_View.Balance' | translate}}</td>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr *ngFor="let item of tableData">
@@ -150,7 +161,7 @@
                                                                                         <td colspan="12"
                                                                                             class="no-data-available"
                                                                                             style="text-align: center;">
-                                                                                            No data!
+                                                                                            <!-- No data! --> {{'master.Action.No_Data' | translate}}
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>
@@ -163,7 +174,8 @@
                                                     </div>
                                                 </ng-template>
                                             </ngb-tab>
-                                            <ngb-tab title="LOANS">
+                                            <!-- <ngb-tab title="LOANS"> -->
+                                                <ngb-tab title="{{'master.Other_View.LOANS' | translate}}">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
@@ -175,11 +187,15 @@
                                                                                 [dtTrigger]="dtTrigger"
                                                                                 class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
-                                                                                    <td class="td_right">Scheme Code
-                                                                                    </td>
-                                                                                    <td>Scheme Name</td>
-                                                                                    <td>Accept</td>
-                                                                                    <td>Balance</td>
+                                                                                    <td class="td_right">
+                                                                                        <!-- Scheme Code -->
+                                                                                        {{'master.Other_View.Scheme_Code' | translate}}   </td>
+                                                                                    <!-- <td>Scheme Name</td> -->
+                                                                                    <td>{{'master.Other_View.Scheme_Name' | translate}}</td>
+                                                                                    <!-- <td>Accept</td> -->
+                                                                                    <td>{{'master.Other_View.Accept' | translate}}</td>
+                                                                                    <!-- <td>Balance</td> -->
+                                                                                    <td>{{'master.Other_View.Balance' | translate}}</td>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr *ngFor="let item of tableData">
@@ -198,7 +214,7 @@
                                                                                         <td colspan="12"
                                                                                             class="no-data-available"
                                                                                             style="text-align: center;">
-                                                                                            No data!
+                                                                                            <!-- No data! --> {{'master.Action.No_Data' | translate}}
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>
@@ -211,7 +227,8 @@
                                                     </div>
                                                 </ng-template>
                                             </ngb-tab>
-                                            <ngb-tab title="PART A">
+                                            <!-- <ngb-tab title="PART A"> -->
+                                                <ngb-tab title="{{'master.Other_View.PART_A' | translate}}">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
@@ -223,11 +240,15 @@
                                                                                 [dtTrigger]="dtTrigger"
                                                                                 class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
-                                                                                    <td class="td_right">Scheme Code
-                                                                                    </td>
-                                                                                    <td>Scheme Name</td>
-                                                                                    <td>Accept</td>
-                                                                                    <td>Balance</td>
+                                                                                    <td class="td_right">
+                                                                                        <!-- Scheme Code -->
+                                                                                        {{'master.Other_View.Scheme_Code' | translate}}   </td>
+                                                                                    <!-- <td>Scheme Name</td> -->
+                                                                                    <td>{{'master.Other_View.Scheme_Name' | translate}}</td>
+                                                                                    <!-- <td>Accept</td> -->
+                                                                                    <td>{{'master.Other_View.Accept' | translate}}</td>
+                                                                                    <!-- <td>Balance</td> -->
+                                                                                    <td>{{'master.Other_View.Balance' | translate}}</td>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr *ngFor="let item of tableData">
@@ -246,7 +267,7 @@
                                                                                         <td colspan="12"
                                                                                             class="no-data-available"
                                                                                             style="text-align: center;">
-                                                                                            No data!
+                                                                                            <!-- No data! --> {{'master.Action.No_Data' | translate}}
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>
@@ -259,7 +280,8 @@
                                                     </div>
                                                 </ng-template>
                                             </ngb-tab>
-                                            <ngb-tab title="PART B">
+                                            <!-- <ngb-tab title="PART B"> -->
+                                                <ngb-tab title="{{'master.Other_View.PART_B' | translate}}">
                                                 <ng-template ngbTabContent>
                                                     <div [@fadeInOutTranslate] class="m-t-15">
                                                         <div class="card border-primary">
@@ -271,11 +293,15 @@
                                                                                 [dtTrigger]="dtTrigger"
                                                                                 class="table table-striped table-bordered table-hover compact">
                                                                                 <thead>
-                                                                                    <td class="td_right">Scheme Code
-                                                                                    </td>
-                                                                                    <td>Scheme Name</td>
-                                                                                    <td>Accept</td>
-                                                                                    <td>Balance</td>
+                                                                                    <td class="td_right">
+                                                                                        <!-- Scheme Code -->
+                                                                                        {{'master.Other_View.Scheme_Code' | translate}}   </td>
+                                                                                    <!-- <td>Scheme Name</td> -->
+                                                                                    <td>{{'master.Other_View.Scheme_Name' | translate}}</td>
+                                                                                    <!-- <td>Accept</td> -->
+                                                                                    <td>{{'master.Other_View.Accept' | translate}}</td>
+                                                                                    <!-- <td>Balance</td> -->
+                                                                                    <td>{{'master.Other_View.Balance' | translate}}</td>
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr *ngFor="let item of tableData">
@@ -294,7 +320,7 @@
                                                                                         <td colspan="12"
                                                                                             class="no-data-available"
                                                                                             style="text-align: center;">
-                                                                                            No data!
+                                                                                            <!-- No data! --> {{'master.Action.No_Data' | translate}}
                                                                                         </td>
                                                                                     </tr>
                                                                                 </tbody>
@@ -318,15 +344,18 @@
                                     <!-- <button type="button" class="btn btn-outline-primary btn-sm">
                                         Report</button> -->
                                     <button *ngIf="isShow" type="button" class="btn btn-outline-primary btn-sm" (click)="update()">
-                                        Update</button>
+                                        <!-- Update -->
+                                        {{'master.Action.Update' | translate}}</button>
                                     <button *ngIf="isShow" type="button" class="btn btn-outline-primary btn-sm" (click)="find()">
-                                        Find CD Ratio</button>
+                                        <!-- Find CD Ratio -->
+                                        {{'master.Other_View.Find_CD_Ratio' | translate}}</button>
                                     <button type="button" class="btn btn-outline-primary btn-sm"
                                         (click)="print();clicked = true" [disabled]="isDisable">
-                                        View</button>
+                                        <!-- View -->
+                                        {{'master.Action.View' | translate}}</button>
                                     <button type="submit" *ngIf="isCancel"
                                         class="btn btn-outline-primary btn-sm btn-submit" (click)="cancel()">
-                                        Cancel
+                                        <!-- Cancel -->  {{'master.Action.Cancel' | translate}}
                                     </button>
                                 </div>
                             </div>
@@ -335,7 +364,7 @@
 
                     <div class="row" *ngIf="isShow">
                         <div class="col-md-4">
-                            <label for=""> Total ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt
+                            <label for=""> {{'master.Other_View.Total' | translate}}  ({{ActiveTab}}) = {{myMath.abs(totalAmt) |number : '1.0-2'}} {{totalAmt
                                 > 0 ? 'CR' : 'DR'}}</label>
                         </div>
                     </div>
@@ -345,8 +374,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="Con_PRO"
                                         formControlName="Con_PRO" (click)="profitloassAdd($event)" />
-                                    <label class="border-checkbox-label" for="Con_PRO">Consider Profit-Loss in
-                                        Part-A</label>
+                                    <label class="border-checkbox-label" for="Con_PRO">
+                                        <!-- Consider Profit-Loss in Part-A -->
+                                        {{'master.Other_View.Consider' | translate}}</label>
                                 </div>
                             </div>
                         </div>
@@ -358,7 +388,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'View.Action.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>

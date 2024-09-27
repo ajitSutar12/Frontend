@@ -10,12 +10,16 @@ import {DataTablesModule} from 'angular-datatables';
 
 import { MemberLiablityViewComponent } from './member-liablity-view.component';
 import { MemberLiablityViewRoutingModule } from './member-liablity-view-routing.module'
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 
 
@@ -30,12 +34,19 @@ import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/di
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module,HttpClientModule
+    Iframe5Module,HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
 
   ],
   exports:[MemberLiablityViewComponent],
   declarations: [MemberLiablityViewComponent],
-  providers:[{
+  providers:[SystemMasterParametersService,{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
@@ -46,3 +57,6 @@ import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/di
 ]
 })
 export class MemberLiablityViewModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

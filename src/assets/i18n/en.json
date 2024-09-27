@@ -1879,6 +1879,17 @@
             "E_Date": "End Date",
             "Schema_Code": "Scheme Code"
         },
+        "KYC": {
+            "T1": "Customer KYC Details",
+            "cust_name": "Customer Name",
+            "id": "ID",
+            "status": "Status",
+            "kyc_doc": "KYC Document",
+            "doc_img": "Document Images",
+            "KYC" :"KYC"
+
+
+        },
         "View_Ac_Enquiry": {
             "T1": "Account Enquiry",
             "Branch": "Branch",
@@ -2079,7 +2090,14 @@
             "Documents": "Documents",
             "Product": "Product",
             "Total": "Total",
-            "Int_Received": "Interest Received"
+            "Int_Received": "Interest Received",
+            "OD_INFO" : "OD INFORMATION",
+            "OD_Days" : "OD Days",
+            "Expire_Date" :"Expire Date",
+            "Sanctioned_By" : "Sanctioned By",
+            "Periodical_Amount" :"Periodical Amount",
+            "Temporary_Amount" : "Temporary Amount",
+            "JOINT_DATE": "JOINT DATE"
         },
         "Manager_View_GL_Postion": {
             "Title": "Manager View GL Postion",
@@ -2782,9 +2800,11 @@
             "From_Date": "From Date",
             "To_Date": "To Date",
             "Type": "Type",
-            "Start_Code": "Start Code",
-            "End_Code": "End Code",
-            "expenses_list": "Expenses List"
+
+            "Start_Code" : "Start Code",
+            "End_Code" : "End Code",
+            "expenses_list" : "Expenses List",
+            "Previous_Date" :"Previous Date"
         },
         "Final_Reports": {
             "T1": "Trial Balance List (Concise)",
@@ -2938,10 +2958,71 @@
             "Active": "Active",
             "Place": "Please enter ID or name"
         },
-        "Member_Guranter_Details": {
+       "Member_Guranter_Details": {
             "T1": "Member Guranter Details",
             "Shares_Scheme": "Shares Scheme",
-            "Member_No": "Member No"
+            "Member_No": "Member No",
+            "Sr_No": "Serial Number",
+            "Exp_Date": "Exp. Date",
+            "Ac_no": "Account No",
+            "Account_Name": "Account Name",
+            "Scheme_Code": "Scheme Code ",
+            "Scheme_Type": "Scheme Type ",
+            "Open_Date": "Open Date",
+            "Sacation_Amt": "Sacation Amount",
+            "AC_Close": " AC Close",
+            "Guranter1": "Guranter1",
+            "Guranter2": "Guranter2",
+            "Close_Date": "Close DAte",
+            "Branch": "Branch",
+            "Close": "Close",
+            "Cancel": "Cancel",
+            "Submit": "Submit",
+            "Print_Closed_Acc": "बंद खाते प्रिंट करा?",
+            "Customer": "Customer",
+            "Date": "Date "
+        },
+        "Master_Card": {
+            "T1": "Master Card",
+            "Scheme": "Scheme",
+            "Member_Number": "Member Number",
+            "Name": "Name",
+            "Mobile_Number": "Mobile Number",
+            "Address": "Address",
+            "B_Date": "Birth Date",
+            "JOINT_DATE": "JOINT DATE",
+            "Retirement_Date": "Retirement Date",
+            "Status": "Status",
+            "Salary_Division": "Salary Division",
+            "Sub_Sal_Div": "Sub Salary Division",
+            "member_Liblity_view": "Member Liablity View",
+            "Action": "Action",
+            "Scheme_Name": "Scheme Name",
+            "Account_Balance": "Account Balance",
+            "Open_Date": "Open Date",
+            "Sanctions_Amount": "Sanctions Amount",
+            "Maturity_Amount": "Maturity Amount",
+            "Maturity_Date": "Maturity Date ",
+            "Month": "Month",
+            "Days": "Days",
+            "Installment": "Installment",
+            "Repay_Mode": "Repay Mode",
+            "Purpose": "Purpose",
+            "Interest": "Interest",
+            "Member_No": "Member No",
+            "Guarantor": "Guarantor",
+            "Branch": "Branch",
+            "Crdit_Amount": "Crdit Amount",
+            "Debit_Amount": "Debit Amount",
+            "Credit_Interest": "Credit Interest",
+            "Debit_Interest": "Debit Interest",
+            "Balance": "Balance",
+            "Document ":"Document ",
+           "Cust_kyc_doc": "Customer KYC Details",
+           "S_Date" :"Start Date",
+           "E_Date":"End Date",
+           "stament_view" : "Consolidate Statement View"
+
         },
         "Other_View": {
             "View": "View",
@@ -5545,6 +5626,22 @@
     "CRAR": {
         "title": "CRAR",
         "date": "Date"
+    },
+    "CRR": {
+        "title": "CRR",
+        "date": "Date",
+        "Status": "Status",
+          "Summary" : "Summary ",
+        "Detail" : "Details"
+
+    },
+    "SLR": {
+        "title": "SLR",
+        "date": "Date",
+        "Status": "Status",
+          "Summary" : "Summary ",
+        "Detail" : "Details"
+
     },
     "loanoverduelist": {
         "duebalsummary": {
