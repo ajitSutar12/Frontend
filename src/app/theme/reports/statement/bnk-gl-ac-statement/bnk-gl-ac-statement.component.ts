@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { deepValueGetter } from '@swimlane/ngx-datatable';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-gl-ac-statement',
@@ -64,6 +64,7 @@ export class BnkGlAcStatementComponent implements OnInit {
 
   bsValue = new Date();
   branchName: any;
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -72,13 +73,18 @@ export class BnkGlAcStatementComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
   }
 
   ngOnInit(): void {

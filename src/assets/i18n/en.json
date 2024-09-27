@@ -77,7 +77,8 @@
             "dividendTransferEntry": "Dividend Transfer Instruction",
             "dividendCalculation": "Dividend Calculation",
             "dividendPosting": "Dividend Posting",
-            "dividendTransferPosting": "Dividend Transfer Posting"
+            "dividendTransferPosting": "Dividend Transfer Posting",
+            "Dividend_Paid_Register":"Dividend Paid Register"
         },
         "transaction": {
             "voucherEntry": "Voucher Entry",
@@ -251,7 +252,8 @@
             "sharesTransferRegister": "Shares Transfer Register",
             "unpaidDividendList": "Unpaid Dividend List",
             "monthlyRecoveryPrint": "'Monthly Recovery Print",
-            "monthlyRecoverySubsidiary": "Monthly Recovery Subsidiary"
+            "monthlyRecoverySubsidiary": "Monthly Recovery Subsidiary",
+            "Dividend_Paid_Register":"Dividend Paid Register"
         },
         "LoanReport": {
             "LoanReport": "Term Loan/Cash Credit Reports",
@@ -2649,7 +2651,8 @@
             "T11": "KYC Document Received/Not Received",
             "Received": "Received",
             "Pending": "Pending",
-            "All": "All"
+            "All": "All",
+            "PRINT_NEW_PAGE":"Print Every Account on New Page?"
         },
         "Term_Deposit_Reports": {
             "T1": "Matured but not paid between two days",
@@ -2703,6 +2706,7 @@
             "T6": "Unpaid Dividend List",
             "T7": "Monthly Recovery Print",
             "T8": "Monthly Recovery Subsidiary",
+            "T9":"Dividend Paid List",
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Date": "Date",
@@ -2725,7 +2729,8 @@
             "From": "From",
             "To": "To",
             "Code_From": "Division Code From",
-            "Code_To": "Division Code To"
+            "Code_To": "Division Code To",
+            "All_City":"All_City"
         },
         "Term_Loan": {
             "T1": "Loan Security Reports",
@@ -5172,7 +5177,6 @@
             "Narration_Master": "Narration Master",
             "Scheme": "Scheme",
             "From": "From",
-
             "To":"To",
             "T4": "Voucher Printing",
             "Date": "Date",
