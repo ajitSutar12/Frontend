@@ -27,6 +27,8 @@ import { number } from "ngx-custom-validators/src/app/number/validator";
 import { data } from "jquery";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 // Handling datatable data
+import { TranslateService } from '@ngx-translate/core';
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -65,6 +67,7 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
   newbtnShow: boolean;
   logDate: any;
   transactions: any;
+  setLang: string;
 
   newItemEvent(value) {
     this.newOwnDepositEvent.emit(value);
@@ -123,6 +126,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private translate:TranslateService,
+
     private config: NgSelectConfig,) {
 
     // this.maxDate = new Date();
@@ -135,6 +140,8 @@ export class OwnDepositsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -308,7 +308,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   view(event) {
 
-   
+
     let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
     console.log(this.selectedItems);
     event.preventDefault();
@@ -347,7 +347,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         let tDate = moment(date, 'DD/MM/YYYY')
         obj['END_DATE'] = date
       }
-     
+
       let halfCircleBracketArray = this.selectedItems
         .toString()
         .replace(/\[/g, '(')
@@ -384,6 +384,13 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         tabValue = 0;
       }
 
+      let flag1 = obj.checkboxValue;
+      let show
+      if (flag1 == true) {
+        show = 1
+      } else {
+        show = 0
+      }
 
 
       // if (value == 'Detail') {
@@ -397,7 +404,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       }
 
 
-      this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+      this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + show + "&flag1=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

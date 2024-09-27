@@ -168,14 +168,14 @@ export class RoleDefinationComponent implements OnInit {
         "Menus": uniqueChars.toString()
       }
       this._service.addNewRoleHasPermission(roleObject).subscribe(data => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.ngOnInit()
       }, err => {
-        Swal.fire('Oops!', 'Something went wrong!', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Something_went_wrong')}`, "error");
         this.ngOnInit()
       })
     } else {
-      Swal.fire('Warning!', 'please select All requied data !', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.please_select')}`, "warning");
 
     }
   }
@@ -293,11 +293,11 @@ export class RoleDefinationComponent implements OnInit {
         "Menus": uniqueChars.toString(),
       }
       this._service.updateNewRoleHasPermission(roleObject).subscribe(data => {
-        Swal.fire('Success!', 'Data Update Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
         this.angForm.reset();
         this.ngOnInit()
       }, err => {
-        Swal.fire('Error!', 'This Role Already Exists !', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Error')}`, `${this.translate.instant('Swal_Msg.Error')}`, 'error');
         this.angForm.reset();
         this.ngOnInit()
       })

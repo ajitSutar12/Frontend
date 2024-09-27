@@ -51,12 +51,12 @@ export class CounterWorkDayEndComponent implements OnInit {
     this._services.checkDayHandOverStatus({ date: this.ngbdate, branch_id: user.branchId }).subscribe(data => {
       flag = data.flag
       if (flag == 1) {
-        Swal.fire('Info', `Already day handovered for ${this.ngbdate}`, 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `Already day handovered for ${this.ngbdate}`, 'info')
       } else {
         //  let current_date = this.ngdate;
         Swal.fire({
-          title: 'Are you sure?',
-          text: "Do you want day handover to Admin.",
+          title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+          text: `${this.translate.instant('Swal_Msg.Do_you_want_day_handover.')}`,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#229954',
@@ -72,17 +72,17 @@ export class CounterWorkDayEndComponent implements OnInit {
             //check Is valid today all transaction 
             this._services.dayEndHandoverProcess(obj).subscribe(data => {
               this._services.dayHandOver(obj).subscribe(data => {
-                Swal.fire('Success', 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
               }, err => {
                 this.isLoading = false;
                 if (err.error.statusCode == 400) {
-                  Swal.fire('Cancelled', err.error.message, 'error');
+                  Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, err.error.message, 'error');
                 }
               })
             }, err => {
               this.isLoading = false;
               if (err.error.statusCode == 400) {
-                Swal.fire('Cancelled', err.error.message, 'error');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, err.error.message, 'error');
               }
             })
           } else if (
@@ -90,8 +90,7 @@ export class CounterWorkDayEndComponent implements OnInit {
           ) {
             this.isLoading = false;
             Swal.fire(
-              'Cancelled',
-              'Your Action is revert',
+              `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
               'error'
             )
           }

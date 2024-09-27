@@ -185,7 +185,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
 
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire( `${this.translate.instant('Swal_Msg.Invalid_Input')}`,  `${this.translate.instant('Swal_Msg.Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -205,7 +205,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       'SURCHARGE_RATE': formVal.SURCHARGE_RATE,
     }
     this.tdsInterestRate.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -250,7 +250,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     let date = new Date().getFullYear() + 1;
     let result = Number((document.getElementById("FIN_YEAR") as HTMLInputElement).value);
     if (result > date) {
-      Swal.fire("Warning!", "please enter valid Year ", "warning");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,  `${this.translate.instant('Swal_Msg.W_Msg3_Y')}`, "warning");
       (document.getElementById("FIN_YEAR") as HTMLInputElement).value = "";
     }
     else {
@@ -270,7 +270,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.tdsInterestRate.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -284,8 +284,8 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Company Group Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Group_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -296,8 +296,8 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
         this.tdsInterestRate.deleteData(id).subscribe(data1 => {
           this.tdsInterests = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -309,8 +309,8 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -365,7 +365,7 @@ export class TdsInterestRateComponent implements OnInit, AfterViewInit, OnDestro
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }

@@ -69,14 +69,14 @@ export class CashierUMComponent implements OnInit {
       let obj = this.angForm.value;
       this._service.createCashier(obj).subscribe(data => {
         console.log(data);
-        Swal.fire('Success', 'Cashier created successfully', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Cashier_created_successfully')}`, 'success');
         this.angForm.reset();
         this.angForm.controls.flag.setValue('1');
       }, err => {
         console.log(err);
       })
     } else {
-      Swal.fire('Oops...', 'Please insert required data field and processed', 'warning')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Insert_Requi_data')}`, "warning");
     }
   }
 

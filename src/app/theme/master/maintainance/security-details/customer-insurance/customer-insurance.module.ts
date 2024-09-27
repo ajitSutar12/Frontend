@@ -15,8 +15,15 @@ import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { CustomerInsuranceRoutingModule } from './customer-insurance-routing.module';
 import { DataTablesModule } from "angular-datatables";
 import { ThemeModule } from 'src/app/theme/theme.module';
+<<<<<<< Updated upstream
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+=======
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
+>>>>>>> Stashed changes
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -36,13 +43,20 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ThemeModule,
     TranslateModule.forRoot({
       loader:{
+<<<<<<< Updated upstream
        provide:TranslateLoader,
        useFactory:HttpLoaderFactory,
        deps:[HttpClient]
      }
+=======
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+>>>>>>> Stashed changes
     })
   ],
-  providers: [customerinsuranceService,
+  providers: [customerinsuranceService,SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -60,4 +74,7 @@ export class CustomerInsuranceModule { }
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http);
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
