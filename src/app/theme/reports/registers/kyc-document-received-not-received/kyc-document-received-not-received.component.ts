@@ -9,7 +9,7 @@ import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-kyc-document-received-not-received',
   templateUrl: './kyc-document-received-not-received.component.html',
@@ -48,20 +48,15 @@ export class KYCDocumentReceivedNotReceivedComponent implements OnInit {
   scheme_code: any;
   schemeList: any[];
   ngIntroducer: any = null
-  setLang:any;
+
 
   constructor(
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,private translate:TranslateService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
     public SchemeTypes: SchemeTypeDropdownService) {
-      this.systemParameter.getFormData(1).subscribe(data => {
-    
-        this.setLang = data.SET_LANGUAGE
-        this.translate.setDefaultLang(this.setLang);
-      })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -182,8 +177,7 @@ export class KYCDocumentReceivedNotReceivedComponent implements OnInit {
 
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Fill')}`, 'warning').then(() => { this.clicked = false });
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

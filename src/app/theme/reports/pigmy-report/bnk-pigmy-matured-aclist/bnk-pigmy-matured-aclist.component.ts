@@ -9,7 +9,6 @@ import * as moment from 'moment';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-pigmy-matured-aclist',
@@ -45,15 +44,12 @@ export class BnkPigmyMaturedAclistComponent implements OnInit {
   report_url = environment.report_url;
   iframe5url: any = ' ';
   branchName: any;
-  setLang: string;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public SchemeTypes: SchemeTypeDropdownService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private translate:TranslateService
-
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -88,8 +84,6 @@ export class BnkPigmyMaturedAclistComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
   }
   getTransferAccountList(event) {

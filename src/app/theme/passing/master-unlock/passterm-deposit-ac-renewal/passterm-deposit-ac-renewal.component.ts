@@ -6,8 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { TermDepositeAcRenewalComponent } from 'src/app/theme/transaction/term-deposite-ac-renewal/term-deposite-ac-renewal.component';
 
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -46,14 +45,7 @@ export class PasstermDepositAcRenewalComponent implements OnInit, AfterViewInit 
   // Store data from backend
   termDepositAcRenewal: TermDepositAcRenewal[];
   savingData: any;
-  setLang:any;
-  constructor(private http: HttpClient, private systemParameter: SystemMasterParametersService, private translate:TranslateService,) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-   }
+  constructor(private http: HttpClient,) { }
 
   termDepositAcRenewalData: any = {};
 
@@ -114,14 +106,14 @@ export class PasstermDepositAcRenewalComponent implements OnInit, AfterViewInit 
       }],
       columns: [
         {
-          title: this.translate.instant('master.Action.Action'),
+          title: 'Action',
         },
         {
-          title:this.translate.instant('master.All.Record_Number'),
+          title: 'Record Number ',
           data: 'TRAN_NO'
         },
         {
-          title:this.translate.instant('master.All.Account_Type'),
+          title: 'Account Type',
           data: 'AC_TYPE'
         },
 
@@ -131,11 +123,11 @@ export class PasstermDepositAcRenewalComponent implements OnInit, AfterViewInit 
         // },
 
         {
-          title:this.translate.instant('master.All.Account_Number'),
+          title: 'Account Number',
           data: 'AC_NO'
         },
         {
-          title: this.translate.instant('master.All.Receipt_Number'),
+          title: 'Receipt Number',
           data: 'NEW_RECEIPTNO'
         },
 

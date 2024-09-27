@@ -160,6 +160,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-sm col-md">
                                         <button class="btn btn-outline-primary btn-sm" (click)="getTransactionDetails()"
                                             [disabled]="angForm.invalid">
@@ -1446,6 +1447,7 @@
                                     <li class="mb-75">
                                         <!-- <a><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info</a> -->
                                         <a href="javascript:void(0);" (click)="openModal()">
+
                                             <i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp;
                                             <!-- OD Info -->
                                             {{'master.View_Ac_Enquiry.OD_INFO'|translate}}
@@ -2803,6 +2805,7 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color: rgb(148, 19, 131);">
+
                 <label style="color: white;">
                     <!-- OD INFORMATION -->
                     {{'master.View_Ac_Enquiry.OD_INFO'|translate}}
@@ -2812,6 +2815,7 @@
                 </button>
             </div>
             <div class="modal-body">
+
                 <div><label>
                         <!-- Temporary Amount  -->
                         {{'master.View_Ac_Enquiry.Temporary_Amount'|translate}} : {{AC_ODAMT}}</label></div>

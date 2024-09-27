@@ -13,10 +13,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { LockerRentTransactionModule } from '../../../transaction/locker/locker-rent-transactions/locker-rent-transactions.module';
 
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { HttpClient } from '@angular/common/http';
+
 @NgModule({
   declarations: [RentLockerComponent],
   imports: [
@@ -25,17 +22,10 @@ import { HttpClient } from '@angular/common/http';
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    LockerRentTransactionModule,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    LockerRentTransactionModule
   ],
   exports: [RentLockerComponent],
-  providers: [SystemMasterParametersService,
+  providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -44,6 +34,3 @@ import { HttpClient } from '@angular/common/http';
   // schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class RentLockerModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

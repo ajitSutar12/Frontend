@@ -1,90 +1,91 @@
 <div class="row">
+
     <div class="col-12">
-           <div class="card">
-               <div class="card-header">
-                   <h5>{{'Utility.Role_Wise_Menu_Assign.Title' | translate}}</h5>
-               </div>
-               <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
-                   <div class="card-block">
-                       <div class="row">
-                           <div class="col-sm-3">                           
-                               <div class="form-group form-primary form-static-label">
-                                   <ng-select [ngClass]="'ng-select'" formControlName="ROLE" [(ngModel)]="selectedRole"
-                                       [items]="RoleData" [multiple]="false" placeholder="{{'Utility.Role_Wise_Menu_Assign.Select_Role' | translate}}" bindValue="value"
-                                       bindLabel="label"  [selectOnTab]='true'>
-                                   </ng-select>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-sm">
-                               <div class="form-group">
-                                   <ngx-treeview [config]="config" [items]="items" (items)="values = $event"
-                                       (change)="onFilterChange($event)" (selectedChange)="onSelectedChange($event)">
-                                   </ngx-treeview>
-   
-                               </div>
-                           </div>
-                       </div>
-                       <!-- <div class="row">
-                       <div class="col-sm-1">
-                           <button class="btn btn-outline-primary btn-sm" (click)="submit()">Submit</button>
-                       </div>
-                   </div> -->
-                       <div class="row">
-                           <div class="col-sm">
-                               <button class="btn btn-outline-primary btn-sm btn-submit" style="float: right;"
-                                   (click)="submit()" *ngIf="addButton">{{'Utility.Action.Submit' | translate}}</button>
-                               <button class="btn btn-outline-primary btn-sm btn-submit" style="float: right;"
-                                   (click)="update()" *ngIf="updateButton">{{'Utility.Action.Update' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                               <button class="btn btn-outline-primary btn-sm btn-submit"
-                                   style="float: right; margin-right: 10px;" (click)="cancel()"
-                                   *ngIf="cancelButton">{{'Utility.Action.Cancel' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                           </div>
-                       </div>
-                   </div>
-               </form>
-           </div>
-       </div>
-   </div>
-   <div class="row">
-       <div class="col-12">
-           <div class="card">
-               <div class="card-block">
-                   <div class="row">
-                       <div class="col-sm">
-                           <div class="table-responsive">
-                               <table id="RolePermission" class="table table-striped table-bordered table-hover compact"
-                                   style="max-width: 100%;">
-                                   <thead>
-                                       <tr style="background-color: #d6e2f8 !important;">
-                                           <td>{{'Utility.Action.Action' | translate}}</td>
-                                           <td>{{'Utility.Role_Wise_Menu_Assign.code' | translate}}</td>
-                                           <td>{{'Utility.Role_Wise_Menu_Assign.name' | translate}}</td>
-                                       </tr>
-                                   </thead>
-                                   <tbody *ngIf="RoleResult?.length != 0">
-                                       <tr *ngFor="let data of RoleResult">
-   
-                                           <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                   (click)="editClickHandler(data.id)" placement="bottom"
-                                                   ngbTooltip="Edit"></span></td>
-   
-                                           <td> {{data.id }}</td>
-                                           <td> {{data.Role.NAME }}</td>
-                                       </tr>
-                                   </tbody>
-                                   <tbody *ngIf="RoleResult?.length == 0">
-                                       <tr>
-                                           <td colspan="6" class="no-data-available">{{'Utility.Action.No_Data' | translate}}</td>
-                                       </tr>
-                                   </tbody>
-   
-                               </table>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
+        <div class="card">
+            <div class="card-header">
+                <h5>Role Wise Menu Assign</h5>
+            </div>
+            <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-3">                           
+                            <div class="form-group form-primary form-static-label">
+                                <ng-select [ngClass]="'ng-select'" formControlName="ROLE" [(ngModel)]="selectedRole"
+                                    [items]="RoleData" [multiple]="false" placeholder="Select Role" bindValue="value"
+                                    bindLabel="label"  [selectOnTab]='true'>
+                                </ng-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <ngx-treeview [config]="config" [items]="items" (items)="values = $event"
+                                    (change)="onFilterChange($event)" (selectedChange)="onSelectedChange($event)">
+                                </ngx-treeview>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                    <div class="col-sm-1">
+                        <button class="btn btn-outline-primary btn-sm" (click)="submit()">Submit</button>
+                    </div>
+                </div> -->
+                    <div class="row">
+                        <div class="col-sm">
+                            <button class="btn btn-outline-primary btn-sm btn-submit" style="float: right;"
+                                (click)="submit()" *ngIf="addButton">Submit</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" style="float: right;"
+                                (click)="update()" *ngIf="updateButton">Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-outline-primary btn-sm btn-submit"
+                                style="float: right; margin-right: 10px;" (click)="cancel()"
+                                *ngIf="cancelButton">Cancel</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-block">
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="table-responsive">
+                            <table id="RolePermission" class="table table-striped table-bordered table-hover compact"
+                                style="max-width: 100%;">
+                                <thead>
+                                    <tr style="background-color: #d6e2f8 !important;">
+                                        <td>Action</td>
+                                        <td>Code</td>
+                                        <td>Name</td>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="RoleResult?.length != 0">
+                                    <tr *ngFor="let data of RoleResult">
+
+                                        <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                (click)="editClickHandler(data.id)" placement="bottom"
+                                                ngbTooltip="Edit"></span></td>
+
+                                        <td> {{data.id }}</td>
+                                        <td> {{data.Role.NAME }}</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="RoleResult?.length == 0">
+                                    <tr>
+                                        <td colspan="6" class="no-data-available">No data!</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

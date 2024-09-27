@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from '@ngx-translate/core';
+
 
 
 @Component({
@@ -55,14 +55,13 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
   branchName: any;
   allscheme: any[];
   // scheme: any[];
-  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter: SystemMasterParametersService,private translate:TranslateService
+    private systemParameter: SystemMasterParametersService,
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -70,11 +69,6 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
-    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-      this.todate = data.CURRENT_DATE;
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    });
   }
   // Method to handle validation of form
   createForm() {
@@ -208,8 +202,7 @@ export class BnkRegGoldSilverSubReturnComponent implements OnInit {
       // console.log(this.iframeurl);
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
 

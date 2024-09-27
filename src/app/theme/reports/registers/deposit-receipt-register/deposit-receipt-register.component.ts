@@ -9,7 +9,6 @@ import { SystemMasterParametersService } from "../../../utility/scheme-parameter
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer} from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-deposit-receipt-register',
   templateUrl: './deposit-receipt-register.component.html',
@@ -45,24 +44,17 @@ export class DepositReceiptRegisterComponent implements OnInit {
    report_url = environment.report_url;
    iframe5url: any = ' ';
   branchName: any;
-  setLang:any;
   constructor(    private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,private translate:TranslateService,
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
     public SchemeTypes: SchemeTypeDropdownService)
      {  this.todate = moment().format('DD/MM/YYYY');
      this.maxDate = new Date();
      this.minDate = new Date();
      this.minDate.setDate(this.minDate.getDate() - 1);
-     this.maxDate.setDate(this.maxDate.getDate())
-     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-      this.todate = data.CURRENT_DATE;
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    });
-  }
+     this.maxDate.setDate(this.maxDate.getDate())}
 
   ngOnInit(): void {
     this.createForm();
@@ -183,8 +175,7 @@ export class DepositReceiptRegisterComponent implements OnInit {
    
   }
   else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
-    // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
   
 }

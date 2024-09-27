@@ -83,7 +83,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private bankService: BankService,
-    private fb: FormBuilder,private translate:TranslateService) {
+    private fb: FormBuilder, private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -102,7 +102,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.page = dataTableParameters.start / dataTableParameters.length;
 
         dataTableParameters.columns.forEach(element => {
-   
+
           if (element.search.value != '') {
             let string = element.search.value;
             this.filterData[element.data] = string;
@@ -110,7 +110,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
             let getColumnName = element.data;
             let columnValue = element.value;
             if (this.filterData.hasOwnProperty(element.data)) {
-           
+
               let value = this.filterData[getColumnName];
               if (columnValue != undefined || value != undefined) {
                 delete this.filterData[element.data];
@@ -143,7 +143,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         {
           // title: 'Bank Code',
-          title:this.translate.instant('master.Bank_Master.Bank_code') ,
+          title: this.translate.instant('master.Bank_Master.Bank_code'),
           data: 'BANK_CODE'
         },
         {
@@ -196,16 +196,16 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'LEDGER_CODE': formVal.LEDGER_CODE,
       'BANK_NAME': formVal.BANK_NAME,
       'BANK_SHORTNAME': formVal.BANK_SHORTNAME,
-      'DD_APPLICABLE': (formVal.DD_APPLICABLE == true ? '1' :'0'),
-      'BANKERS_COMM_APPLICABLE':( formVal.BANKERS_COMM_APPLICABLE == true ? '1' :'0' ),
-      'RIGHT_TO_PREPARE_DD': (formVal.RIGHT_TO_PREPARE_DD == true ? '1' :'0'),
-      'PARTICIPATE_IN_CLEARING': (formVal.PARTICIPATE_IN_CLEARING == true ? '1' :'0'),
+      'DD_APPLICABLE': (formVal.DD_APPLICABLE == true ? '1' : '0'),
+      'BANKERS_COMM_APPLICABLE': (formVal.BANKERS_COMM_APPLICABLE == true ? '1' : '0'),
+      'RIGHT_TO_PREPARE_DD': (formVal.RIGHT_TO_PREPARE_DD == true ? '1' : '0'),
+      'PARTICIPATE_IN_CLEARING': (formVal.PARTICIPATE_IN_CLEARING == true ? '1' : '0'),
       'GL_ACNO': formVal.GL_ACNO,
       'HO_SUB_GLACNO': formVal.HO_SUB_GLACNO,
       'BANKCODE': formVal.BANKCODE,
     }
     this.bankService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Bank Master Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Bank_Master_Successfully')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -220,7 +220,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -239,10 +239,10 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'LEDGER_CODE': data.LEDGER_CODE,
         'BANK_NAME': data.BANK_NAME,
         'BANK_SHORTNAME': data.BANK_SHORTNAME,
-        'DD_APPLICABLE': (data.DD_APPLICABLE == '1'? true : false ),
-        'BANKERS_COMM_APPLICABLE': (data.BANKERS_COMM_APPLICABLE == '1'? true : false) ,
-        'RIGHT_TO_PREPARE_DD': (data.RIGHT_TO_PREPARE_DD == '1'? true : false),
-        'PARTICIPATE_IN_CLEARING': (data.PARTICIPATE_IN_CLEARING== '1'? true : false),
+        'DD_APPLICABLE': (data.DD_APPLICABLE == '1' ? true : false),
+        'BANKERS_COMM_APPLICABLE': (data.BANKERS_COMM_APPLICABLE == '1' ? true : false),
+        'RIGHT_TO_PREPARE_DD': (data.RIGHT_TO_PREPARE_DD == '1' ? true : false),
+        'PARTICIPATE_IN_CLEARING': (data.PARTICIPATE_IN_CLEARING == '1' ? true : false),
         'GL_ACNO': data.GL_ACNO,
         'HO_SUB_GLACNO': data.HO_SUB_GLACNO,
         'BANKCODE': data.BANKCODE,
@@ -253,27 +253,27 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
-    data ['DD_APPLICABLE'] = (data.DD_APPLICABLE == true ? '1':'0'),
-    data ['BANKERS_COMM_APPLICABLE'] = (data.BANKERS_COMM_APPLICABLE == true ? '1':'0'),
-    data ['RIGHT_TO_PREPARE_DD'] = (data.RIGHT_TO_PREPARE_DD == true ? '1':'0'),
-    data ['PARTICIPATE_IN_CLEARING'] = (data.PARTICIPATE_IN_CLEARING == true ? '1':'0'),
-    this.bankService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Bank Master Updated Successfully !', 'success');
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-    
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      this.resetForm();
-    })
+    data['DD_APPLICABLE'] = (data.DD_APPLICABLE == true ? '1' : '0'),
+      data['BANKERS_COMM_APPLICABLE'] = (data.BANKERS_COMM_APPLICABLE == true ? '1' : '0'),
+      data['RIGHT_TO_PREPARE_DD'] = (data.RIGHT_TO_PREPARE_DD == true ? '1' : '0'),
+      data['PARTICIPATE_IN_CLEARING'] = (data.PARTICIPATE_IN_CLEARING == true ? '1' : '0'),
+      this.bankService.updateData(data).subscribe(() => {
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Bank_Master_Successfully')}`, 'success');
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        this.resetForm();
+      })
   }
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete bank master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.bank_master_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -284,8 +284,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.bankService.deleteData(id).subscribe(data1 => {
           this.bankmasters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -297,8 +296,7 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -345,10 +343,10 @@ export class BankMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

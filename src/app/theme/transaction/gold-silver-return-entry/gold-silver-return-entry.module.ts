@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
@@ -20,8 +20,7 @@ import { GoldSilverReturnEntryService } from './gold-silver-return-entry.service
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { ThemeModule } from '../../theme.module'
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -34,14 +33,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     FormsModule, ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    ThemeModule
   ],
   providers: [SchemeCodeDropdownService, SchemeAccountNoService, OwnbranchMasterService, GoldSilverReturnEntryService, {
     provide: HTTP_INTERCEPTORS,
@@ -52,7 +44,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   exports: [GoldSilverReturnEntryComponent],
 })
 export class GoldSilverReturnEntryModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
-

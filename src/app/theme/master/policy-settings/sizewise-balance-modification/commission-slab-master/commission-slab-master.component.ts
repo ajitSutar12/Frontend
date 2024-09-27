@@ -50,7 +50,7 @@ export class CommissionSlabMasterComponent implements OnInit {
   //filter variable
   filterData = {};
   constructor(private fb: FormBuilder, private http: HttpClient, private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService,
+    private translate: TranslateService,
 
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -93,40 +93,40 @@ export class CommissionSlabMasterComponent implements OnInit {
 
     // }
     if (formVal.EFFECT_DATE == "" || formVal.EFFECT_DATE == null) {
-      Swal.fire("info!", "Please Select Effect Date!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.info')}`, `${this.translate.instant('Swal_Msg.Effect_Date')}`, "info");
     }
     else if (formVal.AMOUNT_FROM == "" || formVal.AMOUNT_FROM == null) {
       Swal.fire(
-        "info!",
-        "Please Select From Amount!",
+        `${this.translate.instant('Swal_Msg.info')}`,
+        `${this.translate.instant('Swal_Msg.Select_From_Acc')}`,
         "info"
       );
     }
     else if (formVal.AMOUNT_TO == "" || formVal.AMOUNT_TO == null) {
       Swal.fire(
-        "info!",
-        "Please Select To Amount!",
+        `${this.translate.instant('Swal_Msg.info')}`,
+        `${this.translate.instant('Swal_Msg.Select_To_Acc')}`,
         "info"
       );
     }
     else if (formVal.PIGMY_COMMISSION_PERCENTAGE == "" || formVal.PIGMY_COMMISSION_PERCENTAGE == null) {
       Swal.fire(
-        "info!",
-        "Please Select PIGMY_COMMISSION_PERCENTAGE!",
+        `${this.translate.instant('Swal_Msg.info')}`,
+        `${this.translate.instant('Swal_Msg.Select_Pigmy_Commi')}`,
         "info"
       );
     }
     else if (formVal.COMM_AGAINST_LN_PERCENT == "" || formVal.COMM_AGAINST_LN_PERCENT == null) {
       Swal.fire(
-        "info!",
-        "Please Select Loan PIGMY_COMMISSION_PERCENTAGE!",
+        `${this.translate.instant('Swal_Msg.info')}`,
+        `${this.translate.instant('Swal_Msg.Select_Loan_Pigmy_Commi')}`,
         "info"
       );
     }
     else if (formVal.PIGMY_SVR_CHARGE_RATE == "" || formVal.PIGMY_SVR_CHARGE_RATE == null) {
       Swal.fire(
-        "info!",
-        "Please Select Service Charge!",
+        `${this.translate.instant('Swal_Msg.info')}`,
+        `${this.translate.instant('Swal_Msg.Service_Charge')}`,
         "info"
       );
     }
@@ -196,7 +196,7 @@ export class CommissionSlabMasterComponent implements OnInit {
       arr: this.multiField
     }
     this.http.post(this.url + '/sizewise-balance-updation/commisionInsert', object).subscribe(data => {
-      Swal.fire('Success', 'Data has been inserted successfully', 'success')
+      Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.Inserted_SuccessFully')}`, 'success')
     })
     this.ngOnInit()
   }
@@ -226,7 +226,7 @@ export class CommissionSlabMasterComponent implements OnInit {
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire( `${this.translate.instant('Swal_Msg.Invalid_Input')}`,  `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       ele.target.value = 0
 
     }
@@ -237,8 +237,8 @@ export class CommissionSlabMasterComponent implements OnInit {
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'From Amount Should Be Less Than Upto Amount',
+          `${this.translate.instant('Swal_Msg.Warning')}`,
+          `${this.translate.instant('Swal_Msg.W_Msg1')}`,
           'warning'
         );
         (document.getElementById("toamt") as HTMLInputElement).value = ""
@@ -252,7 +252,7 @@ export class CommissionSlabMasterComponent implements OnInit {
     let from1 = Number((document.getElementById("AMOUNT_FROM") as HTMLInputElement).value);
 
     if (from1 < amt1.AMOUNT_TO) {
-      Swal.fire('Info', `From Amount Must Be ${amt1.AMOUNT_TO} or Greater Than ${amt1.AMOUNT_TO}`, 'info');
+      Swal.fire('Info', `${this.translate.instant('Swal_Msg.From_Amt_Must_Be')} ${amt1.AMOUNT_TO} ${this.translate.instant('Swal_Msg.or_Greater_Than')} ${amt1.AMOUNT_TO}`, 'info');
       (document.getElementById("AMOUNT_FROM") as HTMLInputElement).value = ""
     }
 
@@ -278,7 +278,7 @@ export class CommissionSlabMasterComponent implements OnInit {
       arr: this.multiField
     }
     this.http.post(this.url + '/sizewise-balance-updation/updatecommision', object).subscribe(data => {
-      Swal.fire('Success', 'Data has been updated successfully', 'success')
+      Swal.fire( `${this.translate.instant('Swal_Msg.Success')}`,  `${this.translate.instant('Swal_Msg.Updated_SuccessFully')}`, 'success')
       this.submitButton = true
       this.UpdateButton = false
     })

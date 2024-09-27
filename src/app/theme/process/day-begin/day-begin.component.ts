@@ -6,7 +6,6 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import Swal from 'sweetalert2';
 import { DayBeginService } from './day-begin.service';
 import { AuthService } from '../../../theme/auth/auth.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-day-begin',
@@ -27,7 +26,6 @@ export class DayBeginComponent implements OnInit {
   ngdate: any = null
   dtExportButtonOptions: any = {};
   daybeginProcess: boolean = false;
-  setLang: string;
 
 
   constructor(
@@ -35,14 +33,9 @@ export class DayBeginComponent implements OnInit {
     private router: Router,
     private systemParameter: SystemMasterParametersService,
     private _service: DayBeginService,
-    private _authService: AuthService,
-    private translate:TranslateService
+    private _authService: AuthService
 
-  ) { this.systemParameter.getFormData(1).subscribe(data => {
-    
-    this.setLang = data.SET_LANGUAGE
-    this.translate.setDefaultLang(this.setLang);
-  })}
+  ) { }
 
   ngOnInit(): void {
     this.createForm()

@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Depreciation Calculation Process</h5>
+                <h5>{{'uti.De_Cal_Pro' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'uti.F1' | translate}} (<sub class="required"> * </sub>){{'uti.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'uti.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -28,12 +28,12 @@
                                 *ngIf="angForm.controls['branchOption'].invalid && (angForm.controls['branchOption'].dirty || angForm.controls['branchOption'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['branchOption'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Calculation Date</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">{{'uti.Cal_Date' | translate}}</label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <div class="form-group input-group">
@@ -51,7 +51,7 @@
                                 *ngIf="angForm.controls['TRAN_DATE'].invalid && (angForm.controls['TRAN_DATE'].dirty || angForm.controls['TRAN_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TRAN_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -59,9 +59,9 @@
                     <div class="row">
                         <div class="col-sm" style="float: right;">
                             <button class="btn btn-outline-primary btn-sm" (click)="processDeprication()">
-                                Process</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{'uti.Process' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="Cancel()">
-                                Cancel</button>
+                                {{'uti.Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>

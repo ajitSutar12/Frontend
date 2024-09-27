@@ -71,7 +71,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private riskCatMasterService: RiskCatMasterService,
-    private http: HttpClient,private translate:TranslateService) { this.createForm(); }
+    private http: HttpClient, private translate: TranslateService) { this.createForm(); }
 
   ngOnInit(): void {
     const that = this;
@@ -177,7 +177,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this.riskCatMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -212,7 +212,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
     data['id'] = this.updateID;
 
     this.riskCatMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -223,7 +223,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
     })
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -233,8 +233,8 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
   delClickHandler(id: number) {
 
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Category Master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Category_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -243,8 +243,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
         this.riskCatMasterService.deleteData(id).subscribe(data1 => {
@@ -256,8 +255,7 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -308,10 +306,10 @@ export class RiskCatagoryComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

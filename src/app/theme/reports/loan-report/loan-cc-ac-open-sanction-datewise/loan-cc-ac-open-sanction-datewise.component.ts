@@ -9,7 +9,6 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-loan-cc-ac-open-sanction-datewise',
@@ -47,7 +46,6 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
   shemeDetails: any
   showLoading: boolean = false;
   base_url = environment.base_url;
-  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -55,7 +53,6 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
     public router: Router,
     private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
-    private translate: TranslateService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
@@ -64,11 +61,6 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.systemParameter.getFormData(1).subscribe(data => {
-
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
 
   }
 

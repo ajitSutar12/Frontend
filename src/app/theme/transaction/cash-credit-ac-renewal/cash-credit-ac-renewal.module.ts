@@ -9,7 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -17,10 +17,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownService/interest-category-master-dropdown.service';
-import { ThemeModule } from '../../theme.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { ThemeModule } from '../../theme.module'
 @NgModule({
   imports: [
     CommonModule,
@@ -34,14 +31,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule,
-    TranslateModule.forRoot({
-      loader:{
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps:[HttpClient]
-      }
-    })
+    ThemeModule
   ],
   declarations: [CashCreditAcRenewalComponent],
   exports: [CashCreditAcRenewalComponent],
@@ -52,6 +42,3 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
   },]
 })
 export class CashCreditAcRenewalModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

@@ -199,7 +199,7 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
       'BRANCH_CODE': this.ngBranchCode
     }
     this.lockerRackMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -235,12 +235,12 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
     this.lockerRackMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE),
-      this.angForm.patchValue({
-        'RACK_NO': data.RACK_NO,
-        'RACK_DESC': data.RACK_DESC,
-        'LOCKER_FROMNO': data.LOCKER_FROMNO,
-        'LOCKER_TONO': data.LOCKER_TONO
-      })
+        this.angForm.patchValue({
+          'RACK_NO': data.RACK_NO,
+          'RACK_DESC': data.RACK_DESC,
+          'LOCKER_FROMNO': data.LOCKER_FROMNO,
+          'LOCKER_TONO': data.LOCKER_TONO
+        })
     })
   }
 
@@ -249,7 +249,7 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.lockerRackMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -269,8 +269,8 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Locker Rack master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Locker_Rack_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -281,8 +281,8 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
         this.lockerRackMasterService.deleteData(id).subscribe(data1 => {
           this.lockerRackMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -294,8 +294,8 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -364,8 +364,8 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'Lockers From Should Be Less Than Upto Lockers To',
+          `${this.translate.instant('Swal_Msg.Warn')}`,
+          `${this.translate.instant('Swal_Msg.W_Msg')}`,
           'warning'
         );
         (document.getElementById("LOCKER_TONO") as HTMLInputElement).value = ""
@@ -373,10 +373,10 @@ export class LockerRackMasterComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

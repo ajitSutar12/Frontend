@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Npa Marking</h5>
+                <h5>{{'processmarking.title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'uti.F1' | translate}} (<sub class="required"> * </sub>) {{'uti.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'uti.Branch' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -28,11 +28,11 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'uti.S_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -40,7 +40,7 @@
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" title="Compulsory Selection"
                                         (change)="getScheme($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="Scheme">
+                                        required placeholder="{{'uti.S_Code' | translate}}">
                                         <ng-option *ngFor="let values of schemeArray" [value]="values">
                                             {{values.S_APPL}} {{values.S_NAME}}</ng-option>
                                     </ng-select>
@@ -51,20 +51,20 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="NPA_DATE">NPA Dates <sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="NPA_DATE">{{'processmarking.n_date' | translate}}
+                                <sub class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="NPA_DATE" bindValue="value" [(ngModel)]="npaProcessDate"
                                         (change)="getNPADate($event)" formControlName="NPA_DATE"
-                                        placeholder="NPA Processed Dates">
+                                        placeholder="{{'processmarking.n_date' | translate}}">
                                         <ng-option *ngFor="let values of npaDates" [value]="values">
                                             {{values.REPORT_DATE}} </ng-option>
                                     </ng-select>
@@ -74,18 +74,18 @@
                                 *ngIf="angForm.controls['NPA_DATE'].invalid && (angForm.controls['NPA_DATE'].dirty || angForm.controls['NPA_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['NPA_DATE'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val' | translate}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_ACC">From Account<sub
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_ACC">{{'processmarking.f_ac' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_ACC" bindValue="value" [(ngModel)]="fromAccNo"
                                         (change)="getFromAcc($event)" formControlName="FROM_ACC"
-                                        placeholder="From Account">
+                                        placeholder="{{'processmarking.f_ac' | translate}}">
                                         <ng-option *ngFor="let values of fromAcc" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
                                     </ng-select>
@@ -95,19 +95,20 @@
                                 *ngIf="angForm.controls['FROM_ACC'].invalid && (angForm.controls['FROM_ACC'].dirty || angForm.controls['FROM_ACC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_ACC'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val' | translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="TO_ACC">To Account<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TO_ACC">{{'processmarking.t_ac' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_ACC" bindValue="value" [(ngModel)]="npaProcessDate"
-                                        (change)="getToAcc($event)" formControlName="TO_ACC" placeholder="To Account">
+                                        (change)="getToAcc($event)" formControlName="TO_ACC"
+                                        placeholder="{{'processmarking.t_ac' | translate}}">
                                         <ng-option *ngFor="let values of toAcc" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}} </ng-option>
                                     </ng-select>
@@ -117,7 +118,7 @@
                                 *ngIf="angForm.controls['TO_ACC'].invalid && (angForm.controls['TO_ACC'].dirty || angForm.controls['TO_ACC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_ACC'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -125,11 +126,11 @@
                     <div class="row">
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm"
-                                (click)="update()">Update</button>
+                                (click)="update()">{{'uti.Update' | translate}}</button>
                             <button type="button" class="btn btn-outline-primary btn-sm"
-                                (click)="cancel()">Cancel</button>
+                                (click)="cancel()">{{'uti.Cancel' | translate}}</button>
                             <button type="button" class="btn btn-outline-primary btn-sm"
-                                (click)="toggleEditing()">Edit</button>
+                                (click)="toggleEditing()">{{'utility.Action.Edit' | translate}}</button>
                         </div>
                     </div>
 
@@ -142,14 +143,14 @@
                                 <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                     <table datatable>
                                         <thead style="position: sticky; top: 0;">
-                                            <td>Serial Number</td>
-                                            <td>Account Number</td>
-                                            <td>Account Name</td>
-                                            <td>NPA Class</td>
-                                            <td>Edited NPA Class</td>
-                                            <td>NPA Provision</td>
-                                            <td>NPA Percentage</td>
-                                            <td>To Be Recovered</td>
+                                            <td> {{'processmarking.s_no' | translate}}</td>
+                                            <td>{{'processmarking.ac_no' | translate}}</td>
+                                            <td>{{'processmarking.ac_name' | translate}}</td>
+                                            <td>{{'processmarking.n_class' | translate}}</td>
+                                            <td>{{'processmarking.edi_class' | translate}}</td>
+                                            <td>{{'processmarking.npa_prov' | translate}}</td>
+                                            <td>{{'processmarking.npa_per' | translate}}</td>
+                                            <td>{{'processmarking.t_b_rec' | translate}}</td>
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let data of tableData; let i=index">
@@ -193,7 +194,7 @@
                                         <tbody *ngIf="tableData.length === 0">
                                             <tr>
                                                 <td class="no-data-available" colspan="7" style="text-align: center;">
-                                                    No data!
+                                                    {{'View.Action.No_Data' | translate}}
                                                 </td>
                                             </tr>
                                         </tbody>

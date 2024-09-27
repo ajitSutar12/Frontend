@@ -1933,7 +1933,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'swnidhi',
-                name: 'Swnidhi Report',
+                name: 'Swanidhi Report',
                 id: 376
               },
               {
@@ -4959,8 +4959,8 @@ const MENUITEMS = [
                 id: 280
               },
               {
-                state: 'swnidhi',
-                name: 'Swnidhi Report',
+                state: 'swanidhi',
+                name: 'Swanidhi Report',
                 id: 376
               },
               {

@@ -92,7 +92,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     private directorMasterService: DirectorMasterService,
     private _cityMaster: cityMasterService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -150,16 +150,16 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
 
       columns: [
         {
-          title:this.translate.instant('master.Director_Master.Action')
+          title: this.translate.instant('master.Director_Master.Action')
         },
         {
           title: this.translate.instant('master.Director_Master.Director_Code'),
           data: 'CODE'
         }, {
-          title:this.translate.instant('master.Director_Master.Director_Name'),
+          title: this.translate.instant('master.Director_Master.Director_Name'),
           data: 'NAME'
         }, {
-          title:this.translate.instant('master.Director_Master.Designation'),
+          title: this.translate.instant('master.Director_Master.Designation'),
           data: 'DESIGNATION'
         }, {
           title: this.translate.instant('master.Director_Master.Address'),
@@ -227,12 +227,12 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       'AC_ADDR3': formVal.AC_ADDR3,
       'AC_PIN': formVal.AC_PIN,
       'AC_MOBILENO': formVal.AC_MOBILENO,
-      'SMS_REQUIRED': (formVal.SMS_REQUIRED == true? '1':'0'),
-      'IS_CURRENT_BODY_MEMBER':(formVal.IS_CURRENT_BODY_MEMBER == true? '1':'0'),
+      'SMS_REQUIRED': (formVal.SMS_REQUIRED == true ? '1' : '0'),
+      'IS_CURRENT_BODY_MEMBER': (formVal.IS_CURRENT_BODY_MEMBER == true ? '1' : '0'),
       'BRANCH_CODE': this.ngBranchCode
     }
     this.directorMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -277,8 +277,8 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         'AC_ADDR3': data.AC_ADDR3,
         'AC_PIN': data.AC_PIN,
         'AC_MOBILENO': data.AC_MOBILENO,
-        'SMS_REQUIRED': (data.SMS_REQUIRED == '1'? true:false),
-        'IS_CURRENT_BODY_MEMBER': (data.IS_CURRENT_BODY_MEMBER == '1'? true:false),
+        'SMS_REQUIRED': (data.SMS_REQUIRED == '1' ? true : false),
+        'IS_CURRENT_BODY_MEMBER': (data.IS_CURRENT_BODY_MEMBER == '1' ? true : false),
       })
       this.ngCity = Number(data.AC_CTCODE)
     })
@@ -288,20 +288,20 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
     let data = this.angForm.value;
 
     data['id'] = this.updateID;
-    data['SMS_REQUIRED']= (data.SMS_REQUIRED  == true? '1':'0' ),
-    data['IS_CURRENT_BODY_MEMBER']= (data.IS_CURRENT_BODY_MEMBER  == true? '1':'0' ),
-    this.directorMasterService.updateData(data).subscribe(() => {
-     
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
-      this.showButton = true;
-      this.updateShow = false;
-      this.newbtnShow = false;
-     
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
-      this.resetForm();
-    })
+    data['SMS_REQUIRED'] = (data.SMS_REQUIRED == true ? '1' : '0'),
+      data['IS_CURRENT_BODY_MEMBER'] = (data.IS_CURRENT_BODY_MEMBER == true ? '1' : '0'),
+      this.directorMasterService.updateData(data).subscribe(() => {
+
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+        this.showButton = true;
+        this.updateShow = false;
+        this.newbtnShow = false;
+
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          dtInstance.ajax.reload()
+        });
+        this.resetForm();
+      })
 
   }
 
@@ -315,8 +315,9 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete director master data.",
+      title:
+        `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -327,8 +328,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.directorMasterService.deleteData(id).subscribe(data1 => {
           this.directorMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -340,8 +340,7 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -405,14 +404,14 @@ export class DirectorMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.dtTrigger.next();
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }
