@@ -2668,7 +2668,7 @@
             "T11": "Customer Id Wise Interest List",
             "T12": "Customer Id Wise Matured Deposit List",
             "T13": "A/B Type Deposit List",
-            "T14": "Deposit PaidList",
+            "Deposit_Paidlist": "Deposit PaidList",
             "T15": "Interest RateWise List",
 
             "Branch": "Branch",
