@@ -20,7 +20,7 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-bnk-ac-statement',
   templateUrl: './bnk-ac-statement.component.html',
@@ -75,9 +75,10 @@ export class BnkAcStatementComponent implements OnInit {
   name: any;
   isOpen: boolean = false
   acCloseDate: any;
-
+  setLang:any;
 
   constructor(
+    private translate:TranslateService,
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
@@ -93,6 +94,12 @@ export class BnkAcStatementComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
+
   }
 
   ngOnInit(): void {

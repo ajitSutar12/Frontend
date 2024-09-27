@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 import { async } from 'rxjs/internal/scheduler/async';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -64,6 +66,7 @@ export class InterestCalculationComponent implements OnInit {
   selectedSchemeData: any;
   schemewiseRadio: boolean = true;
   modalClass: string = 'modalHide';
+  setLang: string;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -72,8 +75,14 @@ export class InterestCalculationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _serviceScheme: CurrentSchemeService
+    private _serviceScheme: CurrentSchemeService,
+    private translate:TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

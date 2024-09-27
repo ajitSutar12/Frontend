@@ -5,7 +5,8 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { MultiVoucherComponent } from 'src/app/theme/transaction/multi-voucher/multi-voucher.component';
-
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 class DataTableResponse {
   data: any[];
@@ -46,8 +47,14 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
   url = environment.base_url;
   // Store data from backend
   multiVoucher: MultiVoucher[];
-  savingData: any;
-  constructor(private http: HttpClient,) { }
+  savingData: any; setLang:any;
+  constructor(private http: HttpClient, private systemParameter: SystemMasterParametersService, private translate:TranslateService) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) 
+  }
 
   multiVoucherData: any = {};
 
@@ -107,22 +114,22 @@ export class PassmultiVoucherComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Voucher Number ',
+          title:this.translate.instant('master.Voucher.Voucher_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title: this.translate.instant('master.Batch_Voucher.Amount'),
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Date',
+          title: this.translate.instant('master.Batch_Voucher.Date'),
           data: 'TRAN_DATE'
         },
         {
-          title: 'Time',
+          title: this.translate.instant('master.Batch_Voucher.Time'),
           data: 'TRAN_TIME'
         },
       ],

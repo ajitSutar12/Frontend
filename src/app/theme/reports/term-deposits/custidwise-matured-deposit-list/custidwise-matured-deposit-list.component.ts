@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CustomerIDMasterDropdownService } from '../../../../shared/dropdownService/customer-id-master-dropdown.service';
 import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-custidwise-matured-deposit-list',
@@ -46,12 +47,19 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
   ngbranch: any = null;
   ngcust: any = null;
   branchName: any;
+  setLang: string;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -116,7 +124,7 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
 
     event.preventDefault();
@@ -135,33 +143,31 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
 
 
       //for start date
-    if(this.fromdate == userData.branch.syspara.CURRENT_DATE)
-    {
-      obj['START_DATE'] =userData.branch.syspara.CURRENT_DATE
-    }
-    else{
-    let date = moment(this.fromdate).format('DD/MM/YYYY');
-    let toDate = moment(date, 'DD/MM/YYYY')
-    obj['START_DATE']=date 
-  }
-//for end date
-  if(this.todate == userData.branch.syspara.CURRENT_DATE)
-  {
-    obj['END_DATE'] =userData.branch.syspara.CURRENT_DATE
-  }
-  else{
-  let date = moment(this.todate).format('DD/MM/YYYY');
-  let tDate = moment(date, 'DD/MM/YYYY')
-  obj['END_DATE']=date 
-}
+      if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+        obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.fromdate).format('DD/MM/YYYY');
+        let toDate = moment(date, 'DD/MM/YYYY')
+        obj['START_DATE'] = date
+      }
+      //for end date
+      if (this.todate == userData.branch.syspara.CURRENT_DATE) {
+        obj['END_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.todate).format('DD/MM/YYYY');
+        let tDate = moment(date, 'DD/MM/YYYY')
+        obj['END_DATE'] = date
+      }
       // let date = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let tdate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
       let flag = obj.WANT_TO_PRINT;
 
-      if(flag == true){
+      if (flag == true) {
         flag = 1;
-      }else{
+      } else {
         flag = 0;
       }
 
@@ -169,9 +175,9 @@ export class CustidwiseMaturedDepositListComponent implements OnInit {
       let custid = obj.CUST_ID
       let branch = obj.BRANCH_CODE
 
-      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&branch_code='"+branch+"'&S_ACNOTYPE='" + schemeName + "'&flag1="+ flag +"&sign='-'";
+      this.iframe5url = this.report_url + "examples/Cidwisematureddeplist.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&trandrcr='D'&tran_status='1'&ac_op_cd='D'&AC_CUSTID='" + custid + "'&branch_code='" + branch + "'&S_ACNOTYPE='" + schemeName + "'&flag1=" + flag + "&sign='-'";
       console.log(this.iframe5url);
-      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
     }
     else {

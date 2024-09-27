@@ -22,6 +22,7 @@ import { ReportFrameComponent } from "../../report-frame/report-frame.component"
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { cityMasterService } from "src/app/shared/dropdownService/city-master-dropdown.service";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -63,6 +64,7 @@ bsValue = new Date();
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -73,8 +75,17 @@ maxDate: Date;
     private directorMasterDropdown: DirectorMasterDropdownService,
 
     private sanitizer: DomSanitizer,
+    private translate:TranslateService
+
    
   ) {
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+    
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

@@ -13,6 +13,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { DepositClosingVoucherComponent } from './deposit-closing-voucher.component';
 import { TermDepositAccountClosingModule } from "../../../transaction/term-deposit-account-closing/term-deposit-account-closing.module";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { HttpClient } from "@angular/common/http";
+
 
 @NgModule({
   imports: [
@@ -21,11 +26,18 @@ import { TermDepositAccountClosingModule } from "../../../transaction/term-depos
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    TermDepositAccountClosingModule
+    TermDepositAccountClosingModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [DepositClosingVoucherComponent],
   declarations: [DepositClosingVoucherComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -33,3 +45,6 @@ import { TermDepositAccountClosingModule } from "../../../transaction/term-depos
   ],
 })
 export class DepositClosingVoucherModule {}
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
