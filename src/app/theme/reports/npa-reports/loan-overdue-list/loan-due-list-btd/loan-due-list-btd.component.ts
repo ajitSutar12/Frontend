@@ -9,7 +9,8 @@ import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as moment from 'moment';
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-loan-due-list-btd',
   templateUrl: './loan-due-list-btd.component.html',
@@ -37,15 +38,23 @@ export class LoanDueListBtdComponent implements OnInit {
   toAc: any;
   branchOption: any;
   branchName: string;
-    
+  setLang: any;
   
   
     constructor(
       private fb: FormBuilder,
-      private ownbranchMasterService: OwnbranchMasterService,
-      private sanitizer: DomSanitizer,
+      private ownbranchMasterService: OwnbranchMasterService, private systemParameter: SystemMasterParametersService,
+      private sanitizer: DomSanitizer,  private translate:TranslateService,
       private schemeCodeDropdownService: SchemeCodeDropdownService,
-    ) { }
+    ) {
+      this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+     
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
+
+     }
   
     
   //ngfor variable
@@ -169,7 +178,8 @@ export class LoanDueListBtdComponent implements OnInit {
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
 }
 
@@ -194,6 +204,9 @@ export class LoanDueListBtdComponent implements OnInit {
     this.showRepo = false;
     this.clicked = false;
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   }
   
   

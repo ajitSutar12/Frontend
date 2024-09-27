@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-instwise-loanoverdue-list',
   templateUrl: './instwise-loanoverdue-list.component.html',
@@ -39,13 +40,21 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
   fromAc: null;
   toAc: null;
   selectedItems: null;
-
+  setLang: any;
   constructor(
-    private fb: FormBuilder,
-    private sanitizer: DomSanitizer,
+    private fb: FormBuilder,  private translate:TranslateService,
+    private sanitizer: DomSanitizer,   private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-  ) { }
+  ) { 
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+     
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
+
+  }
 
   //checkbox variable
   isIsRestrictTransactionEntry: boolean = false;
@@ -199,7 +208,8 @@ export class InstwiseLoanoverdueListComponent implements OnInit {
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
     }
   }
 
