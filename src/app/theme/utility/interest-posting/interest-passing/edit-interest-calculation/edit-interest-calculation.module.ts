@@ -15,6 +15,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -36,12 +37,14 @@ import { SystemMasterParametersService } from '../../../scheme-parameters/system
   ],
   declarations: [ EditInterestCalculationComponent],
   providers:[OwnbranchMasterService,SchemeCodeDropdownService,SchemeAccountNoService,SystemMasterParametersService,{
+
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
-  },]
+  }, SystemMasterParametersService]
 })
 export class EditInterestCalculationModule { }
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http);
 }
+

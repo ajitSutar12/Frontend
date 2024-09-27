@@ -366,7 +366,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
       // Swal.fire('Success!', 'Data Added Successfully !', 'success');
       Swal.fire({
         icon: 'success',
-        title: 'Account Created successfully!',
+        title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
         html:
           '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
           '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -503,7 +503,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
 
     data['id'] = this.updateID;
     this.investmentService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -557,8 +557,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.investmentService.approve(obj).subscribe(data => {
       Swal.fire(
-        'Approved',
-        'Investment Account approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.Invest')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -579,8 +579,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.investmentService.reject(obj).subscribe(data => {
       Swal.fire(
-        'Rejected',
-        'Investment Account rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.Invest_Reject')}`,
         'success'
       );
 
@@ -616,7 +616,7 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -637,8 +637,8 @@ export class AccountOpeningComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.investmentService.unapporve(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+       `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.U_Msg')}`,
         'success'
       );
       var button = document.getElementById('trigger');

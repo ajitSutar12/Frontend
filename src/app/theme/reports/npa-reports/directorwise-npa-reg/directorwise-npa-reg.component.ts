@@ -20,7 +20,7 @@ import { ReportFrameComponent } from "../../report-frame/report-frame.component"
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
 
-import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-directorwise-npa-reg',
   templateUrl: './directorwise-npa-reg.component.html',
@@ -68,7 +68,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
   directors: any[];
   glDetails: any;
   AC_TYPE: any;
-  setLang:any;
+  
     constructor(
       private fb: FormBuilder,
       private _ownbranchmasterservice: OwnbranchMasterService,
@@ -76,13 +76,9 @@ export class DirectorwiseNpaRegComponent implements OnInit {
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private directorMasterDropdown: DirectorMasterDropdownService,
       private sanitizer: DomSanitizer,
-      private http: HttpClient,  private translate:TranslateService
+      private http: HttpClient,
+     
     ) {
-      this.systemParameter.getFormData(1).subscribe(data => {
-    
-        this.setLang = data.SET_LANGUAGE
-        this.translate.setDefaultLang(this.setLang);
-      })   
       this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -269,8 +265,7 @@ export class DirectorwiseNpaRegComponent implements OnInit {
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(()=>{ this.clicked=false});
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
     }
     close(){

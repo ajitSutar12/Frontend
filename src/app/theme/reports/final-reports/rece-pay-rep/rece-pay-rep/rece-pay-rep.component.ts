@@ -13,7 +13,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -41,15 +40,12 @@ export class RecePayRepComponent implements OnInit {
   report_url = environment.report_url;
   clicked: boolean = false;
   branchName: string;
-  setLang: string;
 
   constructor(private fb: FormBuilder,
     private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private translate:TranslateService
-
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -72,8 +68,6 @@ export class RecePayRepComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

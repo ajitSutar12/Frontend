@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { TermDepositReceiptPrintingComponent } from './term-deposit-receipt-printing.component';
 import { TermDepositReceiptPrintingRoutingModule } from './/term-deposit-receipt-printing-routing.module';
-import {SharedModule} from '../../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {ColorPickerModule} from 'ngx-color-picker';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DataTablesModule} from 'angular-datatables';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
@@ -22,8 +22,10 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+//Translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -43,20 +45,22 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
-    
+    //Translation
     TranslateModule.forRoot({
-      loader:{
-        provide:TranslateLoader,
-        useFactory:HttpLoaderFactory,
-        deps:[HttpClient]
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     })
+
+
   ],
   declarations: [TermDepositReceiptPrintingComponent],
-  exports:[TermDepositReceiptPrintingComponent],
+  exports: [TermDepositReceiptPrintingComponent],
 
-  providers:[  SchemeCodeDropdownService,SchemeAccountNoService,
-    OwnbranchMasterService,VoucherEntryService,SavingMasterService,
+  providers: [SchemeCodeDropdownService, SchemeAccountNoService,
+    OwnbranchMasterService, VoucherEntryService, SavingMasterService,
     SystemMasterParametersService,
     {
 
@@ -69,9 +73,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: UserAuthInterceptor,
       multi: true
     },
-]
+  ]
 })
 export class TermDepositReceiptPrintingModule { }
-export function HttpLoaderFactory(http:HttpClient){
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }

@@ -1946,6 +1946,7 @@ const MENUITEMS1 = [
               {
                 state: 'swnidhi',
                 name: 'main.misReports.swnidhi',
+
                 id: 376
               },
               {
@@ -1958,7 +1959,32 @@ const MENUITEMS1 = [
                 name: 'main.misReports.expensive',
 
                 id: 381
-              }
+              },
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 383
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 384
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 385
+              },
+              {
+                state: 'slr',
+                name: 'SLR Report',
+                id: 386
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                id: 387
+              },
             ]
           },
           //
@@ -4959,6 +4985,7 @@ const MENUITEMS = [
               {
                 state: 'swnidhi',
                 name: 'main.misReports.swnidhi',
+
                 id: 376
               },
               {
@@ -4970,7 +4997,32 @@ const MENUITEMS = [
                 state: 'expensive',
                 name: 'main.misReports.expensive',
                 id: 381
-              }
+              },
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 383
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 384
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 385
+              },
+              {
+                state: 'slr',
+                name: 'SLR Report',
+                id: 386
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                id: 387
+              },
             ]
           },
           //

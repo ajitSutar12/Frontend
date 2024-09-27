@@ -9,7 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -19,8 +19,7 @@ import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { NpaRegisterComponent } from '../npa-register/npa-register.component';
 import { DirectorwiseNpaRegComponent } from './directorwise-npa-reg.component';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 
 @NgModule({
  
@@ -34,14 +33,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    Iframe5Module
   ],
   declarations: [DirectorwiseNpaRegComponent],
   exports:[DirectorwiseNpaRegComponent],
@@ -67,7 +59,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   ],
 })
 export class DirectorwiseNpaRegModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
-

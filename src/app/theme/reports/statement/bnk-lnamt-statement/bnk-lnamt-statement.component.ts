@@ -14,7 +14,7 @@ import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpClient } from "@angular/common/http";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-bnk-lnamt-statement',
   templateUrl: './bnk-lnamt-statement.component.html',
@@ -62,7 +62,7 @@ export class BnkLNamtStatementComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,private translate:TranslateService,
+    private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     public router: Router,
     private http: HttpClient,
@@ -77,7 +77,7 @@ export class BnkLNamtStatementComponent implements OnInit {
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
-  setLang:any;
+
   ngOnInit(): void {
     this.createForm()
 
@@ -105,8 +105,6 @@ export class BnkLNamtStatementComponent implements OnInit {
       
       this.startingdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.startingdate = this.startingdate._d
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
    
   }
@@ -244,8 +242,7 @@ export class BnkLNamtStatementComponent implements OnInit {
     
    }
    else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning');
-    //  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+     Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
    }
    
  }
@@ -273,8 +270,7 @@ export class BnkLNamtStatementComponent implements OnInit {
     
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
   }
 

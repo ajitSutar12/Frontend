@@ -10,6 +10,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { ProcessAcmService } from '../process-acm.service';
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-transfer-to-glby-closing-ac',
   templateUrl: './transfer-to-glby-closing-ac.component.html',
@@ -43,6 +44,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean;
   newbtnShow: boolean;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private config: NgSelectConfig,
@@ -51,12 +53,17 @@ export class TransferToGLbyClosingACComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     public ACMasterDropdownService: ACMasterDropdownService,
     public _service: ProcessAcmService,
+    private translate: TranslateService,
     private systemParameter: SystemMasterParametersService,
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -137,7 +144,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
       value2 = moment(this.todate).format('DD/MM/YYYY');
       // console.log(value2)
       if (moment(value1).isSame(value2)) {
-        Swal.fire("from date should not be same as to date")
+        Swal.fire(`${this.translate.instant('Swal_Msg.same_date')}`)
         this.angForm.controls['TO_DATE'].reset()
       }
     }
@@ -151,7 +158,7 @@ export class TransferToGLbyClosingACComponent implements OnInit {
     // console.log(obj);
     Swal.fire({
       title: '',
-      text: "Do you want to continue?",
+      text: `${this.translate.instant('Swal_Msg.continue')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -161,10 +168,10 @@ export class TransferToGLbyClosingACComponent implements OnInit {
       this.modalClass = 'modalShow';
       this._service.transferGLClosingAccount(obj).subscribe(data => {
         if (data.type == 'error') {
-          Swal.fire('Info!', data.msg, 'warning');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, data.msg, 'warning');
         }
         else if (data.msg != '') {
-          Swal.fire('Info!', data.msg, 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, data.msg, 'success');
         }
         this.angForm.reset();
         this.modalClass = 'modalHide';

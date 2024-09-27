@@ -2,25 +2,21 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <!-- <h5>Ratio Analysis</h5> -->
-                <h5>{{'master.Other_View.Ratio_Analysis' | translate}}</h5>
-
+                <h5>Ratio Analysis</h5>
             </div>
             <div class="card-block">
                 <div class="row">
                     <div class="col-8">
                         <table class="table table-borderless">
                             <thead>
-                                <th class="td_right">{{'master.Other_View.Rate' | translate}} %</th>
-                                <th class="td_right">{{'master.Other_View.Acc' | translate}}</th>
-                                <th class="td_right">{{'master.Other_View.Total_Amount' | translate}}</th>
-                                <th class="td_right">{{'master.Other_View.Int' | translate}}</th>
+                                <th class="td_right">Rate %</th>
+                                <th class="td_right">No. of Accounts</th>
+                                <th class="td_right">Total Amount</th>
+                                <th class="td_right">Interest For A Day</th>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="text-decoration: underline;">
-                                        <!-- Deposite Details -->
-                                        {{'master.Other_View.Deposite_Details' | translate}}</td>
+                                    <td style="text-decoration: underline;">Deposite Details</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -41,9 +37,7 @@
                                 </tr> -->
                                 <tr></tr>
                                 <tr>
-                                    <td style="text-decoration: underline;">
-                                        <!-- Loan Details -->
-                                        {{'master.Other_View.Loan_Details' | translate}}</td>
+                                    <td style="text-decoration: underline;">Loan Details</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -59,21 +53,15 @@
                     </div>
                     <div class="col-4 text-danger">
                         <div class="row">
-                            <div class="col-6" style="float:left">
-                                <!-- Average Loans@ -->
-                                {{'master.Other_View.Average_Loans' | translate}}@</div>
+                            <div class="col-6" style="float:left">Average Loans@</div>
                             <div class="col-6">{{AverageLoan}}%</div>
                         </div>
                         <div class="row">
-                            <div class="col-6" style="float:left">
-                                <!-- Average Deposits@ -->
-                                {{'master.Other_View.Average_Deposits' | translate}}@</div>
+                            <div class="col-6" style="float:left">Average Deposits@</div>
                             <div class="col-6">{{AverageDepo}}%</div>
                         </div>
                         <div class="row">
-                            <div class="col-6" style="float:left">
-                                <!-- Margin@ -->
-                                {{'master.Other_View.Margin' | translate}}@</div>
+                            <div class="col-6" style="float:left">Margin@</div>
                             <div class="col-6">{{Margin |pipe}}%</div>
                         </div>
                     </div>

@@ -78,7 +78,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     private http: HttpClient,
     private clearingBranchService: ClearingBranchService,
     private _acMaster: ACMasterDropdownService,
-    private fb: FormBuilder,private translate:TranslateService) {
+    private fb: FormBuilder, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -118,7 +118,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
             this.url + '/clearing-branch-master',
             dataTableParameters
           ).subscribe(resp => {
-  
+
             this.clearingBranches = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
@@ -137,7 +137,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
         },
         {
           // title: 'Code',
-          title:this.translate.instant('master.clearing_branch_master.code'),
+          title: this.translate.instant('master.clearing_branch_master.code'),
           data: 'CODE',
         },
         {
@@ -177,7 +177,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
       'NAME': formVal.NAME,
     }
     this.clearingBranchService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -202,10 +202,10 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     this.updateShow = true;
     this.newbtnShow = true;
     this.clearingBranchService.getFormData(id).subscribe(data => {
-      
+
       console.log(data);
       this.updateID = data.id;
-      
+
       this.ngAcNo = Number(data.AC_NO)
       this.angForm.patchValue({
         'CODE': data.CODE,
@@ -219,7 +219,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.clearingBranchService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -233,8 +233,8 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete clearing branch master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.clearing_branch_master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -245,8 +245,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
         this.clearingBranchService.deleteData(id).subscribe(data1 => {
           this.clearingBranches = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -258,8 +257,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -296,7 +294,7 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngAcNo=null
+    this.ngAcNo = null
   }
 
   rerender(): void {
@@ -308,15 +306,15 @@ export class ClearingBranchMasterComponent implements OnInit, AfterViewInit, OnD
     });
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
-  
+
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

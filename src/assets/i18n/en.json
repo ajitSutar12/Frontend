@@ -80,6 +80,7 @@
             "dividendTransferPosting": "Dividend Transfer Posting",
             "Dividend_Paid_Register": "Dividend Paid Register",
             "generalmeetpresentmem": "General Meeting Present Mem"
+
         },
         "transaction": {
             "voucherEntry": "Voucher Entry",
@@ -217,7 +218,6 @@
             "AmountBalList": "AmountWise Balance List",
             "DeadStockDepCatList": "Deadstock Depriciation Categorywise List",
             "BalConCertificate": "Balance Confirmation Ceritificate",
-
             "shortballist": "Short Balance List",
             "Categorywise": "Categorywise",
             "All_Categorywise": "All Categorywise",
@@ -267,8 +267,7 @@
             "sharesTransferRegister": "Shares Transfer Register",
             "unpaidDividendList": "Unpaid Dividend List",
             "monthlyRecoveryPrint": "'Monthly Recovery Print",
-            "monthlyRecoverySubsidiary": "Monthly Recovery Subsidiary",
-            "Dividend_Paid_Register": "Dividend Paid Register"
+            "monthlyRecoverySubsidiary": "Monthly Recovery Subsidiary"
         },
         "LoanReport": {
             "LoanReport": "Term Loan/Cash Credit Reports",
@@ -395,6 +394,22 @@
             "conversion":"Conversion"
         },
         "process": {
+            "Day_End_Branch_Wise": "Day End Brach Wise",
+            "Sr_No": "Sr.No.",
+            "Branch_Name": "Branch Name",
+            "HandOver_Status": "HandOver Status",
+            "Day_End_Status": "Day End Status",
+            "Action": "Action",
+            "Refresh": "Refresh",
+            "Day_Not_HandOvered": "Day Not HandOvered",
+            "Day_Successfully_HandOvered": "Day Successfully HandOvered",
+            "Not_Day_End": "Not Day End",
+            "Processing": "Processing...",
+            "Day_Ended": "Day Ended",
+            "Day_End_Revert": "Day End Revert",
+            "Dont_Refresh_Page": "Please Don't Refresh Page",
+            "Day End": "Day End",
+            
             "dayBegin": "Day Begin",
             "dayEnd": {
                 "dayEnd": "Day End",
@@ -1092,6 +1107,7 @@
             "Stock_Statement": "Stock Statement",
             "Plant_And_Machinery": "Plant And Machinery",
             "Furniture_And_Fixture": "Furniture And Fixture"
+
         },
         "Deposit/Loan_Intrest_Rate_Edit/Change": {
             "Title": "Deposit/Loan Intrest Rate Edit/Change",
@@ -1278,7 +1294,6 @@
             "Name": "Name ",
             "Type": "Type",
             "Add_Profit_and_Loss_Amount": "Add Profit and Loss Amount",
-
             "sr_no": "Sr No",
             "Percentage_of_Code": "Percentage of Code",
             "Linking_Input_Allowed": "Linking Input Allowed?",
@@ -1294,7 +1309,6 @@
             "SLR": "SLR",
             "NIDHI": "NIDHI",
             "Friday_Liquidity": "Friday Liquidity",
-
             "MIS_Info": "MIS Info",
             "First_No": "First No",
             "Second_No": "Second No",
@@ -1369,6 +1383,7 @@
             "Remove": "Remove",
             "Select_All": "Select All",
             "Unselect_All": "Unselect All"
+
 
 
 
@@ -1983,9 +1998,7 @@
             "Validate_Year": " This field is required and Input allowed only 0-9(8 digit between two years from and to (i.e.2021-2022))",
             "Val_Tan": "Input allowed only A-Z 0-9.",
             "Val_M": "This field is required and Input allowed only A-Z 0-9",
-            "Re_Email": "This field is required and Enter Valid Email",
-            "Val2": "This field is required and Input allowed only . 0-9(after decimal 2 digits)",
-            "Val3": "This field is required and Input allowed only . 0-9(after decimal 3 digits)"
+            "Re_Email": "This field is required and Enter Valid Email"
         },
         "Report_NPA_Registration": {
             "T1": "NPA Register",
@@ -2032,39 +2045,6 @@
             "FromInstallment": "From Installment",
             "ToInstallment": "To Installment"
         },
-        "Loan_overdue_report": {
-            "T1": "Accountwise Loanoverdue Report",
-            "Branch": "Branch",
-            "Scheme_Code": "Scheme Code",
-            "Date": "Date",
-            "Min._installment": "Min. installment",
-            "Max._installment": "Max. installment",
-            "Start_code": "Start code",
-            "End_code": "End code",
-            "Next": "Next",
-            "Accountnumber": "Accountnumber",
-            "Name": "Name",
-            "checkbox": "checkbox",
-            "Show_Guarantor": "Show Guarantor",
-            "Calculate_Overdue_Only_After_Expiry": "Calculate Overdue Only After Expiry",
-            "Detail": "Detail",
-            "Summary": "Summary",
-            "T2": "Installment Wise Loan Overdue List",
-            "Scheme": "Scheme",
-            "Print_Expired_A/c?": "Print Expired A/c?",
-            "Print_Current_Interest?": "Print Current Interest?",
-            "Range": "Range",
-            "selective": "selective",
-            "T3": "Loan Due List Between Two Dates",
-            "From_Date": "From Date",
-            "To_Date": "To Date",
-            "T4": "Loan Due List Between Two Open Dates",
-            "T5":"Schemewise Loan OverDue Increase Decrease",
-            "Starting_Date": "Starting Date",
-            "Ending_Date": "Ending Date",
-            "T6":"Loan PeriodWise AmountWise Overdue List",
-            "T7":"Loan OverDue Percentage Wise"
-        },
         "Pigmy_Agent_Report": {
             "T1": "Pigmy Agent wise Collection Chart",
             "Branch": "Branch",
@@ -2086,9 +2066,17 @@
             "T7": "Pigmy Matured A/c List",
             "S_Date": "Start Date",
             "E_Date": "End Date",
-            "Schema_Code": "Scheme Code",
-            "Account_Open":"Account Open",
-            "Account_Closed_On":"Account Closed On:"
+            "Schema_Code": "Scheme Code"
+        },
+        "KYC": {
+            "T1": "Customer KYC Details",
+            "cust_name": "Customer Name",
+            "id": "ID",
+            "status": "Status",
+            "kyc_doc": "KYC Document",
+            "doc_img": "Document Images",
+            "KYC" :"KYC"
+
 
         },
         "View_Ac_Enquiry": {
@@ -2291,7 +2279,14 @@
             "Documents": "Documents",
             "Product": "Product",
             "Total": "Total",
-            "Int_Received": "Interest Received"
+            "Int_Received": "Interest Received",
+            "OD_INFO" : "OD INFORMATION",
+            "OD_Days" : "OD Days",
+            "Expire_Date" :"Expire Date",
+            "Sanctioned_By" : "Sanctioned By",
+            "Periodical_Amount" :"Periodical Amount",
+            "Temporary_Amount" : "Temporary Amount",
+            "JOINT_DATE": "JOINT DATE"
         },
         "Manager_View_GL_Postion": {
             "Title": "Manager View GL Postion",
@@ -2859,8 +2854,7 @@
             "T11": "KYC Document Received/Not Received",
             "Received": "Received",
             "Pending": "Pending",
-            "All": "All",
-            "PRINT_NEW_PAGE": "Print Every Account on New Page?"
+            "All": "All"
         },
         "Term_Deposit_Reports": {
             "T1": "Matured but not paid between two days",
@@ -2876,9 +2870,6 @@
             "T11": "Customer Id Wise Interest List",
             "T12": "Customer Id Wise Matured Deposit List",
             "T13": "A/B Type Deposit List",
-            "Deposit_Paidlist": "Deposit PaidList",
-            "T15": "Interest RateWise List",
-
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Starting_Date": "Starting Date ",
@@ -2914,7 +2905,6 @@
             "T6": "Unpaid Dividend List",
             "T7": "Monthly Recovery Print",
             "T8": "Monthly Recovery Subsidiary",
-            "T9": "Dividend Paid List",
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Date": "Date",
@@ -2937,8 +2927,7 @@
             "From": "From",
             "To": "To",
             "Code_From": "Division Code From",
-            "Code_To": "Division Code To",
-            "All_City": "All_City"
+            "Code_To": "Division Code To"
         },
         "Term_Loan": {
             "T1": "Loan Security Reports",
@@ -2955,12 +2944,6 @@
             "T12": "Loan Receivable Installment and Intrest",
             "T13": "Loan / CC Expired List",
             "T18": "due certificate",
-            "T19": "Courtwise Dispute Loan Detail List",
-            "T20": "Loan/ CC/ Account Open/Sanction Date",
-            "T21": "Health Codewise Overdue Report",
-            "T22":"Courtwise Dispute Loan List",
-            "T23":"Dispute Loan Detail List",
-
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Start_Date": "Start Date",
@@ -3007,24 +2990,25 @@
             "Summary":"Summary"
 
 
+
         },
         "Ms_Reports": {
             "T1": "Excess Cash Balance Reports",
             "Branch": "Branch",
             "Start_Date": "Start Date",
             "End_Date": "End Date",
-
             "Report_Frame": "Report Frame",
             "Date": "Date",
-            "Swanidhi" : "Swanidhi",
-            "MIS_INFO" : "MIS Information",
-
+            "Swanidhi": "Swanidhi",
+            "MIS_INFO": "MIS Information",
             "From_Date": "From Date",
             "To_Date": "To Date",
             "Type": "Type",
+
             "Start_Code" : "Start Code",
             "End_Code" : "End Code",
-            "expenses_list" : "Expenses List"
+            "expenses_list" : "Expenses List",
+            "Previous_Date" :"Previous Date"
         },
         "Final_Reports": {
             "T1": "Trial Balance List (Concise)",
@@ -3094,9 +3078,7 @@
             "From_Date": "From Date",
             "To_Date": "To Date",
             "T13": "Dormant Account List",
-            "Scheme_Type": " Scheme Type",
-            "T14":"Deposit Amount Movement"
-
+            "Scheme_Type": " Scheme Type"
         },
         "Customer_View": {
             "T1": "Customer View",
@@ -3180,10 +3162,71 @@
             "Active": "Active",
             "Place": "Please enter ID or name"
         },
-        "Member_Guranter_Details": {
+       "Member_Guranter_Details": {
             "T1": "Member Guranter Details",
             "Shares_Scheme": "Shares Scheme",
-            "Member_No": "Member No"
+            "Member_No": "Member No",
+            "Sr_No": "Serial Number",
+            "Exp_Date": "Exp. Date",
+            "Ac_no": "Account No",
+            "Account_Name": "Account Name",
+            "Scheme_Code": "Scheme Code ",
+            "Scheme_Type": "Scheme Type ",
+            "Open_Date": "Open Date",
+            "Sacation_Amt": "Sacation Amount",
+            "AC_Close": " AC Close",
+            "Guranter1": "Guranter1",
+            "Guranter2": "Guranter2",
+            "Close_Date": "Close DAte",
+            "Branch": "Branch",
+            "Close": "Close",
+            "Cancel": "Cancel",
+            "Submit": "Submit",
+            "Print_Closed_Acc": "बंद खाते प्रिंट करा?",
+            "Customer": "Customer",
+            "Date": "Date "
+        },
+        "Master_Card": {
+            "T1": "Master Card",
+            "Scheme": "Scheme",
+            "Member_Number": "Member Number",
+            "Name": "Name",
+            "Mobile_Number": "Mobile Number",
+            "Address": "Address",
+            "B_Date": "Birth Date",
+            "JOINT_DATE": "JOINT DATE",
+            "Retirement_Date": "Retirement Date",
+            "Status": "Status",
+            "Salary_Division": "Salary Division",
+            "Sub_Sal_Div": "Sub Salary Division",
+            "member_Liblity_view": "Member Liablity View",
+            "Action": "Action",
+            "Scheme_Name": "Scheme Name",
+            "Account_Balance": "Account Balance",
+            "Open_Date": "Open Date",
+            "Sanctions_Amount": "Sanctions Amount",
+            "Maturity_Amount": "Maturity Amount",
+            "Maturity_Date": "Maturity Date ",
+            "Month": "Month",
+            "Days": "Days",
+            "Installment": "Installment",
+            "Repay_Mode": "Repay Mode",
+            "Purpose": "Purpose",
+            "Interest": "Interest",
+            "Member_No": "Member No",
+            "Guarantor": "Guarantor",
+            "Branch": "Branch",
+            "Crdit_Amount": "Crdit Amount",
+            "Debit_Amount": "Debit Amount",
+            "Credit_Interest": "Credit Interest",
+            "Debit_Interest": "Debit Interest",
+            "Balance": "Balance",
+            "Document ":"Document ",
+           "Cust_kyc_doc": "Customer KYC Details",
+           "S_Date" :"Start Date",
+           "E_Date":"End Date",
+           "stament_view" : "Consolidate Statement View"
+
         },
         "Other_View": {
             "View": "View",
@@ -3258,10 +3301,7 @@
             "Find": "Find CD Ratio",
             "LOANS": "LOANS",
             "PART_A": "PART A",
-
-            "PART_B": "PART B",
-            "Cash": "Cash",
-            "Transfer": "Transfer"
+            "PART_B": "PART B"
         },
         "Voucher_Entry": {
             "Title": "Voucher Entry",
@@ -3871,6 +3911,58 @@
         }
     },
     "Swal_Msg": {
+
+        "Long_Term_To_Month_Greater": "Long Term To Month Must Be Greater Than",
+        "Long_Term_To_Month": "Medium Term To Month Must Be Greater Than",
+        "Long_Term": "Long Term From Month Must Be Equal Or Greater Than",
+        "Medium_Term": "Medium Term From Month Must Be Equal Or Greater Than",
+        "To_Peroid_Equal_Greater": "To Peroid Must Be Equal Or Greater Than",
+        "From_Peroid_Equal_Greater": "From Peroid Must Be Equal Or Greater Than",
+        "To_IntAmt_Must_Greater": "To Interest Amount Must Be Greater Than",
+        "To_Amt_Must_Greater_Or_Equal": "To Amount Must Be Equal To Or Greater Than",
+        "To_Amt_Must_Greater": "To Amount Must Be Greater Than",
+        "Equal_To_Or_Greater_Than": "Equal To Or Greater Than",
+        "From_Interest_Amount_Must_Be": "From Interest Amount Must Be",
+        "or_Greater_Than": "or Greater Than",
+
+        "Something_Went_Wrong": "Something went wrong in Opening Bal not fetched",
+        "Date_Already_Locked": "Date is Already Locked",
+        "Date_Lock": "Date is Lock Successfully",
+        "Date_UnLock": "Date is UnLock Successfully",
+        "NPA_Process_Date_Locked": "NPA Process Date Locked",
+        "Process_Failed": "Process Failed!",
+        "NPA_Process_Completed": "The NPA process has been completed successfully.",
+        "Process_Completed": "Process Completed",
+        "NPA_Date_Process_Already_Exists": "Entered NPA Date Process Already Exists",
+        "Process_Already_Exist": "Process Already Exists",
+        "From_Amt_Must_Be": "From Amount Must Be",
+        "Invalid_Input": "Invalid Input",
+        "Updated_SuccessFully": "Data has been updated successfully!",
+        "Inserted_SuccessFully": "Data has been inserted successfully!",
+        "Service_Charge": "Please Select Service Charge!",
+        "Select_Loan_Pigmy_Commi": "Please Select Loan PIGMY_COMMISSION_PERCENTAG!",
+        "Select_Pigmy_Commi": "Please Select PIGMY_COMMISSION_PERCENTAGE!",
+        "Select_To_Acc": "Please Select To Amount!",
+        "Select_From_Acc": "Please Select From Amount!",
+        "Effect_Date": "Please Select Effect Date!",
+        "info": "info!",
+        "Do_You_Want_Del": "Do you want to delete Serial No.data",
+        "UnSecured_Percent": "Please Add Unsecured percentage",
+        "Secured_Percent": "Please Add Secured percentage",
+        "Add_To_Months": "Please Add To Months",
+        "Add_To_Days": "Please Add To Days",
+        "Add_From_Months": "Please Add From Months",
+        "Add_From_Days": "Please Add From Days",
+        "Select_NPA_Class": "Please Select NPA Class",
+        "To_Months_Greater_From_Month": "To Months Must Greater Than From Months",
+        "Input_per_Upto": "Please Input percentage upto 100",
+        "Effect_Date_is_Already_Exist": "This Effect Date is Already Exist",
+        "del_SubSalary_Div_Master": "Do you want to delete sub salary division Master data.",
+        "del_salary_Div_Master": "Do you want to delete salary division Master data.",
+        "Input_Proper_Data": "Please Input Proper Data!",
+        "Power_Attorney_del": "Power Of Attorney Deleted Successfully!",
+        "Joint_Acc_del": "Joint Account Deleted Successfully!",
+        "Nominee_del": "Nominee Deleted Successfully!!",
         "Success": "Success!",
         "S_Msg": "Data Added Successfully !",
         "Warning": "Warning",
@@ -3955,7 +4047,7 @@
         "Valid_Date": "Please insert valid date",
         "Narration_Data": "Do you want to delete narration data.",
         "Anamat": "Anamat Account Approved Successfully",
-        "Anamat_Reject": "Anamat Account Rejected Successfully",
+        "Anamat_Reject": "Anamat Account Rejected Successfully!",
         "Term_Loan": "Do you want to delete Term Loan Master Data.",
         "Security": "This Security is Already Added",
         "Select_Sec_Code": "Please Select Security Code",
@@ -4324,7 +4416,7 @@
         "Process_Cancelled": "Process Cancelled!",
         "Cancelled": "Cancelled",
         "Posting_cancelled": "Posting cancelled",
-        "Inf":"Please once check your voucher, and fill requied data"
+        "current_Acc_Exist": "Current Account Already Exists For This Scheme"
     },
     "Utility": {
         "Interest_Calculation": {
@@ -4383,9 +4475,7 @@
             "Print_Receivable_Intres_List": "Print Receivable Intres List",
             "Summary": "Summary",
             "View": "View",
-            "Report_Frame": "Report Frame",
-            "Scheme_Code":"Scheme Code "
-
+            "Report_Frame": "Report Frame"
         },
         "Pigmy_Machine_Process": {
             "Title": "Pigm Machine Process",
@@ -4401,7 +4491,11 @@
             "Send": "Send",
             "Receive": "Receive",
             "Branch": "Branch",
-            "Date": "Date"
+            "Date": "Date",
+            "Process": "Process",
+            "Submit": "Submit",
+            "Cancel": "Cancel",
+            "Enter_Date": "Enter Date"
         },
         "Send_Message": {
             "Title": "Send Message",
@@ -4988,17 +5082,17 @@
             "Dispute_Loan": "Dispute Loan (suit Failed) Scheme",
             "Pigmy_A/c": "Pigmy A/c Scheme",
             "pigmy_Agent": "pigmy Agent Scheme",
-            "Prepare_File": "Prepare File",
-            "Download_File": "Download File",
-            "Data_Backup": "Data Backup"
+            "Prepare_File": "Preparing File For Download...",
+            "Download_File": "Prepare File to Download",
+            "Data_Backup": "Data Backup",
+            "click_here": "Click Here To Download File",
+            "DownloadFile": "Download File"
         },
         "Action": {
             "Action": "Action",
             "F1": "Field marked with",
             "F2": "are mandatory",
             "Cancel": "Cancel",
-
-            "view": "View",
             "Update": "Update",
             "Submit": "Submit",
             "No_Data": "No_Data",
@@ -5083,9 +5177,7 @@
             "Installment": "Installment",
             "Sanction_Authority": "Sanction Authority",
             "Purpose": "Purpose",
-            "All_Passing": "All Passing",
-            "Supplier_Name": "Supplier Name"
-
+            "All_Passing": "All Passing"
         },
         "Voucher": {
             "Title": "Voucher",
@@ -5286,10 +5378,7 @@
             "Starting_Account": "Starting Account",
             "Date": "Date",
             "Ending_Code": "Ending Code",
-
-            "Range_Ending_Code": "Range Ending Code",
-            "Account_Open": "Account_Open",
-            "Closed_Account": "Closed Account"
+            "Range_Ending_Code": "Range Ending Code"
         },
         "General_Acc_Statement": {
             "Title": "General Account Statement"
@@ -5399,7 +5488,6 @@
             "Narration_Master": "Narration Master",
             "Scheme": "Scheme",
             "From": "From",
-            "To": "To",
             "T4": "Voucher Printing",
             "Date": "Date",
             "Source_Type": "Source Type",
@@ -5413,7 +5501,6 @@
             "From_Date": "From Date",
             "To_Date": "To Date",
             "Drag_and_Drop": "Drag and Drop",
-
             "Drag_me_around": " Drag me around",
             "Passbook_Printed_Successfully": "Passbook Printed Successfully ?",
             "Yes": "Yes",
@@ -5575,9 +5662,7 @@
             "Deposit_Amount": "Deposit Amount",
             "Labels": "Labels",
             "Cashier_Code": "Cashier Code",
-
-            "TOTAL": "TOTAL",
-            "Account_Open": "Account_Open"
+            "TOTAL": "TOTAL"
         }
     },
     "utility": {
@@ -5647,6 +5732,7 @@
     },
     "uti": {
         "NPA_Processing": "NPA Processing",
+        "NPA_Process_Date": "NPA Process Date",
         "Branch": "Branch",
         "Scheme": "Scheme",
         "NPA_Provision_Date": "NPA_Provision_Date",
@@ -5717,13 +5803,15 @@
         "GL_Acc_code": "GL Account Code",
         "NPALockingProcess": " NPA Locking Process",
         "CurrentProcessedNPADate": "Current Processed NPA Date",
-        "NPAProcessedDates": " NPA Processed Dates",
+        "NPAProcessedDates": "NPA Processed Dates",
         "UnLock": "UnLock",
-        "Lock": "Lock"
+        "Lock": "Lock",
+        "All_Accounts": "All Accounts",
+        "Process_Option": "Process Option"
     },
     "processmarking": {
         "title": "Npa Marking",
-        "n_date": "NPA Dates",
+        "n_date": "NPA Processed Dates",
         "f_ac": "From Account",
         "t_ac": "To Account",
         "s_no": "Serial Number",
@@ -5755,6 +5843,22 @@
     "CRAR": {
         "title": "CRAR",
         "date": "Date"
+    },
+    "CRR": {
+        "title": "CRR",
+        "date": "Date",
+        "Status": "Status",
+          "Summary" : "Summary ",
+        "Detail" : "Details"
+
+    },
+    "SLR": {
+        "title": "SLR",
+        "date": "Date",
+        "Status": "Status",
+          "Summary" : "Summary ",
+        "Detail" : "Details"
+
     },
     "loanoverduelist": {
         "duebalsummary": {

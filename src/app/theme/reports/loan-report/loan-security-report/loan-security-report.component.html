@@ -1,23 +1,21 @@
-<div class="row">
+ <div class="row">
     <div class="col-sm-2">
         <div class="card">
             <div class="card-header">
-                <h5>{{'master.Term_Loan.T1' | translate}}</h5>
+                <h5>Loan Security Reports</h5>
             </div>
             <div class="card-block">
-                <div class="col-md-12">
-                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+                <div class="col-md-12"> 
+                   <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
                         <ul class="basic-list">
                             <li>
-                                <h6> <a (click)="OpenLink(1)" routerLink="/reports/loan-reports/loan-security-report"
-                                        [ngClass]="{'isActive': goldSilverSecTrue}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">1. {{'master.Term_Loan.T2' |
-                                        translate}}</a></h6>
+                                <h6> <a (click)="OpenLink(1)" routerLink="/reports/loan-reports/loan-security-report"  [ngClass]="{'isActive': goldSilverSecTrue}" 
+                                 routerLinkActive="active"  class="text-right f-w-600" id="pointer">1. Gold Silver Security Report</a></h6>
                             </li>
-
-
+                          
+                           
                         </ul>
-                    </perfect-scrollbar>
+                    </perfect-scrollbar> 
                 </div>
             </div>
         </div>
@@ -25,13 +23,14 @@
     <div class="col-sm-10">
         <div class="card-block">
             <div *ngIf="goldSilverSecTrue">
-                <app-gold-silver-security></app-gold-silver-security>
+                 <app-gold-silver-security></app-gold-silver-security> 
                 <!-- <app-gold-silver-security></app-gold-silver-security> -->
             </div>
-
-
-
+           
+         
+        
         </div>
 
     </div>
-</div>
+</div> 
+

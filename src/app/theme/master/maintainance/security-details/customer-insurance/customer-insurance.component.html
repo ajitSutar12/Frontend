@@ -2,14 +2,11 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-<<<<<<< Updated upstream
         <h5>
           <!-- General Insurance -->
           {{'master.Security_Detalis.General_Insurance' | translate}}
         </h5>
-=======
-        <h5>{{'master.General_Insurance.Title' | translate}}</h5>
->>>>>>> Stashed changes
+
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -27,13 +24,11 @@
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="INSURANCE_DATE"
                     #INSURANCE_DATE="bsDatepicker"  (keydown.Tab)="INSURANCE_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-<<<<<<< Updated upstream
+
                   <label for="InsuranceDate">
                     <!-- Insurance Date --> {{'master.Security_Detalis.Insurance_Date' | translate}}  
                     <sub class="required">* </sub></label>
-=======
-                  <label for="InsuranceDate">{{'master.General_Insurance.Insurance_Date' | translate}}<sub class="required">* </sub></label>
->>>>>>> Stashed changes
+
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -42,17 +37,12 @@
                       angForm.controls['INSURANCE_DATE'].touched)
                   " class="alert alert-danger">
                 <div *ngIf="angForm.controls['INSURANCE_DATE'].errors?.required">
-<<<<<<< Updated upstream
+
                   <!-- This field is required --> {{'master.Validation.Val1'|translate}} 
                 </div>
                 <div *ngIf="angForm.controls['INSURANCE_DATE'].invalid">
                   <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
-=======
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
-                </div>
-                <div *ngIf="angForm.controls['INSURANCE_DATE'].invalid">
-                  <!-- Fill valid Date -->{{master.Validation.Val_Date}}
->>>>>>> Stashed changes
+
                 </div>
               </div>
             </div>
@@ -63,13 +53,11 @@
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[A-Z a-z 0-9 / - .]+$"
                     maxlength="50" title="Input allowed only 0-9" formControlName="POLICY_NO" />
-<<<<<<< Updated upstream
+
                   <label for="PolicyNo">
                     {{'master.Security_Detalis.Policy_Number' | translate}}  <!-- Policy Number -->
                     <sub class="required">* </sub></label>
-=======
-                  <label for="PolicyNo">{{'master.General_Insurance.Policy_Number' | translate}}<sub class="required">* </sub></label>
->>>>>>> Stashed changes
+
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -81,11 +69,8 @@
                       angForm.controls['POLICY_NO'].errors?.pattern ||
                       angForm.controls['POLICY_NO'].errors?.required
                     ">
-<<<<<<< Updated upstream
+
                   <!-- This field is required and Input allowed only 0-9 --> {{'master.Validation.Val_Receipt'|translate}}
-=======
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Receipt}}
->>>>>>> Stashed changes
                 </div>
               </div>
             </div>
@@ -101,7 +86,7 @@
                   <ng-select appTheme id="INSU_COMPANY_CODE" bindValue="value" [(ngModel)]="nginsurancecom"
                     formControlName="INSU_COMPANY_CODE" bindLabel="label" title="Compulsory Selection"
                     #INSU_COMPANY_CODE (focus)="onFocus(INSU_COMPANY_CODE)" [selectOnTab]='true'
-<<<<<<< Updated upstream
+
                     [ngClass]="{'form-submitted': formSubmitted}" required placeholder="  {{'master.Security_Detalis.Insurance_Company' | translate}}">
                     <ng-option *ngFor="let values of insuranceoption" [value]="values">
                       {{values.label}}</ng-option>
@@ -109,13 +94,7 @@
                   <label for="INSU_COMPANY_CODE">
                     {{'master.Security_Detalis.Insurance_Company' | translate}} <!-- Insurance Company -->
                     <sub class="required"> * </sub></label>
-=======
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.General_Insurance.Insurance_Company' | translate}}">
-                    <ng-option *ngFor="let values of insuranceoption" [value]="values">
-                      {{values.label}}</ng-option>
-                  </ng-select>
-                  <label for="INSU_COMPANY_CODE">{{'master.General_Insurance.Insurance_Company' | translate}}<sub class="required"> * </sub></label>
->>>>>>> Stashed changes
+
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -124,11 +103,9 @@
                       angForm.controls['INSU_COMPANY_CODE'].touched)
                   " class="alert alert-danger">
                 <div *ngIf="angForm.controls['INSU_COMPANY_CODE'].errors?.required">
-<<<<<<< Updated upstream
+
                   <!-- This field is required --> {{'master.Validation.Val1'|translate}} 
-=======
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
->>>>>>> Stashed changes
+
                 </div>
               </div>
             </div>
@@ -147,13 +124,11 @@
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="INSU_EXP_DATE"
                     #INSU_EXP_DATE="bsDatepicker"  (keydown.Tab)="INSU_EXP_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-<<<<<<< Updated upstream
+
                   <label for="InsuranceExpiryDate">
                     {{'master.Security_Detalis.Insurance_Expiry_Date' | translate}} <!-- Insurance Expiry Date -->
                     <sub class="required">* </sub></label>
-=======
-                  <label for="InsuranceExpiryDate">{{'master.General_Insurance.Insurance_Expiry_Date' | translate}}<sub class="required">* </sub></label>
->>>>>>> Stashed changes
+
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -162,17 +137,12 @@
                       angForm.controls['INSU_EXP_DATE'].touched)
                   " class="alert alert-danger">
                 <div *ngIf="angForm.controls['INSU_EXP_DATE'].errors?.required">
-<<<<<<< Updated upstream
+
                   <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['INSU_EXP_DATE'].invalid">
                   <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}} 
-=======
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
-                </div>
-                <div *ngIf="angForm.controls['INSU_EXP_DATE'].invalid">
-                  <!-- Fill valid Date -->{{master.Validation.Val_Date}}
->>>>>>> Stashed changes
+
                 </div>
               </div>
             </div>
@@ -183,13 +153,11 @@
                     [ngClass]="{'form-submitted': formSubmitted}" (focusout)= "getDecimalPoint($event)" (keyup)= "getDecimal($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
                      title="Input allowed only 0-9 . " formControlName="INSU_AMOUNT" />
-<<<<<<< Updated upstream
+
                   <label for="InsuranceAmount">
                     {{'master.Security_Detalis.Insurance_Amount' | translate}}<!-- Insurance Amount -->
                     <sub class="required">* </sub></label>
-=======
-                  <label for="InsuranceAmount">{{'master.General_Insurance.Insurance_Amount' | translate}}<sub class="required">* </sub></label>
->>>>>>> Stashed changes
+
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -201,16 +169,14 @@
                       angForm.controls['INSU_AMOUNT'].errors?.pattern ||
                       angForm.controls['INSU_AMOUNT'].errors?.required
                     ">
-<<<<<<< Updated upstream
+
                     {{'master.Validation.Val_Receipt'|translate}} <!-- This field is required and Input allowed only 0-9 . -->
-=======
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Receipt}}
->>>>>>> Stashed changes
+
                 </div>
               </div>
             </div>
             <div class="col-sm">
-<<<<<<< Updated upstream
+
               <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
                 {{'master.Action.Submit'|translate}}  <!-- Submit -->
               </button>
@@ -220,11 +186,7 @@
               <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
                 {{'master.Action.Cancel'|translate}}  <!-- Cancel -->
               </button>
-=======
-              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit'|translate}}</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">{{'master.Action.Update'|translate}}</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">{{'master.Action.Cancel'|translate}}</button>
->>>>>>> Stashed changes
+
 
             </div>
           </div>
@@ -244,7 +206,7 @@
                 <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
                   <thead>
-<<<<<<< Updated upstream
+
                     <th style="text-transform: captalize;">
                       {{'master.Security_Detalis.Action' | translate}}  <!-- Action -->
                     </th>
@@ -263,14 +225,7 @@
                     <th style="text-transform: captalize;">
                       {{'master.Security_Detalis.Insurance_Amount' | translate}}  <!-- Insurance Amount -->
                     </th>
-=======
-                    <th style="text-transform: captalize;">{{'master.General_Insurance.Action' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.General_Insurance.Insurance_Date' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.General_Insurance.Policy_Number' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.General_Insurance.Insurance_Company' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.General_Insurance.Insurance_Expiry_Date' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.General_Insurance.Insurance_Amount' | translate}}</th>
->>>>>>> Stashed changes
+
                   </thead>
                   <tbody *ngIf="customerMaster?.length != 0">
                     <tr *ngFor="let data of customerMaster">
@@ -290,13 +245,11 @@
                   </tbody>
                   <tbody *ngIf="customerMaster?.length == 0">
                     <tr>
-<<<<<<< Updated upstream
+
                       <td colspan="6" class="no-data-available">
                         {{'master.Security_Detalis.No_Data' | translate}}  <!-- No data! -->
                       </td>
-=======
-                      <td colspan="6" class="no-data-available">{{'master.General_Insurance.No_Data' | translate}}</td>
->>>>>>> Stashed changes
+
                     </tr>
                   </tbody>
                   <!-- <tfoot #filters class="filters">

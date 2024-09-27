@@ -5,7 +5,7 @@ import { customerinsuranceService } from './customer-insurance.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CustomerInsuranceComponent } from './customer-insurance.component';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
 
@@ -15,15 +15,10 @@ import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { CustomerInsuranceRoutingModule } from './customer-insurance-routing.module';
 import { DataTablesModule } from "angular-datatables";
 import { ThemeModule } from 'src/app/theme/theme.module';
-<<<<<<< Updated upstream
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-=======
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
->>>>>>> Stashed changes
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -43,18 +38,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ThemeModule,
     TranslateModule.forRoot({
       loader:{
-<<<<<<< Updated upstream
        provide:TranslateLoader,
        useFactory:HttpLoaderFactory,
        deps:[HttpClient]
      }
-=======
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps:[HttpClient]
-      }
->>>>>>> Stashed changes
-    })
+
+
+    ThemeModule
   ],
   providers: [customerinsuranceService,SystemMasterParametersService,
     {
@@ -74,7 +64,4 @@ export class CustomerInsuranceModule { }
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http);
 }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes

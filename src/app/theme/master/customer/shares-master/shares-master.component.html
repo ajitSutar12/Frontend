@@ -163,8 +163,7 @@
                                                                             name="EMP_NO" class="form-control"
                                                                             placeholder=" " id="EMP_NO" maxlength="16"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
-
+                                                                            pattern="^[0-9\u0966-\u096F]*$"
                                                                             formControlName="EMP_NO">
                                                                         <label
                                                                             for="EMP_NO">{{'master.Master_Shares_Holders.Emp_No'
@@ -725,8 +724,7 @@
                                                                             <input type="text" name="AC_TPIN"
                                                                                 class="form-control" placeholder=" "
                                                                                 id="AC_TPIN"
-                                                                                pattern="^[\u0900-\u097F A-Za-z]+$"
-
+                                                                                pattern="^[0-9\u0966-\u096F]*$"
                                                                                 minlength="6" maxlength="6"
                                                                                 title="Input allowed only  0-9"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -1004,8 +1002,7 @@
                                                                         <input style="text-align: right;" type="text"
                                                                             name="AC_SBNO" class="form-control"
                                                                             placeholder=" "
-                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
-
+                                                                            pattern="^[0-9\u0966-\u096F]*$"
                                                                             minlength="1" maxlength="16"
                                                                             title="Input allowed only 0-9" id="AC_SBNO"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
@@ -1418,8 +1415,7 @@
                                                                                             style="text-align: right;"
                                                                                             (focusout)="age()"
                                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
-
+                                                                                            pattern="^[0-9\u0966-\u096F]*$"
                                                                                             min="1" max="100"
                                                                                             title="Input allowed only 0-9"
                                                                                             id="AGE"
@@ -1661,8 +1657,7 @@
                                                                                             name="AC_NPIN"
                                                                                             class="form-control"
                                                                                             placeholder=" " id="AC_NPIN"
-                                                                                            pattern="^[\u0900-\u097F A-Za-z]+$"
-
+                                                                                            pattern="^[0-9\u0966-\u096F]*$"
                                                                                             minlength="6" maxlength="6"
                                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                             title="Input allowed only  0-9"

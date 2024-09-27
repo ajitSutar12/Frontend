@@ -11,10 +11,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 import {IssueNewSharesModule} from '../../../transaction/share-transactions/issue-new-shares/issue-new-shares.module'
-import { HttpClient } from '@angular/common/http';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   declarations: [SharesIssueNewComponent],
   imports: [
@@ -23,17 +20,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    IssueNewSharesModule,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    IssueNewSharesModule
   ],
   exports: [SharesIssueNewComponent],
-  providers: [SystemMasterParametersService,
+  providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -42,6 +32,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })
 export class SharesIssueNewModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

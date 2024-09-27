@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <!-- <h5>CRAR</h5> -->
+                <h5> {{'CRAR.title' | translate}}</h5>
+                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
+                </h6>
+            </div>
+            <div class="card">
+                <form [formGroup]="angForm" novalidate>
+                    <div class="card-block">
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-2">
+                                <label for="">
+                                     <!-- Branch  -->
+                                     {{'master.Ms_Reports.Branch' |translate}}  <sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group form-primary form-static-label">
+                                    <span class="border-lable-flt" autofocus>
+
+                                        <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
+                                            formControlName="Branch" bindLabel="label" title="Compulsory Selection"
+                                            (change)="getBranch($event)"
+                                           placeholder="" required
+                                            >
+                                            <ng-option *ngFor="let values of branchOption" [value]="values">
+                                                {{values.label}}</ng-option>
+                                        </ng-select>
+                                    </span>
+                                </div>
+                                <div class="form-group form-primary form-static-label"
+                                    *ngIf="angForm.controls['Branch'].invalid && (angForm.controls['Branch'].dirty || angForm.controls['Branch'].touched)"
+                                    class="alert alert-danger">
+                                    <div *ngIf="angForm.controls['Branch'].errors?.required">
+                                        {{'master.Validation.Val1' | translate}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-1">
+                                <label for="DATE">
+                                    <!-- Date -->
+                                    {{'CRAR.date' | translate}}<sub class="required">*</sub></label>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group input-group">
+                                    <span class="border-lable-flt">
+                                        <input type="text" placeholder="dd/mm/yyyy" name="DATE" id="DATE"
+                                            class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
+                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10"
+                                            maxlength="10" formControlName="DATE" [maxDate]="maxDate"
+                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                            bsDatepicker>
+                                    </span>
+                                </div>
+                                <div *ngIf="angForm.get('DATE').invalid && (angForm.get('DATE').dirty || angForm.get('DATE').touched)"
+                                    class="form-group form-primary form-static-label alert alert-danger">
+                                    <div *ngIf="angForm.get('DATE').hasError('required')">
+                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-10"></div>
+                            <div class="col-sm-12  col-md-1">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                    [disabled]="clicked" (click)="view($event);clicked = true">
+                                    <!-- View -->
+                                    {{'master.Action.View' | translate}}</button>
+                            </div>
+                            <div class=" col-sm-12  col-md-1">
+                                <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                                    (click)="close()">
+                                    <!-- Close -->
+                                    {{'master.Action.Close' | translate}}</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+
+                                    <div class="card-header">
+                                        <h5>
+                                            <!-- Report Frame -->
+                                            {{'membincdec.r_frame' |translate}}</h5>
+                                        <div *ngIf="showRepo">
+
+                                            <app-iframe1 [url]='iframe1url'></app-iframe1>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

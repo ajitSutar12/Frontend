@@ -5,13 +5,11 @@ import { CashierUMComponent } from './cashier-um.component';
 import { CashierUMRoutingModule } from './cashier-um-routing.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @NgModule({
   imports: [
@@ -21,24 +19,13 @@ import { SystemMasterParametersService } from '../scheme-parameters/system-maste
     DataTablesModule,
     NgSelectModule,
     FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-  loader:{
-    provide:TranslateLoader,
-    useFactory:HttpLoaderFactory,
-    deps:[HttpClient]
-  }
-})
+    ReactiveFormsModule
   ],
   declarations: [CashierUMComponent],
-  providers:[SystemMasterParametersService,{
+  providers:[{
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },]
 })
 export class CashierUMModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
