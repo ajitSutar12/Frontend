@@ -78,7 +78,7 @@
             "dividendCalculation": "Dividend Calculation",
             "dividendPosting": "Dividend Posting",
             "dividendTransferPosting": "Dividend Transfer Posting",
-            "Dividend_Paid_Register":"Dividend Paid Register"
+            "Dividend_Paid_Register": "Dividend Paid Register"
         },
         "transaction": {
             "voucherEntry": "Voucher Entry",
@@ -253,7 +253,7 @@
             "unpaidDividendList": "Unpaid Dividend List",
             "monthlyRecoveryPrint": "'Monthly Recovery Print",
             "monthlyRecoverySubsidiary": "Monthly Recovery Subsidiary",
-            "Dividend_Paid_Register":"Dividend Paid Register"
+            "Dividend_Paid_Register": "Dividend Paid Register"
         },
         "LoanReport": {
             "LoanReport": "Term Loan/Cash Credit Reports",
@@ -1004,7 +1004,61 @@
             "Schema": "Schema",
             "Account_Number": "Account Number",
             "Security_Detalis": "Security Detalis",
-            "Ledger_Balance": "Ledger Balance"
+            "Ledger_Balance": "Ledger Balance",
+            "Other_Security": "Other Security",
+            "Date_of_Submission": "Date Of Submission",
+            "Short_Details": "Short Details",
+            "Total_value": "Total Value",
+            "Margin": "Margin",
+            "Fill_valid_Date": "Fill_valid_Date",
+            "No_Data": "No Data",
+            "Action": "Action",
+            "Land_And_Buildings": "Land And Buildings",
+            "Submission_Date": "Submission Date",
+            "Valuation_Amount": "Valuation Amount",
+            "Location": "Location",
+            "Area": "Area",
+            "Unit_of_Area": "Unit of Area",
+            "City_Survey_Number": "City Survey Number",
+            "City_Survey_Date": "City Survey Date",
+            "Registration_Number": "Registration Number",
+            "Remarks": "Remarks",
+            "General_Insurance": "General Insurance",
+            "Insurance_Date": "Insurance Date",
+            "Policy_Number": "Policy Number",
+            "Insurance_Company": "Insurance Company",
+            "Insurance_Expiry_Date": "Insurance Expiry Date",
+            "Insurance_Amount": "Insurance Amount",
+            "Gold_And_Silver": "Gold And Silver",
+            "Item_Type": "Item Type",
+            "Gold_Bag/Receipt_Number": "Gold Bag/Receipt Number",
+            "Gold_Box_Number": "Gold Box Number",
+            "Name_of_Articles": "Name of Articles",
+            "Total_Weight_in_Gram": "Total Weight in Gram",
+            "Clear_Weight_in_Grams": "Clear Weight in Grams",
+            "Rate_Per_Gram": "Rate Per Gram",
+            "Total_Value": "Total Value",
+            "Details_of_Articles": "Details of Articles",
+            "Nominee": "Nominee",
+            "Nominee_Relation": "Nominee Relation",
+            "Details": "Details",
+            "Fire_Policy": "Fire Policy",
+            "Policy_Amount": "Policy Amount",
+            "Policy_Nature": "Policy Nature",
+            "Insurance_Code": "Insurance Code",
+            "Address": "Address",
+            "City": "City",
+            "Premium_Amount": "Premium Amount",
+            "Premium_Due_Date": "Premium Due Date",
+            "Policy_Due_Date": "Policy Due Date",
+            "Government_Security&LIC": "Government Security & LIC",
+            "Certificate/Policy_Date": "Certificate/Policy Date",
+            "Certificate/Policy_Number": "Certificate/Policy Number",
+            "Name_of_Assured": "Name of Assured",
+            "Paid_up_Amount": "Paid up Amount",
+            "Sum_Assured": "Sum Assured",
+            "Surrender_Value": "Surrender Value",
+            "Matured_Due_Date": "Matured Due Date"
         },
         "Deposit/Loan_Intrest_Rate_Edit/Change": {
             "Title": "Deposit/Loan Intrest Rate Edit/Change",
@@ -1810,7 +1864,9 @@
             "Validate_Year": " This field is required and Input allowed only 0-9(8 digit between two years from and to (i.e.2021-2022))",
             "Val_Tan": "Input allowed only A-Z 0-9.",
             "Val_M": "This field is required and Input allowed only A-Z 0-9",
-            "Re_Email": "This field is required and Enter Valid Email"
+            "Re_Email": "This field is required and Enter Valid Email",
+            "Val2": "This field is required and Input allowed only . 0-9(after decimal 2 digits)",
+            "Val3": "This field is required and Input allowed only . 0-9(after decimal 3 digits)"
         },
         "Report_NPA_Registration": {
             "T1": "NPA Register",
@@ -1856,6 +1912,39 @@
             "T11": "Other Receivables and Installment wise Loan overdue Reports",
             "FromInstallment": "From Installment",
             "ToInstallment": "To Installment"
+        },
+        "Loan_overdue_report": {
+            "T1": "Accountwise Loanoverdue Report",
+            "Branch": "Branch",
+            "Scheme_Code": "Scheme Code",
+            "Date": "Date",
+            "Min._installment": "Min. installment",
+            "Max._installment": "Max. installment",
+            "Start_code": "Start code",
+            "End_code": "End code",
+            "Next": "Next",
+            "Accountnumber": "Accountnumber",
+            "Name": "Name",
+            "checkbox": "checkbox",
+            "Show_Guarantor": "Show Guarantor",
+            "Calculate_Overdue_Only_After_Expiry": "Calculate Overdue Only After Expiry",
+            "Detail": "Detail",
+            "Summary": "Summary",
+            "T2": "Installment Wise Loan Overdue List",
+            "Scheme": "Scheme",
+            "Print_Expired_A/c?": "Print Expired A/c?",
+            "Print_Current_Interest?": "Print Current Interest?",
+            "Range": "Range",
+            "selective": "selective",
+            "T3": "Loan Due List Between Two Dates",
+            "From_Date": "From Date",
+            "To_Date": "To Date",
+            "T4": "Loan Due List Between Two Open Dates",
+            "T5":"Schemewise Loan OverDue Increase Decrease",
+            "Starting_Date": "Starting Date",
+            "Ending_Date": "Ending Date",
+            "T6":"Loan PeriodWise AmountWise Overdue List",
+            "T7":"Loan OverDue Percentage Wise"
         },
         "Pigmy_Agent_Report": {
             "T1": "Pigmy Agent wise Collection Chart",
@@ -2652,7 +2741,7 @@
             "Received": "Received",
             "Pending": "Pending",
             "All": "All",
-            "PRINT_NEW_PAGE":"Print Every Account on New Page?"
+            "PRINT_NEW_PAGE": "Print Every Account on New Page?"
         },
         "Term_Deposit_Reports": {
             "T1": "Matured but not paid between two days",
@@ -2706,7 +2795,7 @@
             "T6": "Unpaid Dividend List",
             "T7": "Monthly Recovery Print",
             "T8": "Monthly Recovery Subsidiary",
-            "T9":"Dividend Paid List",
+            "T9": "Dividend Paid List",
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Date": "Date",
@@ -2730,7 +2819,7 @@
             "To": "To",
             "Code_From": "Division Code From",
             "Code_To": "Division Code To",
-            "All_City":"All_City"
+            "All_City": "All_City"
         },
         "Term_Loan": {
             "T1": "Loan Security Reports",
@@ -4102,7 +4191,8 @@
         "successfully": "Deadstock depreciation processed successfully",
         "Process_Cancelled": "Process Cancelled!",
         "Cancelled": "Cancelled",
-        "Posting_cancelled": "Posting cancelled"
+        "Posting_cancelled": "Posting cancelled",
+        "Inf":"Please once check your voucher, and fill requied data"
     },
     "Utility": {
         "Interest_Calculation": {
@@ -5066,8 +5156,8 @@
             "Ending_Code": "Ending Code",
 
             "Range_Ending_Code": "Range Ending Code",
-             "Account_Open": "Account_Open",
-             "Closed_Account":"Closed Account"
+            "Account_Open": "Account_Open",
+            "Closed_Account": "Closed Account"
         },
         "General_Acc_Statement": {
             "Title": "General Account Statement"
@@ -5177,7 +5267,7 @@
             "Narration_Master": "Narration Master",
             "Scheme": "Scheme",
             "From": "From",
-            "To":"To",
+            "To": "To",
             "T4": "Voucher Printing",
             "Date": "Date",
             "Source_Type": "Source Type",
@@ -5197,7 +5287,6 @@
             "Yes": "Yes",
             "No": "No",
             "td_printing": "TD-Receipt Printing",
-
             "Credit": "Credit",
             "Debit": "Debit",
             "Both": "Both",
@@ -5209,8 +5298,7 @@
             "F1": "Field marked with",
             "F2": "are mandatory",
             "T1": "Ledger View",
-
-            "Branch": "Branch", 
+            "Branch": "Branch",
             "Scheme": "Scheme ",
             "Scheme_Code": "Scheme Code ",
             "Acc_Num": "Account Number",

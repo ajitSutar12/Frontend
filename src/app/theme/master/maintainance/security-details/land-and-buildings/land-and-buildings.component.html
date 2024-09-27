@@ -2,7 +2,8 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Land And Buildings</h5>
+        <!-- <h5>Land And Buildings</h5> -->
+        <h5>{{'master.Security_Detalis.Land_And_Buildings' | translate}}</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -20,7 +21,10 @@
                     [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
                     #SUBMISSION_DATE="bsDatepicker" (keydown.Tab)="SUBMISSION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
+                  <label for="subm_date">
+                    <!-- Submission Date -->
+                   {{'master.Security_Detalis.Submission_Date' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -29,10 +33,10 @@
                     angForm.controls['SUBMISSION_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                  Fill valid Date
+                  <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
                 </div>
               </div>
             </div>
@@ -44,7 +48,9 @@
                     (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only  0-9" formControlName="VALUE" />
-                  <label for="ValuationAmount">Valuation Amount<sub class="required">* </sub></label>
+                  <label for="ValuationAmount">
+                    {{'master.Security_Detalis.Valuation_Amount' | translate}} <!-- Valuation Amount -->
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -56,7 +62,7 @@
                     angForm.controls['VALUE'].errors?.pattern ||
                     angForm.controls['VALUE'].errors?.required
                   ">
-                  This field is required and Input allowed only . 0-9
+                  {{'master.Validation.Val_Receipt'|translate}}  <!-- This field is required and Input allowed only . 0-9 -->
                 </div>
               </div>
             </div>
@@ -68,7 +74,9 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     [ngClass]="{'form-submitted': formSubmitted}" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="50" formControlName="LOCATION" />
-                  <label for="Location">Location<sub class="required">* </sub></label>
+                  <label for="Location">
+                    <!-- Location -->   {{'master.Security_Detalis.Location' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -80,8 +88,8 @@
                     angForm.controls['LOCATION'].errors?.pattern ||
                     angForm.controls['LOCATION'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z - / .
+                  (Space) -->{{'master.Validation.Val1'|translate}}
                 </div>
               </div>
             </div>
@@ -92,7 +100,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" pattern="\d{1,20}(\.\d{2})?"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9 " formControlName="AREA" />
-                  <label for="area">Area<sub class="required">* </sub></label>
+                  <label for="area">
+                    <!-- Area --> {{'master.Security_Detalis.Area' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -104,7 +114,7 @@
                     angForm.controls['AREA'].errors?.pattern ||
                     angForm.controls['AREA'].errors?.required
                   ">
-                  This field is required and Input allowed only . 0-9
+                  {{'master.Validation.Val_Receipt'|translate}}  <!-- This field is required and Input allowed only . 0-9 -->
                 </div>
               </div>
             </div>
@@ -120,12 +130,14 @@
                     title="Input allowed only 0-9" formControlName="UNIT_AREA" /> -->
                   <ng-select appTheme id="UNIT_AREA" bindValue="value" [(ngModel)]="units" [virtualScroll]="true"
                     formControlName="UNIT_AREA" bindLabel="label" title="Compulsory Selection"
-                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Unit of Area" #INTCATA
+                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'master.Security_Detalis.Unit_of_Area' | translate}}" #INTCATA
                     (focus)="onFocus(INTCATA)" [selectOnTab]='true'>
                     <ng-option *ngFor="let values of unitofarea" [value]="values">
                       {{values.label}}</ng-option>
                   </ng-select>
-                  <label for="unit_area">Unit of Area<sub class="required">* </sub></label>
+                  <label for="unit_area">
+                    <!-- Unit of Area -->{{'master.Security_Detalis.Unit_of_Area' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -137,7 +149,7 @@
                     angForm.controls['UNIT_AREA'].errors?.pattern ||
                     angForm.controls['UNIT_AREA'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  {{'master.Validation.Val_Receipt'|translate}}   <!-- This field is required and Input allowed only 0-9 -->
                 </div>
               </div>
             </div>
@@ -149,7 +161,9 @@
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     (keyup)="checkmargin(margin.value);getDecimal($event)" title="Input allowed only  0-9"
                     formControlName="MARGIN" />
-                  <label for="label-name">Margin % </label>
+                  <label for="label-name">
+                    <!-- Margin -->{{'master.Security_Detalis.Margin' | translate}}
+                     % </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -158,7 +172,7 @@
                     angForm.controls['MARGIN'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                  Input allowed only . 0-9
+                  {{'master.Validation.Val_Receipt'|translate}}   <!-- Input allowed only . 0-9 -->
                 </div>
               </div>
             </div>
@@ -169,7 +183,9 @@
                     placeholder=" " id="CitySurveyNumber" [ngClass]="{'form-submitted': formSubmitted}" required=""
                      (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)" 
                     title="Input allowed only 0-9" maxlength="20" formControlName="CITY_SURVEY_NO" />
-                  <label for="CitySurveyNumber">City Survey Number<sub class="required">* </sub></label>
+                  <label for="CitySurveyNumber">
+                    <!-- City Survey Number -->{{'master.Security_Detalis.City_Survey_Number' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -180,7 +196,7 @@
                 <div *ngIf="
                     angForm.controls['CITY_SURVEY_NO'].errors?.required
                   ">
-                  This field is required Input allowed only 0-9
+                  {{'master.Validation.Val_Receipt'|translate}} <!-- This field is required Input allowed only 0-9 -->
                 </div>
               </div>
             </div>
@@ -196,7 +212,9 @@
                     #CITY_SURVEY_DATE="bsDatepicker" (keydown.Tab)="CITY_SURVEY_DATE.hide()" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="CITY_SURVEY_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="CitySurveyDate">City Survey Date<sub class="required">* </sub></label>
+                  <label for="CitySurveyDate">
+                    <!-- City Survey Date -->{{'master.Security_Detalis.City_Survey_Date' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -205,10 +223,10 @@
                     angForm.controls['CITY_SURVEY_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['CITY_SURVEY_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['CITY_SURVEY_DATE'].invalid">
-                  Fill valid Date
+                  <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
                 </div>
               </div>
             </div>
@@ -224,7 +242,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" id="RegistrationNumber" required=""
                     pattern="^[A-Za-z'\.\-\s 0-9]+$" title="Input allowed only 0-9" maxlength="20"
                     formControlName="REG_NO" />
-                  <label for="RegistrationNumber">Registration Number<sub class="required">* </sub></label>
+                  <label for="RegistrationNumber">
+                    <!-- Registration Number -->{{'master.Security_Detalis.Registration_Number' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -236,7 +256,8 @@
                     angForm.controls['REG_NO'].errors?.pattern ||
                     angForm.controls['REG_NO'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .(Space) 0-9
+                  {{'master.Validation.Val1'|translate}}
+                  <!-- This field is required and Input allowed only A-Z a-z - / .(Space) 0-9 -->
                 </div>
               </div>
             </div>
@@ -248,7 +269,9 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
-                  <label for="remarks">Remarks</label>
+                  <label for="remarks">
+                    <!-- Remarks -->{{'master.Security_Detalis.Remarks' | translate}}
+                  </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -260,7 +283,7 @@
                     angForm.controls['REMARK'].errors?.pattern ||
                     angForm.controls['REMARK'].errors?.required
                   ">
-                  Input allowed only A-Z a-z - / . (Space)
+                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                 </div>
               </div>
             </div>
@@ -268,10 +291,16 @@
             <div class="col-sm">
 
               <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton"
-                (keydown.Tab)="focus()" appTheme>Submit</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+                (keydown.Tab)="focus()" appTheme>
+                <!-- Submit -->  {{'master.Action.Submit'|translate}}
+              </button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                <!-- Update -->  {{'master.Action.Update'|translate}}
+              </button>
               &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">
+                <!-- Cancel -->{{'master.Action.Cancel'|translate}}
+              </button>
             </div>
           </div>
         </div>
@@ -290,17 +319,39 @@
               <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                 class="table table-striped table-bordered table-hover compact">
                 <thead>
-                  <th style="text-transform: captalize;">Action</th>
-                  <th style="text-transform: captalize;">Submission Date</th>
-                  <th style="text-transform: captalize;">Valuation Amount</th>
-                  <th style="text-transform: captalize;">Location</th>
-                  <th style="text-transform: captalize;">Area</th>
-                  <th style="text-transform: captalize;">Unit Area</th>
-                  <th style="text-transform: captalize;">Margin</th>
-                  <th style="text-transform: captalize;">Remarks</th>
-                  <th style="text-transform: captalize;">City Survey Number</th>
-                  <th style="text-transform: captalize;">City Survey Date</th>
-                  <th style="text-transform: captalize;">Registration Number</th>
+                  <th style="text-transform: captalize;">
+                    <!-- Action -->{{'master.Security_Detalis.Action' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Submission Date -->{{'master.Security_Detalis.Date_of_Submission' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Valuation Amount --> {{'master.Security_Detalis.Valuation_Amount' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Location --> {{'master.Security_Detalis.Location' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Area -->{{'master.Security_Detalis.Area' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Unit Area -->{{'master.Security_Detalis.Unit_of_Area' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Margin -->  {{'master.Security_Detalis.Margin' | translate}} 
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Remarks -->{{'master.Security_Detalis.Remarks' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- City Survey Number -->{{'master.Security_Detalis.City_Survey_Number' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- City Survey Date -->{{'master.Security_Detalis.City_Survey_Date' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">
+                    <!-- Registration Number -->{{'master.Security_Detalis.Registration_Number' | translate}}
+                  </th>
                 </thead>
                 <tbody *ngIf="landMasters?.length != 0">
                   <tr *ngFor="let data of landMasters">
@@ -325,7 +376,9 @@
                 </tbody>
                 <tbody *ngIf="landMasters?.length == 0">
                   <tr>
-                    <td colspan="6" class="no-data-available">No data!</td>
+                    <td colspan="6" class="no-data-available">
+                      <!-- No data! --> {{'master.Security_Detalis.No_Data' | translate}}
+                    </td>
                   </tr>
                 </tbody>
                 <!-- <tfoot #filters class="filters">

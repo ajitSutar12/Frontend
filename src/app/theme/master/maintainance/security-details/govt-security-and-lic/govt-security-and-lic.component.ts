@@ -25,7 +25,7 @@ import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
-
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -119,7 +119,7 @@ export class GovtSecurityAndLicComponent
   maturityduedate: any = null
   maxDate: any;
   minDate: Date;
-
+  setLang: any;
   //filter variable
   filterData = {};
   setdate: string;
@@ -127,7 +127,7 @@ export class GovtSecurityAndLicComponent
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _govsecurity: governmentsecuritycomponentservice, private systemParameter: SystemMasterParametersService,
+    private _govsecurity: governmentsecuritycomponentservice, private systemParameter: SystemMasterParametersService,  private translate:TranslateService,
     public router: Router
   ) {
 
@@ -136,7 +136,8 @@ export class GovtSecurityAndLicComponent
     // this.maxDate.setDate(this.maxDate.getDate())
 
     this.systemParameter.getFormData(1).subscribe(data => {
-
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
