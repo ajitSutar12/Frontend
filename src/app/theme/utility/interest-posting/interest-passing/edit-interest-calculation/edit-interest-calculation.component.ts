@@ -11,7 +11,8 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { environment } from 'src/environments/environment';
 import { EditInterestCalculationService } from './edit-interest-calculation.service';
 import Swal from 'sweetalert2';
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-edit-interest-calculation',
   templateUrl: './edit-interest-calculation.component.html',
@@ -58,6 +59,7 @@ export class EditInterestCalculationComponent implements OnInit {
   scheme: any[];
   showButton: boolean = true;
   submitData: boolean = false;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -65,8 +67,16 @@ export class EditInterestCalculationComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _service: EditInterestCalculationService
-  ) { }
+    private _service: EditInterestCalculationService,
+    private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem('user'));

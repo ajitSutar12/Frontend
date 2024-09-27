@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { OtherViewService } from '../other-view.service';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-ratio-analysis',
@@ -18,16 +16,7 @@ export class RatioAnalysisComponent implements OnInit {
   AverageDepo = 0;
   Margin = 0;
   modalClass: string = 'modalHide';
-  setLang: any;
-  constructor(private otherviewservice: OtherViewService, 
-  private translate:TranslateService,
-  private systemParameter: SystemMasterParametersService,
-) { this.systemParameter.getFormData(1).subscribe(data => {
-  
-  this.setLang = data.SET_LANGUAGE
-  this.translate.setDefaultLang(this.setLang);
-})}
-
+  constructor(private otherviewservice: OtherViewService) { }
 
   ngOnInit(): void {
     this.modalClass = 'modalShow';

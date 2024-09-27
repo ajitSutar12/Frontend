@@ -820,7 +820,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.isDisable = false
         Swal.fire({
           icon: 'success',
-          title: 'Account Created successfully!',
+          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -856,7 +856,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       this.vehicleid = []
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
 
   }
@@ -1272,7 +1272,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
       data['AC_RESO_DATE'] = this.ngresodate
     }
     this.termLoanService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1293,8 +1293,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Term loan master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Term_Loan')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1305,8 +1305,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         this.termLoanService.deleteData(id).subscribe(data1 => {
           this.termLoanMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1318,8 +1318,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -1477,7 +1477,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, "warning");
         (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
       }
     }
@@ -1725,16 +1725,16 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
         }
         else {
           if (this.multiSecurity.find(ob => ob['SECURITY_CODE'] === this.SECU_CODE)) {
-            Swal.fire("This Security is Already Added", "error");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Security')}`, "error");
           } else {
             this.multiSecurity.push(object);
           }
         }
       } else {
-        Swal.fire("Please Select Security Code", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Select_Sec_Code')}`, "error");
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
     this.resetField()
   }
@@ -1978,21 +1978,21 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
           else {
             if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
-              Swal.fire("This Customer is Already Guarantor", "error");
+              Swal.fire(`${this.translate.instant('Swal_Msg.G_Exist')}`, "error");
             } else {
               this.multiGuarantor.push(object);
             }
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select Guarantor Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.G_CustId')}`, "error");
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
     this.resetGuarantor()
   }
@@ -2051,14 +2051,14 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select Guarantor Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.G_CustId')}`, "error");
       }
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+       Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
 
     this.resetGuarantor()
@@ -2117,22 +2117,22 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
           else {
             if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-              Swal.fire("This Customer is Already CoBorrower", "error");
+              Swal.fire(`${this.translate.instant('Swal_Msg.Coborrow')}`, "error");
             } else {
               this.multiCoBorrower.push(object);
             }
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select CoBorrower Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.CoBorrow_Id')}`, "error");
       }
 
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
     this.resetCoBorrower()
   }
@@ -2171,22 +2171,22 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
           }
           else {
             if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-              Swal.fire("This Customer is Already CoBorrower", "error");
+              Swal.fire(`${this.translate.instant('Swal_Msg.Coborrow')}`, "error");
             } else {
               this.multiCoBorrower[index] = object;
             }
           }
         }
         else {
-          Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
         }
       }
       else {
-        Swal.fire("Please Select CoBorrower Customer Id", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.CoBorrow_Id')}`, "error");
       }
 
     } else {
-      Swal.fire("Please Select Customer Id", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
     }
 
     this.resetCoBorrower()
@@ -2516,7 +2516,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.termLoanService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Term Loan Account Approved successfully!',
+        title: `${this.translate.instant('Swal_Msg.Term_Loan_Approve')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2540,7 +2540,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.termLoanService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Term Loan Account rejected successfully!',
+        title: `${this.translate.instant('Swal_Msg.Term_Loan_Reject')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2566,7 +2566,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`,`${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -2603,7 +2603,7 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     this.termLoanService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Account unapproved successfully!',
+        title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2623,8 +2623,8 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'Drawing Power Should Be Less Than or Equal to Sanction Limit',
+          `${this.translate.instant('Swal_Msg.Warn')}`,
+          `${this.translate.instant('Swal_Msg.Drawing')}`,
           'warning'
         );
         (document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value = "0"

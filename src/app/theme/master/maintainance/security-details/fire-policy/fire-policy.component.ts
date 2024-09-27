@@ -13,7 +13,7 @@ import { HttpClient } from "@angular/common/http";
 import Swal from "sweetalert2";
 import {
   FormGroup,
-  FormBuilder,
+  FormBuilder, 
   Validators,
   FormControl,
 } from "@angular/forms";
@@ -29,8 +29,7 @@ import { first } from "rxjs/operators";
 import { InsuranceMasterDropdownService } from "../../../../../shared/dropdownService/insurance-master-dropdown.service";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
-import { TranslateService } from "@ngx-translate/core";
-import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -103,12 +102,11 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject();
   page: number;
   filterData = {};
-  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private _fire: firepolicycomponentservice, private systemParameter: SystemMasterParametersService,
-    public router: Router, private translate: TranslateService,
+    private _fire: firepolicycomponentservice,
+    public router: Router,
     private _insurancedropdownservice: InsuranceMasterDropdownService,
     private config: NgSelectConfig,) {
 
@@ -116,10 +114,6 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
 
 
   }
@@ -484,7 +478,7 @@ export class FirePolicyComponent implements OnInit, AfterViewInit, OnDestroy {
       event.target.value = 0
   }
 
-  onFocus(ele: NgSelectComponent) {
+  onFocus(ele: NgSelectComponent) {  
     ele.open()
   }
 }

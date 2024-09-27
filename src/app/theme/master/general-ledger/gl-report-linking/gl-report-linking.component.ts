@@ -152,13 +152,11 @@ export class GlReportLinkingComponent implements OnInit {
 
         this.http
           .post<DataTableResponse>(
-            // this.url + "/gl-account-master/linking",
-            this.url + '/gl-account-master/gllinkrecords',
+            this.url + "/gl-account-master/linking",
             dataTableParameters
           )
           .subscribe((resp) => {
-            // this.glreportLink = resp.data;
-            this.tabledata= resp.data;
+            this.glreportLink = resp.data;
             callback({
               recordsTotal: resp.recordsTotal,
               recordsFiltered: resp.recordsTotal,

@@ -76,8 +76,7 @@
             "dividendTransferEntry": "लाभांश वर्ग सूचना",
             "dividendCalculation": "लाभांश कॅलक्युलेशन",
             "dividendPosting": "लाभांश पोस्टिंग",
-            "dividendTransferPosting": " लाभांश ट्रान्सफर पोस्टिंग",
-            "Dividend_Paid_Register":"लाभांश अदा रजिस्टर"
+            "dividendTransferPosting": " लाभांश ट्रान्सफर पोस्टिंग"
         },
         "transaction": {
             "voucherEntry": "व्हाऊचर",
@@ -202,7 +201,6 @@
             "AmountBalList": "रक्कमेप्रमाणे शिल्लक लिस्ट",
             "DeadStockDepCatList": "डेडस्टॉक घसारा प्रवर्ग प्रमाणे यादी",
             "BalConCertificate": "खाते शिल्लक प्रमाणपत्र",
-
             "shortballist": "शॉर्ट शिल्लक यादी",
             "Categorywise": "प्रवर्गाप्रमाणे",
             "All_Categorywise": "सर्व प्रवर्गाप्रमाणे",
@@ -251,8 +249,7 @@
             "sharesTransferRegister": "शेअर्स ट्रान्सफर रजिस्टर्स",
             "unpaidDividendList": "शिल्लक  लाभांश  यादी ",
             "monthlyRecoveryPrint": "मासिक  रीकवरी यादी",
-            "monthlyRecoverySubsidiary": "मासिक  रीकवरी  पोटकीर्द ",
-            "Dividend_Paid_Register":"लाभांश  अदा यादी"
+            "monthlyRecoverySubsidiary": "मासिक  रीकवरी  पोटकीर्द "
         },
         "LoanReport": {
             "LoanReport": " मुदत कर्ज थकबाकी पत्रके",
@@ -368,6 +365,21 @@
             "recAmtTrToGL": "रिकरींग रक्कम जी.एल वर्ग करणे"
         },
         "process": {
+            "Day_End_Branch_Wise": "Day End Brach Wise",
+            "Sr_No": "Sr.No.",
+            "Branch_Name": "Branch Name",
+            "HandOver_Status": "HandOver Status",
+            "Day_End_Status": "Day End Status",
+            "Action": "Action",
+            "Refresh": "Refresh",
+            "Day_Not_HandOvered": "Day Not HandOvered",
+            "Day_Successfully_HandOvered": "Day Successfully HandOvered",
+            "Not_Day_End": "Not Day End",
+            "Processing": "Processing...",
+            "Day_Ended": "Day Ended",
+            "Day_End_Revert": "Day End Revert",
+            "Dont_Refresh_Page": "Please Don't Refresh Page",
+            "Day End": "Day End",
             "dayBegin": "दिवसाची सुरुवात",
             "dayEnd": {
                 "dayEnd": "दिवस अखेर ",
@@ -659,9 +671,9 @@
             "Descaption": "तपशील"
         },
         "Industry_Master": {
-            "Industry_Code": "उद्योग कोड ",
+            "Industry_Code": "व्यवसाय कोड ",
             "Description": "तपशील",
-            "Title": "उद्योग मास्टर ",
+            "Title": "व्यवसाय मास्टर ",
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
             "Submit": "जमा करा ",
@@ -1018,61 +1030,7 @@
             "Schema": "स्कीमा",
             "Account_Number": "खाते क्रमांक",
             "Security_Detalis": "सुरक्षा डेटालिस",
-            "Ledger_Balance": "खातेवही शिल्लक",
-            "Other_Security":"इतर सुरक्षा",
-            "Date_of_Submission":"मंजूर दिनांक",
-            "Short_Details":"शॉर्ट डिटेल्स",
-            "Total_value":"एकूण मूल्य ",
-            "Margin":"टक्केवारी",
-            "Fill_valid_Date":"वैध तारीख भरा",
-            "No_Data": "माहिती उपलब्ध नाही!",
-            "Action":"कृती",
-            "Land_And_Buildings":"जमीन आणि इमारती",
-            "Submission_Date":"मंजूर दिनांक",
-            "Valuation_Amount":"मूल्यमापन रक्कम",
-            "Location":"स्थान",
-            "Area":"विभाग ",
-            "Unit_of_Area":"विभाग क्षेत्रफळ",
-            "City_Survey_Number":"शहर सर्वेक्षण क्रमांक",
-            "City_Survey_Date":"शहर सर्वेक्षण तारीख",
-            "Registration_Number":"नोंदणी क्रमांक",
-            "Remarks":"शेरा",
-            "General_Insurance": "सामान्य विमा",
-            "Insurance_Date": "विमा तारीख",
-            "Policy_Number": "पॉलिसी क्रमांक",
-            "Insurance_Company": "विमा कंपनी",
-            "Insurance_Expiry_Date": "विमा समाप्ती तारीख",
-            "Insurance_Amount":"विमा रक्कम",
-            "Gold_And_Silver":"सोने आणि चांदी",
-            "Item_Type":"आयटम प्रकार",
-            "Gold_Bag/Receipt_Number":"सोन्याची बॅग/पावती क्रमांक",
-            "Gold_Box_Number":"गोल्ड बॉक्स नंबर",
-            "Name_of_Articles":"जिनसाचे  नाव",
-            "Total_Weight_in_Gram" :"एकूण वजन ग्रॅम",
-            "Clear_Weight_in_Grams" : "क्लियर वजन ग्रॅम ",
-            "Rate_Per_Gram" : "दर प्रति ग्रॅम",
-            "Total_Value":"एकूण रक्कम",
-            "Details_of_Articles":"जिनसांचा तपशील",
-            "Nominee":"वारस ",
-            "Nominee_Relation":"वारस नाते ",
-            "Details":"तपशील ",
-            "Fire_Policy":"फायर पॉलिसी",
-            "Policy_Amount":"पॉलिसी रक्कम",
-            "Policy_Nature":"पॉलिसी प्रकार",
-            "Insurance_Code":"विमा कोड",
-            "Address":"पत्ता",
-            "City":"शहर",
-            "Premium_Amount":"प्रिमियम रक्कम",
-            "Premium_Due_Date":"प्रिमियम देय तारीख",
-            "Policy_Due_Date":"पॉलिसी देय तारीख",
-            "Government_Security&LIC":"सरकारी रोखे व एल आय सी",
-            "Certificate/Policy_Date":"सर्टिफिकेट/पॉलिसी तारीख",
-            "Certificate/Policy_Number":"सर्टिफिकेट/पॉलिसी नंबर",
-            "Name_of_Assured":"आश्वासनचे नाव",
-            "Paid_up_Amount":"पेड अप रक्कम",
-            "Sum_Assured":"विम्याची रक्कम",
-            "Surrender_Value":"समर्पण मूल्य",
-            "Matured_Due_Date":"Matured Due Date"
+            "Ledger_Balance": "खातेवही शिल्लक"
         },
         "Deposit_Loan_Intrest_Rate_Edit_Change": {
             "Title": "ठेव/कर्ज व्याज दर संपादन/बदल",
@@ -1178,7 +1136,6 @@
             "Percentage_of_Cosideration": "सहवासाची टक्केवारी",
             "Is_Print_in_GL_Report": "जीएल अहवालात मुद्रित आहे",
             "Code_Type": "कोड प्रकार",
-
             "Friday_Liquidity": "फ्रायडे लिक्विडिटी",
             "MIS_Info": "MIS इन्फो",
             "EXPENSES": "खर्च ",
@@ -1188,7 +1145,6 @@
             "ABR_ALR": "ए.बी.आर-ए.एल.आर ",
             "CRR": "सी.आर.आर ",
             "SLR": "एस.एल.आर ",
-
             "NIDHI": "निधी ",
             "First_No": "सुरवातीचा नं",
             "Second_No": "मधला नं",
@@ -1229,10 +1185,10 @@
             "Reject": "रद्द करा ",
             "Approve": "मंजूर",
             "Unapprove": "मान्यता रद्द करा",
-            "Add_nomi": "नवीन ",
-            "Update_nomi": "अपडेट",
-            "Add_Ac": "नवीन",
-            "Update_Ac": "अपडेट",
+            "Add_nomi": "Add Nominee",
+            "Update_nomi": "Update Nominee",
+            "Add_Ac": "Add Account",
+            "Update_Ac": "Update Account",
             "View": "पाहा ",
             "No_Data": "माहिती उपलब्ध नाही!",
             "Add": "ॲड ",
@@ -1244,10 +1200,7 @@
             "Focus": "लक्ष केंद्रित",
             "Joint": "जॉइंट",
             "Minor": "मायनर",
-            "Remove": "रद्द करा",
-            "Select_All": "सर्व निवडा",
-            "Unselect_All" : "सर्वांची निवड रद्द करा"
-
+            "Remove": "रद्द करा"
         },
         "Customer_Id": {
             "T1": "ग्राहक कोड मास्टर ",
@@ -1330,8 +1283,7 @@
             "Other": "इतर माहिती ",
             "Nominee": "वारस /भाग माहिती ",
             "Doc": "कागदपत्रे ",
-            "Regional_Details": "प्रादेशिक तपशील",
-
+            "Regional_Details": "राज्य भाषा",
             "Category": "प्रवर्ग कोड ",
             "Emp_No": "कर्मचारी क्र",
             "Birth_Date": "जन्म दिनांक ",
@@ -1859,44 +1811,42 @@
             "Validate_Year": "हे फील्ड आवश्यक आहे आणि इनपुटला फक्त 0-9 (दोन वर्षापासून ते (म्हणजे 2021-2022) दरम्यान 8 अंकांना परवानगी आहे)",
             "Val_Tan": "इनपुटला परवानगी आहे फक्त A-Z 0-9",
             "Val_M": "ही फील्ड आवश्यक आहे आणि इनपुटला फक्त A-Z 0-9 परवानगी आहे",
-            "Re_Email": "ही फील्ड आवश्यक आहे आणि वैध ईमेल प्रविष्ट करा",
-            "Val2":"हे फील्ड आवश्यक आहे आणि फक्त इनपुटला परवानगी आहे. 0-9 (दशांश 2 अंकांनंतर)",
-            "Val3":"हे फील्ड आवश्यक आहे आणि फक्त इनपुटला परवानगी आहे. 0-9 (दशांश 3 अंकांनंतर)"
+            "Re_Email": "ही फील्ड आवश्यक आहे आणि वैध ईमेल प्रविष्ट करा"
         },
         "Report_NPA_Registration": {
-            "T1": "एन पी ए नोंदणी",
+            "T1": "NPA नोंदणी",
             "Branch": "शाखा ",
             "Scheme_Code": "शाखा कोड ",
             "Date": "दिनांक ",
             "None": "none",
-            "Print_Npa_Ac": "एन पी ए  स्टँडर्ड  खाते प्रिंट करा",
-            "print_only": " एन पी ए प्रोसेस खाते  प्रिंट करा",
+            "Print_Npa_Ac": "NPA मानक खाते प्रिंट करा",
+            "print_only": "Print Only Process NPA Account",
             "Report_Frame": "अहवाल फ्रेम",
-            "T2": "एन पी ए नोंदणी टक्केवारी",
-            "NPA_Date": "एन पी ए दिनांक",
+            "T2": "NPA नोंदणी टक्केवारी",
+            "NPA_Date": "NPA दिनांक",
             "All_Ac": "सर्व खाते",
             "In_Bet_Amount": "मंजूर रकमेच्या दरम्यान",
             "In_Bet_Bal": "शिल्लक दरम्यान",
             "From": "पासून ",
             "To": "पर्यंत ",
             "T3": "नॉन एनपीए वसुलीसाठी रिकव्हरी होण्यासाठी",
-            "NPA": "एन पी ए स्टँडर्ड खाते",
-            "T4": "संचालकप्रमाणे एन पी ए अहवाल",
+            "NPA": "NPA मानक खाते",
+            "T4": "संचालकप्रमाणे NPA अहवाल",
             "Report_Date": "अहवाल तारीख",
-            "Start_Director": "सुरुवातीचे संचालक ",
-            "End_Director": "अखेरचे  संचालक",
+            "Start_Director": "Start Director",
+            "End_Director": "End Director",
             "T5": "शहरनिहाय एनपीए अहवाल",
-            "Start_City": "सुरुवातीचे शहर ",
-            "End_City": "अखेरचे शहर",
-            "Percent": "टक्केवारीनुसार एन पी ए अहवाल",
-            "T6": "एन पी ए अॅन्यालिसिस अहवाल",
+            "Start_City": "Start City",
+            "End_City": "End City",
+            "Percent": "टक्केवारीनुसार NPA अहवाल",
+            "T6": "NPA विश्लेषण अहवाल",
             "Overdue": "थकीत व्याज दर GL कोड",
             "Anamat": "अनामत GL कोड",
-            "T7": "एन पी ए वर्गीकरण-सुरक्षित किंवा असुरक्षित",
-            "Print_Class": "एन पी ए स्टँडर्ड वर्ग खाती प्रिंट करायची?",
-            "T8": "एन पी ए वर्गीकरण-स्टँडर्ड किंवा स्टँडर्ड नसलेले",
-            "Standard": "स्टँडर्ड",
-            "Non_Standard": "स्टँडर्ड नसलेले",
+            "T7": "NPA वर्गीकरण-सुरक्षित किंवा असुरक्षित",
+            "Print_Class": "NPA मानक वर्ग खाती प्रिंट करायची?",
+            "T8": "NPA वर्गीकरण-मानक किंवा मानक नसलेले",
+            "Standard": "मानक",
+            "Non_Standard": "मानक नसलेले",
             "T9": "ओव्हरड्यू यादी",
             "RecoveryClerkwiseOverdue": "वसुली क्लर्क थकीत",
             "T10": "क्लर्कवाईज रिकव्हरी ओव्हरड्यू यादी",
@@ -1907,39 +1857,6 @@
             "T11": "इतर प्राप्ती आणि हप्त्यानुसार कर्ज थकीत अहवाल",
             "FromInstallment": "पासून हप्ता",
             "ToInstallment": "पर्यंत हप्ता"
-        },
-        "Loan_overdue_report":{
-           "T1":"खातेनिहाय कर्ज थकीत अहवाल",
-            "Branch":"शाखा",
-            "Scheme_Code":"स्कीम कोड",
-            "Date":"दिनांक",
-            "Min._installment":"मि. हप्ता",
-            "Max._installment":"मॅक्स. हप्ता",
-            "Start_code":"सुरुवातीचा कोड",
-            "End_code":"शेवटचा कोड",
-            "Next":"पुढे ",
-            "Accountnumber":"खाते नंबर",
-            "Name":"नाव ",
-            "checkbox":"चेकबॉक्स",
-            "Show_Guarantor":"जामीनदार",
-            "Calculate_Overdue_Only_After_Expiry":"मुदत संपल्यानंतरच ओव्हरड्यूची गणना करा",
-            "Detail":"डीटेल",
-            "Summary":"समरी",
-            "T2": "हप्तेनिहाय कर्ज थकीत यादी",
-            "Scheme":"स्किम",
-            "Print_Expired_A/c?":"प्रिंट मुदत संपलेली खाती",
-            "Print_Current_Interest?":"प्रिंट चालू व्याज ",
-            "Range":"रेंज",
-            "selective":"सिलेक्टीव",
-            "T3":"दोन तारखांच्या दरम्यान थकबाकी यादी",
-            "From_Date":"या तारखेपासून",
-            "To_Date":"या तारखेपर्यंत",
-            "T4":"दोन आरंभी तारखांमधील थकबाकी यादी",
-            "T5":"स्कीमप्रमाणे थकबाकी वाढ अगर घट",
-            "Starting_Date":"आरंभ दिनांक",
-            "Ending_Date":"अखेर दिनांक",
-            "T6":"थकबाकी कालावधीप्रमाणे कर्ज यादी",
-            "T7":"कर्ज शिल्लक थकबाकी टक्केवारिप्रमाणे समरी"
         },
         "Pigmy_Agent_Report": {
             "T1": "पिग्मी एजंटनुसार संकलन चार्ट",
@@ -1962,10 +1879,7 @@
             "T7": "पिग्मी मॅच्युर्ड A/c यादी",
             "S_Date": "आरंभ दिनांक ",
             "E_Date": "अखेर दिनांक ",
-            "Scheme_Code": "स्किम कोड ",
-            "Account_Open":"अकाऊंट ओपन ",
-            "Account_Closed_On":"खाते बंद केले:"
-
+            "Scheme_Code": "स्किम कोड "
         },
         "View_Ac_Enquiry": {
             "T1": "खाते चौकशी ",
@@ -2525,8 +2439,8 @@
             "Multi_Voucher": "अनेक व्हाउचर",
             "Deposit_Closing_Vouchers": " ठेव बंद चलने",
             "Saving_Pigmy_Closing": "सेव्हिंग पिग्मी बंद ",
-            "Dead_Stock_Purchase": "डेडस्टॉक खरेदी ",
-            "Dead_Stock_Transaction": "डेडस्टॉक व्यवहार",
+            "Dead_Stock_Purchase": "मृत साठा खरेदी ",
+            "Dead_Stock_Transaction": "मृत साठा व्यवहार",
             "Cash_Credit_A/C_Renewal": "रोख क्रेडिट खाते नूतनीकरण",
             "Gold_Silver_Return_Entry": "सोने चांदी परत प्रवेश ",
             "Term_Deposit_A/C_Renewal": "मुदत ठेवी खाते नूतनीकरण",
@@ -2534,7 +2448,7 @@
             "Membership_Cancellation": "सदस्यत्व रद्द करणे",
             "Issue_New_Shares": "नवीन शेअर्स जारी करणे ",
             "Locker_A/C_Close/Rent": "लॉकर/खाते बंद/भाडे ",
-            "Deadstock_Depreciation_Process": "डेडस्टॉक अवमूल्यन"
+            "Deadstock_Depreciation_Process": "मृत स्टॉक अवमूल्यन"
         },
         "Master_Unlock": {
             "Title": "मास्टर अनलॉक",
@@ -2542,7 +2456,7 @@
             "Scheme_Code": "योजना कोड ",
             "From_Account_Number": "पासून खाते नंबर ",
             "To_Account_Number": "पर्यंत खाते नंबर ",
-            "Add_Deadstock_account": "डेड  स्टॉक खाते  ",
+            "Add_Deadstock_account": "मृत स्टॉक खाते  ",
             "From_A/C": "पासून खाते",
             "To_A/C": "पर्यंत खाते"
         },
@@ -2558,7 +2472,7 @@
             "User": "वापरकर्ता"
         },
         "Batch_Voucher": {
-            "Title": "बॅच व्हाउचर",
+            "Title": "तुकडी व्हाउचर",
             "Record_Number": "रेकॉर्ड नंबर",
             "Amount": "रक्कम ",
             "Time": "वेळ ",
@@ -2616,7 +2530,6 @@
             "Depreciation": "घसारा"
         },
         "Daily_Reports": {
-
             "Title": "टी नमूना रोजकीर्द ",
             "Branch": "शाखा",
             "Type": "प्रकार",
@@ -2696,7 +2609,7 @@
         "Opening_Closing": {
             "Title": "खाते उघडणे आणि बंद करणे रजिस्टर",
             "Branch": "शाखा",
-            "Scheme": "स्कीम कोड",
+            "Scheme": "योजना ",
             "Open_Account": "ओपन अकाऊंट",
             "Closed_Account": "क्लोज  अकाऊंट",
             "Start_Date": "प्रारंभ दिनांक ",
@@ -2716,23 +2629,23 @@
             "T9": "लॉकर भाडे नोंदणी",
             "T10": "लॉकर नोंदणी अहवाल",
             "Branch": "शाखा",
-            "Scheme": "स्कीम ",
-            "Scheme_Code": "स्कीम  कोड",
+            "Scheme": "योजना ",
+            "Scheme_Code": "योजना कोड",
             "Start_Date": "प्रारंभ दिनांक ",
             "End_Date": "शेवटची दिनांक",
-            "Show": "फक्त रद्द केलेल्या सूचना?",
+            "Show": "फक्त सूचना रद्द करा दर्शवा?",
             "Report_Frame": "अहवाल फ्रेम",
             "Temporary": "तात्पुरता ओडी",
             "Periodically": "कालांतराने ओडी",
-            "Starting_Code": "सुरुवातीचा कोड",
-            "Ending_Code": "शेवटचा  कोड",
+            "Starting_Code": "Starting Code",
+            "Ending_Code": "Ending Code",
             "Starting_Date": "आरंभ दिनांक ",
             "Ending_Date": "अखेर दिनांक ",
             "Strat_Scheme": "नवीन पृष्ठावर प्रत्येक खाते मुद्रित करा ?",
             "Account_Open": "अकाऊंट ओपन ",
             "Account_Closed": "अकाऊंट क्लोज्ड ",
             "Submission": "सबमिशन",
-            "Return": "रिटर्न",
+            "Return": "परत",
             "Sorting_Order": "क्रमवारी क्रम",
             "Open_Account": " ओपन अकाऊंट ",
             "Close_Account": " क्लोज्ड अकाऊंट",
@@ -2741,8 +2654,7 @@
             "T11": "केवायसी दस्तऐवज प्राप्त/प्राप्त झाले नाही",
             "Received": "मिळाले",
             "Pending": "प्रलंबित",
-            "All": "सर्व",
-            "PRINT_NEW_PAGE":"नवीन पृष्ठावर प्रत्येक खाते मुद्रित करा ?"
+            "All": "सर्व"
         },
         "Term_Deposit_Reports": {
             "T1": "परिपक्व पण दोन दिवसात पैसे दिले नाहीत",
@@ -2758,9 +2670,6 @@
             "T11": "ग्राहक आयडीनुसार स्वारस्य यादी",
             "T12": "ग्राहक आयडीनुसार परिपक्व ठेव यादी",
             "T13": " ए/बी प्रकार ठेव यादी",
-            "Deposit_Paidlist": " डिपॉझिट पेडलिस्ट",
-            "T15": "व्याजदरानुसार यादी",
-
             "Branch": "शाखा",
             "Scheme_Code": "योजना कोड",
             "Starting_Date": "आरंभ दिनांक ",
@@ -2796,9 +2705,8 @@
             "T6": "न भरलेल्या लाभांशाची यादी",
             "T7": "मासिक पुनर्प्राप्ती प्रिंट",
             "T8": "मासिक पुनर्प्राप्ती उपकंपनी",
-            "T9":"लाभांश अदा यादी ",
             "Branch": "शाखा",
-            "Scheme_Code": "स्कीम कोड",
+            "Scheme_Code": "योजना कोड",
             "Date": "दिनांक",
             "City": "शहर",
             "Start_Date": "आरंभ दिनांक",
@@ -2819,8 +2727,7 @@
             "From": "पासून",
             "To": "पर्यंत",
             "Code_From": "डिव्हिजन कोड पासून ",
-            "Code_To": "डिव्हिजन कोड पर्यंत",
-            "All_City":"सर्व शहरे"
+            "Code_To": "डिव्हिजन कोड पर्यंत"
         },
         "Term_Loan": {
             "T1": "कर्ज सुरक्षा अहवाल",
@@ -2837,12 +2744,6 @@
             "T12": "कर्जाचा प्राप्य हप्ता आणि व्याज",
             "T13": "कर्ज / सीसी कालबाह्य यादी",
             "T18": "कोणतेही देय प्रमाणपत्र नाही",
-            "T19": "न्यायालयनिहाय विवाद कर्ज तपशील सूची",
-            "T20": "कर्ज/सीसी/खाते उघडण्याची/मंजुरीची तारीख",
-            "T21":"आरोग्य कोडनिहाय अतिदेय अहवाल",
-            "T22":"न्यायालयनिहाय विवाद कर्ज यादी",
-            "T23":"विवाद कर्ज तपशील सूची",
-
             "Branch": "शाखा",
             "Scheme_Code": "योजना कोड",
             "Date": "दिनांक",
@@ -2874,28 +2775,13 @@
             "T15": "हप्तेनिहाय कर्ज थकीत यादी",
             "Print": "प्रिंट कालबाह्य A/c?",
             "Print1": "वर्तमान व्याज मुद्रित करा?",
-            "Scheme": "योजना",
-            "Scheme_Type": " योजना प्रकार ",
-            "Display_Closed_Account": "बंद खाते प्रदर्शित करा",
-            "Display_Guaranter_Details": "हमी तपशील प्रदर्शित करा",
-            "Opening": "सुरु करण्याची क्रिया",
-            "Sanction": "मंजुरी",
-            "Sorting":"वर्गीकरण",
-            "A/C_No": "A/C क्रमांक",
-            "Scheme_Name":"योजनेचे नाव",
-            "Select_Schemes":"योजना निवडा",
-            "Status":"स्थिती",
-            "Detail":"तपशील",
-            "Summary":"सारांश"
-
-
+            "Scheme": "योजना"
         },
         "Ms_Reports": {
             "T1": "जादा रोख शिल्लक अहवाल",
             "Branch": "शाखा",
             "Start_Date": "आरंभ दिनांक",
             "End_Date": "अखेर दिनांक",
-
             "Report_Frame": "अहवाल फ्रेम",
             "Date": "दिनांक",
             "Swanidhi": "स्वनिधी ",
@@ -2918,11 +2804,10 @@
             "Dash": "डॅश",
             "Report_Frame": "अहवाल फ्रेम",
             "T2": "चाचणी शिल्लक यादी (तपशील)",
-            "Balance_Sheet": "ताळेबंद",
+            "Balance_Sheet": "बॅलन्स शीट",
             "Date": "दिनांक",
-            "T7": "ताळेबंद",
-            "T3": "एन नमूना ताळेबंद पत्रक",
-
+            "T7": "बॅलेन्स शीट ",
+            "T3": "एन बॅलेन्स शीट",
             "Report_Date": "अहवाल तारीख",
             "L_Date": " अंतिम अहवाल तारीख",
             "T4": "नफा आणि तोटा खाते",
@@ -2978,9 +2863,7 @@
             "From_Date": "या तारखेपासून",
             "To_Date": "आजपर्यंत",
             "T13": "निष्क्रिय खात्यांची यादी",
-            "Scheme_Type": " योजना प्रकार ",
-            "T14":"ठेव रकमेची हालचाल"
-
+            "Scheme_Type": " योजना प्रकार "
         },
         "Customer_View": {
             "T1": "ग्राहक दृश्य",
@@ -3142,13 +3025,10 @@
             "Find": "सीडी प्रमाण शोधा",
             "LOANS": "कर्ज",
             "PART_A": "भाग अ",
-
-            "PART_B": "भाग ब",
-            "Cash": "कॅश ",
-            "Transfer": "ट्रान्सफर "
+            "PART_B": "भाग ब"
         },
         "Voucher_Entry": {
-            "Title": "व्हाउचर",
+            "Title": "व्हाउचर दुरुस्ती",
             "Branch_Code": "शाखा कोड",
             "Cash": "कॅश ",
             "Transfer": "ट्रान्सफर ",
@@ -3407,8 +3287,8 @@
             "Title": "रिकन्सीलेशन नोंदणी",
             "Branch": "शाखा ",
             "General_Acc": "जनरल खाते",
-            "All_Entries": "सर्व व्हाउचर",
-            "Pen_Entries": "पेंडिंग व्हाउचर",
+            "All_Entries": "सर्व व्हौचर",
+            "Pen_Entries": "पेंडिंग व्हौचर",
             "From_Date": "पासून दिनांक",
             "To_Date": "पर्यंत दिनांक",
             "Withdrawls": "नावे रक्कम",
@@ -3755,6 +3635,55 @@
         }
     },
     "Swal_Msg": {
+        "Long_Term_To_Month_Greater": "Long Term To Month Must Be Greater Than",
+        "Long_Term_To_Month": "Medium Term To Month Must Be Greater Than",
+        "Long_Term": "Long Term From Month Must Be Equal Or Greater Than",
+        "Medium_Term": "Medium Term From Month Must Be Equal Or Greater Than",
+        "To_Peroid_Equal_Greater": "To Peroid Must Be Equal Or Greater Than",
+        "From_Peroid_Equal_Greater": "From Peroid Must Be Equal Or Greater Than",
+        "To_IntAmt_Must_Greater": "To Interest Amount Must Be Greater Than",
+        "To_Amt_Must_Greater_Or_Equal": "To Amount Must Be Equal To Or Greater Than",
+        "To_Amt_Must_Greater": "To Amount Must Be Greater Than",
+        "Equal_To_Or_Greater_Than": "Equal To Or Greater Than",
+        "From_Interest_Amount_Must_Be": "From Interest Amount Must Be",
+        
+        "or_Greater_Than": "or Greater Than",
+        "Something_Went_Wrong": "Something went wrong in Opening Bal not fetched",
+        "Date_Already_Locked": "Date is Already Locked",
+        "Date_Lock": "Date is Lock Successfully",
+        "Date_UnLock": "Date is UnLock Successfully",
+        "NPA_Process_Date_Locked": "NPA Process Date Locked",
+        "Process_Failed": "प्रोसेस रद्द!",
+        "NPA_Process_Completed": "एन पी ए प्रोसेस यशस्वीरित्या पूर्ण झाली आहे.",
+        "Process_Completed": "प्रोसेस पूर्ण झाली आहे.",
+        "NPA_Date_Process_Already_Exists": "Entered NPA Date Process Already Exists",
+        "Process_Already_Exist": "Process Already Exists",
+        "From_Amt_Must_Be": "From Amount Must Be",
+        "Updated_SuccessFully": "Data has been updated successfully!",
+        "Inserted_SuccessFully": "Data has been inserted successfully!",
+        "Service_Charge": "Please Select Service Charge!",
+        "Select_Loan_Pigmy_Commi": "Please Select Loan PIGMY_COMMISSION_PERCENTAG!",
+        "Select_Pigmy_Commi": "Please Select PIGMY_COMMISSION_PERCENTAGE!",
+        "Select_To_Acc": "Please Select To Amount!",
+        "Select_From_Acc": "Please Select From Amount!",
+        "Effect_Date": "Please Select Effect Date!",
+        "info": "info!",
+        "Do_You_Want_Del": "डेटा क्रमाने डिलीट करायचा आहे का",
+        "UnSecured_Percent": "कृपया अनसिक्युर्ड पर्सेंटेज अ‍ॅड करा ",
+        "Secured_Percent": "Please Add Secured percentage",
+        "Add_To_Months": "Please Add To Months",
+        "Add_To_Days": "Please Add To Days",
+        "Add_From_Months": "Please Add From Months",
+        "Add_From_Days": "Please Add From Days",
+        "Select_NPA_Class": "Please Select NPA Class",
+        "To_Months_Greater_From_Month": "To Months Must Greater Than From Months",
+        "Input_per_Upto": "Please Input percentage upto 100",
+        "del_SubSalary_Div_Master": "आपल्याला सब सॅलरी डिविजन मास्टरचा डेटा डिलीट करायचं आहे का?",
+        "del_salary_Div_Master": "आपल्याला सॅलरी डिविजन मास्टरचा डेटा डिलीट करायचं आहे का?",
+        "Input_Proper_Data": "माहिती व्यवस्थित भरा!",
+        "Power_Attorney_del": "व्यवहार करण्याचा अधिकार रद्द करण्यात आला आहे!",
+        "Joint_Acc_del": "संयुक्त खाते यशस्वीरित्या रद्द केले आहे!",
+        "Nominee_del": "वारसदार यशस्वीरित्या रद्द केला आहे!",
         "Success": "सक्सेस !",
         "S_Msg": "आपला डेटा यशस्वीपणे अ‍ॅड झाला आहे !",
         "Warning": "वॉर्निंग ",
@@ -3932,7 +3861,7 @@
         "del_warrant": "तुम्हाला वॉरंटची तारीख हटवायची आहे.",
         "data": "डेटा",
         "no_re": "कोणतेही रेकॉर्ड आढळले नाही!",
-        "Oops": "अरेरे!",
+        "Oops": "ओपस!",
         "No_Update": "अपडेट करण्यासाठी कोणताही डेटा नाही!",
         "rej_succ": "डेडस्टॉक घसारा यशस्वीरित्या नाकारला",
         "app_succ": "डेडस्टॉक घसारा यशस्वीरित्या मंजूर झाला",
@@ -4195,7 +4124,7 @@
         "Process_Cancelled": "प्रक्रिया रद्द केली!",
         "Cancelled": "रद्द केले",
         "Posting_cancelled": "पोस्टिंग रद्द केले",
-        "Inf":"कृपया एकदा तुमचे व्हाउचर तपासा आणि आवश्यक डेटा भरा"
+        "current_Acc_Exist": "चालू खाते पूर्वीपासून सलग्न आहे."
     },
     "Utility": {
         "Interest_Calculation": {
@@ -4254,9 +4183,7 @@
             "Print_Receivable_Intres_List": "प्राप्त करण्यायोग्य इंट्रेस सूची मुद्रित करा",
             "Summary": "सारांश",
             "View": "पहा",
-            "Report_Frame": "अहवाल फ्रेम",
-            "Scheme_Code":"स्किम कोड "
-
+            "Report_Frame": "अहवाल फ्रेम"
         },
         "Pigmy_Machine_Process": {
             "Title": "पिग्मी मशीन प्रक्रिया",
@@ -4272,7 +4199,11 @@
             "Send": "पाठवा",
             "Receive": "प्राप्त करा",
             "Branch": "शाखा",
-            "Date": "तारीख"
+            "Date": "तारीख",
+            "Process": "प्रोसेस ",
+            "Submit": "सबमीट",
+            "Cancel": "रद्द करा ",
+            "Enter_Date": "Enter Date"
         },
         "Send_Message": {
             "Title": "संदेश पाठवा",
@@ -4873,7 +4804,9 @@
             "Term_Loan": "मुदत कर्ज योजना",
             "Dispute_Loan": "विवाद कर्ज (दावा अयशस्वी) योजना",
             "Pigmy_A/c": "पिग्मी खाते योजना",
-            "pigmy_Agent": "पिग्मी एजंट योजना"
+            "pigmy_Agent": "पिग्मी एजंट योजना",
+            "click_here": "फाइल डाउनलोड करा",
+            "DownloadFile": "फाइल डाउनलोड करा"
         },
         "Action": {
             "Action": "कृती ",
@@ -4964,9 +4897,7 @@
             "Installment": "हप्ता",
             "Sanction_Authority": "मंजुरी प्राधिकरण",
             "Purpose": "उद्देश",
-            "All_Passing": "सर्व पासिंग",
-            "Supplier_Name" :"सप्लायरचे नाव"
-
+            "All_Passing": "सर्व पासिंग"
         },
         "Voucher": {
             "Title": "पावती ",
@@ -4980,7 +4911,7 @@
             "Transaction_Type": "व्यवहाराचा प्रकार"
         },
         "Batch_Voucher": {
-            "Title": "बॅच व्हाउचर",
+            "Title": "बॅच वाउचर",
             "Record_Number": "रेकॉर्ड क्रमांक",
             "Amount": "रक्कम",
             "Time": "वेळ ",
@@ -5154,8 +5085,8 @@
             "F1": "चिन्हांकित फील्ड ",
             "F2": "अनिवार्य आहेत ",
             "Branch": "शाखा ",
-            "Scheme_Code": "स्कीम कोड ",
-            "Scheme_Type": "स्कीम प्रकार ",
+            "Scheme_Code": "योजना कोड ",
+            "Scheme_Type": "योजना प्रकार ",
             "Account_No": "खाते नंबर",
             "Starting_Date": "आरंभ दिनांक ",
             "Ending_Date": "अखेर दिनांक ",
@@ -5167,15 +5098,13 @@
             "Starting_Account": "आरंभ खाते",
             "Date": "दिनांक",
             "Range_Ending_Code": "श्रेणी समाप्त कोड",
-            "Ending_Code": " समाप्त कोड",
-            "Account_Open": "अकाऊंट ओपन ",
-            "Closed_Account": "क्लोज  अकाऊंट"
+            "Ending_Code": " समाप्त कोड"
         },
         "General_Acc_Statement": {
-            "Title": "जनरल खाते उतारा "
+            "Title": "सामान्य खाते विवरण"
         },
         "Acc_Statement": {
-            "Title": " खाते  उतारा"
+            "Title": " खात्याचा हिशोब"
         },
         "Loan_Statement": {
             "Title": "इतर रकमेसह मुदत कर्ज विवरण"
@@ -5262,7 +5191,7 @@
             "T1": "पासबुक इश्यू",
             "Branch": "शाखा ",
             "Branch_Code": "शाखा कोड ",
-            "Scheme_Code": "स्कीम कोड ",
+            "Scheme_Code": "योजना कोड ",
             "Account_No": "खाते नंबर",
             "View": "पहा",
             "Close": "बंद ",
@@ -5279,7 +5208,6 @@
             "Narration_Master": "कथन मास्टर",
             "Scheme": "योजना ",
             "From": "पासून",
-            "To": "पर्यंत ",
             "T4": "व्हाउचर प्रिंटिंग",
             "Date": "दिनांक ",
             "Source_Type": "स्रोत प्रकार",
@@ -5293,7 +5221,6 @@
             "From_Date": "या तारखेपासून",
             "To_Date": "आजपर्यंत",
             "Drag_and_Drop": "ड्रॅग आणि ड्रॉप करा",
-
             "Drag_me_around": "मला आसपास ओढा",
             "Passbook_Printed_Successfully": "पासबूक प्रिंटेड सक्सेसफुली..! ",
             "Yes": "होय ",
@@ -5311,8 +5238,8 @@
             "F2": "अनिवार्य आहेत ",
             "T1": "खतावणी दुर्ष्टीक्षेप",
             "Branch": "शाखा",
-            "Scheme": "स्कीम",
-            "Scheme_Code": "स्कीम कोड ",
+            "Scheme": "योजना ",
+            "Scheme_Code": "योजना कोड ",
             "Acc_Num": "खाते नंबर",
             "Acc_no": "खाते नंबर",
             "From_Date": "सुरवातीची तारीख",
@@ -5455,19 +5382,7 @@
             "Deposit_Amount": "ठेव रक्कम",
             "Labels": "लेबल्स",
             "Cashier_Code": "रोखपाल कोड",
-
-            "TOTAL": "एकूण",
-            "Minor_account": "अज्ञान पालन",
-            "Joint_account": "जॉइंट अकाऊंट",
-            "Minor": "मायनर",
-            "Joint": "जॉइंट",
-            "CustomerID": "कस्टमर आयडी",
-            "Operation": "व्यवहार प्रकार ",
-             "Click_to_Show" : "क्लिक करा ",
-             "JOINT_DATE": "आरंभ दिनांक",
-             "account_open": "खाते चालू "
-
-
+            "TOTAL": "एकूण"
         }
     },
     "utility": {
@@ -5537,6 +5452,7 @@
     },
     "uti": {
         "Branch": "शाखा",
+        "NPA_Process_Date": "एनपीए प्रक्रिया तारीख ",
         "Scheme": "योजना",
         "NPA_Provision_Date": "एनपीए तरतुदी तारीख",
         "From_Account": "कोड पासून नंबर",
@@ -5601,7 +5517,7 @@
         "Submit": "जमा करा ",
         "close": "बंद ",
         "Update": "अपडेट ",
-        "Dead_Stock": "डेडस्टॉक अवमूल्यन",
+        "Dead_Stock": "मृत स्टॉक अवमूल्यन",
         "NPA_Process_locking": "एनपीए प्रक्रिया लॉकिंग",
         "To_AC": "खाते पर्यंत",
         "f_AC": "खाते पासून",
@@ -5610,7 +5526,9 @@
         "CurrentProcessedNPADate": "सध्याची प्रक्रिया केलेली एनपीए तारीख",
         "NPAProcessedDates": " एनपीए प्रक्रिया केलेल्या तारखा",
         "UnLock": "अनलॉक",
-        "Lock": "लॉक"
+        "Lock": "लॉक",
+        "All_Accounts": "सर्व खाती ",
+        "Process_Option": "प्रक्रिया पर्याय "
     },
     "processmarking": {
         "title": "एनपीए मार्किंग",
@@ -5629,7 +5547,7 @@
     },
     "membincdec": {
         "title": "सदस्य वाढ कमी",
-        "s_code": "स्कीम कोड",
+        "s_code": "योजना कोड",
         "Status": "स्थिती",
         "Detail": "तपशील",
         "Summary": "सारांश",
@@ -5639,9 +5557,9 @@
         "title": "दोन तारखांच्या दरम्यान कर्जाची शिल्लक",
         "select": "सर्व निवडा",
         "unselect": "निवडलेले सर्व काढा",
-        "S_Type": "स्कीम  प्रकार",
-        "S_Name": "स्कीमचे नाव",
-        "Select_Schemes": "स्कीम निवडा"
+        "S_Type": "योजनेचा प्रकार",
+        "S_Name": "योजनेचे नाव",
+        "Select_Schemes": "योजना निवडा"
     },
     "CRAR": {
         "title": "सीआरएआर",
@@ -5649,11 +5567,10 @@
     },
     "loanoverduelist": {
         "duebalsummary": {
-            "h1": "कर्ज  शिल्लक थकबाकी समरी",
+            "h1": "देय शिल्लक सारांश",
             "main": "कर्ज थकीत यादी",
             "Date": "दिनांक",
             "ac_swal": "कर्ज खात्यात हस्तांतरित करायचे?"
         }
     }
-   
 }

@@ -9,14 +9,13 @@ import { BnkPigmyMaturedAclistRoutingModule } from './bnk-pigmy-matured-aclist-r
 import { BnkPigmyMaturedAclistComponent } from './bnk-pigmy-matured-aclist.component';
 import {  PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import {  SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { Iframe5Module } from '../iframe5/iframe5.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 
 @NgModule({
   declarations: [BnkPigmyMaturedAclistComponent],
@@ -29,15 +28,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     NgbModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module,
-
-    TranslateModule.forRoot({
-      loader:{
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps:[HttpClient]
-      }
-    })
+    Iframe5Module
 
   ],
   exports:[BnkPigmyMaturedAclistComponent],
@@ -58,6 +49,3 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     }]
 })
 export class BnkPigmyMaturedAclistModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

@@ -2,7 +2,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, ChangeDetectorRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
-import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // Displaying Sweet Alert
 import Swal from "sweetalert2";
 // Used to Call API
@@ -24,7 +24,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { DepositLoanInterestRateEditChangeService } from "src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service";
 import { data } from "jquery";
 import { NgbTabChangeEvent } from "@ng-bootstrap/ng-bootstrap";
-import { TranslateService } from "@ngx-translate/core";
+
 
 @Component({
   selector: 'app-acwise-loanoverdue-list',
@@ -37,7 +37,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   url = environment.base_url;
   @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
   formSubmitted = false;
-  selectedOption: string = 'Detail';
 
   //fromgroup
   ngForm: FormGroup
@@ -96,40 +95,29 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   isShow: boolean = true
   @ViewChild('ctdTabset') ctdTabset;
   id: any;
-  Print_Code: number;
-  form: any;
 
   // selectedItemsString: any;
   // isShow: boolean = true
   // @ViewChild('ctdTabset') ctdTabset;
   // id: any;
 
-  setLang: any;
+
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-    private http: HttpClient,  private translate:TranslateService
-,
+    private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
     private _interestRateChange: DepositLoanInterestRateEditChangeService,
 
   ) {
-
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-     
-      //Translation
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    });
-
   }
 
   ngOnInit(): void {
@@ -191,8 +179,8 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
     }
 
-  }
 
+  }
 
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
@@ -258,7 +246,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   createForm() {
     this.ngForm = this.fb.group({
-      Print_Code: [''],
       BRANCH_CODE: ['', [Validators.required]],
       Scheme_code: ["", [Validators.required]],
       END_DATE: ['', [Validators.required]],
@@ -269,6 +256,8 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       npa_per: [''],
       checkboxValue: [''],
 
+
+
     });
 
   }
@@ -278,7 +267,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   checkInterestFlag(id: any, bankacno: any, flag: any) {
     let isIntUpdate: boolean = false
     if (flag.target.checked) {
-      this.selectedItems.push({ "id": bankacno });
+      this.selectedItems.push({"id" : bankacno});
       console.log(this.selectedItems);
     }
     else {
@@ -300,15 +289,15 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  }
+  } 
   selectedArrayItem: any[]
   // selectedArrayItem: any[]
-
-
-
   view(event) {
 
-   
+    // this.selectedArrayItem = this.selectedArrayItem.map(item => ({ id: this.selectedItems }))
+    // this.accArray = this.selectedItems
+    // let bankacno
+    // bankacno = this.selectedItems.map(item => ({ id: this.selectedItems }))
     let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
     console.log(this.selectedItems);
     event.preventDefault();
@@ -318,6 +307,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
+    // let bankacno;
+    // if (this.selectedItems) {
+    //     bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+    // } else {
+
+    // }
     if (this.ngForm.valid) {
       // let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
       let bankacno;
@@ -347,7 +342,11 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         let tDate = moment(date, 'DD/MM/YYYY')
         obj['END_DATE'] = date
       }
-     
+      // const selectedItemsString = Array.isArray(this.selectedItems)
+      //   ? this.selectedItems.join(',')
+      //   : String(this.selectedItems);
+
+
       let halfCircleBracketArray = this.selectedItems
         .toString()
         .replace(/\[/g, '(')
@@ -375,6 +374,12 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         flag = 0;
       }
 
+      // let flag = obj.checkboxValue;
+      // if (flag == true) {
+      //   flag = '1'
+      // } else {
+      //   flag = '0'
+      // }
 
       let flags = this.tab1;
       let tabValue
@@ -399,80 +404,83 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
       this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
 
+
+      // this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&value=" + flag1 + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+
+
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
 
-      // if (this.ngForm.controls['Print_Code'].value == "Detail") {
+      if (this.ngForm.controls['Print_Code'].value == "Detail") {
 
-      //   let bankacno;
+        let bankacno;
 
-      //   bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
+        bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
 
-      //   this.showRepo = true;
-      //   let obj = this.ngForm.value
-      //   if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
-      //     obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
-      //   }
-      //   else {
-      //     let date = moment(this.fromdate).format('DD/MM/YYYY');
-      //     let tDate = moment(date, 'DD/MM/YYYY')
-      //     obj['START_DATE'] = date
-      //   }
+        this.showRepo = true;
+        let obj = this.ngForm.value
+        if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+          obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+        }
+        else {
+          let date = moment(this.fromdate).format('DD/MM/YYYY');
+          let tDate = moment(date, 'DD/MM/YYYY')
+          obj['START_DATE'] = date
+        }
 
-      //   //for end date
-      //   if (this.todate == userData.branch.syspara.CURRENT_DATE) {
-      //     obj['END_DATE'] = userData.branch.syspara.CURRENT_DATE
-      //   }
-      //   else {
-      //     let date = moment(this.todate).format('DD/MM/YYYY');
-      //     let tDate = moment(date, 'DD/MM/YYYY')
-      //     obj['END_DATE'] = date
-      //   }
+        //for end date
+        if (this.todate == userData.branch.syspara.CURRENT_DATE) {
+          obj['END_DATE'] = userData.branch.syspara.CURRENT_DATE
+        }
+        else {
+          let date = moment(this.todate).format('DD/MM/YYYY');
+          let tDate = moment(date, 'DD/MM/YYYY')
+          obj['END_DATE'] = date
+        }
 
-      //   let halfCircleBracketArray = this.selectedItems
-      //     .toString()
-      //     .replace(/\[/g, '(')
-      //     .replace(/\]/g, ')');
+        let halfCircleBracketArray = this.selectedItems
+          .toString()
+          .replace(/\[/g, '(')
+          .replace(/\]/g, ')');
 
-      //   let list = halfCircleBracketArray;
-      //   console.log(halfCircleBracketArray);
-
-
-      //   let scheme = obj.Scheme_code;
-      //   let branch = obj.BRANCH_CODE;
-      //   let schemeName = this.VScheme;
-      //   let Acno1 = this.acno;
-      //   let Acno2 = this.acno2;
-      //   let Dates = obj.END_DATE;
+        let list = halfCircleBracketArray;
+        console.log(halfCircleBracketArray);
 
 
-
-      //   let value = this.ngForm.value.Print_Code
-      //   let flag1
-
-      //   if (value == 'Detail') {
-      //     flag1 = 1;
-      //   } else if (value == 'Summary') {
-      //     flag1 = 0;
-      //   }
-
-      //   if (branch == 0) {
-      //     this.branchName = 'Consolidate';
-      //   }
-
-      //   this.iframe5url = this.report_url + "examples/duebalancesummary.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "&value=" + flag1 + "&LIST=" + list + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+        let scheme = obj.Scheme_code;
+        let branch = obj.BRANCH_CODE;
+        let schemeName = this.VScheme;
+        let Acno1 = this.acno;
+        let Acno2 = this.acno2;
+        let Dates = obj.END_DATE;
 
 
-      //   console.log(this.iframe5url);
-      //   this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-      // }
+
+        let value = this.ngForm.value.Print_Code
+        let flag1
+
+        if (value == 'Detail') {
+          flag1 = 1;
+        } else if (value == 'Summary') {
+          flag1 = 0;
+        }
+
+        if (branch == 0) {
+          this.branchName = 'Consolidate';
+        }
+
+        this.iframe5url = this.report_url + "examples/duebalancesummary.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "&value=" + flag1 + "&LIST=" + list + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+
+
+        console.log(this.iframe5url);
+        this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+      }
     }
       else {
-        // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
-        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
+        Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
       }
 
-  }
+    }
 
   onLoad() {
     this.showLoading = false;

@@ -5,8 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { CashCreditAcRenewalComponent } from 'src/app/theme/transaction/cash-credit-ac-renewal/cash-credit-ac-renewal.component';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 class DataTableResponse {
   data: any[];
@@ -46,15 +45,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
   // Store data from backend
   cashCreditAcRenewal: CashCreditAcRenewal[];
   savingData: any;
-  setLang:any;
-  constructor(private http: HttpClient,  private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,) {
-      this.systemParameter.getFormData(1).subscribe(data => {
-    
-        this.setLang = data.SET_LANGUAGE
-        this.translate.setDefaultLang(this.setLang);
-      }) 
-     }
+  constructor(private http: HttpClient,) { }
 
   cashCreditAcRenewalData: any = {};
 
@@ -114,14 +105,14 @@ export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: this.translate.instant('master.Action.Action'),
+          title: 'Action',
         },
         {
-          title: this.translate.instant('master.All.Record_Number'),
+          title: 'Record Number ',
           data: 'TRAN_NO'
         },
         {
-          title: this.translate.instant('master.All.Account_Type'),
+          title: 'Account Type',
           data: 'AC_TYPE'
         },
 
@@ -131,7 +122,7 @@ export class PasscashCreditAcRenewalComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: this.translate.instant('master.All.Account_Number'),
+          title: 'Account Number',
           data: 'AC_NO'
         },
         // {

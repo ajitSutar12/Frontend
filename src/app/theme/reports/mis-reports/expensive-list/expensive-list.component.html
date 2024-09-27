@@ -2,7 +2,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-
                 <h5>{{'master.Ms_Reports.expenses_list' |translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' |
@@ -17,7 +16,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select [(ngModel)]="ngbranch" formControlName="BRANCH"  bindValue="value" bindLabel="label"
+                                    <ng-select [(ngModel)]="ngbranch" formControlName="BRANCH"
                                         (change)="getbranch($event)">
                                         <ng-option *ngFor="let item of branchOption" [value]="item.value">
                                             {{item.label}}</ng-option>
@@ -40,14 +39,11 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" placeholder="dd/mm/yyyy" name="from_Date" id="from_Date" appDateValidation
-                                        class="form-control"  formControlName="from_Date" appButton
+                                    <input type="text" placeholder="dd/mm/yyyy" name="from_Date" id="from_Date"
+                                        class="form-control" appDateValidation formControlName="from_Date" appButton
                                         minlength="10" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-
-
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker (change)="getdata($event)">
-
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['from_Date'].invalid &&
@@ -68,7 +64,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="to_Date" id="to_Date"
                                         class="form-control" appDateValidation formControlName="to_Date" appButton
                                         minlength="10" maxlength="10" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
                             </div>

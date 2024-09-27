@@ -5,7 +5,7 @@ import { landandbuildingsService } from './land-and-buildings.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LandAndBuildingsComponent } from './land-and-buildings.component';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
 
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
@@ -15,8 +15,7 @@ import { LandAndBuildingsRoutingModule } from './land-and-buildings-routing.modu
 import { DataTablesModule } from "angular-datatables";
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { LandUnitsService } from '../../../../../shared/dropdownService/landunits.service'
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -32,14 +31,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     LandAndBuildingsRoutingModule,
     DataTablesModule,
-    ThemeModule,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    ThemeModule
   ],
   providers: [landandbuildingsService, LandUnitsService,
     {
@@ -56,7 +48,3 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class LandAndBuildingsModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
-

@@ -21,7 +21,7 @@ import { ReportFrameComponent } from "../../report-frame/report-frame.component"
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
 import { cityMasterService } from 'src/app/shared/dropdownService/city-master-dropdown.service';
-import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-citiwise-npa-reg',
   templateUrl: './citiwise-npa-reg.component.html',
@@ -68,7 +68,6 @@ export class CitiwiseNpaRegComponent implements OnInit {
   AC_TYPE: any;
   glDetails: any;
   nasf: any;
-  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -77,14 +76,8 @@ export class CitiwiseNpaRegComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private cityMaster: cityMasterService,
     private http: HttpClient,
-    private translate:TranslateService
 
   ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -344,8 +337,7 @@ export class CitiwiseNpaRegComponent implements OnInit {
      
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(()=>{ this.clicked=false});
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
   close() {

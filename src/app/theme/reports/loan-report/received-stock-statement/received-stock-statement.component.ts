@@ -20,7 +20,6 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -56,7 +55,6 @@ export class ReceivedStockStatementComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
-  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -64,8 +62,6 @@ export class ReceivedStockStatementComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-    private translate:TranslateService
-
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -101,8 +97,6 @@ export class ReceivedStockStatementComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');

@@ -132,7 +132,7 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
       ACNOTYPE: 'LN'
     }
     this.http.post(this.url + '/sizewise-balance-updation/insert', obj).subscribe((data) => {
-      Swal.fire('Success','Data Updated Successfully','success')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Tran_Msg')}`,'success')
       this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + obj.ACNOTYPE).subscribe((data) => {
         if (data['amountExist'] == true) {
           this.Amount = data['amount']
@@ -192,7 +192,7 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
     this.Amount[i].AMOUNT_FROM = amt
     if (i != 0 && Number(this.Amount[i].AMOUNT_FROM) < Number(this.Amount[i - 1].AMOUNT_TO)) {
       this.Amount[i].AMOUNT_FROM = ''
-      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
+      Swal.fire('Info', ` ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
