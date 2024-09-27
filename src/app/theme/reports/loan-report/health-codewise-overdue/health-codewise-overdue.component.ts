@@ -9,6 +9,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-health-codewise-overdue',
@@ -53,6 +54,7 @@ export class HealthCodewiseOverdueComponent implements OnInit {
   shemeDetails: any
   showLoading: boolean = false;
   isShow: boolean = true;
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -61,7 +63,13 @@ export class HealthCodewiseOverdueComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private translate:TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

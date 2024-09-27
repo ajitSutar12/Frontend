@@ -8,7 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-reg-interest-instruction',
@@ -38,13 +38,20 @@ export class BnkRegInterestInstructionComponent implements OnInit {
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService
+    private systemParameter:SystemMasterParametersService,
+    private translate:TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

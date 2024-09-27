@@ -3,6 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <h5>{{'master.GL_Report_Master.Title' | translate}}</h5>
+
                 <h6 style="float: right;">{{'master.Action.F1' | translate}}<sub class="required">*
                     </sub>{{'master.Action.F2' | translate}}</h6>
             </div>
@@ -43,6 +44,7 @@
                                 <div class="row">
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -60,18 +62,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -82,6 +87,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -93,6 +99,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -104,6 +111,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -122,6 +130,7 @@
 
                                 <div class="row">
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -139,18 +148,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -161,6 +173,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -172,6 +185,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -183,6 +197,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -200,6 +215,7 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code1">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -217,18 +233,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE1'].errors?. maxlength || ngForm.controls['CODE1'].errors?. minlength || ngForm.controls['CODE1'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -239,6 +258,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -246,6 +266,7 @@
 
 
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -265,11 +286,13 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -290,11 +313,13 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Third_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -314,12 +339,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
+
 
                                     <div class="col-sm-12 col-md-1"> <label for="type">{{'master.GL_Report_Master.Type'
                                             | translate}}<sub class="required">*</sub></label>
@@ -336,6 +363,7 @@
                                             *ngIf="ngForm.controls['CODE_TYPE'].invalid && (ngForm.controls['CODE_TYPE'].dirty || ngForm.controls['CODE_TYPE'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['CODE_TYPE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -346,6 +374,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="ADD_PL_AMOUNT"
                                                     formControlName="ADD_PL_AMOUNT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="ADD_PL_AMOUNT">{{'master.GL_Report_Master.Add_Profit_and_Loss_Amount'
                                                     | translate}}</label>
@@ -359,6 +388,7 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -377,6 +407,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -387,6 +418,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -400,6 +432,7 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -418,6 +451,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -425,6 +459,7 @@
 
 
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -442,6 +477,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?. maxlength || ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?. minlength || ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -452,6 +488,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -467,6 +504,7 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -484,18 +522,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -506,6 +547,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -514,6 +556,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -533,11 +576,13 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -558,11 +603,13 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Third_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -582,12 +629,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
+
                                             <label for="AltCode">{{'master.GL_Report_Master.Alternative_Liquidity_Code'
                                                 | translate}} <sub class="required">*</sub></label>
                                         </div>
@@ -605,12 +654,14 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="ngForm.controls['AltCode'].errors?.maxlength || ngForm.controls['AltCode'].errors?.minlength || ngForm.controls['AltCode'].errors?.required">
+
                                                     <!-- This field is required -->{{'Utility.Validation.Val1' |
                                                     translate}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
+
                                             <label for="HOcode1">{{'master.GL_Report_Master.HO_Liquidity_Code_1' |
                                                 translate}}<sub class="required">*</sub></label>
                                         </div>
@@ -628,12 +679,14 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="ngForm.controls['HOcode1'].errors?.maxlength || ngForm.controls['HOcode1'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                     <!-- This field is required -->{{'Utility.Validation.Val1' |
                                                     translate}}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
+
                                             <label for="HOcode2">{{'master.GL_Report_Master.HO_Liquidity_Code_2' |
                                                 translate}}<sub class="required">*</sub></label>
                                         </div>
@@ -651,6 +704,7 @@
                                                 class="alert alert-danger">
                                                 <div
                                                     *ngIf="ngForm.controls['HOcode2'].errors?.maxlength || ngForm.controls['HOcode2'].errors?.minlength || ngForm.controls['HOcode2'].errors?.required">
+
                                                     <!-- This field is required -->{{'Utility.Validation.Val1' |
                                                     translate}}
                                                 </div>
@@ -664,6 +718,7 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -681,11 +736,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -704,11 +761,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -729,6 +788,7 @@
                                             *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].invalid && (ngForm.controls['PERCENTAGE_CONSIDARATION'].dirty || ngForm.controls['PERCENTAGE_CONSIDARATION'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -742,6 +802,7 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -759,17 +820,20 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -780,6 +844,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -787,6 +852,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -806,11 +872,13 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -831,11 +899,13 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Third_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -855,6 +925,7 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -888,17 +959,20 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -909,11 +983,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -933,6 +1009,7 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -941,6 +1018,7 @@
                                 <div class="row">
 
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -961,6 +1039,7 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -970,6 +1049,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -981,6 +1061,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -997,6 +1078,7 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1014,17 +1096,20 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -1035,11 +1120,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.First_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1059,6 +1146,7 @@
                                             *ngIf="ngForm.controls['fno'].invalid && (ngForm.controls['fno'].dirty || ngForm.controls['fno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['fno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1066,6 +1154,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1086,6 +1175,7 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1095,6 +1185,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -1106,6 +1197,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -1123,6 +1215,7 @@
 
                                 <div class="row">
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1140,18 +1233,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -1162,11 +1258,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Second_No' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1187,6 +1285,7 @@
                                             *ngIf="ngForm.controls['sno'].invalid && (ngForm.controls['sno'].dirty || ngForm.controls['sno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['sno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1199,6 +1298,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -1210,6 +1310,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -1221,6 +1322,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="ADD_PL_AMOUNT"
                                                     formControlName="ADD_PL_AMOUNT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="ADD_PL_AMOUNT">{{'master.GL_Report_Master.Add_Profit_and_Loss_Amount'
                                                     | translate}}</label>
@@ -1239,6 +1341,7 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1256,18 +1359,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -1278,6 +1384,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1286,6 +1393,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.sr_no' | translate}} <sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1305,12 +1413,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1329,11 +1439,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -1351,6 +1463,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1358,6 +1471,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Alternative_Friday_Name' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -1374,6 +1488,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['FNAME'].errors?.maxlength || ngForm.controls['FNAME'].errors?.minlength || ngForm.controls['FNAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1383,6 +1498,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -1394,6 +1510,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>
@@ -1413,6 +1530,7 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1430,18 +1548,21 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['CODE'].errors?.maxlength || ngForm.controls['CODE'].errors?.minlength || ngForm.controls['CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="code">{{'master.GL_Report_Master.Name' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
+
                                                 <input type="text" name="name" class="form-control" placeholder=" " pattern="^[\u0900-\u097F A-Za-z]+$"
                                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90) || ($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode == 32)"
                                                     formControlName="NAME">
@@ -1452,6 +1573,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['NAME'].errors?.maxlength || ngForm.controls['NAME'].errors?.minlength || ngForm.controls['NAME'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1460,6 +1582,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="code">{{'master.GL_Report_Master.sr_no' | translate}} <sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1479,12 +1602,14 @@
                                             *ngIf="ngForm.controls['tno'].invalid && (ngForm.controls['tno'].dirty || ngForm.controls['tno'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['tno'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-1">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -1503,11 +1628,13 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE'].errors?. maxlength || ngForm.controls['PERCENTAGE'].errors?. minlength || ngForm.controls['PERCENTAGE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Code' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -1525,6 +1652,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="ngForm.controls['PERCENTAGE_OF_CODE'].errors?. maxlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?. minlength || ngForm.controls['PERCENTAGE_OF_CODE'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1532,6 +1660,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
+
                                         <label for="poc">{{'master.GL_Report_Master.Percentage_of_Cosideration' |
                                             translate}}<sub class="required">*</sub></label>
                                     </div>
@@ -1552,6 +1681,7 @@
                                             *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].invalid && (ngForm.controls['PERCENTAGE_CONSIDARATION'].dirty || ngForm.controls['PERCENTAGE_CONSIDARATION'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="ngForm.controls['PERCENTAGE_CONSIDARATION'].errors?.required">
+
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>
                                         </div>
@@ -1561,6 +1691,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="INPUT_ALLOWED"
                                                     formControlName="INPUT_ALLOWED" />
+
                                                 <label class="border-checkbox-label"
                                                     for="INPUT_ALLOWED">{{'master.GL_Report_Master.Linking_Input_Allowed'
                                                     | translate}}</label>
@@ -1572,6 +1703,7 @@
                                             <div class="border-checkbox-group border-checkbox-group-primary">
                                                 <input class="border-checkbox" type="checkbox" id="IS_PRINT_IN_REPORT"
                                                     formControlName="IS_PRINT_IN_REPORT" />
+
                                                 <label class="border-checkbox-label"
                                                     for="IS_PRINT_IN_REPORT">{{'master.GL_Report_Master.Is_Print_in_GL_Report'
                                                     | translate}}</label>

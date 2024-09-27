@@ -18,6 +18,7 @@ import { first } from "rxjs/operators";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-non-guaranteer-view',
@@ -62,6 +63,7 @@ showLoading:boolean = false;
 clicked:boolean=false;
 iframe5url:any='';
 report_url = environment.report_url;
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -74,6 +76,8 @@ report_url = environment.report_url;
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
+    private translate:TranslateService
+
   ) {
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -93,6 +97,8 @@ report_url = environment.report_url;
       this.schemetype = schemetype;
       this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
         this.dates = data.CURRENT_DATE;
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
       });
 
     })

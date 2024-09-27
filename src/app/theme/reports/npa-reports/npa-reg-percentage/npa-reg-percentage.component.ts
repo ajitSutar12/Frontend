@@ -22,7 +22,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { event } from "jquery";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-npa-reg-percentage',
@@ -66,7 +66,7 @@ export class NpaRegPercentageComponent implements OnInit {
   todate: any = null
   bsValue = new Date();
   nasf: any
-
+  setLang:any;
   maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
@@ -84,7 +84,8 @@ export class NpaRegPercentageComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-    private http: HttpClient,
+    private http: HttpClient,  private translate:TranslateService
+
 
   ) {
     this.todate = moment().format('31/03/2024');
@@ -93,6 +94,7 @@ export class NpaRegPercentageComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+
   }
 
   ngOnInit(): void {
@@ -140,6 +142,8 @@ export class NpaRegPercentageComponent implements OnInit {
 
       this.fromdate = moment(`31/03/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');

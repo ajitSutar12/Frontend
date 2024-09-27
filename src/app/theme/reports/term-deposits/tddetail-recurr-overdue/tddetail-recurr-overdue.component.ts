@@ -10,6 +10,8 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../report-frame/report-frame.component';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-tddetail-recurr-overdue',
@@ -45,6 +47,7 @@ export class TddetailRecurrOverdueComponent implements OnInit {
   report_url = environment.report_url;
   ngbranch: any;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -52,8 +55,15 @@ export class TddetailRecurrOverdueComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
+    private translate:TranslateService
+
 
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

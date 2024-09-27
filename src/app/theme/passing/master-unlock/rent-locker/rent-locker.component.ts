@@ -5,6 +5,8 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { LockerRentTransactionsComponent } from '../../../transaction/locker/locker-rent-transactions/locker-rent-transactions.component';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -49,7 +51,15 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
   // Store data from backend
   rentLocker: rentLocker[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  setLang:any;
+  constructor(private http: HttpClient,  private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) { 
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      }) 
+    }
 
   rentLockerData: any
 
@@ -109,23 +119,23 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title:  this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Record Number ',
+          title: this.translate.instant('master.All.Record_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title:  this.translate.instant('master.All.Amount'),
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Time',
+          title: this.translate.instant('master.All.Time'),
           data: 'TRAN_TIME'
         },
 
         {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.All.Scheme_Type'),
           data: 'TRAN_ACTYPE'
         },
         // {
@@ -134,7 +144,7 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.All.Account_Number'),
           data: 'TRAN_ACNO'
         },
         // {
@@ -142,7 +152,7 @@ export class RentLockerComponent implements OnInit, AfterViewInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title: 'User',
+          title:this.translate.instant('master.All.User'),
           data: 'USER_CODE'
         },
         // {

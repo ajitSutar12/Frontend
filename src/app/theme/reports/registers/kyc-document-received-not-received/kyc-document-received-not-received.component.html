@@ -3,15 +3,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>KYC Document Received/Not Received</h5>
+                <!-- <h5>KYC Document Received/Not Received</h5> -->
+                <h5>{{'master.Standing_Instruct.T11' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>)  {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <form [formGroup]="ngForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="scheme">Branch <sub
+                        <div class="col-sm-12 col-md-1"> <label for="scheme">
+                            {{'master.Standing_Instruct.Branch' | translate}} <!-- Branch -->
+                             <sub
                             class="required">*</sub></label></div>
 
                             <div class="col-sm-2">
@@ -30,12 +33,14 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-1"><label for="">Scheme Code<sub class="required">*</sub>
+                            <div class="col-sm-12 col-md-1"><label for="">
+                                {{'master.Standing_Instruct.Scheme_Code' | translate}}   <!-- Scheme Code -->
+                                <sub class="required">*</sub>
                             </label></div>
                             <div class="col-sm-2">
                                 <div class="form-group form-primary form-static-label">
@@ -55,7 +60,9 @@
                                     </div>
                                 </div> -->
                             </div>
-                            <div class="col-md-1"> <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                            <div class="col-md-1"> <label for="START_DATE">
+                                {{'master.Standing_Instruct.Start_Date' | translate}} <!-- Start Date -->
+                                <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -73,11 +80,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['START_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                        This field is required.
+                                        {{'master.Validation.Val1' | translate}}  <!-- This field is required. -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-1"> <label for="END_DATE">End Date<sub class="required">*</sub></label>
+                            <div class="col-md-1"> <label for="END_DATE">
+                                {{'master.Standing_Instruct.End_Date' | translate}}  <!-- End Date -->
+                                <sub class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group input-group">
@@ -96,31 +105,37 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['END_DATE'].errors?.required ||ngForm.controls['START_DATE'].invalid">
-                                        This field is required.
+                                        {{'master.Validation.Val1' | translate}} <!-- This field is required. -->
                                     </div>
                                 </div>
                             </div>
                     </div> 
                     <div class="row">
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-5">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="Print_Code" value="Received" formControlName="All"
                                             [checked]="true">
-                                        <i class="helper"></i>Received</label>
+                                        <i class="helper"></i>
+                                        {{'master.Standing_Instruct.Received' | translate}} <!-- Received -->
+                                    </label>
                                 </div>
 
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="Print_Code" value="Pending"
                                             formControlName="All">
-                                        <i class="helper"></i>Pending </label>
+                                        <i class="helper"></i>
+                                        {{'master.Standing_Instruct.Pending' | translate}}   <!-- Pending  -->
+                                    </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="Print_Code" value="All" formControlName="All">
-                                        <i class="helper"></i>All</label>
+                                        <i class="helper"></i>
+                                        {{'master.Standing_Instruct.All' | translate}} <!-- All -->
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -130,17 +145,22 @@
                         <div class="col-md-9"></div>
                         <div class="col-sm-12 col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">View</button>
+                                (click)="view($event); clicked = true ">
+                                {{'master.Action.View' | translate}}  <!-- View -->
+                            </button>
                         </div>
                         <div class="col-sm-12 col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button type="submit" class="btn btn-outline-primary btn-sm" (click)="close()">
+                                {{'master.Action.Close' | translate}}  <!-- Close -->
+                            </button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5>{{'master.Standing_Instruct.Report_Frame' | translate}}</h5>
+                                    <!-- <h5>Report Frame</h5> -->
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url'></app-iframe5>

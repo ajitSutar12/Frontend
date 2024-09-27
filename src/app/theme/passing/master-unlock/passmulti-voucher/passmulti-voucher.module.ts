@@ -13,7 +13,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { PassmultiVoucherComponent } from './passmulti-voucher.component';
 import { MultiVoucherModule } from "../../../transaction/multi-voucher/multi-voucher.module";
-
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -21,11 +24,18 @@ import { MultiVoucherModule } from "../../../transaction/multi-voucher/multi-vou
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    MultiVoucherModule
+    MultiVoucherModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [PassmultiVoucherComponent],
   declarations: [PassmultiVoucherComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -33,3 +43,6 @@ import { MultiVoucherModule } from "../../../transaction/multi-voucher/multi-vou
   ],
 })
 export class PassMultiVoucherModule {}
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

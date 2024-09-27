@@ -57,6 +57,7 @@
                 [ngStyle]="{'background-color': selectedCategory === 'NIDHI' ? 'green' : 'transparent'}"
                 style="color: black;" (click)="onExpensesClick('NIDHI')">
                 <!-- NIDHI -->
+
                 {{'master.GL_Report_Linking.NIDHI' | translate}}
               </button>
 
@@ -104,7 +105,8 @@
                                                         </form> -->
   
                             <table datatable [dtOptions]="dtExportButtonOptions"
-                            class="table table-striped table-bordered table-hover" id="tabledata">
+                              class="table table-striped table-bordered table-hover compact" id="customermastertable">
+
   
                               <!-- <tbody *ngIf="tabledata?.length != 0">
                                 <tr *ngFor="let data of tabledata let i = index">
@@ -177,6 +179,7 @@
                                            bsDatepicker>
                                   </td> -->
                                   
+
                                   <td contenteditable="true" (blur)="updateCell(data, 'EFFECT_DATE', $event)" [ngClass]="data.EFFECT_DATE ? 'td_left' : ''">
                                     {{ data.EFFECT_DATE }}
                                   </td>
@@ -211,6 +214,7 @@
                                 </tr>
                               </tbody>
                             
+
                               <tbody *ngIf="tabledata?.length === 0">
                                 <tr>
                                   <td colspan="6" class="no-data-available">
