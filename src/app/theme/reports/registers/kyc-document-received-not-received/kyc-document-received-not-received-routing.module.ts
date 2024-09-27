@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  KYCDocumentReceivedNotReceivedComponent,
     data: {
-      title: 'KYC Document Received Not Received Component',
+      title: 'KYC Doc.Received/Not Received Compo',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true
