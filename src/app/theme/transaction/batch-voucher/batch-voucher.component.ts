@@ -189,7 +189,7 @@ export class BatchVoucherComponent implements OnInit {
       this._service.getLedgerBalance(obj).subscribe(data => {
         this.ledgerBal = Math.abs(data);
       }, err => {
-        Swal.fire('Oops..!', 'Something went wrong in Opening Bal not fetched', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Something_Went_Wrong')}`, 'error');
       })
     }, err => {
       console.log(err);
@@ -272,7 +272,7 @@ export class BatchVoucherComponent implements OnInit {
     // debugger
     var obj = this.angForm.value;
     if (Number(obj.voucherAmount) != Number(this.totalAmount)) {
-      Swal.fire('Oops!', 'Voucher amount not equal to Total Amount', 'error');
+      Swal.fire( `${this.translate.instant('Swal_Msg.Oops')}`,  `${this.translate.instant('Swal_Msg.M6')}`, 'error');
     } else {
       let cheqDate
       const formVal = this.angForm.value
@@ -287,7 +287,7 @@ export class BatchVoucherComponent implements OnInit {
 
       this._service.submitData(dataObj).subscribe(data => {
         console.log(data);
-        Swal.fire('Success!', 'Batch Voucher submited successfully', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.P3')}`, 'success');
         this.angForm.controls['company_code'].reset();
         this.angForm.controls['ledger_balance'].reset();
         this.angForm.controls['chequeNo'].reset();
@@ -383,8 +383,8 @@ export class BatchVoucherComponent implements OnInit {
     this._service.approve(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Approved',
-        'Batch Voucher approved successfully',
+        `${this.translate.instant('Swal_Msg.Apporove')}`,
+        `${this.translate.instant('Swal_Msg.P4')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -407,8 +407,8 @@ export class BatchVoucherComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Rejected',
-        'Batch Voucher rejected successfully',
+        `${this.translate.instant('Swal_Msg.Reject')}`,
+        `${this.translate.instant('Swal_Msg.P5')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -429,8 +429,8 @@ export class BatchVoucherComponent implements OnInit {
     this._service.unapporveBatchVoucher(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Unapproved',
-        'Voucher unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.S8')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -530,8 +530,7 @@ export class BatchVoucherComponent implements OnInit {
           string += `Ac No : ${item.AC_NO}<br>`
         }
         string += `above Account not find in system please check once again`;
-
-        Swal.fire('Oops...!', string, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, string, 'error');
       }
 
       // this.filterArray = item

@@ -101,7 +101,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     public companyGroupService: CompanyGroupMasterDropdownService,
     private _allAcc: AllAccountDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private translate:TranslateService,
+    private translate: TranslateService,
     private config: NgSelectConfig,) { }
 
   ngOnInit(): void {
@@ -239,7 +239,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         'Company_Data': this.multiData
       }
       this.companyGroupLinkMasterService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.multiData = [];
         // to reload after insertion of data
@@ -311,7 +311,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
     }
     data['id'] = this.updateID;
     this.companyGroupLinkMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -325,8 +325,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Company Group Link Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Company_Link')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -337,8 +337,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         this.companyGroupLinkMasterService.deleteData(id).subscribe(data1 => {
           this.companyGroupLinkMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -350,8 +350,8 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -576,7 +576,7 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
 
 
     } else {
-      Swal.fire('Oops', 'To Account Number Must Be Greater Than From Account Number', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg')}`, 'error');
       this.ngToAccount = null
       this.angForm.controls['TO_AC'].reset()
     }
@@ -600,14 +600,14 @@ export class CompanyGroupLinkMasterComponent implements OnInit, AfterViewInit, O
       this.multiData[index]['Amount'] = data.target.value;
     }
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

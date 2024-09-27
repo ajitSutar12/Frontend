@@ -37,7 +37,7 @@ interface RecoveryClearkMaster {
 })
 export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild("autofocus") myInputField: ElementRef;//input field autofocus
-  
+
   //api 
   url = environment.base_url;
   // For reloading angular datatable after CRUD operation
@@ -75,21 +75,21 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
   //filter variable
   filterData = {};
   branchOption: any;
-  ngbranch:any;
+  ngbranch: any;
 
 
   constructor(
     private http: HttpClient,
-    private ownbranchMasterService:OwnbranchMasterService,
+    private ownbranchMasterService: OwnbranchMasterService,
     private recoveryClearkMasterService: RecoveryClearkMasterService,
-    private fb: FormBuilder,private translate:TranslateService) { }
+    private fb: FormBuilder, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
     // Fetching Server side data
 
-     //branch List
-     this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
+    //branch List
+    this.ownbranchMasterService.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
     })
     let data: any = localStorage.getItem('user');
@@ -97,7 +97,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
       this.ngbranch = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
@@ -158,7 +158,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
         {
           title: this.translate.instant('master.Recovery_Cleark_Master.Recovery_Cleark_Code'),
           data: 'CODE'
-        }, 
+        },
         {
           title: this.translate.instant('master.Recovery_Cleark_Master.Description'),
           data: 'NAME'
@@ -174,7 +174,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
 
   createForm() {
     this.angForm = this.fb.group({
-      BRANCH_CODE:[''],
+      BRANCH_CODE: [''],
       CODE: [''],
       NAME: ['', [Validators.pattern, Validators.required]]
     });
@@ -184,7 +184,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
       this.ngbranch = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
@@ -204,7 +204,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
       'NAME': formVal.NAME
     }
     this.recoveryClearkMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -224,7 +224,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     this.recoveryClearkMasterService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-        'BRANCH_CODE':data.BRANCH_CODE,
+        'BRANCH_CODE': data.BRANCH_CODE,
         'CODE': data.CODE,
         'NAME': data.NAME,
       })
@@ -236,7 +236,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.recoveryClearkMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -257,8 +257,8 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Recovery cleark master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Recovery_cleark')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -269,8 +269,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
         this.recoveryClearkMasterService.deleteData(id).subscribe(data1 => {
           this.recoveryClearkMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -282,8 +281,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -325,7 +323,7 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
       this.ngbranch = result.branch.id
-      
+
     }
     else {
       this.angForm.controls['BRANCH_CODE'].disable()
@@ -346,13 +344,13 @@ export class RecoveryClearkMasterComponent implements OnInit, AfterViewInit, OnD
     });
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 }

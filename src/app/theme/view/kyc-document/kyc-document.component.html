@@ -1,5 +1,6 @@
 <div class="authors-table-container">
-  <h2>Customer KYC Details</h2>
+  <!-- <h2>Customer KYC Details</h2> -->
+  {{'master.KYC.T1'|translate}}
   <div class="search-container">
     <input type="text" [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search customers...">
   </div>
@@ -8,11 +9,21 @@
     <table class="authors-table">
       <thead>
         <tr>
-          <th class="customer-name-column" style="font-weight: bold;">CUSTOMER NAME</th>
-          <th class="center-align" style="font-weight: bold;">ID</th>
-          <th class="center-align" style="font-weight: bold;">STATUS</th>
-          <th class="center-align" style="font-weight: bold;">KYC DOCUMENT</th>
-          <th class="customer-name-column" style="text-align: center;font-weight: bold;">DOCUMENT IMAGES</th>
+          <th class="customer-name-column" style="font-weight: bold;">
+            <!-- CUSTOMER NAME -->
+            {{'master.KYC.cust_name'|translate}}</th>
+          <th class="center-align" style="font-weight: bold;">
+            <!-- ID -->
+            {{'master.KYC.id'|translate}}</th>
+          <th class="center-align" style="font-weight: bold;">
+            <!-- STATUS -->
+            {{'master.KYC.status'|translate}}</th>
+          <th class="center-align" style="font-weight: bold;">
+            <!-- KYC DOCUMENT -->
+            {{'master.KYC.kyc_doc'|translate}}</th>
+          <th class="customer-name-column" style="text-align: center;font-weight: bold;">
+            <!-- DOCUMENT IMAGES -->
+            {{'master.KYC.doc_img'|translate}}</th>
         </tr>
       </thead>
       <tbody>
@@ -60,7 +71,6 @@
           </td>
           <td class="center-align">
             <div *ngIf="selectedCustomer === customer" class="photos-container">
-
               <img [src]="uploadphoto2 ? uploadphoto2 : 'assets/images/nouser.png'" class="photoimage">
               <img [src]="uploadphoto1 ? uploadphoto1 : 'assets/images/nouser.png'" class="photoimage">
               <img [src]="uploadphoto3 ? uploadphoto3 : 'assets/images/nosignature.png'" class="photoimage">

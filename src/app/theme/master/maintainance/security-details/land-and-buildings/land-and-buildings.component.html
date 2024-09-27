@@ -167,7 +167,7 @@
                 <span class="border-lable-flt">
                   <input appTheme style="text-align: right" type="text" name="CitySurveyNumber" class="form-control"
                     placeholder=" " id="CitySurveyNumber" [ngClass]="{'form-submitted': formSubmitted}" required=""
-                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)" 
+                    pattern="^[0-9]+$" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                     title="Input allowed only 0-9" maxlength="20" formControlName="CITY_SURVEY_NO" />
                   <label for="CitySurveyNumber">City Survey Number<sub class="required">* </sub></label>
                 </span>
@@ -178,6 +178,7 @@
                     angForm.controls['CITY_SURVEY_NO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="
+                    angForm.controls['CITY_SURVEY_NO'].errors?.pattern ||
                     angForm.controls['CITY_SURVEY_NO'].errors?.required
                   ">
                   This field is required Input allowed only 0-9

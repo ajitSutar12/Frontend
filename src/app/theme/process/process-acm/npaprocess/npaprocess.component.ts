@@ -10,6 +10,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-npaprocess',
@@ -54,14 +56,22 @@ export class NPAProcessComponent implements OnInit {
   minDate: Date;
   chatSlideInOut: string;
   selectedIds: any;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private config: NgSelectConfig,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private http: HttpClient
+    private http: HttpClient,
+    private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -167,8 +177,8 @@ export class NPAProcessComponent implements OnInit {
 
       Swal.fire({
         icon: 'warning',
-        title: 'Process Already Exists',
-        text: 'Entered NPA Date Process Already Exists.',
+        title: `${this.translate.instant('Swal_Msg.Process_Already_Exist')}`,
+        text: `${this.translate.instant('Swal_Msg.NPA_Date_Process_Already_Exists')}`,
       });
 
       this.angForm.controls.NPA_DATE.reset()
@@ -177,22 +187,22 @@ export class NPAProcessComponent implements OnInit {
 
       this.isLoder = true
 
-      this.http.post(this.url+'/voucher/npaprocess', obj).subscribe((response: any) => {
+      this.http.post(this.url + '/voucher/npaprocess', obj).subscribe((response: any) => {
 
         this.isLoder = false
 
         if (response.message == "success") {
           Swal.fire({
             icon: 'success',
-            title: 'Process Completed',
-            text: 'The NPA process has been completed successfully.',
+            title:`${this.translate.instant('Swal_Msg.Process_Completed')}`,
+            text: `${this.translate.instant('Swal_Msg.NPA_Process_Completed')}`,
           });
 
         }
         else {
           Swal.fire({
             icon: 'error',
-            text: 'Process Failed!',
+            text: `${this.translate.instant('Swal_Msg.Process_Failed')}`,
           });
         }
 
@@ -218,7 +228,7 @@ export class NPAProcessComponent implements OnInit {
     }
 
     //NPA DATE
-    this.http.post(this.url+'/npa-classification-master/data', obj).subscribe((data) => {
+    this.http.post(this.url + '/npa-classification-master/data', obj).subscribe((data) => {
       this.glDetails = data
     })
   }

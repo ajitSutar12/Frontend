@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
-
 @Component({
   selector: 'app-other-view',
   templateUrl: './other-view.component.html',
@@ -25,20 +21,10 @@ export class OtherViewComponent implements OnInit {
   graphloandepositpositionTrue = false;
   comaparitivegraphloandepositpositionTrue = false;
   cdratioanalysisTrue = false;
-  setLang: any;
 
 
-  constructor(private_router: Router,    
-    private translate:TranslateService,
-   private systemParameter: SystemMasterParametersService,
-
-   ) {
-     this.systemParameter.getFormData(1).subscribe(data => {
-   
-       this.setLang = data.SET_LANGUAGE
-       this.translate.setDefaultLang(this.setLang);
-     })
- }
+  constructor(private_router: Router) {
+  }
   ngOnInit(): void {
   }
 

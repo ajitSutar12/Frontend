@@ -2,26 +2,27 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Plant And Machinery</h5>
+        <h5>{{'master.Plant_And_Machinery.Title' | translate}}</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
         <div class="card-block">
-          <div class="row"> 
+          <div class="row">
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}"  
                   formControlName="SUBMISSION_DATE"  #autofocus /> -->
-                  <input appTheme appButton minlength="10" maxlength="10"
-                   type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
-                    [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()"
-                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
+                  <input appTheme appButton minlength="10" maxlength="10" type="text" placeholder="dd/mm/yyyy"
+                    name="SUBMISSION_DATE" id="subm_date" class="form-control" [(ngModel)]="submissiondate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #SUBMISSION_DATE="bsDatepicker"
+                    (keydown.Tab)="SUBMISSION_DATE.hide()" [ngClass]="{'form-submitted': formSubmitted}"
+                    formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
 
-                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
+                  <label for="subm_date">{{'master.Plant_And_Machinery.Submission_Date' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -30,19 +31,20 @@
                     angForm.controls['SUBMISSION_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="machinery_name" class="form-control" placeholder=" " id="machinery_name"
-                    [ngClass]="{'form-submitted': formSubmitted}"
+                  <input appTheme type="text" name="machinery_name" class="form-control" placeholder=" "
+                    id="machinery_name" [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="90" formControlName="MACHINE_NAME" />
-                  <label for="machinery_name">Machinery Name<sub class="required">* </sub></label>
+                  <label for="machinery_name">{{'master.Plant_And_Machinery.Machinery_Name' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -54,20 +56,21 @@
                     angForm.controls['MACHINE_NAME'].errors?.pattern ||
                     angForm.controls['MACHINE_NAME'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z- / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z- / .
+                  (Space) --> {{'master.Validation.Val' | translate}}
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="machinery_type" class="form-control" placeholder=" " id="machinery_type"
-                    required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
-                    [ngClass]="{'form-submitted': formSubmitted}"
+                  <input appTheme type="text" name="machinery_type" class="form-control" placeholder=" "
+                    id="machinery_type" required="" pattern="^[A-Za-z'\.\-\s]+$"
+                    title="Input allowed only  A-Z a-z  - / . (Space)" [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     maxlength="50" formControlName="MACHINE_TYPE" />
-                  <label for="machinery_type">Machinery Type<sub class="required">* </sub></label>
+                  <label for="machinery_type">{{'master.Plant_And_Machinery.Machinery_Type' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -79,20 +82,21 @@
                     angForm.controls['MACHINE_TYPE'].errors?.pattern ||
                     angForm.controls['MACHINE_TYPE'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z- / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z- / .
+                  (Space) --> {{'master.Validation.Val' | translate}}
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme style="text-align: right" type="text" name="DistinctiveNumber" class="form-control" placeholder=" "
-                    [ngClass]="{'form-submitted': formSubmitted}"
+                  <input appTheme style="text-align: right" type="text" name="DistinctiveNumber" class="form-control"
+                    placeholder=" " [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="DistinctiveNumber" required=""
                     pattern="^[0-9]+$" title="Input allowed only  0-9" maxlength="50"
                     formControlName="DISTINCTIVE_NO" />
-                  <label for="DistinctiveNumber">Distinctive Number<sub class="required">* </sub></label>
+                  <label for="DistinctiveNumber">{{'master.Plant_And_Machinery.Distinctive_Number' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -104,7 +108,8 @@
                     angForm.controls['DISTINCTIVE_NO'].errors?.pattern ||
                     angForm.controls['DISTINCTIVE_NO'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  <!-- This field is required and Input allowed only 0-9 -->{{'master.Validation.Val_Receipt' |
+                  translate}}
                 </div>
               </div>
             </div>
@@ -117,7 +122,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="50"
                     formControlName="SPECIFICATION" />
-                  <label for="Specification">Specification</label>
+                  <label for="Specification">{{'master.Plant_And_Machinery.Specification' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -126,7 +131,7 @@
                     angForm.controls['SPECIFICATION'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SPECIFICATION'].errors?.pattern">
-                  Input allowed only A-Z a-z - / . (Space)
+                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_Repre' | translate}}
                 </div>
               </div>
             </div>
@@ -135,13 +140,14 @@
                 <span class="border-lable-flt">
                   <!-- <input type="date" class="form-control" placeholder=" " id="DateofAcquisition" required=""
                     max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE"  /> -->
-                  <input type="text" appButton minlength="10" maxlength="10"
-                   placeholder="dd/mm/yyyy" name="AQUISITION_DATE" id="DateofAcquisition"
-                    class="form-control" [(ngModel)]="acquisitiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    #AQUISITION_DATE="bsDatepicker"  (keydown.Tab)="AQUISITION_DATE.hide()" 
-                    [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="AQUISITION_DATE"
+                  <input type="text" appButton minlength="10" maxlength="10" placeholder="dd/mm/yyyy"
+                    name="AQUISITION_DATE" id="DateofAcquisition" class="form-control" [(ngModel)]="acquisitiondate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" #AQUISITION_DATE="bsDatepicker"
+                    (keydown.Tab)="AQUISITION_DATE.hide()" [maxDate]="maxDate"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="AQUISITION_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="DateofAcquisition">Date of Acquisition</label>
+                  <label for="DateofAcquisition">{{'master.Plant_And_Machinery.Date_of_Acquisition' |
+                    translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -149,7 +155,7 @@
                   (angForm.controls['AQUISITION_DATE'].dirty ||
                     angForm.controls['AQUISITION_DATE'].touched)
                 " class="alert alert-danger">
-                Please fill this field
+                <!-- This field is required -->{{'master.Validation.Val1'|translate}}
               </div>
             </div>
             <div class="col-sm">
@@ -163,7 +169,8 @@
               <div class="checkbox checkbox-primary">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input type="checkbox" class="border-checkbox" id="checkbox1" formControlName="NEW_EQUIPEMENT">
-                  <label class="border-checkbox-label" for="checkbox1">New Equipment?
+                  <label class="border-checkbox-label" for="checkbox1">{{'master.Plant_And_Machinery.New_Equipment?' |
+                    translate}}
                   </label>
                 </div>
               </div>
@@ -176,7 +183,8 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="90"
                     formControlName="SUPPLIER_NAME" />
-                  <label for="Suppliername">Supplier Name<sub class="required">* </sub></label>
+                  <label for="Suppliername">{{'master.Plant_And_Machinery.Supplier_Name' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -188,8 +196,8 @@
                     angForm.controls['SUPPLIER_NAME'].errors?.pattern ||
                     angForm.controls['SUPPLIER_NAME'].errors?.required
                   ">
-                  This field is required and Input allowed only A-Z a-z - / .
-                  (Space)
+                  <!-- This field is required and Input allowed only A-Z a-z- / .
+                  (Space) --> {{'master.Validation.Val' | translate}}
                 </div>
               </div>
             </div>
@@ -198,12 +206,13 @@
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input appTheme type="text" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
-                    [ngClass]="{'form-submitted': formSubmitted}"  (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
+                  <input appTheme type="text" name="PurchasePrice" class="form-control" placeholder=" "
+                    id="PurchasePrice" [ngClass]="{'form-submitted': formSubmitted}" (keyup)="getDecimal($event)"
+                    (focusout)="getDecimalPoint($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
-                     title="Input allowed only  0-9" maxlength="20"
-                    formControlName="PURCHASE_PRICE" />
-                  <label for="PurchasePrice">Purchase Price<sub class="required">* </sub></label>
+                    title="Input allowed only  0-9" maxlength="20" formControlName="PURCHASE_PRICE" />
+                  <label for="PurchasePrice">{{'master.Plant_And_Machinery.Purchase_Price' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -215,18 +224,20 @@
                     angForm.controls['PURCHASE_PRICE'].errors?.pattern ||
                     angForm.controls['PURCHASE_PRICE'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  <!-- This field is required and Input allowed only 0-9 -->{{'master.Validation.Val_Receipt' |
+                  translate}}
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input style="text-align: right"  type="text" name="margin" class="form-control" placeholder=" " id="margin" #margin
+                  <input style="text-align: right" type="text" name="margin" class="form-control" placeholder=" "
+                    id="margin" #margin
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="checkmargin(margin.value);getDecimal($event)"  title="Input allowed only  0-9"
+                    (keyup)="checkmargin(margin.value);getDecimal($event)" title="Input allowed only  0-9"
                     formControlName="MARGIN" />
-                  <label for="margin">Margin %</label>
+                  <label for="margin">{{'master.Plant_And_Machinery.Margin%' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -235,7 +246,7 @@
                     angForm.controls['MARGIN'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                  Input allowed only . 0-9
+                  <!-- Input allowed only . 0-9 -->{{'master.Validation.Val_Pin_Code'}}
                 </div>
               </div>
             </div>
@@ -246,7 +257,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
-                  <label for="remarks">Remarks</label>
+                  <label for="remarks">{{'master.Plant_And_Machinery.Remarks' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -255,16 +266,19 @@
                     angForm.controls['REMARK'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
-                  Input allowed only A-Z a-z - / . (Space)
+                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val_ward'}}
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton"
+                (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit'|translate}}</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                *ngIf="updateShow">{{'master.Action.Update'|translate}}</button>
               &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
+                (click)="addNewData()">{{'master.Action.Cancel'|translate}}</button>
             </div>
           </div>
         </div>
@@ -273,58 +287,65 @@
   </div>
 </div>
 <!-- <ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'> -->
-  <div class="row">
-    <div class="col-12">
-      <div class="card shadow">
-        <div class="card-block">
-          <div class="row">
-            <div class="col-sm">
-              <div class="table-responsive">
-                <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                  class="table table-striped table-bordered table-hover compact">
-                  <thead>
-                    <th style="text-transform: captalize;">Action</th>
-                    <th style="text-transform: captalize;">Submission Date</th>
-                    <th style="text-transform: captalize;">Machinery Name</th>
-                    <th style="text-transform: captalize;">Machinery Type</th>
-                    <th style="text-transform: captalize;">Distinctive Number</th>
-                    <th style="text-transform: captalize;">Specification</th>
-                    <th style="text-transform: captalize;">Acquisition Date</th>
-                    <th style="text-transform: captalize;">New Equipment</th>
-                    <th style="text-transform: captalize;">Supplier Name</th>
-                    <th style="text-transform: captalize;">Purchase Price</th>
-                    <th style="text-transform: captalize;">Margin</th>
-                    <th style="text-transform: captalize;">Remarks</th>
-                  </thead>
-                  <tbody *ngIf="plantmasters?.length != 0">
-                    <tr *ngFor="let data of plantmasters">
-                      <td>
-                        <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                          placement=" bottom" ngbTooltip="Edit"></span>
-                        &nbsp;
-                        <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
-                      </td>
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow">
+      <div class="card-block">
+        <div class="row">
+          <div class="col-sm">
+            <div class="table-responsive">
+              <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                class="table table-striped table-bordered table-hover compact">
+                <thead>
+                  <th style="text-transform: captalize;">Action</th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Submission_Date' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Machinery_Name' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Machinery_Type' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Distinctive_Number' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Specification' | translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Date_of_Acquisition' |
+                    translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.New_Equipment?' |
+                    translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Supplier_Name' | translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Purchase_Price' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Margin%' | translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Plant_And_Machinery.Remarks' | translate}}</th>
+                </thead>
+                <tbody *ngIf="plantmasters?.length != 0">
+                  <tr *ngFor="let data of plantmasters">
+                    <td>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                        placement=" bottom" ngbTooltip="Edit"></span>
+                      &nbsp;
+                      <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                    </td>
 
-                      <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.MACHINE_NAME }}</td>
-                      <td>{{ data.MACHINE_TYPE }}</td>
-                      <td class="td_right">{{ data.DISTINCTIVE_NO }}</td>
-                      <td>{{ data.SPECIFICATION }}</td>
-                      <td class="td_right">{{ data.AQUISITION_DATE }}</td>
-                      <td>{{ data.NEW_EQUIPEMENT == '1' ? 'Yes' : 'No' }}</td>
-                      <td>{{ data.SUPPLIER_NAME }}</td>
-                      <td class="td_right">{{ data.PURCHASE_PRICE }}</td>
-                      <td class="td_right">{{ data.MARGIN }}</td>
-                      <td>{{ data.REMARK }}</td>
+                    <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
+                    <td>{{ data.MACHINE_NAME }}</td>
+                    <td>{{ data.MACHINE_TYPE }}</td>
+                    <td class="td_right">{{ data.DISTINCTIVE_NO }}</td>
+                    <td>{{ data.SPECIFICATION }}</td>
+                    <td class="td_right">{{ data.AQUISITION_DATE }}</td>
+                    <td>{{ data.NEW_EQUIPEMENT == '1' ? 'Yes' : 'No' }}</td>
+                    <td>{{ data.SUPPLIER_NAME }}</td>
+                    <td class="td_right">{{ data.PURCHASE_PRICE }}</td>
+                    <td class="td_right">{{ data.MARGIN }}</td>
+                    <td>{{ data.REMARK }}</td>
 
-                    </tr>
-                  </tbody>
-                  <tbody *ngIf="plantmasters?.length == 0">
-                    <tr>
-                      <td colspan="6" class="no-data-available">No data!</td>
-                    </tr>
-                  </tbody>
-                  <!-- <tfoot #filters class="filters">
+                  </tr>
+                </tbody>
+                <tbody *ngIf="plantmasters?.length == 0">
+                  <tr>
+                    <td colspan="6" class="no-data-available">{{'master.Plant_And_Machinery.No_Data' | translate}}</td>
+                  </tr>
+                </tbody>
+                <!-- <tfoot #filters class="filters">
                     <tr class="testing">
                       <th class="testing"></th>
                       <th>
@@ -363,12 +384,12 @@
 
                     </tr>
                   </tfoot> -->
-                </table>
-              </div>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 <!-- </ng-container> -->

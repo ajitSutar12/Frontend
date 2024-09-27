@@ -87,7 +87,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                        formControlName="tdate" appButton minlength="10" maxlength="10"
+                                        formControlName="tdate" appButton minlength="10" maxlength="10" 
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
                                 </span>
@@ -102,7 +102,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Minimum Installment<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
@@ -129,7 +129,7 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" name="INSTALLMENT_NO" class="form-control" placeholder=" "
-                                        id="INSTALLMENT_NO" maxlength="10" formControlName="maxinst"
+                                        id="INSTALLMENT_NO" maxlength="4" formControlName="maxinst"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47">
                                 </span>
                             </div>
@@ -142,14 +142,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="row">
                         <div class="col-12">
                             <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button>
 
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                            (click)="view($event); clicked = true ">View</button>
+                            (click)="view($event); clicked = true;scrollToTop() ">View</button>
                         </div>
                     </div>
                     <div class="row">

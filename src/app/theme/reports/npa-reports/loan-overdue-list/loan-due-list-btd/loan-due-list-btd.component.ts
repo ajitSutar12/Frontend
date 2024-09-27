@@ -63,7 +63,7 @@ export class LoanDueListBtdComponent implements OnInit {
       this.branchCode = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
         this.branchCode.push({ value: '0', label: 'Consolidate' })
       }    
 
@@ -97,8 +97,8 @@ export class LoanDueListBtdComponent implements OnInit {
       branch: ['',[Validators.required]],
       fdate: ['',[Validators.required]],
       tdate: ['',[Validators.required]],
-      mininst: ['',[Validators.required]],
-      maxinst: ['',[Validators.required]]
+      // mininst: ['',[Validators.required]],
+      // maxinst: ['',[Validators.required]]
       
     });
   }
@@ -107,6 +107,9 @@ export class LoanDueListBtdComponent implements OnInit {
   getbranch(event) {
     this.getBranch = event.branchName
   }
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+  } 
   view(event:any) {
       
     event.preventDefault();
@@ -174,6 +177,8 @@ export class LoanDueListBtdComponent implements OnInit {
 }
 
   close() {
+    this.showRepo = false;
+    this.clicked = false;
     this.resetForm()
     this.selectedItems =null;
 

@@ -15,7 +15,6 @@ import { OtherViewService } from '../other-view.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { event } from 'jquery';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-loan-projection',
@@ -52,7 +51,6 @@ export class LoanProjectionComponent implements OnInit {
   TDS_RATE: number;
   todate: any;
   showRepo: boolean = false;
-  setLang: any;
   constructor(
     private repayModeService: RepayModeService,
     private installmentMethodService: InstallmentMethodService,
@@ -60,8 +58,6 @@ export class LoanProjectionComponent implements OnInit {
     private _services: OtherViewService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private translate:TranslateService
-
 
   ) {
     this.resolutionDate = new Date();
@@ -72,8 +68,6 @@ export class LoanProjectionComponent implements OnInit {
       this.resolutionDate = this.resolutionDate._d
       this.maxDate = this.maxDate._d
       this.minDate = this.minDate._d
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
   }
 

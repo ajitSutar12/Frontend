@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5> {{'master.Term_Loan.T22' | translate}}</h5>
+                <h5> Courtwise Dispute Loan List</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-2"> <label for="BRANCH">{{'master.Term_Loan.Branch' | translate}}<sub class="required">*</sub></label></div>
+                        <div class="col-md-2"> <label for="BRANCH">Branch<sub class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -26,11 +26,11 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                        <!-- This field is required -->{{'master.Validation.Val1' | translate}}
-                                    </div>
+                                    This field is required
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-2"> <label for="S_TYPE">{{'master.Term_Loan.Scheme_Type' | translate}}<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="S_TYPE">Scheme Type<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
@@ -47,18 +47,18 @@
                                 *ngIf="angForm.controls['S_TYPE'].invalid && (angForm.controls['S_TYPE'].dirty || angForm.controls['S_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['S_TYPE'].errors?.required">
-                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+                                    This field is required
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-2"> <label for="AC_TYPE">{{'master.Term_Loan.Scheme_Code' | translate}}<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="AC_TYPE">Scheme Code<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
-                                        formControlName="AC_TYPE" bindLabel="label" placeholder="{{'master.Term_Loan.Scheme_Code' | translate}}"
+                                        formControlName="AC_TYPE" bindLabel="label" placeholder="Scheme Code"
                                         (change)="getIntTrans($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
@@ -69,7 +69,7 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+                                    This field is required
                                 </div>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                     </div>
                     
                     <div class="row">
-                        <div class="col-md-2"> <label for="START_DATE">{{'master.Term_Loan.Start_Date' | translate}}<sub
+                        <div class="col-md-2"> <label for="START_DATE">Starting Date<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
@@ -98,13 +98,13 @@
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['FROM_DATE'].invalid &&
                                      (angForm.controls['FROM_DATE'].dirty ||angForm.controls['FROM_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+                                        This field is required
                                 </div>
 
                             </div>
                         </div>
                         <!-- <div class="col-md-2"></div> -->
-                        <div class="col-md-2"> <label for="END_DATE">{{'master.Term_Loan.End_Date' | translate}}<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="END_DATE">Ending Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -120,7 +120,7 @@
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['TO_DATE'].invalid &&
                                      (angForm.controls['TO_DATE'].dirty ||angForm.controls['TO_DATE'].touched) " class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
+                                        This field is required
                                 </div>
  
                             </div>
@@ -132,17 +132,17 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                         (click)="View($event); clicked = true;scrollToTop()" >{{'master.Action.View' | translate}}</button>
+                         (click)="View($event); clicked = true;scrollToTop()" >View</button>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">{{'master.Action.Close' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>{{'master.Term_Loan.Report_Frame' | translate}}</h5>
+                                    <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
                                     <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
