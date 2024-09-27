@@ -2,7 +2,10 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>Government Security & LIC</h5>
+        <h5>{{'master.Security_Detalis.Government_Security&LIC' | translate}}
+          <!-- Government Security & LIC -->
+
+        </h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -20,7 +23,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
                     #EFFECT_DATE="bsDatepicker"  (keydown.Tab)="EFFECT_DATE.hide()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
+                  <label for="subm_date">
+                    <!-- Submission Date -->{{'master.Security_Detalis.Submission_Date' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -29,10 +34,10 @@
                     angForm.controls['SUBMISSION_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                  Fill valid Date
+                  <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
                 </div>
               </div>
             </div>
@@ -48,7 +53,9 @@
                     #CERT_POLICY_DATE="bsDatepicker"  (keydown.Tab)="CERT_POLICY_DATE.hide()" 
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="CERT_POLICY_DATE" [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="policy_due">Certificate / Policy Date<sub class="required">*
+                  <label for="policy_due">
+                    <!-- Certificate / Policy Date -->{{'master.Security_Detalis.Certificate/Policy_Date' | translate}}
+                    <sub class="required">*
                     </sub></label>
                 </span>
               </div>
@@ -58,10 +65,10 @@
                     angForm.controls['CERT_POLICY_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['CERT_POLICY_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['CERT_POLICY_DATE'].invalid">
-                  Fill valid Date
+                  <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
                 </div>
               </div>
             </div>
@@ -72,7 +79,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" style="text-align: right"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$" maxlength="20"
                     title="Input allowed only  0-9" formControlName="CERT_POLICY_NO" />
-                  <label for="policy_no">Certificate / Policy Number<sub class="required">* </sub></label>
+                  <label for="policy_no">
+                    <!-- Certificate / Policy Number -->{{'master.Security_Detalis.Certificate/Policy_Number' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -83,8 +92,8 @@
                 <div *ngIf="
                     angForm.controls['CERT_POLICY_NO'].errors?.pattern ||
                     angForm.controls['CERT_POLICY_NO'].errors?.required
-                  ">
-                  This field is required and Input allowed only 0-9
+                  ">{{'master.Validation.Val_Receipt'|translate}}
+                  <!-- This field is required and Input allowed only 0-9 -->
                 </div>
               </div>
             </div>
@@ -98,7 +107,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" style="text-align: right" (keyup)="getDecimal($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     formControlName="MARGIN" />
-                  <label for="margin">Margin %<sub class="required">* </sub></label>
+                  <label for="margin">
+                    <!-- Margin -->{{'master.Security_Detalis.Margin' | translate}}
+                     %<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -110,7 +121,8 @@
                     angForm.controls['MARGIN'].errors?.pattern ||
                     angForm.controls['MARGIN'].errors?.required
                   ">
-                  This field is required and Input allowed only . 0-9
+                  {{'master.Validation.Val_Pin_Code'|translate}}
+                  <!-- This field is required and Input allowed only . 0-9 -->
                 </div>
               </div>
             </div>
@@ -121,7 +133,9 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="ASSURED_NAME" />
-                  <label for="name">Name of Assured</label>
+                  <label for="name">
+                    <!-- Name of Assured -->{{'master.Security_Detalis.Name_of_Assured' | translate}}
+                  </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -130,7 +144,8 @@
                     angForm.controls['ASSURED_NAME'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['ASSURED_NAME'].errors?.pattern">
-                  Input allowed only A-Z a-z - / . (Space)
+                  <!-- Input allowed only A-Z a-z - / . (Space) -->
+                  {{'master.Validation.Val_Repre'|translate}}
                 </div>
               </div>
             </div>
@@ -141,7 +156,9 @@
                   (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                      title="Input allowed only  0-9" formControlName="PAIDUP_AMT" />
-                  <label for="PaidUpAmount">Paid up Amount</label>
+                  <label for="PaidUpAmount">
+                    <!-- Paid up Amount -->{{'master.Security_Detalis.Paid_up_Amount' | translate}}
+                  </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -150,7 +167,8 @@
                     angForm.controls['PAIDUP_AMT'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['PAIDUP_AMT'].errors?.pattern">
-                  Input allowed only 0-9
+                  <!-- Input allowed only 0-9 -->
+                  {{'master.Validation.Val_Pin_Code'|translate}}
                 </div>
               </div>
             </div>
@@ -163,7 +181,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="SUM_ASSURED" />
-                  <label for="SumAssured">Sum Assured<sub class="required">* </sub></label>
+                  <label for="SumAssured">
+                    <!-- Sum Assured -->{{'master.Security_Detalis.Sum_Assured' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -175,7 +195,8 @@
                 angForm.controls['SUM_ASSURED'].errors?.pattern ||
                 angForm.controls['SUM_ASSURED'].errors?.required
               ">
-                  This field is required and Input allowed only 0-9
+              {{'master.Validation.Val_Receipt'|translate}}
+                  <!-- This field is required and Input allowed only 0-9 -->
                 </div>
               </div>
               <!-- <div class="form-group form-primary form-static-label" *ngIf="
@@ -200,7 +221,9 @@
                     [ngClass]="{'form-submitted': formSubmitted}" (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
                      title="Input allowed only  0-9" formControlName="PREMIUM" />
-                  <label for="premium_amount">Premium Amount<sub class="required">* </sub></label>
+                  <label for="premium_amount">
+                    <!-- Premium Amount -->{{'master.Security_Detalis.Premium_Amount' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -212,7 +235,8 @@
                     angForm.controls['PREMIUM'].errors?.pattern ||
                     angForm.controls['PREMIUM'].errors?.required
                   ">
-                  This field is required and Input allowed only 0-9
+                  {{'master.Validation.Val_Receipt'|translate}}
+                  <!-- This field is required and Input allowed only 0-9 -->
                 </div>
               </div>
             </div>
@@ -222,7 +246,9 @@
                   <input style="text-align: right" type="text" name="SurrenderValue" class="form-control" placeholder=" " id="SurrenderValue"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="SURRENDER_VALUE" />
-                  <label for="SurrenderValue">Surrender Value</label>
+                  <label for="SurrenderValue">
+                    <!-- Surrender Value -->{{'master.Security_Detalis.Surrender_Value' | translate}}
+                  </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -231,7 +257,8 @@
                     angForm.controls['SURRENDER_VALUE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SURRENDER_VALUE'].errors?.pattern">
-                  This field is required and Input allowed only 0-9
+                  <!-- This field is required and Input allowed only 0-9 -->
+                  {{'master.Validation.Val_Receipt'|translate}}
                 </div>
               </div>
             </div>
@@ -250,7 +277,9 @@
                     #PREMIUM_DUE_DATE="bsDatepicker"  (keydown.Tab)="PREMIUM_DUE_DATE.hide()" placement="up"
                     [minDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="PREMIUM_DUE_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="PREMIUM_DUE_DATE">Premium Due Date<sub class="required">* </sub></label>
+                  <label for="PREMIUM_DUE_DATE">
+                    <!-- Premium Due Date -->{{'master.Security_Detalis.Premium_Due_Date' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -259,10 +288,10 @@
                     angForm.controls['PREMIUM_DUE_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['PREMIUM_DUE_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['PREMIUM_DUE_DATE'].invalid">
-                  Fill valid Date
+                  <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
                 </div>
               </div>
             </div>
@@ -280,7 +309,9 @@
                     #MATURE_DUE_DATE="bsDatepicker"  (keydown.Tab)="MATURE_DUE_DATE.hide()" placement="up"
                     [minDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="MATURE_DUE_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="maturity_date">Matured Due Date<sub class="required">* </sub></label>
+                  <label for="maturity_date">
+                    <!-- Matured Due Date -->{{'master.Security_Detalis.Matured_Due_Date' | translate}}
+                    <sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -289,10 +320,10 @@
                     angForm.controls['MATURE_DUE_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['MATURE_DUE_DATE'].errors?.required">
-                  This field is required
+                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                 </div>
                 <div *ngIf="angForm.controls['MATURE_DUE_DATE'].invalid">
-                  Fill valid Date
+                  <!-- Fill valid Date -->{{'master.Security_Detalis.Fill_valid_Date' | translate}}
                 </div>
               </div>
             </div>
@@ -303,7 +334,9 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="NOMINEE" />
-                  <label for="nominee">Nominee</label>
+                  <label for="nominee">
+                    <!-- Nominee -->{{'master.Security_Detalis.Nominee' | translate}}
+                  </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -312,7 +345,8 @@
                     angForm.controls['NOMINEE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['NOMINEE'].errors?.pattern">
-                  Input allowed only A-Z a-z - / . (Space)
+                  <!-- Input allowed only A-Z a-z - / . (Space) -->
+                  {{'master.Validation.Val_Repre'|translate}}
                 </div>
               </div>
             </div>
@@ -325,7 +359,9 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
-                  <label for="remarks">Remarks</label>
+                  <label for="remarks">
+                    <!-- Remarks -->{{'master.Security_Detalis.Remarks' | translate}}
+                  </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -334,16 +370,23 @@
                     angForm.controls['REMARK'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
-                  Input allowed only A-Z a-z - / . (Space)
+                  <!-- Input allowed only A-Z a-z - / . (Space) -->
+                  {{'master.Validation.Val_Repre'|translate}}
                 </div>
               </div>
             </div>
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>
+                <!-- Submit -->{{'master.Action.Submit'|translate}}
+              </button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
+                <!-- Update -->{{'master.Action.Update'|translate}}
+              </button>
               &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">
+                <!-- Cancel -->{{'master.Action.Cancel'|translate}}
+              </button>
             </div>
           </div>
         </div>
@@ -362,20 +405,48 @@
                 <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
                   <thead>
-                    <th style="text-transform: captalize;">Action</th>
-                    <th style="text-transform: captalize;">Submission Date</th>
-                    <th style="text-transform: captalize;">Certificate /Policy Date</th>
-                    <th style="text-transform: captalize;">Certificate/Policy Number</th>
-                    <th style="text-transform: captalize;">Margin</th>
-                    <th style="text-transform: captalize;">Assured Name</th>
-                    <th style="text-transform: captalize;">Paid Up Amount</th>
-                    <th style="text-transform: captalize;">Sum of Assured</th>
-                    <th style="text-transform: captalize;">Premium Amount</th>
-                    <th style="text-transform: captalize;">Surrender Value</th>
-                    <th style="text-transform: captalize;">Premium Due Date</th>
-                    <th style="text-transform: captalize;">Matured Due Date </th>
-                    <th style="text-transform: captalize;">Nominee </th>
-                    <th style="text-transform: captalize;">Remarks </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Action -->{{'master.Security_Detalis.Action' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Submission Date -->{{'master.Security_Detalis.Submission_Date' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Certificate/Policy Date -->{{'master.Security_Detalis.Certificate/Policy_Date' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Certificate/Policy Number -->{{'master.Security_Detalis.Certificate/Policy_Number' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Margin -->{{'master.Security_Detalis.Margin' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Assured Name -->{{'master.Security_Detalis.Name_of_Assured' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Paid Up Amount -->{{'master.Security_Detalis.Paid_up_Amount' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Sum of Assured -->{{'master.Security_Detalis.Sum_Assured' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Premium Amount -->{{'master.Security_Detalis.Premium_Amount' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Surrender Value -->{{'master.Security_Detalis.Surrender_Value' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Premium Due Date -->{{'master.Security_Detalis.Premium_Due_Date' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Matured Due Date -->{{'master.Security_Detalis.Matured_Due_Date' | translate}}
+                     </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Nominee  -->{{'master.Security_Detalis.Nominee' | translate}}
+                    </th>
+                    <th style="text-transform: captalize;">
+                      <!-- Remarks -->{{'master.Security_Detalis.Remarks' | translate}}
+                     </th>
                   </thead>
                   <tbody *ngIf="governmentmasters?.length != 0">
                     <tr *ngFor="let data of governmentmasters">
@@ -403,7 +474,9 @@
                   </tbody>
                   <tbody *ngIf="governmentmasters?.length == 0">
                     <tr>
-                      <td colspan="6" class="no-data-available">No data!</td>
+                      <td colspan="6" class="no-data-available">
+                        <!-- No data! --> {{'master.Security_Detalis.No_Data' | translate}}
+                      </td>
                     </tr>
                   </tbody>
                   <!-- <tfoot #filters class="filters">

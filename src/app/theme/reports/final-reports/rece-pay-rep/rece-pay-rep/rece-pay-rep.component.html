@@ -4,13 +4,15 @@
             <div class="card-header">
                 <h5>{{'master.Final_Reports.T5' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' | translate}}
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>){{'master.Action.F2' |
+                    translate}}
                 </h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-1"> <label for="scheme">{{'master.Final_Reports.Branch' | translate}} <sub class="required">*</sub></label></div>
+                        <div class="col-md-1"> <label for="scheme">{{'master.Final_Reports.Branch' | translate}} <sub
+                                    class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
@@ -32,7 +34,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2"> <label for="START_DATE">{{'master.Final_Reports.Starting_Date' | translate}}<sub class="required">*</sub></label>
+                        <div class="col-md-2"> <label for="START_DATE">{{'master.Final_Reports.Starting_Date' |
+                                translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
@@ -40,7 +43,7 @@
                                     <input type="text" placeholder="dd/mm/yyyy" name="START_DATE" id="START_DATE"
                                         class="form-control" [(ngModel)]="fromdate" [bsValue]="bsValue"
                                         [maxDate]="maxDate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                         formControlName="START_DATE" appButton minlength="10" maxlength="10"
+                                        formControlName="START_DATE" appButton minlength="10" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker required>
                                 </span>
@@ -54,15 +57,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">{{'master.Final_Reports.Ending_Date' | translate}}<sub
-                                    class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">{{'master.Final_Reports.Ending_Date' |
+                                translate}}<sub class="required">*</sub></label></div>
                         <div class="col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="END_DATE" id="END_DATE"
                                         class="form-control" [(ngModel)]="todate"
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="fromdate"
-                                        [maxDate]="maxDate" formControlName="END_DATE" appButton minlength="10" maxlength="10"
+                                        [maxDate]="maxDate" formControlName="END_DATE" appButton minlength="10"
+                                        maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker required>
                                 </span>
@@ -123,33 +127,33 @@
                             </div>
 
                         </div> -->
+                </div>
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
+                            (click)="view($event); clicked = true ">{{'master.Action.View' | translate}}</button>
                     </div>
-                    <div class="row"></div>
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-2">
-                            <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); clicked = true ">{{'master.Action.View' | translate}}</button>
-                        </div>
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">{{'master.Action.Close' | translate}}</button>
-                        </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
+                            (click)="close()">{{'master.Action.Close' | translate}}</button>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>{{'master.Final_Reports.Report_Frame' | translate}}</h5>
-                                </div>
-                                <div *ngIf="showRepo">
-                                    <app-iframe4 [url]='iframeurl'></app-iframe4>
-                                </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>{{'master.Final_Reports.Report_Frame' | translate}}</h5>
+                            </div>
+                            <div *ngIf="showRepo">
+                                <app-iframe4 [url]='iframeurl'></app-iframe4>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
+    
     </div>
 </div>
