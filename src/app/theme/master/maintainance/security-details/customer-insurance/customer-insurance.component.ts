@@ -112,14 +112,10 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     private _customerservice: customerinsuranceService,
     private http: HttpClient,
     private _insurancedropdown: InsuranceMasterDropdownService, private systemParameter: SystemMasterParametersService,
-
-    public router: Router,  private translate:TranslateService,
-
-    private config: NgSelectConfig,) {
     public router: Router,
     private config: NgSelectConfig,    private translate:TranslateService,
-
-  ) {
+  )
+   {
 
 
     // this.maxDate = new Date();
