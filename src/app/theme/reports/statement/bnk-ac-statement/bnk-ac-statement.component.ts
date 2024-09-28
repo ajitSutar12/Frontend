@@ -388,7 +388,8 @@ export class BnkAcStatementComponent implements OnInit {
       this.equal = [this.startfrom, this.startto]
     }
     else {
-      Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+      // Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.E_S_Date')}`, 'info')
     }
   }
   scrollToTop() {
@@ -435,7 +436,8 @@ export class BnkAcStatementComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
     }
 
   }

@@ -18,7 +18,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-npaclassification-standard-nonstandard',
   templateUrl: './npaclassification-standard-nonstandard.component.html',
@@ -57,16 +57,21 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
     report_url = environment.report_url;
     branchName: any;
   glDetails: Object;
-  
+  setLang:any;
     constructor(
       private fb: FormBuilder,
       private _ownbranchmasterservice: OwnbranchMasterService,
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
-      private http: HttpClient,
+      private http: HttpClient,private translate:TranslateService
      
     ) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })      
       this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
       this.minDate = new Date();
@@ -226,7 +231,8 @@ export class NpaclassificationStandardNonstandardComponent implements OnInit {
    
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(()=>{ this.clicked=false});
     }
     }
     close(){

@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { error } from 'console';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-savings-pigmy-account-closing',
   templateUrl: './savings-pigmy-account-closing.component.html',
@@ -103,6 +104,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   getschemename: any
   INT_RATESHOW = 0
   isHideForSaving: boolean = true
+  setLang: any;
   constructor(
     // public NarrationService: NarrationService,
     private fb: FormBuilder, private http: HttpClient,
@@ -113,8 +115,14 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private _service1: MultiVoucherService,
     private _CustomerIdService: CustomerIdService,
-    private _service: SavingPigmyAccountClosingService
+    private _service: SavingPigmyAccountClosingService,
+    private translate:TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
