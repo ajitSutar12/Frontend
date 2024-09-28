@@ -1,20 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-lcd-turnover-list',
-//   templateUrl: './lcd-turnover-list.component.html',
-//   styleUrls: ['./lcd-turnover-list.component.scss']
-// })
-// export class LcdTurnoverListComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-
-
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
@@ -37,6 +20,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -76,7 +60,7 @@ maxDate: Date;
 
   constructor(
     private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
     private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,

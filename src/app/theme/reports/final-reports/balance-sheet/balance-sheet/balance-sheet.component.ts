@@ -11,6 +11,7 @@ import { BalanceSheetService } from '../balance-sheet.service';
 import { date } from 'ngx-custom-validators/src/app/date/validator';
 import { data } from 'jquery';
 import { NgSelectConfig } from "@ng-select/ng-select";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -46,7 +47,7 @@ export class BalanceSheetComponent implements OnInit {
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
     private _service: BalanceSheetService
   ) {
     this.fromdate = moment().format('DD/MM/YYYY');
