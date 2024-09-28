@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Own Deposits</h5>
+                <h5>{{'master.Own_Deposits.Title' | translate}}</h5>
                 <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
 
             </div>
@@ -21,14 +21,14 @@
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
-                                        formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" (change)="getBranch()"
-                                        #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
-                                        [virtualScroll]="true" placeholder="Branch" autofocus>
+                                        formControlName="{{'master.Own_Deposits.Branch' | translate}}" bindLabel="label"
+                                        title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+                                        (change)="getBranch()" #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)"
+                                        [selectOnTab]='true' [virtualScroll]="true" placeholder="Branch" autofocus>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="BRANCH_CODE">Branch</label>
+                                    <label for="BRANCH_CODE">{{'master.Own_Deposits.Branch' | translate}}</label>
                                 </span>
                             </div>
 
@@ -48,11 +48,12 @@
                                         formControlName="DEPO_AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         [ngClass]="{'form-submitted': formSubmitted}" (change)="getIntro($event)"
                                         #DEPO_AC_TYPE (focus)="onFocus(DEPO_AC_TYPE)" [selectOnTab]='true'
-                                        [virtualScroll]="true" placeholder="Scheme">
+                                        [virtualScroll]="true"
+                                        placeholder="{{'master.Own_Deposits.Scheme' | translate}}">
                                         <ng-option *ngFor="let values of schemeList" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="DEPO_AC_TYPE">Scheme</label>
+                                    <label for="DEPO_AC_TYPE">{{'master.Own_Deposits.Scheme' | translate}}</label>
                                 </span>
                             </div>
 
@@ -73,7 +74,8 @@
                                 *ngIf="angForm.controls['DEPO_AC_TYPE'].invalid && (angForm.controls['DEPO_AC_TYPE'].dirty || angForm.controls['DEPO_AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DEPO_AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -87,7 +89,7 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                    <ng-select appTheme id="DEPO_AC_NO" bindValue="AC_NO" [(ngModel)]="ngacno"
+                                    <ng-select appTheme id="DEPO_AC_NO" [(ngModel)]="ngacno"
                                         (change)="getIntroducer();bindvalue($event)" formControlName="DEPO_AC_NO"
                                         bindLabel="AC_NO" title="Compulsory Selection" [virtualScroll]="true"
                                         [ngClass]="{'form-submitted': formSubmitted}" required #AC_NO
@@ -95,14 +97,16 @@
                                         <ng-option *ngFor="let values of ACNo" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
-                                    <label for="DEPO_AC_NO">Account Number<sub class="required"> * </sub></label>
+                                    <label for="DEPO_AC_NO">{{'master.Own_Deposits.Account_Number' | translate}}<sub
+                                            class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['DEPO_AC_NO'].invalid && (angForm.controls['DEPO_AC_NO'].dirty || angForm.controls['DEPO_AC_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DEPO_AC_NO'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -125,17 +129,19 @@
                                         #SUBMISSION_DATE="bsDatepicker" (keydown.Tab)="SUBMISSION_DATE.hide()"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
-                                    <label for="subm_date">Date of Submission<sub class="required">* </sub></label>
+                                    <label for="subm_date">{{'master.Own_Deposits.Date_of_Submission' | translate}}<sub
+                                            class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['SUBMISSION_DATE'].invalid && (angForm.controls['SUBMISSION_DATE'].dirty || angForm.controls['SUBMISSION_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+
                                 </div>
                                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                                    Fill valid Date
+                                    {{master.Validation.Val_Date}}
                                 </div>
                             </div>
                         </div>
@@ -145,7 +151,7 @@
                                     <input type="text" name="receipt_no" class="form-control" placeholder=" "
                                         id="receipt_no" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="RECEIPT_NO" disabled>
-                                    <label for="receipt_no">Receipt Number</label>
+                                    <label for="receipt_no">{{'master.Own_Deposits.Receipt_Number' | translate}}</label>
                                 </span>
                             </div>
 
@@ -157,14 +163,16 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         id="deposit_amount" pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9"
                                         formControlName="DEPOSIT_AMT" disabled>
-                                    <label for="deposit_amount">Deposit Amount</label>
+                                    <label for="deposit_amount">{{'master.Own_Deposits.Deposit_Amount' |
+                                        translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['DEPOSIT_AMT'].invalid && (angForm.controls['DEPOSIT_AMT'].dirty || angForm.controls['DEPOSIT_AMT'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['DEPOSIT_AMT'].errors?.pattern">
-                                    Input allowed only . 0-9(after decimal 2 digits)
+                                    <!-- Input allowed only . 0-9(after decimal 2 digits) --> {{'master.Validation.Val_Pin_Code'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -173,7 +181,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" class="form-control" placeholder=" " id="maturity_date"
                                         formControlName="MATURITY_DATE" id="MATURITY_DATE" disabled />
-                                    <label for="MATURITY_DATE">Maturity Date</label>
+                                    <label for="MATURITY_DATE">{{'master.Own_Deposits.Maturity_Date' |
+                                        translate}}</label>
                                 </span>
                             </div>
 
@@ -189,7 +198,7 @@
                                     <input type="text" name="LedgerBal" class="form-control" placeholder=" "
                                         id="LedgerBal" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="LEDGER_Bal" disabled>
-                                    <label for="LedgerBal">Ledger Balance</label>
+                                    <label for="LedgerBal">{{'master.Own_Deposits.Ledger_Balance' | translate}}</label>
                                 </span>
                             </div>
 
@@ -203,14 +212,14 @@
                                         (keyup)="checkmargin(margin.value);getDecimal($event)"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                                         title="Input allowed only  0-9" formControlName="MARGIN">
-                                    <label for="margin">Margin %</label>
+                                    <label for="margin">{{'master.Own_Deposits.Margin%' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['MARGIN'].invalid && (angForm.controls['MARGIN'].dirty || angForm.controls['MARGIN'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                                    Input allowed only . 0-9(after decimal 2 digits)
+                                    <!-- Input allowed only . 0-9(after decimal 2 digits) --> {{'master.Validation.Val_Pin_Code'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -222,25 +231,26 @@
                                         pattern="^[A-Za-z'\.\-\s]+$" maxlength="90"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z 0-9  - / . (Space)" formControlName="REMARK">
-                                    <label for="remarks">Remarks</label>
+                                    <label for="remarks">{{'master.Own_Deposits.Remarks' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['REMARK'].invalid && (angForm.controls['REMARK'].dirty || angForm.controls['REMARK'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
-                                    Input allowed only A-Z a-z - / . (Space)
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{master.Validation.Val_Repre}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm">
                             <!-- [disabled]="angForm.invalid" -->
                             <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)"
-                                *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                *ngIf="showButton" (keydown.Tab)="focus()"
+                                appTheme>{{'master.Action.Submit'|translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                                *ngIf="updateShow">Update</button> &nbsp;
+                                *ngIf="updateShow">{{'master.Action.Update'|translate}}</button> &nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.Action.Cancel'|translate}}</button>
                         </div>
                     </div>
 
@@ -258,27 +268,39 @@
                     <div class="col-sm">
                         <div class="table-responsive">
                             <!-- datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" -->
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger"
                                 class="table table-striped table-bordered table-hover compact z-depth-1 table-fixed">
                                 <thead>
-                                    <td style="text-transform: captalize;">Action</td>
-                                    <td style="text-transform: captalize;">Branch</td>
-                                    <td style="text-transform: captalize;">Scheme</td>
-                                    <td style="text-transform: captalize;">Account Number</td>
-                                    <td style="text-transform: captalize;">Date of Submission</td>
-                                    <td style="text-transform: captalize;">Receipt Number</td>
-                                    <td style="text-transform: captalize;">Deposit Amount</td>
-                                    <td style="text-transform: captalize;">Remarks</td>
-                                    <td style="text-transform: captalize;">Maturity Date</td>
-                                    <td style="text-transform: captalize;">Margin</td>
-                                    <td style="text-transform: captalize;">Ledger Balance</td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Action' | translate}}
+                                    </td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Branch' | translate}}
+                                    </td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Scheme' | translate}}
+                                    </td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Account_Number' |
+                                        translate}}</td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Date_of_Submission' |
+                                        translate}}</td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Receipt_Number' |
+                                        translate}}</td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Deposit_Amount' |
+                                        translate}}</td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Remarks' | translate}}
+                                    </td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Maturity_Date' |
+                                        translate}}</td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Margin%' | translate}}
+                                    </td>
+                                    <td style="text-transform: captalize;">{{'master.Own_Deposits.Ledger_Balance' |
+                                        translate}}</td>
                                 </thead>
                                 <tbody *ngIf="depositemasters?.length != 0">
                                     <tr *ngFor="let data of depositemasters">
                                         <td>
                                             <span class="fa fa-fw fa-edit field-icon" id="editbutton"
                                                 (click)="editClickHandler(data.id)" placement="bottom"
-                                                ngbTooltip="Edit"></span> 
+                                                ngbTooltip="Edit"></span>
 
                                         </td>
                                         <td>{{ data.BRANCH_CODE }}</td>
@@ -295,7 +317,7 @@
                                 </tbody>
                                 <tbody *ngIf="depositemasters?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Own_Deposits.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <!-- <tfoot #filters class="filters">

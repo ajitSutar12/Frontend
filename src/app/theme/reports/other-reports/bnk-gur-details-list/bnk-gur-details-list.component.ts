@@ -15,6 +15,7 @@ import { first } from "rxjs/operators";
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { CustomerIDMasterDropdownService } from "src/app/shared/dropdownService/customer-id-master-dropdown.service";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-gur-details-list',
@@ -44,6 +45,7 @@ clicked:boolean=false;
   Cust_ID: any[] //customer id from idmaster
   newcustid: any = null;
   defaultDate: any;
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -53,7 +55,14 @@ clicked:boolean=false;
     private systemParameter: SystemMasterParametersService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private customerID: CustomerIDMasterDropdownService,
+    private translate:TranslateService
+
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -125,7 +134,7 @@ clicked:boolean=false;
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
 
   }

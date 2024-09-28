@@ -8,6 +8,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 import * as moment from "moment";
 import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
+import { TranslateService } from "@ngx-translate/core";
+
 
 @Component({
   selector: "app-deposit-paidlist",
@@ -40,14 +42,21 @@ export class DepositPaidlistComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = " ";
+  setLang: any;
 
   constructor(
     private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private translate:TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format("DD/MM/YYYY");
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -144,7 +153,7 @@ export class DepositPaidlistComponent implements OnInit {
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl( this.iframe5url );
     } 
     else {
-      Swal.fire("Warning!", "Please Fill All Mandatory Field!", "warning").then(
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(
         () => {
           this.clicked = false;
         }

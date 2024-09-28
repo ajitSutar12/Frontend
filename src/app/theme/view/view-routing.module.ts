@@ -65,6 +65,7 @@ const routes: Routes = [
         path: 'KYCDocument',
         loadChildren: () => import('./kyc-document/kyc-document.module').then(m => m.KYCDocumentModule)
       },
+      
     ]
   }
 ];

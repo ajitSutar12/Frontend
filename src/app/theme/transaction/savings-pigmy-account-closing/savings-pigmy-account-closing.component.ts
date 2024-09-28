@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { NgSelectComponent } from '@ng-select/ng-select'
 import { error } from 'console';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-savings-pigmy-account-closing',
   templateUrl: './savings-pigmy-account-closing.component.html',
@@ -103,6 +104,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
   getschemename: any
   INT_RATESHOW = 0
   isHideForSaving: boolean = true
+  setLang: any;
   constructor(
     // public NarrationService: NarrationService,
     private fb: FormBuilder, private http: HttpClient,
@@ -113,8 +115,14 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     private schemeAccountNoService: SchemeAccountNoService,
     private _service1: MultiVoucherService,
     private _CustomerIdService: CustomerIdService,
-    private _service: SavingPigmyAccountClosingService
+    private _service: SavingPigmyAccountClosingService,
+    private translate:TranslateService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -444,32 +452,32 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this.http.get(this.url + '/saving-pigmy-account-closing/details/' + mem).subscribe((data) => {
       this.modalClass = 'modalHide';
       if (data[0].ODGIVEN == true) {
-        Swal.fire('Oops', 'Overdraft given so Account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Overdraft')}`, 'error')
         this.accountedit = null
         return
       }
       else if (data[0].ISFREEZ == true) {
-        Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O2')}`, 'error')
         this.accountedit = null
         return
       }
       else if (data[0].ISCLOSED == true) {
-        Swal.fire('Oops', 'Account is already closed so account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.account_cannot_close')}`, 'error')
         this.accountedit = null
         return
       }
       else if (data[0].PASSINGPENDING == true) {
-        Swal.fire('Oops', 'Account is already closed but passing pending', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.passing_pending')}`, 'error')
         this.accountedit = null
         return
       }
       else if (Number(data[0].ledgerBal) >= 0) {
-        Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Balance_is_insufficient')}`, 'error')
         this.accountedit = null
         return
       }
       else if (data[0].ISLIEN == true) {
-        Swal.fire('Oops', 'Account is liened so account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O5')}`, 'error')
         this.accountedit = null
         return
       }
@@ -557,7 +565,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     }, (error) => {
       console.log(error, 'err')
       this.modalClass = 'modalHide';
-      Swal.fire('Oops!', error?.error?.message, 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, error?.error?.message, 'error');
     })
   }
   OTHER_CHARGES_GLACNO
@@ -615,23 +623,23 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       AC_CLOSED: '0'
     }
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error");
     } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Acoount!",
+        `${this.translate.instant('Swal_Msg.Warn')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
       );
     }
     else if (formVal.amount == "" || formVal.amount == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
+        `${this.translate.instant('Swal_Msg.Warn')}`,
+        `${this.translate.instant('Swal_Msg.Insert_Amount')}`,
         "info"
       );
     }
     else if (this.multigrid.find(ob => ob['TRANSFER_ACNO'] === object.TRANSFER_ACNO)) {
-      Swal.fire('Info', 'This Account is Already Exists!', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Acc_Already_E')}`, 'error');
     }
     else {
       if (object.TRANSFER_ACNO != this.accountedit) {
@@ -655,13 +663,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
               this.resetgrid();
             }
             else {
-              Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Amount_less_same')} ${termAmount}`, 'info')
               this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
             }
           }
           else {
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+           Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
           }
         }
         else if (this.transferSchemeDetails.name == 'LN' || this.transferSchemeDetails.name == 'DS') {
@@ -683,7 +691,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
               }
               else {
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+               
+                Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
               }
             }
             else if (Number(ledgerBal) > Number(formVal.amount)) {
@@ -694,12 +703,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
             else if (Number(ledgerBal) < Number(formVal.amount)) {
-              Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Closing_Balance')}`, 'info');
             }
           })
         }
@@ -711,13 +720,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             this.resetgrid();
           }
           else {
-            Swal.fire('info', `Please check Transfer Amount with ${Math.abs(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${Math.abs(comparison - this.transferTotalAmount).toFixed(2)}`, 'info');
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
       }
       else {
-        Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Clo_Acc_Tra_Acc')}`, 'info');
         this.resetgrid();
       }
     }
@@ -755,18 +764,18 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     }
 
     if (formVal.Tscheme == "" || formVal.Tscheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error");
     } else if (formVal.TschemeAC == "" || formVal.TschemeAC == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
+       `${this.translate.instant('Swal_Msg.Warn')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
       );
     }
     else if (formVal.amount == "" || formVal.amount == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
+        `${this.translate.instant('Swal_Msg.Warn')}`,
+        `${this.translate.instant('Swal_Msg.Insert_Amount')}`,
         "info"
       );
     }
@@ -794,12 +803,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
               this.resetgrid();
             }
             else {
-              Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Amount_less_same')} ${termAmount}`, 'info')
               this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
             }
           }
           else {
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
@@ -823,7 +832,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
@@ -837,12 +846,12 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
             else if (Number(ledgerBal) < Number(formVal.amount)) {
-              Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Closing_Balance')}`, 'info')
             }
           })
         }
@@ -856,13 +865,13 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
             this.resetgrid();
           }
           else {
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
       }
       else {
-        Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.Clo_Acc_Tra_Acc')} `, 'info')
         this.resetgrid();
       }
     }
@@ -917,7 +926,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (formVal.SAVING_PIGMY == 'FormT' && Number(this.angForm.controls['NETPAYABLE_AMT'].value) != this.transferTotalAmount) {
-      Swal.fire("Warning!", "Please Check Net Payable Amount and Transfer Amount!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.W11')}`, "info");
     }
     else if ((formVal.SAVING_PIGMY == 'FormT' && Number(this.angForm.controls['NETPAYABLE_AMT'].value) == this.transferTotalAmount) || formVal.SAVING_PIGMY == 'FormC') {
       const dataToSend = {
@@ -954,7 +963,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         // Swal.fire('Success!', 'Account Closed Successfully !',  'success');
 
         const successMessage = ` Account Closed successfully ! Voucher Number ${data}`;
-        Swal.fire('Success!', successMessage, 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, successMessage, 'success');
 
 
         this.multigrid = []
@@ -995,7 +1004,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (formVal.SAVING_PIGMY == 'FormT' && Number(this.angForm.controls['NETPAYABLE_AMT'].value) != this.transferTotalAmount) {
-      Swal.fire("Warning!", "Please Check Net Payable Amount and Transfer Amount!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.W11')}`, "info");
     }
     else if ((formVal.SAVING_PIGMY == 'FormT' && Number(this.angForm.controls['NETPAYABLE_AMT'].value) == this.transferTotalAmount) || formVal.SAVING_PIGMY == 'FormC') {
       const dataToSend = {
@@ -1036,7 +1045,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
       }
       this._service.updateData(dataToSend).subscribe(data => {
         // this.getVoucherData();
-        Swal.fire('Success!', 'Account Closing Updated Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Acc_Closing_Up')}`, 'success');
         var button = document.getElementById('triggerhide');
         button.click();
         this.reloadTablePassing.emit();
@@ -1221,7 +1230,7 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
         this.showCustomerDeatils()
       }, (error) => {
         console.log(error, 'err')
-        Swal.fire('Oops!', error?.error?.message, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, error?.error?.message, 'error');
       })
     })
 
@@ -1269,8 +1278,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this._service.approve(dataToSend).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Approved',
-        'Saving and Pigmy Account Closing approved successfully',
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.S_P_Acc_approved')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -1293,8 +1302,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this._service.reject(dataToSend).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Rejected',
-        'Saving and Pigmy Account Closing rejected successfully',
+        `${this.translate.instant('Swal_Msg.Rejected')}`,
+        `${this.translate.instant('Swal_Msg.S_P_Acc_rejected')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');
@@ -1371,8 +1380,8 @@ export class SavingsPigmyAccountClosingComponent implements OnInit {
     this._service.unapprove(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
+        `${this.translate.instant('Swal_Msg.Unapproved')}`,
+        `${this.translate.instant('Swal_Msg.Acc_unapproved')}`,
         'success'
       );
       var button = document.getElementById('triggerhide');

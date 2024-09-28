@@ -21,6 +21,8 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { VoucherEntryService } from 'src/app/theme/transaction/voucher-entry/voucher-entry.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -114,7 +116,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private _service: VoucherEntryService,
     private ownbranchMasterService: OwnbranchMasterService,
-
+    private translate: TranslateService,
     private config: NgSelectConfig,) { }
 
 
@@ -174,25 +176,25 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Code',
+          title: this.translate.instant('master.Company_Group_Master.Code'),
           data: 'COMP_CODE'
         }, {
-          title: 'Name',
+          title: this.translate.instant('master.Company_Group_Master.Name'),
           data: 'NAME'
         }, {
-          title: 'Address',
+          title: this.translate.instant('master.Company_Group_Master.Address'),
           data: 'ADDRESS'
         }, {
-          title: 'Scheme Type',
+          title: this.translate.instant('master.Company_Group_Master.Scheme_Type'),
           data: 'AC_ACNOTYPE'
         }, {
-          title: 'Scheme code',
+          title: this.translate.instant('master.Company_Group_Master.Scheme_Code'),
           data: 'AC_TYPE'
         }, {
-          title: 'A/c No',
+          title: this.translate.instant('master.Company_Group_Master.Account_Number'),
           data: 'AC_NO'
         }],
       dom: 'Blrtip',
@@ -273,7 +275,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
     }
     this.companyGroupMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -334,7 +336,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.companyGroupMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -348,8 +350,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Company Group Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Company_Group')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -360,8 +362,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
         this.companyGroupMasterService.deleteData(id).subscribe(data1 => {
           this.companyGroupMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -373,8 +375,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

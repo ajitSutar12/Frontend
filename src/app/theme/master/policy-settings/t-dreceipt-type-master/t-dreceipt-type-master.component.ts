@@ -15,6 +15,9 @@ import { TdReceiptService } from '../../../../shared/dropdownService/tdReceipt-t
 import { environment } from '../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -71,10 +74,21 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   selectedCharacter = '3';
   timeLeft = 5;
   private dataSub: Subscription = null;
+  setLang: any;
 
   constructor(private fb: FormBuilder, private _receipt: TDReceiptService,
     private http: HttpClient,
-    private _tdReceiptService: TdReceiptService,) { }
+    private _tdReceiptService: TdReceiptService,
+    private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService,
+
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -130,14 +144,14 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
       }],
       columns: [
         // {
-        //   title: 'Action',
+        //   title: this.translate.instant('master.Action.Action'),
         // },
         {
-          title: 'Receipt Type',
+          title: this.translate.instant('master.TD_Receipt_Type_Master.Receipt_Type'),
           data: 'RECEIPT_TYPE'
         },
         {
-          title: 'Last Receipt No',
+          title: this.translate.instant('master.TD_Receipt_Type_Master.last_Receipt_No'),
           data: 'LAST_RECEIPT_NO'
         }
       ],
@@ -183,7 +197,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
       // console.log(dataToSend, "dataToSend");
       this._receipt.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
           // to reload after insertion of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -207,7 +221,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     let branchCode = result.branch.id;
     data['BRANCH_CODE'] = branchCode
     this._receipt.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Updated_Successfully')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -234,8 +248,8 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   //function for delete button clicked
   delClickHandler() {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.You_won')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -244,16 +258,14 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your imaginary file is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

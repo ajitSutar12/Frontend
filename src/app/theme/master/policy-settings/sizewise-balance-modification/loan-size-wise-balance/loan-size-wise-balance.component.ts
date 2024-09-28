@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { animate, style, transition, trigger } from '@angular/animations';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-loan-size-wise-balance',
   templateUrl: './loan-size-wise-balance.component.html',
@@ -25,7 +27,10 @@ import { HttpClient } from '@angular/common/http';
 export class LoanSizeWiseBalanceComponent implements OnInit {
   showButton: boolean = true;
   updateShow: boolean = false;
-  constructor(private fb: FormBuilder, private http: HttpClient,) { }
+  constructor(private fb: FormBuilder, private http: HttpClient,
+    private translate:TranslateService,
+
+  ) { }
   //api 
   url = environment.base_url;
   //AMOUNT
@@ -127,7 +132,7 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
       ACNOTYPE: 'LN'
     }
     this.http.post(this.url + '/sizewise-balance-updation/insert', obj).subscribe((data) => {
-      Swal.fire('Success','Data Updated Successfully','success')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Tran_Msg')}`,'success')
       this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + obj.ACNOTYPE).subscribe((data) => {
         if (data['amountExist'] == true) {
           this.Amount = data['amount']
@@ -187,7 +192,7 @@ export class LoanSizeWiseBalanceComponent implements OnInit {
     this.Amount[i].AMOUNT_FROM = amt
     if (i != 0 && Number(this.Amount[i].AMOUNT_FROM) < Number(this.Amount[i - 1].AMOUNT_TO)) {
       this.Amount[i].AMOUNT_FROM = ''
-      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
+      Swal.fire('Info', ` ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 

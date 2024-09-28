@@ -2,9 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Bank Master</h5>
+                
+                <h5>{{'master.Bank_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Bank_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Bank_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +17,7 @@
                                     <input type="text"  name="BANK_CODE" class="form-control" placeholder=" "
                                         id="BankCode" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         formControlName="BANK_CODE" disabled>
-                                    <label for="BankCode">Bank Code</label>
+                                    <label for="BankCode">{{'master.Bank_Master.Bank_code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -24,12 +25,12 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme name="BANK_NAME" class="form-control" placeholder=" " #autofocus
-                                        id="BankName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                        id="BankName" required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) 
                                     || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="BANK_NAME"
                                         [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="BankName">Bank Name<sub class="required">* </sub></label>
+                                    <label for="BankName">{{'master.Bank_Master.Bank_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -37,7 +38,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['BANK_NAME'].errors?.pattern || angForm.controls['BANK_NAME'].errors?.required || angForm.controls['BANK_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'Utility.Validation.Val1' | translate}} <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -45,11 +46,11 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" appTheme name="BANK_SHORTNAME" class="form-control" placeholder=" "
-                                        id="BankShortName" required="" pattern="^[A-Za-z\./ -]+$" maxlength="25"
+                                        id="BankShortName" required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="25"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)"
                                         formControlName="BANK_SHORTNAME" [ngClass]="{'form-submitted': formSubmitted}">
-                                    <label for="BankShortName">Bank Short Name<sub class="required">* </sub></label>
+                                    <label for="BankShortName">{{'master.Bank_Master.Bank_short_Name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -57,14 +58,14 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['BANK_SHORTNAME'].errors?.pattern || angForm.controls['BANK_SHORTNAME'].errors?.required || angForm.controls['BANK_SHORTNAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'Utility.Validation.Val1' | translate}}  <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <h6><b>Clearing House Details :</b></h6>
+                            <h6><b>{{'master.Bank_Master.Clearing_House_Details' | translate}}</b></h6>
                             <br>
                         </div>
                         <div class="col-md-3">
@@ -74,7 +75,7 @@
                                         class="form-control" placeholder=" " id="LedgerCode" pattern="^[0-9]+$"
                                         maxlength="10" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only  0-9" formControlName="LEDGER_CODE">
-                                    <label for="LedgerCode">Ledger Code</label>
+                                    <label for="LedgerCode">{{'master.Bank_Master.Ledger_Code' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -82,7 +83,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['LEDGER_CODE'].errors?.pattern || angForm.controls['LEDGER_CODE'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Reason' | translate}} <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -94,7 +95,7 @@
                                         title="Input allowed only  0-9" maxlength="3"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="BANKCODE">
-                                    <label for="CBankCode">Bank Code</label>
+                                    <label for="CBankCode">{{'master.Bank_Master.Bank_code' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -102,7 +103,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['BANKCODE'].errors?.pattern || angForm.controls['BANKCODE'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Reason' | translate}}  <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -110,7 +111,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">
-                            <h6><b>DD Details:</b></h6>
+                            <h6><b>{{'master.Bank_Master.DD_Details' | translate}}</b></h6>
                             <br>
                         </div>
                         <div class="col-md-3">
@@ -118,7 +119,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox1"
                                         formControlName="DD_APPLICABLE">
-                                    <label class="border-checkbox-label" for="checkbox1">DD Applicable
+                                    <label class="border-checkbox-label" for="checkbox1">{{'master.Bank_Master.DD_Application' | translate}}
                                     </label>
                                 </div>
                             </div>
@@ -131,7 +132,7 @@
                                         placeholder=" " id="GLCode" pattern="^[0-9]+$" title="Input allowed only  0-9"
                                         maxlength="6" (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         formControlName="GL_ACNO">
-                                    <label for="GLCode">GL Code</label>
+                                    <label for="GLCode">{{'master.Bank_Master.GL_Code' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -139,7 +140,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['GL_ACNO'].errors?.pattern || angForm.controls['GL_ACNO'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Reason' | translate}} <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -150,7 +151,7 @@
                                         placeholder=" " id="SubGLCode" pattern="^[0-9]+$" maxlength="6"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only  0-9" formControlName="HO_SUB_GLACNO">
-                                    <label for="SubGLCode">Sub GL Code</label>
+                                    <label for="SubGLCode">{{'master.Bank_Master.Sub_GL_Code' | translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -158,7 +159,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['HO_SUB_GLACNO'].errors?.pattern || angForm.controls['HO_SUB_GLACNO'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'Utility.Validation.Val_Reason' | translate}} <!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
@@ -170,8 +171,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox2"
                                         formControlName="BANKERS_COMM_APPLICABLE">
-                                    <label class="border-checkbox-label" for="checkbox2">Bankers Commission
-                                        Applicable
+                                    <label class="border-checkbox-label" for="checkbox2">
+                                        {{'master.Bank_Master.commission' | translate}}  <!-- Bankers Commission
+                                        Applicable -->
                                     </label>
                                 </div>
                             </div>
@@ -181,8 +183,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox3"
                                         formControlName="RIGHT_TO_PREPARE_DD">
-                                    <label class="border-checkbox-label" for="checkbox3">Allow To Prepare D. D. By Our
-                                        Bank
+                                    <label class="border-checkbox-label" for="checkbox3">
+                                        {{'master.Bank_Master.Allow' | translate}}  <!-- Allow To Prepare D. D. By Our
+                                        Bank -->
                                     </label>
                                 </div>
                             </div>
@@ -192,8 +195,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="checkbox4"
                                         formControlName="PARTICIPATE_IN_CLEARING">
-                                    <label class="border-checkbox-label" for="checkbox4">Participation In
-                                        Clearing
+                                    <label class="border-checkbox-label" for="checkbox4">
+                                        {{'master.Bank_Master.Participation' | translate}}  <!-- Participation In
+                                        Clearing -->
                                     </label>
                                 </div>
                             </div>
@@ -205,11 +209,11 @@
                         </div>
                         <div class="col-sm-3">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
-                                (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
+                                (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Bank_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.Bank_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Bank_Master.Update' | translate}}</button>&nbsp;
 
                         </div>
                     </div>
@@ -252,7 +256,7 @@
                                 </tbody>
                                 <tbody *ngIf="bankmasters?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">  {{'master.Action.No_Data' | translate}}  </td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

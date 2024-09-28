@@ -2,9 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Prefix Master</h5>
+                <!-- <h5>Prefix Master</h5> -->
+                <h5>{{'master.Prefix_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Prefix_Master.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Prefix_Master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -16,7 +17,7 @@
                                     <input type="text" name="SR_NO" class="form-control" placeholder=" " id="SR_NO"
                                         pattern="^[0-9]+$" title="Input allowed only  0-9" formControlName="SR_NO"
                                         disabled>
-                                    <label for="SR_NO">Serial No.</label>
+                                    <label for="SR_NO">{{'master.Prefix_Master.SNo' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -24,10 +25,10 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="PREFIX" class="form-control" placeholder=" "
-                                        id="PREFIX" #autofocus pattern="^[A-Za-z\./ -]+$"
+                                        id="PREFIX" #autofocus pattern="^[\u0900-\u097F A-Za-z]+$"
                                         (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="PREFIX">
-                                    <label for="PREFIX">Prefix<sub class="required">* </sub></label>
+                                    <label for="PREFIX">{{'master.Prefix_Master.Prefix' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -35,7 +36,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['PREFIX'].errors?.required ||angForm.controls['PREFIX'].errors?.pattern">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'master.Validation.Val1'|translate}}<!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
@@ -45,14 +46,14 @@
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="PREFIX_REG" class="form-control" placeholder=" "
                                         id="PREFIX_REG" #autofocus formControlName="PREFIX_REG">
-                                    <label for="PREFIX_REG">Prefix Regional<sub class="required">* </sub></label>
+                                    <label for="PREFIX_REG">{{'master.Prefix_Master.Prefix_Regional' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['PREFIX_REG'].invalid && (angForm.controls['PREFIX_REG'].dirty || angForm.controls['PREFIX_REG'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['PREFIX_REG'].errors?.required ">
-                                    This field is required
+                                    {{'master.Validation.Val1'|translate}}<!-- This field is required -->
                                 </div>
                             </div>
                         </div>
@@ -62,32 +63,32 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-1">
-                            <h6><b>Sex : </b></h6>
+                            <h6><b>{{'master.Prefix_Master.sex' | translate}} :</b></h6>
                         </div>
                         <div class="col-sm-7">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" value="M" name="SEX" formControlName="SEX">
-                                        <i class="helper"></i>Male<span class="required"> </span>
+                                        <i class="helper"></i>{{'master.Prefix_Master.Male' | translate}}<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" value="F" formControlName="SEX" name="SEX" [checked]="true">
-                                        <i class="helper"></i>Female<span class="required"> </span>
+                                        <i class="helper"></i>{{'master.Prefix_Master.Female' | translate}}<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" value="N" name="SEX" formControlName="SEX">
-                                        <i class="helper"></i>Not Applicable<span class="required"> </span>
+                                        <i class="helper"></i>{{'master.Prefix_Master.Not_Applicable' | translate}}<span class="required"> </span>
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" value="O" name="SEX" formControlName="SEX">
-                                        <i class="helper"></i>Other<span class="required"> </span>
+                                        <i class="helper"></i>{{'master.Prefix_Master.other' | translate}}<span class="required"> </span>
                                     </label>
                                 </div>
                             </div>
@@ -95,11 +96,11 @@
                         <div class="col-sm">
                             <button class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit()" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                appTheme>Submit</button>
+                                appTheme>{{'master.Prefix_Master.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.Prefix_Master.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Prefix_Master.Update' | translate}}</button>&nbsp;
 
                         </div>
                     </div>
@@ -132,7 +133,7 @@
                                 </tbody>
                                 <tbody *ngIf="prefixMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -2,9 +2,11 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Pat Scheme Interest Rates</h5>
+                <!-- <h5>Pat Scheme Interest Rates</h5> -->
+                <h5>{{'master.Term_Deposit.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Action.F2' |
+                    translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,24 +19,28 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="AC_TYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
-                                    formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
-                                    #schemea (focus)="onFocus(schemea)" [selectOnTab]='true' autofocus>
-                                    <ng-option *ngFor="let values of scheme" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="AC_TYPE">Scheme<sub class="required"> * </sub></label>
+                                    <ng-select id="AC_TYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
+                                        formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required
+                                        #schemea (focus)="onFocus(schemea)" [selectOnTab]='true' autofocus>
+                                        <ng-option *ngFor="let values of scheme" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="AC_TYPE">
+                                        <!-- Scheme -->
+                                        {{'master.Term_Deposit.Scheme' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)" class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm col-lg-3">
-                            <div class="form-group input-group"> 
+                            <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <!-- <input type="date" name="EFFECT_DATE" class="form-control" placeholder=" "
                                     #autofocus id="EFFECT_DATE" required                                        
@@ -42,27 +48,28 @@
                                          #date
                                        (focusout)="disabledate(date.value)"  id="date"
                                          formControlName="EFFECT_DATE"> -->
-                                         <input type="text" appTheme appButton minlength="10" maxlength="10"
-                                             placeholder="dd/mm/yyyy"
-                                            name="EFFECT_DATE" id="EFFECT_DATE"
-                                            class="form-control" [(ngModel)]="effectdate"
-                                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" 
-                                            [maxDate]="maxDate" 
-                                            [ngClass]="{'form-submitted': formSubmitted}"
-                                            formControlName="EFFECT_DATE"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                            bsDatepicker 
-                                            #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()" #autofocus>
-                                    <label for="date">Effective Date<sub class="required">* </sub></label>
+                                    <input type="text" appTheme appButton minlength="10" maxlength="10"
+                                        placeholder="dd/mm/yyyy" name="EFFECT_DATE" id="EFFECT_DATE"
+                                        class="form-control" [(ngModel)]="effectdate"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                                        [ngClass]="{'form-submitted': formSubmitted}" formControlName="EFFECT_DATE"
+                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                        bsDatepicker #EFFECT_DATE="bsDatepicker" (keydown.Tab)="EFFECT_DATE.hide()"
+                                        #autofocus>
+                                    <label for="date">
+                                        <!-- Effective Date -->
+                                        {{'master.Term_Deposit.Effective_Date' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)" class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['EFFECT_DATE'].invalid && (angForm.controls['EFFECT_DATE'].dirty || angForm.controls['EFFECT_DATE'].touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['EFFECT_DATE'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="col-sm">
                             <!-- <div class="form-group form-primary form-static-label">
                                 <ng-select [ngClass]="'ng-select'" [options]="interestcategory" [multiple]="false" placeholder="Int.Category *" required title="Compulsory Selection" formControlName="INT_CATEGORY">
@@ -70,20 +77,24 @@
                             </div> -->
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
-                                  <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
-                                    formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
-                                    [virtualScroll]="true"
-                                    [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Interest Category"
-                                    #intcat (focus)="onFocus(intcat)" [selectOnTab]='true'>
-                                    <ng-option *ngFor="let values of interestcategory" [value]="values">
-                                      {{values.label}}</ng-option>
-                                  </ng-select>
-                                  <label for="INT_CATEGORY">Interest Category<sub class="required"> * </sub></label>
+                                    <ng-select id="INT_CATEGORY" appTheme bindValue="value" [(ngModel)]="ngintcat"
+                                        formControlName="INT_CATEGORY" bindLabel="label" title="Compulsory Selection"
+                                        [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
+                                         #intcat (focus)="onFocus(intcat)"
+                                        [selectOnTab]='true'>
+                                        <ng-option *ngFor="let values of interestcategory" [value]="values">
+                                            {{values.label}}</ng-option>
+                                    </ng-select>
+                                    <label for="INT_CATEGORY">
+                                        <!-- Interest Category -->
+                                        {{'master.Term_Deposit.Interest_Category' | translate}}<sub class="required"> * </sub></label>
                                 </span>
                             </div>
-                            <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)" class="alert alert-danger">
+                            <div class="form-group form-primary form-static-label"
+                                *ngIf="angForm.controls['INT_CATEGORY'].invalid && (angForm.controls['INT_CATEGORY'].dirty || angForm.controls['INT_CATEGORY'].touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INT_CATEGORY'].errors?.required">
-                                    This field is required
+                                    <!-- This field is required -->{{'master.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -94,91 +105,122 @@
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="MONTHS" class="form-control" placeholder="0 " 
-                                            pattern="^[0-9]+$"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                id="months" #month pattern="^[0-9]+$"   maxlength="3"   title="Input allowed only 0-9"
+                                            <input style="text-align: right;" type="text" name="MONTHS"
+                                                class="form-control" placeholder="0 " pattern="^[0-9]+$"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="months"
+                                                #month pattern="^[0-9]+$" maxlength="3" title="Input allowed only 0-9"
                                                 formControlName="MONTHS">
-                                            <label for="MONTHS"> Months</label>
+                                            <label for="MONTHS"> 
+                                                <!-- Months -->
+                                                {{'master.Term_Deposit.Months' | translate}}</label>
                                         </span>
                                     </div>
-                                    <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['MONTHS'].invalid && (angForm.controls['MONTHS'].dirty || angForm.controls['MONTHS'].touched)" class="alert alert-danger">
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['MONTHS'].invalid && (angForm.controls['MONTHS'].dirty || angForm.controls['MONTHS'].touched)"
+                                        class="alert alert-danger">
                                         <div *ngIf="angForm.controls['MONTHS'].errors?.pattern">
-                                            Input allowed only 0-9
+                                            <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" type="text" name="DAYS" class="form-control" placeholder=" 0"
-                                            (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                id="days" pattern="^[0-9]+$"  maxlength="3" #day  title="Input allowed only 0-9"
+                                            <input style="text-align: right;" type="text" name="DAYS"
+                                                class="form-control" placeholder=" 0"
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58)" id="days"
+                                                pattern="^[0-9]+$" maxlength="3" #day title="Input allowed only 0-9"
                                                 formControlName="DAYS">
-                                            <label for="DAYS">Days</label>
+                                            <label for="DAYS">
+                                                <!-- Days -->
+                                                {{'master.Term_Deposit.Days' | translate}}</label>
                                         </span>
                                     </div>
-                                    <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['DAYS'].invalid && (angForm.controls['DAYS'].dirty || angForm.controls['DAYS'].touched)" class="alert alert-danger">
-                                        <div *ngIf="angForm.controls['DAYS'].errors?.pattern || angForm.controls['DAYS'].errors?.maxlength">
-                                            Input allowed only 0-9
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['DAYS'].invalid && (angForm.controls['DAYS'].dirty || angForm.controls['DAYS'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['DAYS'].errors?.pattern || angForm.controls['DAYS'].errors?.maxlength">
+                                            <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code' | translate}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm">
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
-                                            <input style="text-align: right;" appTheme type="text" name="INT_RATE" class="form-control" placeholder=" "
-                                            pattern="\d{1,2}(\.\d{0,2})?" id="INT_RATE" maxlength="5"
-                                            #margin (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
-                                            (keyup)="checkmargin($event)"
-                                            (keyup)="checkinput()"
+                                            <input style="text-align: right;" appTheme type="text" name="INT_RATE"
+                                                class="form-control" placeholder=" " pattern="\d{1,2}(\.\d{0,2})?"
+                                                id="INT_RATE" maxlength="5" #margin
+                                                (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
+                                                (keyup)="checkmargin($event)" (keyup)="checkinput()"
                                                 title="Input allowed only  0-9" formControlName="INT_RATE">
-                                            <label for="INT_RATE">Interest Rate<sub class="required">*
+                                            <label for="INT_RATE">
+                                                <!-- Interest Rate -->
+                                                {{'master.Term_Deposit.Interest_Rate' | translate}}<sub class="required">*
                                                 </sub>
                                             </label>
                                         </span>
                                     </div>
-                                    <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['INT_RATE'].invalid && (angForm.controls['INT_RATE'].dirty || angForm.controls['INT_RATE'].touched)" class="alert alert-danger">
-                                        <div *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.required || angForm.controls['INT_RATE'].errors?.maxlength">
-                                            This field is required and Input allowed only . 0-9
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['INT_RATE'].invalid && (angForm.controls['INT_RATE'].dirty || angForm.controls['INT_RATE'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['INT_RATE'].errors?.pattern || angForm.controls['INT_RATE'].errors?.required || angForm.controls['INT_RATE'].errors?.maxlength">
+                                            <!-- This field is required and Input allowed only . 0-9 -->{{'master.Validation.Val_Receipt' | translate}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
-                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton" [disabled]="angForm.invalid" (click)="addField();month.focus()">Add </button>
-                                    <button class="btn btn-outline-primary btn-sm" (click)="updateField();month.focus()" *ngIf="UpdateShowButton">Update</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" *ngIf="addShowButton"
+                                        [disabled]="angForm.invalid" (click)="addField();month.focus()">
+                                        <!-- Add -->
+                                        {{'master.Action.Add' | translate}} </button>
+                                    <button class="btn btn-outline-primary btn-sm" (click)="updateField();month.focus()"
+                                        *ngIf="UpdateShowButton">
+                                        <!-- Update -->
+                                        {{'master.Action.Update' | translate}}</button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover compact" *ngIf="tableButton">
-                                            
-                                                <thead>
-                                                    <td>Action</td>
-                                                    <td>Months</td>
-                                                    <td>Days</td>
-                                                    <td>Interest Rate</td>
-                                                </thead>
-                                                <tbody *ngIf="multiField?.length != 0">
-                                                    <tr *ngFor="let data of multiField; let indexOfelement=index;">
-                                                        <td>
-                                                            <span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                                        (click)="editField(indexOfelement);month.focus()" placement="bottom"
-                                                        ngbTooltip="Edit"></span> &nbsp;
-                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton" (click)="delField(indexOfelement);month.focus()" placement="bottom"
-                                                        ngbTooltip="Delete"></span>
+                                        <table class="table table-striped table-bordered table-hover compact"
+                                            *ngIf="tableButton">
 
-                                                        </td>
-                                                        <td class="td_right">{{data.MONTHS }}</td>
-                                                        <td class="td_right">{{data.DAYS }}</td>
-                                                        <td class="td_right">{{data.INT_RATE }}</td>
-                                                    </tr>
+                                            <thead>
+                                                <!-- <td>Action</td> -->
+                                                <td>{{'master.Action.Action' | translate}}</td>
+                                                <!-- <td>Months</td> -->
+                                                <td>{{'master.Term_Deposit.Months' | translate}}</td>
+                                                <!-- <td>Days</td> -->
+                                                <td>{{'master.Term_Deposit.Days' | translate}}</td>
+                                                <!-- <td>Interest Rate</td> -->
+                                                <td>{{'master.Term_Deposit.Interest_Rate' | translate}}</td>
+
+                                            </thead>
+                                            <tbody *ngIf="multiField?.length != 0">
+                                                <tr *ngFor="let data of multiField; let indexOfelement=index;">
+                                                    <td>
+                                                        <span class="fa fa-fw fa-edit field-icon" id="editbutton"
+                                                            (click)="editField(indexOfelement);month.focus()"
+                                                            placement="bottom" ngbTooltip="Edit"></span> &nbsp;
+                                                        <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                                                            (click)="delField(indexOfelement);month.focus()"
+                                                            placement="bottom" ngbTooltip="Delete"></span>
+
+                                                    </td>
+                                                    <td class="td_right">{{data.MONTHS }}</td>
+                                                    <td class="td_right">{{data.DAYS }}</td>
+                                                    <td class="td_right">{{data.INT_RATE }}</td>
+                                                </tr>
                                             </tbody>
                                             <tbody *ngIf="multiField?.length == 0">
                                                 <tr>
-                                                    <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
-                                                    
+                                                    <td colspan="12" class="no-data-available"
+                                                        style="text-align: center;">
+                                                        <!-- No data! -->
+                                                        {{'master.Action.No_Data' | translate}}</td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -189,9 +231,19 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled] ="myform.invalid" (click)="submit();schemea.focus()" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();schemea.focus()" *ngIf="updateShow">Update</button>&nbsp;
-                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();schemea.focus()" *ngIf="newbtnShow">Cancel</button>
+                            <button class="btn btn-outline-primary btn-sm btn-submit" [disabled]="myform.invalid"
+                                (click)="submit();schemea.focus()" *ngIf="showButton" (keydown.Tab)="focus()"
+                                appTheme>
+                                <!-- Submit -->
+                                {{'master.Action.Submit' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="updateData();schemea.focus()"
+                                *ngIf="updateShow">
+                                <!-- Update -->
+                                {{'master.Action.Update' | translate}}</button>&nbsp;
+                            <button class="btn btn-outline-primary btn-sm" (click)="addNewData();schemea.focus()"
+                                *ngIf="newbtnShow">
+                                <!-- Cancel -->
+                                {{'master.Action.Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -206,12 +258,13 @@
                 <div class="row">
                     <div class="col-sm">
                         <div class="table-responsive">
-                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
+                            <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions"
+                                [dtTrigger]="dtTrigger" class="table table-striped table-bordered table-hover compact">
                                 <tbody *ngIf="termDepositPatScheme?.length != 0">
                                     <tr *ngFor="let data of termDepositPatScheme">
                                         <td><span class="fa fa-fw fa-edit field-icon" id="editbutton"
-                                            (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
-                                            ngbTooltip="Edit"></span> &nbsp;
+                                                (click)="editClickHandler(data.id);gotoTop()" placement="bottom"
+                                                ngbTooltip="Edit"></span> &nbsp;
                                             <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" -->
                                             <!-- (click)="delClickHandler(data.id)">Delete</button> -->
                                         </td>
@@ -222,14 +275,15 @@
                                 </tbody>
                                 <tbody *ngIf="termDepositPatScheme?.length == 0">
                                     <tr>
-                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
-                                        
+                                        <td colspan="12" class="no-data-available" style="text-align: center;">No data!
+                                        </td>
+
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">
                                     <tr class="testing">
                                         <th class="testing"></th>
-                                        <th><input type="text" class="form-control"name="EFFECT_DATE">
+                                        <th><input type="text" class="form-control" name="EFFECT_DATE">
                                         </th>
                                         <th><input type="text" class="form-control" name="AC_TYPE"></th>
                                         <th><input type="text" class="form-control" name="INT_CATEGORY">

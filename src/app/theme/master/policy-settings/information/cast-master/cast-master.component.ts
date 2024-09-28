@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { environment } from '../../../../../../environments/environment'
-
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -71,7 +71,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private castMasterService: CastMasterService,
-    private http: HttpClient) { this.createForm(); }
+    private http: HttpClient, private translate: TranslateService) { this.createForm(); }
 
 
   ngOnInit(): void {
@@ -107,7 +107,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         dataTableParameters['filterData'] = this.filterData;
         that.http
           .post<DataTableResponse>(
-            this.url+'/cast-master',
+            this.url + '/cast-master',
             dataTableParameters
           ).subscribe(resp => {
             this.castmaster = resp.data;
@@ -120,20 +120,20 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Cast_master.Action'),
 
         },
         {
-          title: 'Category Code',
-          data:'CODE'
+          title: this.translate.instant('master.Cast_master.Cast_Code'),
+          data: 'CODE'
         },
         {
-          title: 'Description',
-          data:'NAME'
+          title: this.translate.instant('master.Cast_master.Descaption'),
+          data: 'NAME'
         }
       ],
       dom: 'Blrtip',
-    }; 
+    };
   }
 
 
@@ -154,7 +154,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       "NAME": formVal.NAME,
     }
     this.castMasterService.postData(dataToSend).subscribe(data => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -178,14 +178,14 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
-  
- 
+
+
   //Method for update data 
   updateData() {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.castMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -204,8 +204,8 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Cast Master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Cast_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -214,8 +214,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
         this.castMasterService.deleteData(id).subscribe(data1 => {
@@ -227,8 +226,7 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -275,10 +273,10 @@ export class CastMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 

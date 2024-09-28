@@ -13,6 +13,9 @@ import { DataTableDirective } from "angular-datatables";
 import { Subject } from "rxjs";
 import { environment } from "src/environments/environment";
 import { first } from 'rxjs/operators';
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+
 
 // Handling datatable data
 class DataTableResponse {
@@ -78,10 +81,18 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
   //filter variable
   filterData = {};
   page: number;
+  setLang: string;
 
 
   constructor(private fb: FormBuilder, private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService, private http: HttpClient, private _lien: lienService) { }
+    private schemeAccountNoService: SchemeAccountNoService, private http: HttpClient, private _lien: lienService,
+    private systemParameter: SystemMasterParametersService, private translate: TranslateService,) {
+      this.systemParameter.getFormData(1).subscribe(data => {
+
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+  }
 
   ngOnInit(): void {
     this.createForm();
@@ -131,17 +142,17 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
       },
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Scheme'),
           data: 'DEPO_AC_TYPE'
         },
         {
-          title: 'Account No',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Account_No'),
           data: 'DEPO_AC_NO'
         },
         // {
@@ -149,31 +160,31 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
         //   data: 'SECU_CODE'
         // },
         {
-          title: 'Ledger Balance',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Ledger_Balance'),
           data: 'LEDGER_BAL'
         },
         {
-          title: 'Deposit Amount',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Deposit_Amount'),
           data: 'DEPOSIT_AMT'
         },
         {
-          title: 'TD Receipt No',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.TD_Receipt_No'),
           data: 'RECEIPT_NO'
         },
         {
-          title: 'IsLienMarkClear',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Is_Lien_Mark_Clear'),
           data: 'IS_LIEN_MARK_CLEAR'
         },
         {
-          title: 'Loan Ac No',
-          data: 'AC_NO'
+          title:  this.translate.instant('master.Lien_Mark_or_Clear.Loan_A/c_No'),
+          data: 'AC_TYPE'
         },
         {
-          title: 'Loan Os Balance',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Loan_O/s_Balance'),
           data: 'BALANCE_OF_LOAN_ACCOUNT'
         },
         {
-          title: 'Loan Expiry Date',
+          title: this.translate.instant('master.Lien_Mark_or_Clear.Loan_Expiry_Date'),
           data: 'AC_EXPIRE_DATE'
         }
       ],
@@ -242,7 +253,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     };
     this._lien.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire("Success!", "Data Added Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
         // to reload after insertion of data
         this.rerender();
       },
@@ -281,8 +292,8 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Lien Mark data",
+      title:`${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.M1')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -291,19 +302,19 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     }).then((result) => {
       if (result.isConfirmed) {
         this._lien.deleteData(id).subscribe((data1) => {
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
-          Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
-            'success'
-          )
+        Swal.fire(
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
+          'success'
+        )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -318,7 +329,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     data["id"] = this.updateID;
     data['IS_LIEN_MARK_CLEAR'] = data.IS_LIEN_MARK_CLEAR == false ? '0' : '1'
     this._lien.updateData(data).subscribe(() => {
-      Swal.fire("Success!", "Record Updated Successfully !", "success");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Update')}`, "success");
       this.showButton = true;
       this.updateShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -366,10 +377,10 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     });
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

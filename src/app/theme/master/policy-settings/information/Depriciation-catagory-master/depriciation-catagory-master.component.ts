@@ -15,6 +15,7 @@ import { first } from 'rxjs/operators';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -81,7 +82,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     private depriciationService: DepriciationService,
     private _acMaster: ACMasterDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -141,17 +142,19 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Code',
+
+          title: this.translate.instant('master.Description_Category_Master.code'),
           data: 'CODE'
         },
         {
-          title: 'Description',
+          title: this.translate.instant('master.Description_Category_Master.Description'),
+
           data: 'NAME'
         },
         // {
@@ -211,7 +214,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
       'BRANCH_CODE': this.ngBranchCode
     }
     this.depriciationService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -265,7 +268,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.depriciationService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -278,8 +281,8 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete depriciation category Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Dep_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -290,8 +293,8 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
         this.depriciationService.deleteData(id).subscribe(data1 => {
           this.descriptionCategoryMasters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -303,8 +306,8 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -358,7 +361,7 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     })
   }
 
-  getBranch(){
+  getBranch() {
     this._acMaster.getACMasterbranch(this.ngBranchCode).pipe(first()).subscribe(data => {
       this.acno = data;
     })
@@ -373,14 +376,14 @@ export class DepriciationCatagoryMasterComponent implements OnInit, AfterViewIni
     });
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

@@ -22,6 +22,8 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -117,8 +119,9 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private config: NgSelectConfig,) {
-    // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
+    private config: NgSelectConfig,
+    private translate:TranslateService) {
+      // this.datemax = new Date().getFullYear() + '-' + ("0" + (new Date().getMonth() + 1)).slice(-2) + '-' + ("0" + new Date().getDate()).slice(-2);
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
@@ -171,17 +174,22 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
       },
       columns: [
         {
-          title: 'Action'
+          // title: 'Action'
+          title: this.translate.instant('master.Action.Action')
+
         },
         {
-          title: 'Effected Date',
+          // title: 'Effected Date',
+          title: this.translate.instant('master.Term_Deposit.Effective_Date'),
           data: 'EFFECT_DATE'
         },
         {
-          title: 'Scheme Type',
+          // title: 'Scheme Type',
+          title: this.translate.instant('master.Term_Deposit.Scheme_Type'),
           data: 'AC_TYPE'
         }, {
-          title: 'Interest Category',
+          // title: 'Interest Category',
+          title: this.translate.instant('master.Term_Deposit.Interest_Category'),
           data: 'INT_CATEGORY'
         },
       ],
@@ -213,7 +221,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
+       Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
       }
     }
@@ -233,7 +241,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
         'TYPE': this.tdname
       }
       this.termDepositPatSchemeService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire('Success!', 'Data Added Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -246,8 +254,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     }
     else {
       Swal.fire(
-        'Info',
-        'Please Input Slab Details ',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.I_Msg1')}`,
         'info'
       )
     }
@@ -293,7 +301,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     data['AC_TYPE'] = this.ngscheme
     data['INT_CATEGORY'] = this.ngintcat
     this.termDepositPatSchemeService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -323,7 +331,7 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
       ele.target.value = 0
 
     }
@@ -339,15 +347,15 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
 
     if (this.days == "" && this.months == "") {
       Swal.fire(
-        'Invalid Input',
-        'Please Enter Days Or Months ',
+        `${this.translate.instant('Swal_Msg.Invalid_Input')}`,
+        `${this.translate.instant('Swal_Msg.Invalid1')}`,
         'warning'
       )
     }
     else if (this.days == 0 && this.months == 0) {
       Swal.fire(
-        'Invalid Input',
-        'Days or Months Value Must Not Be Equal To Zero ',
+        `${this.translate.instant('Swal_Msg.Invalid_Input')}`,
+        `${this.translate.instant('Swal_Msg.Invalid2')}`,
         'warning'
       )
     }
@@ -363,8 +371,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do You Want To Delete Term Deposit Pat Scheme Data.",
+      title:  `${this.translate.instant('Swal_Msg.Sure')}`,
+      text:  `${this.translate.instant('Swal_Msg.I_Msg4')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -375,8 +383,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
         this.termDepositPatSchemeService.deleteData(id).subscribe(data1 => {
           this.termDepositPatScheme = data1;
           Swal.fire(
-            'Deleted!',
-            'Your Data Has Been Deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -387,8 +395,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your Data Is Safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -454,8 +462,8 @@ export class TermDepositPatSchemeComponent implements OnInit, AfterViewInit, OnD
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     if (intrate == "") {
       Swal.fire(
-        'Info',
-        'Please Input Interest Rate.',
+        `${this.translate.instant('Swal_Msg.Info')}`,
+        `${this.translate.instant('Swal_Msg.I_Msg1')}`,
         'info'
       )
     }

@@ -2,9 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>TD Receipt Type Master</h5>
+                <!-- <h5>TD Receipt Type Master</h5> -->
+                <h5>{{'master.TD_Receipt_Type_Master.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
                 </h6>
             </div>
             <div class="card-block">
@@ -18,11 +19,13 @@
                                         title="Compulsory Selection" (change)="getValue($event)"
                                         [ngClass]="{'form-submitted': formSubmitted}" required
                                         #RECTYPE (focus)="onFocus(RECTYPE)" [selectOnTab]='true' autofocus
-                                        placeholder="Receipt Type ">
+                                     >
                                         <ng-option *ngFor="let values of tdMaster" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="RECEIPT_TYPE">Receipt Type <sub class="required"> *</sub></label>
+                                    <label for="RECEIPT_TYPE">
+                                        <!-- Receipt Type  -->
+                                        {{'master.TD_Receipt_Type_Master.Receipt_Type' | translate}} <sub class="required"> *</sub></label>
                                 </span>
                             </div>
 
@@ -37,7 +40,7 @@
                                 *ngIf="angForm.controls['RECEIPT_TYPE'].invalid && (angForm.controls['RECEIPT_TYPE'].dirty || angForm.controls['RECEIPT_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['RECEIPT_TYPE'].errors?.required">
-                                    This field is required
+                                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -48,7 +51,9 @@
                                     style="text-align: right;"  id="LAST_RECEIPT_NO" pattern="^[0-9]+$" maxlength="10"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                         title="Input allowed only  0-9" formControlName="LAST_RECEIPT_NO" required>
-                                    <label for="LAST_RECEIPT_NO">Last Receipt No.<sub class="required">* </sub></label>
+                                    <label for="LAST_RECEIPT_NO">
+                                        <!-- Last Receipt No. -->
+                                        {{'master.TD_Receipt_Type_Master.last_Receipt_No' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -56,7 +61,8 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['LAST_RECEIPT_NO'].errors?.pattern || angForm.controls['LAST_RECEIPT_NO'].errors?.maxlength  || angForm.controls['LAST_RECEIPT_NO'].errors?.required">
-                                    This field is required and Input allowed only 0-9
+<!-- This field is required and Input allowed only 0-9 -->{{'master.Validation.Val_Receipt'|translate}}
+
                                 </div>
                             </div>
                         </div>
@@ -71,7 +77,8 @@
                         <div class="col-sm-3" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit()" [disabled]="angForm.invalid" appTheme>
-                                Submit
+                                <!-- Submit -->
+                                {{'master.Action.Submit' | translate}}
                             </button>
                         </div>
                     </div>
@@ -102,8 +109,9 @@
                                 </tbody>
                                 <tbody *ngIf="tdReceipt?.length == 0">
                                     <tr>
-                                        <td colspan="2" style="text-align: center;" class="no-data-available">No data!
-                                        </td>
+                                        <td colspan="2" style="text-align: center;" class="no-data-available">
+                                            <!-- No data! -->
+                                            {{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

@@ -9,6 +9,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment'
 import * as moment from 'moment';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -86,10 +89,19 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
 
   isDisableMonth: boolean = false
   isDisableDay: boolean = false
+  setLang: any;
 
-  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient,) {
+  constructor(private fb: FormBuilder, private npaservice: NPAClassificationService, private http: HttpClient, private translate: TranslateService, private systemParameter: SystemMasterParametersService,
+
+
+  ) {
     this.maxDate = new Date();
     this.maxDate.setDate(this.maxDate.getDate());
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {
@@ -142,15 +154,13 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          data: 'EFFECT_DATE',
-          title: 'Effect Date'
+          title: this.translate.instant('master.NPA_Classification_Master.Effictive_Date'),
         },
         {
-          data: 'NPA_BASE_DAYS',
-          title: 'Base Days'
+          title: this.translate.instant('master.NPA_Classification_Master.Base_days'),
         }
       ],
       dom: "Blrtip",
@@ -209,7 +219,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
           if (data.find(data => data['EFFECT_DATE'] == effectDate)) {
             Swal.fire({
               icon: 'info',
-              title: 'This Effect Date is Already Exist',
+              title: `${this.translate.instant('Swal_Msg.Effect_Date_is_Already_Exist')}`,
             })
             this.angForm.controls['EFFECT_DATE'].reset();
           }
@@ -220,7 +230,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //checks percentage of secured
   checkPercent(event) {
     if (Number(event) > 100) {
-      Swal.fire('Info', 'Please Input percentage upto 100', 'info')
+      Swal.fire('Info', `${this.translate.instant('Swal_Msg.Input_per_Upto')}`, 'info')
       this.angForm.patchValue({
         SECURED_PERCENT: '0.00'
       })
@@ -229,7 +239,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //checks percentage of unsecured
   checkUnsecurePercent(event) {
     if (Number(event) > 100) {
-      Swal.fire('Info', 'Please Input percentage upto 100', 'info')
+      Swal.fire('Info', `${this.translate.instant('Swal_Msg.Input_per_Upto')}`, 'info')
       this.angForm.patchValue({
         UNSECURED_PERCENT: '0.00'
       })
@@ -283,7 +293,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //compare from and to Days
   compareDays() {
     if (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value)) {
-      Swal.fire('Info', 'To Days Must Greater Than From Days', 'info')
+      Swal.fire('Info', `${this.translate.instant('Swal_Msg.From_Days')}`, 'info')
       this.angForm.patchValue({
         TO_DAYS: ''
       })
@@ -292,7 +302,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //compare from and to Month
   compareMonths() {
     if (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value)) {
-      Swal.fire('Info', 'To Months Must Greater Than From Months', 'info')
+      Swal.fire('Info', `${this.translate.instant('Swal_Msg.To_Months_Greater_From_Month')}`, 'info')
       this.angForm.patchValue({
         TO_MONTHS: ''
       })
@@ -323,15 +333,15 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
       this.resetField()
     }
     else {
-      if (this.ngNPAClass == null) { Swal.fire('Info', 'Please Select NPA Class', 'info') }
-      else if (this.isDisableDay == false && (fromDay == null || fromDay == '')) { Swal.fire('Info', 'Please Add From Days', 'info') }
-      else if (this.isDisableMonth == false && (fromMonth == null || fromMonth == '')) { Swal.fire('Info', 'Please Add From Months', 'info') }
-      else if (this.isDisableDay == false && (today == null || today == '')) { Swal.fire('Info', 'Please Add To Days', 'info') }
-      else if (this.isDisableMonth == false && (toMonth == null || toMonth == '')) { Swal.fire('Info', 'Please Add To Months', 'info') }
-      else if (SECURED_PERCENT == null || SECURED_PERCENT == '') { Swal.fire('Info', 'Please Add Secured percentage', 'info') }
-      else if (UNSECURED_PERCENT == null || UNSECURED_PERCENT == '') { Swal.fire('Info', 'Please Add Unsecured percentage', 'info') }
-      else if (this.isDisableDay == false && (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value))) { Swal.fire('Info', 'To Days Must Greater Than From Days', 'info') }
-      else if (this.isDisableMonth == false && (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value))) { Swal.fire('Info', 'To Months Must Greater Than From Months', 'info') }
+      if (this.ngNPAClass == null) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Select_NPA_Class')}`, 'info') }
+      else if (this.isDisableDay == false && (fromDay == null || fromDay == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_From_Days')}`, 'info') }
+      else if (this.isDisableMonth == false && (fromMonth == null || fromMonth == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_From_Days')}`, 'info') }
+      else if (this.isDisableDay == false && (today == null || today == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_To_Days')}`, 'info') }
+      else if (this.isDisableMonth == false && (toMonth == null || toMonth == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_To_Months')}`, 'info') }
+      else if (SECURED_PERCENT == null || SECURED_PERCENT == '') { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Secured_Percent')}`, 'info') }
+      else if (UNSECURED_PERCENT == null || UNSECURED_PERCENT == '') { Swal.fire('Info', `${this.translate.instant('Swal_Msg.UnSecured_Percent')}`, 'info') }
+      else if (this.isDisableDay == false && (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value))) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.From_Days')}`, 'info') }
+      else if (this.isDisableMonth == false && (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value))) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.To_Months_Greater_From_Month')}`, 'info') }
       else
       // if ((Number(this.angForm.controls['TO_DAYS'].value) > Number(this.angForm.controls['FROM_DAYS'].value)) && (Number(this.angForm.controls['TO_MONTHS'].value) > Number(this.angForm.controls['FROM_MONTHS'].value)))
       {
@@ -437,15 +447,15 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
       this.ngNPAClass = null
     }
     else {
-      if (this.ngNPAClass == null) { Swal.fire('Info', 'Please Select NPA Class', 'info') }
-      else if (this.isDisableDay == false && (fromDay == null || fromDay == '')) { Swal.fire('Info', 'Please Add From Days', 'info') }
-      else if (this.isDisableMonth == false && (fromMonth == null || fromMonth == '')) { Swal.fire('Info', 'Please Add From Months', 'info') }
-      else if (this.isDisableDay == false && (today == null || today == '')) { Swal.fire('Info', 'Please Add To Days', 'info') }
-      else if (this.isDisableMonth == false && (toMonth == null || toMonth == '')) { Swal.fire('Info', 'Please Add To Months', 'info') }
-      else if (SECURED_PERCENT == null || SECURED_PERCENT == '') { Swal.fire('Info', 'Please Add Secured percentage', 'info') }
-      else if (UNSECURED_PERCENT == null || UNSECURED_PERCENT == '') { Swal.fire('Info', 'Please Add Unsecured percentage', 'info') }
-      else if (this.isDisableDay == false && (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value))) { Swal.fire('Info', 'To Days Must Greater Than From Days', 'info') }
-      else if (this.isDisableMonth == false && (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value))) { Swal.fire('Info', 'To Months Must Greater Than From Months', 'info') }
+      if (this.ngNPAClass == null) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.From_Days')}`, 'info') }
+      else if (this.isDisableDay == false && (fromDay == null || fromDay == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_From_Days')}`, 'info') }
+      else if (this.isDisableMonth == false && (fromMonth == null || fromMonth == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_From_Months')}`, 'info') }
+      else if (this.isDisableDay == false && (today == null || today == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_To_Days')}`, 'info') }
+      else if (this.isDisableMonth == false && (toMonth == null || toMonth == '')) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Add_To_Months')}`, 'info') }
+      else if (SECURED_PERCENT == null || SECURED_PERCENT == '') { Swal.fire('Info', `${this.translate.instant('Swal_Msg.Secured_Percent')}`, 'info') }
+      else if (UNSECURED_PERCENT == null || UNSECURED_PERCENT == '') { Swal.fire('Info', `${this.translate.instant('Swal_Msg.UnSecured_Percent')}`, 'info') }
+      else if (this.isDisableDay == false && (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value))) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.From_Days')}`, 'info') }
+      else if (this.isDisableMonth == false && (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value))) { Swal.fire('Info', `${this.translate.instant('Swal_Msg.To_Months_Greater_From_Month')}`, 'info') }
       else {
         let index = this.arrIndex;
         this.addShowButton = true;
@@ -511,7 +521,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
         };
         this.npaservice.postData(dataToSend).subscribe(
           (data) => {
-            Swal.fire("Success!", "Data Added Successfully !", "success");
+            Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
             // to reload after insertion of data
             // this.rerender();
             this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -526,7 +536,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
         this.multiField = []
       }
       else {
-        Swal.fire('Info', 'Please Add NPA Classification Details', 'info')
+        Swal.fire('Info', `${this.translate.instant('Swal_Msg.NPA_Classification')}`, 'info')
       }
     }
   }
@@ -557,7 +567,7 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
     }
     data['MultiField'] = this.multiField
     this.npaservice.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -586,8 +596,8 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
   //function for delete button clicked
   delClickHandler(info: any): void {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Serial No.data",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Do_You_Want_Del')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -596,16 +606,16 @@ export class NPAClassificationSlabMasterComponent implements OnInit, AfterViewIn
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          'Deleted!',
-          'Your data has been deleted.',
+          `${this.translate.instant('Swal_Msg.Delete')}`,
+          `${this.translate.instant('Swal_Msg.D_Msg')}`,
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

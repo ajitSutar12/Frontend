@@ -3,9 +3,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Anamat/General Sub Master</h5>
+                <h5>{{'master.Anamat_Sub_Master.T1'| translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1'| translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'| translate}}
                 </h6>
             </div>
             <div class="card-block">
@@ -33,12 +33,12 @@
                                     <ng-select bindValue="value" appTheme id="AC_TYPE" bindLabel="label"
                                         formControlName="AC_TYPE" [(ngModel)]="code" (change)="getScheme($event)"
                                         title="Compulsory Selection" [virtualScroll]="true"
-                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder="Scheme"
+                                        [ngClass]="{'form-submitted': formSubmitted}" required placeholder=""
                                         #ACTYPE (focus)="onFocus(ACTYPE)" autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
-                                    <label>Scheme <sub class="required"> * </sub></label>
+                                    <label>{{'master.Anamat_Sub_Master.Scheme'|translate}}  <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                         </div>
@@ -67,13 +67,13 @@
                                         formControlName="AC_CUSTID" (change)="getCustomer($event.value)"
                                         [ngClass]="{ 'form-submitted': formSubmitted }" [virtualScroll]="true"
                                         style="width: 85%" title="Compulsory Selection" required
-                                        placeholder="Customer Id" #CUSTID (focus)="onFocus(CUSTID)"
+                                        placeholder="" #CUSTID (focus)="onFocus(CUSTID)"
                                         [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{ values.label }}</ng-option>
                                     </ng-select>
 
-                                    <label for="AC_CUSTID">Customer ID<sub class="required"> * </sub></label>
+                                    <label for="AC_CUSTID">{{'master.Anamat_Sub_Master.Customer_Id'|translate}}<sub class="required"> * </sub></label>
                                     <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
                                         (click)="modalLarge.show()" placement="bottom"
                                         ngbTooltip="Add New Customer"></span>
@@ -90,7 +90,7 @@
                         <!-- <ng-container *ngIf="showModalStatus"> -->
                         <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
                             <div class="app-modal-header">
-                                <h4 class="modal-title">Customer ID </h4>
+                                <h4 class="modal-title">{{'master.Anamat_Sub_Master.Customer_Id'|translate}} </h4>
                                 <button type="button" class="close basic-close" (click)="modalLarge.hide()">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -103,7 +103,7 @@
 
                             <div class="app-modal-footer">
                                 <button type="button" class="btn btn-outline-primary btn-sm" id="triggerhide"
-                                    (click)="modalLarge.hide()">Close</button>
+                                    (click)="modalLarge.hide()">{{'master.Action.Close'|translate}} </button>
                             </div>
                         </app-modal-basic>
                         <!-- <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
@@ -128,14 +128,14 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" " id="AC_TITLE"
                                         value="" formControlName="AC_TITLE" disabled>
-                                    <label for="AC_TITLE">Title </label>
+                                    <label for="AC_TITLE">{{'master.Anamat_Sub_Master.Title'|translate}} </label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TITLE'].invalid && (angForm.controls['AC_TITLE'].dirty || angForm.controls['AC_TITLE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TITLE'].errors?.pattern">
-                                    Input allowed only A-Z a-z - / . (Space)
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="Name" class="form-control" placeholder=" " id="AC_NAME"
                                         value="" formControlName="AC_NAME" disabled>
-                                    <label for="AC_NAME">Name </label>
+                                    <label for="AC_NAME">{{'master.Anamat_Sub_Master.Name'|translate}}   </label>
                                 </span>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="BANKACNO" class="form-control" placeholder=" "
                                         id="BANKACNO" formControlName="BANKACNO" disabled>
-                                    <label for="BANKACNO">Account Number</label>
+                                    <label for="BANKACNO">{{'master.Anamat_Sub_Master.Ac_No'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -164,14 +164,14 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MEMBTYPE" class="form-control" placeholder=" "
                                         id="AC_MEMBTYPE" value="" formControlName="AC_MEMBTYPE" disabled>
-                                    <label for="AC_MEMBTYPE">Member Scheme</label>
+                                    <label for="AC_MEMBTYPE">{{'master.Anamat_Sub_Master.Member'|translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_MEMBTYPE'].invalid && (angForm.controls['AC_MEMBTYPE'].dirty || angForm.controls['AC_MEMBTYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_MEMBTYPE'].errors?.pattern">
-                                    Input allowed only 0-9
+                                    <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -180,15 +180,16 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_MEMBNO" class="form-control" placeholder=" "
                                         id="AC_MEMBNO" value="" formControlName="AC_MEMBNO" disabled>
-                                    <label for="AC_MEMBNO">Member Number</label>
+                                    <label for="AC_MEMBNO">{{'master.Anamat_Sub_Master.Member_Number'|translate}}</label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_MEMBNO'].invalid && (angForm.controls['AC_MEMBNO'].dirty || angForm.controls['AC_MEMBNO'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['AC_MEMBNO'].errors?.pattern">
-                                    Input allowed only 0-9
-                                </div>
+                                <!-- <div *ngIf="angForm.controls['AC_MEMBNO'].errors?.pattern"> -->
+                                    <div>
+                                        <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
+                                    </div>
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -196,7 +197,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_HONO" class="form-control" placeholder=" " id="AC_HONO"
                                         formControlName="AC_HONO" disabled />
-                                    <label for="AC_HONO">House</label>
+                                    <label for="AC_HONO">{{'master.Anamat_Sub_Master.House'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -205,7 +206,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_WARD" class="form-control" placeholder=" " id="AC_WARD"
                                         formControlName="AC_WARD" disabled />
-                                    <label for="AC_WARD">Ward</label>
+                                    <label for="AC_WARD">{{'master.Anamat_Sub_Master.Ward'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -214,7 +215,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_ADDR" class="form-control" placeholder=" " id="AC_ADDR"
                                         formControlName="AC_ADDR" disabled />
-                                    <label for="AC_ADDR">Detail</label>
+                                    <label for="AC_ADDR">{{'master.Anamat_Sub_Master.Detail'|translate}}</label>
 
                                 </span>
                             </div>
@@ -226,7 +227,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_GALLI" class="form-control" placeholder=" "
                                         id="AC_GALLI" maxlength="40" formControlName="AC_GALLI" disabled />
-                                    <label for="AC_GALLI">Galli</label>
+                                    <label for="AC_GALLI">{{'master.Anamat_Sub_Master.Galli'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -235,7 +236,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_CTCODE" class="form-control" placeholder=" "
                                         id="AC_CTCODE" formControlName="AC_CTCODE" disabled />
-                                    <label for="AC_CTCODE">City</label>
+                                    <label for="AC_CTCODE">{{'master.Anamat_Sub_Master.City'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -244,7 +245,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_AREA" class="form-control" placeholder=" " id="AC_AREA"
                                         formControlName="AC_AREA" disabled />
-                                    <label for="AC_AREA">Area</label>
+                                    <label for="AC_AREA">{{'master.Anamat_Sub_Master.Area'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -253,7 +254,7 @@
                                 <span class="border-lable-flt">
                                     <input type="text" name="AC_PIN" class="form-control" placeholder=" " id="AC_PIN"
                                         value="" formControlName="AC_PIN" disabled>
-                                    <label for="AC_PIN">Pincode</label>
+                                    <label for="AC_PIN">{{'master.Anamat_Sub_Master.Pin_Code'|translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -267,7 +268,7 @@
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         formControlName="AC_OPDATE" [(ngModel)]="openingDate" bsDatepicker
                                         #AC_OPDATE="bsDatepicker" placement="left" (keydown.Tab)="AC_OPDATE.hide()" disabled />
-                                    <label for="AC_OPDATE">Opening Date<sub class="required">*
+                                    <label for="AC_OPDATE">{{'master.Anamat_Sub_Master.Open_Date'|translate}}<sub class="required">*
                                         </sub></label>
                                 </span>
                             </div>
@@ -276,7 +277,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_OPDATE'].errors?.pattern || angForm.controls['AC_OPDATE'].errors?.required">
-                                    This field is Required .
+                                    <!-- This field is Required . -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -287,7 +288,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="AC_IS_RECOVERY"
                                         formControlName="AC_IS_RECOVERY">
-                                    <label class="border-checkbox-label" for="AC_IS_RECOVERY">Recovery</label>
+                                    <label class="border-checkbox-label" for="AC_IS_RECOVERY">{{'master.Anamat_Sub_Master.Recovery'|translate}}</label>
                                 </div>
                             </div>
                             <!-- <div class="checkbox checkbox-primary">
@@ -328,19 +329,19 @@
                             </div> -->
                         <!-- </div> -->
                         <div class="col-sm-2">
-                            <label for="">Opening Balance :</label>
+                            <label for="">{{'master.Anamat_Sub_Master.Open_Bal'|translate}} :</label>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="DEBIT" formControlName="DEBIT" value="DEBIT">
-                                        <i class="helper"></i>Debit </label>
+                                        <i class="helper"></i>{{'master.Anamat_Sub_Master.Debit'|translate}}  </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label class="inputRadio">
                                         <input type="radio" name="DEBIT" formControlName="DEBIT" value="Credit">
-                                        <i class="helper"></i>Credit </label>
+                                        <i class="helper"></i>{{'master.Anamat_Sub_Master.Credit'|translate}} </label>
                                 </div>
                             </div>
                         </div>
@@ -352,7 +353,7 @@
                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                         formControlName="AC_PARTICULAR" [ngClass]="{'form-submitted': formSubmitted}"
                                         required>
-                                    <label for="AC_PARTICULAR">Reason<sub class="required">* </sub></label>
+                                    <label for="AC_PARTICULAR">{{'master.Anamat_Sub_Master.Reason'|translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
@@ -360,7 +361,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AC_PARTICULAR'].errors?.pattern || angForm.controls['AC_PARTICULAR'].errors?.required">
-                                    Input allowed only A-Z a-z - / . (Space)
+                                    <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -380,21 +381,21 @@
                         <div class="col-sm" style="float: right;">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit($event)" (keydown.Tab)="focus()" appTheme>
-                                Submit
+                                {{'master.Action.Submit'|translate}} 
                             </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="closeModal()">
-                                Close</button>
+                                {{'master.Action.Close'|translate}} </button>
                             <button class="btn btn-outline-primary btn-sm" (click)="addNewData()" *ngIf="newbtnShow">
-                                Cancel
+                                {{'master.Action.Cancel'|translate}} 
                             </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">
-                                Update</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{'master.Action.Update'|translate}} </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow" (click)="reject()">
-                                Reject</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{'master.Action.Reject'|translate}} </button>&nbsp;&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow" (click)="Approve()">
-                                Approve</button>
+                                {{'master.Action.Approve'|translate}} </button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow" (click)="unApprove()">
-                                Unapprove</button>
+                                {{'master.Action.Unapprove'|translate}} </button>
                         </div>
                     </div>
                 </form>
@@ -454,7 +455,7 @@
                                 </tbody>
                                 <tbody *ngIf="anamat?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Anamat_Sub_Master.No_Data'|translate}} </td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

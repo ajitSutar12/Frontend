@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { IOption } from 'ng-select';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -27,8 +28,8 @@ class DataTableResponse {
 interface IntrestCatagoryMaster {
   CODE: number,
   NAME: string,
-  ACNOTYPE : string;
-} 
+  ACNOTYPE: string;
+}
 
 @Component({
   selector: 'app-interest-category-master',
@@ -55,7 +56,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   Data: any;
 
 
-  schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); 
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
 
   ngschemetype
 
@@ -87,7 +88,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     private http: HttpClient,
     private interestCategoryMasterService: InterestCategoryMasterService,
     public SchemeTypes: SchemeTypeDropdownService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -135,17 +136,17 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       },
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Interest_Category_Master.Action')
         },
         {
-          title: 'Interest Category Code',
+          title: this.translate.instant('master.Interest_Category_Master.Interest_Category_Code'),
           data: 'CODE'
         },
         {
-          title: 'ACNOTYPE',
+          title: this.translate.instant('master.Interest_Category_Master.AcNoType'),
           data: 'ACNOTYPE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Interest_Category_Master.Description'),
           data: 'NAME'
         },
       ],
@@ -171,7 +172,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       'ACNOTYPE': formVal.ACNOTYPE
     }
     this.interestCategoryMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -194,11 +195,11 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       this.angForm.setValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
-        'ACNOTYPE':data.ACNOTYPE
+        'ACNOTYPE': data.ACNOTYPE
       })
     })
   }
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -209,7 +210,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.interestCategoryMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = true;
@@ -217,15 +218,15 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-            this.resetForm();
+      this.resetForm();
     })
   }
 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Interest Category master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Category_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -236,8 +237,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         this.interestCategoryMasterService.deleteData(id).subscribe(data1 => {
           this.intrestCatagoryMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -249,8 +250,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -297,13 +298,13 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     });
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
 }

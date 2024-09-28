@@ -14,7 +14,8 @@ import { HttpClient } from "@angular/common/http";
 import { Subject } from 'rxjs';
 // Angular Datatable Directive  
 import { DataTableDirective } from 'angular-datatables'; 
-import { NgSelectComponent } from '@ng-select/ng-select'
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -93,6 +94,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
   showButton: boolean = true;
   updateShow: boolean = false;
   newbtnShow: boolean = false;
+  setLang: any;
 
   constructor(private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
@@ -101,7 +103,14 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     private schemeAccountNoService: SchemeAccountNoService,
     private _pigmy: PigmyChartEntryService,
     private http: HttpClient,
-  ) { }
+    private translate:TranslateService
+  ) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -158,29 +167,29 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       },
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('Transaction.Action.Action'),
         },
         {
-          title: 'Date',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Date'),
           data: 'TRAN_DATE'
         }, {
-          title: 'Agent Account Type',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Agent_Account_Type'),
           data: 'AGENT_ACTYPE'
         },
         {
-          title: 'Agent Account Number',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Agent_Account_Type'),
           data: 'AGENT_ACNO'
         },
         {
-          title: 'Branch Code',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Branch_Code'),
           data: 'BRANCHCODE'
         },
         {
-          title: 'Chart Number',
+          title: this.translate.instant('Transaction.Pigmy_Chart.Chart_Number'),
           data: 'CHART_NO'
         },
         {
-          title: 'Total Amount',
+          title:this.translate.instant('Transaction.Pigmy_Chart.Total_Amount'),
           data: 'TRAN_AMOUNT'
         },
 
@@ -339,7 +348,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       if (data == 1) {
         Swal.fire({
           icon: 'info',
-          title: 'This Agent Chart is Already Exist',
+          title: `${this.translate.instant('Swal_Msg.P1')}`,
         })
         this.angForm.patchValue({
           CHART_NO: ''
@@ -498,7 +507,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       };
       this._pigmy.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Added Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_msg')}`, "success");
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
@@ -515,7 +524,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.pigmyChartTable = []
     }
     else {
-      Swal.fire('Info', 'Please fill pigmy chart', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.P2')}`, 'info')
     }
   }
 
@@ -611,7 +620,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     data['AGENTBANKAC'] = this.agentBankACNO
     data['PigmyChartArr'] = this.pigmyChartTable
     this._pigmy.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

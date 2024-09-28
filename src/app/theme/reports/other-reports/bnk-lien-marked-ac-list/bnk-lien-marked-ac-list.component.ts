@@ -10,6 +10,7 @@ import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme
 import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-lien-marked-ac-list',
@@ -35,6 +36,7 @@ minDate: Date;
  clicked:boolean=false;
  iframe5url: any = '';
   branchName: any;
+  setLang: string;
  constructor(private fb: FormBuilder,
     private config: NgSelectConfig,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -42,6 +44,8 @@ minDate: Date;
     private systemParameter:SystemMasterParametersService,
     private sanitizer: DomSanitizer,
     public schemeTypeDropdown: SchemeTypeDropdownService,
+    private translate:TranslateService
+
   
 ) {
   this.defaultDate = moment().format('DD/MM/YYYY');
@@ -69,6 +73,8 @@ minDate: Date;
       //display defalut date
   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
     this.defaultDate = data.CURRENT_DATE;
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -134,7 +140,7 @@ view(event) {
  
 }
 else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
 }
 
 }

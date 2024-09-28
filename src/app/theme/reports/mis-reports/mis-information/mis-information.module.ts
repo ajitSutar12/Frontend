@@ -12,7 +12,10 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { Iframe1Module } from '../../daily-reports/iframe1/iframe1.module';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [MisInformationComponent],
@@ -27,10 +30,22 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe1Module,
-    Iframe5Module
+    Iframe5Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  exports:[MisInformationComponent],
-  providers:[ SystemMasterParametersService,
+  exports: [MisInformationComponent],
+  providers: [SystemMasterParametersService,
     OwnbranchMasterService,]
 })
 export class MisInformationModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

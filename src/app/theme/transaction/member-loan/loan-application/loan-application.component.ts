@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { number } from 'ngx-custom-validators/src/app/number/validator';
@@ -10,6 +10,12 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { CustomerIDMasterDropdownService } from 'src/app/shared/dropdownService/customer-id-master-dropdown.service';
+import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownService/interest-category-master-dropdown.service';
+import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/customer-id.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { InterestRateForLoanandCCService } from 'src/app/theme/master/policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
+import { PurposeMasterDropdownService } from 'src/app/shared/dropdownService/purpose-master-dropdown.service';
 
 
 @Component({
@@ -20,19 +26,37 @@ import { environment } from 'src/environments/environment';
 export class LoanApplicationComponent implements OnInit {
 
   angForm: FormGroup;
+
+  @Output() reloadTablePassing = new EventEmitter<string>();
   obj: any[];
   schemeType: string = 'SH'
   dschemeType: string = 'LN'
   clicked = false;
   showRepo: boolean = false;
   url = environment.base_url;
+  GuarantorShowButton: boolean = true
+  GuarantorUpdateShow: boolean = false
+  CoBorrowerupdateid
+  CoBorrowerShowButton: boolean = true
+  CoBorrowerUpdateShow: boolean = false
+  CoBorrowerID
+  Guarantorupdateid
+  GuarantorID
+  coBorrowerIndex
+  getCustInfo = []
   // selectedValue
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private http: HttpClient
+    private customerID: CustomerIDMasterDropdownService,
+    private purposeMaster: PurposeMasterDropdownService,
+    private http: HttpClient,
+    private interstCate: IntrestCategoryMasterDropdownService,
+    private customerIdService: CustomerIdService,
+    public sanitizer: DomSanitizer,
+    private InterestRateForLoanandCC: InterestRateForLoanandCCService,
   ) {
     // this.selectedValue=null
     this.dates = moment().format('DD/MM/YYYY');
@@ -82,6 +106,9 @@ export class LoanApplicationComponent implements OnInit {
   othSanDed
   InsattAmt
   sanName
+  Cust_ID = []
+  CCust_ID = []
+  intCat = []
   ngOnInit(): void {
     this.createForm();
 
@@ -133,16 +160,21 @@ export class LoanApplicationComponent implements OnInit {
 
     })
 
-    // this.http.get('http://192.168.1.180:3000/employee/purposeloan').subscribe((data: any) => {
-    this.http.get(this.url+'/employee/purposeloan').subscribe((data: any) => {
+    this.purposeMaster.getPurposeMasterList().pipe(first()).subscribe(data => {
+      this.purpose_Loan = data;
+    })
 
-      this.purpose_Loan = data
-      this.purpose_id = data[2].id
-      console.log("new", this.purpose_Loan)
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+      this.Cust_ID = data;
+      this.CCust_ID = data;
+    })
+
+    this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
+      this.intCat = data;
     })
 
   }
-  oldLoan
+  oldLoan = 0
   bankacno
   Actype
   sanctionAmt
@@ -150,7 +182,7 @@ export class LoanApplicationComponent implements OnInit {
   IntAmt
   seValue
   AcNotype
-  oldInt
+  oldInt = 0
   tablescheme: any[] = []
   Odate
   Cdate
@@ -176,7 +208,7 @@ export class LoanApplicationComponent implements OnInit {
       'LOANDEMANDATE': edate
     }
     // this.http.post('http://192.168.1.180:3000/employee/detail', obj).subscribe((data: any) => {
-    this.http.post(this.url+'/employee/detail', obj).subscribe((data: any) => {
+    this.http.post(this.url + '/employee/detail', obj).subscribe((data: any) => {
 
       // console.log(data);
 
@@ -254,7 +286,7 @@ export class LoanApplicationComponent implements OnInit {
     }
 
     // this.http.post('http://192.168.1.180:3000/employee/Application_no', obj).subscribe((data: any) => {
-    this.http.post(this.url+'/employee/Application_no', obj).subscribe((data: any) => {
+    this.http.post(this.url + '/employee/Application_no', obj).subscribe((data: any) => {
 
       this.applicationNo = data
       this.DeApp = this.applicationNo
@@ -272,7 +304,7 @@ export class LoanApplicationComponent implements OnInit {
       'Scheme_Id': event.value
     }
     // this.http.post('http://192.168.1.180:3000/employee/membno', obj).subscribe((data: any) => {
-    this.http.post(this.url+'/employee/membno', obj).subscribe((data: any) => {
+    this.http.post(this.url + '/employee/membno', obj).subscribe((data: any) => {
 
       this.Mem_number = data
       this.mem_num = data[2].AC_MEMBNO
@@ -320,7 +352,26 @@ export class LoanApplicationComponent implements OnInit {
 
       deposits: ['', [Validators.required]],
       othSName: ['', [Validators.required]],
-      othSdeduct: ['', [Validators.required]]
+      othSdeduct: ['', [Validators.required]],
+
+      cust_id: ['', [Validators.required]],
+      loan: ['newLoan', [Validators.required]],
+
+      //Modal FormControls
+      AC_TYPE: [''],
+      AC_CUSTID: [''],
+      AC_TITLE: [''],
+      AC_NAME: [''],
+      OP_DATE: [''],
+      BIRTH_DATE: [''],
+      MEMB_SCHEME: [''],
+      MEMB_NO: [''],
+      CAST: [''],
+      OCCUPATION: [''],
+      AC_INTCATA: ['', [Validators.required]],
+      SAN_AMT: ['', [Validators.required]],
+      CAC_CUSTID: ['', [Validators.required]],
+      CAC_NAME: [''],
 
     });
   }
@@ -331,7 +382,10 @@ export class LoanApplicationComponent implements OnInit {
 
   // ];
   reset() {
-    this.angForm.controls['branch'].reset()
+    // this.angForm.controls['branch'].reset()
+    this.getCustInfo = []
+    this.Cust_ID = []
+    this.Deposit = null
     this.angForm.controls['demandApplNo'].reset()
     this.angForm.controls['loandDate'].reset()
     this.angForm.controls['meetDate'].reset()
@@ -354,6 +408,9 @@ export class LoanApplicationComponent implements OnInit {
     this.angForm.controls['deposits'].reset()
     this.angForm.controls['othSName'].reset()
     this.angForm.controls['othSdeduct'].reset()
+    // this.angForm.controls['cust_id'].reset()
+    this.angForm.controls['cust_id'].setValue(null);
+
 
   }
   close() {
@@ -368,9 +425,16 @@ export class LoanApplicationComponent implements OnInit {
   selectedScheme
   legbal
   checkscheme
+  ac_notype
   getDeScheme(event) {
+
+    this.angForm.patchValue({
+      "AC_TYPE": event.id + " " + event.label
+    })
+
     this.demScheme = event.value
     this.selectedScheme = event.label
+    this.ac_notype = event.name
 
     for (let i = 0; i < this.tableData.length; i++) {
 
@@ -410,17 +474,33 @@ export class LoanApplicationComponent implements OnInit {
   Add
   oldLoan1: number = 5;
   oldInt1: number = 5;
-  totPayamt(event) {
-    this.sanShif = Number(this.sanShif)
-    this.oldLoan = Number(this.oldLoan);
-    this.oldInt = Number(this.oldInt);
-    this.ShareDedu = Number(this.ShareDedu);
-    this.Deposit = Number(this.Deposit);
-    this.othSanDed = Number(this.othSanDed)
-    this.Add = this.sanShif + this.oldLoan + this.oldInt + this.ShareDedu + this.Deposit + this.othSanDed
+  totPayamt() {
+    this.sanShif = isNaN(Number(this.sanShif)) ? 0 : Number(this.sanShif);
+    this.oldLoan = isNaN(Number(this.oldLoan)) ? 0 : Number(this.oldLoan);
+    this.oldInt = isNaN(Number(this.oldInt)) ? 0 : Number(this.oldInt);
+    this.ShareDedu = isNaN(Number(this.ShareDedu)) ? 0 : Number(this.ShareDedu);
+    this.Deposit = isNaN(Number(this.Deposit)) ? 0 : Number(this.Deposit);
+    this.othSanDed = isNaN(Number(this.othSanDed)) ? 0 : Number(this.othSanDed);
+    this.Add = this.oldLoan + this.oldInt + this.ShareDedu + this.Deposit + this.othSanDed
     // this.Add = this.ShareDedu + this.Deposit
     this.TotAmount = this.sancAmt - this.Add;
     console.log('amt', this.TotAmount)
+  }
+
+  // ShareDedu
+  getLoanPeriod(event) {
+    let obj = {
+      "period": this.loanPer,
+      "acnotype": this.ac_notype
+    }
+
+    this.http.post(this.url + '/term-loan-master/getLoanDeductPerct', obj).subscribe(data => {
+      let abc = data
+      let value = data[0].DEDUCTION_PERCENT
+      this.ShareDedu = Number(value / 100 * this.sancAmt)
+    })
+
+
   }
 
   getamt(event) {
@@ -431,52 +511,65 @@ export class LoanApplicationComponent implements OnInit {
   result: number
   months
   compoundInterestCalculation() {
-    const formVal = this.angForm.value;
-    const moment = require('moment');
-    let userData = JSON.parse(localStorage.getItem("user"));
-    this.date1 = userData.branch.syspara.CURRENT_DATE;
-    this.months = formVal.loanPeriod
-    var Quarters = Math.floor(this.angForm.controls['loanPeriod'].value) / 1;
+    // const formVal = this.angForm.value;
+    // const moment = require('moment');
+    // let userData = JSON.parse(localStorage.getItem("user"));
+    // this.date1 = userData.branch.syspara.CURRENT_DATE;
+    // this.months = formVal.loanPeriod
+    // var Quarters = Math.floor(this.angForm.controls['loanPeriod'].value) / 1;
 
-    // var startdate = moment('2023-08-27'); 
-    // var enddate = startdate.clone().add( this.months, 'months'); 
-    // var result = enddate.diff(startdate, 'days');
+    // // var startdate = moment('2023-08-27'); 
+    // // var enddate = startdate.clone().add( this.months, 'months'); 
+    // // var result = enddate.diff(startdate, 'days');
 
-    var dateParts = this.date1.split('/');
-    var day = parseInt(dateParts[0], 10);
-    var month = parseInt(dateParts[1], 10) - 1;
-    var year = parseInt(dateParts[2], 10);
+    // var dateParts = this.date1.split('/');
+    // var day = parseInt(dateParts[0], 10);
+    // var month = parseInt(dateParts[1], 10) - 1;
+    // var year = parseInt(dateParts[2], 10);
 
-    var startDate = new Date(year, month, day);
-    var endDate = new Date(startDate);
-    endDate.setMonth(endDate.getMonth() + this.months);
-    var oneDay = 1000 * 60 * 60 * 24;
-    var timeDiff = endDate.getTime() - startDate.getTime();
-    var result = Math.ceil(timeDiff / oneDay);
+    // var startDate = new Date(year, month, day);
+    // var endDate = new Date(startDate);
+    // endDate.setMonth(endDate.getMonth() + this.months);
+    // var oneDay = 1000 * 60 * 60 * 24;
+    // var timeDiff = endDate.getTime() - startDate.getTime();
+    // var result = Math.ceil(timeDiff / oneDay);
 
-    console.log(" end date:", endDate);
+    // console.log(" end date:", endDate);
 
-    var amount = this.angForm.controls['asAmt'].value
-    var maturityAmount = this.angForm.controls['Insamt'].value
+    // var amount = this.angForm.controls['asAmt'].value
+    // var maturityAmount = this.angForm.controls['Insamt'].value
 
-    for (let i = 1; i <= Quarters; i++) {
-      let totalInterest: number
-      var sample = parseFloat(amount);
-      var totalInt = (parseFloat(amount) * (this.angForm.controls['iRate'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
-      totalInterest = Number(totalInt)
-      amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
+    // for (let i = 1; i <= Quarters; i++) {
+    //   let totalInterest: number
+    //   var sample = parseFloat(amount);
+    //   var totalInt = (parseFloat(amount) * (this.angForm.controls['iRate'].value) * Math.trunc((result) / (Quarters)) / 36500).toFixed(10)
+    //   totalInterest = Number(totalInt)
+    //   amount = (parseFloat(amount) + (totalInterest)).toFixed(10)
 
-      totalInterest = 0
+    //   totalInterest = 0
 
 
-    }
+    // }
 
-    maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * Number(this.angForm.controls['iRate'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
-    console.log("amt", maturityAmount)
+    // maturityAmount = Math.round(parseFloat(amount) + (parseFloat(amount) * Number(this.angForm.controls['iRate'].value) * ((result) - Math.trunc((result) / (Quarters)) * (Quarters))) / 36500)
+    // console.log("amt", maturityAmount)
+    // this.angForm.patchValue({
+    //   Insamt: isNaN(Number(maturityAmount)) ? 0 : Number(maturityAmount)
+    // })
+    // console.log("amt", maturityAmount)
+
+    let rate = this.intRate / 100
+
+    var totalInt = this.sancAmt * rate * (Math.pow(1 + rate, this.loanPer)) / (Math.pow(1 + rate, this.loanPer) - 1)
+
+    console.log(totalInt)
     this.angForm.patchValue({
-      Insamt: maturityAmount
+      Insamt: isNaN(Number(totalInt)) ? 0 : Number(totalInt).toFixed(2)
     })
-    console.log("amt", maturityAmount)
+
+
+
+
   }
 
   usercode
@@ -530,14 +623,14 @@ export class LoanApplicationComponent implements OnInit {
       'AC_INSTALLMENT': this.InsattAmt,
       'AC_MONTHS': this.loanPer,
       'AC_BRANCH': this.branchCode,
-      'USER_CODE':this.usercode,
-      'OFFICER_CODE':this.usercode
+      'USER_CODE': this.usercode,
+      'OFFICER_CODE': this.usercode
       // 'date': 
 
     };
 
     // this.http.post('http://192.168.1.180:3000/employee/insert', obj).subscribe(
-    this.http.post(this.url+'/employee/insert', obj).subscribe(
+    this.http.post(this.url + '/employee/insert', obj).subscribe(
 
       (response) => {
         console.log(response)
@@ -550,4 +643,565 @@ export class LoanApplicationComponent implements OnInit {
 
     );
   }
+  display: string;
+  display1: string;
+  isShowMoedal = false
+  openModal() {
+    this.isShowMoedal = true
+    this.isRenew = false
+    this.angForm.patchValue({
+      "AC_TYPE" : null
+    })
+    this.isNew = true
+    this.display = "block";
+  }
+  onCloseHandled() {
+    this.display = "none";
+  }
+
+  CoBorrowerTrue: boolean = false
+  clickCoBorrower($event) {
+    if ($event.target.checked) {
+      this.CoBorrowerTrue = true
+    } else {
+      this.CoBorrowerTrue = false
+    }
+  }
+
+
+
+  customerDoc
+  imageObject
+  selectedImgArrayDetails
+  selectedImagePreview
+  tempAddress: boolean = true;
+  ngCity
+  int_category
+  limit = 0
+  balance = 0
+  retireMentDate
+  getCustomer(event) {
+    this.getCustInfo = []
+
+    this.angForm.patchValue({
+      "memno": event.AC_MEMBNO + " " + event.AC_NAME
+    })
+    this.customerIdService.getFormData(event.value).subscribe(data => {
+      this.customerDoc = data.custdocument
+      let obj = {
+        SCHEME_CODE: 'LN'
+      }
+      this.imageObject = []
+      this.selectedImgArrayDetails = []
+      this.http.post(this.url + '/scheme-linking-with-d/fetchLinkedDoc', obj).subscribe(resp => {
+        let DocArr: any = resp
+        for (const [key, value] of Object.entries(data.custdocument)) {
+          DocArr.forEach(ele => {
+            if (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE'])) {
+              let path = (this.customerDoc.find(data => data['DocumentMaster']['id'] == ele['DOCUMENT_CODE']))
+              ele['status'] = true;
+              ele['IS_ALLOWED'] = true;
+              ele['PATH'] = path['PATH']
+            } else {
+              ele['status'] = false;
+              ele['IS_ALLOWED'] = false;
+            }
+          })
+          let selectedObj = {};
+          let id = data.custdocument[key].DocumentMasterID;
+          selectedObj[id] = environment.base_url + '/' + data.custdocument[key].PATH;
+          this.selectedImagePreview = selectedObj[id];
+          this.imageObject.push(selectedObj)
+          this.selectedImgArrayDetails.push(selectedObj);
+        }
+        this.customerDoc = DocArr
+      })
+      this.tempAddress = data.custAddress[0]?.AC_ADDFLAG
+
+      if (data.castMaster == null) {
+        data.castMaster = ""
+      }
+      if (data.occupMaster == null) {
+        data.occupMaster = ""
+      }
+      this.id = data.id
+      this.angForm.patchValue({
+        AC_TITLE: data.AC_TITLE,
+        AC_NAME: data.AC_NAME,
+        MEMB_SCHEME: data.AC_MEMBTYPE,
+        MEMB_NO: data.AC_MEMBNO,
+        CAST: data.AC_CAST,
+        OCCUPATION: data.occupMaster.NAME,
+        BIRTH_DATE: data.AC_BIRTH_DT,
+        AC_CUSTID: data.AC_NO + " " + data.AC_NAME,
+
+
+      })
+
+    })
+    this.onCloseModal();
+
+    //tableData
+    let obj = {
+      "CUSTID": event.value
+    }
+
+    this.http.post(this.url + '/term-loan-master/getLoanAccts', obj).subscribe((data: any[]) => {
+      let tableData = []
+      tableData = data
+      //  this.getCustInfo
+      for (let i = 0; i < tableData.length; i++) {
+        if (tableData[i]['ledgerbalance'] > 0) {
+          this.getCustInfo.push(tableData[i])
+        }
+      }
+      console.log(this.getCustInfo)
+      // if (this.getCustInfo[0].AC_RETIRE_DATE == null) {
+      //   if (!this.getCustInfo[0].AC_RETIRE_DATE) {
+      //     Swal.fire({
+      //       title: 'Retirement date not found!',
+      //       text: "Do you want to continue?",
+      //       icon: 'warning',
+      //       showCancelButton: true,
+      //       confirmButtonText: 'Yes, continue',
+      //       cancelButtonText: 'No, cancel',
+      //     }).then((result) => {
+      //       if (result.isConfirmed) {
+      //         console.log('Proceed with the logic');
+      //       } else if (result.dismiss === Swal.DismissReason.cancel) {
+      //         console.log('canceled');
+      //       }
+      //     });
+      //   }
+      // }
+      // else {
+        let formVal = this.angForm.value;
+        let retirementDateString = this.getCustInfo[0].AC_RETIRE_DATE;
+
+        // Assuming the format is 'DD-MM-YYYY'
+        let [day, month, year] = retirementDateString.split('-');
+        
+        // Convert to the correct date format (year, month - 1, day)
+        let retireMentDate = new Date(Number(year), Number(month) - 1, Number(day));
+        
+        console.log(retireMentDate);
+        
+        console.log(retireMentDate);  // Should now show the correct date
+        
+        
+        // Calculate the difference in years and months
+        // let yearDiff = retireMentDate.getFullYear() - loanDate.getFullYear();
+        // let monthDiff = retireMentDate.getMonth() - loanDate.getMonth();
+        
+        // Adjust for negative month difference
+        // if (monthDiff < 0) {
+        //   yearDiff--;
+        //   monthDiff += 12;
+        // }
+        
+        // // Final months difference (including day adjustment)
+        // let totalMonthsDiff = yearDiff * 12 + monthDiff;
+        
+        // // Adjust if day of month is earlier in retirement date
+        // if (retireMentDate.getDate() < loanDate.getDate()) {
+        //   totalMonthsDiff--;
+        // }
+        
+        // console.log("Difference in months:", totalMonthsDiff);
+        
+
+
+      // }
+
+      let loanValue = 0
+      let loanInt = 0
+
+      this.getCustInfo.forEach(element => {
+        loanValue += Number(element.ledgerbalance);
+        loanInt += Number(element.AC_INTRATE);
+
+        this.oldLoan = parseFloat(loanValue.toFixed(2));
+        this.oldInt = parseFloat(loanInt.toFixed(2));
+
+      });
+
+
+
+      this.getGurantors()
+    })
+
+    // deposit calculation variables
+
+    let obj1 = {
+      "cust_id": event.value
+    }
+
+    this.http.post(this.url + '/term-loan-master/getDeposit', obj1).subscribe(data => {
+      let deposit = data
+      this.limit = data[0].MAX_SHARES_LIMIT
+      this.balance = data[0].BALANCE
+    })
+  }
+
+  gurantors = []
+  getGurantors() {
+    let obj1 = {
+      "bankacno": this.getCustInfo[0].BANKACNO
+    }
+
+    this.http.post(this.url + '/term-loan-master/getGuarantors', obj1).subscribe((data: any[]) => {
+      this.gurantors = data
+    })
+
+
+  }
+
+  public visibleAnimate = false;
+  public visible = false;
+  onCloseModal() {
+    this.visibleAnimate = false;
+    setTimeout(() => this.visible = false, 300);
+  }
+
+
+  fileChangeEvent(event, id, valueid) {
+    if (this.customerDoc[id]['status'] == true) {
+      Swal.fire({
+        // title: 'Do You Want To Replace previous document?',
+        html: '<span style="text-justify: inter-word; font-weight:600; font-size:20px;">Do You Want To Replace previous document?</span>',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let result
+          let arr = [];
+          let me = this;
+          let obj = {};
+          let selectedObj = {};
+          let file = (event.target as HTMLInputElement).files[0];
+          this.customerDoc[id]['status'] = true
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+          };
+          reader.onerror = function (error) {
+            console.log('Error: ', error);
+          };
+          let isExist: boolean = false
+          for (let element of this.imageObject) {
+            if (Number(Object.keys(element)[0]) == valueid) {
+              isExist = true
+              reader.onload = async function (ele: any) {
+                result = await reader.result;
+                let selecetedImg = ele.target.result;
+                selectedObj[valueid] = selecetedImg
+                obj[valueid] = result;
+                element[valueid] = result
+              };
+              this.customerDoc[id]['status'] = true
+              break
+            }
+          }
+          if (!isExist) {
+            reader.onload = async function (ele: any) {
+              result = await reader.result;
+              let selecetedImg = ele.target.result;
+              selectedObj[valueid] = selecetedImg
+              obj[valueid] = result;
+            };
+            this.imageObject.push(obj);
+            this.selectedImgArrayDetails.push(selectedObj);
+            this.customerDoc[id]['status'] = true
+          }
+        } else {
+          event.target.value = null
+        }
+      })
+    }
+    else {
+      let result
+      let arr = [];
+      let me = this;
+      let obj = {};
+      let selectedObj = {};
+
+      let file = (event.target as HTMLInputElement).files[0];
+      this.customerDoc[id]['status'] = true
+
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async function (ele: any) {
+        result = await reader.result;
+        let selecetedImg = ele.target.result;
+        selectedObj[valueid] = selecetedImg
+        obj[valueid] = result;
+
+
+      };
+      // this.fileuploaded=true,
+      // this.filenotuploaded=false
+
+      reader.onerror = function (error) {
+        console.log('Error: ', error);
+      };
+
+      let isExist: boolean = false
+      for (let element of this.imageObject) {
+        if (Number(Object.keys(element)[0]) == valueid) {
+          isExist = true
+          reader.onload = async function (ele: any) {
+            result = await reader.result;
+            let selecetedImg = ele.target.result;
+            selectedObj[valueid] = selecetedImg
+            obj[valueid] = result;
+            element[valueid] = result
+          };
+          this.customerDoc[id]['status'] = true
+          break
+        }
+      }
+
+      if (!isExist) {
+        reader.onload = async function (ele: any) {
+          result = await reader.result;
+          let selecetedImg = ele.target.result;
+          selectedObj[valueid] = selecetedImg
+          obj[valueid] = result;
+        };
+        this.imageObject.push(obj);
+        this.selectedImgArrayDetails.push(selectedObj);
+        this.customerDoc[id]['status'] = true
+      }
+    }
+  }
+  isImgPreview
+  urlMap: SafeResourceUrl
+  isPdf: boolean = false
+  viewImagePreview(ele, id) {
+    if (this.selectedImgArrayDetails.length !== 0) {
+      for (const [key, value] of Object.entries(this.selectedImgArrayDetails)) {
+        let jsonObj = value;
+        Object.keys(jsonObj).forEach(key => {
+          if (id == key) {
+            let selectedImage = jsonObj[key];
+            if (selectedImage.startsWith('data:image')) {
+              this.isImgPreview = true;
+              this.isPdf = false;
+              this.selectedImagePreview = selectedImage;
+              this.urlMap = '';
+              this.openModal1()
+            } else if (selectedImage.startsWith('data:application/pdf')) {
+              this.isImgPreview = false;
+              this.isPdf = true;
+              this.selectedImagePreview = '';
+              this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
+              this.openModal1()
+            } else if (selectedImage.toLowerCase().endsWith('.jpg') || selectedImage.toLowerCase().endsWith('.png') || selectedImage.toLowerCase().endsWith('.jpeg')) {
+              this.isImgPreview = true;
+              this.isPdf = false;
+              this.selectedImagePreview = selectedImage;
+              this.urlMap = '';
+              this.openModal1()
+            } else if (selectedImage.toLowerCase().endsWith('.pdf')) {
+              this.isImgPreview = false;
+              this.isPdf = true;
+              this.selectedImagePreview = '';
+              this.urlMap = this.sanitizer.bypassSecurityTrustResourceUrl(selectedImage);
+              this.openModal1()
+            } else {
+              this.isImgPreview = false;
+              this.isPdf = false;
+              this.selectedImagePreview = '';
+              this.urlMap = '';
+              this.openModal1()
+            }
+            throw 'Break';
+          } else {
+            this.isImgPreview = false;
+            this.isPdf = false;
+            this.selectedImagePreview = '';
+            this.urlMap = '';
+          }
+        });
+      }
+    } else {
+      this.isImgPreview = false;
+      this.isPdf = false;
+      this.selectedImagePreview = '';
+      this.urlMap = '';
+    }
+  }
+
+
+  closeModal() {
+    var button = document.getElementById('trigger');
+    button.click();
+    this.reloadTablePassing.emit();
+  }
+
+  isdocument = false
+  openModal1() {
+    this.isdocument = true
+    this.display1 = "block";
+
+  }
+
+  onClose() {
+    this.display1 = "none";
+    this.isdocument = true
+  }
+
+  Cid: any = null;
+  getCCustomer(Cid) {
+    this.customerIdService.getFormData(Cid).subscribe(data => {
+      this.angForm.patchValue({
+        CAC_NAME: data.AC_NAME,
+      })
+    })
+  }
+
+
+  multiCoBorrower = [];
+  addCoBorrower() {
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      AC_NAME: formVal.CAC_NAME,
+    }
+
+    // if (formVal.AC_CUSTID != "") {
+    if (object.CAC_CUSTID != undefined) {
+      if (this.id != this.Cid) {
+        if (this.multiCoBorrower.length == 0) {
+          this.multiCoBorrower.push(object);
+        }
+        else {
+          if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
+            Swal.fire("This Customer is Already CoBorrower", "error");
+          } else {
+            this.multiCoBorrower.push(object);
+          }
+        }
+      }
+      else {
+        // Swal.fire("Please Select Different Customer id", "error");
+      }
+    }
+    else {
+      Swal.fire("Please Select CoBorrower Customer Id", "error");
+    }
+
+    // } else {
+    //   Swal.fire("Please Select Customer Id", "error");
+    // }
+    this.resetCoBorrower()
+  }
+
+  resetCoBorrower() {
+    this.angForm.controls['CAC_CUSTID'].reset();
+    this.angForm.controls['CAC_NAME'].reset();
+  }
+
+  editCoBorrower(id) {
+    this.coBorrowerIndex = id
+    this.CoBorrowerupdateid = id
+    this.CoBorrowerID = this.multiCoBorrower[id].id;
+    this.CoBorrowerTrue = true
+    this.CoBorrowerShowButton = false;
+    this.CoBorrowerUpdateShow = true;
+    this.Cid = Number(this.multiCoBorrower[id].CAC_CUSTID)
+    this.angForm.patchValue({
+      CAC_NAME: this.multiCoBorrower[id].AC_NAME,
+    })
+  }
+
+  updateCoBorrower() {
+    let index = this.coBorrowerIndex;
+    this.CoBorrowerShowButton = true;
+    this.CoBorrowerUpdateShow = false;
+
+    const formVal = this.angForm.value;
+    var object = {
+      CAC_CUSTID: formVal.CAC_CUSTID,
+      AC_NAME: formVal.CAC_NAME,
+      id: this.CoBorrowerID
+    }
+    if (formVal.AC_CUSTID != "") {
+      if (object.CAC_CUSTID != undefined) {
+        if (this.id != this.Cid) {
+          if (this.multiCoBorrower.length == 0) {
+            this.multiCoBorrower[index] = object;
+          }
+          else {
+            if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
+              Swal.fire("This Customer is Already CoBorrower", "error");
+            } else {
+              this.multiCoBorrower[index] = object;
+            }
+          }
+        }
+        else {
+          // Swal.fire("Please Select Different Customer id", "error");
+        }
+      }
+      else {
+        // Swal.fire("Please Select CoBorrower Customer Id", "error");
+      }
+
+    } else {
+      // Swal.fire("Please Select Customer Id", "error");
+    }
+
+    this.resetCoBorrower()
+  }
+
+  // Delete CoBorrower 
+  delCoBorrower(id) {
+    this.multiCoBorrower.splice(id, 1)
+    this.resetCoBorrower()
+  }
+
+  getInterest(event) {
+    let temp
+    this.InterestRateForLoanandCC.intData().subscribe(data => {
+      data.forEach(async (element) => {
+
+        if (element.INT_CATEGORY == event.name) {
+          temp = element
+        }
+      })
+      this.angForm.patchValue({
+        iRate: temp?.rate[0]?.INT_RATE,
+      })
+      this.compoundInterestCalculation()
+    })
+  }
+
+  deposit
+  shareDeduction() {
+    let shareDeduction = this.sancAmt * this.oldInt / 100
+    this.deposit = this.limit - (this.balance + shareDeduction)
+
+    this.angForm.patchValue({
+      "shDeduct": shareDeduction,
+      "deposits": (shareDeduction != 0 ? this.deposit : 0).toFixed(2)
+    })
+    this.totPayamt()
+  }
+
+  isRenew = false
+  isNew = true
+  radioFun() {
+    this.isRenew = true
+    this.isNew = false
+  }
+
 }

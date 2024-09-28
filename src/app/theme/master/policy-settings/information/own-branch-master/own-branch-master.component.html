@@ -2,9 +2,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Own Branch Master</h5>
+                <h5>{{'master.Own_Branch_master.Own_Branch_master' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Own_Branch_master.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Own_Branch_master.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -17,7 +17,7 @@
                                     <input type="text" name="CODE" class="form-control" placeholder=" " id="BranchCode"
                                         pattern="^[0-9]+$" disabled title="Input allowed only  0-9"
                                         formControlName="CODE">
-                                    <label for="BranchCode">Branch Code</label>
+                                    <label for="BranchCode">{{'master.Own_Branch_master.branch_code' | translate}}</label>
                                 </span>
                             </div>
                         </div>
@@ -25,15 +25,15 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="NAME" class="form-control" placeholder=" " id="BranchName"
-                                    #autofocus required="" pattern="^[A-Za-z\./ -]+$" maxlength="100"
+                                    #autofocus required="" pattern="^[\u0900-\u097F A-Za-z]+$" maxlength="100"
                                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                         title="Input allowed only  A-Z a-z  - / . (Space)" formControlName="NAME">
-                                    <label for="BranchName">Branch Name<sub class="required">* </sub></label>
+                                    <label for="BranchName">{{'master.Own_Branch_master.branch_name' | translate}}<sub class="required">* </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label" *ngIf="angForm.controls['NAME'].invalid && (angForm.controls['NAME'].dirty || angForm.controls['NAME'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->{{'Utility.Validation.Val1' | translate}}
                                 </div>
                             </div>
                         </div>
@@ -42,11 +42,13 @@
                                 <span class="border-lable-flt" autofocus>
                                     <ng-select appTheme bindValue="value" bindLabel="label" [(ngModel)]="ngAcNo" id="AC_NO" formControlName="AC_NO"
                                     #AC_NO (focus)="onFocus(AC_NO)" [selectOnTab]='true'   
-                                    title="Compulsory Selection" placeholder="Account Number">
+                                    title="Compulsory Selection" placeholder=" ">
                                         <ng-option *ngFor="let values of acno" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
-                                    <label for="AC_NO">Account Number</label>
+                                    <label for="AC_NO">
+                                        <!-- Account Number -->{{'master.Own_Branch_master.Account_number' | translate}}
+                                    </label>
                                 </span>
                             </div>
                             <!-- <div class="form-group input-group">
@@ -70,9 +72,9 @@
 
                         </div>
                         <div class="col-sm-3">
-                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>Submit</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
-                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">Update</button>&nbsp;
+                            <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton" (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()" appTheme>{{'master.Own_Branch_master.Submit' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">{{'master.Own_Branch_master.Cancel' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"  [disabled]="angForm.invalid">{{'master.Own_Branch_master.Update' | translate}}</button>&nbsp;
                         </div>
                     </div>
                 </div>
@@ -101,7 +103,7 @@
                                 </tbody>
                                 <tbody *ngIf="ownBranches?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}} </td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

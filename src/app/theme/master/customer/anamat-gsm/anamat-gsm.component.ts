@@ -26,6 +26,7 @@ import { PrefixMasterDropdownService } from "src/app/shared/dropdownService/pref
 import { SystemMasterParametersService } from "../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service"
 import * as moment from 'moment';
 import { NgSelectComponent } from "@ng-select/ng-select";
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -151,6 +152,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   rejectShow: boolean = false;
   approveShow: boolean = false;
   logDate
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -160,7 +162,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     private cityMasterService: cityMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private customerID: CustomerIDMasterDropdownService,
-    private systemParameter: SystemMasterParametersService
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
     if (this.childMessage != undefined) {
 
@@ -171,6 +174,8 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -233,26 +238,26 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       ],
       columns: [
         {
-          title: "Action",
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           },
         },
         {
           data: "AC_TYPE",
-          title: "Scheme",
+          title: this.translate.instant('master.Anamat_Sub_Master.Scheme'),
         },
         {
           data: 'BANKACNO',
-          title: "Account Number",
+          title: this.translate.instant('master.Anamat_Sub_Master.Ac_No'),
         },
         {
           data: "AC_CUSTID",
-          title: "Customer ID",
+          title: this.translate.instant('master.Anamat_Sub_Master.Cust_Id'),
         },
         {
           data: "AC_NAME",
-          title: "Member Name",
+          title: this.translate.instant('master.Anamat_Sub_Master.Member_Name'),
         },
         // {
         //   data: "AC_MEMBTYPE",
@@ -263,20 +268,20 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         //   title: "Member No",
         // },
         {
-          data: "AC_ADDR",
-          title: "Detail Address",
+          data: "AC_AREA",
+          title: this.translate.instant('master.Anamat_Sub_Master.Detail_add'),
         },
         {
           data: "AC_CTCODE",
-          title: "City",
+          title: this.translate.instant('master.Anamat_Sub_Master.City'),
         },
         {
           data: "AC_OPDATE",
-          title: "Opening date",
+          title: this.translate.instant('master.Anamat_Sub_Master.Open_Date'),
         },
         {
           data: "AC_PARTICULAR",
-          title: "Reason",
+          title: this.translate.instant('master.Anamat_Sub_Master.Reason'),
         },
       ],
       dom: "Blrtip",
@@ -323,7 +328,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele <= 100) {
     }
     else {
-      Swal.fire("Invalid Input", "Please insert values below 100", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
     }
   }
 
@@ -332,7 +337,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.AC_CUSTID1 = '') {
     }
     else {
-      Swal.fire("Invalid Input", "Please insert Customer ID", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.CustId')}`, "error");
     }
   }
 
@@ -424,7 +429,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Valid')}`,`${this.translate.instant('Swal_Msg.Valid Date')}`, "warning");
         (document.getElementById("AC_CTCODE") as HTMLInputElement).value = ""
       }
     }
@@ -492,7 +497,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         (data) => {
           Swal.fire({
             icon: 'success',
-            title: 'Account Created successfully!',
+            title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
             html:
               '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
               '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -511,7 +516,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
 name:any
@@ -588,7 +593,7 @@ ac_no:any
     data["AC_OPDATE"] = opdate;
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0'),
       this.anamatGSMService.updateData(data).subscribe(() => {
-        Swal.fire("Success!", "Record Updated Successfully !", "success");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
         this.showButton = true;
         this.updateShow = false;
         this.newbtnShow = false;
@@ -620,8 +625,8 @@ ac_no:any
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Narration_Data')}`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -631,7 +636,7 @@ ac_no:any
       if (result.isConfirmed) {
         this.anamatGSMService.deleteData(id).subscribe((data1) => {
           this.anamat = data1;
-          Swal.fire("Deleted!", "Your data has been deleted.", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`,`${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
         }),
           (error) => {
             console.log(error);
@@ -639,7 +644,7 @@ ac_no:any
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire("Cancelled", "Your data is safe.", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
       }
     });
   }
@@ -696,7 +701,7 @@ ac_no:any
     this.anamatGSMService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Anamat Account Approved successfully!',
+        title: `${this.translate.instant('Swal_Msg.Approve')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -722,7 +727,7 @@ ac_no:any
     this.anamatGSMService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success', 
-        title: 'Anamat Account rejected successfully!',
+        title:  `${this.translate.instant('Swal_Msg.Anamat_Reject')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -768,7 +773,7 @@ ac_no:any
     this.anamatGSMService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success', 
-        title: 'Account unapproved successfully!',
+        title: `${this.translate.instant('Swal_Msg.U_Msg')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>

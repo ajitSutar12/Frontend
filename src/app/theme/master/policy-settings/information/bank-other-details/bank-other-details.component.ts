@@ -17,7 +17,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { NgSelectComponent } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -51,8 +51,8 @@ interface BankOtherDetails {
   GST_NO: string;
   IFSC_CODE: string;
   IBT_TRAN: boolean;
-  GMAIL_PASSWORD:any;
-  GMAIL_USER:string;
+  GMAIL_PASSWORD: any;
+  GMAIL_USER: string;
 
 }
 
@@ -119,7 +119,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     private cityMaster: cityMasterService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private fb: FormBuilder
+    private fb: FormBuilder, private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -192,52 +192,52 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Name',
+          title: this.translate.instant('master.Bank_Other_Details.Name'),
           data: 'NAME'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Bank_Other_Details.Account_Number'),
           data: 'SBI_BANKCODE'
         },
         {
-          title: 'Pan Number',
+          title: this.translate.instant('master.Bank_Other_Details.Pan_Number'),
           data: 'PAN_NO'
         },
         {
-          title: 'GST Number',
+          title: this.translate.instant('master.Bank_Other_Details.GST_Number'),
           data: 'GST_NO'
         },
         {
-          title: 'IFSC Code',
+          title: this.translate.instant('master.Bank_Other_Details.IFSC_Code'),
           data: 'IFSC_CODE'
         },
         {
-          title: 'Flat Premise Name',
+          title: this.translate.instant('master.Bank_Other_Details.Flat_permise_Number'),
           data: 'FLAT_PRM_NAME'
         },
         {
-          title: 'Town/City/District',
+          title: this.translate.instant('master.Bank_Other_Details.Town_City_District'),
           data: 'CITY_CODE'
         },
         {
-          title: 'State',
+          title: this.translate.instant('master.Bank_Other_Details.State'),
           data: 'STATE'
         },
         {
-          title: 'Pin Code',
+          title: this.translate.instant('master.Bank_Other_Details.Pin_Code'),
           data: 'PIN_CODE'
         },
 
         {
-          title: 'Mobile Number',
+          title: this.translate.instant('master.Bank_Other_Details.Mobile_Number'),
           data: 'MOB_NUM'
         },
 
         {
-          title: 'Email',
+          title: this.translate.instant('master.Bank_Other_Details.Email'),
           data: 'EMAIL'
         },
 
@@ -310,7 +310,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           ATM_GLACNO: formVal.ATM_GLACNO,
         }
         this.bankDetails.postData(dataToSend).subscribe(data1 => {
-          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           this.formSubmitted = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -322,7 +322,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         this.resetForm();
       }
       else {
-        Swal.fire('Info!', 'Data Already Exist!', 'info');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Already')}`, 'info');
       }
     })
   }
@@ -377,7 +377,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     data['IBT_TRAN'] = (data.IBT_TRAN == true ? '1' : '0')
 
     this.bankDetails.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

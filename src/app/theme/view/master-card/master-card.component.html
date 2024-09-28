@@ -3,9 +3,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Master Card</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
-            </div>
+                <!-- <h5>Master Card</h5> -->
+                <h5>{{'master.Master_Card.T1'|translate}}</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: {{'master.Action.F2'|translate}}</h6>            </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
@@ -33,7 +33,9 @@
                     </div> -->
                         <!-- </div> -->
 
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">
+                            <!-- Scheme -->
+                            {{'master.Master_Card.Scheme'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -50,13 +52,15 @@
                                 *ngIf="angForm.controls['scode'].invalid && (angForm.controls['scode'].dirty || angForm.controls['scode'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scode'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="memNo">Member Number<sub
+                        <div class="col-sm-12 col-md-1"> <label for="memNo">
+                            <!-- Member Number -->
+                            {{'master.Master_Card.Member_Number'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -73,7 +77,7 @@
                                 *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['memNo'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -93,7 +97,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="name">Name<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="name">
+                            <!-- Name -->  {{'master.Master_Card.Name'|translate}}
+                            <sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -105,12 +111,14 @@
                                 *ngIf="angForm.controls['name'].invalid && (angForm.controls['name'].dirty || angForm.controls['name'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['name'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="mobNo">Mob. No.<sub
+                        <div class="col-sm-12 col-md-1"> <label for="mobNo">
+                            <!-- Mob. No. -->  {{'master.Master_Card.Mobile_Number'|translate}}
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -123,13 +131,14 @@
                                 *ngIf="angForm.controls['mobNo'].invalid && (angForm.controls['mobNo'].dirty || angForm.controls['mobNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['mobNo'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="address">Address<sub
-                                    class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="address">
+                            <!-- Address -->  {{'master.Master_Card.Address'|translate}}
+                            <sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -142,7 +151,7 @@
                                 *ngIf="angForm.controls['address'].invalid && (angForm.controls['address'].dirty || angForm.controls['address'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['address'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -150,7 +159,9 @@
 
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="name">BirthDate<sub
+                        <div class="col-sm-12 col-md-1"> <label for="name">
+                            <!-- Birth Date -->  {{'master.Master_Card.B_Date'|translate}}
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -164,12 +175,14 @@
                                 *ngIf="angForm.controls['birthDate'].invalid && (angForm.controls['birthDate'].dirty || angForm.controls['birthDate'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['birthDate'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="joinDate">Joining Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for="joinDate">
+                            <!-- Joining Date -->
+                            {{'master.Master_Card.JOINT_DATE'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -183,12 +196,14 @@
                                 *ngIf="angForm.controls['joinDate'].invalid && (angForm.controls['joinDate'].dirty || angForm.controls['joinDate'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['joinDate'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="retirementDate">Retirement Date<sub
+                        <div class="col-sm-12 col-md-1"> <label for="retirementDate">
+                            <!-- Retirement Date -->
+                            {{'master.Master_Card.Retirement_Date'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -202,14 +217,16 @@
                                 *ngIf="angForm.controls['retirementDate'].invalid && (angForm.controls['retirementDate'].dirty || angForm.controls['retirementDate'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['retirementDate'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="Status">Status<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="Status">
+                            <!-- Status -->
+                            {{'master.Master_Card.Status'|translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -223,12 +240,14 @@
                                 *ngIf="angForm.controls['Status'].invalid && (angForm.controls['Status'].dirty || angForm.controls['Status'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['Status'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="salaryDiv">Salary Division<sub
+                        <div class="col-sm-12 col-md-1"> <label for="salaryDiv">
+                            <!-- Salary Division -->
+                            {{'master.Master_Card.Salary_Division'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -244,12 +263,14 @@
                                 *ngIf="angForm.controls['salaryDiv'].invalid && (angForm.controls['salaryDiv'].dirty || angForm.controls['salaryDiv'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['salaryDiv'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="subSalaryDiv">Sub Salary Division<sub
+                        <div class="col-sm-12 col-md-1"> <label for="subSalaryDiv">
+                            <!-- Sub Salary Division -->
+                            {{'master.Master_Card.Sub_Sal_Div'|translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -265,7 +286,7 @@
                                 *ngIf="angForm.controls['subSalaryDiv'].invalid && (angForm.controls['subSalaryDiv'].dirty || angForm.controls['subSalaryDiv'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['subSalaryDiv'].errors?.required">
-                                    This field is required.
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -274,8 +295,9 @@
                     <div class="row">
                         <!-- <div class="col-sm-2"> -->
                         <button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="openModal('memberLiabilityView');clickHereToShowMember()">Show Member Liability
-                            View</button>
+                            (click)="openModal('memberLiabilityView');clickHereToShowMember()">
+                            <!-- Show Member Liability View -->
+                            {{'master.Master_Card.member_Liblity_view'|translate}}  </button>
                         <!-- </div> -->
                     </div>
 
@@ -286,23 +308,41 @@
                                     <table class="table table-bordered table-hover compact">
                                         <thead>
                                             <tr>
-                                                <th>Action</th>
-                                                <th>Scheme</th>
-                                                <th>Scheme Name</th>
-                                                <th>Account Balance</th>
-                                                <th>Opening Date</th>
-                                                <th>Sanction Amount</th>
-                                                <th>Maturity Amount</th>
-                                                <th>Months</th>
-                                                <th>Days</th>
-                                                <th>Maturity Date</th>
-                                                <th>Installment</th>
-                                                <th>Repay Mode</th>
-                                                <th>Purpose</th>
-                                                <th>Interest</th>
-                                                <th>Member No.</th>
-                                                <th>Guarantor</th>
-                                                <th>Branch</th>
+                                                <!-- <th>Action</th> -->
+                                                <th>{{'master.Master_Card.Action'|translate}}</th>
+                                                <!-- <th>Scheme</th> -->
+                                                <th>{{'master.Master_Card.Scheme'|translate}}</th>
+                                                <!-- <th>Scheme Name</th> -->
+                                                <th>{{'master.Master_Card.Scheme_Name'|translate}}</th>
+                                                <!-- <th>Account Balance</th> -->
+                                                <th>{{'master.Master_Card.Account_Balance'|translate}}</th>
+                                                <!-- <th>Opening Date</th> -->
+                                                <th>{{'master.Master_Card.Open_Date'|translate}}</th>
+                                                <!-- <th>Sanction Amount</th> -->
+                                                <th>{{'master.Master_Card.Sanctions_Amount'|translate}}</th>
+                                                <!-- <th>Maturity Amount</th> -->
+                                                <th>{{'master.Master_Card.Maturity_Amount'|translate}}</th>
+                                                <!-- <th>Months</th> -->
+                                                <th>{{'master.Master_Card.Month'|translate}}</th>
+                                                <!-- <th>Days</th> -->
+                                                <th>{{'master.Master_Card.Days'|translate}}</th>
+                                                <!-- <th>Maturity Date</th> -->
+                                                <th>{{'master.Master_Card.Maturity_Date'|translate}}</th>
+                                                <!-- <th>Installment</th> -->
+                                                <th>{{'master.Master_Card.Installment'|translate}}</th>
+                                                <!-- <th>Repay Mode</th> -->
+                                                <th>{{'master.Master_Card.Repay_Mode'|translate}}</th>
+                                                <!-- <th>Purpose</th> -->
+                                                <th>{{'master.Master_Card.Purpose'|translate}}</th>
+                                                <!-- <th>Interest</th> -->
+                                                <th>{{'master.Master_Card.Interest'|translate}}</th>
+                                                <!-- <th>Member No.</th> -->
+                                                <th>{{'master.Master_Card.Member_No'|translate}}</th>
+                                                <!-- <th>Guarantor</th> -->
+                                                <th>{{'master.Master_Card.Guarantor'|translate}}</th>
+                                                <!-- <th>Branch</th> -->
+                                                <th>{{'master.Master_Card.Branch'|translate}}</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -346,12 +386,16 @@
                     <hr>
 
                     <div class="row" style="margin-top: 20px;">
-                        <div class="col-sm-12 col-md-3"><label for="memNo"><b>Consoledate Statement View :</b></label>
+                        <div class="col-sm-12 col-md-3"><label for="memNo"><b>
+                            <!-- Consoledate Statement View : -->
+                            {{'master.Master_Card.stament_view'|translate}}</b></label>
                         </div>
 
 
                         <div class="col-sm-12 col-md-1">
-                            <label for="START_DATE">Start Date<sub class="required">*</sub></label>
+                            <label for="START_DATE">
+                                <!-- Start Date -->
+                                {{'master.Master_Card.S_Date'|translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -369,12 +413,14 @@
                                 *ngIf="angForm.controls['START_DATE'].invalid &&
                                              (angForm.controls['START_DATE'].dirty || angForm.controls['START_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['START_DATE'].errors?.required">
-                                    This field is required
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-1">
-                            <label for="END_DATE">End Date<sub class="required">*</sub></label>
+                            <label for="END_DATE">
+                                <!-- End Date -->
+                                {{'master.Master_Card.E_Date'|translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -391,13 +437,15 @@
                                 *ngIf="angForm.controls['END_DATE'].invalid &&
                                              (angForm.controls['END_DATE'].dirty || angForm.controls['END_DATE'].touched)" class="alert alert-danger">
                                 <div *ngIf="angForm.controls['END_DATE'].errors?.required">
-                                    This field is required
+                                                <!-- This field is required. -->{{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-sm-1">
-                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="view()">View</button>
+                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="view()">
+                                <!-- View -->
+                                {{'master.Action.View'|translate}}</button>
                         </div>
 
                     </div>
@@ -418,11 +466,16 @@
                                     <table class="table table-bordered table-hover compact">
                                         <thead>
                                             <tr>
-                                                <th>Crdit Amount</th>
-                                                <th>Debit Amount</th>
-                                                <th>Credit Interest</th>
-                                                <th>Debit Interest</th>
-                                                <th>Balance</th>
+                                                <!-- <th>Crdit Amount</th> -->
+                                                <th>{{'master.Master_Card.Crdit_Amount'|translate}}</th>
+                                                <!-- <th>Debit Amount</th> -->
+                                                <th>{{'master.Master_Card.Debit_Amount'|translate}}</th>
+                                                <!-- <th>Credit Interest</th> -->
+                                                <th>{{'master.Master_Card.Credit_Interest'|translate}}</th>
+                                                <!-- <th>Debit Interest</th> -->
+                                                {{'master.Master_Card.Debit_Interest'|translate}}
+                                                <!-- <th>Balance</th> -->
+                                                {{'master.Master_Card.Balance'|translate}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -445,11 +498,16 @@
                                     <table class="table table-bordered table-hover compact">
                                         <thead>
                                             <tr>
-                                                <th>Crdit Amount</th>
-                                                <th>Debit Amount</th>
-                                                <th>Credit Interest</th>
-                                                <th>Debit Interest</th>
-                                                <th>Balance</th>
+                                               <!-- <th>Crdit Amount</th> -->
+                                               <th>{{'master.Master_Card.Crdit_Amount'|translate}}</th>
+                                               <!-- <th>Debit Amount</th> -->
+                                               <th>{{'master.Master_Card.Debit_Amount'|translate}}</th>
+                                               <!-- <th>Credit Interest</th> -->
+                                               <th>{{'master.Master_Card.Credit_Interest'|translate}}</th>
+                                               <!-- <th>Debit Interest</th> -->
+                                               {{'master.Master_Card.Debit_Interest'|translate}}
+                                               <!-- <th>Balance</th> -->
+                                               {{'master.Master_Card.Balance'|translate}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -471,9 +529,11 @@
                     <div class="row">
                         <div class="col-md-8"></div>
                         <div class="col-md-4">
-                            <button class="btn  btn-outline-primary btn-sm" (click)="cancel()">Cancel</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="cancel()">
+                                <!-- Cancel -->
+                                {{'master.Action.Cancel'|translate}}</button>
                             <button class="btn  btn-outline-primary btn-sm"
-                                (click)="showMasterCardView()">View</button>
+                                (click)="showMasterCardView()"> {{'master.Action.View'|translate}}</button>
                         </div>
                     </div>
 
@@ -513,7 +573,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary btn-sm"
-                        (click)="onCloseHandled()">Close</button>
+                        (click)="onCloseHandled()"> {{'master.Action.Close'|translate}}</button>
                 </div>
             </div>
         </div>
@@ -536,7 +596,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary btn-sm"
-                        (click)="onCloseHandled()">Close</button>
+                        (click)="onCloseHandled()"> {{'master.Action.Close'|translate}}</button>
                 </div>
             </div>
         </div>
@@ -559,7 +619,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary btn-sm"
-                        (click)="onCloseHandled()">Close</button>
+                        (click)="onCloseHandled()"> {{'master.Action.Close'|translate}}</button>
                 </div>
             </div>
         </div>

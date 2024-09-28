@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { DomSanitizer} from '@angular/platform-browser';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-directorwise-deposit-list',
@@ -44,12 +46,21 @@ director: any[]
  // for dropdown ng module
  ngbranch: any = null;
  ngcust: any = null;
+  setLang: string;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private directorMasterDropdown: DirectorMasterDropdownService,
+    private translate:TranslateService,
 
-    private sanitizer: DomSanitizer) { this.todate = moment().format('DD/MM/YYYY');
+    private sanitizer: DomSanitizer) 
+    { 
+      this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -150,7 +161,7 @@ obj['END_DATE']=date
  
 }
 else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
 }
 
 }

@@ -15,6 +15,7 @@ import { SalaryDMasterdropdownService } from '../../../../../shared/dropdownServ
 import { first } from 'rxjs/operators';
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -89,7 +90,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     private subSalaryDivisionService: SubSalaryService,
     private subSalaryDivision: SalaryDMasterdropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
-
+    private translate:TranslateService,
     private fb: FormBuilder,
     private config: NgSelectConfig,) {
   }
@@ -149,21 +150,25 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
 
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'Sub Code',
+          // title: 'Sub Code',
+          title: this.translate.instant('master.Sub_Salary_Div_Master.Code'),
           data: 'CODE'
         },
         {
-          title: 'Division Code',
+          // title: 'Division Code',
+          title: this.translate.instant('master.Sub_Salary_Div_Master.Division_code'),
           data: 'SAL_CODE'
         },
         {
-          title: 'Name',
+          // title: 'Name',
+          title: this.translate.instant('master.Sub_Salary_Div_Master.Name'),
           data: 'NAME'
         }
       ],
@@ -235,7 +240,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
 
     }
     this.subSalaryDivisionService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -290,7 +295,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.subSalaryDivisionService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -311,8 +316,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete sub salary division Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text:  `${this.translate.instant('Swal_Msg.del_SubSalary_Div_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -323,8 +328,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
         this.subSalaryDivisionService.deleteData(id).subscribe(data1 => {
           this.subsalarymasters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+           `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -336,8 +340,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+         `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }

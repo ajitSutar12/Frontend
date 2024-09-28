@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CashierUmService } from './cashier-um.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-cashier-um',
@@ -15,7 +17,8 @@ export class CashierUMComponent implements OnInit {
   angForm: FormGroup;
   checkFlag : boolean = true;
 
-  constructor(private _service : CashierUmService,private fb: FormBuilder) { }
+  constructor(private _service : CashierUmService,private fb: FormBuilder,private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({
@@ -59,14 +62,16 @@ export class CashierUMComponent implements OnInit {
       let obj = this.angForm.value;
       this._service.createCashier(obj).subscribe(data=>{
         console.log(data);
-        Swal.fire('Success','Cashier created successfully','success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Cashier_created_successfully')}`, 'success');
+
         this.angForm.reset();
         this.angForm.controls.flag.setValue('1');
       },err=>{
         console.log(err);
       })
-    }else{
-      Swal.fire('Oops...','Please insert required data field and processed','warning')
+    } else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Insert_Requi_data')}`, "warning");
+
     }
   }
 

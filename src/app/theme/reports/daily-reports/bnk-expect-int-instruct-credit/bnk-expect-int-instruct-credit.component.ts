@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-expect-int-instruct-credit',
@@ -24,7 +24,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 })
 export class BnkExpectIntInstructCreditComponent implements OnInit {
   iframe1url: any = '';
-  clicked:boolean=false;
+  clicked: boolean = false;
   // Date variables
 
   date: any = null
@@ -60,6 +60,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     { id: 4, name: "Half Yearly" },
     { id: 5, name: "None" },
   ];
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -68,7 +69,8 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter : SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService,
   ) {
     this.date = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -85,6 +87,9 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.date = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     let data: any = localStorage.getItem('user');
@@ -111,7 +116,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   src: any;
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
 
     event.preventDefault();
@@ -127,11 +132,11 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
       let obj = this.angForm.value
       // let date = this.date;
 
-      let date:any;
+      let date: any;
       if (this.date == obj.Date) {
-        date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        date = moment(this.date,'DD/MM/YYYY').format('DD/MM/YYYY')
+        date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
       let status = obj.STATUS;
@@ -140,11 +145,11 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
       let PrintClosedAccounts = obj.Print_Closed_Accounts;
 
 
-      this.iframe1url = this.report_url+ "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
+      this.iframe1url = this.report_url + "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -158,7 +163,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     this.angForm.controls.STATUS.reset();
     this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
 
 }

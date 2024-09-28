@@ -9,6 +9,8 @@ import { DomSanitizer} from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { NgSelectConfig } from "@ng-select/ng-select";
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-matured-notpaid',
@@ -42,13 +44,22 @@ ngForm: FormGroup;
    url = environment.base_url;
    report_url = environment.report_url;
    iframe5url: any = ' ';
+  setLang: string;
   constructor(    private _ownbranchmasterservice: OwnbranchMasterService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private fb: FormBuilder,
     private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,
-    private config: NgSelectConfig
-    ) { this.todate = moment().format('DD/MM/YYYY');
+    private config: NgSelectConfig,
+    private translate:TranslateService
+    ) { 
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
+      })
+      this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -136,7 +147,7 @@ ngForm: FormGroup;
    
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
   }
   
 }

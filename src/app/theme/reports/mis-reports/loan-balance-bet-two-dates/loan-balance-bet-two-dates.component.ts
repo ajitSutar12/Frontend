@@ -44,12 +44,12 @@
 //   branchOption: any;
 //   iframe5url: any = '';
 //   clicked: boolean = false;
- 
- 
+
+
 
 
 //   RADIO: any;
-  
+
 //   detail: any;
 //   summary: any;
 //   branchName: any;
@@ -113,9 +113,9 @@
 //   }
 
 
-  
+
 //   selectedSchemeIds: any[] = [];
- 
+
 //   selectAll() {
 //     const areAllSelected = this.shemeDetails.every(item => item.isSelected);
 //     if (areAllSelected) {
@@ -123,37 +123,37 @@
 //     } else {
 //       this.shemeDetails.forEach(item => item.isSelected = true);
 //       this.updateSelectedSchemeIds();
-      
-    
+
+
 //     }
 //   }
-  
+
 //   unselectAll() {
 //     this.shemeDetails.forEach(item => item.isSelected = false);
 //     this.updateSelectedSchemeIds();
 //   }
-  
+
 //   areAllSelected() {
 //     return this.shemeDetails.every(item => item.isSelected);
 //   }
-  
+
 //   updateSelectedSchemeIds() {
 //     this.selectedIds = this.shemeDetails.filter(item => item.isSelected).map(item => item.id);
 //     console.log(this.shemeDetails);
 //     console.log("alll",this.selectedIds);
 
 //   }
-  
+
 //   selectedIds: number[] = [];
 
 //   toggleSelection(item: any) {
 //     item.isSelected = !item.isSelected;
 
 //     if (item.isSelected) {
-     
+
 //       this.selectedIds.push(item.id); 
 //     } else {
-      
+
 //       const index = this.selectedIds.indexOf(item.id);
 //       if (index !== -1) {
 //         this.selectedIds.splice(index, 1);
@@ -224,7 +224,7 @@
 //       let flag = obj.RADIO;
 //       let schemeid = event.dataObject;
 //       let myArray = this.selectedIds
-      
+
 //       if (branched == 0) {
 //         this.branchName = 'Consolidate';
 //       }
@@ -276,6 +276,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgSelectConfig } from '@ng-select/ng-select';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-loan-balance-bet-two-dates',
@@ -327,6 +328,7 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
   branchName: any;
   //  shemeDetails: any[] = [];
   shemeDetails: any
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -334,6 +336,7 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
     public router: Router,
     private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
@@ -359,6 +362,7 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+    
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -368,13 +372,16 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+       //Translation
+       this.setLang = data.SET_LANGUAGE
+       this.translate.setDefaultLang(this.setLang);
     })
     this.AddSchemeData();
   }
   actype
   AddSchemeData() {
     // this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
-      this.http.get(this.url + '/ledger-view/cschem', {}).subscribe((data: any[]) => {
+    this.http.get(this.url + '/ledger-view/cschem', {}).subscribe((data: any[]) => {
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
       if (this.shemeDetails.length > 0) {
         this.actype = this.shemeDetails[0].id; // Assuming id is a property of the first item in the array
@@ -532,8 +539,8 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
   showLoading: boolean = false;
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
- 
+  }
+
   view(event) {
     this.formSubmitted = true;
     event.preventDefault();
@@ -574,7 +581,7 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
     }
     else {
       this.formSubmitted = false;
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }

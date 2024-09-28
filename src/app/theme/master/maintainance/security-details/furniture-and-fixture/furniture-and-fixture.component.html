@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>furniture And Fixture</h5>
+        <h5>{{'master.Furniture_And_Fixture.Title' | translate}}</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -14,14 +14,15 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="subm_date" required="" max="{{datemax | date:'yyyy-MM-dd'}}"
                   [ngClass]="{'form-submitted': formSubmitted}" 
                     formControlName="SUBMISSION_DATE"  #autofocus /> -->
-                  <input appTheme appButton minlength="10" maxlength="10"
-                     type="text" placeholder="dd/mm/yyyy" name="SUBMISSION_DATE" id="subm_date" class="form-control"
-                    [(ngModel)]="submissiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                  <input appTheme appButton minlength="10" maxlength="10" type="text" placeholder="dd/mm/yyyy"
+                    name="SUBMISSION_DATE" id="subm_date" class="form-control" [(ngModel)]="submissiondate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
-                     #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()" 
+                    #SUBMISSION_DATE="bsDatepicker" (keydown.Tab)="SUBMISSION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
 
-                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
+                  <label for="subm_date">{{'master.Furniture_And_Fixture.Submission_Date' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -45,7 +46,8 @@
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     maxlength="50" formControlName="ARTICLE_NAME" />
-                  <label for="article_name">Name of Article<sub class="required">* </sub></label>
+                  <label for="article_name">{{'master.Furniture_And_Fixture.Name_of_Article' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -73,7 +75,8 @@
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     maxlength="50" formControlName="ARTICLE_MAKE" />
-                  <label for="article_make">Article Make<sub class="required">* </sub></label>
+                  <label for="article_make">{{'master.Furniture_And_Fixture.Article_Make' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -96,13 +99,14 @@
                   <!-- <input type="date" class="form-control" placeholder=" " id="DateofAcquistition" required=""
                   [ngClass]="{'form-submitted': formSubmitted}" 
                   max="{{datemax | date:'yyyy-MM-dd'}}" formControlName="AQUISITION_DATE"  /> -->
-                  <input appTheme appButton minlength="10" maxlength="10"
-                     type="text" placeholder="dd/mm/yyyy" name="AQUISITION_DATE" id="DateofAcquistition"
-                    class="form-control" [(ngModel)]="acquistitiondate" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                    [maxDate]="maxDate" [ngClass]="{'form-submitted': formSubmitted}" formControlName="AQUISITION_DATE"
-                    #AQUISITION_DATE="bsDatepicker"  (keydown.Tab)="AQUISITION_DATE.hide()"
+                  <input appTheme appButton minlength="10" maxlength="10" type="text" placeholder="dd/mm/yyyy"
+                    name="AQUISITION_DATE" id="DateofAcquistition" class="form-control" [(ngModel)]="acquistitiondate"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [maxDate]="maxDate"
+                    [ngClass]="{'form-submitted': formSubmitted}" formControlName="AQUISITION_DATE"
+                    #AQUISITION_DATE="bsDatepicker" (keydown.Tab)="AQUISITION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="DateofAcquistition">Date of Acquistition<sub class="required">* </sub></label>
+                  <label for="DateofAcquistition">{{'master.Furniture_And_Fixture.Date_of_Acquisition' | translate}}<sub
+                      class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -130,7 +134,8 @@
               <div class="checkbox checkbox-primary">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input type="checkbox" class="border-checkbox" id="checkbox1" formControlName="NEW_ARTICLE">
-                  <label class="border-checkbox-label" for="checkbox1">New Article?
+                  <label class="border-checkbox-label" for="checkbox1">{{'master.Furniture_And_Fixture.New_Article?' |
+                    translate}}
                   </label>
                 </div>
               </div>
@@ -145,7 +150,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="90"
                     formControlName="SUPPLIER_NAME" />
-                  <label for="SupplierName">Supplier Name</label>
+                  <label for="SupplierName">{{'master.Furniture_And_Fixture.Supplier_Name' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -161,11 +166,11 @@
             <div class="col-sm-3">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" style="text-align: right" name="PurchasePrice" class="form-control" placeholder=" " id="PurchasePrice"
-                     (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
+                  <input type="text" style="text-align: right" name="PurchasePrice" class="form-control" placeholder=" "
+                    id="PurchasePrice" (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                     title="Input allowed only  0-9" formControlName="PURCHASE_PRICE" />
-                  <label for="PurchasePrice">Purchase Price</label>
+                    title="Input allowed only  0-9" formControlName="PURCHASE_PRICE" />
+                  <label for="PurchasePrice">{{'master.Furniture_And_Fixture.Purchase_Price' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -181,11 +186,12 @@
             <div class="col-sm-2">
               <div class="form-group input-group">
                 <span class="border-lable-flt">
-                  <input type="text" style="text-align: right" name="margin" class="form-control" placeholder=" " id="margin" #margin
+                  <input type="text" style="text-align: right" name="margin" class="form-control" placeholder=" "
+                    id="margin" #margin
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
-                    (keyup)="checkmargin(margin.value);getDecimal($event)"  title="Input allowed only  0-9"
+                    (keyup)="checkmargin(margin.value);getDecimal($event)" title="Input allowed only  0-9"
                     formControlName="MARGIN" />
-                  <label for="margin">Margin %</label>
+                  <label for="margin">{{'master.Furniture_And_Fixture.Margin%' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -207,7 +213,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
-                  <label for="label-name">Remarks</label>
+                  <label for="label-name">{{'master.Furniture_And_Fixture.Remark' | translate}}</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -222,10 +228,13 @@
             </div>
             <div class="col-sm-3">
               <!--  -->
-              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton"
+                (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit'|translate}}</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
+                *ngIf="updateShow">{{'master.Action.Update'|translate}}</button>
               &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
+                (click)="addNewData()">{{'master.Action.Cancel'|translate}}</button>
             </div>
           </div>
         </div>
@@ -234,53 +243,60 @@
   </div>
 </div>
 <!-- <ng-container *ngIf='router.url==="/master/Maintainance/securityDetails"'> -->
-  <div class="row">
-    <div class="col-12">
-      <div class="card shadow">
-        <div class="card-block">
-          <div class="row">
-            <div class="col-sm">
-              <div class="table-responsive">
-                <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
-                  class="table table-striped table-bordered table-hover compact">
-                  <thead>
-                    <th style="text-transform: captalize;">Action</th>
-                    <th style="text-transform: captalize;">Submission Date</th>
-                    <th style="text-transform: captalize;">Article Name</th>
-                    <th style="text-transform: captalize;">Article Make</th>
-                    <th style="text-transform: captalize;">Acquisition Date</th>
-                    <th style="text-transform: captalize;">New Article</th>
-                    <th style="text-transform: captalize;">Supplier Name</th>
-                    <th style="text-transform: captalize;">Purchase Price</th>
-                    <th style="text-transform: captalize;">Margin</th>
-                    <th style="text-transform: captalize;">Remarks</th>
-                  </thead>
-                  <tbody *ngIf="furnituremasters?.length != 0">
-                    <tr *ngFor="let data of furnituremasters">
-                      <td>
-                        <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
-                          placement="bottom" ngbTooltip="Edit"></span>
-                        &nbsp;
-                        <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
-                      </td>
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow">
+      <div class="card-block">
+        <div class="row">
+          <div class="col-sm">
+            <div class="table-responsive">
+              <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
+                class="table table-striped table-bordered table-hover compact">
+                <thead>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Action' | translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Submission_Date' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Name_of_Article' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Article_Make' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Date_of_Acquisition' |
+                    translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.New_Article?' |
+                    translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Supplier_Name' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Purchase_Price' | translate}}
+                  </th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Margin%' | translate}}</th>
+                  <th style="text-transform: captalize;">{{'master.Furniture_And_Fixture.Remark' | translate}}</th>
+                </thead>
+                <tbody *ngIf="furnituremasters?.length != 0">
+                  <tr *ngFor="let data of furnituremasters">
+                    <td>
+                      <span class="fa fa-fw fa-edit field-icon" id="editbutton" (click)="editClickHandler(data.id)"
+                        placement="bottom" ngbTooltip="Edit"></span>
+                      &nbsp;
+                      <!-- <button id="delbtn" class="btn btn-outline-primary btn-sm" (click)="delClickHandler(data.id)">Delete</button> -->
+                    </td>
 
-                      <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
-                      <td>{{ data.ARTICLE_NAME }}</td>
-                      <td>{{ data.ARTICLE_MAKE }}</td>
-                      <td class="td_right">{{ data.AQUISITION_DATE }}</td>
-                      <td>{{ data.NEW_ARTICLE == '1' ? 'Yes' : 'No' }}</td>
-                      <td>{{ data.SUPPLIER_NAME }}</td>
-                      <td class="td_right">{{ data.PURCHASE_PRICE }}</td>
-                      <td class="td_right">{{ data.MARGIN }}</td>
-                      <td>{{ data.REMARK }}</td>
-                    </tr>
-                  </tbody>
-                  <tbody *ngIf="furnituremasters?.length == 0">
-                    <tr>
-                      <td colspan="6" class="no-data-available">No data!</td>
-                    </tr>
-                  </tbody>
-                  <!-- <tfoot #filters class="filters">
+                    <td class="td_right">{{ data.SUBMISSION_DATE }}</td>
+                    <td>{{ data.ARTICLE_NAME }}</td>
+                    <td>{{ data.ARTICLE_MAKE }}</td>
+                    <td class="td_right">{{ data.AQUISITION_DATE }}</td>
+                    <td>{{ data.NEW_ARTICLE == '1' ? 'Yes' : 'No' }}</td>
+                    <td>{{ data.SUPPLIER_NAME }}</td>
+                    <td class="td_right">{{ data.PURCHASE_PRICE }}</td>
+                    <td class="td_right">{{ data.MARGIN }}</td>
+                    <td>{{ data.REMARK }}</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="furnituremasters?.length == 0">
+                  <tr>
+                    <td colspan="6" class="no-data-available">{{'master.Furniture_And_Fixture.No_Data' | translate}}</td>
+                  </tr>
+                </tbody>
+                <!-- <tfoot #filters class="filters">
                     <tr class="testing">
                       <th class="testing"></th>
                       <th>
@@ -312,12 +328,12 @@
                       </th>
                     </tr>
                   </tfoot> -->
-                </table>
-              </div>
+              </table>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 <!-- </ng-container> -->

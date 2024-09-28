@@ -10,7 +10,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { InsuranceMasterService } from './insurance-master.service';
 // Used to Call API
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../../../../environments/environment'
+import { environment } from '../../../../../../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -73,7 +74,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private insuranceMasterService: InsuranceMasterService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -126,13 +127,13 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: 'Action'
+          title: this.translate.instant('master.Insurance_Master.Action')
         },
         {
-          title: 'Insurance code',
+          title: this.translate.instant('master.Insurance_Master.Insurance_Code'),
           data: 'CODE'
         }, {
-          title: 'Description',
+          title: this.translate.instant('master.Insurance_Master.Description'),
           data: 'NAME'
         },
       ],
@@ -156,7 +157,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
       'NAME': formVal.NAME
     }
     this.insuranceMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -187,7 +188,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.insuranceMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -207,8 +208,8 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Insurance master data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.delete_Insurance')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -219,8 +220,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.insuranceMasterService.deleteData(id).subscribe(data1 => {
           this.insuranceMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -232,8 +232,7 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -282,10 +281,10 @@ export class InsuranceMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

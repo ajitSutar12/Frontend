@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first, reduce } from "rxjs/operators";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-instructions-interest-debit',
@@ -44,7 +44,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   ngbranch
   branchOption: any;
   iframe1url: any = ' ';
-  clicked:boolean=false;
+  clicked: boolean = false;
   // selectedType
   // Types = [
   //   { id: 1, name: "S", value: "Success" },
@@ -73,18 +73,21 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   // SUCCESS: any;
   // FAILURE: any;
   // value: string;
-  success:any;
-  failure:any;
+  success: any;
+  failure: any;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
-    private systemParameter : SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+
+    private translate: TranslateService,
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -102,13 +105,16 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.todate = data.CURRENT_DATE
-      
+
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
     })
@@ -153,25 +159,25 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
     this.formSubmitted = true;
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
-  
-   if (this.angForm.controls['RADIO'].value=="success" && this.angForm.valid) {
+
+    if (this.angForm.controls['RADIO'].value == "success" && this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
       let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-      let edate:any;
+      let edate: any;
       if (this.todate == obj.END_DATE) {
-        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
       let branched = obj.BRANCH_CODE;
@@ -179,22 +185,17 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let flag = obj.FREQUENCY;
       let frequency: string;
 
-      if(flag == 'Monthly')
-      {
+      if (flag == 'Monthly') {
         frequency = 'M'
       }
-      else if(flag == 'Querterly')
-      {
+      else if (flag == 'Querterly') {
         frequency = 'Q'
       }
-      else if(flag == 'Fixed Querterly')
-      {
+      else if (flag == 'Fixed Querterly') {
         frequency = 'F'
-      }else if(flag == 'Half Yearly')
-      {
+      } else if (flag == 'Half Yearly') {
         frequency = 'H'
-      }else if(flag == 'None')
-      {
+      } else if (flag == 'None') {
         frequency = 'None'
       }
 
@@ -208,21 +209,21 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       //   sort = 'Credit';
       // }
 
-      this.iframe1url = this.report_url+"examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+branchName+"'";
+      this.iframe1url = this.report_url + "examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + branchName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
-    else if (this.angForm.controls['RADIO'].value=="failure" && this.angForm.valid) {
+    else if (this.angForm.controls['RADIO'].value == "failure" && this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
       let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
       // let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-      let edate:any;
+      let edate: any;
       if (this.todate == obj.END_DATE) {
-        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
       let branched = obj.BRANCH_CODE;
@@ -231,13 +232,13 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let startscheme = obj.NEWPAGE;
       // let sort = obj.SORT;
 
-      this.iframe1url = this.report_url+"examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='"+this.branchName+"'";
+      this.iframe1url = this.report_url + "examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'";
       console.log(this.iframe1url);
       this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
     }
     else {
       this.formSubmitted = false;
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -245,11 +246,11 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   close() {
     this.resetForm()
   }
- resetForm() {
+  resetForm() {
     // this.createForm()
     this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
   getBranch(event) {
     this.ngbranch = event.value

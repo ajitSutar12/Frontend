@@ -17,6 +17,8 @@ import { environment } from 'src/environments/environment';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 import { HttpClient } from '@angular/common/http';
+import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-passbook-entry-print',
   templateUrl: './passbook-entry-print.component.html',
@@ -62,12 +64,14 @@ export class PassbookEntryPrintComponent implements OnInit {
   scheme: any[];
   transferSchemeDetails: any;
   tScheme: any;
+  setLang: any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private customerID: CustomerIDMasterDropdownService,
     public customerIdService: CustomerIdService, private schemeCodeDropdownService: SchemeCodeDropdownService,
     private savingMasterService: SavingMasterService,
+    private translate:TranslateService,
     private http: HttpClient,
     private sanitizer: DomSanitizer) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -107,6 +111,8 @@ export class PassbookEntryPrintComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);

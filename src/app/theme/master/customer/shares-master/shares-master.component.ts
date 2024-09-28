@@ -36,6 +36,7 @@ import * as moment from 'moment';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'// Handling datatable data
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -245,6 +246,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public visible = false;
   public visibleAnimate = false;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private ShareMasterService: ShareMasterService,
@@ -264,7 +266,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     private datePipe: DatePipe,
     private fb: FormBuilder,
     private schemeAccountNoService: SchemeAccountNoService,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    private translate: TranslateService) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage, 1);
@@ -275,6 +278,11 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
+
+
+      //Translation 
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -334,54 +342,54 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Scheme',
+          title: this.translate.instant('master.Master_Shares_Holders.Scheme'),
           data: 'AC_TYPE'
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Ac_No'),
           data: 'BANKACNO'
         },
         {
-          title: 'Member Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Member_Number'),
           data: 'AC_NO'
         },
         {
-          title: 'Customer ID',
+          title: this.translate.instant('master.Master_Shares_Holders.Cust_Id'),
           data: 'AC_CUSTID'
         },
         {
-          title: 'Member Name',
+          title: this.translate.instant('master.Master_Shares_Holders.Member_Name'),
           data: 'AC_NAME'
         },
         {
-          title: 'Employee Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Emp_No'),
           data: 'EMP_NO'
         },
         {
-          title: 'Manual Reference Number',
+          title: this.translate.instant('master.Master_Shares_Holders.Manual_No'),
           data: 'REF_ACNO'
         },
         {
-          title: 'Represented by',
+          title: this.translate.instant('master.Master_Shares_Holders.Represent_by'),
           data: 'AC_SREPRESENT'
         },
         {
-          title: 'Detail Address',
+          title: this.translate.instant('master.Master_Shares_Holders.Detail_add'),
           data: 'AC_ADDR'
         },
         {
-          title: 'City',
+          title: this.translate.instant('master.Master_Shares_Holders.City'),
           data: 'AC_CTCODE'
         },
         {
-          title: 'Open Date',
+          title: this.translate.instant('master.Master_Shares_Holders.Open_Date'),
           data: 'AC_OPDATE'
         },
         {
-          title: 'Branch Code',
+          title: this.translate.instant('master.Master_Shares_Holders.Branch_Code'),
           data: 'AC_BRANCH'
         },
       ],
@@ -716,7 +724,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
           Swal.fire({
             icon: 'info',
-            title: 'Share Account Already Exists For This Scheme',
+            title: `${this.translate.instant('Swal_Msg.Share_Ac')}`,
           })
           event.id = null
           this.id = null
@@ -738,7 +746,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire('Invalid Input!', 'Please insert valid date!', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, 'error');
         (document.getElementById("AC_OPDATE") as HTMLInputElement).value = ""
       }
     }
@@ -789,7 +797,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           this.retiredate = null
           // this.angForm.controls['AC_JOIN_DATE'].reset()
           // this.angForm.controls['AC_RETIRE_DATE'].reset()
-          Swal.fire("Cancelled", "Please input birth date in customer id form ", "error");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.Birth_Date')}`, "error");
         }
       }
       else {
@@ -797,7 +805,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.retiredate = null
         // this.angForm.controls['AC_JOIN_DATE'].reset()
         // this.angForm.controls['AC_RETIRE_DATE'].reset()
-        Swal.fire('Warning', 'Please Select Customer', 'warning')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Customer')}`, 'warning')
       }
     }
     else {
@@ -913,7 +921,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
-  isDisable=false
+  isDisable = false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -1012,7 +1020,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isDisable = false
         Swal.fire({
           icon: 'success',
-          title: 'Account Created successfully!',
+          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -1035,7 +1043,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.createForm()
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
   tempbranch: any
@@ -1221,7 +1229,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         'AC_SREPRESENT': data.AC_SREPRESENT,
         'BANKACNO': data.BANKACNO,
         //other controls
-        'AC_OPDATE': data.AC_OPDATE ,
+        'AC_OPDATE': data.AC_OPDATE,
         'AC_EXPDT': (data.AC_EXPDT == 'Invalid date' || data.AC_EXPDT == '' || data.AC_EXPDT == null) ? exdate = '' : exdate = data.AC_EXPDT,
         'AC_SBNO': data.AC_SBNO,
         'AC_RESNO': data.AC_RESNO,
@@ -1317,7 +1325,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['DIV_TRANSFER_ACNOTYPE'] = this.getschemename
     data['DIV_TRANSFER_ACNO'] = this.ngDivACNO
     this.ShareMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1346,8 +1354,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete Share master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.Share_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1358,8 +1366,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.ShareMasterService.deleteData(id).subscribe(data1 => {
           this.shareMaster = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -1373,8 +1381,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -1472,26 +1480,26 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       AC_CITYNAME: formVal.AC_NCTCODE?.CITY_NAME
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
 
-              Swal.fire('', 'This Nominee is Already Exists!', 'error');
+              Swal.fire('', `${this.translate.instant('Swal_Msg.Nomi_Exist')}`, 'error');
 
             } else {
 
@@ -1575,17 +1583,17 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire("Please Insert Mandatory Record For Nominee");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Nominee')}`);
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -1671,8 +1679,8 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   age() {
     if (this.angForm.controls['AGE'].value > 100) {
       Swal.fire(
-        'Cancelled',
-        'Please Input Proper Age',
+        `${this.translate.instant('Swal_Msg.Cancel')}`,
+        `${this.translate.instant('Swal_Msg.Input_Age')}`,
         'error'
       );
       this.angForm.controls['AGE'].reset()
@@ -1689,7 +1697,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ShareMasterService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Shares Account Approved successfully!',
+        title: `${this.translate.instant('Swal_Msg.Share_Ac_Approve')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1714,7 +1722,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ShareMasterService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Shares Account rejected successfully!',
+        title: `${this.translate.instant('Swal_Msg.Share_Ac_Reject')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1872,7 +1880,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ShareMasterService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: 'Account unapproved successfully!',
+        title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1892,7 +1900,7 @@ export class SharesMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
-        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
+        Swal.fire('',  `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
       })
     }
   }

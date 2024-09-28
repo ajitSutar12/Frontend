@@ -12,6 +12,8 @@ import { MemberLiablityViewComponent } from '../member-liablity-view/member-liab
 import { SharesLedgerViewComponent } from '../shares-ledger-view/shares-ledger-view.component';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -51,6 +53,8 @@ export class MasterCardComponent implements OnInit {
   // fromdate
   accountEvent
   display: string;
+  setLang: any;
+  sanitizer: any;
 
   constructor(
     private fb: FormBuilder,
@@ -58,8 +62,13 @@ export class MasterCardComponent implements OnInit {
     private _schemeService: SchemeAccountNoService,
     private http: HttpClient,
     private ownbranchMasterService: OwnbranchMasterService,
-    private sanitizer: DomSanitizer
-  ) { }
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ){this.systemParameter.getFormData(1).subscribe(data => {
+   
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
+  }) }
 
   //ngmodel variables
   selectedScheme

@@ -14,6 +14,7 @@ import { environment } from '../../../../../../environments/environment'
 import { first } from 'rxjs/operators';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { NgSelectComponent } from '@ng-select/ng-select';
+import { TranslateService } from '@ngx-translate/core';
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -79,7 +80,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     private http: HttpClient,
     private ownBranchService: OwnBranchService,
     private _acMaster: ACMasterDropdownService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -133,17 +134,20 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
       }],
       columns: [
         {
-          title: 'Action',
+          // title: 'Action',
+          title: this.translate.instant('master.Own_Branch_master.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>' + ' ' + '<button id="delbtn" class="deletebtn btn btn-outline-primary btn-sm">Delete</button>';
           }
         },
         {
-          title: 'Code',
+          // title: 'Code',
+          title: this.translate.instant('master.Own_Branch_master.code'),
           data: 'CODE',
         },
         {
-          title: 'Name',
+          // title: 'Name',
+          title: this.translate.instant('master.Own_Branch_master.name'),
           data: 'NAME',
         },
         // {
@@ -172,11 +176,11 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
-      //get bank code and branch code from session
-      let data: any = localStorage.getItem('user');
-      let result = JSON.parse(data);
-      console.log(result)
-      let branchCode = result.branch.syspara.id;
+    //get bank code and branch code from session
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    console.log(result)
+    let branchCode = result.branch.syspara.id;
     const dataToSend = {
       'CODE': formVal.CODE,
       'AC_NO': this.ngAcNo,
@@ -185,7 +189,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
 
     }
     this.ownBranchService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -196,13 +200,13 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.resetForm();
   }
 
-  addNewData(){
+  addNewData() {
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
   }
-  
+
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -225,7 +229,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.ownBranchService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -239,8 +243,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete own branch data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.delete_own_branch')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -251,8 +255,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.ownBranchService.deleteData(id).subscribe(data1 => {
           this.ownBranches = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -264,8 +267,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -302,7 +304,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngAcNo=null
+    this.ngAcNo = null
     // this.angForm.controls['AC_NO'].reset()
   }
   rerender(): void {
@@ -314,14 +316,14 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

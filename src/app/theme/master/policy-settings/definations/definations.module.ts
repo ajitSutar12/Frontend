@@ -73,7 +73,7 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { StatementCodeDropdownService } from '../../../../shared/dropdownService/statement-code-dropdown.service';
 import { PercentageToWCapitalService } from '../../../../shared/dropdownService/percentage-to-W-Capital.service';
 import { DisplayToViewService } from '../../../../shared/dropdownService/display-to-view.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
@@ -81,6 +81,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import {TermemeDepositeSchMasterDropdownService} from 'src/app//shared/dropdownService/term_deposit_scheme-dropdown.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -102,7 +104,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
 
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
 
   providers: [DepreciationService,
@@ -146,6 +155,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SystemMasterParametersService,
     SchemeCodeDropdownService,
     TermemeDepositeSchMasterDropdownService,
+    SystemMasterParametersService,
+
 
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -161,3 +172,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [DefinationsComponent, SchemeTypeChargesDComponent, TermDepositIRComponent, InterestRateForSAPDComponent, InterestRateForLACCComponent, TermDepositPatSchemeComponent, SecurityCodeComponent, ManagerViewGLPComponent, SchemeLinkingWithDComponent, DepreciationRateMasterComponent, PrematurePigmyLessIRComponent, TdsInterestRateComponent, SizeSlabWiseARComponent,]
 })
 export class DefinationsModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

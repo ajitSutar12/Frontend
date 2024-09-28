@@ -13,6 +13,7 @@ import { ACMasterDropdownService } from '../../../shared/dropdownService/ac-mast
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service';
 import { ReconciliationEntryService } from './reconciliation-entry.service'
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core'; 
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -81,7 +82,7 @@ export class ReconciliationEntryComponent implements OnInit {
   ngBranchCode: any = null
   showTable: boolean = false
   modalClass: string = 'modalHide';
-
+  setLang:any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private reconciliation: ReconciliationEntryService,
@@ -89,6 +90,7 @@ export class ReconciliationEntryComponent implements OnInit {
     private config: NgSelectConfig,
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService,
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -98,6 +100,8 @@ export class ReconciliationEntryComponent implements OnInit {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
   }

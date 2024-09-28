@@ -2,15 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Bank Other Details</h5>
+                <!-- <h5>Bank Other Details</h5> -->
+                <h5>{{'master.Bank_Other_Details.Title' | translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Bank_Other_Details.F1' | translate}} (<sub class="required"> * </sub>) {{'master.Bank_Other_Details.F2' | translate}}
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BANK_CODE">Bank Code</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="BANK_CODE">{{'master.Bank_Other_Details.Bank_Code' | translate}}</label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -20,7 +21,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'master.Bank_Other_Details.Branch_Code' | translate}}<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -28,7 +29,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngbranch"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [virtualScroll]="true" placeholder="Branch" #BRANCH_CODE
+                                        [virtualScroll]="true" placeholder=" " #BRANCH_CODE
                                         (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of branchOption" [value]="values">
                                             {{values.label}}</ng-option>
@@ -39,13 +40,13 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}} <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="NAME">Name<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="NAME">{{'master.Bank_Other_Details.Name' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-5">
                             <div class="form-group input-group">
@@ -62,11 +63,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['NAME'].errors?.pattern || angForm.controls['NAME'].errors?.required || angForm.controls['NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z , ()- / . (Space)"
+                                    {{'master.Validation.Val1'|translate}}<!-- This field is required and Input allowed only A-Z a-z , ()- / . (Space)" -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="HOGL">Head Office GL<sub
+                        <div class="col-sm-12 col-md-2"> <label for="HOGL">
+                            <!-- Head Office GL -->{{'master.Bank_Other_Details.Head_Office_GL' | translate}}
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -85,13 +88,15 @@
                                 *ngIf="angForm.controls['HO_GL'].invalid && (angForm.controls['HO_GL'].dirty || angForm.controls['HO_GL'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['HO_GL'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}}  <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="SHORT_NAME">Short Name<sub
+                        <div class="col-sm-12 col-md-2"> <label for="SHORT_NAME">
+                            <!-- Short Name -->{{'master.Bank_Other_Details.Short_Name' | translate}}
+                            <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -108,11 +113,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SHORT_NAME'].errors?.pattern || angForm.controls['SHORT_NAME'].errors?.required || angForm.controls['SHORT_NAME'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'master.Validation.Val1'|translate}}  <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="TAN_NO">Tan Numbers</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="TAN_NO">
+                            {{'master.Bank_Other_Details.Tan_Numbers' | translate}} <!-- Tan Numbers -->
+                        </label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -127,13 +134,15 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['TAN_NO'].errors?.pattern || angForm.controls['TAN_NO'].errors?.maxlength">
-                                    Input allowed only A-Z 0-9
+                                    {{'master.Validation.Val_Tan'|translate}}<!-- Input allowed only A-Z 0-9 -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="PAN_NO">Pan Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="PAN_NO">
+                            {{'master.Bank_Other_Details.Pan_Number' | translate}} <!-- Pan Number -->
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -150,11 +159,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['PAN_NO'].errors?.pattern || angForm.controls['PAN_NO'].errors?.required || angForm.controls['PAN_NO'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z 0-9
+                                    {{'master.Validation.Val_M'|translate}}<!-- This field is required and Input allowed only A-Z 0-9 -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="SBI_BANKCODE">Account Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="SBI_BANKCODE">
+                            {{'master.Bank_Other_Details.Account_Number' | translate}} <!-- Account Number -->
+                            <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -171,13 +182,15 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['SBI_BANKCODE'].errors?.pattern || angForm.controls['SBI_BANKCODE'].errors?.required || angForm.controls['SBI_BANKCODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    {{'master.Validation.Val_Receipt'|translate}} <!-- This field is required and Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="GST_NO">GST Number</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="GST_NO">
+                            {{'master.Bank_Other_Details.GST_Number' | translate}}<!-- GST Number -->
+                        </label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -193,11 +206,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['GST_NO'].errors?.pattern || angForm.controls['GST_NO'].errors?.maxlength">
-                                    Input allowed only A-Z 0-9
+                                    {{'master.Validation.Val_Receipt'|translate}}  <!-- Input allowed only A-Z 0-9 -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="IFSC">IFSC Code</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="IFSC">
+                            {{'master.Bank_Other_Details.IFSC_Code' | translate}}<!-- IFSC Code -->
+                        </label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -213,13 +228,15 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['IFSC_CODE'].errors?.pattern || angForm.controls['IFSC_CODE'].errors?.maxlength">
-                                    Input allowed only A-Z 0-9
+                                    {{'master.Validation.Val_Tan'|translate}}<!-- Input allowed only A-Z 0-9 -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NO">Flat premise Number</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NO">
+                            {{'master.Bank_Other_Details.Flat_permise_Number' | translate}} <!-- Flat premise Number -->
+                        </label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -232,11 +249,13 @@
                                 *ngIf="angForm.controls['FLAT_PRM_NO'].invalid && (angForm.controls['FLAT_PRM_NO'].dirty || angForm.controls['FLAT_PRM_NO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FLAT_PRM_NAME'].errors?.maxlength">
-                                    Input allowed only 0-9
+                                    {{'master.Validation.Pin_Code'|translate}}<!-- Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NAME">Flat Premise/Building Name</label>
+                        <div class="col-sm-12 col-md-2"> <label for="FLAT_PRM_NAME">
+                            <!-- Flat Premise/Building Name -->{{'master.Bank_Other_Details.Flat_Permise_Building_Name' | translate}}
+                        </label>
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -251,13 +270,15 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['FLAT_PRM_NAME'].errors?.pattern || angForm.controls['FLAT_PRM_NAME'].errors?.maxlength">
-                                    Input allowed A-Z a-z 0-9 , / . () (space)"
+                                    {{'master.Validation.Val_Ward'|translate}}  <!-- Input allowed A-Z a-z 0-9 , / . () (space)" -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="RD_LANE_NAME">Road/Streets/Lane</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="RD_LANE_NAME">
+                            <!-- Road/Streets/Lane -->{{'master.Bank_Other_Details.Road_Streets_Lane' | translate}}
+                        </label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -271,11 +292,11 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['RD_LANE_NAME'].errors?.pattern  || angForm.controls['RD_LANE_NAME'].errors?.maxlength">
-                                    Input allowed A-Z a-z 0-9 , / . () (space)"
+                                    {{'master.Validation.Val1'|translate}}<!-- Input allowed A-Z a-z 0-9 , / . () (space)" -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AREA_LOCATION">Location</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="AREA_LOCATION">{{'master.Bank_Other_Details.Location' | translate}}</label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -289,14 +310,16 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['AREA_LOCATION'].errors?.pattern || angForm.controls['AREA_LOCATION'].errors?.maxlength">
-                                    Input allowed A-Z a-z 0-9 , / . () (space)"
+                                    {{'master.Validation.Val1'|translate}} <!-- Input allowed A-Z a-z 0-9 , / . () (space)" -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
 
-                        <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">Town/City/District<sub
+                        <div class="col-sm-12 col-md-2"> <label for="CITY_CODE">
+                            {{'master.Bank_Other_Details.Town_City_District' | translate}}<!-- Town/City/District -->
+                            <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -313,11 +336,11 @@
                                 *ngIf="angForm.controls['CITY_CODE'].invalid && (angForm.controls['CITY_CODE'].dirty || angForm.controls['CITY_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['CITY_CODE'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}} <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="STATE">State<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="STATE">{{'master.Bank_Other_Details.State' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group input-group">
@@ -334,13 +357,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['STATE'].errors?.pattern || angForm.controls['STATE'].errors?.required || angForm.controls['STATE'].errors?.maxlength">
-                                    This field is required and Input allowed only A-Z a-z - / . (Space)
+                                    {{'master.Validation.Val1'|translate}} <!-- This field is required and Input allowed only A-Z a-z - / . (Space) -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="PIN_CODE">Pin Code<sub
+                        <div class="col-sm-12 col-md-2"> <label for="PIN_CODE">{{'master.Bank_Other_Details.Pin_Code' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -357,11 +380,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['PIN_CODE'].errors?.pattern || angForm.controls['PIN_CODE'].errors?.required || angForm.controls['PIN_CODE'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    {{'master.Validation.Pin_Code'|translate}}<!-- This field is required and Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="PHONE_OFFICE">Telephone Number</label></div>
+                        <div class="col-sm-12 col-md-2"> <label for="PHONE_OFFICE">
+                            <!-- Telephone Number -->{{'master.Bank_Other_Details.Telephone_Number' | translate}}
+                        </label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -377,13 +402,13 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['PHONE_OFFICE'].errors?.pattern  || angForm.controls['PHONE_OFFICE'].errors?.maxlength">
-                                    Input allowed only 0-9 eg:(0230247068)
+                                    {{'master.Validation.Val_Pin_Code'|translate}} <!-- Input allowed only 0-9 eg:(0230247068) -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="MOB_NUM">Mobile Number<sub
+                        <div class="col-sm-12 col-md-2"> <label for="MOB_NUM">{{'master.Bank_Other_Details.Mobile_Number' | translate}}<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -400,11 +425,11 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['MOB_NUM'].errors?.pattern || angForm.controls['MOB_NUM'].errors?.required || angForm.controls['MOB_NUM'].errors?.maxlength">
-                                    This field is required and Input allowed only 0-9
+                                    {{'master.Validation.Val_Receipt'|translate}} <!-- This field is required and Input allowed only 0-9 -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="EMAIL">Email<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="EMAIL">{{'master.Bank_Other_Details.Email' | translate}}<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-5">
                             <div class="form-group input-group">
@@ -419,14 +444,14 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['EMAIL'].errors?.pattern || angForm.controls['EMAIL'].errors?.required || angForm.controls['EMAIL'].errors?.maxlength">
-                                    This field is required and Enter valid Email
+                                    {{'master.Validation.Re_Email'|translate}}  <!-- This field is required and Enter valid Email -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-md-4">
-                            <label for="GMAIL_USER">User<sub class="required">*</sub></label>
+                            <label for="GMAIL_USER">{{'master.Bank_Other_Details.User' | translate}}<sub class="required">*</sub></label>
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="text" name="GMAIL_USER" class="form-control" placeholder=" "
@@ -436,13 +461,15 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['GMAIL_USER'].invalid && (angForm.controls['GMAIL_USER'].dirty || angForm.controls['GMAIL_USER'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['GMAIL_USER'].errors?.required">This field is required</div>
+                                <div *ngIf="angForm.controls['GMAIL_USER'].errors?.required">
+                                    {{'master.Validation.Val1'|translate}} <!-- This field is required -->
+                                </div>
                             </div>
                         </div>
 
 
                         <div class="col-sm-12 col-md-3">
-                            <label for="GMAIL_PASSWORD">Password<sub class="required">*</sub></label>
+                            <label for="GMAIL_PASSWORD">{{'master.Bank_Other_Details.Password' | translate}}<sub class="required">*</sub></label>
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input appTheme type="password" name="GMAIL_PASSWORD" class="form-control"
@@ -457,9 +484,10 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['GMAIL_PASSWORD'].errors?.pattern || angForm.controls['GMAIL_PASSWORD'].errors?.required">
-                                    This field is required and must be at least 8 characters long, contain at least
+                                    {{'master.Bank_Other_Details.passVal' | translate}} <!-- This field is required and must be at least 8 characters long, contain at least
                                     one uppercase letter, one lowercase letter, one number, and one special
-                                    character</div>
+                                    character -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -470,7 +498,9 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="IBT_TRAN"
                                         formControlName="IBT_TRAN">
-                                    <label class="border-checkbox-label" for="IBT_TRAN">IBT Transaction<span
+                                    <label class="border-checkbox-label" for="IBT_TRAN">
+                                        {{'master.Bank_Other_Details.IBT_Transaction' | translate}} <!-- IBT Transaction -->
+                                        <span
                                             class="required">
                                         </span></label>
                                 </div>
@@ -481,7 +511,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select appTheme id="ATM_GLACNO" bindValue="value" [(ngModel)]="ngATM"
                                         formControlName="ATM_GLACNO" bindLabel="label" title="Compulsory Selection"
-                                        [virtualScroll]="true" placeholder="ATM GL account" #ATM_GLACNO
+                                        [virtualScroll]="true" placeholder=" " #ATM_GLACNO
                                         (focus)="onFocus(ATM_GLACNO)" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of ATMGLACNO" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -494,11 +524,11 @@
                         <div class="col-sm">
                             <button type="submit" class="btn btn-outline-primary btn-sm btn-submit" *ngIf="showButton"
                                 (click)="submit($event)" [disabled]="angForm.invalid" (keydown.Tab)="focus()"
-                                appTheme>Submit</button>
+                                appTheme>{{'master.Bank_Other_Details.Submit' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                                (click)="addNewData()">Cancel</button>
+                                (click)="addNewData()">{{'master.Bank_Other_Details.Cancel' | translate}}</button>
                             <button class="btn btn-outline-primary btn-sm" *ngIf="updateShow" (click)="updateData()"
-                                [disabled]="angForm.invalid">Update</button>&nbsp;
+                                [disabled]="angForm.invalid">{{'master.Bank_Other_Details.Update' | translate}}</button>&nbsp;
                         </div>
                     </div>
                 </div>
@@ -538,7 +568,7 @@
                                 </tbody>
                                 <tbody *ngIf="bankotherdetails?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">No data!</td>
+                                        <td colspan="6" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">

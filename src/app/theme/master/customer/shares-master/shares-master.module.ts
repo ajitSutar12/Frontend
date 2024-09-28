@@ -27,13 +27,15 @@ import { DatePipe } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NgSelectModule } from '@ng-select/ng-select';
 // import { DropdownOptionsService } from '../../../../shared/dropdownService/dropdownOptions.service'
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { SchemeAccountNoService } from '../../../../shared/dropdownService/schemeAccountNo.service'// Handling datatable data
 import { ThemeModule } from 'src/app/theme/theme.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -53,7 +55,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
 
-ThemeModule
+ThemeModule,
+
+//translation
+TranslateModule.forRoot({
+  loader:{
+    provide: TranslateLoader,
+    useFactory: HttpLoaderFactory,
+    deps:[HttpClient]
+  }
+})
 
   ],
   providers: [
@@ -72,6 +83,7 @@ ThemeModule
     SystemMasterParametersService,
     SharesSchemeService,
     SchemeAccountNoService,
+    
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
@@ -91,3 +103,6 @@ ThemeModule
   bootstrap: [SharesMasterComponent]
 })
 export class SharesMasterModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
