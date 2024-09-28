@@ -2,17 +2,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <!-- <h5>General Account Statement</h5> -->
-                <h5>{{'Reports.General_Acc_Statement.Title' | translate}}</h5>
+                <h5>General Account Statement</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Reports.Action.F1' | translate}} (<sub class="required"> * </sub>){{'Reports.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
 
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="BRANCH">{{'Reports.Action.Branch' | translate}}<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="BRANCH">Branch<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -29,20 +28,18 @@
                                 *ngIf="angForm.controls['BRANCH'].invalid && (angForm.controls['BRANCH'].dirty || angForm.controls['BRANCH'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH'].errors?.required">
-                                    {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
+                                    This field is required
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">
-                            {{'Reports.Action.Scheme_Code' | translate}}<!-- Scheme -->
-                            <sub class="required">*
+                        <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub class="required">*
                                 </sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
-                                        (change)="getIntro($event)" placeholder="{{'Reports.Action.Scheme_Code' | translate}}" required>
+                                        (change)="getIntro($event)" placeholder="Scheme Code" required>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -53,7 +50,7 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    {{'master.Validation.Val1' | translate}} <!-- This field is required -->
+                                    This field is required
                                 </div>
                             </div>
                         </div>
@@ -64,16 +61,14 @@
 
                     <div class="row">
 
-                        <div class="col-sm-12 col-md-1"><label for="Starting Account">
-                            {{'Reports.Action.Account_No' | translate}} <!-- Account No. -->
-                            <sub class="required">*
+                        <div class="col-sm-12 col-md-1"><label for="Starting Account">Account No.<sub class="required">*
                                 </sub></label></div>
-                        <div class="col-sm-12 col-md-3">
+                        <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="value" [(ngModel)]="ngfromac"
                                         formControlName="FROM_AC" bindLabel="label" title="Compulsory Selection"
-                                        required placeholder="{{'Reports.Action.Account_No' | translate}}">
+                                        required placeholder="Starting Account">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
                                     </ng-select>
@@ -84,14 +79,12 @@
                                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                    {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
+                                    This field is required
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="START_DATE">
-                            {{'Reports.Action.Starting_Date' | translate}}  <!-- Start Date -->
-                            <sub
+                        <div class="col-sm-12 col-md-1"> <label for="START_DATE">Start Date<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
@@ -110,14 +103,12 @@
                              (angForm.controls['START_DATE'].dirty ||angForm.controls['START_DATE'].touched) "
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['START_DATE'].errors?.required">
-                                    {{'master.Validation.Val1' | translate}} <!-- This field is required -->
+                                    This field is required
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="END_DATE">
-                            {{'Reports.Action.Ending_Date' | translate}}<!-- End Date -->
-                            <sub
+                        <div class="col-sm-12 col-md-1"> <label for="END_DATE">End Date<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -135,7 +126,7 @@
                              (angForm.controls['END_DATE'].dirty ||angForm.controls['END_DATE'].touched) "
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['END_DATE'].errors?.required">
-                                    {{'master.Validation.Val1' | translate}}    <!-- This field is required -->
+                                    This field is required
                                 </div>
 
                             </div>
@@ -161,15 +152,11 @@
                         <div class="col-md-9"></div>
                         <div class="col-md-2">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                [disabled]="clicked" (click)="View($event); clicked = true;scrollToTop()  ">
-                                {{'Reports.Action.View' | translate}}<!-- View -->
-                            </button>
+                                [disabled]="clicked" (click)="View($event); clicked = true;scrollToTop()  ">View</button>
 
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="close()">
-                                {{'Reports.Action.Close' | translate}}  <!-- Close -->
-                            </button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                         </div>
                     </div>
 
@@ -177,8 +164,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>{{'Reports.Action.Report_Frame' | translate}}</h5>
-                                    <!-- <h5>Report Frame</h5> -->
+                                    <h5>Report Frame</h5>
                                 </div>
 
                                 <div *ngIf="showRepo">

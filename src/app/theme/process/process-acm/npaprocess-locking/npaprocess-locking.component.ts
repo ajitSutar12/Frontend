@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-npaprocess-locking',
   templateUrl: './npaprocess-locking.component.html',
@@ -17,7 +18,15 @@ export class NPAProcessLockingComponent implements OnInit {
   angForm: FormGroup;
   npaProcessDate
   npaDate;
-  constructor(private http: HttpClient, private fb: FormBuilder,) { }
+  setLang: any;
+  constructor(private http: HttpClient, private fb: FormBuilder, private translate: TranslateService,
+    private systemParameter: SystemMasterParametersService) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     this.createForm()
@@ -68,7 +77,7 @@ export class NPAProcessLockingComponent implements OnInit {
 
       Swal.fire({
         icon: 'warning',
-        title: 'Date is Already Locked',
+        title: `${this.translate.instant('Swal_Msg.Date_Already_Locked')}`,
       });
 
       this.angForm.controls.NPA_DATE.reset()
@@ -83,7 +92,7 @@ export class NPAProcessLockingComponent implements OnInit {
       this.http.post(this.url + '/voucher/npalock', Object).subscribe((data) => {
         Swal.fire({
           icon: 'success',
-          title: 'Date is Lock Successfully'
+          title: `${this.translate.instant('Swal_Msg.Date_Lock')}`
         })
 
         this.lockedDate();
@@ -107,7 +116,7 @@ export class NPAProcessLockingComponent implements OnInit {
 
       Swal.fire({
         icon: 'success',
-        title: 'Date is UnLock Successfully'
+        title: `${this.translate.instant('Swal_Msg.Date_UnLock')}`
       })
       this.lockedDate();
     })
@@ -116,7 +125,7 @@ export class NPAProcessLockingComponent implements OnInit {
   lockProcess() {
     if (this.angForm.valid) {
       Swal.fire({
-        title: 'Are you sure?',
+        title: `${this.translate.instant('Swal_Msg.Sure')}`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes',
@@ -127,7 +136,7 @@ export class NPAProcessLockingComponent implements OnInit {
             this.npaDates = data;
             // console.log(data);
             Swal.fire({
-              title: 'NPA Process Date Locked',
+              title: `${this.translate.instant('Swal_Msg.NPA_Process_Date_Locked')}`,
               icon: 'success',
               timer: 2000,
               timerProgressBar: true
@@ -138,7 +147,7 @@ export class NPAProcessLockingComponent implements OnInit {
     }
     else {
       Swal.fire({
-        title: 'All fields are mandatory',
+        title: `${this.translate.instant('Swal_Msg.Mandatory_Field')}`,
         icon: 'error'
       });
     }

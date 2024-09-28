@@ -6,7 +6,7 @@ import { ProcessACMComponent } from './process-acm.component';
 import { ProcessACMRoutingModule } from './process-acm-routing.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { NPAProcessComponent } from './npaprocess/npaprocess.component';
 import { NPAMarkingComponent } from './npamarking/npamarking.component';
@@ -25,7 +25,9 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { ChargesPostingComponent } from './charges-posting/charges-posting.component';
 import { SavingMasterService } from 'src/app/theme/master/customer/saving-master/saving-master.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   imports: [
     CommonModule,
@@ -37,7 +39,15 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     DataTablesModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    DeadStockDepreciationModule
+    DeadStockDepreciationModule,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     ProcessACMComponent,
@@ -50,10 +60,14 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     TransferToGLbyClosingACComponent,
     PayrolldatatransferComponent,
     PayrollexportfileprocessComponent, ChargesPostingComponent],
-  providers: [OwnbranchMasterService, SystemMasterParametersService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService, SavingMasterService, {
+  providers: [OwnbranchMasterService, SystemMasterParametersService, SchemeCodeDropdownService, ACMasterDropdownService, SchemeAccountNoService,SystemMasterParametersService, SavingMasterService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },]
 })
 export class ProcessACMModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

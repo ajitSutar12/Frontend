@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service'
 
 interface CustomerDetails {
   id: number;
@@ -31,8 +33,18 @@ export class KYCDocumentComponent implements OnInit {
   searchTerm: string = '';
   selectedCustomerPhotos: any = null;
   url = environment.base_url
+  setLang: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+  ) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+      
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     this.getCustomerDetails();

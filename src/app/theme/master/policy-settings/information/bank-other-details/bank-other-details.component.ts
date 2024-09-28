@@ -51,8 +51,8 @@ interface BankOtherDetails {
   GST_NO: string;
   IFSC_CODE: string;
   IBT_TRAN: boolean;
-  GMAIL_PASSWORD:any;
-  GMAIL_USER:string;
+  GMAIL_PASSWORD: any;
+  GMAIL_USER: string;
 
 }
 
@@ -119,7 +119,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     private cityMaster: cityMasterService,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private fb: FormBuilder, private translate:TranslateService
+    private fb: FormBuilder, private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -310,7 +310,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
           ATM_GLACNO: formVal.ATM_GLACNO,
         }
         this.bankDetails.postData(dataToSend).subscribe(data1 => {
-          Swal.fire('Success!', 'Data Added Successfully !', 'success');
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
           this.formSubmitted = false;
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -322,7 +322,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
         this.resetForm();
       }
       else {
-        Swal.fire('Info!', 'Data Already Exist!', 'info');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Already')}`, 'info');
       }
     })
   }
@@ -377,7 +377,7 @@ export class BankOtherDetailsComponent implements OnInit, AfterViewInit, OnDestr
     data['IBT_TRAN'] = (data.IBT_TRAN == true ? '1' : '0')
 
     this.bankDetails.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

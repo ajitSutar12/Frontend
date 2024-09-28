@@ -5,8 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { SharesTransferComponent } from '../../../transaction/share-transactions/shares-transfer/shares-transfer.component';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 class DataTableResponse {
   data: any[];
@@ -197,14 +196,7 @@ export class TransferSharesComponent implements OnInit, AfterViewInit {
   // issueNewShare: issueNewShare[];
   shareTransfer: ShareTransfer[];
   savingData: any;
-  setLang:any;
-  constructor(private http: HttpClient, private systemParameter: SystemMasterParametersService, private translate:TranslateService,) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-   }
+  constructor(private http: HttpClient,) { }
 
   shareTransferData: any
 
@@ -264,23 +256,23 @@ export class TransferSharesComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: this.translate.instant('master.Action.Action'),
+          title: 'Action',
         },
         {
-          title: this.translate.instant('master.All.Record_Number'),
+          title: 'Record Number ',
           data: 'TRAN_NO'
         },
         {
-          title:this.translate.instant('master.All.Amount'),
+          title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
         {
-          title: this.translate.instant('master.All.Time'),
+          title: 'Time',
           data: 'TRAN_TIME'
         },
 
         {
-          title: this.translate.instant('master.All.Scheme_Type'),
+          title: 'Scheme Type',
           data: 'TRAN_ACTYPE'
         },
         // {
@@ -289,7 +281,7 @@ export class TransferSharesComponent implements OnInit, AfterViewInit {
         // },
 
         {
-          title:this.translate.instant('master.All.Account_Number'),
+          title: 'Account Number',
           data: 'TRAN_ACNO'
         },
         // {
@@ -297,7 +289,7 @@ export class TransferSharesComponent implements OnInit, AfterViewInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title:this.translate.instant('master.All.User'),
+          title: 'User',
           data: 'USER_CODE'
         },
         // {

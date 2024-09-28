@@ -178,3 +178,16 @@ label {
     align-items: center !important;
     margin-left: 35px;
 }
+.movable-text {
+    white-space: nowrap;
+  }
+  
+  .movable-text {
+    animation: marquee 8.5s linear infinite; /* Adjusted duration */
+  }
+  
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); } 
+  }
+  

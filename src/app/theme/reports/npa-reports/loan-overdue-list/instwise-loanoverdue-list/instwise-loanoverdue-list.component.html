@@ -3,17 +3,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>
-                    {{'master.Loan_overdue_report.T2'|translate}}   <!-- Installment Wise Loan Overdue List -->
-                </h5>
+                <h5>Installment Wise Loan Overdue List</h5>
             </div>
 
             <form [formGroup]="angForm" novalidate>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">
-                            <!-- Branch -->{{'master.Loan_overdue_report.Branch'|translate}}
-                            <sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Branch<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -30,15 +26,13 @@
                                 *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['branch'].errors?.required">
-                                    {{'master.Validation.Val1'|translate}}   <!-- This field is required. -->
+                                    This field is required.
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">
-                            {{'master.Loan_overdue_report.Scheme'|translate}}  <!-- Scheme -->
-                            <sub
+                        <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Scheme<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -55,15 +49,13 @@
                                 *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                    {{'master.Validation.Val1'|translate}}     <!-- This field is required. -->
+                                    This field is required.
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-1"> <label for="Date">
-                            <!-- Date -->{{'master.Loan_overdue_report.Date'|translate}}
-                            <sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-1"> <label for="Date">Date<sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group input-group">
@@ -79,7 +71,7 @@
                                 *ngIf="angForm.controls['date'].invalid && (angForm.controls['date'].dirty || angForm.controls['date'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['date'].errors?.required">
-                                    {{'master.Validation.Val1'|translate}}    <!-- This field is required. -->
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
@@ -91,8 +83,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox1"
                                         [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive1">
-                                    <label class="border-checkbox-label" for="checkbox1">
-                                        <!-- Print Expired A/c? -->{{'master.Loan_overdue_report.Print_Expired_A/c?'|translate}} 
+                                    <label class="border-checkbox-label" for="checkbox1">Print Expired A/c?
                                     </label>
                                 </div>
                             </div>
@@ -103,8 +94,7 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input class="border-checkbox" type="checkbox" id="checkbox2"
                                         [checked]="isIsRestrictTransactionEntry == true" formControlName="checkActive2">
-                                    <label class="border-checkbox-label" for="checkbox2">
-                                        {{'master.Loan_overdue_report.Print_Current_Interest?'|translate}}  <!-- Print Current Interest? -->
+                                    <label class="border-checkbox-label" for="checkbox2">Print Current Interest?
                                     </label>
                                 </div>
                             </div>
@@ -113,13 +103,9 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">
-                                <!-- Close -->{{'master.Action.Close'|translate}}
-                            </button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button>
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                            (click)="view($event); clicked = true;scrollToTop() ">
-                            <!-- View --> {{'master.Action.View'|translate}} 
-                        </button>
+                            (click)="view($event); clicked = true;scrollToTop() ">View</button>
                         </div>
                     </div>
 
@@ -127,7 +113,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5> {{'master.Report_NPA_Registration.Report_Frame'|translate}} </h5>
+                                    <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
 

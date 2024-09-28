@@ -12,7 +12,6 @@ import { NgSelectConfig } from '@ng-select/ng-select';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-scheme-loanoverdue-incre-decre',
   templateUrl: './scheme-loanoverdue-incre-decre.component.html',
@@ -49,13 +48,12 @@ export class SchemeLoanoverdueIncreDecreComponent implements OnInit {
   summary: any;
   branchName: any;
   shemeDetails: any
-  setLang: any;
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
-    private sanitizer: DomSanitizer,  private translate:TranslateService,
-
+    private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -65,12 +63,7 @@ export class SchemeLoanoverdueIncreDecreComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-     
-      //Translation
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    });
+
   }
 
 
@@ -227,8 +220,7 @@ export class SchemeLoanoverdueIncreDecreComponent implements OnInit {
     }
     else {
       this.formSubmitted = false;
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

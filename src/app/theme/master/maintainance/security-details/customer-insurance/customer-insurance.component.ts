@@ -29,7 +29,9 @@ import { Router } from "@angular/router";
 import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+
 import { TranslateService } from "@ngx-translate/core";
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -61,6 +63,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   datemax: string;
   newbtnShow: boolean;
   logDate: any;
+  setLang: string;
   newItemEvent(value) {
     this.newcustomerInsuranceEvent.emit(value);
   }
@@ -103,14 +106,16 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   page: number;
   filterData = {};
   insuranceoption
-  setLang:any;
+
   constructor(
     private fb: FormBuilder,
     private _customerservice: customerinsuranceService,
     private http: HttpClient,
     private _insurancedropdown: InsuranceMasterDropdownService, private systemParameter: SystemMasterParametersService,
-    public router: Router,  private translate:TranslateService,
-    private config: NgSelectConfig,) {
+    public router: Router,
+    private config: NgSelectConfig,    private translate:TranslateService,
+  )
+   {
 
 
     // this.maxDate = new Date();
@@ -119,11 +124,12 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     // this.maxDate.setDate(this.maxDate.getDate())
 
     this.systemParameter.getFormData(1).subscribe(data => {
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
+
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d 
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
   }

@@ -13,7 +13,6 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service'
 import { first } from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -78,21 +77,14 @@ export class MasterSavingComponent implements OnInit {
   // Store data from backend
   savingMaster: SavingMaster[];
   savingData: any;
-  setLang:any;
   // constructor(private http: HttpClient, private fb: FormBuilder,) { }
   constructor(
     private http: HttpClient, private fb: FormBuilder,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private schemeAccountNoService: SchemeAccountNoService, private translate:TranslateService
-  ) { 
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    }) 
-  }
+    private schemeAccountNoService: SchemeAccountNoService,
+  ) { }
   ngOnInit(): void {
     this.createForm()
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {

@@ -6,8 +6,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { DeadStockPurchaseComponent } from 'src/app/theme/transaction/dead-stock-purchase/dead-stock-purchase.component';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -47,15 +46,8 @@ export class PassdeadStockPurchaseComponent implements OnInit, AfterViewInit {
   url = environment.base_url;
   // Store data from backend
   deadStockPurchase: DeadStockPurchase[];
-  savingData: any; setLang:any;
-  constructor(private http: HttpClient,private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,) { 
-      this.systemParameter.getFormData(1).subscribe(data => {
-    
-        this.setLang = data.SET_LANGUAGE
-        this.translate.setDefaultLang(this.setLang);
-      }) 
-    }
+  savingData: any;
+  constructor(private http: HttpClient,) { }
 
   deadStockPurchaseData: any = {};
 
@@ -117,31 +109,30 @@ export class PassdeadStockPurchaseComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: this.translate.instant('master.Action.Action'),
+          title: 'Action',
         },
         {
-          title: this.translate.instant('master.All.Record_Number'),
+          title: 'Record Number ',
           data: 'TRAN_NO'
         },
         {
-          title: this.translate.instant('master.All.Amount'),
+          title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
 
         {
-          title: this.translate.instant('master.All.Supplier_Name'),
+          title: 'Supplier Name ',
           data: 'TRAN_SUPPLIER_NAME'
         },
         {
-          title: this.translate.instant('master.All.Narration'),
+          title: 'Narration',
           data: 'NARRATION'
         },
 
         {
-          title: this.translate.instant('master.All.Entry_Type'),
+          title: 'Entry Type',
           data: 'TRAN_ENTRY_TYPE'
         },
-
 
       ],
       dom: 'Blrtip',

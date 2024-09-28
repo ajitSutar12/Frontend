@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  DirectorwiseNpaRegComponent,
     data: {
-      title: 'Directorwise NPA Report',
+      title: 'Transaction Amount Movement',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

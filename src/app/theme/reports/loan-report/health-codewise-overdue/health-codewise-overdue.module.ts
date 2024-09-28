@@ -17,9 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DepositLoanInterestRateEditChangeService } from 'src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [HealthCodewiseOverdueComponent],
@@ -36,14 +34,6 @@ import { HttpClient } from '@angular/common/http';
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
-
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
   ],
   providers:[
     SystemMasterParametersService,
@@ -59,6 +49,3 @@ import { HttpClient } from '@angular/common/http';
   ],
 })
 export class HealthCodewiseOverdueModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

@@ -19,7 +19,7 @@ import { GraphLoanDepositPositionComponent } from './graph-loan-deposit-position
 import { ComparitiveGraphLoanDepositPositionComponent } from './comparitive-graph-loan-deposit-position/comparitive-graph-loan-deposit-position.component';
 import { CdRationAnalysisComponent } from './cd-ration-analysis/cd-ration-analysis.component';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,9 +40,6 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Iframe5Module } from '../../reports/pigmy-report/iframe5/iframe5.module';
 import { Iframe1Module } from '../../reports/daily-reports/iframe1/iframe1.module';
 import { Iframe2Module } from '../../reports/statement/iframe2/iframe2.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -58,14 +55,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DatepickerModule.forRoot(),
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    InterestPaidHistoryModule,Iframe1Module,Iframe5Module,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    InterestPaidHistoryModule,Iframe1Module,Iframe5Module
 
   ],
   providers: [
@@ -89,6 +79,3 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   // exports: [InterestPaidHistoryComponent]
 })
 export class OtherViewModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
