@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CashierUmService } from './cashier-um.service';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-cashier-um',
@@ -15,7 +17,8 @@ export class CashierUMComponent implements OnInit {
   angForm: FormGroup;
   checkFlag : boolean = true;
 
-  constructor(private _service : CashierUmService,private fb: FormBuilder) { }
+  constructor(private _service : CashierUmService,private fb: FormBuilder,private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.angForm = this.fb.group({

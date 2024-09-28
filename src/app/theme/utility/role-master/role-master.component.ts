@@ -5,6 +5,8 @@ import { RoleMasterModule } from './role-master.module';
 import { RoleMasterService } from './role-master.service';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-role-master',
@@ -28,7 +30,8 @@ export class RoleMasterComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private fb: FormBuilder,
-    private _service: RoleMasterService
+    private _service: RoleMasterService,private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
   ) {
     
   }

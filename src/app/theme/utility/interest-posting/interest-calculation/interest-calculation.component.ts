@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 import { async } from 'rxjs/internal/scheduler/async';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -72,7 +74,8 @@ export class InterestCalculationComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _serviceScheme: CurrentSchemeService
+    private _serviceScheme: CurrentSchemeService,
+    private translate:TranslateService
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -161,16 +164,8 @@ export class InterestCalculationComponent implements OnInit {
 
       
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
-<<<<<<< Updated upstream
-          this.isloader = false
-          // this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
-         
-          this.selectedSchemeData = [];
-=======
           this.modalClass = 'modalHide';
           Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
->>>>>>> Stashed changes
           this.ngOnInit()
           this.showButton = true;
         },
@@ -182,14 +177,8 @@ export class InterestCalculationComponent implements OnInit {
           (error) => {
             this.isloader = false
             console.log(error, 'err')
-<<<<<<< Updated upstream
-            // this.modalClass = 'modalHide';
-            this.isloader = false
-            Swal.fire('No Records Found!', error?.error?.message, 'warning');
-=======
             this.modalClass = 'modalHide';
             Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, error?.error?.message, 'error');
->>>>>>> Stashed changes
             this.showButton = true;
           })
       }
@@ -216,15 +205,8 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
-<<<<<<< Updated upstream
-          // this.modalClass = 'modalHide';
-          this.isloader = false
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
-          this.selectedSchemeData = [];
-=======
           this.modalClass = 'modalHide';
           Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
->>>>>>> Stashed changes
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
@@ -257,15 +239,8 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
-<<<<<<< Updated upstream
-          // this.modalClass = 'modalHide';
-          this.isloader = true
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
-          this.selectedSchemeData = [];
-=======
           this.modalClass = 'modalHide';
           Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
->>>>>>> Stashed changes
           this.ngOnInit()
           this.showButton = true;
         }, err => {
