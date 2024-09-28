@@ -12,7 +12,6 @@ import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { VoucherEntryComponent } from 'src/app/theme/transaction/voucher-entry/voucher-entry.component';
 import { MultiVoucherComponent } from 'src/app/theme/transaction/multi-voucher/multi-voucher.component';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-voucher-view',
@@ -42,10 +41,8 @@ export class VoucherViewComponent implements OnInit {
   branch_code: any[];
 
   ngdate: any = null
-  setLang: any;
 
   constructor(
-    private translate:TranslateService,
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
     private ownbranchMasterService: OwnbranchMasterService,
@@ -57,8 +54,6 @@ export class VoucherViewComponent implements OnInit {
       this.minDate = this.maxDate._d
       this.tranDate = data.CURRENT_DATE
       this.ngdate = data.CURRENT_DATE
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -12,9 +12,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { IntrestCategoryMasterDropdownService } from 'src/app/shared/dropdownService/interest-category-master-dropdown.service';
 import { CashCreditLoanRenewalService } from './cash-credit-loan-renewal.service'
 import *  as moment from 'moment';
-import { NgSelectComponent } from '@ng-select/ng-select';
-import { TranslateService } from '@ngx-translate/core';
-
+import { NgSelectComponent } from '@ng-select/ng-select'
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -88,7 +86,6 @@ export class CashCreditAcRenewalComponent implements OnInit {
   DatatableHideShow: boolean = true;
   rejectShow: boolean = false;
   approveShow: boolean = false;
-  setLang: any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -98,19 +95,12 @@ export class CashCreditAcRenewalComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private config: NgSelectConfig,
-    private translate:TranslateService
-
-  ) {
+    private config: NgSelectConfig,) {
 
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
     }
-    this.systemParameter.getFormData(1).subscribe(data => {
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);

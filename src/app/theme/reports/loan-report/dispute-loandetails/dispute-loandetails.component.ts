@@ -11,8 +11,6 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { TranslateService } from "@ngx-translate/core";
-
 
 @Component({
   selector: 'app-dispute-loandetails',
@@ -56,7 +54,6 @@ export class DisputeLoandetailsComponent implements OnInit {
 
   name: any;
   iframe5url:any='';
-  setLang: string;
 
 
   constructor(
@@ -67,15 +64,8 @@ export class DisputeLoandetailsComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private schemeAccountNoService:SchemeAccountNoService,
-    private translate:TranslateService,
-
+    private schemeAccountNoService:SchemeAccountNoService
   ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -192,7 +182,7 @@ end(){
     this.equal = [this.startfrom, this.startto]
   }
   else {
-    Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
+    Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg5')}`, 'info')
   }
 }
 scrollToTop() {
@@ -228,7 +218,7 @@ View(event) {
 
   }
   else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
   }
 
 }

@@ -90,7 +90,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
     private salaryDivisionService: SalaryDivisionService,
     private ownbranchMaster: OwnbranchMasterService,
     private fb: FormBuilder,
-    private config: NgSelectConfig, private translate:TranslateService) {
+    private config: NgSelectConfig, private translate: TranslateService) {
   }
   ngOnInit(): void {
     this.createForm();
@@ -181,7 +181,7 @@ export class SalaryDivisionMasterComponent implements OnInit, AfterViewInit, OnD
         },
       ], dom: 'Blrtip',
     };
-let data: any = localStorage.getItem('user');
+    let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.angForm.controls['BRANCH_CODE'].enable()
@@ -228,7 +228,7 @@ let data: any = localStorage.getItem('user');
 
     }
     this.salaryDivisionService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -262,17 +262,17 @@ let data: any = localStorage.getItem('user');
     this.salaryDivisionService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.ngBranchCode = Number(data.BRANCH_CODE),
-      this.angForm.patchValue({
-        'CODE': data.CODE,
-        'NAME': data.NAME,
-        'SHORT_NAME': data.SHORT_NAME,
-        'AT_POST': data.AT_POST,
-        'TALUKA_NAME': data.TALUKA_NAME,
-        'DISTRICT_NAME': data.DISTRICT_NAME,
-        // 'BRANCH_CODE': data.BRANCH_CODE,
-        'PHNO': data.PHNO,
-        'MOBNO': data.MOBNO,
-      })
+        this.angForm.patchValue({
+          'CODE': data.CODE,
+          'NAME': data.NAME,
+          'SHORT_NAME': data.SHORT_NAME,
+          'AT_POST': data.AT_POST,
+          'TALUKA_NAME': data.TALUKA_NAME,
+          'DISTRICT_NAME': data.DISTRICT_NAME,
+          // 'BRANCH_CODE': data.BRANCH_CODE,
+          'PHNO': data.PHNO,
+          'MOBNO': data.MOBNO,
+        })
     })
   }
 
@@ -281,7 +281,7 @@ let data: any = localStorage.getItem('user');
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.salaryDivisionService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -301,8 +301,8 @@ let data: any = localStorage.getItem('user');
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete salary division Master data.",
+      title: `${this.translate.instant('Swal_Msg.Sure')}`,
+      text: `${this.translate.instant('Swal_Msg.del_salary_Div_Master')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -313,8 +313,7 @@ let data: any = localStorage.getItem('user');
         this.salaryDivisionService.deleteData(id).subscribe(data1 => {
           this.salarymasters = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -326,8 +325,7 @@ let data: any = localStorage.getItem('user');
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -387,14 +385,14 @@ let data: any = localStorage.getItem('user');
       this.dtTrigger.next();
     });
   }
-  onFocus(ele: NgSelectComponent) {  
+  onFocus(ele: NgSelectComponent) {
     ele.open()
   }
   gotoTop() {
-    window.scroll({ 
-      top: 0, 
-      left: 0, 
-      behavior: 'smooth' 
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     });
   }
 }

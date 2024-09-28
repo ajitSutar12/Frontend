@@ -66,7 +66,6 @@ export class InterestCalculationComponent implements OnInit {
   selectedSchemeData: any;
   schemewiseRadio: boolean = true;
   modalClass: string = 'modalHide';
-  setLang: string;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -78,11 +77,6 @@ export class InterestCalculationComponent implements OnInit {
     private _serviceScheme: CurrentSchemeService,
     private translate:TranslateService
   ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -170,11 +164,8 @@ export class InterestCalculationComponent implements OnInit {
 
       
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
-          this.isloader = false
-          // this.modalClass = 'modalHide';
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
-         
-          this.selectedSchemeData = [];
+          this.modalClass = 'modalHide';
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
           this.showButton = true;
         },
@@ -186,15 +177,14 @@ export class InterestCalculationComponent implements OnInit {
           (error) => {
             this.isloader = false
             console.log(error, 'err')
-            // this.modalClass = 'modalHide';
-            this.isloader = false
-            Swal.fire('No Records Found!', error?.error?.message, 'warning');
+            this.modalClass = 'modalHide';
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, error?.error?.message, 'error');
             this.showButton = true;
           })
       }
     } else if (FormValue.INT_CAL == 'Form2') {
       if (FormValue.BRANCH == '' || FormValue.AC_TYPE == '' || FormValue.FROM_AC == '' || FormValue.TO_AC == '') {
-        Swal.fire("Oops...", "Please select required field value", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
       } else {
         // this.modalClass = 'modalShow';
         this.isloader = true
@@ -215,10 +205,8 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
-          // this.modalClass = 'modalHide';
-          this.isloader = false
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
-          this.selectedSchemeData = [];
+          this.modalClass = 'modalHide';
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
@@ -231,7 +219,7 @@ export class InterestCalculationComponent implements OnInit {
       }
     } else {
       if (FormValue.BRANCH1 == '' || FormValue.AC_TYPE1 == '' || this.InterestArr.length == 0) {
-        Swal.fire("Oops...", "Please select required field value", "error");
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
       } else {
         // this.modalClass = 'modalShow';
         this.isloader = true
@@ -251,10 +239,8 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
-          // this.modalClass = 'modalHide';
-          this.isloader = true
-          Swal.fire("Success", "Interest Calculation Successfully Completed", "success");
-          this.selectedSchemeData = [];
+          this.modalClass = 'modalHide';
+          Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
           this.ngOnInit()
           this.showButton = true;
         }, err => {
@@ -283,7 +269,7 @@ export class InterestCalculationComponent implements OnInit {
       });
     }
     else {
-      Swal.fire("To Account Number Must Be Greater Than From Account Number");
+      Swal.fire(`${this.translate.instant('Swal_Msg.From_Account_Number')}`);
       this.InterestArr = []
       this.angForm.patchValue({
         TO_AC: ''
@@ -402,7 +388,7 @@ export class InterestCalculationComponent implements OnInit {
     this.showTable = true
     let searchData = this.InterestArr.filter(ele => ele.AC_NO === event.value);
     if (searchData.length != 0) {
-      Swal.fire('Oops...!', 'Your selected Account Already Exists in Table', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Account_Already_Exists')}`, 'error');
     } else {
       let obj = {
         AC_NO: event.bankacno,

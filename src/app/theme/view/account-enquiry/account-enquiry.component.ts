@@ -704,7 +704,9 @@ export class AccountEnquiryComponent implements OnInit {
   // }
   AC_MINOR
   //get account details
+
   getAccountDetails(event) {
+
   
     this.accountEvent = event
     this.grdName = this.accountEvent.AC_GRDNAME;
@@ -772,14 +774,26 @@ export class AccountEnquiryComponent implements OnInit {
       this.AC_NO = event.AC_NO
       this.LAST_OD_DATE = event.LAST_OD_DATE
       this.nominee = event?.nomineeDetails
-      event?.jointAccounts?.forEach((element, index) => {
-        if (index == 0) {
-          this.jointHolderName = element.JOINT_ACNAME
-        }
-        else {
-          this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
-        }
-      });
+      // event?.jointAccounts?.forEach((element, index) => {
+      //   if (index == 0) {
+      //     this.jointHolderName = element.JOINT_ACNAME
+      //   }
+      //   else {
+      //     this.jointHolderName = this.jointHolderName + '/' + element.JOINT_ACNAME
+      //   }
+      // });
+
+      // event?.jointAccounts?.forEach((element, index) => {
+      //   if (index === 0) {
+      //     this.jointHolderName = element.JOINT_ACNAME;
+      //     this.jointCustId = element.JOINT_AC_CUSTID;
+      //   } else {
+      //     this.jointHolderName += '/' + element.JOINT_ACNAME;
+      //     this.jointCustId = '';
+      //   }
+      // });
+      this.isJoint = event?.jointAccounts?.length > 0;
+
       this.idmaster = event.idmaster
       let periodOverdraft = event.AC_SODAMT == undefined || event.AC_SODAMT == null ? 0 : Number(event.AC_SODAMT)
       let tempOverdraft = event.AC_ODAMT == undefined || event.AC_ODAMT == null ? 0 : Number(event.AC_ODAMT)
@@ -814,7 +828,15 @@ export class AccountEnquiryComponent implements OnInit {
           this.signture = 'assets/images/nosignature.png'
         }
       })
-
+      event?.jointAccounts?.forEach((element, index) => {
+        if (index === 0) {
+          this.jointHolderName = element.JOINT_ACNAME;
+          this.jointCustId = element.JOINT_AC_CUSTID;
+        } else {
+          this.jointHolderName += '/' + element.JOINT_ACNAME;
+          this.jointCustId = '';
+        }
+      });
     }
   }
 
@@ -1732,6 +1754,7 @@ export class AccountEnquiryComponent implements OnInit {
       this.display1 = "block";
     }
   }
+
   openModal() {
     this.display = "block";
     

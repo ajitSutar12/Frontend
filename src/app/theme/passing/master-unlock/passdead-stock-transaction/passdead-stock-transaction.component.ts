@@ -5,8 +5,7 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { DeadStockTransactionComponent } from 'src/app/theme/transaction/dead-stock-transaction/dead-stock-transaction.component';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from '@ngx-translate/core';
+
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -46,15 +45,7 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
   // Store data from backend
   deadStockTransactionData: DeadStockTransaction[];
   savingData: any;
-  setLang:any;
-  constructor(private http: HttpClient, private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService) {
-      this.systemParameter.getFormData(1).subscribe(data => {
-    
-        this.setLang = data.SET_LANGUAGE
-        this.translate.setDefaultLang(this.setLang);
-      }) 
-     }
+  constructor(private http: HttpClient,) { }
 
   // deadStockTransactionData: any = {};
   ngOnInit(): void {
@@ -114,14 +105,14 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
       }],
       columns: [
         {
-          title: this.translate.instant('master.Action.Action'),
+          title: 'Action',
         },
         {
-          title: this.translate.instant('master.All.Record_Number'),
+          title: 'Record Number ',
           data: 'TRAN_NO'
         },
         {
-          title: this.translate.instant('master.All.Amount'),
+          title: 'Amount',
           data: 'TRAN_AMOUNT'
         },
 
@@ -130,12 +121,12 @@ export class PassdeadStockTransactionComponent implements OnInit, AfterViewInit 
         //   data: 'TRAN_SUPPLIER_NAME'
         // },
         {
-          title: this.translate.instant('master.All.Narration'),
+          title: 'Narration',
           data: 'NARRATION'
         },
 
         {
-          title:this.translate.instant('master.All.Entry_Type'),
+          title: 'Entry Type',
           data: 'TRAN_ENTRY_TYPE'
         },
 

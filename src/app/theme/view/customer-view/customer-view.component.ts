@@ -14,8 +14,6 @@ import { map } from 'rxjs/operators';
 // import Swal from 'sweetalert2';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 import { OwnbranchMasterService } from '../../../shared/dropdownService/own-branch-master-dropdown.service'
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-customer-view',
@@ -49,7 +47,6 @@ export class CustomerViewComponent implements OnInit {
   customerList
   ngbranch
   branchOption: any;
-  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -58,15 +55,7 @@ export class CustomerViewComponent implements OnInit {
     private config: NgSelectConfig,
     private _CustomerIdService: CustomerIdService,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,
-  ) { 
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-}
+  ) { }
 
   ngOnInit(): void {
     this.createForm();

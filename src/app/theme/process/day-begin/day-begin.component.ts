@@ -27,7 +27,6 @@ export class DayBeginComponent implements OnInit {
   ngdate: any = null
   dtExportButtonOptions: any = {};
   daybeginProcess: boolean = false;
-  setLang: string;
 
 
   constructor(
@@ -35,14 +34,10 @@ export class DayBeginComponent implements OnInit {
     private router: Router,
     private systemParameter: SystemMasterParametersService,
     private _service: DayBeginService,
-    private _authService: AuthService,
-    private translate:TranslateService
+    private _authService: AuthService,    private translate:TranslateService
 
-  ) { this.systemParameter.getFormData(1).subscribe(data => {
-    
-    this.setLang = data.SET_LANGUAGE
-    this.translate.setDefaultLang(this.setLang);
-  })}
+
+  ) { }
 
   ngOnInit(): void {
     this.createForm()
@@ -76,7 +71,7 @@ export class DayBeginComponent implements OnInit {
     let current_date = this.ngdate;
 
     Swal.fire({
-      title: 'Are you sure?',
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
       text: "Do you want Day begain.",
       icon: 'warning',
       showCancelButton: true,
@@ -91,11 +86,11 @@ export class DayBeginComponent implements OnInit {
         }
         this.daybeginProcess = true;
         this._service.postData(obj).subscribe(data => {
-          Swal.fire("Success!", current_date + " Day Begin Successfully", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, current_date + `${this.translate.instant('Swal_Msg.Begin_Successfully')}`, "success");
           this.daybeginProcess = false;
           Swal.fire({
-            title: 'Need To Re-Login',
-            text: "Please re-login in Application",
+            title: `${this.translate.instant('Swal_Msg.Need_To')}`,
+            text: `${this.translate.instant('Swal_Msg.Please_relogin')}`,
             icon: 'warning',
             showCancelButton: false,
             confirmButtonColor: '#229954',
@@ -119,7 +114,7 @@ export class DayBeginComponent implements OnInit {
           })
         }, err => {
           Swal.fire(
-            "Error",
+            `${this.translate.instant('Swal_Msg.Error')}`,
             err.error.message,
             "error"
           )
@@ -129,8 +124,7 @@ export class DayBeginComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your Action is revert',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
         this.daybeginProcess = false

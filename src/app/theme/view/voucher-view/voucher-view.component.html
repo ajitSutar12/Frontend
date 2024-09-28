@@ -3,26 +3,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <!-- <h5>Voucher View</h5> -->
-                <h5>{{'View.Action.T3' | translate}}</h5>
+                <h5>Voucher View</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'View.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'View.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" appSubmit [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="solid">
                         <div class="row">
-                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">
-                                <!-- Branch -->
-                                {{'View.Action.Branch' | translate}}<sub
+                            <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group form-primary form-static-label">
                                     <span class="border-lable-flt">
                                         <ng-select appTheme id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                             formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'View.Action.Branch' | translate}}" [virtualScroll]="true"
+                                            [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch" [virtualScroll]="true"
                                             #BRANCH_CODE (focus)="onFocus(BRANCH_CODE)" [selectOnTab]='true'
                                             (change)="getBranch($event);viewVoucher()">
                                             <ng-option *ngFor="let values of branch_code" [value]="values">
@@ -34,15 +31,12 @@
                                     *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
+                                        This field is required.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">
-                                <!-- Transaction Date -->
-                                {{'View.Action.Tra_Date' | translate}}
-                            </label></div>
+                            <div class="col-sm-12 col-md-2"> <label for="TRAN_DATE">Transaction Date</label></div>
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group input-group">
                                     <span class="border-lable-flt">
@@ -59,12 +53,11 @@
                                 </div>
                             </div>
                             <div class="col-sm">
-                                <!-- Number of records: -->
-                                {{'View.Action.Num_Of_Records' | translate}} :    {{tableData?.length }}
+                                Number of records:{{tableData?.length }}
                             </div>
                             <div class="col-sm">
                                 <button type="button" class="btn btn-outline-primary btn-sm"
-                                    (click)="viewVoucher()">{{'View.Action.View' | translate}}</button>
+                                    (click)="viewVoucher()">View</button>
                             </div>
                         </div>
                     </div>
@@ -88,24 +81,24 @@
             <table class="table table-striped table-bordered table-hover compact" *ngIf="tableData?.length != 0">
                 <thead>
                     <!-- <td>Action</td> -->
-                    <td>{{'View.Action.Record_Number' | translate}}</td>
-                    <td class="td_center">{{'View.Action.Time' | translate}}</td>
-                    <td>{{'View.Action.Scheme' | translate}}</td>
-                    <td class="td_right">{{'View.Action.Account_Number' | translate}}</td>
-                    <td>{{'View.Action.Name' | translate}}</td>
-                    <td>{{'View.Action.Transaction_Source_Type' | translate}}</td>
-                    <td>{{'View.Action.Type' | translate}}</td>
-                    <td>{{'View.Action.Debit_Credit' | translate}}</td>
-                    <td>{{'View.Action.Amount' | translate}}</td>
-                    <td>{{'View.Action.Interest_Amount' | translate}}</td>
-                    <td>{{'View.Action.Receivable_Payable_Interest' | translate}}</td>
-                    <td>{{'View.Action.Receivable_Overdue_Interest' | translate}}</td>
-                    <td>{{'View.Action.Penal_Interest' | translate}}</td>
-                    <td>{{'View.Action.Receivable_Penal' | translate}}</td>
-                    <td class="td_right">{{'View.Action.Other_Amount' | translate}}</td>
-                    <td>{{'View.Action.Added_Penal' | translate}}</td>
-                    <td>{{'View.Action.Dividend_Amount' | translate}}</td>
-                    <td>{{'View.Action.User' | translate}}</td>
+                    <td>Record Number</td>
+                    <td class="td_center">Time</td>
+                    <td>Scheme</td>
+                    <td class="td_right">Account Number</td>
+                    <td>Name</td>
+                    <td>Transaction Source Type</td>
+                    <td>Type</td>
+                    <td>Debit/Credit</td>
+                    <td>Amount</td>
+                    <td>Interest Amount</td>
+                    <td>Receivable /Payable Interest</td>
+                    <td>Receivable Overdue Interest</td>
+                    <td>Penal Interest</td>
+                    <td>Receivable Penal</td>
+                    <td class="td_right">Other Amount</td>
+                    <td>Added Penal</td>
+                    <td>Dividend Amount</td>
+                    <td>User</td>
                 </thead>
                 <tbody *ngIf="tableData?.length != 0">
                     <tr *ngFor="let data of tableData;
@@ -146,7 +139,7 @@
                 <tbody *ngIf="tableData?.length == 0">
                     <tr>
                         <td colspan="10" class="no-data-available" style="text-align: center;">
-                            {{'View.Action.No_Data' | translate}}
+                            No data!
                         </td>
                     </tr>
                 </tbody>
@@ -157,9 +150,7 @@
 
 <app-modal-basic #modalLarge [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h4 class="modal-title">
-            <!-- Voucher -->
-            {{'View.Action.Voucher' | translate}}</h4>
+        <h4 class="modal-title">Voucher</h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -177,6 +168,6 @@
     </div>
     <div class="app-modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm" #triggerhide id="trigger"
-        (click)="modalLarge.hide();"> {{'View.Action.Close' | translate}}</button>
+            (click)="modalLarge.hide();">Close</button>
     </div>
 </app-modal-basic>
