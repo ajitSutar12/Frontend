@@ -8,6 +8,8 @@ import { Observable, interval } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DayEndService } from 'src/app/theme/process/day-end/day-end.service';
 import { Router } from '@angular/router';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin',
@@ -192,11 +194,17 @@ export class AdminComponent implements OnInit, OnDestroy {
   };
   newsContent: string;
   marqueeElement: any;
-  url=environment.base_url
+  url = environment.base_url
   barnchCode
   narrations: string[];
-  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,public router:Router,
-    private http: HttpClient) {
+  setLang: any;
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService, public router: Router,
+    private http: HttpClient, private translate: TranslateService, private systemParameter: SystemMasterParametersService,) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -879,13 +887,13 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.filteredMenuListData = [];
   }
 
-//   modalClose: boolean = false
-//   closeMarquee() {
-//     this.modalClose = false
-//   }
-//   openModal(){
-// this.modalClose=true
-//   }
+  //   modalClose: boolean = false
+  //   closeMarquee() {
+  //     this.modalClose = false
+  //   }
+  //   openModal(){
+  // this.modalClose=true
+  //   }
   modalClose: boolean = true
   closeMarquee() {
     this.modalClose = false
@@ -905,7 +913,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.http.get<any>(this.url + '/remainder' + branchcode).subscribe(
       (apiData) => {
 
-       
+
         for (let i = 0; i < apiData.length; i++) {
           this.newsContent += apiData[i].S_APPL + " " + apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " + apiData[i].AC_MATUAMT + " ";
           // console.log(this.newsContent);
@@ -913,7 +921,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         if (marqueeState !== 'hidden') {
           localStorage.setItem('marqueeState', 'visible');
         }
-        this.updateMarqueeContent(); 
+        this.updateMarqueeContent();
       },
       (error) => {
         console.error(error);
@@ -936,7 +944,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let obj = {
       "USERID": this.user,
     }
-    this.http.post(this.url+'/user-defination/getremainderdata', obj).subscribe(
+    this.http.post(this.url + '/user-defination/getremainderdata', obj).subscribe(
       (response) => {
         this.gettable = response;
         this.filteredNarrations = [];
@@ -948,7 +956,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
         });
         this.remainDT = this.filteredNarrations
-        this.updateMarqueeContent(); 
+        this.updateMarqueeContent();
       }
     );
   }

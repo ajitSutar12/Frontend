@@ -59,7 +59,8 @@
             "interestPostingFlagUpdation": "Interest Posting Flag Updation",
             "notingCharges": "Noting Charges",
             "tdsformsubmission": "TDS Form Submission",
-            "moratoriumperiodmaster": "Moratorium Period Master"
+            "moratoriumperiodmaster": "Moratorium Period Master",
+            "disputedetail": "Dispute Details"
         },
         "Instruction": {
             "Instruction": "Instruction",
@@ -76,7 +77,10 @@
             "dividendTransferEntry": "Dividend Transfer Instruction",
             "dividendCalculation": "Dividend Calculation",
             "dividendPosting": "Dividend Posting",
-            "dividendTransferPosting": "Dividend Transfer Posting"
+            "dividendTransferPosting": "Dividend Transfer Posting",
+            "Dividend_Paid_Register": "Dividend Paid Register",
+            "generalmeetpresentmem": "General Meeting Present Mem"
+
         },
         "transaction": {
             "voucherEntry": "Voucher Entry",
@@ -93,6 +97,7 @@
             "shareTransactions": "Share Transaction",
             "goldsilverreturnentry": "Gold/Silver Return Entry",
             "memberDAPDT": "Member Dividend And Payable Dividend Transaction",
+            "investmentAccountRenewal": "Investment Account Renewal",
             "locker": {
                 "locker": "Locker Transaction",
                 "lockerOpenTransaction": "Locker Open Transaction",
@@ -123,7 +128,8 @@
             "memberLoan": {
                 "memberLoan": "Member Loan",
                 "loanApplication": "Loan Application",
-                "loanSanction": "Loan Sanction"
+                "loanSanction": "Loan Sanction",
+                "ddtransaction": "Check/DD Transaction"
             },
             "dividendPay": {
                 "dividendPay": "Dividend Pay",
@@ -137,7 +143,16 @@
         "passing": {
             "passing": "Passing",
             "centralisedPassing": "Centralised Passing",
-            "unapprove": "Unapprove"
+            "unapprove": "Unapprove",
+            "neftPassing": "NEFT/RTGS Transaction Passing"
+        },
+        "neftRtgs": {
+            "Services": "Services",
+            "neftTransfer": "NEFT Transfer",
+            "rtgsTransfer": "RTGS Transfer",
+            "billPayment": "Bill Payment",
+            "fundTransfer": "Fund Transfer",
+            "cibilScore": "Cibil Score"
         },
         "view": {
             "view": "View",
@@ -152,7 +167,8 @@
             "memberLiablityView": "Member Liablity View",
             "otherView": "Other View",
             "managerView": "Manager View",
-            "lockerView": "Locker View"
+            "lockerView": "Locker View",
+            "memberguaranter": "Member Guaranter Detail"
         },
         "printing": {
             "printing": "Printing",
@@ -161,7 +177,8 @@
             "passbookEntryPrint": "Passbook Entry Print",
             "termDepositReceiptPrinting": "Term Deposit Receipt Printing",
             "voucherPrint": "Voucher Printing",
-            "goldSilverReceipt": "Gold/Silver Receipt Print"
+            "goldSilverReceipt": "Gold/Silver Receipt Print",
+            "tDReceiptPrinting": "TD Receipt Printing"
         },
         "reports": {
             "reports": "Reports",
@@ -222,6 +239,7 @@
             "lockerRegister": "Locker Register Report",
             "excessCashBalance": "Excess Cash Balance Report"
         },
+      
         "Termdeposit": {
             "Termdeposit": "Term Deposit Reports",
             "maturedbutnotpaid": "matured but not paid between two days",
@@ -265,10 +283,14 @@
             "receivedStockstatementList": "Received Stock Statement List",
             "recoverycwBalanceList": "Recovery Balance List",
             "receivableInstallInterest": "Receivable Installment and Intrest List",
-            "loanExpiredList": "Loan / CC Expired List"
+            "loanExpiredList": "Loan / CC Expired List",
+            "CourtwiseDisputeLoandetail": "CourtwiseDisputeLoandetail",
+            "DisputeLoanList": "Dispute Loan List",
+            "loanCCACSanctionDatewise": "loan-CC-AC-Sanction Datewise",
+            "healthCodewise": "Health Code Wise Report"
         },
         "npaReports": {
-            "npaReports": "NPA Reports",
+            "npaReports": "NPA & Overdue Reports",
             "npaRegister": "NPA Register",
             "npaRegPercentage": "NPA Register Percentage",
             "nonNpaRecovery": "To be Recovery Non NPA Report",
@@ -277,7 +299,7 @@
             "analysisnpa": "NPA Analysis Report",
             "classificationsecnpa": "NPA Classification -Secured Or Unsecured",
             "classificationstandardnpa": "NPA Classification -Standard Or Non Standard",
-            "loanoverduelist": "NPA Loan Overdue List"
+            "loanoverduelist": "Loan Overdue Reports"
         },
         "PigmyReport": {
             "PigmyReport": "Pigmy Report",
@@ -312,7 +334,11 @@
             "Statistical": "Statistical",
             "membindec": "Member Increse Decrease",
             "lntwodate": "Loan Balance Between Two Dates",
-            "crar": "crar"
+            "crar": "crar",
+            "swnidhi": "Swnidhi Report",
+            "MISInfo": "MIS Information",
+            "expensive": "Expensive List",
+            "loanBalanceBetTwoDates":"Loan Balance Bet Two Dates Report"
         },
         "managerViewReports": "Manager View Reports",
         "finalReports": {
@@ -341,6 +367,7 @@
             "pigmyMachineProcess": "Pigmy Machine Process",
             "pigmyAppProcess": "Pigmy App Process",
             "whatsappmessages": "Whatsapp Messages",
+            "monthRecProc":"Monthly Recovery Process",
             "deadStockP": "Dead Stock Process",
             "dividend": {
                 "dividend": "Dividend",
@@ -362,7 +389,9 @@
             "demandDraftDEI": "Demand Draft Data Export/ Import",
             "gmaMemberUpdation": "General Meeting Appear Meeting Updation",
             "amtTransferTransaction": "Amount Transfer Transaction",
-            "recAmtTrToGL": "Recurring Amount Transfer to GL"
+            "recAmtTrToGL": "Recurring Amount Transfer to GL",
+            "remainder":"Remainder",
+            "conversion":"Conversion"
         },
         "process": {
             "Day_End_Branch_Wise": "Day End Brach Wise",
@@ -386,12 +415,16 @@
                 "dayEnd": "Day End",
                 "counterWorkDayEnd": "Day End Handover",
                 "FinalDayEnd": "Day End",
-                "pigmyDayEnd": "pigmy Day End"
+                "pigmyDayEnd": "pigmy Day End",
+                "yearEnd":"Year End"
             },
             "holiday": "Holiday",
             "processACM": "Process And Calculation Menu",
             "deadStockP": "Dead Stock Process",
             "dataBackup": "Data Backup",
+            "pigmyAppProcess":"Pigmy App Process",
+            "yearEndBranchwise":"Year End BranchWise",
+            "monthlyrecoveryprocess":"Monthly Recovery Process",
             "windows": {
                 "casecade": "CaseCade",
                 "tileHorizontaily": "Tile Horizontaily",
@@ -1014,7 +1047,67 @@
             "Schema": "Schema",
             "Account_Number": "Account Number",
             "Security_Detalis": "Security Detalis",
-            "Ledger_Balance": "Ledger Balance"
+            "Ledger_Balance": "Ledger Balance",
+            "Other_Security": "Other Security",
+            "Date_of_Submission": "Date Of Submission",
+            "Short_Details": "Short Details",
+            "Total_value": "Total Value",
+            "Margin": "Margin",
+            "Fill_valid_Date": "Fill_valid_Date",
+            "No_Data": "No Data",
+            "Action": "Action",
+            "Land_And_Buildings": "Land And Buildings",
+            "Submission_Date": "Submission Date",
+            "Valuation_Amount": "Valuation Amount",
+            "Location": "Location",
+            "Area": "Area",
+            "Unit_of_Area": "Unit of Area",
+            "City_Survey_Number": "City Survey Number",
+            "City_Survey_Date": "City Survey Date",
+            "Registration_Number": "Registration Number",
+            "Remarks": "Remarks",
+            "Insurance_Date": "Insurance Date",
+            "Policy_Number": "Policy Number",
+            "Insurance_Company": "Insurance Company",
+            "Insurance_Expiry_Date": "Insurance Expiry Date",
+            "Insurance_Amount": "Insurance Amount",
+            "Gold_And_Silver": "Gold And Silver",
+            "Item_Type": "Item Type",
+            "Gold_Bag/Receipt_Number": "Gold Bag/Receipt Number",
+            "Gold_Box_Number": "Gold Box Number",
+            "Name_of_Articles": "Name of Articles",
+            "Total_Weight_in_Gram": "Total Weight in Gram",
+            "Clear_Weight_in_Grams": "Clear Weight in Grams",
+            "Rate_Per_Gram": "Rate Per Gram",
+            "Total_Value": "Total Value",
+            "Details_of_Articles": "Details of Articles",
+            "Nominee": "Nominee",
+            "Nominee_Relation": "Nominee Relation",
+            "Details": "Details",
+            "Fire_Policy": "Fire Policy",
+            "Policy_Amount": "Policy Amount",
+            "Policy_Nature": "Policy Nature",
+            "Insurance_Code": "Insurance Code",
+            "Address": "Address",
+            "City": "City",
+            "Premium_Amount": "Premium Amount",
+            "Premium_Due_Date": "Premium Due Date",
+            "Policy_Due_Date": "Policy Due Date",
+            "Government_Security&LIC": "Government Security & LIC",
+            "Certificate/Policy_Date": "Certificate/Policy Date",
+            "Certificate/Policy_Number": "Certificate/Policy Number",
+            "Name_of_Assured": "Name of Assured",
+            "Paid_up_Amount": "Paid up Amount",
+            "Sum_Assured": "Sum Assured",
+            "Surrender_Value": "Surrender Value",
+            "Matured_Due_Date": "Matured Due Date",
+            "Own_Deposits": "Own Deposits",
+            "Vehicle": "Vehicle",
+            "General_Insurance": "General Insurance",
+            "Stock_Statement": "Stock Statement",
+            "Plant_And_Machinery": "Plant And Machinery",
+            "Furniture_And_Fixture": "Furniture And Fixture"
+
         },
         "Deposit/Loan_Intrest_Rate_Edit/Change": {
             "Title": "Deposit/Loan Intrest Rate Edit/Change",
@@ -1054,6 +1147,96 @@
             "Ac_no": "Ac no",
             "Account_Name": "Account Name",
             "Is_Post_Interest?": "Is Post Interest?"
+        },
+        "Own_Deposits": {
+            "Title": "Own Deposits",
+            "Branch": "Branch",
+            "Scheme": "Scheme ",
+            "Account_Number": "Account Number ",
+            "Date_of_Submission": "Date of Submission",
+            "Receipt_Number": "Receipt Number",
+            "Deposit_Amount": "Deposit Amount",
+            "Maturity_Date": "Maturity Date ",
+            "Ledger_Balance": "Ledger Balance",
+            "Margin%": "Margin %",
+            "Remarks": "Remarks",
+            "Action": "Action",
+            "No_Data": "No Data!"
+        },
+        "Vehicle": {
+            "Title": "Vehicle",
+            "Submission_Date": "Submission Date",
+            "RTO_Registration_Date": "RTO Registration Date",
+            "Vehicle_Make": "Vehicle Make",
+            "Year_of_Manufacture": "Year of Manufacture",
+            "Vehicle_Number": "Vehicle Number",
+            "Chasis_Number": "Chasis Number",
+            "Date_of_Acquisition": "Date of Acquisition",
+            "New_Vehicle?": "New Vehicle?",
+            "Supplier_Name": "Supplier Name",
+            "Purchase_Price": "Purchase Price",
+            "Margin%": "Margin %",
+            "Remarks": "Remarks",
+            "Action": "Action",
+            "No_Data": "No Data!"
+        },
+        "General_Insurance": {
+            "Title": "General Insurance",
+            "Insurance_Date": "Insurance Date",
+            "Policy_Number": "Policy Number",
+            "Insurance_Company": "Insurance Company",
+            "Insurance_Expiry_Date": "Insurance Expiry Date",
+            "Insurance_Amount": "Insurance Amount",
+            "Action": "Action",
+            "No_Data": "No Data!"
+        },
+        "Stock_Statement": {
+            "Title": "Stock Statement",
+            "Submission_Date": "Submission Date",
+            "Statement_Date": "Statement Date",
+            "Raw_Material_Cost": "Raw Material Cost",
+            "(Margin)_Raw_Material_Cost%": "(Margin) Raw Material Cost % ",
+            "Work_In_Progress_Goods": "Work In Progress Goods",
+            "(Margin)_Work_In_Progress_Goods": "(Margin) Work In Progress Goods",
+            "Finished_Goods_Cost": "Finished Goods Cost",
+            "(Margin)_Finished_Goods_Cost%": "(Margin) Finished Goods Cost %",
+            "Remark": "Remark",
+            "Action": "Action",
+            "No_Data": "No Data!",
+            "R/M_Margin": "R/M Margin",
+            "Work_In_Progress": "Work In Progress",
+            "W/P_Margin": "W/P Margin",
+            "F/G_Margin%": "F/G Margin %"
+        },
+        "Plant_And_Machinery": {
+            "Title": "Plant And Machinery",
+            "Submission_Date": "Submission Date",
+            "Machinery_Name": "Machinery Name",
+            "Machinery_Type": "Machinery Type",
+            "Distinctive_Number": "Distinctive Number",
+            "Specification": "Specification",
+            "Date_of_Acquisition": "Date of Acquisition",
+            "New_Equipment?": "New Equipment?",
+            "Supplier_Name": "Supplier Name",
+            "Purchase_Price": "Purchase Price",
+            "Margin%": "Margin %",
+            "Remarks": "Remarks",
+            "Action": "Action",
+            "No_Data": "No Data!"
+        },
+        "Furniture_And_Fixture": {
+            "Title": "Furniture And Fixture",
+            "Submission_Date": "Submission Date",
+            "Name_of_Article": "Name of Article",
+            "Article_Make": "Article Make",
+            "Date_of_Acquisition": "Date of Acquisition",
+            "New_Article?": "New Article?",
+            "Supplier_Name": "Supplier Name",
+            "Purchase_Price": "Purchase Price",
+            "Margin%": "Margin %",
+            "Remarks": "Remarks",
+            "Action": "Action",
+            "No_Data": "No Data!"
         },
         "Charges_Noting": {
             "Title": "Charges Noting",
@@ -1197,7 +1380,13 @@
             "Focus": "focus",
             "Joint": "Joint",
             "Minor": "Minor",
-            "Remove": "Remove"
+            "Remove": "Remove",
+            "Select_All": "Select All",
+            "Unselect_All": "Unselect All"
+
+
+
+
         },
         "Customer_Id": {
             "T1": "Customer ID",
@@ -2786,7 +2975,22 @@
             "T15": "Installment Wise Loan Overdue List",
             "Print": "Print Expired A/c?",
             "Print1": "Print Current Interest?",
-            "Scheme": "Scheme"
+            "Scheme": "Scheme",
+            "Scheme_Type": "Scheme Type",
+            "Display_Closed_Account": "Display Closed Account",
+            "Display_Guaranter_Details": "Display Guaranter Details",
+            "Opening": "Opening",
+            "Sanction": "Sanction",
+            "Sorting": "Sorting",
+            "A/C_No": "A/C_No",
+            "Scheme_Name":"Scheme Name",
+            "Select_Schemes" :"Select Schemes",
+            "Status":"Status",
+            "Detail":"Detail",
+            "Summary":"Summary"
+
+
+
         },
         "Ms_Reports": {
             "T1": "Excess Cash Balance Reports",
@@ -4016,7 +4220,11 @@
         "Updated_Successfully": "Record Updated Successfully !",
         "NPA_Classification": "Please Add NPA Classification Details",
         "From_Days": "To Days Must Greater Than From Days",
+        "Cashier_created_successfully": "Cashier created successfully",
+        "Insert_Requi_data": "Please insert required data field and processed",
         "narration_data": "Do you want to delete narration data.",
+        "You_want_to_Pigmy_Day_End": "You want to Pigmy Day End",
+        "Do_you_want_day_handover.": "Do you want day handover to Admin.",
         "Narration_Successfully": "Narration Detail Added Successfully !",
         "Bank_Successfully": "'Bank Master Data Added Successfully !",
         "bank_master_data": "Do you want to delete bank master data",
@@ -4036,6 +4244,15 @@
         "Item_Category": "Do you want to delete Item Category Master data.",
         "Interest_Calculation": "Please choose any option for Interest Calculation",
         "select_required_field": "Please select required field value",
+        "Oops...": "Oops...",
+        "Please_select_scheme": "Please select scheme data",
+        "Delete_Calcu": "Calculation deleted successfully",
+        "Pass_And_Voucher": "Passing and Voucher created successfully",
+        "Unpassing_successfully": "Unpassing successfully",
+        "Something_went_wrong": "Something went wrong",
+        "please_select": "please select All requied data !",
+        "Ac_Gre_Than_equal": "To Account Number Must Be Greater Than or Equal to From Account Number",
+        "Interest_Cal_Edit_uccessfully": "Interest Calculation Edit Successfully",
         "Calculation_Successfully": "Interest Calculation Successfully Completed",
         "Account_Already_Exists": "Your selected Account Already Exists in Table",
         "Pigmy_Successfully": "Pigmy Agent Processed Successfully",

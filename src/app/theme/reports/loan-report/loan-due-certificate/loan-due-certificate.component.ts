@@ -134,36 +134,37 @@ this.getDate(event)
     let branchName = userData.branch.NAME;
 
 
-    if(this.ngForm.valid){
+    if (this.ngForm.valid) {
 
-   this.showRepo = true;
-    let obj = this.ngForm.value
-    let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
+      this.showRepo = true;
+      let obj = this.ngForm.value
+      let edate = moment(obj.END_DATE).format('DD/MM/YYYY');
 
-    // let edate: any;
-    if (this.todate == obj.END_DATE) {
-      edate = moment(this.todate, 'DD/MM/YYYY').format('DD MMM YYYY')
-    } else {
-      edate = moment(this.todate, 'DD/MM/YYYY').format('DD MMM YYYY')
-    };
-  
-   
-  let scheme = this.schemename
-  let branch = obj.BRANCH_CODE;
-  let accno=this.acc
-  let AC_TYPE=this.AC_TYPE
-  let branchName = userData.branch.NAME;
-  let bankName = userData.branch.syspara.BANK_NAME;
+      // let edate: any;
+      if (this.todate == obj.END_DATE) {
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD MMM YYYY')
+      } else {
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD MMM YYYY')
+      };
 
-let BANKACNO=this.BANKACNO
 
-  this.iframe5url=this.report_url+ "examples/NoDueCertificate.php?Scheme='"+scheme+"'&BRANCH_CODE="+this.ngbranch+"&AccountNo="+accno+"&date='" + edate +"'&AC_TYPE=" + AC_TYPE +"&BANKACNO='" + BANKACNO +"'&branchName='" + branchName +"'&bankName='" + bankName +"'";
-  console.log(this.iframe5url);  
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
-  }
-  else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
-  }
+      let scheme = this.schemename
+      let branch = obj.BRANCH_CODE;
+      let accno = this.acc
+      let AC_TYPE = this.AC_TYPE
+      let branchName = userData.branch.NAME;
+      let bankName = userData.branch.syspara.BANK_NAME;
+
+      let BANKACNO = this.BANKACNO
+
+      this.iframe5url = this.report_url + "examples/NoDueCertificate.php?Scheme='" + scheme + "'&BRANCH_CODE=" + this.ngbranch + "&AccountNo=" + accno + "&date='" + edate + "'&AC_TYPE=" + AC_TYPE + "&BANKACNO='" + BANKACNO + "'&branchName='" + branchName + "'&bankName='" + bankName + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+    }
+
   }
   close(){
     this.resetForm()

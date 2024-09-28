@@ -24,6 +24,7 @@ import { data, event } from 'jquery';
 import { id } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 // Handling datatable data
@@ -131,7 +132,7 @@ export class UserDefinationComponent implements OnInit {
     private userdefinationservice: UserDefinationService,
     private UserdefinationServiceD: UserdefinationServiceD,
     private _branchMasterServices: OwnbranchMasterService
-    , private systemParameter: SystemMasterParametersService,
+    , private systemParameter: SystemMasterParametersService,private translate:TranslateService
 
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -314,7 +315,7 @@ export class UserDefinationComponent implements OnInit {
     
 
     this.userdefinationservice.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       // to reload after insertion of data
       this.rerender();
       this.createForm()
@@ -374,7 +375,7 @@ export class UserDefinationComponent implements OnInit {
     data['LOG_STATUS']=data.LOG_STATUS=='inactive' ? '0' : '1'
     data['DOB']= this.editData.DOB==data.DOB ? data.DOB: moment(data.DOB).format('DD/MM/YYYY')
     this.userdefinationservice.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
@@ -387,8 +388,8 @@ export class UserDefinationComponent implements OnInit {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "Do you want to delete narration data.",
+      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
+      text: `${this.translate.instant('Swal_Msg.narration_data')}`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -399,8 +400,7 @@ export class UserDefinationComponent implements OnInit {
         this.userdefinationservice.deleteData(id).subscribe(data1 => {
           this.userdef = data1;
           Swal.fire(
-            'Deleted!',
-            'Your data has been deleted.',
+            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
         }), (error) => {
@@ -412,8 +412,7 @@ export class UserDefinationComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          'Cancelled',
-          'Your data is safe.',
+          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
       }
@@ -460,7 +459,7 @@ export class UserDefinationComponent implements OnInit {
     let data = this.angEditForm.value;
     data['id'] = this.userId;
     this.userdefinationservice.updateRoleBranch(data).subscribe(data=>{
-      Swal.fire('Success!', 'Role and Branch Update Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Role_Update_Successfully')}`, 'success');
       this.rerender();
     },err=>{
       Swal.fire(err.error.error, err.error.message, 'error');
@@ -480,7 +479,7 @@ export class UserDefinationComponent implements OnInit {
     }
     this.userdefinationservice.checkUserName(obj).subscribe(data=>{
       if(data){
-        Swal.fire('Warning!', 'Username is already exist!', 'warning');    
+        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Username_already')}`, 'warning');    
         this.angForm.patchValue({
           USER_NAME:''
         })

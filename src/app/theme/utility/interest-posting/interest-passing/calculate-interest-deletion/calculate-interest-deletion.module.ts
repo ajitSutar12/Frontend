@@ -6,16 +6,24 @@ import { CalculateInterestDeletionRoutingModule } from './calculate-interest-del
 import { SharedModule } from '../../../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
 import { EditInterestCalculationService } from '../edit-interest-calculation/edit-interest-calculation.service';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
     CalculateInterestDeletionRoutingModule,
     SharedModule,
-    DataTablesModule
+    DataTablesModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   declarations: [CalculateInterestDeletionComponent],
   providers: [{
@@ -25,3 +33,7 @@ import { EditInterestCalculationService } from '../edit-interest-calculation/edi
   }, EditInterestCalculationService]
 })
 export class CalculateInterestDeletionModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+

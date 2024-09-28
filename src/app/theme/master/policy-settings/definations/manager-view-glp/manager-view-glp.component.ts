@@ -232,7 +232,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
 
     }
     this.ManagerViewGlpService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
       this.formSubmitted = false;
       //    to reload after insertion of data
       //    this.rerender();
@@ -303,7 +303,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
       console.log(value)
       if (value.length != 0) {
         this.ngstatement = null
-        Swal.fire('Warning', 'Data is Already Submitted', 'warning');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.W_Msg2')}`, 'warning');
 
       }
 
@@ -358,7 +358,7 @@ export class ManagerViewGLPComponent implements OnInit, AfterViewInit, OnDestroy
     }
     data['id'] = this.updateID;
     this.ManagerViewGlpService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
