@@ -3,6 +3,8 @@ import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
 import * as moment from 'moment';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -15,7 +17,10 @@ export class CounterWorkDayEndComponent implements OnInit {
   ngbdate
   systemInfo: any;
   isLoading: boolean = false;
-  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService) { }
+  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService ,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+  ) { }
 
   ngOnInit(): void {
     this._services.getSysparaDetails().subscribe(data => {
