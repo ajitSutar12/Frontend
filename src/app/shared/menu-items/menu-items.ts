@@ -865,24 +865,24 @@ const MENUITEMS1 = [
       {
         state: 'neftRtgs',
         short_label: 'D',
-        name: 'main.neftRtgs.Services ',
+        name: 'main.neftRtgs.Services',
         type: 'sub',
         icon: 'fa fa-money',
         id: 349,
         children: [
           {
             state: 'neftTransfer',
-            name: 'main.neftRtgs.neftTransfer ',
+            name: 'main.neftRtgs.neftTransfer',
             id: 350
           },
           {
             state: 'rtgsTransfer',
-            name: 'main.neftRtgs.rtgsTransfer ',
+            name: 'main.neftRtgs.rtgsTransfer',
             id: 351
           },
           {
             state: 'billPayment',
-            name: 'main.neftRtgs.billPayment ',
+            name: 'main.neftRtgs.billPayment',
 
             id: 352
           },
@@ -894,7 +894,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'cibilScore',
-            name: 'main.neftRtgs.cibilScore ',
+            name: 'main.neftRtgs.cibilScore',
             id: 380
           },
         ]
@@ -1734,12 +1734,12 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'noticereport',
-                name: 'Notice Report',
+                name: 'main.nottice.noticereport',
                 id: 364
               },
               {
                 state: 'noticeformat',
-                name: 'Notice Format',
+                name: 'main.nottice.noticeformat',
                 id: 365
               },
               {
@@ -1762,36 +1762,36 @@ const MENUITEMS1 = [
           //   id: 253
           // },
           //
-          {
-            state: 'nottice',
-            name: 'main.nottice.nottice',
-            short_label: 'D',
-            type: 'sub',
-            icon: 'icon-home',
-            id: 362,
-            children: [
-              {
-                state: 'noticereport',
-                name: 'main.nottice.noticereport',
-                id: 363
-              },
-              {
-                state: 'noticeformat',
-                name: 'main.nottice.noticeformat',
-                id: 364
-              },
-              {
-                state: 'blankNotice',
-                name: 'main.nottice.blankNotice',
-                id: 365
-              },
-              {
-                state: 'showNotice',
-                name: 'main.nottice.showNotice',
-                id: 366
-              },
-            ]
-          },
+          // {
+          //   state: 'nottice',
+          //   name: 'main.nottice.nottice',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   icon: 'icon-home',
+          //   id: 362,
+          //   children: [
+          //     {
+          //       state: 'noticereport',
+          //       name: 'main.nottice.noticereport',
+          //       id: 363
+          //     },
+          //     {
+          //       state: 'noticeformat',
+          //       name: 'main.nottice.noticeformat',
+          //       id: 364
+          //     },
+          //     {
+          //       state: 'blankNotice',
+          //       name: 'main.nottice.blankNotice',
+          //       id: 365
+          //     },
+          //     {
+          //       state: 'showNotice',
+          //       name: 'main.nottice.showNotice',
+          //       id: 366
+          //     },
+          //   ]
+          // },
           {
             state: 'PigmyReport',
              name: 'main.PigmyReport.PigmyReport',
@@ -3878,35 +3878,35 @@ const MENUITEMS = [
         state: 'neftRtgs',
         short_label: 'D',
 
-        name: 'main.neftRtgs.Services ',
+        name: 'main.neftRtgs.Services',
         type: 'sub',
         icon: 'fa fa-money',
         id: 349,
         children: [
           {
             state: 'neftTransfer',
-            name: 'main.neftRtgs.neftTransfer ',
+            name: 'main.neftRtgs.neftTransfer',
             id: 350
           },
           {
             state: 'rtgsTransfer',
-            name: 'main.neftRtgs.rtgsTransfer ',
+            name: 'main.neftRtgs.rtgsTransfer',
 
             id: 351
           },
           {
             state: 'billPayment',
-            name: 'main.neftRtgs.billPayment ',
+            name: 'main.neftRtgs.billPayment',
             id: 352
           },
           {
             state: 'fundTransfer',
-            name: 'main.neftRtgs.fundTransfer ',
+            name: 'main.neftRtgs.fundTransfer',
             id: 353
           },
           {
             state: 'cibilScore',
-            name: 'main.neftRtgs.cibilScore ',
+            name: 'main.neftRtgs.cibilScore',
             id: 380
           },
         ]
@@ -4733,37 +4733,37 @@ const MENUITEMS = [
           //   name: 'Nottice',
           //   id: 252
           // },
-          {
-            state: 'nottice',
-            name: 'main.nottice.nottice',
-            short_label: 'D',
-            type: 'sub',
-            icon: 'icon-home',
-            id: 362,
-            children: [
-              {
-                state: 'noticereport',
-                name: 'main.nottice.noticereport',
-                id: 364
-              },
-              {
-                state: 'noticeformat',
-                name: 'main.nottice.noticeformat',
+          // {
+          //   state: 'nottice',
+          //   name: 'main.nottice.nottice',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   icon: 'icon-home',
+          //   id: 362,
+          //   children: [
+          //     {
+          //       state: 'noticereport',
+          //       name: 'main.nottice.noticereport',
+          //       id: 364
+          //     },
+          //     {
+          //       state: 'noticeformat',
+          //       name: 'main.nottice.noticeformat',
 
-                id: 365
-              },
-              {
-                state: 'blankNotice',
-                name: 'Blank Notice Format',
-                id: 366
-              },
-              {
-                state: 'showNotice',
-                name: 'Get Notice Format',
-                id: 367
-              },
-            ]
-          },
+          //       id: 365
+          //     },
+          //     {
+          //       state: 'blankNotice',
+          //       name: 'Blank Notice Format',
+          //       id: 366
+          //     },
+          //     {
+          //       state: 'showNotice',
+          //       name: 'Get Notice Format',
+          //       id: 367
+          //     },
+          //   ]
+          // },
           // //
           // {
           //   state: 'Report_Frame',

@@ -129,6 +129,7 @@ export class AccountEnquiryComponent implements OnInit {
   isJoint: boolean;
   display: string;
   display1: string;
+  jointCustId: any;
   constructor(private fb: FormBuilder,
     private _CustomerIdService: CustomerIdService,
     private http: HttpClient,

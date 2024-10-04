@@ -21,6 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -64,7 +65,7 @@ export class LcdRenewalListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer, private directorMasterDropdown: DirectorMasterDropdownService,

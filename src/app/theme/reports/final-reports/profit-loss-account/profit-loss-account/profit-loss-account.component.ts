@@ -7,6 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from "src/environments/environment";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class ProfitLossAccountComponent implements OnInit {
   branchOption: any;
   branchName
   constructor(private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
     private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,) {
     // this.fromdate = moment().format('DD/MM/YYYY');

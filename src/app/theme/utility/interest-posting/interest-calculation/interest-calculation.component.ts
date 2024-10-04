@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 // import { nullSafeIsEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
@@ -117,7 +117,7 @@ export class InterestCalculationComponent implements OnInit {
 
   createForm() {
     this.angForm = this.fb.group({
-      INT_UPTO_DATE: ['', [Validators.required]],
+      INT_UPTO_DATE: ['', [Validators.required, this.dateRangeValidator.bind(this)]],
       Ledger_Date: [''],
       INT_CAL: [''],
       BRANCH: ['', [Validators.required]],
@@ -480,13 +480,42 @@ export class InterestCalculationComponent implements OnInit {
 
 
   //get sys para current date
+  // getSystemParaDate() {
+  //   this.systemParameter.getFormData(1).subscribe(data => {
+  //     this.angForm.patchValue({
+  //       'INT_UPTO_DATE': data.CURRENT_DATE,
+  //       'Ledger_Date': data.CURRENT_DATE,
+  //     })
+  //   })
+  // }
+
+  
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
+      const currentDate = new Date(data.CURRENT_DATE);
+            this.maxDate = new Date(2025, 11, 31); 
+
+      const formattedDate = this.formatDate(currentDate);
       this.angForm.patchValue({
-        'INT_UPTO_DATE': data.CURRENT_DATE,
-        'Ledger_Date': data.CURRENT_DATE,
-      })
-    })
+        'INT_UPTO_DATE': formattedDate,
+        'Ledger_Date': formattedDate
+      });
+    });
+  }
+
+  dateRangeValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const inputDate = new Date(control.value);
+    if (inputDate > this.maxDate) {
+      return { 'dateOutOfRange': true };
+    }
+    return null;
+  }
+
+  formatDate(date: Date): string {
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   selectedSchemeDataForOption1 = new Array();

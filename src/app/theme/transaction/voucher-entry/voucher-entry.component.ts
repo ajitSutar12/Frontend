@@ -215,19 +215,20 @@ export class VoucherEntryComponent implements OnInit {
     // this.tranModeList = this.TranModeCash;
 
 
-    //get syspara details
-    this._service.getSysParaData().subscribe(data => {
+     //get syspara details
+     this._service.getSysParaData().subscribe(data => {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       //debugger
       this.date = data[0].CURRENT_DATE;
-      let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
-      let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
+      let currentDate = moment(this.date, 'DD/MM/YYYY').toDate();
+      this.maxDate = currentDate;
 
-      this.maxDate = new Date(nextDate);
-      this.maxDate.setDate(this.maxDate.getDate());
-
-      this.minDate = new Date(lastDate);
-      this.minDate.setDate(this.minDate.getDate());
+      // let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+      // let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
+      // this.maxDate = new Date(nextDate);
+      // this.maxDate.setDate(this.maxDate.getDate());
+      // this.minDate = new Date(lastDate);
+      // this.minDate.setDate(this.minDate.getDate());
     })
 
     this._bankmasterService.getBankList().subscribe(banks => {

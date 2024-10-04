@@ -9,6 +9,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-health-codewise-overdue',
@@ -58,7 +59,8 @@ export class HealthCodewiseOverdueComponent implements OnInit {
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,    private translate:TranslateService,
+
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {

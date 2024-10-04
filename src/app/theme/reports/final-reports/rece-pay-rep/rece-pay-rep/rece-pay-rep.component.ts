@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -43,7 +44,7 @@ export class RecePayRepComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {

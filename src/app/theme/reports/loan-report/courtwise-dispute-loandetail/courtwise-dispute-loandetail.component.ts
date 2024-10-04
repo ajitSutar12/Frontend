@@ -12,6 +12,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-courtwise-dispute-loandetail',
@@ -67,7 +68,7 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
     private schemeAccountNoService:SchemeAccountNoService
   ) {
     this.todate = moment().format('DD/MM/YYYY');

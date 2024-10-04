@@ -437,10 +437,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.categoryMasterdropdown = data;
     })
     this.IntrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'PG')
-      // });
-      this.IntrestCategoryMasterDropdown = data;
+      this.IntrestCategoryMasterDropdown = data.filter(function (schem) {
+        return (schem.scheme == 'PG')
+      });
+      // this.IntrestCategoryMasterDropdown = data;
     })
     this.SchemeCodeDropdownService.getSchemeCodeList(this.schemeType).pipe(first()).subscribe(data => {
       var filtered = data.filter(function (scheme) {
