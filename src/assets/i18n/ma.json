@@ -88,7 +88,7 @@
             "batchVoucher": "बॅच व्हाऊचर",
             "pigmyChartEntry": "पीग्मी तक्ता",
             "deadStockPurchase": "डेड स्टॉक खरेदी",
-            "deadStockTransaction": "डेड स्टॉक व्यवहार",
+            "deadStockTransaction": "जुना डेड स्टॉक व्यवहार",
             "reconciliationEntry": "रिकन्सीलेशन नोंदणी",
             "savingspigmyaccountclosing": "सेव्हींग ,पीग्मी खाते बंद",
             "termDepositAccountClosing": "मुदत ठेव खाते बंद",
@@ -1437,7 +1437,9 @@
             "Pin_Code": "पिन कोड",
             "Regional_Add": "कायमचा पत्ता ",
             "Mobile_Number": "मोबाईल नंबर",
-            "Residential_Number": "निवासी पत्ता ",
+            "Residential_Number": "निवासी नंबर ",
+
+
             "Office_mobile_Number": "ऑफिस / मोबाईल नंबर ",
             "Email": "ईमेल ",
             "Ad_No": "आधार नंबर ",
@@ -1467,7 +1469,7 @@
         },
         "Master_Shares_Holders": {
             "Is_AutoMailer_Required": "ऑटोमेल आवश्यक आहे का",
-            "T1": "भागभांडवल मास्टर  ",
+            "T1": "भागभांडवल खाते मास्टर  ",
             "Scheme": "स्किम कोड ",
             "Customer_Id": "कस्टमर आयडी ",
             "Title": "खाते शिर्षक",
@@ -4447,7 +4449,9 @@
             "From_Account": "कोड पासून",
             "To_Account": "कोड पर्यंत ",
             "Select_Accout": "खाते निवडा",
-            "Ac_no": "खाते नंबर "
+            "Ac_no": "खाते नंबर ",
+            "upto_date" : "The date must be within the last 12 months."
+
         },
         "Interest_Passing": {
             "Title": "व्याज उत्तीर्ण",

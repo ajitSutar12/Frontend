@@ -14,7 +14,8 @@
                             Fields marked with (<sub class="required"> * </sub>) are mandatory
                         </h6> -->
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                            {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Action.F2' | translate}}
+                            {{'master.Action.F1' | translate}}(<sub class="required"> * </sub>) {{'master.Action.F2' |
+                            translate}}
                         </h6>
                     </div>
                     <div class="card-body">
@@ -22,9 +23,8 @@
                             <div class="solid">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
-                                        {{'master.Voucher_Entry.Branch_Code' | translate}} <!-- Branch Code -->
-                                        <sub
-                                                class="required">*</sub></label></div>
+                                            {{'master.Voucher_Entry.Branch_Code' | translate}} <!-- Branch Code -->
+                                            <sub class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-3">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
@@ -61,14 +61,14 @@
                                                     <input type="radio" name="type" value="transfer"
                                                         formControlName="type" (change)="transactionMode('transfer')">
                                                     <i class="helper"></i>
-                                                    {{'master.Voucher_Entry.Transfer' | translate}}   <!-- Transfer -->
-                                                 </label>
+                                                    {{'master.Voucher_Entry.Transfer' | translate}} <!-- Transfer -->
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-1"> <label for="date">
-                                        {{'master.Voucher_Entry.Date' | translate}}    <!-- Date -->
-                                    </label></div>
+                                            {{'master.Voucher_Entry.Date' | translate}} <!-- Date -->
+                                        </label></div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -84,9 +84,8 @@
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">
-                                        {{'master.Voucher_Entry.Scheme_Type' | translate}}<!-- Scheme Type -->
-                                        <sub
-                                                class="required">*</sub></label></div>
+                                            {{'master.Voucher_Entry.Scheme_Type' | translate}}<!-- Scheme Type -->
+                                            <sub class="required">*</sub></label></div>
                                     <div class="col-sm-2">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
@@ -105,14 +104,13 @@
                                             *ngIf="angForm.controls['scheme_type'].invalid && (angForm.controls['scheme_type'].dirty || angForm.controls['scheme_type'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme_type'].errors?.required">
-                                                {{'master.Validation.Val1' | translate}}   <!-- This field is required -->
+                                                {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
-                                        {{'master.Voucher_Entry.Scheme' | translate}}<!-- Scheme -->
-                                        <sub
-                                                class="required">*</sub></label></div>
+                                            {{'master.Voucher_Entry.Scheme' | translate}}<!-- Scheme -->
+                                            <sub class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
@@ -130,7 +128,7 @@
                                             *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                                {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
+                                                {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                             </div>
                                         </div>
                                     </div>
@@ -138,9 +136,8 @@
 
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">
-                                        {{'master.Voucher_Entry.Account_Number' | translate}}<!-- Account Number -->
-                                        <sub
-                                                class="required">*</sub></label></div>
+                                            {{'master.Voucher_Entry.Account_Number' | translate}}<!-- Account Number -->
+                                            <sub class="required">*</sub></label></div>
 
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
@@ -150,7 +147,7 @@
                                                     (change)="getVoucherData($event); checkAccountCondition();showlgindetails();SideDetails()"
                                                     (focus)="onFocus(select)" [selectOnTab]='true'>
                                                     <ng-option *ngFor="let item of introducerACNo" [value]="item">
-                                                        {{item.AC_NO}} {{item.AC_NAME}}</ng-option>  
+                                                        {{item.AC_NO}} {{item.AC_NAME}}</ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -158,33 +155,33 @@
                                             *ngIf="angForm.controls['account_no'].invalid && (angForm.controls['account_no'].dirty || angForm.controls['account_no'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['account_no'].errors?.required">
-                                                {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
+                                                {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" style="float: right; color: rgb(14 168 14);"
-                                    *ngIf="isMinor">
-                                    {{'master.Voucher_Entry.Minor_account' | translate}}
-                                    <!-- Minor Account -->
-                                    <!-- <a class="blinking" *ngIf="isMinor" (click)="openModal('minor')"
+                                        *ngIf="isMinor">
+                                        {{'master.Voucher_Entry.Minor_account' | translate}}
+                                        <!-- Minor Account -->
+                                        <!-- <a class="blinking" *ngIf="isMinor" (click)="openModal('minor')"
                                         style="color: blue;font-style: italic;font-size: x-small;">*Click to
                                         Show</a> -->
-                                </div>
-                                <div class="col-sm-3 col-md-3" style="float: right; color: rgb(14 168 14);"
-                                    *ngIf="isJoint">
-                                    <!-- Joint Account -->
-                                    {{'master.Voucher_Entry.Joint_account' | translate}}
-                                     <!-- <a *ngIf="isJoint" class="blinking"
+                                    </div>
+                                    <div class="col-sm-3 col-md-3" style="float: right; color: rgb(14 168 14);"
+                                        *ngIf="isJoint">
+                                        <!-- Joint Account -->
+                                        {{'master.Voucher_Entry.Joint_account' | translate}}
+                                        <!-- <a *ngIf="isJoint" class="blinking"
                                         (click)="openModal('joint')"
                                         style="color: blue;font-style: italic;font-size: x-small;">*Click to
                                         Show</a> -->
-                                </div>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2"><label for="AC_BRANCH">
-                                        <!-- Transaction Mode -->{{'master.Voucher_Entry.Transaction_Mode' | translate}}
-                                        <sub
-                                                class="required">*</sub></label></div>
+                                            <!-- Transaction Mode -->{{'master.Voucher_Entry.Transaction_Mode' |
+                                            translate}}
+                                            <sub class="required">*</sub></label></div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
@@ -202,15 +199,15 @@
                                             *ngIf="angForm.controls['tran_mode'].invalid && (angForm.controls['tran_mode'].dirty || angForm.controls['tran_mode'].touched)"
                                             class="alert alert-danger">
                                             <div *ngIf="angForm.controls['tran_mode'].errors?.required">
-                                                {{'master.Validation.Val1' | translate}}  <!-- This field is required -->
+                                                {{'master.Validation.Val1' | translate}} <!-- This field is required -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">
-                                        {{'master.Voucher_Entry.Particulars' | translate}}  <!-- Particulars -->
-                                    </label>
+                                            {{'master.Voucher_Entry.Particulars' | translate}} <!-- Particulars -->
+                                        </label>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group input-group">
@@ -223,8 +220,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label
-                                            for="AC_PARTICULAR">
+                                    <div class="col-sm-12 col-md-2" *ngIf="tokenshowhide"><label for="AC_PARTICULAR">
                                             {{'master.Voucher_Entry.Token_Number' | translate}} <!-- Token
                                             Number -->
                                         </label></div>
@@ -258,8 +254,9 @@
                                 <div *ngIf="showChequeDetails">
                                     <div class="row" *ngIf="showChequeDetails">
                                         <div class="col-sm-12 col-md-2"><label for="ChequeNo">
-                                            {{'master.Voucher_Entry.Cheque_Number' | translate}}  <!-- Cheque Number -->
-                                        </label>
+                                                {{'master.Voucher_Entry.Cheque_Number' | translate}}
+                                                <!-- Cheque Number -->
+                                            </label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
@@ -275,25 +272,37 @@
 
                                         </div>
                                         <div class="col-sm-12 col-md-2"><label for="ChequeDate">
-                                            {{'master.Voucher_Entry.Cheque_Date' | translate}}    <!-- Cheque Date -->
-                                        </label>
+                                                {{'master.Voucher_Entry.Cheque_Date' | translate}} <!-- Cheque Date -->
+                                            </label>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group input-group">
                                                 <span class="border-lable-flt">
-                                                    <input type="text" placeholder="dd/mm/yyyy" class="form-control"
+                                                    <input type="text" placeholder="dd/mm/yyyy" name="chequeDate"
+                                                        id="chequeDate" class="form-control" [(ngModel)]="todate"
                                                         appButton minlength="10" maxlength="10"
-                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" bsDatepicker
-                                                        [maxDate]="maxDate" [minDate]="minDate"
-                                                        formControlName="chequeDate">
+                                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                                        [minDate]="fromdate" [maxDate]="maxDate"
+                                                        formControlName="chequeDate"
+                                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
+                                                        bsDatepicker>
                                                 </span>
                                             </div>
+
+                                            <div class="form-group form-primary form-static-label"
+                                                *ngIf="angForm.controls['chequeDate'].invalid && (angForm.controls['chequeDate'].dirty || angForm.controls['chequeDate'].touched)"
+                                                class="alert alert-danger">
+                                                <div *ngIf="angForm.controls['chequeDate'].errors?.required">
+                                                    {{'master.Validation.Val_Date' | translate}}
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-2"><label for="">
-                                            {{'master.Voucher_Entry.Bank_Name' | translate}}  <!-- Bank Name -->
-                                        </label></div>
+                                                {{'master.Voucher_Entry.Bank_Name' | translate}} <!-- Bank Name -->
+                                            </label></div>
 
                                         <div class="col-md-6">
                                             <div class="form-group input-group">
@@ -333,8 +342,8 @@
                                             </div>
                                         </div> -->
                                     <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">
-                                        {{'master.Voucher_Entry.Amount' | translate}}    <!-- Amount -->
-                                    </label></div>
+                                            {{'master.Voucher_Entry.Amount' | translate}} <!-- Amount -->
+                                        </label></div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
@@ -354,8 +363,8 @@
                                     </div>
                                     <div class="col-md-1"></div>
                                     <div class="col-sm-12 col-md-2"><label for="AC_PARTICULAR">
-                                        {{'master.Voucher_Entry.Total_Amount' | translate}}    <!-- Total Amount -->
-                                    </label>
+                                            {{'master.Voucher_Entry.Total_Amount' | translate}} <!-- Total Amount -->
+                                        </label>
                                     </div>
 
                                     <div class="col-md-2">
@@ -380,8 +389,10 @@
                                                         <!-- <th>Sr  No</th> -->
                                                         <td>{{'master.Voucher_Entry.Head' | translate}}</td>
                                                         <td>{{'master.Voucher_Entry.Interset_Date' | translate}}</td>
-                                                        <td style="text-align: right;"> {{'master.Voucher_Entry.Amount' | translate}}</td>
-                                                        <td style="text-align: right;">{{'master.Voucher_Entry.Balance' | translate}}</td>
+                                                        <td style="text-align: right;"> {{'master.Voucher_Entry.Amount'
+                                                            | translate}}</td>
+                                                        <td style="text-align: right;">{{'master.Voucher_Entry.Balance'
+                                                            | translate}}</td>
                                                         <td>{{'master.Voucher_Entry.Type' | translate}}</td>
                                                     </thead>
                                                     <tbody *ngIf="headData?.length != 0">
@@ -433,7 +444,8 @@
                                                     </tbody>
                                                     <tbody *ngIf="headData?.length == 0">
                                                         <tr>
-                                                            <td colspan="5" class="no-data-available">{{'master.Action.No_Data' | translate}}</td>
+                                                            <td colspan="5" class="no-data-available">
+                                                                {{'master.Action.No_Data' | translate}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -468,23 +480,22 @@
                                         Update</button>&nbsp;&nbsp;&nbsp;&nbsp; -->
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
                                         (click)="closeModal()">
-                                        {{'master.Action.Close' | translate}}    <!-- Close -->
+                                        {{'master.Action.Close' | translate}} <!-- Close -->
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="rejectShow"
                                         (click)="reject()">
-                                        {{'master.Action.Reject' | translate}}    <!-- Reject -->
+                                        {{'master.Action.Reject' | translate}} <!-- Reject -->
                                     </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="approveShow"
                                         (click)="Approve()">
-                                        {{'master.Action.Approve' | translate}}    <!-- Approve -->
+                                        {{'master.Action.Approve' | translate}} <!-- Approve -->
                                     </button>
                                     <button class="btn btn-outline-primary btn-sm" *ngIf="unapproveShow"
                                         (click)="unApprove()">
-                                        {{'master.Action.Unapprove' | translate}}    <!-- Unapprove -->
+                                        {{'master.Action.Unapprove' | translate}} <!-- Unapprove -->
                                     </button>
-                                    <button (click)="tran_mode.focus()" style="display: none;"
-                                        #focusbutton>
-                                        {{'master.Action.Focus' | translate}}    <!-- focus -->
+                                    <button (click)="tran_mode.focus()" style="display: none;" #focusbutton>
+                                        {{'master.Action.Focus' | translate}} <!-- focus -->
                                     </button>
                                 </div>
                             </div>
@@ -494,11 +505,12 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h5>
-                                                {{'master.Voucher_Entry.Report_Frame' | translate}}    <!-- Report Frame -->
+                                                {{'master.Voucher_Entry.Report_Frame' | translate}}
+                                                <!-- Report Frame -->
                                             </h5>
                                         </div>
                                         <div *ngIf="showRepo">
-                                            <app-iframe5 [url]='iframe5url' ></app-iframe5>
+                                            <app-iframe5 [url]='iframe5url'></app-iframe5>
                                         </div>
                                     </div>
                                 </div>
@@ -531,7 +543,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Day_Opening' | translate}}   <!-- Day Opening Balance -->
+                                                {{'master.Voucher_Entry.Day_Opening' | translate}}
+                                                <!-- Day Opening Balance -->
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -551,7 +564,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Pigmy_Amount' | translate}} <!-- Pigmy Amount -->
+                                                {{'master.Voucher_Entry.Pigmy_Amount' | translate}}
+                                                <!-- Pigmy Amount -->
                                             </h6>
                                         </div>
                                     </div>
@@ -573,7 +587,7 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Passed' | translate}}    <!-- Passed -->
+                                                {{'master.Voucher_Entry.Passed' | translate}} <!-- Passed -->
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -593,7 +607,7 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Unpassed' | translate}}    <!-- Unpassed -->
+                                                {{'master.Voucher_Entry.Unpassed' | translate}} <!-- Unpassed -->
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -613,7 +627,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Uneffected_Clearing' | translate}} <!-- Uneffected Clearing -->
+                                                {{'master.Voucher_Entry.Uneffected_Clearing' | translate}}
+                                                <!-- Uneffected Clearing -->
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -675,7 +690,7 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.As_On_Date' | translate}}  <!-- As On Date -->
+                                                {{'master.Voucher_Entry.As_On_Date' | translate}} <!-- As On Date -->
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -695,7 +710,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Sanction_Date' | translate}} <!-- Sanction Date -->
+                                                {{'master.Voucher_Entry.Sanction_Date' | translate}}
+                                                <!-- Sanction Date -->
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -735,7 +751,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Renewal_Date' | translate}}  <!-- Renewal Date -->
+                                                {{'master.Voucher_Entry.Renewal_Date' | translate}}
+                                                <!-- Renewal Date -->
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -755,7 +772,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Sanctions_Amount' | translate}}   <!-- Sanctions Amount -->
+                                                {{'master.Voucher_Entry.Sanctions_Amount' | translate}}
+                                                <!-- Sanctions Amount -->
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -775,7 +793,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Deposit_Amount' | translate}} <!-- Deposit Amount -->
+                                                {{'master.Voucher_Entry.Deposit_Amount' | translate}}
+                                                <!-- Deposit Amount -->
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -796,7 +815,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.Maturity_Amount' | translate}} <!-- Maturity Amount -->
+                                                {{'master.Voucher_Entry.Maturity_Amount' | translate}}
+                                                <!-- Maturity Amount -->
 
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
@@ -839,7 +859,8 @@
                                         </div>
                                         <div class="transaction-percentage">
                                             <h6 class="transaction-title" style="font-size: 12px;">
-                                                {{'master.Voucher_Entry.After_this_voucher' | translate}} <!-- After this voucher -->
+                                                {{'master.Voucher_Entry.After_this_voucher' | translate}}
+                                                <!-- After this voucher -->
                                             </h6>
                                             <!-- <small>Starbucks</small> -->
                                         </div>
@@ -849,14 +870,14 @@
                                             aria-hidden="true"></i> {{AfterVoucher}} {{extenstionaftervoucher}}</div>
                                 </div>
                                 <button *ngIf="isMinor" class="btn btn-outline-primary btn-sm"
-                                [ngClass]="{'blink': isMinor}" (click)="openModal('minor')">
-                                {{'master.Voucher_Entry.Minor' | translate}}
-                            </button>
-                            <button *ngIf="isJoint" class="btn btn-outline-primary btn-sm"
-                                [ngClass]="{'blink': isJoint}"  (click)="openModal('joint')">
-                                <!-- Joint -->
-                                {{'master.Voucher_Entry.Joint' | translate}}
-                            </button>
+                                    [ngClass]="{'blink': isMinor}" (click)="openModal('minor')">
+                                    {{'master.Voucher_Entry.Minor' | translate}}
+                                </button>
+                                <button *ngIf="isJoint" class="btn btn-outline-primary btn-sm"
+                                    [ngClass]="{'blink': isJoint}" (click)="openModal('joint')">
+                                    <!-- Joint -->
+                                    {{'master.Voucher_Entry.Joint' | translate}}
+                                </button>
                             </div>
                             <div class="col-md-12">
                                 <div class="card">
@@ -892,13 +913,14 @@
 
                                                 <li class="mb-75" *ngIf="Customer_Pan_No">
                                                     <span class="fw-bolder me-25">
-                                                        {{'master.Voucher_Entry.PAN_ID' | translate}}:   <!-- PAN ID: -->
+                                                        {{'master.Voucher_Entry.PAN_ID' | translate}}: <!-- PAN ID: -->
                                                     </span>
                                                     <span>{{Customer_Pan_No}}</span>
                                                 </li>
                                                 <li class="mb-75" *ngIf="Customer_Contact_No">
                                                     <span class="fw-bolder me-25">
-                                                        {{'master.Voucher_Entry.Contact' | translate}}:    <!-- Contact: -->
+                                                        {{'master.Voucher_Entry.Contact' | translate}}:
+                                                        <!-- Contact: -->
                                                     </span>
                                                     <span>+91 {{Customer_Contact_No}}</span>
                                                 </li>
@@ -919,7 +941,7 @@
 <app-modal-basic #modalLarge [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">
-            {{'master.Voucher_Entry.Narration_Master' | translate}}    <!-- Narration Master -->
+            {{'master.Voucher_Entry.Narration_Master' | translate}} <!-- Narration Master -->
         </h4>
         <button type="button" class="close basic-close" (click)="modalLarge.hide()">
             <span aria-hidden="true">&times;</span>
@@ -943,7 +965,7 @@
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm" id="triggerhide"
                         #triggerhide (click)="modalLarge.hide()">
-                        {{'master.Action.Close' | translate}}  <!-- Close -->
+                        {{'master.Action.Close' | translate}} <!-- Close -->
                     </button>
                 </div>
             </div>
@@ -958,7 +980,7 @@
 <app-modal-basic #modalLarge1 [dialogClass]="'modal-md'">
     <div class="app-modal-header">
         <h4 class="modal-title">
-            {{'master.Voucher_Entry.Bank_Master' | translate}}    <!-- Bank Master -->
+            {{'master.Voucher_Entry.Bank_Master' | translate}} <!-- Bank Master -->
         </h4>
         <button type="button" class="close basic-close" (click)="modalLarge1.hide()">
             <span aria-hidden="true">&times;</span>
@@ -971,7 +993,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <th>
-                                {{'master.Voucher_Entry.Bank_Name' | translate}}    <!-- Bank Name -->
+                                {{'master.Voucher_Entry.Bank_Name' | translate}} <!-- Bank Name -->
                             </th>
                         </thead>
                         <tbody>
@@ -982,7 +1004,7 @@
                     </table>
                     <button type="button" style="display: none;" class="btn btn-outline-primary btn-sm"
                         id="triggerhide1" #triggerhide1 (click)="modalLarge1.hide()">
-                        {{'master.Action.Close' | translate}}  <!-- Close -->
+                        {{'master.Action.Close' | translate}} <!-- Close -->
                     </button>
                 </div>
             </div>
@@ -998,11 +1020,11 @@
                     <!-- {{ isMinor ? 'Minor Account' : 'Joint Account' }} -->
                     <span *ngIf="isMinor">
                         {{ 'master.Voucher_Entry.Minor_account' | translate }}
-                      </span>
-                      <span *ngIf="isJoint">
+                    </span>
+                    <span *ngIf="isJoint">
                         {{ 'master.Voucher_Entry.Joint_account' | translate }}
-                      </span>
-                      
+                    </span>
+
                 </h4>
                 <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
                         aria-hidden="true">&times;</span></button>
@@ -1023,12 +1045,13 @@
                                         <table class="table table-striped table-bordered table-hover compact">
                                             <thead class="custom-header">
                                                 <tr>
-                                                    <th style= "background-color: purple;color:white; max-width: 20px">
-                                                        {{'master.Voucher_Entry.CustomerID' | translate}}  <!-- Customer ID -->
+                                                    <th style="background-color: purple;color:white; max-width: 20px">
+                                                        {{'master.Voucher_Entry.CustomerID' | translate}}
+                                                        <!-- Customer ID -->
                                                     </th>
-                                                    <th style= "background-color: purple;color:white">
+                                                    <th style="background-color: purple;color:white">
                                                         <!-- Name -->
-                                                        {{'master.Voucher_Entry.Name' | translate}} 
+                                                        {{'master.Voucher_Entry.Name' | translate}}
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -1045,17 +1068,18 @@
                                             *ngIf="accountEvent?.jointAccounts?.length != 0 && accountEvent?.jointAccounts !=undefined">
                                             <thead>
                                                 <td style="max-width: 20px">
-                                                    {{'master.Voucher_Entry.CustomerID' | translate}}  <!-- Customer ID -->
+                                                    {{'master.Voucher_Entry.CustomerID' | translate}}
+                                                    <!-- Customer ID -->
                                                 </td>
                                                 <td>
                                                     <!-- Name -->
                                                     {{'master.Voucher_Entry.Name' | translate}}
                                                 </td>
-                                               <td>
-                                                {{'master.Customer.JOINT_DATE' | translate}} <!-- Joint Date -->
-                                            </td>
+                                                <td>
+                                                    {{'master.Customer.JOINT_DATE' | translate}} <!-- Joint Date -->
+                                                </td>
                                                 <td style="max-width: 15px">
-                                                    {{'master.Customer.Operation' | translate}}    <!-- Operation -->
+                                                    {{'master.Customer.Operation' | translate}} <!-- Operation -->
                                                 </td>
                                             </thead>
                                             <tbody *ngIf="jointAccounts?.length != 0">
@@ -1124,7 +1148,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" (click)="onCloseHandled()">
-                    {{'master.Action.Close' | translate}}  <!-- Close -->
+                    {{'master.Action.Close' | translate}} <!-- Close -->
                 </button>
             </div>
         </div>

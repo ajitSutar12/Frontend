@@ -271,7 +271,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService: SchemeAccountNoService,
     public sanitizer: DomSanitizer,
-    private translate:TranslateService,
+    private translate: TranslateService,
 
     private fb: FormBuilder) {
     this.maxDate = new Date();
@@ -424,10 +424,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.bal_category = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'CA')
-      // });
-      this.int_category = data;
+      this.int_category = data.filter(function (schem) {
+        return (schem.scheme == 'CA')
+      });
+      // this.int_category = data;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;
@@ -683,7 +683,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
   }
   IS_REQUIRED_AUTOMAILER
   // Method to insert data into database through NestJS
-  isDisable=false
+  isDisable = false
   submit(event) {
     event.preventDefault();
     this.formSubmitted = true;
@@ -803,8 +803,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
     }
   }
-  name:any
-  ac_no:any
+  name: any
+  ac_no: any
   //Method for append data into fields
   editClickHandler(id, status) {
     this.switchNgBTab('Basic')
@@ -992,7 +992,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     data['AC_INTROBRANCH'] = this.code
     data['AC_INTROID'] = this.acno
     data['AC_INTRACNO'] = this.ngIntroducer
-    data['IS_REQUIRED_AUTOMAILER']= (data.IS_REQUIRED_AUTOMAILER ? 1 : 0 )
+    data['IS_REQUIRED_AUTOMAILER'] = (data.IS_REQUIRED_AUTOMAILER ? 1 : 0)
 
     data['id'] = this.updateID;
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == '1' ? 1 : 0)
@@ -1091,7 +1091,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-       `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
           `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
         )
@@ -1479,21 +1479,21 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-       Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-         Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-           Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-             Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
@@ -1586,13 +1586,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-         Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-           Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-             Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -1694,7 +1694,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           }
         }
         else {
-          Swal.fire('',`${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
+          Swal.fire('', `${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
           this.multiJointAC.push(object);
           this.jointID = null
           this.jointID = ''
@@ -1948,13 +1948,13 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
 
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
-     Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
+      Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
-       Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
+        Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
       } else if (formVal.DATE_APPOINTED != "") {
         if (formVal.DATE_EXPIRY == "" || formVal.DATE_EXPIRY == null) {
-         Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
+          Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
         }
         else {
           this.multiAttorney[index] = object;
@@ -2032,7 +2032,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.currentAccountMasterService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title:`${this.translate.instant('Swal_Msg.Current_Ac_Approve')}`,
+        title: `${this.translate.instant('Swal_Msg.Current_Ac_Approve')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2054,8 +2054,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.currentAccountMasterService.reject(obj).subscribe(data => {
       Swal.fire({
-        icon: 'success', 
-        title:  `${this.translate.instant('Swal_Msg.Current_Ac_Reject')}`,
+        icon: 'success',
+        title: `${this.translate.instant('Swal_Msg.Current_Ac_Reject')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2104,7 +2104,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.currentAccountMasterService.unapporve(obj).subscribe(data => {
       Swal.fire({
-        icon: 'success', 
+        icon: 'success',
         title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>

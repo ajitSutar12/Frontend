@@ -461,10 +461,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.categoryMasterdropdown = data;
     })
     this.IntrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'TD')
-      // });
-      this.IntrestCategoryMasterDropdown = data;
+      this.IntrestCategoryMasterDropdown = data.filter(function (schem) {
+        return (schem.scheme == 'TD')
+      });
+      // this.IntrestCategoryMasterDropdown = data;
     })
     this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.Recommended = data;
@@ -3134,7 +3134,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
-        Swal.fire('',  `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
       })
     }
 

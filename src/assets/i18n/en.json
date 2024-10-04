@@ -88,7 +88,7 @@
             "batchVoucher": "Batch Transfer Voucher",
             "pigmyChartEntry": "Pigmy Chart Entry",
             "deadStockPurchase": "Dead Stock Purchase",
-            "deadStockTransaction": "Dead Stock Transaction",
+            "deadStockTransaction": "Old Dead Stock Transaction",
             "reconciliationEntry": "Reconciliation Entry",
             "savingspigmyaccountclosing": "Savings-Pigmy Account Closing",
             "termDepositAccountClosing": "Term Deposit Account Closing",
@@ -300,6 +300,13 @@
             "classificationsecnpa": "NPA Classification -Secured Or Unsecured",
             "classificationstandardnpa": "NPA Classification -Standard Or Non Standard",
             "loanoverduelist": "Loan Overdue Reports"
+        },
+        "nottice": {
+            "nottice": "Nottice",
+            "noticereport": "Notice Report",
+            "noticeformat": "Notice Format",
+            "blankNotice": "Blank Notice Format",
+            "showNotice": "Get Notice Format"
         },
         "PigmyReport": {
             "PigmyReport": "Pigmy Report",
@@ -4434,7 +4441,10 @@
             "From_Account": "From Account",
             "To_Account": "To Account ",
             "Select_Accout": "Select Accout",
-            "Ac_no": "Ac no "
+            "Ac_no": "Ac no ",
+            "upto_date" : "तारीख शेवटच्या १२ महिन्यांच्या आत असावी."
+
+
         },
         "Interest_Passing": {
             "Title": "Interest_Passing",
