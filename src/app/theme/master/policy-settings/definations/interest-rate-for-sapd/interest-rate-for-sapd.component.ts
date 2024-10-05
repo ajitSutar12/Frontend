@@ -242,7 +242,7 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       'ACNOTYPE': formVal.ACNOTYPE,
       'INT_CATEGORY': formVal.INT_CATEGORY,
       'INT_RATE': formVal.INT_RATE,
-      'TYPE': this.tdname
+      'TYPE': this.schemeAcNo
     }
     this.savingandPigmyInterestRatesService.postData(dataToSend).subscribe(data1 => {
       Swal.fire('Success!', 'Data Added Successfully !', 'success');
@@ -413,5 +413,11 @@ export class InterestRateForSAPDComponent implements OnInit, AfterViewInit, OnDe
       left: 0,
       behavior: 'smooth'
     });
+  }
+
+  schemeAcNo
+  getScheme(event)
+  {
+  this.schemeAcNo = event.name
   }
 }

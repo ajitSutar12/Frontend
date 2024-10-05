@@ -322,7 +322,7 @@ export class CashCreditMasterComponent implements OnInit {
   guarantordate: any
   maxDate: any
   minDate: any
-  setLang:any;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -353,7 +353,7 @@ export class CashCreditMasterComponent implements OnInit {
     private el: ElementRef,
     public router: Router,
     public sanitizer: DomSanitizer,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
@@ -538,10 +538,10 @@ export class CashCreditMasterComponent implements OnInit {
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'CC')
-      // });
-      this.intCat = data;
+      this.intCat = data.filter(function (schem) {
+        return (schem.scheme == 'CC')
+      });
+      // this.intCat = data;
     })
 
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
@@ -831,7 +831,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.selectedImagePreview = ''
     }
   }
-  isDisable=false
+  isDisable = false
   // Method to insert data into database through NestJS
   submit() {
     this.formSubmitted = true;
@@ -1031,8 +1031,8 @@ export class CashCreditMasterComponent implements OnInit {
     this.getSystemParaDate()
     this.switchNgBTab('Basic')
   }
-  name:any
-  ac_no:any
+  name: any
+  ac_no: any
   //Method for append data into fields
   tempbankacno
   editClickHandler(id, status) {
@@ -2097,8 +2097,9 @@ export class CashCreditMasterComponent implements OnInit {
     }
     this.cashCreditService.reject(obj).subscribe(data => {
       Swal.fire({
-        icon: 'success', 
-        title: 'CashCredit Account rejected successfully!',
+
+        icon: 'success',
+        title: `${this.translate.instant('Swal_Msg.Cash_Reject')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2123,7 +2124,8 @@ export class CashCreditMasterComponent implements OnInit {
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
+
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -2158,8 +2160,9 @@ export class CashCreditMasterComponent implements OnInit {
     }
     this.cashCreditService.unapporve(obj).subscribe(data => {
       Swal.fire({
-        icon: 'success', 
-        title: 'Account unapproved successfully!',
+
+        icon: 'success',
+        title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2179,8 +2182,9 @@ export class CashCreditMasterComponent implements OnInit {
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          'Warning!',
-          'Drawing Power Should Be Less Than or Equal to Sanction Limit',
+
+          `${this.translate.instant('Swal_Msg.Warn')}`,
+          `${this.translate.instant('Swal_Msg.Drawing')}`,
           'warning'
         );
         (document.getElementById("AC_DRAWPOWER_AMT") as HTMLInputElement).value = "0"

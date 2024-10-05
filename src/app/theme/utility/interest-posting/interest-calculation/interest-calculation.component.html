@@ -19,9 +19,8 @@
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="INT_UPTO_DATE" id="INT_UPTO_DATE"
                                         class="form-control" [(ngModel)]="intuptodate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', maxDate: maxDate }"
                                         [ngClass]="{'form-submitted': formSubmitted}" formControlName="INT_UPTO_DATE"
-                                        (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker>
 
                                 </span>
@@ -29,9 +28,11 @@
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['INT_UPTO_DATE'].invalid && (angForm.controls['INT_UPTO_DATE'].dirty || angForm.controls['INT_UPTO_DATE'].touched)"
                                 class="alert alert-danger">
-                                <div *ngIf="angForm.controls['INT_UPTO_DATE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
 
+                                <div *ngIf="angForm.controls['INT_UPTO_DATE'].errors?.dateOutOfRange">
+                                    <!-- "The date must be within the last 12 months." -->
+                                    {{'Utility.Interest_Calculation.upto_date' |
+                                    translate}}
                                 </div>
                             </div>
                         </div>

@@ -39,6 +39,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   formSubmitted = false;
   selectedOption: string = 'Detail';
 
+
   //fromgroup
   ngForm: FormGroup
   minvalue: any;
@@ -306,6 +307,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
 
 
+
   view(event) {
 
    
@@ -347,7 +349,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         let tDate = moment(date, 'DD/MM/YYYY')
         obj['END_DATE'] = date
       }
-     
+
       let halfCircleBracketArray = this.selectedItems
         .toString()
         .replace(/\[/g, '(')
@@ -397,7 +399,8 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       }
 
 
-      this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+
+      this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + show + "&flag1=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
@@ -471,6 +474,9 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
         Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
       }
+
+  }
+
 
   }
 

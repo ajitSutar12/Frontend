@@ -1,6 +1,22 @@
+<div class="col-sm-12 col-md-3">
+    <div class="form-radio">
+        <div class="radio radio-inline">
+            <label>
+                <input type="radio" name="Print_Code" value="Detail" formControlName="Print_Code" [checked]="true"
+                    [(ngModel)]="selectedOption" (change)="selectedOption = 'Detail'" />
+                <i class="helper"></i>Detail </label>
+        </div>
+        <div class="radio radio-inline">
+            <label>
+                <input type="radio" name="Print_Code" value="Summary" formControlName="Print_Code"
+                    [(ngModel)]="selectedOption" (change)="selectedOption = 'Summary'" />
+                <i class="helper"></i>Summary </label>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card"  *ngIf="selectedOption === 'Detail'">
             <div class="card-header">
                 <h5>{{'master.Loan_overdue_report.T1'|translate}}
                     <!-- Accountwise Loanoverdue Report -->
@@ -229,8 +245,8 @@
                                     </ngb-tab>
                                     <!-- end of basic tab -->
                                     <!-- start of Address tab -->
-                                    <!-- <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective" > -->
-                                        <ngb-tab title="{{'master.Loan_overdue_report.selective'| translate}}" id="Selective" role="tab" data-toggle="tab" >
+
+                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -248,9 +264,8 @@
                                                                         {{'master.Loan_overdue_report.Name'|translate}}  <!-- Name -->
                                                                     </th>
                                                                     <th style="width: 100px;"
-                                                                        class="bg-primary fs-1 td_center">
-                                                                        {{'master.Loan_overdue_report.checkbox'|translate}}   <!-- checkbox -->
-                                                                    </th>
+
+                                                                        class="bg-primary fs-1 td_center">cheakbox</th>
                                                                 </tr>
                                                                 <tr *ngFor="let values of toAc">
                                                                     <td class="td_center">{{values.bankacno}}</td>
@@ -325,6 +340,7 @@
                                     </label>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="row justify-content-end">

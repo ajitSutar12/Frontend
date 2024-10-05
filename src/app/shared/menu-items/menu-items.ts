@@ -863,24 +863,29 @@ const MENUITEMS1 = [
       {
         state: 'neftRtgs',
         short_label: 'D',
-        name: 'Services ',
+
+        name: 'main.neftRtgs.Services',
         type: 'sub',
         icon: 'fa fa-money',
         id: 349,
         children: [
           {
             state: 'neftTransfer',
-            name: 'NEFT Transfer',
+
+            name: 'main.neftRtgs.neftTransfer',
             id: 350
           },
           {
             state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
+
+            name: 'main.neftRtgs.rtgsTransfer',
             id: 351
           },
           {
             state: 'billPayment',
-            name: 'Bill Payment',
+
+            name: 'main.neftRtgs.billPayment',
+
             id: 352
           },
           {
@@ -890,7 +895,8 @@ const MENUITEMS1 = [
           },
           {
             state: 'cibilScore',
-            name: 'Cibil Score',
+
+            name: 'main.neftRtgs.cibilScore',
             id: 380
           },
         ]
@@ -1715,34 +1721,36 @@ const MENUITEMS1 = [
           // },
           {
             state: 'nottice',
-                  name: 'Nottice',
-                  short_label: 'D',
-                  type: 'sub',
-                  icon: 'icon-home',
-                  id: 362,
-                  children: [
-                    {
-                      state: 'noticereport',
-                      name: 'Notice Report',
-                      id: 364
-                    },
-                    {
-                      state: 'noticeformat',
-                      name: 'Notice Format',
-                      id: 365
-                    },
-                    {
-                      state: 'blankNotice',
-                      name: 'Blank Notice Format',
-                      id: 366
-                    },
-                    {
-                      state: 'showNotice',
-                      name: 'Get Notice Format',
-                      id: 367
-                    },
-                  ]
-                },
+
+            name: 'main.nottice.nottice',
+            short_label: 'D',
+            type: 'sub',
+            icon: 'icon-home',
+            id: 362,
+            children: [
+              {
+                state: 'noticereport',
+                name: 'main.nottice.noticereport',
+                id: 364
+              },
+              {
+                state: 'noticeformat',
+                name: 'main.nottice.noticeformat',
+                id: 365
+              },
+              {
+                state: 'blankNotice',
+                name: 'main.nottice.blankNotice',
+
+                id: 366
+              },
+              {
+                state: 'showNotice',
+                name: 'main.nottice.showNotice',
+                id: 367
+              },
+            ]
+          },
           // //
           // {
           //   state: 'Report_Frame',
@@ -1750,36 +1758,37 @@ const MENUITEMS1 = [
           //   id: 253
           // },
           //
-          {
-            state: 'nottice',
-                  name: 'Nottice',
-                  short_label: 'D',
-                  type: 'sub',
-                  icon: 'icon-home',
-                  id: 362,
-                  children: [
-                    {
-                      state: 'noticereport',
-                      name: 'Notice Report',
-                      id: 363
-                    },
-                    {
-                      state: 'noticeformat',
-                      name: 'Notice Format',
-                      id: 364
-                    },
-                    {
-                      state: 'blankNotice',
-                      name: 'Blank Notice Format',
-                      id: 365
-                    },
-                    {
-                      state: 'showNotice',
-                      name: 'Get Notice Format',
-                      id: 366
-                    },
-                  ]
-                },
+
+          // {
+          //   state: 'nottice',
+          //   name: 'main.nottice.nottice',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   icon: 'icon-home',
+          //   id: 362,
+          //   children: [
+          //     {
+          //       state: 'noticereport',
+          //       name: 'main.nottice.noticereport',
+          //       id: 363
+          //     },
+          //     {
+          //       state: 'noticeformat',
+          //       name: 'main.nottice.noticeformat',
+          //       id: 364
+          //     },
+          //     {
+          //       state: 'blankNotice',
+          //       name: 'main.nottice.blankNotice',
+          //       id: 365
+          //     },
+          //     {
+          //       state: 'showNotice',
+          //       name: 'main.nottice.showNotice',
+          //       id: 366
+          //     },
+          //   ]
+          // },
           {
             state: 'PigmyReport',
             name: 'Pigmy Report',
@@ -3862,34 +3871,42 @@ const MENUITEMS = [
       {
         state: 'neftRtgs',
         short_label: 'D',
-        name: 'Services ',
+
+
+        name: 'main.neftRtgs.Services',
         type: 'sub',
         icon: 'fa fa-money',
         id: 349,
         children: [
           {
             state: 'neftTransfer',
-            name: 'NEFT Transfer',
+
+            name: 'main.neftRtgs.neftTransfer',
             id: 350
           },
           {
             state: 'rtgsTransfer',
-            name: 'RTGS Transfer',
+
+            name: 'main.neftRtgs.rtgsTransfer',
+
             id: 351
           },
           {
             state: 'billPayment',
-            name: 'Bill Payment',
+
+            name: 'main.neftRtgs.billPayment',
             id: 352
           },
           {
             state: 'fundTransfer',
-            name: 'Fund Transfer',
+
+            name: 'main.neftRtgs.fundTransfer',
             id: 353
           },
           {
             state: 'cibilScore',
-            name: 'Cibil Score',
+
+            name: 'main.neftRtgs.cibilScore',
             id: 380
           },
         ]
@@ -4715,36 +4732,38 @@ const MENUITEMS = [
           //   name: 'Nottice',
           //   id: 252
           // },
-{
-          state: 'nottice',
-                name: 'Nottice',
-                short_label: 'D',
-                type: 'sub',
-                icon: 'icon-home',
-                id: 362,
-                children: [
-                  {
-                    state: 'noticereport',
-                    name: 'Notice Report',
-                    id: 364
-                  },
-                  {
-                    state: 'noticeformat',
-                    name: 'Notice Format',
-                    id: 365
-                  },
-                  {
-                    state: 'blankNotice',
-                    name: 'Blank Notice Format',
-                    id: 366
-                  },
-                  {
-                    state: 'showNotice',
-                    name: 'Get Notice Format',
-                    id: 367
-                  },
-                ]
-              },
+
+          // {
+          //   state: 'nottice',
+          //   name: 'main.nottice.nottice',
+          //   short_label: 'D',
+          //   type: 'sub',
+          //   icon: 'icon-home',
+          //   id: 362,
+          //   children: [
+          //     {
+          //       state: 'noticereport',
+          //       name: 'main.nottice.noticereport',
+          //       id: 364
+          //     },
+          //     {
+          //       state: 'noticeformat',
+          //       name: 'main.nottice.noticeformat',
+
+          //       id: 365
+          //     },
+          //     {
+          //       state: 'blankNotice',
+          //       name: 'Blank Notice Format',
+          //       id: 366
+          //     },
+          //     {
+          //       state: 'showNotice',
+          //       name: 'Get Notice Format',
+          //       id: 367
+          //     },
+          //   ]
+          // },
           // //
           // {
           //   state: 'Report_Frame',
