@@ -67,6 +67,7 @@ export class ReceivedStockStatementComponent implements OnInit {
     private translate:TranslateService
 
 
+
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();

@@ -34,8 +34,10 @@
                                     {{'Utility.Interest_Calculation.upto_date' |
                                     translate}}
                                 </div>
+                               
                             </div>
                         </div>
+
                         <div class="col-sm-12 col-md-2"> <label
                                 for="Ledger_Date">{{'Utility.Interest_Calculation.Ledger_Date' | translate}}</label>
                         </div>
@@ -124,6 +126,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'Utility.Interest_Calculation.Schema_Code' | translate}}"
                                         (change)="getSelectedCodeScheme($event)">
                                         <ng-option *ngFor="let values of codeList" [value]="values.S_ACNOTYPE">
@@ -200,6 +203,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
+
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'Utility.Interest_Calculation.Schema_Code' | translate}}"
                                         (change)="getSchemeAcno($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -226,6 +230,7 @@
                                     <ng-select id="FROM_AC" bindValue="bankacno" [(ngModel)]="ngfromac"
                                         (change)="select()" formControlName="FROM_AC" bindLabel="label"
                                         title="Compulsory Selection" [ngClass]="{'form-submitted': formSubmitted}"
+
                                         required placeholder="{{'Utility.Interest_Calculation.From_Account' | translate}}">
                                         <ng-option *ngFor="let values of fromAc" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>
@@ -247,6 +252,7 @@
                         <div class="col-sm-12 col-md-2">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
+
                                     <ng-select id="TO_AC" bindValue="bankacno" [(ngModel)]="ngtoac"
                                         formControlName="{{'Utility.Interest_Calculation.To_Account'
                                         | translate}}" bindLabel="label" title="Compulsory Selection"
@@ -301,6 +307,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="AC_TYPE1" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE1" bindLabel="label" title="Compulsory Selection"
+
                                         [ngClass]="{'form-submitted': formSubmitted}" required placeholder="{{'Utility.Interest_Calculation.Schema_Code' | translate}}"
                                         (change)="getSchemeAcno($event)">
                                         <ng-option *ngFor="let values of scheme" [value]="values">
@@ -327,6 +334,7 @@
                                     <ng-select id="AC_NO" bindValue="bankacno" [(ngModel)]="ngtoac"
                                         formControlName="AC_NO" bindLabel="label" title="Compulsory Selection"
                                         (change)="getTable($event)" [ngClass]="{'form-submitted': formSubmitted}"
+
                                         required placeholder="{{'Utility.Interest_Calculation.Select_Accout' | translate}}">
                                         <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                             {{values.label}} {{values.name}}</ng-option>

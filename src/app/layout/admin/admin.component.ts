@@ -835,6 +835,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     localStorage.removeItem('user');
   }
 
+
   // Menu search options
   showMenu: boolean = false;
 

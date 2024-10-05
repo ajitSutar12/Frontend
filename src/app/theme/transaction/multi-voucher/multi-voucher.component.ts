@@ -269,7 +269,7 @@ export class MultiVoucherComponent implements OnInit {
       scheme_type: ['', [Validators.required]],
       date: [''],
       type: new FormControl('cash'),
-      chequeDate: [''],
+      chequeDate: ['', [Validators.required]],
       chequeNo: [''],
       bank: [''],
       Intdate: ['']

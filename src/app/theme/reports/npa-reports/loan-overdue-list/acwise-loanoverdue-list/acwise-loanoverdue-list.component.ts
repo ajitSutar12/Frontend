@@ -39,7 +39,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   formSubmitted = false;
   selectedOption: string = 'Detail';
 
-
   //fromgroup
   ngForm: FormGroup
   minvalue: any;
@@ -308,6 +307,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
 
 
+
   view(event) {
 
    
@@ -349,7 +349,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         let tDate = moment(date, 'DD/MM/YYYY')
         obj['END_DATE'] = date
       }
-
+     
       let halfCircleBracketArray = this.selectedItems
         .toString()
         .replace(/\[/g, '(')
@@ -397,6 +397,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       if (branch == 0) {
         this.branchName = 'Consolidate';
       }
+
 
 
 
@@ -475,10 +476,13 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
       }
 
+
   }
 
 
   }
+
+  
 
   onLoad() {
     this.showLoading = false;

@@ -39,6 +39,7 @@ export class LoanDueCertificateComponent implements OnInit {
   selectedmemNo
   base_url = environment.base_url;
   report_url = environment.report_url;
+
   setLang: string;
   constructor(private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService, private http: HttpClient, private sanitizer: DomSanitizer,private translate:TranslateService,) {

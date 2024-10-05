@@ -12,7 +12,6 @@ export const environment = {
   
   // Localhost
 
-  base_url: 'http://192.168.1.150:7277',
 
 
   base_url: 'http://localhost:7276',

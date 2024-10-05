@@ -25,6 +25,7 @@ import { TranslateService } from "@ngx-translate/core";
 
 
 
+
 @Component({
   selector: 'app-gold-silver-security',
   templateUrl: './gold-silver-security.component.html',
@@ -67,6 +68,8 @@ export class GoldSilverSecurityComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
     private translate:TranslateService
+
+
 
 
   ) {

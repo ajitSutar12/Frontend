@@ -188,7 +188,7 @@
                                     <h5>{{'master.Interest_Instruction.Report_Frame' | translate}}</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe1 [url]='iframe1url'></app-iframe1>
+                                    <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>
                                 </div>
                             </div>
                         </div>

@@ -3124,6 +3124,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       // this.resetgrid()
     }
+    // this.resetForm()
   }
 
   // editTransferAccount(id) {
@@ -3520,9 +3521,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.angForm.controls["particulars"].reset();
     this.angForm.controls["TschemeAC"].reset();
     this.angForm.controls["amount"].reset();
+    this.angForm.controls["scheme1"].reset();
     this.angForm.controls["scheme_type"].reset();
-    // this.angForm.controls["scheme"].reset();
-    // this.angForm.controls["account_no"].reset();
+    this.angForm.controls["ac_no"].reset();
+
     this.angForm.controls["tran_mode"].reset();
     this.angForm.controls["total_amt"].reset();
     this.angForm.controls["chequeNo"].reset();
