@@ -39,9 +39,10 @@ export class LoanDueCertificateComponent implements OnInit {
   selectedmemNo
   base_url = environment.base_url;
   report_url = environment.report_url;
-  setLang: any;
-  constructor(private fb: FormBuilder,private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,private http: HttpClient, private sanitizer: DomSanitizer,) { 
+
+  setLang: string;
+  constructor(private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService, private http: HttpClient, private sanitizer: DomSanitizer,private translate:TranslateService,) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

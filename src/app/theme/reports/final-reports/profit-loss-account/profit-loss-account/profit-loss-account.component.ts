@@ -38,8 +38,7 @@ export class ProfitLossAccountComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService) 
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService) 
     {
 
     // this.fromdate = moment().format('DD/MM/YYYY');

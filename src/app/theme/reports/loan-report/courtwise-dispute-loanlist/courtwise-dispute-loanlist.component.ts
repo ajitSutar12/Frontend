@@ -67,9 +67,10 @@ export class CourtwiseDisputeLoanlistComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService:SchemeAccountNoService,
+    private translate:TranslateService,
 
-    private schemeAccountNoService:SchemeAccountNoService
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
     

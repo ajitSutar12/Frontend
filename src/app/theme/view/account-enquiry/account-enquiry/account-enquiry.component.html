@@ -55,7 +55,7 @@
                                                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
                                                     required placeholder="Scheme">
                                                     <ng-option *ngFor="let values of allScheme" [value]="values">
-                                                        {{values.id}} {{values.label}} </ng-option>
+                                                        <div [ngClass]="{'movable-text': isOptionTooLong(values)}">  {{values.id}} {{values.label}}</div> </ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -83,8 +83,7 @@
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
                                                         <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
-                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ?
-                                                        "-"
+                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ? "-"
                                                         :
                                                         values?.idmaster?.custAddress[0]?.city?.CITY_NAME }}
                                                         <!-- <div *ngFor="let val of values.idmaster" > 
@@ -102,25 +101,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
-                                        *ngIf="isOpen">Open Account </div>
-                                    <div class="col-sm" style="float: right; color: rgb(14 168 14);" *ngIf="isMinor">
-                                        Minor Account
-                                        <a class="blinking" *ngIf="isMinor" (click)="openModal1('minor')"
-                                            style="color: blue;font-style: italic;font-size: x-small;">*Click to
-                                            Show</a>
-                                    </div>
-                                    <div class="col-sm-3 col-md-2" style="float: right; color: rgb(14 168 14);"
-                                        *ngIf="isJoint">Joint Account
-                                        <!-- <a *ngIf="isJoint" class="blinking" (click)="openModal1('joint')"
-                                                style="color: blue;font-style: italic;font-size: x-small;">*Click to
-                                                Show</a> -->
-                                    </div>
-                                    <div class="col-sm-3 col-md-2" style="float: right;" *ngIf="acCloseDate">
-                                        <div><label style="color: red; font-size: 13px;">Closed Account</label></div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-sm-12 col-md-2"> <label for="DATE">Date<sub
                                                 class="required">*</sub></label>
                                     </div>
@@ -147,7 +127,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-sm col-md">
                                         <button class="btn btn-outline-primary btn-sm" (click)="getTransactionDetails()"
                                             [disabled]="angForm.invalid">Refresh</button>
@@ -167,7 +146,7 @@
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length ==0"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="lienInfoArr.length !=0">
-                                        <div><label style="color: #f52121">Lien Account</label></div>
+                                        <div><label style="color: #1e5bc5">Lien Account</label></div>
                                     </div>
                                     <div class="col-sm-3 col-md-3" *ngIf="!dormantac"></div>
                                     <div class="col-sm-3 col-md-3" *ngIf="dormantac">
@@ -784,9 +763,6 @@
                                         <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_MONTHS==''||
                                                 accountEvent?.AC_MONTHS==null? 0:
                                                 accountEvent?.AC_MONTHS}}</label></span> Months
-                                        <span style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.AC_DAYS==''||
-                                                accountEvent?.AC_DAYS==null ? 0:accountEvent?.AC_DAYS}}</label></span>
-                                        Days
                                     </div>
                                     <div class="col-sm-2">
                                         <span><label>Overdue Date : </label></span>
@@ -858,8 +834,7 @@
                                             style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
                                                 == 'E'? 'EMI' : (accountEvent?.INSTALLMENT_METHOD == 'R'? 'Reducing' :
                                                 (accountEvent?.INSTALLMENT_METHOD == 'I'? 'Plain' :
-                                                (accountEvent?.INSTALLMENT_METHOD == 'Null' ||
-                                                accountEvent?.INSTALLMENT_METHOD == null? 'With Interest' :
+                                                (accountEvent?.INSTALLMENT_METHOD == 'Null'? 'With Interest' :
                                                 '---')))}}</label></span>
                                     </div>
                                     <div class="col-sm-2">
@@ -882,12 +857,7 @@
                                         <span><label>+ Interest : </label></span>
                                     </div>
                                     <div class="col-sm-1"><span
-                                            style="color: #3e8cd0;  text-align: left;"><label>{{accountEvent?.INSTALLMENT_METHOD
-                                                == 'E'? 0 :(accountEvent?.INSTALLMENT_METHOD == 'Null' ||
-                                                accountEvent?.INSTALLMENT_METHOD == null? 0 :
-                                                loantransactionData?.currentInt)}}
-                                                <!-- {{loantransactionData?.currentInt}} -->
-                                            </label></span>
+                                            style="color: #3e8cd0;  text-align: left;"><label>{{loantransactionData?.currentInt}}</label></span>
                                         <!-- </div>
                                     <div class="col-sm-2"> -->
                                         = <span
@@ -1162,16 +1132,6 @@
                                             *ngIf="customerIdView"><i class="fa fa-book fa-fw"
                                                 aria-hidden="true"></i>&nbsp; Customer ID</a>
                                     </li>
-                                    <li class="mb-75">
-                                        <!-- <a><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; OD Info</a> -->
-                                        <a href="javascript:void(0);" (click)="openModal()">
-                                            <i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp;
-                                            <!-- OD Info -->
-                                            {{'master.View_Ac_Enquiry.OD_INFO'|translate}}
-
-                                        </a>
-                                    </li>
-
                                 </ul>
                             </div>
                         </div>
@@ -2362,45 +2322,19 @@
                                     <tbody>
                                         <tr *ngFor="let data of productViewArr; let indexOfelement=index;">
                                             <td *ngFor="let ele of data | keyvalue;">{{ele.value}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>{{productTotal | number: '1.2-2'}}</td>
+                                            <!-- <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                        </tr>
-                                        <tr *ngIf="isloanDetails">
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>- Interest Received</td>
-                                            <td>{{loanreceivedInterest | number: '1.2-2'}}</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                        </tr>
-                                        <tr *ngIf="isloanDetails">
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total Interest</td>
-                                            <td>{{productTotal-loanreceivedInterest | number: '1.2-2'}}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td></td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2432,164 +2366,3 @@
     </div>
 </app-modal-basic>
 <div [class]="modalClass"><!-- Place at bottom of page --> </div>
-
-<!-- OD Information -->
-<div class="modal text-black" tabindex="-1" role="dialog" [ngStyle]="{'display': display}">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background-color: rgb(148, 19, 131);">
-                <label style="color: white;">
-                    <!-- OD INFORMATION -->
-                    {{'master.View_Ac_Enquiry.OD_INFO'|translate}}
-                </label>
-                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div><label>
-                        <!-- Temporary Amount  -->
-                        {{'master.View_Ac_Enquiry.Temporary_Amount'|translate}} : {{AC_ODAMT}}</label></div>
-                <div><label>
-                        <!-- Periodical Amount  :  -->
-                        {{'master.View_Ac_Enquiry.Periodical_Amount'|translate}} : {{AC_SODAMT}}</label></div>
-                <div><label>
-                        <!-- Sanctioned By  : -->
-                        {{'master.View_Ac_Enquiry.Sanctioned_By'|translate}} {{AC_OD_ASSIGNBY}}
-                    </label></div>
-                <div><label>
-                        <!-- Expire Date  : -->
-                        {{'master.View_Ac_Enquiry.Expire_Date'|translate}} {{OD_EXPIRE_DATE}}</label></div>
-                <div><label>
-                        <!-- OD Days  :  -->
-                        {{'master.View_Ac_Enquiry.OD_Days'|translate}} {{AC_ODDAYS}}</label></div>
-            </div>
-            <div class="modal-footer">
-                <button style="background-color: rgb(230, 97, 9);" type="button" class="btn btn-default"
-                    (click)="onCloseHandled()">{{'master.Action.Close'|translate}}
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="modal text-black " tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header custom-modal-header">
-                <h4 class="modal-title">{{ isMinor ? 'Minor Account' : 'Joint Account' }}</h4>
-                <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span
-                        aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- <h5>Minor Account</h5> -->
-                                <br>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <div *ngIf="isMinor">
-                                        <table class="table table-striped table-bordered table-hover compact">
-                                            <thead class="custom-header">
-                                                <tr>
-                                                    <th style="background-color: purple;color:white; max-width: 20px">
-                                                        Customer ID</th>
-                                                    <th style="background-color: purple;color:white">Name</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let row of tableDataMinor">
-                                                    <td>{{ row.custId }}</td>
-                                                    <td>{{ row.grdName }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div *ngIf="isJoint">
-                                        <table class="table table-striped table-bordered table-hover compact"
-                                            *ngIf="accountEvent?.jointAcHolders?.length != 0 && accountEvent?.jointAcHolders !=undefined">
-                                            <thead>
-                                                <td style="max-width: 20px">Customer ID</td>
-                                                <td>Name</td>
-                                                <td>Joint Date</td>
-                                                <td style="max-width: 15px">Operation</td>
-                                            </thead>
-                                            <tbody *ngIf="jointAcHolders?.length != 0">
-                                                <tr *ngFor="
-                                    let data of accountEvent?.jointAcHolders;
-                                    let indexOfelement = index
-                                  ">
-                                                    <td class="td_right" [ngClass]="
-                                      data.JOINT_AC_CUSTID === ''
-                                        ? 'td_center'
-                                        : 'td_right'
-                                    ">
-                                                        {{
-                                                        data.JOINT_AC_CUSTID === ""
-                                                        ? "-"
-                                                        : data.JOINT_AC_CUSTID
-                                                        }}
-                                                    </td>
-                                                    <td class="td_left" [ngClass]="
-                                      data.JOINT_ACNAME === ''
-                                        ? 'td_center'
-                                        : 'td_right'
-                                    ">
-                                                        {{
-                                                        data.JOINT_ACNAME === ""
-                                                        ? "-"
-                                                        : data.JOINT_ACNAME
-                                                        }}
-                                                    </td>
-                                                    <td class="td_left" [ngClass]="
-                                      data.
-                                      JOINT_DATE === ''
-                                        ? 'td_center'
-                                        : 'td_right'
-                                    ">
-                                                        {{
-                                                        data.JOINT_DATE === ""
-                                                        ? "-"
-                                                        : data.JOINT_DATE
-                                                        }}
-                                                    </td>
-                                                    <td class="td_left" [ngClass]="
-                                      data.OPERATOR === ''
-                                        ? 'td_left'
-                                        : 'td_right'
-                                    ">
-                                                        {{
-                                                        data.OPERATOR === ""
-                                                        ? "-"
-                                                        : data.OPERATOR
-                                                        }}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button style="background-color: rgb(230, 97, 9);" type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>

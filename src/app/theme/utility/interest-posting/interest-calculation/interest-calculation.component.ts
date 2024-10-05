@@ -87,6 +87,7 @@ export class InterestCalculationComponent implements OnInit {
       this.maxDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
     });
     
+
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1); // Setting minimum date to yesterday
     

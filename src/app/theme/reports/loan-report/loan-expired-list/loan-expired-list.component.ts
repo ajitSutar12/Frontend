@@ -21,7 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -68,8 +68,11 @@ export class LoanExpiredListComponent implements OnInit {
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    public schemeCodeDropdownService: SchemeCodeDropdownService,private translate:TranslateService,
-    private sanitizer: DomSanitizer, private directorMasterDropdown: DirectorMasterDropdownService,
+    public schemeCodeDropdownService: SchemeCodeDropdownService,
+    private sanitizer: DomSanitizer, 
+    private directorMasterDropdown: DirectorMasterDropdownService,
+    private translate:TranslateService
+
 
 
   ) {

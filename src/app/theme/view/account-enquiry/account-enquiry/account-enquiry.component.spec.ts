@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrarComponent } from './crar.component';
+import { AccountEnquiryComponent } from './account-enquiry.component';
 
-describe('CrarComponent', () => {
-  let component: CrarComponent;
-  let fixture: ComponentFixture<CrarComponent>;
+describe('AccountEnquiryComponent', () => {
+  let component: AccountEnquiryComponent;
+  let fixture: ComponentFixture<AccountEnquiryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CrarComponent ]
+      declarations: [ AccountEnquiryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrarComponent);
+    fixture = TestBed.createComponent(AccountEnquiryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

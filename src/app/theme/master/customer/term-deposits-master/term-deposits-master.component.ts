@@ -3133,6 +3133,7 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+
         Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
       })
     }

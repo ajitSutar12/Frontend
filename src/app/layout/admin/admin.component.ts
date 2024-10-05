@@ -834,49 +834,51 @@ export class AdminComponent implements OnInit, OnDestroy {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
- // Menu search options
- showMenu: boolean = false;
 
- onSearchBarClick() {
-   this.showMenu = true;
- }
 
- onSearchBlur() {
-   const inputElement = this.searchInput.nativeElement;
-   inputElement.value = '';
-   setTimeout(() => {
-     this.showMenu = false;
+  // Menu search options
+  showMenu: boolean = false;
 
-   }, 200);
- }
+  onSearchBarClick() {
+    this.showMenu = true;
+  }
 
- performSearch() {
-   const searchTerm = (document.querySelector('.search-input') as HTMLInputElement).value.toLowerCase();
-   if (searchTerm.trim() === '') {
-     this.filteredMenuListData = [];
-     return;
-   }
-   const filterMenus = (menus) => {
-     return menus
-       .filter(menuItem =>
-         menuItem.name.toLowerCase().includes(searchTerm) ||
-         (menuItem.children && filterMenus(menuItem.children).length > 0)
-       )
-       .map(menuItem => {
-         if (menuItem.children) {
-           menuItem.filteredChildren = filterMenus(menuItem.children);
-         }
-         return menuItem;
-       });
-   };
+  onSearchBlur() {
+    const inputElement = this.searchInput.nativeElement;
+    inputElement.value = '';
+    setTimeout(() => {
+      this.showMenu = false;
 
-   // Filter main menus and their submenus recursively
-   this.filteredMenuListData = filterMenus(this.meunItemList);
- }
- resetSearchInput(inputElement: HTMLInputElement) {
-   inputElement.value = '';
-   this.filteredMenuListData = [];
- }
+    }, 200);
+  }
+
+  performSearch() {
+    const searchTerm = (document.querySelector('.search-input') as HTMLInputElement).value.toLowerCase();
+    if (searchTerm.trim() === '') {
+      this.filteredMenuListData = [];
+      return;
+    }
+    const filterMenus = (menus) => {
+      return menus
+        .filter(menuItem =>
+          menuItem.name.toLowerCase().includes(searchTerm) ||
+          (menuItem.children && filterMenus(menuItem.children).length > 0)
+        )
+        .map(menuItem => {
+          if (menuItem.children) {
+            menuItem.filteredChildren = filterMenus(menuItem.children);
+          }
+          return menuItem;
+        });
+    };
+
+    // Filter main menus and their submenus recursively
+    this.filteredMenuListData = filterMenus(this.meunItemList);
+  }
+  resetSearchInput(inputElement: HTMLInputElement) {
+    inputElement.value = '';
+    this.filteredMenuListData = [];
+  }
 
 //   modalClose: boolean = false
 //   closeMarquee() {

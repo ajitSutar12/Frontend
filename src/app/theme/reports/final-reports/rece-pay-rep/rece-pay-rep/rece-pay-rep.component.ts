@@ -45,9 +45,11 @@ export class RecePayRepComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+
+    private translate:TranslateService
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');

@@ -1628,9 +1628,34 @@ export class MultiVoucherComponent implements OnInit {
   //cheque no captial function
   chequeNoData(event) {
     //
-    this.angForm.patchValue({
-      chequeNo: event.target.value.toUpperCase()
-    })
+    // this.angForm.patchValue({
+    //   chequeNo: event.target.value.toUpperCase()
+    // })
+
+    let chequeNoEntered = event.target.value.trim().toUpperCase();
+    if (chequeNoEntered) {
+      setTimeout(() => {
+      let userData: any = localStorage.getItem('user');
+      let userResult = JSON.parse(userData);
+
+      this._service.getCheckList(userResult.branch.id).subscribe((chequeList) => {
+        let duplicateCheque = chequeList.find(t => t.CHEQUE_NO == Number(chequeNoEntered));
+        if (duplicateCheque) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Duplicate Cheque Number!',
+            // text: 'The cheque number entered is already in use.',
+            showConfirmButton: true,
+          });
+          event.target.value = '';
+        }
+       
+      });
+    }, 500);
+    }
+
+
+
   }
   checkamtcondition($event) {
     let obj = {

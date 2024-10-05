@@ -12,7 +12,7 @@ export const environment = {
   
   // Localhost
 
-  // base_url: 'http://192.168.1.119:7281', 
+
 
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path

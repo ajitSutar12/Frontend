@@ -60,10 +60,12 @@ export class PendingStockStatementListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+    private translate:TranslateService
+
 
 
   ) {

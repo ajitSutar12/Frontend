@@ -2097,6 +2097,7 @@ export class CashCreditMasterComponent implements OnInit {
     }
     this.cashCreditService.reject(obj).subscribe(data => {
       Swal.fire({
+
         icon: 'success',
         title: `${this.translate.instant('Swal_Msg.Cash_Reject')}`,
         html: `
@@ -2123,6 +2124,7 @@ export class CashCreditMasterComponent implements OnInit {
     if (ele.target.value <= 50) {
     }
     else {
+
       Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
@@ -2158,6 +2160,7 @@ export class CashCreditMasterComponent implements OnInit {
     }
     this.cashCreditService.unapporve(obj).subscribe(data => {
       Swal.fire({
+
         icon: 'success',
         title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `
@@ -2179,6 +2182,7 @@ export class CashCreditMasterComponent implements OnInit {
     if (to != 0) {
       if (from > to) {
         Swal.fire(
+
           `${this.translate.instant('Swal_Msg.Warn')}`,
           `${this.translate.instant('Swal_Msg.Drawing')}`,
           'warning'

@@ -20,7 +20,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -57,10 +57,12 @@ maxDate: Date;
 
   constructor(
     private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+
+    private translate:TranslateService
 
    
   ) {

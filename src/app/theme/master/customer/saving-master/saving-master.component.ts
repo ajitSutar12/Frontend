@@ -1185,6 +1185,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.savingMasterService.deleteData(id).subscribe(data1 => {
           this.savingMaster = data1;
           Swal.fire(
+
             `${this.translate.instant('Swal_Msg.Delete')}`,
             `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
@@ -1692,6 +1693,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.resetJointAC()
       }
     } else {
+
       Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
       this.jointID = null
       this.jointID = ''
@@ -1976,6 +1978,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (date1 != "") {
       if (moment(date).isAfter(date1)) {
         Swal.fire(
+
           `${this.translate.instant('Swal_Msg.Cancel')}`,
           `${this.translate.instant('Swal_Msg.Exp_Date')}`,
           'error'
@@ -2115,6 +2118,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
+
         Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
       })
     }

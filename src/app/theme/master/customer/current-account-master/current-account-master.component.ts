@@ -1091,6 +1091,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
+
           `${this.translate.instant('Swal_Msg.Cancel')}`,
           `${this.translate.instant('Swal_Msg.C_Msg')}`,
           'error'
@@ -1479,6 +1480,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
+
       Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
     }
     else if (formVal.AC_NNAME != "") {
@@ -1488,10 +1490,12 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
+
           Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
+
 
             Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
           } else {
@@ -1586,6 +1590,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
+
         Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
@@ -1694,6 +1699,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
           }
         }
         else {
+
           Swal.fire('', `${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
           this.multiJointAC.push(object);
           this.jointID = null
@@ -1948,6 +1954,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
 
     if (formVal.ATTERONEY_NAME == "" || formVal.ATTERONEY_NAME == null) {
+
       Swal.fire(`${this.translate.instant('Swal_Msg.Power_of_Attorney')}`);
     } else if (formVal.ATTERONEY_NAME != "") {
       if (formVal.DATE_APPOINTED == "" || formVal.DATE_APPOINTED == null) {
@@ -2032,6 +2039,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.currentAccountMasterService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
+
         title: `${this.translate.instant('Swal_Msg.Current_Ac_Approve')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
@@ -2054,6 +2062,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.currentAccountMasterService.reject(obj).subscribe(data => {
       Swal.fire({
+
         icon: 'success',
         title: `${this.translate.instant('Swal_Msg.Current_Ac_Reject')}`,
         html: `
@@ -2104,6 +2113,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     }
     this.currentAccountMasterService.unapporve(obj).subscribe(data => {
       Swal.fire({
+
         icon: 'success',
         title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `

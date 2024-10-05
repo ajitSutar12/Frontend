@@ -78,7 +78,8 @@
             "dividendCalculation": "Dividend Calculation",
             "dividendPosting": "Dividend Posting",
             "dividendTransferPosting": "Dividend Transfer Posting",
-            "Dividend_Paid_Register":"Dividend Paid Register"
+
+            "Dividend_Paid_Register": "Dividend Paid Register"
         },
         "transaction": {
             "voucherEntry": "Voucher Entry",
@@ -253,7 +254,8 @@
             "unpaidDividendList": "Unpaid Dividend List",
             "monthlyRecoveryPrint": "'Monthly Recovery Print",
             "monthlyRecoverySubsidiary": "Monthly Recovery Subsidiary",
-            "Dividend_Paid_Register":"Dividend Paid Register"
+
+            "Dividend_Paid_Register": "Dividend Paid Register"
         },
         "LoanReport": {
             "LoanReport": "Term Loan/Cash Credit Reports",
@@ -281,7 +283,7 @@
             "analysisnpa": "NPA Analysis Report",
             "classificationsecnpa": "NPA Classification -Secured Or Unsecured",
             "classificationstandardnpa": "NPA Classification -Standard Or Non Standard",
-            "loanoverduelist": "Loan Overdue Reports"
+            "loanoverduelist": "NPA Loan Overdue List"
         },
         "nottice": {
             "nottice": "Nottice",
@@ -1011,7 +1013,62 @@
             "Schema": "Schema",
             "Account_Number": "Account Number",
             "Security_Detalis": "Security Detalis",
-            "Ledger_Balance": "Ledger Balance"
+
+            "Ledger_Balance": "Ledger Balance",
+            "Other_Security": "Other Security",
+            "Date_of_Submission": "Date Of Submission",
+            "Short_Details": "Short Details",
+            "Total_value": "Total Value",
+            "Margin": "Margin",
+            "Fill_valid_Date": "Fill_valid_Date",
+            "No_Data": "No Data",
+            "Action": "Action",
+            "Land_And_Buildings": "Land And Buildings",
+            "Submission_Date": "Submission Date",
+            "Valuation_Amount": "Valuation Amount",
+            "Location": "Location",
+            "Area": "Area",
+            "Unit_of_Area": "Unit of Area",
+            "City_Survey_Number": "City Survey Number",
+            "City_Survey_Date": "City Survey Date",
+            "Registration_Number": "Registration Number",
+            "Remarks": "Remarks",
+            "General_Insurance": "General Insurance",
+            "Insurance_Date": "Insurance Date",
+            "Policy_Number": "Policy Number",
+            "Insurance_Company": "Insurance Company",
+            "Insurance_Expiry_Date": "Insurance Expiry Date",
+            "Insurance_Amount": "Insurance Amount",
+            "Gold_And_Silver": "Gold And Silver",
+            "Item_Type": "Item Type",
+            "Gold_Bag/Receipt_Number": "Gold Bag/Receipt Number",
+            "Gold_Box_Number": "Gold Box Number",
+            "Name_of_Articles": "Name of Articles",
+            "Total_Weight_in_Gram": "Total Weight in Gram",
+            "Clear_Weight_in_Grams": "Clear Weight in Grams",
+            "Rate_Per_Gram": "Rate Per Gram",
+            "Total_Value": "Total Value",
+            "Details_of_Articles": "Details of Articles",
+            "Nominee": "Nominee",
+            "Nominee_Relation": "Nominee Relation",
+            "Details": "Details",
+            "Fire_Policy": "Fire Policy",
+            "Policy_Amount": "Policy Amount",
+            "Policy_Nature": "Policy Nature",
+            "Insurance_Code": "Insurance Code",
+            "Address": "Address",
+            "City": "City",
+            "Premium_Amount": "Premium Amount",
+            "Premium_Due_Date": "Premium Due Date",
+            "Policy_Due_Date": "Policy Due Date",
+            "Government_Security&LIC": "Government Security & LIC",
+            "Certificate/Policy_Date": "Certificate/Policy Date",
+            "Certificate/Policy_Number": "Certificate/Policy Number",
+            "Name_of_Assured": "Name of Assured",
+            "Paid_up_Amount": "Paid up Amount",
+            "Sum_Assured": "Sum Assured",
+            "Surrender_Value": "Surrender Value",
+            "Matured_Due_Date": "Matured Due Date"
         },
         "Deposit/Loan_Intrest_Rate_Edit/Change": {
             "Title": "Deposit/Loan Intrest Rate Edit/Change",
@@ -1935,6 +1992,7 @@
             "KYC" :"KYC"
 
 
+
         },
         "View_Ac_Enquiry": {
             "T1": "Account Enquiry",
@@ -2136,14 +2194,7 @@
             "Documents": "Documents",
             "Product": "Product",
             "Total": "Total",
-            "Int_Received": "Interest Received",
-            "OD_INFO" : "OD INFORMATION",
-            "OD_Days" : "OD Days",
-            "Expire_Date" :"Expire Date",
-            "Sanctioned_By" : "Sanctioned By",
-            "Periodical_Amount" :"Periodical Amount",
-            "Temporary_Amount" : "Temporary Amount",
-            "JOINT_DATE": "JOINT DATE"
+            "Int_Received": "Interest Received"
         },
         "Manager_View_GL_Postion": {
             "Title": "Manager View GL Postion",
@@ -2712,7 +2763,8 @@
             "Received": "Received",
             "Pending": "Pending",
             "All": "All",
-            "PRINT_NEW_PAGE":"Print Every Account on New Page?"
+
+            "PRINT_NEW_PAGE": "Print Every Account on New Page?"
         },
         "Term_Deposit_Reports": {
             "T1": "Matured but not paid between two days",
@@ -2766,7 +2818,8 @@
             "T6": "Unpaid Dividend List",
             "T7": "Monthly Recovery Print",
             "T8": "Monthly Recovery Subsidiary",
-            "T9":"Dividend Paid List",
+
+            "T9": "Dividend Paid List",
             "Branch": "Branch",
             "Scheme_Code": "Scheme Code",
             "Date": "Date",
@@ -2790,7 +2843,8 @@
             "To": "To",
             "Code_From": "Division Code From",
             "Code_To": "Division Code To",
-            "All_City":"All_City"
+
+            "All_City": "All_City"
         },
         "Term_Loan": {
             "T1": "Loan Security Reports",
@@ -2876,8 +2930,7 @@
             "Type": "Type",
             "Start_Code" : "Start Code",
             "End_Code" : "End Code",
-            "expenses_list" : "Expenses List",
-            "Previous_Date" :"Previous Date"
+            "expenses_list" : "Expenses List"
         },
         "Final_Reports": {
             "T1": "Trial Balance List (Concise)",
@@ -3033,71 +3086,10 @@
             "Active": "Active",
             "Place": "Please enter ID or name"
         },
-       "Member_Guranter_Details": {
+        "Member_Guranter_Details": {
             "T1": "Member Guranter Details",
             "Shares_Scheme": "Shares Scheme",
-            "Member_No": "Member No",
-            "Sr_No": "Serial Number",
-            "Exp_Date": "Exp. Date",
-            "Ac_no": "Account No",
-            "Account_Name": "Account Name",
-            "Scheme_Code": "Scheme Code ",
-            "Scheme_Type": "Scheme Type ",
-            "Open_Date": "Open Date",
-            "Sacation_Amt": "Sacation Amount",
-            "AC_Close": " AC Close",
-            "Guranter1": "Guranter1",
-            "Guranter2": "Guranter2",
-            "Close_Date": "Close DAte",
-            "Branch": "Branch",
-            "Close": "Close",
-            "Cancel": "Cancel",
-            "Submit": "Submit",
-            "Print_Closed_Acc": "बंद खाते प्रिंट करा?",
-            "Customer": "Customer",
-            "Date": "Date "
-        },
-        "Master_Card": {
-            "T1": "Master Card",
-            "Scheme": "Scheme",
-            "Member_Number": "Member Number",
-            "Name": "Name",
-            "Mobile_Number": "Mobile Number",
-            "Address": "Address",
-            "B_Date": "Birth Date",
-            "JOINT_DATE": "JOINT DATE",
-            "Retirement_Date": "Retirement Date",
-            "Status": "Status",
-            "Salary_Division": "Salary Division",
-            "Sub_Sal_Div": "Sub Salary Division",
-            "member_Liblity_view": "Member Liablity View",
-            "Action": "Action",
-            "Scheme_Name": "Scheme Name",
-            "Account_Balance": "Account Balance",
-            "Open_Date": "Open Date",
-            "Sanctions_Amount": "Sanctions Amount",
-            "Maturity_Amount": "Maturity Amount",
-            "Maturity_Date": "Maturity Date ",
-            "Month": "Month",
-            "Days": "Days",
-            "Installment": "Installment",
-            "Repay_Mode": "Repay Mode",
-            "Purpose": "Purpose",
-            "Interest": "Interest",
-            "Member_No": "Member No",
-            "Guarantor": "Guarantor",
-            "Branch": "Branch",
-            "Crdit_Amount": "Crdit Amount",
-            "Debit_Amount": "Debit Amount",
-            "Credit_Interest": "Credit Interest",
-            "Debit_Interest": "Debit Interest",
-            "Balance": "Balance",
-            "Document ":"Document ",
-           "Cust_kyc_doc": "Customer KYC Details",
-           "S_Date" :"Start Date",
-           "E_Date":"End Date",
-           "stament_view" : "Consolidate Statement View"
-
+            "Member_No": "Member No"
         },
         "Other_View": {
             "View": "View",
@@ -4227,6 +4219,7 @@
         "Posting_cancelled": "Posting cancelled",
         "cd_update" : "'Success', 'CD ratio updated successfully', 'success'"
 
+        "Inf":"Please once check your voucher, and fill requied data"
     },
     "Utility": {
         "Interest_Calculation": {
@@ -5194,6 +5187,7 @@
             "Range_Ending_Code": "Range Ending Code",
              "Account_Open": "Account_Open",
              "Closed_Account":"Closed Account"
+
         },
         "General_Acc_Statement": {
             "Title": "General Account Statement"
@@ -5304,6 +5298,7 @@
             "Scheme": "Scheme",
             "From": "From",
             "To":"To",
+
             "T4": "Voucher Printing",
             "Date": "Date",
             "Source_Type": "Source Type",
@@ -5659,22 +5654,6 @@
     "CRAR": {
         "title": "CRAR",
         "date": "Date"
-    },
-    "CRR": {
-        "title": "CRR",
-        "date": "Date",
-        "Status": "Status",
-          "Summary" : "Summary ",
-        "Detail" : "Details"
-
-    },
-    "SLR": {
-        "title": "SLR",
-        "date": "Date",
-        "Status": "Status",
-          "Summary" : "Summary ",
-        "Detail" : "Details"
-
     },
     "loanoverduelist": {
         "duebalsummary": {

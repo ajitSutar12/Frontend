@@ -247,6 +247,7 @@
                                     <!-- start of Address tab -->
                                     <!-- <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective" > -->
                                         <ngb-tab title="{{'master.Loan_overdue_report.selective'| translate}}" id="Selective" role="tab" data-toggle="tab" >
+
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -267,6 +268,7 @@
                                                                         class="bg-primary fs-1 td_center">
                                                                         {{'master.Loan_overdue_report.checkbox'|translate}}   <!-- checkbox -->
                                                                     </th>
+
                                                                 </tr>
                                                                 <tr *ngFor="let values of toAc">
                                                                     <td class="td_center">{{values.bankacno}}</td>
@@ -341,6 +343,7 @@
                                     </label>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="row justify-content-end">

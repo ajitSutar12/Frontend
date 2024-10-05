@@ -863,6 +863,7 @@ const MENUITEMS1 = [
       {
         state: 'neftRtgs',
         short_label: 'D',
+
         name: 'main.neftRtgs.Services',
         type: 'sub',
         icon: 'fa fa-money',
@@ -870,16 +871,19 @@ const MENUITEMS1 = [
         children: [
           {
             state: 'neftTransfer',
+
             name: 'main.neftRtgs.neftTransfer',
             id: 350
           },
           {
             state: 'rtgsTransfer',
+
             name: 'main.neftRtgs.rtgsTransfer',
             id: 351
           },
           {
             state: 'billPayment',
+
             name: 'main.neftRtgs.billPayment',
 
             id: 352
@@ -891,6 +895,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'cibilScore',
+
             name: 'main.neftRtgs.cibilScore',
             id: 380
           },
@@ -1716,6 +1721,7 @@ const MENUITEMS1 = [
           // },
           {
             state: 'nottice',
+
             name: 'main.nottice.nottice',
             short_label: 'D',
             type: 'sub',
@@ -1752,6 +1758,7 @@ const MENUITEMS1 = [
           //   id: 253
           // },
           //
+
           // {
           //   state: 'nottice',
           //   name: 'main.nottice.nottice',
@@ -3890,6 +3897,7 @@ const MENUITEMS = [
         state: 'neftRtgs',
         short_label: 'D',
 
+
         name: 'main.neftRtgs.Services',
         type: 'sub',
         icon: 'fa fa-money',
@@ -3897,27 +3905,32 @@ const MENUITEMS = [
         children: [
           {
             state: 'neftTransfer',
+
             name: 'main.neftRtgs.neftTransfer',
             id: 350
           },
           {
             state: 'rtgsTransfer',
+
             name: 'main.neftRtgs.rtgsTransfer',
 
             id: 351
           },
           {
             state: 'billPayment',
+
             name: 'main.neftRtgs.billPayment',
             id: 352
           },
           {
             state: 'fundTransfer',
+
             name: 'main.neftRtgs.fundTransfer',
             id: 353
           },
           {
             state: 'cibilScore',
+
             name: 'main.neftRtgs.cibilScore',
             id: 380
           },
@@ -4744,6 +4757,7 @@ const MENUITEMS = [
           //   name: 'Nottice',
           //   id: 252
           // },
+
           // {
           //   state: 'nottice',
           //   name: 'main.nottice.nottice',

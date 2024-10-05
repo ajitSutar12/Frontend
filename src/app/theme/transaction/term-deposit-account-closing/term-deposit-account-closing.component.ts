@@ -3122,7 +3122,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         // this.resetgrid();
 
       }
-      this.resetgrid()
+      // this.resetgrid()
     }
     // this.resetForm()
   }
@@ -3524,6 +3524,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this.angForm.controls["scheme1"].reset();
     this.angForm.controls["scheme_type"].reset();
     this.angForm.controls["ac_no"].reset();
+
     this.angForm.controls["tran_mode"].reset();
     this.angForm.controls["total_amt"].reset();
     this.angForm.controls["chequeNo"].reset();
