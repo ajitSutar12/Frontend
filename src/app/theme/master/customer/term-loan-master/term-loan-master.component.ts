@@ -523,10 +523,10 @@ export class TermLoanMasterComponent implements OnInit, AfterViewInit, OnDestroy
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'LN')
-      // });
-      this.intCat = data;
+      this.intCat = data.filter(function (schem) {
+        return (schem.scheme == 'LN')
+      });
+      // this.intCat = data;
     })
 
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {

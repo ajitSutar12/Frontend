@@ -13,6 +13,7 @@ import * as moment from 'moment';
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class BnkTrialBalComponent implements OnInit {
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');

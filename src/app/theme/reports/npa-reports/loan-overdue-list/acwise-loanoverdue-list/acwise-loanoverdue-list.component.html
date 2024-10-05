@@ -1,6 +1,22 @@
+<div class="col-sm-12 col-md-3">
+    <div class="form-radio">
+        <div class="radio radio-inline">
+            <label>
+                <input type="radio" name="Print_Code" value="Detail" formControlName="Print_Code" [checked]="true"
+                    [(ngModel)]="selectedOption" (change)="selectedOption = 'Detail'" />
+                <i class="helper"></i>Detail </label>
+        </div>
+        <div class="radio radio-inline">
+            <label>
+                <input type="radio" name="Print_Code" value="Summary" formControlName="Print_Code"
+                    [(ngModel)]="selectedOption" (change)="selectedOption = 'Summary'" />
+                <i class="helper"></i>Summary </label>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card"  *ngIf="selectedOption === 'Detail'">
             <div class="card-header">
                 <h5>Accountwise Loanoverdue Report</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
@@ -8,8 +24,10 @@
                 </h6>
             </div>
             <div class="card">
+
                 <form [formGroup]="ngForm ">
                     <div class="card-block scrollable">
+
                         <div class="row">
                             <div class="col-sm-12 col-md-1"> <label for="Branch">Branch<sub
                                         class="required">*</sub></label></div>
@@ -126,7 +144,8 @@
                         </div>
                         <div class="row" *ngIf=isShow>
                             <div class="col-md-12">
-                                <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont" (tabChange)="onTabChange($event)">
+                                <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont"
+                                    (tabChange)="onTabChange($event)">
                                     <!-- start of basic tab -->
                                     <ngb-tab title="Range" id="Range" class="col-md-12 border">
                                         <ng-template ngbTabContent>
@@ -207,7 +226,7 @@
                                     </ngb-tab>
                                     <!-- end of basic tab -->
                                     <!-- start of Address tab -->
-                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective" >
+                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -222,15 +241,14 @@
                                                                     <th style="width: 400px;"
                                                                         class="bg-primary fs-1 td_left">Name</th>
                                                                     <th style="width: 100px;"
-                                                                        class="bg-primary fs-1 td_center">chaeakbox</th>
+                                                                        class="bg-primary fs-1 td_center">cheakbox</th>
                                                                 </tr>
                                                                 <tr *ngFor="let values of toAc">
                                                                     <td class="td_center">{{values.bankacno}}</td>
                                                                     <td class="td_left">{{values.name}}</td>
                                                                     <td class="td_center">
-                                                                         <!-- <input type="checkbox"  (change)="checkInterestFlag(values.id,values.label,$event)" >  -->
+                                                                        <!-- <input type="checkbox"  (change)="checkInterestFlag(values.id,values.label,$event)" >  -->
                                                                         <input type="checkbox" class="border-checkbox"
-                                                            
                                                                             (change)="checkInterestFlag(values.id,values.bankacno,$event)">
 
                                                                     </td>
@@ -243,7 +261,7 @@
 
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
@@ -254,7 +272,7 @@
                             </div>
                         </div>
 
-                        <div class="row" >
+                        <div class="row">
                             <div class="col-sm col-md-3">
                                 <div class="checkbox checkbox-primary ">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
@@ -276,22 +294,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-sm-12 col-md-3">
-                            <div class="form-radio">
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="Print_Code" value="Detail"
-                                            formControlName="Print_Code" [checked]="true">
-                                        <i class="helper"></i>Detail </label>
-                                </div>
-                                <div class="radio radio-inline">
-                                    <label>
-                                        <input type="radio" name="Print_Code" value="Summary"
-                                            formControlName="Print_Code">
-                                        <i class="helper"></i>Summary </label>
-                                </div>
-                            </div>
+
                         </div>
 
                         <div class="row justify-content-end">
@@ -303,7 +306,7 @@
                                 <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
@@ -324,4 +327,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="selectedOption === 'Summary'">
+    <app-duebalancesummary></app-duebalancesummary>
 </div>

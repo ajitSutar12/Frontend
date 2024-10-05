@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-n-balance-sheet',
@@ -34,7 +36,7 @@ export class NBalanceSheetComponent implements OnInit {
   // showErrorMessage: boolean = false;
   // errorMessage: string = '';
   constructor(private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,
+    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
     private sanitizer: DomSanitizer,) {
     this.maxDate = new Date();
     this.minDate = new Date();

@@ -20,6 +20,7 @@ import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../../reports/report-frame/report-frame.component";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-interest-list',
@@ -60,6 +61,7 @@ export class InterestListComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+    private translate:TranslateService,
   ) {
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
