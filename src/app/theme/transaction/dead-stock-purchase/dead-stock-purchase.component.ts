@@ -259,19 +259,19 @@ export class DeadStockPurchaseComponent implements OnInit {
     }
 
     if (formVal.ITEM_CODE == "" || formVal.ITEM_CODE == null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Item')}`, "info");
+      Swal.fire("Warning!", "Please Insert Mandatory Record for item!", "info");
     } else if (formVal.Quantity == "" || formVal.Quantity == null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Qty')}`, "info");
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Quantity!", "info");
     } else if (formVal.Rate == "" || formVal.Rate == null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Rate')}`, "info");
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Rate!", "info");
     } else if (formVal.amount == "" || formVal.amount == null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Amount')}`, "info");
+      Swal.fire("Warning!", "Please Insert Mandatory Record for Amount", "info");
     }
     else if (this.itemArr.length != 0) {
       if (this.itemArr.some(item => item.id === object.itemId)) {
         this.itemArr.forEach((element) => {
           if (element.id == object.itemId) {
-            Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Item_Msg')}`, 'info');
+            Swal.fire('', 'This Item is Already Exists!', 'info');
           }
         })
       }
@@ -434,7 +434,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       }
       this._service.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Tran_Msg')}`, "success");
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
           this.formSubmitted = false
           this.totalAmt = 0
         },
@@ -446,7 +446,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       this.itemArr = []
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
 
@@ -508,7 +508,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       this._service.updateData(dataToSend).subscribe(
         (data) => {
 
-          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Tran_Msg')}`, "success");
+          Swal.fire("Success!", "Data Updated Successfully !", "success");
           this.formSubmitted = false
           this.totalAmt = 0
         },
@@ -522,7 +522,7 @@ export class DeadStockPurchaseComponent implements OnInit {
       button.click();
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
     this.reloadTablePassing.emit();
 
@@ -667,8 +667,8 @@ export class DeadStockPurchaseComponent implements OnInit {
       this._service.approve(dataToSend).subscribe(data => {
         this.angForm.enable()
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Approve')}`,
-          `${this.translate.instant('Swal_Msg.Deadstock')}`,
+          'Approved',
+          'Deadstock Purchase approved successfully',
           'success'
         );
         var button = document.getElementById('triggerhide');
@@ -694,8 +694,8 @@ export class DeadStockPurchaseComponent implements OnInit {
     this._service.reject(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Reject')}`,
-        `${this.translate.instant('Swal_Msg.Dead_Reject')}`,
+        'Rejected',
+        'Deadstock Purchase rejected successfully',
       );
       var button = document.getElementById('triggerhide');
       this.resetForm()
@@ -755,8 +755,8 @@ export class DeadStockPurchaseComponent implements OnInit {
     this._service.unapprove(obj).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Unapprove')}`,
-        `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
+        'Unapproved',
+        'Account unapproved successfully',
         'success'
       );
       var button = document.getElementById('triggerhide');

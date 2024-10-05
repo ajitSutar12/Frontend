@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { EditInterestCalculationService } from '../edit-interest-calculation/edit-interest-calculation.service';
 import Swal from "sweetalert2";
-import { TranslateService } from "@ngx-translate/core";
-import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-calculate-interest-deletion',
@@ -34,21 +32,11 @@ export class CalculateInterestDeletionComponent implements OnInit {
   showMsg: boolean = true;
 
   tableData: any = [];
-  setLang: string;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: EditInterestCalculationService,
-    private translate: TranslateService,
-    private systemParameter: SystemMasterParametersService,
-
-  ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-  }
+    private _service: EditInterestCalculationService
+  ) { }
 
   ngOnInit(): void {
 
@@ -111,7 +99,7 @@ export class CalculateInterestDeletionComponent implements OnInit {
 
   submit() {
     if (this.AddDataList.length == 0) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Please_select_scheme')}`, "warning");
+      Swal.fire('Oops..!', "Please select scheme data", "warning");
     } else {
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = {
@@ -120,7 +108,7 @@ export class CalculateInterestDeletionComponent implements OnInit {
         user: user
       }
       this._service.deleteVoucher(obj).subscribe(data => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Delete_Calcu')}`, 'success');
+        Swal.fire('Success', "Calculation deleted successfully", 'success');
         this.AddDataList = [];
         this.AddDataList = [];
         this.tableData = [];

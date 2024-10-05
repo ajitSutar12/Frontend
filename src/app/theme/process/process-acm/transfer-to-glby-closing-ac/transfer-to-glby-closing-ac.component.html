@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'uti.T_Clo' | translate}}</h5>
+                <h5>Transfer To GL by Closing A/c</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'uti.F1' | translate}} (<sub class="required"> * </sub>){{'uti.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'uti.Branch' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -27,11 +27,11 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'uti.Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -51,20 +51,20 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">{{'uti.GL_Acc' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="GL_AC">GL Account<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="GL_AC" bindValue="value" [(ngModel)]="schemeedit"
                                         (change)="schemechange($event)" formControlName="GL_AC" bindLabel="label"
-                                        title="Compulsory Selection" required placeholder="{{'uti.GL_Acc' | translate}}">
+                                        title="Compulsory Selection" required placeholder="GL Account Code">
                                         <ng-option *ngFor="let values of ACMasterDropdown" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -74,13 +74,13 @@
                                 *ngIf="angForm.controls['GL_AC'].invalid && (angForm.controls['GL_AC'].dirty || angForm.controls['GL_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['GL_AC'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">{{'uti.From_date' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="FROM_DATE">From Date<sub
                             class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -98,12 +98,12 @@
                                 *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">{{'uti.To_date' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="TO_DATE">To Date<sub
                             class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -121,7 +121,7 @@
                                 *ngIf="angForm.controls['TO_DATE'].invalid && (angForm.controls['TO_DATE'].dirty || angForm.controls['TO_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_DATE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
@@ -141,8 +141,7 @@
                         </div> -->
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">{{'uti.Particulars' |
-                            translate}}</label>
+                        <div class="col-sm-12 col-md-2  "><label for="PARTICULAR">Particulars</label>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group input-group">
@@ -159,7 +158,7 @@
                                 *ngIf="angForm.controls['PARTICULAR'].invalid && (angForm.controls['GL_AC'].dirty || angForm.controls['GL_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['PARTICULAR'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
@@ -168,13 +167,14 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="TRAN_PASSING"
                                         formControlName="TRAN_PASSING">
-                                    <label class="border-checkbox-label" for="TRAN_PASSING">{{'uti.Auto_Transactions_Passing' | translate}}</label>
+                                    <label class="border-checkbox-label" for="TRAN_PASSING">Auto Transactions Passing
+                                        ?</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <button class="btn btn-outline-primary btn-sm" *ngIf="showButton" [disabled]="angForm.invalid"
-                                (click)="posting()">{{'uti.Posting' | translate}}</button>
+                                (click)="posting()">Posting</button>
                         </div>
                     </div>
                 </div>

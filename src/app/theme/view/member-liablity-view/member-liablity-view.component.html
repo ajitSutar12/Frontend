@@ -78,15 +78,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <!-- <h5>Member Liability View</h5> -->
-                <h5>{{'master.Member_Guranter_Details.T1' | translate}}</h5>
-                <h6 style="float: right;"><sub class="required">* </sub>: {{'master.Action.F2' | translate}}</h6>            </div>
+                <h5>Member Liability View</h5>
+                <h6 style="float: right;"><sub class="required">* </sub> Required Fields</h6>
+            </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for=""> 
-                            <!-- Scheme Code -->
-                            {{'master.Member_Guranter_Details.Shares_Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for=""> Scheme Code<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-2">
@@ -110,15 +108,13 @@
                                 *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="">
-                            <!-- Customer -->
-                            {{'master.Member_Guranter_Details.Customer' | translate}}   <sub
+                        <div class="col-sm-12 col-md-2"> <label for="">Customer<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label" *ngIf="isCustomer1">
@@ -140,14 +136,12 @@
                                 *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['memNo'].errors?.required">
-                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
 
                         </div>
-                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">
-                            <!-- Date --> {{'master.Member_Guranter_Details.Date' | translate}}
-                            <sub class="required">*</sub></label></div>
+                        <div class="col-sm-12 col-md-1"> <label for="FROM_DATE">Date<sub class="required">*</sub></label></div>
                         <div class="col-sm-2">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -162,7 +156,7 @@
                                 *ngIf="angForm.controls['FROM_DATE'].invalid && (angForm.controls['FROM_DATE'].dirty || angForm.controls['FROM_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_DATE'].errors?.required">
-                                    <!-- This field is required. -->{{'master.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
@@ -175,25 +169,21 @@
                                 <div class="border-checkbox-group border-checkbox-group-primary">
                                     <input type="checkbox" class="border-checkbox" id="PRINT_CUSTID"
                                         formControlName="PRINT_CUSTID">
-                                    <label class="border-checkbox-label" for="PRINT_CUSTID">
-                                        <!-- Print Close Accounts? -->
-                                        {{'master.Member_Guranter_Details.T1' | translate}} </label>
+                                    <label class="border-checkbox-label" for="PRINT_CUSTID">Print Close Accounts?
+                                        </label>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-9"></div>
-                        <div class="col-md-12">
+                        <div class="col-md-1">
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                (click)="view($event); getdata(); clicked = true ">
-                                <!-- View -->
-                                {{'master.Action.View' | translate}}</button>
-                      
+                                (click)="view($event); getdata(); clicked = true ">View</button>
+                        </div>
+                        <div class="col-md-1">
                             <button type="submit" class="btn btn-outline-primary btn-sm" value="submit"
-                                (click)="close()">
-                                <!-- Close -->
-                                {{'master.Action.Close' | translate}}</button>
+                                (click)="close()">Close</button>
                         </div>
                     </div>
 
@@ -211,9 +201,7 @@
                       <div class="row justify-content-center">
                         <div class="col-sm">
                           <button type="button" class="btn btn-outline-primary btn-sm btn-submit" (click)="printTextArea()"
-                           >
-                           <!-- Print -->{{'master.Action.Print' | translate}}
-                        </button>
+                           >Print</button>
                         </div>
                 
                       </div>

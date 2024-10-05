@@ -234,7 +234,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   AGENTBRANCH: any = null
   Recommended: any[]
   joinDate: any;
-  setLang: any;
+  setLang:any;
   constructor(private fb: FormBuilder,
     public categoryMasterService: categoryMasterService,
     public IntrestCategoryMasterDropdownService: IntrestCategoryMasterDropdownService,
@@ -251,7 +251,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     private systemParameter: SystemMasterParametersService,
     private directorMasterDropdown: DirectorMasterDropdownService,
     public sanitizer: DomSanitizer,
-    private translate: TranslateService,
+    private translate:TranslateService,
     private datePipe: DatePipe,) {
     if (this.childMessage != undefined) {
 
@@ -1041,7 +1041,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   }
   ngexpiry: any
   // Method to insert data into database through NestJS
-  isDisable = false
+  isDisable=false
   submit(event) {
     let temdate
     let opdate
@@ -1143,7 +1143,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.isDisable = false
         Swal.fire({
           icon: 'success',
-          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
+          title: 'Account Created successfully!',
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -1165,7 +1165,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.customerDoc = []
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
 
@@ -1424,7 +1424,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
 
     // }
     this.PigmyAccountMasterService.updateData(data).subscribe(() => {
-      Swal.fire('Success!', `${this.translate.instant('Swal_Msg.Updated_Successfully')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1441,8 +1441,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Pigmy_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Pigmy Account master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1453,8 +1453,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         this.PigmyAccountMasterService.deleteData(id).subscribe(data1 => {
           this.pigmyAccountMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -1468,8 +1468,8 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -1595,28 +1595,27 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       AC_NPIN: formVal.AC_NPIN,
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
 
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
 
-
-              Swal.fire('', `${this.translate.instant('Swal_Msg.Nomi_Exist')}`, 'error');
+              Swal.fire('', 'This Nominee is Already Exists!', 'error');
 
             } else {
 
@@ -1697,17 +1696,17 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+      Swal.fire("Please Insert Mandatory Record For Nominee");
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -1789,21 +1788,21 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
 
-              Swal.fire('', `${this.translate.instant('Swal_Msg.Joint_Ac')}`, 'warning');
+              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
             } else {
               this.multiJointAC.push(object);
             }
           }
         }
         else {
-          Swal.fire('', `${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
+          Swal.fire('', "Please Select Different Customer id", 'warning');
         }
       }
       else {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.G_CustId')}`, 'warning');
+        Swal.fire('', "Please Select Guarantor Customer Id", 'warning');
       }
     } else {
-      Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
+      Swal.fire('', "Please Select Customer Id", 'warning');
     }
     this.resetJointAC()
     this.jointID = null
@@ -1845,7 +1844,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         }
         else {
           if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-            Swal.fire(`${this.translate.instant('Swal_Msg.Cust_Exist')}`, "error");
+            Swal.fire("This Customer is Already Exists", "error");
           }
           else {
             this.multiJointAC[index] = object
@@ -1853,10 +1852,10 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
         }
       }
       else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
+        Swal.fire("Please Select Different Customer id", "error");
       }
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
     this.resetJointAC()
   }
@@ -1891,7 +1890,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.PigmyAccountMasterService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Pigmy_Approve')}`,
+        title: 'Pigmy Account Approved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1916,7 +1915,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.PigmyAccountMasterService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Pigmy_Reject')}`,
+        title: 'Pigmy Account rejected successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1967,7 +1966,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
     this.PigmyAccountMasterService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.U_Msg')}`,
+        title: 'Account unapproved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1987,7 +1986,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
       })
     }
 
@@ -1999,7 +1998,7 @@ export class PigmyAccountMasterComponent implements OnInit, AfterViewInit, OnDes
       this.multiJointAC.splice(id, 1)
 
       this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Joint_Acc_del')}`, 'success');
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
       })
     }
   }

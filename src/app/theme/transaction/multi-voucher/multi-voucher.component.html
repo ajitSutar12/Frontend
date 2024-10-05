@@ -205,7 +205,7 @@
                                                         placeholder=" " id="ChequeNo"
                                                         style="text-transform: capitalize;"
                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)" required
-                                                        formControlName="chequeNo" (keyup)="chequeNoData($event)"
+                                                        formControlName="chequeNo" (focusout)="chequeNoData($event)"
                                                         maxlength="10">
                                                 </span>
                                             </div>

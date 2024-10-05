@@ -27,7 +27,7 @@ import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
-import { TranslateService } from '@ngx-translate/core';
+
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -65,7 +65,6 @@ export class PlantAndMachineryComponent
   datemax: string;
   newbtnShow: boolean;
   logDate: any;
-  setLang: string;
   newItemEvent(value) {
     this.newPlantandMachiEvent.emit(value);
   }
@@ -107,9 +106,7 @@ export class PlantAndMachineryComponent
     private fb: FormBuilder,
     private _plant: plantmachineryService,
     private http: HttpClient,private systemParameter: SystemMasterParametersService,
-    public router: Router,
-    private translate:TranslateService,
-
+    public router: Router
   ) {
 
      // this.maxDate = new Date();
@@ -122,8 +119,6 @@ export class PlantAndMachineryComponent
        this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
        this.maxDate = this.maxDate._d 
        this.logDate = data.CURRENT_DATE
-       this.setLang = data.SET_LANGUAGE
-       this.translate.setDefaultLang(this.setLang);
      })
 
   }

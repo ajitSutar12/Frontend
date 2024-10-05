@@ -24,8 +24,6 @@ import { environment } from "../../../../../../environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -67,7 +65,6 @@ export class StockStatementComponent
   datemax: string;
   newbtnShow: boolean;
   logDate: any;
-  setLang: string;
   newItemEvent(value) {
     this.newStockEvent.emit(value);
   }
@@ -125,17 +122,13 @@ export class StockStatementComponent
     private fb: FormBuilder,
     private _stock: stockcomponentservice,
     private http: HttpClient,
-    public router: Router,
-    private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,
+    public router: Router
   ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-    this.setLang = data.SET_LANGUAGE
-    this.translate.setDefaultLang(this.setLang);
 
     // this.systemParameter.getFormData(1).subscribe(data => {
 
@@ -143,9 +136,8 @@ export class StockStatementComponent
     //   this.maxDate = this.maxDate._d 
     //   this.logDate = data.CURRENT_DATE
     // })
-    
-  })
-}
+
+  }
 
   ngOnInit(): void {
     this.createForm();

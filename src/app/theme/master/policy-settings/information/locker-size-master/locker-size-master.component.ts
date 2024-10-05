@@ -178,7 +178,7 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
       SIZE_SR_NO: [''],
       SIZE_NAME: ['', [Validators.required, Validators.pattern]],
       RENT: ['', [Validators.required, Validators.pattern]],
-      BRANCH_CODE: ['']
+      BRANCH_CODE:['']
     });
   }
 
@@ -192,7 +192,7 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
       'BRANCH_CODE': this.ngBranchCode
     }
     this.lockerSizeMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -240,7 +240,7 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.lockerSizeMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -260,8 +260,8 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Locker_Size_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Locker Size master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -272,8 +272,8 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
         this.lockerSizeMasterService.deleteData(id).subscribe(data1 => {
           this.lockerSizeMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -285,8 +285,8 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -359,10 +359,10 @@ export class LockerSizeMasterComponent implements OnInit, AfterViewInit, OnDestr
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

@@ -2,15 +2,15 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'Utility.Interest_Passing.Calculate_Interest_Unpassing' | translate}}</h5>
+                <h5>Interest Calculation Unpassing</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'Utility.Action.F1' | translate}} (<sub class="required"> * </sub>) {{'Utility.Action.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="INT_DATE">{{'Utility.Interest_Passing.Interest_Date' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="INT_DATE">Interest Date<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -24,7 +24,7 @@
                                     </ng-select> -->
                                     <ng-select bindValue="TRAN_DATE" [(ngModel)]="ngintDate" formControlName="INT_DATE"
                                         bindLabel="TRAN_DATE" title="Compulsory Selection" required
-                                        placeholder="{{'Utility.Interest_Passing.Interest_Date' | translate}}" (change)="getIntDetails($event)">
+                                        placeholder="Interest Date" (change)="getIntDetails($event)">
                                         <ng-option *ngFor="let values of warrentDate" [value]="values">
                                             {{values.TRAN_DATE}}
                                         </ng-option>
@@ -35,16 +35,16 @@
                                 *ngIf="angForm.controls['INT_DATE'].invalid && (angForm.controls['INT_DATE'].dirty || angForm.controls['INT_DATE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['INT_DATE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-5"></div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="submit()">{{'Utility.Interest_Passing.Unpass' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="submit()">Unpass</button>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn btn-outline-primary btn-sm" (click)="canceldata()">{{'Utility.Action.Cancel' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="canceldata()">Cancel</button>
                         </div>
                     </div>
                     <div class="row">
@@ -53,9 +53,9 @@
                                 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                                     class="table table-striped table-bordered table-hover compact">
                                     <thead>
-                                        <td class="td_right">{{'Utility.Interest_Passing.Schema' | translate}}</td>
-                                        <td>{{'Utility.Interest_Passing.Schema_Code' | translate}}</td>
-                                        <td>{{'Utility.Interest_Passing.Unpass' | translate}}</td>
+                                        <td class="td_right">Scheme</td>
+                                        <td>Scheme Code</td>
+                                        <td>Unpass</td>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of tableData">
@@ -67,7 +67,7 @@
                                         </tr>
                                         <tr *ngIf="tableData.length==0">
                                             <td colspan="12" class="no-data-available" style="text-align: center;">
-                                                {{'Utility.Action.No_Data' | translate}}
+                                                No data!
                                             </td>
                                         </tr>
 

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-loan-security-report',
@@ -19,7 +22,17 @@ export class LoanSecurityReportComponent implements OnInit {
   // directorlorTrue: boolean = false;
   // directorrecommendedTrue: boolean = false;
 
-  constructor(private_router: Router) { }
+  setLang: any;
+  constructor(private_router: Router, private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService
+  ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
+
 
   ngOnInit(): void {
   }
@@ -35,7 +48,7 @@ export class LoanSecurityReportComponent implements OnInit {
       // this.recoveryClerkTrue = false;
       // this.directorlorTrue = false;
       // this.directorrecommendedTrue = false;
-      
+
 
     }
     else if (val == 2) {
@@ -47,80 +60,80 @@ export class LoanSecurityReportComponent implements OnInit {
       // this.recoveryClerkTrue = false;
       // this.directorlorTrue = false;
       // this.directorrecommendedTrue = false;
-      
+
 
     }
-  //   else if (val == 3) {
-  //     this.goldSilverSecTrue = false;
-  //     this.accountwiseTrue = false;
-  //     this.installmentwiseTrue = true;
-  //     this.otherreceiveInstallTrue = false;
-  //     this.citiwiselorTrue = false;
-  //     this.recoveryClerkTrue = false;
-  //     this.directorlorTrue = false;
-  //     this.directorrecommendedTrue = false;
-      
+    //   else if (val == 3) {
+    //     this.goldSilverSecTrue = false;
+    //     this.accountwiseTrue = false;
+    //     this.installmentwiseTrue = true;
+    //     this.otherreceiveInstallTrue = false;
+    //     this.citiwiselorTrue = false;
+    //     this.recoveryClerkTrue = false;
+    //     this.directorlorTrue = false;
+    //     this.directorrecommendedTrue = false;
 
-  //   }
-  //   else if (val == 4) {
-  //     this.goldSilverSecTrue = false;
-  //     this.accountwiseTrue = false;
-  //     this.installmentwiseTrue = false;
-  //     this.otherreceiveInstallTrue = true;
-  //     this.citiwiselorTrue = false;
-  //     this.recoveryClerkTrue = false;
-  //     this.directorlorTrue = false;
-  //     this.directorrecommendedTrue = false;
-      
 
-  //   }
-  //   else if (val == 5) {
-  //     this.goldSilverSecTrue = false;
-  //     this.accountwiseTrue = false;
-  //     this.installmentwiseTrue = false;
-  //     this.otherreceiveInstallTrue = false;
-  //     this.citiwiselorTrue = true;
-  //     this.recoveryClerkTrue = false;
-  //     this.directorlorTrue = false;
-  //     this.directorrecommendedTrue = false;
-      
+    //   }
+    //   else if (val == 4) {
+    //     this.goldSilverSecTrue = false;
+    //     this.accountwiseTrue = false;
+    //     this.installmentwiseTrue = false;
+    //     this.otherreceiveInstallTrue = true;
+    //     this.citiwiselorTrue = false;
+    //     this.recoveryClerkTrue = false;
+    //     this.directorlorTrue = false;
+    //     this.directorrecommendedTrue = false;
 
-  //   }
-  //   else if (val == 6) {
-  //     this.goldSilverSecTrue = false;
-  //     this.accountwiseTrue = false;
-  //     this.installmentwiseTrue = false;
-  //     this.otherreceiveInstallTrue = false;
-  //     this.citiwiselorTrue = false;
-  //     this.recoveryClerkTrue = true;
-  //     this.directorlorTrue = false;
-  //     this.directorrecommendedTrue = false;
-    
 
-  //   }
-  //   else if (val == 7) {
-  //     this.goldSilverSecTrue = false;
-  //     this.accountwiseTrue = false;
-  //     this.installmentwiseTrue = false;
-  //     this.otherreceiveInstallTrue = false;
-  //     this.citiwiselorTrue = false;
-  //     this.recoveryClerkTrue = false;
-  //     this.directorlorTrue = true;
-  //     this.directorrecommendedTrue = false;
-     
+    //   }
+    //   else if (val == 5) {
+    //     this.goldSilverSecTrue = false;
+    //     this.accountwiseTrue = false;
+    //     this.installmentwiseTrue = false;
+    //     this.otherreceiveInstallTrue = false;
+    //     this.citiwiselorTrue = true;
+    //     this.recoveryClerkTrue = false;
+    //     this.directorlorTrue = false;
+    //     this.directorrecommendedTrue = false;
 
-  //   }
-  //   else if (val == 8) {
-  //     this.goldSilverSecTrue = false;
-  //     this.accountwiseTrue = false;
-  //     this.installmentwiseTrue = false;
-  //     this.otherreceiveInstallTrue = false;
-  //     this.citiwiselorTrue = false;
-  //     this.recoveryClerkTrue = false;
-  //     this.directorlorTrue = false;
-  //     this.directorrecommendedTrue = true;
-     
 
-  //   }
+    //   }
+    //   else if (val == 6) {
+    //     this.goldSilverSecTrue = false;
+    //     this.accountwiseTrue = false;
+    //     this.installmentwiseTrue = false;
+    //     this.otherreceiveInstallTrue = false;
+    //     this.citiwiselorTrue = false;
+    //     this.recoveryClerkTrue = true;
+    //     this.directorlorTrue = false;
+    //     this.directorrecommendedTrue = false;
+
+
+    //   }
+    //   else if (val == 7) {
+    //     this.goldSilverSecTrue = false;
+    //     this.accountwiseTrue = false;
+    //     this.installmentwiseTrue = false;
+    //     this.otherreceiveInstallTrue = false;
+    //     this.citiwiselorTrue = false;
+    //     this.recoveryClerkTrue = false;
+    //     this.directorlorTrue = true;
+    //     this.directorrecommendedTrue = false;
+
+
+    //   }
+    //   else if (val == 8) {
+    //     this.goldSilverSecTrue = false;
+    //     this.accountwiseTrue = false;
+    //     this.installmentwiseTrue = false;
+    //     this.otherreceiveInstallTrue = false;
+    //     this.citiwiselorTrue = false;
+    //     this.recoveryClerkTrue = false;
+    //     this.directorlorTrue = false;
+    //     this.directorrecommendedTrue = true;
+
+
+    //   }
   }
 }

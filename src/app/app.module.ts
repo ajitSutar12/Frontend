@@ -14,7 +14,7 @@ import { BreadcrumbsComponent } from './layout/admin/breadcrumbs/breadcrumbs.com
 import { HotkeyModule } from 'angular2-hotkeys';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HotKeysComponent } from './theme/hot-keys/hot-keys.component';
-import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { AuthInterceptorServices } from '../app/theme/auth/auth.interceptor.service';
 import { UserAuthInterceptor } from './user-auth.interceptor';
 import { ConnectionServiceModule } from 'ng-connection-service';
@@ -28,9 +28,6 @@ import { GlobalErrorHandler } from './app.service';
 import { ShortcutKeyModule } from './theme/shortcut-key/shortcut-key.module';
 import { MinusPipe } from './minus.pipe';
 import { HighlighterPipe } from './layout/admin/highlighter.pipe';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { SystemMasterParametersService } from './theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 // import { ShortcutKeyComponent } from './theme/shortcut-key/shortcut-key.component';
 
 @NgModule({
@@ -60,18 +57,10 @@ import { SystemMasterParametersService } from './theme/utility/scheme-parameters
     NgPasswordValidatorModule,
     DataTablesModule,
     // InfiniteScrollModule,
-    ShortcutKeyModule,
-    // translate
-    TranslateModule.forRoot({
-      loader:{
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps:[HttpClient]
-      }
-    })
+    ShortcutKeyModule
 
   ],
-  providers: [MenuItems,SystemMasterParametersService,
+  providers: [MenuItems,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
@@ -81,7 +70,4 @@ import { SystemMasterParametersService } from './theme/utility/scheme-parameters
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
 

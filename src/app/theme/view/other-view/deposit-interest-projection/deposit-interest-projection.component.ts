@@ -9,6 +9,7 @@ import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-para
 import { TermDepositSchemeService } from 'src/app/theme/utility/scheme-parameters/term-deposit-scheme/term-deposit-scheme.service';
 import Swal from 'sweetalert2';
 import { OtherViewService } from '../other-view.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-deposit-interest-projection',
@@ -38,12 +39,13 @@ export class DepositInterestProjectionComponent implements OnInit {
   i: number;
   resultData: any;
   modalClass: string = 'modalHide';
+  setLang: any;
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     private _termDepositScheme: TermDepositSchemeService,
     private datePipe: DatePipe,
     private _services: OtherViewService,
-
+    private translate:TranslateService,
     private schemeCodeDropdownService: SchemeCodeDropdownService) {
     this.dates = moment().format('DD/MM/YYYY');
     // this.maxDate = new Date();
@@ -51,6 +53,8 @@ export class DepositInterestProjectionComponent implements OnInit {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

@@ -28,8 +28,8 @@ class DataTableResponse {
 interface IntrestCatagoryMaster {
   CODE: number,
   NAME: string,
-  ACNOTYPE: string;
-}
+  ACNOTYPE : string;
+} 
 
 @Component({
   selector: 'app-interest-category-master',
@@ -56,7 +56,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
   Data: any;
 
 
-  schemetype: Array<IOption> = this.SchemeTypes.getCharacters();
+  schemetype: Array<IOption> = this.SchemeTypes.getCharacters(); 
 
   ngschemetype
 
@@ -88,7 +88,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     private http: HttpClient,
     private interestCategoryMasterService: InterestCategoryMasterService,
     public SchemeTypes: SchemeTypeDropdownService,
-    private fb: FormBuilder, private translate: TranslateService) { }
+    private fb: FormBuilder,private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -139,14 +139,14 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
           title: this.translate.instant('master.Interest_Category_Master.Action')
         },
         {
-          title: this.translate.instant('master.Interest_Category_Master.Interest_Category_Code'),
+          title:  this.translate.instant('master.Interest_Category_Master.Interest_Category_Code'),
           data: 'CODE'
         },
         {
-          title: this.translate.instant('master.Interest_Category_Master.AcNoType'),
+          title:  this.translate.instant('master.Interest_Category_Master.AcNoType'),
           data: 'ACNOTYPE'
         }, {
-          title: this.translate.instant('master.Interest_Category_Master.Description'),
+          title:  this.translate.instant('master.Interest_Category_Master.Description'),
           data: 'NAME'
         },
       ],
@@ -172,7 +172,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       'ACNOTYPE': formVal.ACNOTYPE
     }
     this.interestCategoryMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -195,11 +195,11 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       this.angForm.setValue({
         'CODE': data.CODE,
         'NAME': data.NAME,
-        'ACNOTYPE': data.ACNOTYPE
+        'ACNOTYPE':data.ACNOTYPE
       })
     })
   }
-  addNewData() {
+  addNewData(){
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -210,7 +210,7 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.interestCategoryMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = true;
@@ -218,15 +218,15 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      this.resetForm();
+            this.resetForm();
     })
   }
 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Category_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Interest Category master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -237,8 +237,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         this.interestCategoryMasterService.deleteData(id).subscribe(data1 => {
           this.intrestCatagoryMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -250,8 +250,8 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -298,13 +298,13 @@ export class InterestCategoryMasterComponent implements OnInit, AfterViewInit, O
     });
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
-  onFocus(ele: NgSelectComponent) {
+  onFocus(ele: NgSelectComponent) {  
     ele.open()
   }
 }

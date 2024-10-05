@@ -581,7 +581,7 @@ export class LoanBalanceBetTwoDatesComponent implements OnInit {
     }
     else {
       this.formSubmitted = false;
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

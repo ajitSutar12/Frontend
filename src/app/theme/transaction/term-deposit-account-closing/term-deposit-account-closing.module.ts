@@ -9,7 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SchemeCodeService } from '../../../shared/elements/scheme-code.service';
 import { AcountnoService } from '../../../shared/elements/acountno.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
@@ -28,6 +28,8 @@ import { ThemeModule } from '../../theme.module'
 import { BankMasterService } from 'src/app/shared/dropdownService/bank-Master-dropdown.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { TermDepositInterestRateService } from '../../master/policy-settings/definations/term-deposit-ir/term-deposit-ir.service';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +40,14 @@ import { TermDepositInterestRateService } from '../../master/policy-settings/def
     NgSelectModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   declarations: [TermDepositAccountClosingComponent],
   exports: [TermDepositAccountClosingComponent],
@@ -52,5 +61,10 @@ import { TermDepositInterestRateService } from '../../master/policy-settings/def
     SchemeTypeService, SchemeCodeDropdownService, SavingMasterService,BankMasterService,ACMasterDropdownService,TermDepositInterestRateService]
 })
 export class TermDepositAccountClosingModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}
+
+
 
 

@@ -80,7 +80,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     private http: HttpClient,
     private ownBranchService: OwnBranchService,
     private _acMaster: ACMasterDropdownService,
-    private fb: FormBuilder, private translate: TranslateService) {
+    private fb: FormBuilder,private translate:TranslateService) {
   }
 
   ngOnInit(): void {
@@ -176,11 +176,11 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Method to insert data into database through NestJS
   submit() {
     const formVal = this.angForm.value;
-    //get bank code and branch code from session
-    let data: any = localStorage.getItem('user');
-    let result = JSON.parse(data);
-    console.log(result)
-    let branchCode = result.branch.syspara.id;
+      //get bank code and branch code from session
+      let data: any = localStorage.getItem('user');
+      let result = JSON.parse(data);
+      console.log(result)
+      let branchCode = result.branch.syspara.id;
     const dataToSend = {
       'CODE': formVal.CODE,
       'AC_NO': this.ngAcNo,
@@ -189,7 +189,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
 
     }
     this.ownBranchService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -200,13 +200,13 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.resetForm();
   }
 
-  addNewData() {
+  addNewData(){
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
     this.resetForm();
   }
-
+  
   //Method for append data into fields
   editClickHandler(id) {
     this.showButton = false;
@@ -229,7 +229,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.ownBranchService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -243,8 +243,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
-      text: `${this.translate.instant('Swal_Msg.delete_own_branch')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete own branch data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -255,7 +255,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.ownBranchService.deleteData(id).subscribe(data1 => {
           this.ownBranches = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -267,7 +268,8 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -304,7 +306,7 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
   // Reset Function
   resetForm() {
     this.createForm();
-    this.ngAcNo = null
+    this.ngAcNo=null
     // this.angForm.controls['AC_NO'].reset()
   }
   rerender(): void {
@@ -316,14 +318,14 @@ export class OwnBranchMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
 
-  onFocus(ele: NgSelectComponent) {
+  onFocus(ele: NgSelectComponent) {  
     ele.open()
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

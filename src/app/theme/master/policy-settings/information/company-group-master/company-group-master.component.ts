@@ -116,7 +116,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     public SchemeCodeDropdownService: SchemeCodeDropdownService,
     private _service: VoucherEntryService,
     private ownbranchMasterService: OwnbranchMasterService,
-    private translate: TranslateService,
+    private translate:TranslateService,
     private config: NgSelectConfig,) { }
 
 
@@ -275,7 +275,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
 
     }
     this.companyGroupMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -336,7 +336,7 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.companyGroupMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -350,8 +350,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Company_Group')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Company Group Master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -362,8 +362,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
         this.companyGroupMasterService.deleteData(id).subscribe(data1 => {
           this.companyGroupMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -375,8 +375,8 @@ export class CompanyGroupMasterComponent implements OnInit, AfterViewInit, OnDes
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }

@@ -18,7 +18,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-npaclassification-secured-unsecurd',
   templateUrl: './npaclassification-secured-unsecurd.component.html',
@@ -55,14 +55,15 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     report_url = environment.report_url;
     branchName: any;
   glDetails: any;
-  
+  setLang:any;
     constructor(
       private fb: FormBuilder,
       private _ownbranchmasterservice: OwnbranchMasterService,
       private systemParameter:SystemMasterParametersService,
       public schemeCodeDropdownService: SchemeCodeDropdownService,
       private sanitizer: DomSanitizer,
-      private http: HttpClient,
+      private http: HttpClient,  private translate:TranslateService
+
     ) {
       this.todate = moment().format('DD/MM/YYYY');
       this.maxDate = new Date();
@@ -101,6 +102,8 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
     
     this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
     this.fromdate = this.fromdate._d
+    this.setLang = data.SET_LANGUAGE
+    this.translate.setDefaultLang(this.setLang);
   })
     
     let data: any = localStorage.getItem('user');
@@ -216,7 +219,8 @@ export class NpaclassificationSecuredUnsecurdComponent implements OnInit {
      this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(()=>{ this.clicked=false});
     }
     }
     close(){

@@ -3,17 +3,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <!-- <h5>Member Guranter Details</h5> -->
-                <h5>{{'master.Member_Guranter_Details.T1'|translate}}</h5>
-                
-                <h6 style="float: right;"><sub class="required">* </sub>: {{'master.Action.F2'|translate}}</h6>
+                <h5>Member Guranter Details</h5>
+                <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6>
             </div>
             <form [formGroup]="angForm" novalidate>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
-                            <!-- Branch Code -->
-                            {{'View.Action.Branch' | translate}} <sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch Code<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label" >
@@ -29,15 +25,13 @@
                                 *ngIf="angForm.controls['branch_code'].invalid && (angForm.controls['branch_code'].dirty || angForm.controls['branch_code'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['branch_code'].errors?.required">
-                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
-                                    </div>
+                                    This field is required
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
-                            <!-- Shares Scheme -->
-                            {{'master.Member_Guranter_Details.Shares_Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Shares Scheme<sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -54,15 +48,13 @@
                                 *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
-                            <!-- Member No. -->
-                            {{'master.Member_Guranter_Details.Member_No' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Member No.<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group form-primary form-static-label">
@@ -83,7 +75,7 @@
                                 *ngIf="angForm.controls['memNo'].invalid && (angForm.controls['memNo'].dirty || angForm.controls['memNo'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['memNo'].errors?.required">
-                                        <!-- This field is required. --> {{'master.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
 
@@ -96,32 +88,19 @@
                                     *ngIf="tableData?.length != 0">
                                     <!-- <table class="table table-bordered table-hover compact" *ngIf="tableData?.length != 0"> -->
                                     <thead>
-                                        <td> {{'master.Member_Guranter_Details.Sr_No' | translate}}</td>
-                                        <!-- <td>S Type</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Scheme_Type' | translate}}</td>
-                                        <!-- <td>S Code</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Scheme_Code' | translate}}</td>
-                                        <!-- <td>Ac No</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Ac_no' | translate}}</td>
-                                        <!-- <td style="width: 50px;">Ac Name</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Account_Name' | translate}}</td>
-                                        <!-- <td>Sacation Amount</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Sacation_Amt' | translate}}</td>
-                                        <!-- <td>Open Date</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Open_Date' | translate}}</td>
-                                        <!-- <td>EXPIRE DATE</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Exp_Date' | translate}}</td>
-                                        <!-- <td>Ac Closed</td> -->
-                                        <td> {{'master.Member_Guranter_Details.AC_Close' | translate}}</td>
-                                        <!-- <td style="width: 50px;">Guranter1</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Guranter1' | translate}}</td>
-                                        <!-- <td>Guranter2</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Guranter2' | translate}}</td>
-                                        <!-- <td>Close Date</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Close_Date' | translate}}</td>
-                                        <!-- <td>Branch</td> -->
-                                        <td> {{'master.Member_Guranter_Details.Branch' | translate}}</td>
-
+                                        <td>Sr.No</td>
+                                        <td>S Type</td>
+                                        <td>S Code</td>
+                                        <td>Ac No</td>
+                                        <td style="width: 50px;">Ac Name</td>
+                                        <td>Sacation Amount</td>
+                                        <td>Open Date</td>
+                                        <td>EXPIRE DATE</td>
+                                        <td>Ac Closed</td>
+                                        <td style="width: 50px;">Guranter1</td>
+                                        <td>Guranter2</td>
+                                        <td>Close Date</td>
+                                        <td>Branch</td>
                                     </thead>
                                     <tbody *ngIf="tableData?.length != 0">
                                         <tr *ngFor="let row of tableData,let i=index">
@@ -181,17 +160,11 @@
 
                     <div class="row mt-3">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">
-                                <!-- Close -->
-                                {{'master.Member_Guranter_Details.Close' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button>
 
-                            <button class="btn  btn-outline-primary btn-sm" (click)="reset()">
-                                <!-- Cancel -->
-                                {{'master.Member_Guranter_Details.Cancel' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="reset()">Cancel</button>
 
-                            <button class="btn  btn-outline-primary btn-sm" (click)="update()">
-                                <!-- submit -->
-                                {{'master.Member_Guranter_Details.Submit' | translate}}</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="update()">submit</button>
 
                         </div>
                     </div>

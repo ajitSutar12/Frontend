@@ -2,7 +2,8 @@
     <div class="col-sm-3">
         <div class="card">
             <div class="card-header">
-                <h5>View</h5>
+                <!-- <h5>View</h5> -->
+                <h5>{{'master.Other_View.View' | translate}}</h5>
             </div>
             <div class="card-block">
                 <div class="col-md-12">
@@ -16,7 +17,8 @@
                                 <h6> <a (click)="OpenLink(1)" routerLinkActive="active" routerLink="/view/otherView"
                                         [ngClass]="{'isActive': interestpaidhistoryTrue}" class="text-right f-w-600"
                                         id="pointer">1.
-                                        Interest Paid History</a></h6>
+                                        <!-- Interest Paid History -->
+                                        {{'master.Other_View.Interest_Paid_History' | translate}}</a></h6>
                             </li>
                             <!-- <li>
                                 <h6> <a (click)="OpenLink(2)" routerLinkActive="active" class="text-right f-w-600"
@@ -31,24 +33,30 @@
                             <li>
                                 <h6> <a (click)="OpenLink(4)" routerLinkActive="active" class="text-right f-w-600"
                                         routerLink="/view/otherView" [ngClass]="{'isActive': loanprojectionTrue}"
-                                        id="pointer">2. Loan Projection</a></h6>
+                                        id="pointer">2.
+                                         <!-- Loan Projection -->
+                                        {{'master.Other_View.Loan_Projection' | translate}} </a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(5)" routerLinkActive="active" class="text-right f-w-600"
                                         routerLink="/view/otherView"
-                                        [ngClass]="{'isActive': loaninstallmentinquiryTrue}" id="pointer">3. Loan
-                                        Installment Enquiry</a></h6>
+                                        [ngClass]="{'isActive': loaninstallmentinquiryTrue}" id="pointer">3. 
+                                        <!-- Loan Installment Enquiry -->
+                                        {{'master.Other_View.Loan_Installment_Enquiry' | translate}}</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(6)" routerLinkActive="active" class="text-right f-w-600"
                                         routerLink="/view/otherView"
-                                        [ngClass]="{'isActive': depositinterestprojectionTrue}" id="pointer">4. Deposit
-                                        Interest Projection</a></h6>
+                                        [ngClass]="{'isActive': depositinterestprojectionTrue}" id="pointer">4. 
+                                        <!-- Deposit Interest Projection -->
+                                        {{'master.Other_View.Deposit_Interest_Projection' | translate}}</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(7)" routerLinkActive="active" class="text-right f-w-600"
                                         routerLink="/view/otherView" [ngClass]="{'isActive': ratioanalysisTrue}"
-                                        id="pointer">5. Ratio Analysis</a></h6>
+                                        id="pointer">5. 
+                                        <!-- Ratio Analysis -->
+                                        {{'master.Other_View.Ratio_Analysis' | translate}}</a></h6>
                             </li>
                             <!-- <li>
                                 <h6> <a (click)="OpenLink(8)" routerLinkActive="active" class="text-right f-w-600"
@@ -83,7 +91,9 @@
                             <li>
                                 <h6> <a (click)="OpenLink(14)" routerLinkActive="active" class="text-right f-w-600"
                                         routerLink="/view/otherView" [ngClass]="{'isActive': cdratioanalysisTrue}"
-                                        id="pointer">6. CD Ratio Analysis</a></h6>
+                                        id="pointer">6. 
+                                        <!-- CD Ratio Analysis -->
+                                        {{'master.Other_View.CD_Ratio_Analysis' | translate}}</a></h6>
                             </li>
                         </ul>
                     </perfect-scrollbar>

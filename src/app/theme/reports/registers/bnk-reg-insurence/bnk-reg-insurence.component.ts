@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -54,19 +54,25 @@ export class BnkRegInsurenceComponent implements OnInit {
     { id: 2, name: "Operation" },
     { id: 2, name: "Interest Category" },
   ];
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter:SystemMasterParametersService,
+    private systemParameter:SystemMasterParametersService,   private translate:TranslateService
     //  private schemeAccountNoService: SchemeAccountNoService,
   ) {
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
   // Method to handle validation of form
   createForm() {
@@ -160,7 +166,8 @@ export class BnkRegInsurenceComponent implements OnInit {
       // let ageCaldate
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
     }
   }
 

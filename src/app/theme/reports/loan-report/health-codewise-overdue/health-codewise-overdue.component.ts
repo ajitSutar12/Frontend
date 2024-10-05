@@ -54,16 +54,23 @@ export class HealthCodewiseOverdueComponent implements OnInit {
   shemeDetails: any
   showLoading: boolean = false;
   isShow: boolean = true;
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,    private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,    
 
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private translate:TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -240,7 +247,7 @@ export class HealthCodewiseOverdueComponent implements OnInit {
     }
     else {
       this.formSubmitted = false;
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

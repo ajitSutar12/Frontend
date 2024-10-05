@@ -9,7 +9,8 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { ReportFrameComponent } from '../../../report-frame/report-frame.component';
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-loan-due-list-btod',
   templateUrl: './loan-due-list-btod.component.html',
@@ -36,15 +37,23 @@ export class LoanDueListBtodComponent implements OnInit {
   fromAc: any;
   toAc: any;
   branchName: string;
-  
+  setLang: any;
 
 
   constructor(
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
-    private sanitizer: DomSanitizer,
+    private sanitizer: DomSanitizer,  private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-  ) { }
+  ) { 
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+     
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
+  }
 
   
 //ngfor variable
@@ -62,7 +71,7 @@ ngOnInit(): void {
     this.branchCode = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 1 && result.RoleDefine[0].Role.id==1) {
         this.branchCode.push({ value: '0', label: 'Consolidate' })
       }    
 
@@ -96,8 +105,8 @@ createForm(){
     branch: ['',[Validators.required]],
     fdate: ['',[Validators.required]],
     tdate: ['',[Validators.required]],
-    // mininst: ['',[Validators.required]],
-    // maxinst: ['',[Validators.required]]
+    mininst: ['',[Validators.required]],
+    maxinst: ['',[Validators.required]]
     
   });
 }
@@ -106,10 +115,8 @@ getBranch
 getbranch(event) {
   this.getBranch = event.branchName
 }
-scrollToTop() {
-  window.scrollTo({ top: 200, behavior: 'smooth' });
-} 
 view(event:any) {
+    
   event.preventDefault();
   this.formSubmitted = true;
 
@@ -169,7 +176,8 @@ console.log(this.iframe5url);
  this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
 }
 else {
-  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
 }
 }
 close() {
@@ -193,5 +201,7 @@ resetForm() {
   this.showRepo = false;
   this.clicked = false;
 }
-
+scrollToTop() {
+  window.scrollTo({ top: 200, behavior: 'smooth' });
+} 
 }

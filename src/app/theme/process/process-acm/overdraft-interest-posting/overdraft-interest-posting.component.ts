@@ -12,7 +12,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { ProcessAcmService } from '../process-acm.service';
 import { SystemMasterParametersService } from '../../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import * as moment from 'moment';
-import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-overdraft-interest-posting',
   templateUrl: './overdraft-interest-posting.component.html',
@@ -43,7 +43,6 @@ export class OverdraftInterestPostingComponent implements OnInit {
   // date variables
   maxDate: any;
   minDate: Date;
-  setLang: any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -54,15 +53,11 @@ export class OverdraftInterestPostingComponent implements OnInit {
     private config: NgSelectConfig,
     private _service: ProcessAcmService,
     private systemParameter: SystemMasterParametersService,
-    private translate: TranslateService,
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
-      //Translation
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -214,7 +209,7 @@ export class OverdraftInterestPostingComponent implements OnInit {
 
   select() {
     if (this.angForm.controls['FROM_AC'].value > this.angForm.controls['TO_AC'].value && this.ngtoac != '' && this.ngtoac != null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.From_Account_Number')}`);
+      Swal.fire("To Account Number Must Be Greater Than From Account Number");
     }
   }
 
@@ -224,9 +219,9 @@ export class OverdraftInterestPostingComponent implements OnInit {
     this.modalClass = 'modalShow';
     this._service.OverdraftPosting(data).subscribe(ele => {
       if (ele.type == 'error') {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, ele.msg, 'warning');
+        Swal.fire('Info!', ele.msg, 'warning');
       } else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Done')}`, ele.msg, 'success');
+        Swal.fire('Done!', ele.msg, 'success');
       }
       this.angForm.reset();
       this.modalClass = 'modalHide';

@@ -2,22 +2,22 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'uti.NPALockingProcess' | translate}}</h5>
+                <h5>NPA Locking Process</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    {{'uti.F1' | translate}}   (<sub class="required"> * </sub>) {{'uti.F2' | translate}}
+                    Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
             </div>
             <form action="javascript:" [formGroup]="angForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-3"> <label for="NPA_DATE">{{'uti.CurrentProcessedNPADate' | translate}} : <sub
+                        <div class="col-sm-12 col-md-3"> <label for="NPA_DATE">Current Processed NPA Date : <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="NPA_DATE" bindValue="value" [(ngModel)]="npaProcessDate"
                                         (change)="getnpaDate($event)" formControlName="NPA_DATE"
-                                        placeholder="{{'uti.NPAProcessedDates' | translate}}">
+                                        placeholder="NPA Processed Dates">
                                         <ng-option *ngFor="let values of npaDates" [value]="values">
                                             {{values.REPORT_DATE}} </ng-option>
                                     </ng-select>
@@ -29,8 +29,8 @@
 
                 <div class="row">
                     <div class="col-sm-8">
-                        <button class="btn btn-outline-primary btn-sm" (click)="unlockDate()">{{'uti.UnLock' | translate}}</button>
-                        <button class="btn btn-outline-primary btn-sm" (click)="lockDate()">{{'uti.Lock' | translate}}</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="unlockDate()">UnLock</button>
+                        <button class="btn btn-outline-primary btn-sm" (click)="lockDate()">Lock</button>
                     </div>
                 </div>
             </form>

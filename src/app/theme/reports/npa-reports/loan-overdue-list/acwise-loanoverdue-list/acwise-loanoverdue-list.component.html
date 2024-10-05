@@ -2,16 +2,23 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Accountwise Loanoverdue Report</h5>
+                <h5>{{'master.Loan_overdue_report.T1'|translate}}
+                    <!-- Accountwise Loanoverdue Report -->
+                </h5>
+                
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}}
                 </h6>
             </div>
             <div class="card">
+
                 <form [formGroup]="ngForm ">
                     <div class="card-block scrollable">
+
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch<sub
+                            <div class="col-sm-12 col-md-1"> <label for="Branch">
+                                <!-- Branch -->{{'master.Loan_overdue_report.Branch'|translate}}
+                                <sub
                                         class="required">*</sub></label></div>
                             <div class="col-sm-12 col-md-3">
                                 <div class="form-group form-primary form-static-label">
@@ -29,11 +36,13 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}  <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"><label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-1"><label for=" Date">
+                                {{'master.Loan_overdue_report.Scheme_Code'|translate}}   <!-- Scheme Code -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-3 col-md-3">
@@ -51,11 +60,13 @@
                                     *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}  <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Date<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">
+                                {{'master.Loan_overdue_report.Date'|translate}}    <!-- Date -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -74,13 +85,15 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['END_DATE'].errors?. maxlength || ngForm.controls['END_DATE'].errors?. minlength || ngForm.controls['END_DATE'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}  <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Min. installment<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">
+                                {{'master.Loan_overdue_report.Min._installment'|translate}}  <!-- Min. installment -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
@@ -96,13 +109,15 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['Min_save'].errors?. maxlength || ngForm.controls['Min_save'].errors?. minlength || ngForm.controls['Min_save'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}   <!-- This field is required -->
                                     </div>
                                 </div>
 
 
                             </div>
-                            <div class="col-sm-12 col-md-1"> <label for=" Date">Max. installment<sub
+                            <div class="col-sm-12 col-md-1"> <label for=" Date">
+                                {{'master.Loan_overdue_report.Max._installment'|translate}}   <!-- Max. installment -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-3">
@@ -118,7 +133,7 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['Max_save'].errors?. maxlength || ngForm.controls['Max_save'].errors?. minlength || ngForm.controls['Max_save'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}    <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
@@ -126,16 +141,20 @@
                         </div>
                         <div class="row" *ngIf=isShow>
                             <div class="col-md-12">
-                                <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont" (tabChange)="onTabChange($event)">
+                                <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont"
+                                    (tabChange)="onTabChange($event)">
                                     <!-- start of basic tab -->
-                                    <ngb-tab title="Range" id="Range" class="col-md-12 border">
+                                    <!-- <ngb-tab title="Range" id="Range" class="col-md-12 border"> -->
+                                        <ngb-tab title="{{'master.Loan_overdue_report.Range'| translate}}" id="Range" class="col-md-12 border">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="">
                                                     <div class="card-block highlight">
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-2"> <label
-                                                                    for="Start_code">Start code<sub
+                                                                    for="Start_code">
+                                                                    {{'master.Loan_overdue_report.Start_code'|translate}}   <!-- Start code -->
+                                                                    <sub
                                                                         class="required">*</sub></label>
                                                             </div>
                                                             <div class="col-sm-12 col-md-4">
@@ -145,7 +164,7 @@
                                                                             [(ngModel)]="start"
                                                                             (change)="getAccountList($event)"
                                                                             formControlName="FROM_AC" bindLabel="label"
-                                                                            placeholder="FROM_AC">
+                                                                            placeholder="{{'master.Loan_overdue_report.Start_code'|translate}}">
                                                                             <ng-option *ngFor="let values of fromAc"
                                                                                 [value]="values">
                                                                                 {{values.label}}
@@ -159,12 +178,14 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="ngForm.controls['FROM_AC'].errors?.required">
-                                                                        This field is required
+                                                                        {{'master.Validation.Val1'|translate}}        <!-- This field is required -->
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-12 col-md-2"> <label for="Start_code">End
-                                                                    code<sub class="required">*</sub></label>
+                                                            <div class="col-sm-12 col-md-2"> <label for="Start_code">
+                                                                {{'master.Loan_overdue_report.End_code'|translate}}     <!-- End
+                                                                    code -->
+                                                                    <sub class="required">*</sub></label>
                                                             </div>
                                                             <div class="col-sm-12 col-md-4">
                                                                 <div class="form-group form-primary form-static-label">
@@ -172,7 +193,7 @@
                                                                         <ng-select id="TO_AC" bindValue="bankbankacno"
                                                                             [(ngModel)]="end" formControlName="TO_AC"
                                                                             (change)="getAccountList1($event)"
-                                                                            bindLabel="label" placeholder="TO_AC">
+                                                                            bindLabel="label" placeholder="{{'master.Loan_overdue_report.End_code'|translate}}">
                                                                             <ng-option *ngFor="let values of toAc"
                                                                                 [value]="values">
                                                                                 {{values.label}}
@@ -187,7 +208,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="ngForm.controls['TO_AC'].errors?.required">
-                                                                        This field is required
+                                                                        {{'master.Validation.Val1'|translate}}       <!-- This field is required -->
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -196,7 +217,8 @@
                                                         </div>
                                                         <div class="col-sm" style="float: right; margin-top: 6px;">
                                                             <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="switchNgBTab('Selective')">Next
+                                                                (click)="switchNgBTab('Selective')">
+                                                                {{'master.Loan_overdue_report.Next'|translate}}    <!-- Next -->
                                                             </button>
                                                         </div>
 
@@ -207,7 +229,8 @@
                                     </ngb-tab>
                                     <!-- end of basic tab -->
                                     <!-- start of Address tab -->
-                                    <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective" >
+                                    <!-- <ngb-tab title="Selective" role="tab" data-toggle="tab" id="Selective" > -->
+                                        <ngb-tab title="{{'master.Loan_overdue_report.selective'| translate}}" id="Selective" role="tab" data-toggle="tab" >
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -217,20 +240,24 @@
                                                             <table class="border">
                                                                 <tr class="fs-1 h-3">
                                                                     <th style="width:400px;"
-                                                                        class="bg-primary fs-1 td_center">Accountnumber
+                                                                        class="bg-primary fs-1 td_center">
+                                                                        {{'master.Loan_overdue_report.Accountnumber'|translate}}    <!-- Accountnumber -->
                                                                     </th>
                                                                     <th style="width: 400px;"
-                                                                        class="bg-primary fs-1 td_left">Name</th>
+                                                                        class="bg-primary fs-1 td_left">
+                                                                        {{'master.Loan_overdue_report.Name'|translate}}  <!-- Name -->
+                                                                    </th>
                                                                     <th style="width: 100px;"
-                                                                        class="bg-primary fs-1 td_center">chaeakbox</th>
+                                                                        class="bg-primary fs-1 td_center">
+                                                                        {{'master.Loan_overdue_report.checkbox'|translate}}   <!-- checkbox -->
+                                                                    </th>
                                                                 </tr>
                                                                 <tr *ngFor="let values of toAc">
                                                                     <td class="td_center">{{values.bankacno}}</td>
                                                                     <td class="td_left">{{values.name}}</td>
                                                                     <td class="td_center">
-                                                                         <!-- <input type="checkbox"  (change)="checkInterestFlag(values.id,values.label,$event)" >  -->
+                                                                        <!-- <input type="checkbox"  (change)="checkInterestFlag(values.id,values.label,$event)" >  -->
                                                                         <input type="checkbox" class="border-checkbox"
-                                                            
                                                                             (change)="checkInterestFlag(values.id,values.bankacno,$event)">
 
                                                                     </td>
@@ -243,7 +270,7 @@
 
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
@@ -254,13 +281,14 @@
                             </div>
                         </div>
 
-                        <div class="row" >
+                        <div class="row">
                             <div class="col-sm col-md-3">
                                 <div class="checkbox checkbox-primary ">
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="checkboxValue" value="1"
                                             formControlName="checkboxValue">
-                                        <label class="border-checkbox-label" for="checkboxValue">Show Guarantor
+                                        <label class="border-checkbox-label" for="checkboxValue">
+                                            {{'master.Loan_overdue_report.Show_Guarantor'|translate}}    <!-- Show Guarantor -->
                                         </label>
                                     </div>
                                 </div>
@@ -270,8 +298,9 @@
                                     <div class="border-checkbox-group border-checkbox-group-primary">
                                         <input type="checkbox" class="border-checkbox" id="npa_per" value="0"
                                             formControlName="npa_per">
-                                        <label class="border-checkbox-label" for="npa_per">Calculate Overdue Only After
-                                            Expiry
+                                        <label class="border-checkbox-label" for="npa_per">
+                                            {{'master.Loan_overdue_report.Calculate_Overdue_Only_After_Expiry'|translate}}   <!-- Calculate Overdue Only After
+                                            Expiry -->
                                         </label>
                                     </div>
                                 </div>
@@ -283,13 +312,17 @@
                                     <label>
                                         <input type="radio" name="Print_Code" value="Detail"
                                             formControlName="Print_Code" [checked]="true">
-                                        <i class="helper"></i>Detail </label>
+                                        <i class="helper"></i>
+                                        {{'master.Loan_overdue_report.Detail'|translate}}  <!-- Detail  -->
+                                    </label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
                                         <input type="radio" name="Print_Code" value="Summary"
                                             formControlName="Print_Code">
-                                        <i class="helper"></i>Summary </label>
+                                        <i class="helper"></i>
+                                        {{'master.Loan_overdue_report.Summary'|translate}}  <!-- Summary  -->
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -297,18 +330,24 @@
                         <div class="row justify-content-end">
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event); clicked = true;scrollToTop() ">View</button>
+                                    (click)="view($event); clicked = true;scrollToTop() ">
+                                    {{'master.Action.View'|translate}}  <!-- View -->
+                                </button>
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">
+                                    {{'master.Action.Close'|translate}}    <!-- Close -->
+                                </button>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <h5>
+                                            {{'master.Report_NPA_Registration.Report_Frame'|translate}}  <!-- Report Frame -->
+                                        </h5>
                                     </div>
                                     <div *ngIf="showRepo">
 
@@ -324,4 +363,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="selectedOption === 'Summary'">
+    <app-duebalancesummary></app-duebalancesummary>
 </div>

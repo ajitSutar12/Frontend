@@ -291,7 +291,8 @@ export class ReconciliationEntryComponent implements OnInit {
       }
       this.reconciliation.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire("Success!", "Data Updated Successfully !", "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Tran_Msg')}`);
+          // Swal.fire("Success!", "Data Updated Successfully !", "success");
           this.formSubmitted = false
         },
         (error) => {
@@ -302,7 +303,8 @@ export class ReconciliationEntryComponent implements OnInit {
       //To clear form
       this.resetForm();
     } else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`);
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
 
   }
