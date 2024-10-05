@@ -79,12 +79,12 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   constructor(private fb: FormBuilder, private _receipt: TDReceiptService,
     private http: HttpClient,
     private _tdReceiptService: TdReceiptService,
-    private translate: TranslateService,
+    private translate:TranslateService,
     private systemParameter: SystemMasterParametersService,
 
-  ) {
+  ) { 
     this.systemParameter.getFormData(1).subscribe(data => {
-
+    
       this.setLang = data.SET_LANGUAGE
       this.translate.setDefaultLang(this.setLang);
     })
@@ -248,8 +248,8 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   //function for delete button clicked
   delClickHandler() {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.You_won')}`,
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',

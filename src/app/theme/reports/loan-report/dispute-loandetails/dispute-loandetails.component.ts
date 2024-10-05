@@ -55,6 +55,7 @@ export class DisputeLoandetailsComponent implements OnInit {
 
   name: any;
   iframe5url:any='';
+  setLang: string;
 
 
   constructor(
@@ -67,6 +68,11 @@ export class DisputeLoandetailsComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     private schemeAccountNoService:SchemeAccountNoService,private translate:TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

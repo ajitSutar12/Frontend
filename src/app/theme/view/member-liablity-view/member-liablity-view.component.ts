@@ -9,8 +9,6 @@ import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/di
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { environment } from 'src/environments/environment';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-member-liablity-view',
@@ -59,15 +57,12 @@ export class MemberLiablityViewComponent implements OnInit {
   accdetails2: any;
   tableHtml2: any;
   tableData2: { srNO: any; name: any; sanctionAmount: any; installmentAmount: any; openDate: any; closeDate: any; balance: any; dueBalance: any; }[];
-  setLang: any;
   constructor(
     private fb: FormBuilder,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private _schemeService: SchemeAccountNoService,
     private sanitizer: DomSanitizer, private http: HttpClient,
     private directorMasterDropdown: DirectorMasterDropdownService,
-    private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,
 
   ) {
     this.fromdate = moment().format('DD/MM/YYYY');
@@ -76,14 +71,6 @@ export class MemberLiablityViewComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
-  
-      this.systemParameter.getFormData(1).subscribe(data => {
-      
-        this.setLang = data.SET_LANGUAGE
-        this.translate.setDefaultLang(this.setLang);
-      })
-  
-    
   }
 
   sh_Scheme

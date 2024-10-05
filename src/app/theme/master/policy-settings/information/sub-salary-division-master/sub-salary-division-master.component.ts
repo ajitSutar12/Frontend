@@ -240,7 +240,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
 
     }
     this.subSalaryDivisionService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -295,7 +295,7 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.subSalaryDivisionService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -316,8 +316,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text:  `${this.translate.instant('Swal_Msg.del_SubSalary_Div_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete sub salary division Master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -328,7 +328,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
         this.subSalaryDivisionService.deleteData(id).subscribe(data1 => {
           this.subsalarymasters = data1;
           Swal.fire(
-           `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -340,7 +341,8 @@ export class SubSalaryDivisionMasterComponent implements OnInit, AfterViewInit, 
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-         `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }

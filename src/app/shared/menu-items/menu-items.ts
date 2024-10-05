@@ -829,7 +829,7 @@ const MENUITEMS1 = [
 
         ]
       },
-      
+
       {
         state: 'passing',
         short_label: 'D',
@@ -888,7 +888,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'fundTransfer',
-            name: 'main.neftRtgs.fundTransfer ',
+            name: 'main.neftRtgs.fundTransfer',
 
             id: 353
           },
@@ -1689,7 +1689,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'citiwisenpa',
-                 name: 'main.npaReports.citiwisenpa',
+                name: 'main.npaReports.citiwisenpa',
                 type: 'sub',
                 id: 248,
 
@@ -1703,13 +1703,13 @@ const MENUITEMS1 = [
               },
               {
                 state: 'classificationsecnpa',
-                  name: 'main.npaReports.classificationsecnpa',
+                name: 'main.npaReports.classificationsecnpa',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-              name: 'main.npaReports.classificationstandardnpa',
+                name: 'main.npaReports.classificationstandardnpa',
                 type: 'sub',
                 id: 251,
               },
@@ -1717,13 +1717,7 @@ const MENUITEMS1 = [
 
             ],
           },
-          //
-          //
-          // {
-          //   state: 'nottice',
-          //   name: 'Nottice',
-          //   id: 252
-          // },
+
           {
             state: 'nottice',
             name: 'main.nottice.nottice',
@@ -1762,39 +1756,9 @@ const MENUITEMS1 = [
           //   id: 253
           // },
           //
-          // {
-          //   state: 'nottice',
-          //   name: 'main.nottice.nottice',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   icon: 'icon-home',
-          //   id: 362,
-          //   children: [
-          //     {
-          //       state: 'noticereport',
-          //       name: 'main.nottice.noticereport',
-          //       id: 363
-          //     },
-          //     {
-          //       state: 'noticeformat',
-          //       name: 'main.nottice.noticeformat',
-          //       id: 364
-          //     },
-          //     {
-          //       state: 'blankNotice',
-          //       name: 'main.nottice.blankNotice',
-          //       id: 365
-          //     },
-          //     {
-          //       state: 'showNotice',
-          //       name: 'main.nottice.showNotice',
-          //       id: 366
-          //     },
-          //   ]
-          // },
           {
             state: 'PigmyReport',
-             name: 'main.PigmyReport.PigmyReport',
+            name: 'main.PigmyReport.PigmyReport',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1802,27 +1766,27 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkPigmyCollectionChart',
-               name: 'main.PigmyReport.BnkPigmyCollectionChart',
+                name: 'main.PigmyReport.BnkPigmyCollectionChart',
                 id: 255
               },
               {
                 state: 'BnkPigmyBalanceList',
-              name: 'main.PigmyReport.BnkPigmyBalanceList',
+                name: 'main.PigmyReport.BnkPigmyBalanceList',
                 id: 256
               },
               {
                 state: 'BnkPigmyBalanceBook',
-                 name: 'main.PigmyReport.BnkPigmyBalanceBook',
+                name: 'main.PigmyReport.BnkPigmyBalanceBook',
                 id: 257
               },
               {
                 state: 'BnkPigmyBlankChart',
-              name: 'main.PigmyReport.BnkPigmyBlankChart',
+                name: 'main.PigmyReport.BnkPigmyBlankChart',
                 id: 258
               },
               {
                 state: 'BnkPigmyCommissionRepo',
-               name: 'main.PigmyReport.BnkPigmyCommissionRepo',
+                name: 'main.PigmyReport.BnkPigmyCommissionRepo',
                 id: 259
               },
               {
@@ -1848,7 +1812,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkMinorsList',
-             name: 'main.otherReports.BnkMinorsList',
+                name: 'main.otherReports.BnkMinorsList',
                 id: 263
               },
               {
@@ -1858,12 +1822,12 @@ const MENUITEMS1 = [
               },
               {
                 state: 'BnkGuaranterList',
-                 name: 'main.otherReports.BnkGuaranterList',
+                name: 'main.otherReports.BnkGuaranterList',
                 id: 265
               },
               {
                 state: 'BnkLienMarkedAcList',
-                 name: 'main.otherReports.BnkLienMarkedAcList',
+                name: 'main.otherReports.BnkLienMarkedAcList',
                 id: 266
               },
               // {
@@ -1964,7 +1928,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'managerViewReports',
-             name: 'main.managerViewReports',
+            name: 'main.managerViewReports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1973,7 +1937,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'finalReports',
-           name: 'main.finalReports.finalReports',
+            name: 'main.finalReports.finalReports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1981,7 +1945,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkTrialBal',
-               name: 'main.finalReports.BnkTrialBal',
+                name: 'main.finalReports.BnkTrialBal',
                 id: 283
               },
               {
@@ -1991,22 +1955,22 @@ const MENUITEMS1 = [
               },
               {
                 state: 'BalanceSheet',
-               name: 'main.finalReports.BalanceSheet',
+                name: 'main.finalReports.BalanceSheet',
                 id: 285
               },
               {
                 state: 'NBalanceSheet',
-                 name: 'main.finalReports.NBalanceSheet',
+                name: 'main.finalReports.NBalanceSheet',
                 id: 286
               },
               {
                 state: 'ProfitLossAccount',
-                  name: 'main.finalReports.ProfitLossAccount',
+                name: 'main.finalReports.ProfitLossAccount',
                 id: 287
               },
               {
                 state: 'NProfitLoss',
-              name: 'main.finalReports.NProfitLoss',
+                name: 'main.finalReports.NProfitLoss',
                 id: 288
               },
               {
@@ -2016,7 +1980,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'RecePayRepDetails',
-                 name: 'main.finalReports.RecePayRepDetails',
+                name: 'main.finalReports.RecePayRepDetails',
                 id: 290
               },
 
@@ -2032,7 +1996,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'memberAckReport',
-                   name: 'main.RecoveryReport.memberAckReport',
+                name: 'main.RecoveryReport.memberAckReport',
                 id: 292
               },
 
@@ -2044,7 +2008,7 @@ const MENUITEMS1 = [
       {
         state: 'utility',
         short_label: 'D',
-       name: 'main.utility.utility',
+        name: 'main.utility.utility',
         type: 'sub',
         icon: 'fa fa-university',
         id: 293,
@@ -2063,25 +2027,25 @@ const MENUITEMS1 = [
 
           {
             state: 'interestPosting',
-              name: 'main.utility.interestPosting.interestPosting',
+            name: 'main.utility.interestPosting.interestPosting',
             short_label: 'D',
             type: 'sub',
             id: 302,
             children: [
               {
                 state: 'interestCalculation',
-                  name: 'main.utility.interestPosting.interestCalculation',
+                name: 'main.utility.interestPosting.interestCalculation',
                 id: 303
               },
 
               {
                 state: 'interestPassing',
-               name: 'main.utility.interestPosting.interestPassing',
+                name: 'main.utility.interestPosting.interestPassing',
                 id: 304
               },
               {
                 state: 'interestList',
-                 name: 'main.utility.interestPosting.interestList',
+                name: 'main.utility.interestPosting.interestList',
                 id: 305
               },
             ]
@@ -2118,19 +2082,19 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'dividendList',
-              name: 'main.utility.dividend.dividendList',
+                name: 'main.utility.dividend.dividendList',
                 id: 311
               },
               {
                 state: 'dividendPost',
-                 name: 'main.utility.dividend.dividendPost',
+                name: 'main.utility.dividend.dividendPost',
                 id: 312
               }
             ]
           },
           {
             state: 'statementHeadInsert',
-           name: 'main.utility.statementHeadInsert',
+            name: 'main.utility.statementHeadInsert',
             id: 313
           },
 
@@ -2142,7 +2106,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'roleMaster',
-           name: 'main.utility.roleMaster',
+            name: 'main.utility.roleMaster',
             id: 316
           },
           {
@@ -2157,12 +2121,12 @@ const MENUITEMS1 = [
           },
           {
             state: 'cashierUM',
-             name: 'main.utility.cashierUM',
+            name: 'main.utility.cashierUM',
             id: 319
           },
           {
             state: 'sharesCCTS',
-              name: 'main.utility.sharesCCTS',
+            name: 'main.utility.sharesCCTS',
             id: 320
           },
           // {
@@ -2177,7 +2141,7 @@ const MENUITEMS1 = [
           // },
           {
             state: 'schemeATE',
-              name: 'main.utility.schemeATE',
+            name: 'main.utility.schemeATE',
             id: 323
           },
           {
@@ -2203,7 +2167,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'sharesDataEI',
-             name: 'main.utility.sharesDataEI',
+            name: 'main.utility.sharesDataEI',
             id: 329
           },
           // {
@@ -2218,12 +2182,12 @@ const MENUITEMS1 = [
           },
           {
             state: 'gmaMemberUpdation',
-          name: 'main.utility.gmaMemberUpdation',
+            name: 'main.utility.gmaMemberUpdation',
             id: 332
           },
           {
             state: 'amtTransferTransaction',
-           name: 'main.utility.amtTransferTransaction',
+            name: 'main.utility.amtTransferTransaction',
             id: 333
           },
           {
@@ -2233,7 +2197,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'conversion',
-           name: 'main.utility.conversion',
+            name: 'main.utility.conversion',
             id: 374
           },
           {
@@ -2253,7 +2217,7 @@ const MENUITEMS1 = [
         children: [
           {
             state: 'dayBegin',
-           name: 'main.process.dayBegin',
+            name: 'main.process.dayBegin',
             id: 294
           },
           {
@@ -2265,7 +2229,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'counterWorkDayEnd',
-               name: 'main.process.dayEnd.counterWorkDayEnd',
+                name: 'main.process.dayEnd.counterWorkDayEnd',
                 id: 296
               },
               {
@@ -2275,12 +2239,12 @@ const MENUITEMS1 = [
               },
               {
                 state: 'pigmyDayEnd',
-               name: 'main.process.dayEnd.pigmyDayEnd',
+                name: 'main.process.dayEnd.pigmyDayEnd',
                 id: 298
               },
               {
                 state: 'yearEnd',
-               name: 'main.process.dayEnd.yearEnd',
+                name: 'main.process.dayEnd.yearEnd',
                 id: 299
               },
             ]
@@ -2295,25 +2259,25 @@ const MENUITEMS1 = [
 
           {
             state: 'holiday',
-             name: 'main.process.holiday',
+            name: 'main.process.holiday',
             id: 301
           },
 
 
           {
             state: 'processACM',
-          name: 'main.process.processACM',
+            name: 'main.process.processACM',
             id: 306
           },
 
           {
             state: 'deadStockP',
-             name: 'main.process.deadStockP',
+            name: 'main.process.deadStockP',
             id: 309
           },
           {
             state: 'dataBackup',
-             name: 'main.process.dataBackup',
+            name: 'main.process.dataBackup',
             id: 327
           },
           {
@@ -2327,14 +2291,14 @@ const MENUITEMS1 = [
 
             id: 361
           },
-         
+
 
         ]
       },
       {
         state: 'windows',
         short_label: 'D',
-       name: 'TEST.windows',
+        name: 'TEST.windows',
         type: 'sub',
         icon: 'icon-home',
         id: 335,
@@ -2346,12 +2310,12 @@ const MENUITEMS1 = [
           },
           {
             state: 'tileHorizontaily',
-             name: 'main.process.windows.tileHorizontaily',
+            name: 'main.process.windows.tileHorizontaily',
             id: 337
           },
           {
             state: 'tileVertically',
-           name: 'main.process.windows.tileVertically',
+            name: 'main.process.windows.tileVertically',
             id: 338
           },
 
@@ -2368,7 +2332,7 @@ const MENUITEMS1 = [
       {
         state: 'exit',
         short_label: 'D',
-       name: 'main.process.exit',
+        name: 'main.process.exit',
         type: 'link',
         icon: 'fa fa-sign-out',
         id: 340
@@ -3202,7 +3166,7 @@ const MENUITEMS = [
               },
               {
                 state: 'termLoanMaster',
-                name: 'main.customer.termLoanMaster',                id: 20
+                name: 'main.customer.termLoanMaster', id: 20
               },
               {
                 state: 'disputeLoanMaster',
@@ -3841,7 +3805,7 @@ const MENUITEMS = [
           },
         ]
       },
-     
+
       {
         state: 'passing',
         short_label: 'D',
@@ -4697,7 +4661,7 @@ const MENUITEMS = [
               },
               {
                 state: 'citiwisenpa',
-                 name: 'main.npaReports.citiwisenpa',
+                name: 'main.npaReports.citiwisenpa',
                 type: 'sub',
                 id: 248,
 
@@ -4711,13 +4675,13 @@ const MENUITEMS = [
               },
               {
                 state: 'classificationsecnpa',
-                  name: 'main.npaReports.classificationsecnpa',
+                name: 'main.npaReports.classificationsecnpa',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-              name: 'main.npaReports.classificationstandardnpa',
+                name: 'main.npaReports.classificationstandardnpa',
                 type: 'sub',
                 id: 251,
               },
@@ -4726,55 +4690,10 @@ const MENUITEMS = [
 
             ],
           },
-          //
-          //
-          // {
-          //   state: 'nottice',
-          //   name: 'Nottice',
-          //   id: 252
-          // },
-          // {
-          //   state: 'nottice',
-          //   name: 'main.nottice.nottice',
-          //   short_label: 'D',
-          //   type: 'sub',
-          //   icon: 'icon-home',
-          //   id: 362,
-          //   children: [
-          //     {
-          //       state: 'noticereport',
-          //       name: 'main.nottice.noticereport',
-          //       id: 364
-          //     },
-          //     {
-          //       state: 'noticeformat',
-          //       name: 'main.nottice.noticeformat',
 
-          //       id: 365
-          //     },
-          //     {
-          //       state: 'blankNotice',
-          //       name: 'Blank Notice Format',
-          //       id: 366
-          //     },
-          //     {
-          //       state: 'showNotice',
-          //       name: 'Get Notice Format',
-          //       id: 367
-          //     },
-          //   ]
-          // },
-          // //
-          // {
-          //   state: 'Report_Frame',
-          //   name: 'Report Frame',
-          //   id: 253
-          // },
-          //
           {
             state: 'nottice',
             name: 'main.nottice.nottice',
-
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4783,31 +4702,37 @@ const MENUITEMS = [
               {
                 state: 'noticereport',
                 name: 'main.nottice.noticereport',
-
-                id: 363
+                id: 364
               },
               {
                 state: 'noticeformat',
                 name: 'main.nottice.noticeformat',
 
-                id: 364
+                id: 365
               },
               {
                 state: 'blankNotice',
                 name: 'main.nottice.blankNotice',
-
-                id: 365
+                id: 366
               },
               {
                 state: 'showNotice',
-                name: 'Get Notice Format',
-                id: 366
+                name: 'main.nottice.showNotice',
+                id: 367
               },
             ]
           },
+          // //
+          // {
+          //   state: 'Report_Frame',
+          //   name: 'Report Frame',
+          //   id: 253
+          // },
+          //
+
           {
             state: 'PigmyReport',
-             name: 'main.PigmyReport.PigmyReport',
+            name: 'main.PigmyReport.PigmyReport',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4815,27 +4740,27 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkPigmyCollectionChart',
-               name: 'main.PigmyReport.BnkPigmyCollectionChart',
+                name: 'main.PigmyReport.BnkPigmyCollectionChart',
                 id: 255
               },
               {
                 state: 'BnkPigmyBalanceList',
-              name: 'main.PigmyReport.BnkPigmyBalanceList',
+                name: 'main.PigmyReport.BnkPigmyBalanceList',
                 id: 256
               },
               {
                 state: 'BnkPigmyBalanceBook',
-                 name: 'main.PigmyReport.BnkPigmyBalanceBook',
+                name: 'main.PigmyReport.BnkPigmyBalanceBook',
                 id: 257
               },
               {
                 state: 'BnkPigmyBlankChart',
-              name: 'main.PigmyReport.BnkPigmyBlankChart',
+                name: 'main.PigmyReport.BnkPigmyBlankChart',
                 id: 258
               },
               {
                 state: 'BnkPigmyCommissionRepo',
-               name: 'main.PigmyReport.BnkPigmyCommissionRepo',
+                name: 'main.PigmyReport.BnkPigmyCommissionRepo',
                 id: 259
               },
               {
@@ -4861,7 +4786,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkMinorsList',
-             name: 'main.otherReports.BnkMinorsList',
+                name: 'main.otherReports.BnkMinorsList',
                 id: 263
               },
               {
@@ -4871,12 +4796,12 @@ const MENUITEMS = [
               },
               {
                 state: 'BnkGuaranterList',
-                 name: 'main.otherReports.BnkGuaranterList',
+                name: 'main.otherReports.BnkGuaranterList',
                 id: 265
               },
               {
                 state: 'BnkLienMarkedAcList',
-                 name: 'main.otherReports.BnkLienMarkedAcList',
+                name: 'main.otherReports.BnkLienMarkedAcList',
                 id: 266
               },
               // {
@@ -4976,7 +4901,7 @@ const MENUITEMS = [
           //
           {
             state: 'managerViewReports',
-             name: 'main.managerViewReports',
+            name: 'main.managerViewReports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4985,7 +4910,7 @@ const MENUITEMS = [
           //
           {
             state: 'finalReports',
-           name: 'main.finalReports.finalReports',
+            name: 'main.finalReports.finalReports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4993,7 +4918,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkTrialBal',
-               name: 'main.finalReports.BnkTrialBal',
+                name: 'main.finalReports.BnkTrialBal',
                 id: 283
               },
               {
@@ -5003,22 +4928,22 @@ const MENUITEMS = [
               },
               {
                 state: 'BalanceSheet',
-               name: 'main.finalReports.BalanceSheet',
+                name: 'main.finalReports.BalanceSheet',
                 id: 285
               },
               {
                 state: 'NBalanceSheet',
-                 name: 'main.finalReports.NBalanceSheet',
+                name: 'main.finalReports.NBalanceSheet',
                 id: 286
               },
               {
                 state: 'ProfitLossAccount',
-                  name: 'main.finalReports.ProfitLossAccount',
+                name: 'main.finalReports.ProfitLossAccount',
                 id: 287
               },
               {
                 state: 'NProfitLoss',
-              name: 'main.finalReports.NProfitLoss',
+                name: 'main.finalReports.NProfitLoss',
                 id: 288
               },
               {
@@ -5028,7 +4953,7 @@ const MENUITEMS = [
               },
               {
                 state: 'RecePayRepDetails',
-                 name: 'main.finalReports.RecePayRepDetails',
+                name: 'main.finalReports.RecePayRepDetails',
                 id: 290
               },
 
@@ -5044,7 +4969,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'memberAckReport',
-                   name: 'main.RecoveryReport.memberAckReport',
+                name: 'main.RecoveryReport.memberAckReport',
                 id: 292
               },
 
@@ -5056,7 +4981,7 @@ const MENUITEMS = [
       {
         state: 'utility',
         short_label: 'D',
-       name: 'main.utility.utility',
+        name: 'main.utility.utility',
         type: 'sub',
         icon: 'fa fa-university',
         id: 293,
@@ -5075,25 +5000,25 @@ const MENUITEMS = [
 
           {
             state: 'interestPosting',
-              name: 'main.utility.interestPosting.interestPosting',
+            name: 'main.utility.interestPosting.interestPosting',
             short_label: 'D',
             type: 'sub',
             id: 302,
             children: [
               {
                 state: 'interestCalculation',
-                  name: 'main.utility.interestPosting.interestCalculation',
+                name: 'main.utility.interestPosting.interestCalculation',
                 id: 303
               },
 
               {
                 state: 'interestPassing',
-               name: 'main.utility.interestPosting.interestPassing',
+                name: 'main.utility.interestPosting.interestPassing',
                 id: 304
               },
               {
                 state: 'interestList',
-                 name: 'main.utility.interestPosting.interestList',
+                name: 'main.utility.interestPosting.interestList',
                 id: 305
               },
             ]
@@ -5129,19 +5054,19 @@ const MENUITEMS = [
             children: [
               {
                 state: 'dividendList',
-              name: 'main.utility.dividend.dividendList',
+                name: 'main.utility.dividend.dividendList',
                 id: 311
               },
               {
                 state: 'dividendPost',
-                 name: 'main.utility.dividend.dividendPost',
+                name: 'main.utility.dividend.dividendPost',
                 id: 312
               }
             ]
           },
           {
             state: 'statementHeadInsert',
-           name: 'main.utility.statementHeadInsert',
+            name: 'main.utility.statementHeadInsert',
             id: 313
           },
 
@@ -5153,7 +5078,7 @@ const MENUITEMS = [
           },
           {
             state: 'roleMaster',
-           name: 'main.utility.roleMaster',
+            name: 'main.utility.roleMaster',
             id: 316
           },
           {
@@ -5168,12 +5093,12 @@ const MENUITEMS = [
           },
           {
             state: 'cashierUM',
-             name: 'main.utility.cashierUM',
+            name: 'main.utility.cashierUM',
             id: 319
           },
           {
             state: 'sharesCCTS',
-              name: 'main.utility.sharesCCTS',
+            name: 'main.utility.sharesCCTS',
             id: 320
           },
           // {
@@ -5188,7 +5113,7 @@ const MENUITEMS = [
           // },
           {
             state: 'schemeATE',
-              name: 'main.utility.schemeATE',
+            name: 'main.utility.schemeATE',
             id: 323
           },
           {
@@ -5214,7 +5139,7 @@ const MENUITEMS = [
           },
           {
             state: 'sharesDataEI',
-             name: 'main.utility.sharesDataEI',
+            name: 'main.utility.sharesDataEI',
             id: 329
           },
           // {
@@ -5229,12 +5154,12 @@ const MENUITEMS = [
           },
           {
             state: 'gmaMemberUpdation',
-          name: 'main.utility.gmaMemberUpdation',
+            name: 'main.utility.gmaMemberUpdation',
             id: 332
           },
           {
             state: 'amtTransferTransaction',
-           name: 'main.utility.amtTransferTransaction',
+            name: 'main.utility.amtTransferTransaction',
             id: 333
           },
           {
@@ -5244,7 +5169,7 @@ const MENUITEMS = [
           },
           {
             state: 'conversion',
-           name: 'main.utility.conversion',
+            name: 'main.utility.conversion',
             id: 374
           },
           {
@@ -5264,7 +5189,7 @@ const MENUITEMS = [
         children: [
           {
             state: 'dayBegin',
-           name: 'main.process.dayBegin',
+            name: 'main.process.dayBegin',
             id: 294
           },
           {
@@ -5276,7 +5201,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'counterWorkDayEnd',
-               name: 'main.process.dayEnd.counterWorkDayEnd',
+                name: 'main.process.dayEnd.counterWorkDayEnd',
                 id: 296
               },
               {
@@ -5286,12 +5211,12 @@ const MENUITEMS = [
               },
               {
                 state: 'pigmyDayEnd',
-               name: 'main.process.dayEnd.pigmyDayEnd',
+                name: 'main.process.dayEnd.pigmyDayEnd',
                 id: 298
               },
               {
                 state: 'yearEnd',
-               name: 'main.process.dayEnd.yearEnd',
+                name: 'main.process.dayEnd.yearEnd',
                 id: 299
               },
             ]
@@ -5303,25 +5228,25 @@ const MENUITEMS = [
           },
           {
             state: 'holiday',
-             name: 'main.process.holiday',
+            name: 'main.process.holiday',
             id: 301
           },
 
 
           {
             state: 'processACM',
-          name: 'main.process.processACM',
+            name: 'main.process.processACM',
             id: 306
           },
 
           {
             state: 'deadStockP',
-             name: 'main.process.deadStockP',
+            name: 'main.process.deadStockP',
             id: 309
           },
           {
             state: 'dataBackup',
-             name: 'main.process.dataBackup',
+            name: 'main.process.dataBackup',
             id: 327
           },
           {
@@ -5335,13 +5260,13 @@ const MENUITEMS = [
             name: 'main.process.yearEndBranchwise',
             id: 361
           },
-          
+
         ]
       },
       {
         state: 'windows',
         short_label: 'D',
-       name: 'TEST.windows',
+        name: 'TEST.windows',
         type: 'sub',
         icon: 'icon-home',
         id: 335,
@@ -5353,12 +5278,12 @@ const MENUITEMS = [
           },
           {
             state: 'tileHorizontaily',
-             name: 'main.process.windows.tileHorizontaily',
+            name: 'main.process.windows.tileHorizontaily',
             id: 337
           },
           {
             state: 'tileVertically',
-           name: 'main.process.windows.tileVertically',
+            name: 'main.process.windows.tileVertically',
             id: 338
           },
 
@@ -5375,7 +5300,7 @@ const MENUITEMS = [
       {
         state: 'exit',
         short_label: 'D',
-       name: 'main.process.exit',
+        name: 'main.process.exit',
         type: 'link',
         icon: 'fa fa-sign-out',
         id: 340

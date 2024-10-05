@@ -21,7 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -64,13 +64,17 @@ export class LcdOverdraftReportComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private sanitizer: DomSanitizer,    private directorMasterDropdown: DirectorMasterDropdownService,
+    private sanitizer: DomSanitizer,   
+     private directorMasterDropdown: DirectorMasterDropdownService,
+     private translate:TranslateService
+
 
 
   ) {
@@ -110,6 +114,8 @@ export class LcdOverdraftReportComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');

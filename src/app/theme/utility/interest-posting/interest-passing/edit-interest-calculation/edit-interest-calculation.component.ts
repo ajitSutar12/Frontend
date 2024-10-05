@@ -13,7 +13,6 @@ import { EditInterestCalculationService } from './edit-interest-calculation.serv
 import Swal from 'sweetalert2';
 import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { TranslateService } from "@ngx-translate/core";
-
 @Component({
   selector: 'app-edit-interest-calculation',
   templateUrl: './edit-interest-calculation.component.html',
@@ -62,7 +61,6 @@ export class EditInterestCalculationComponent implements OnInit {
   submitData: boolean = false;
   setLang: string;
 
-
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -75,7 +73,6 @@ export class EditInterestCalculationComponent implements OnInit {
   ) { 
     this.systemParameter.getFormData(1).subscribe(data => {
     
-
       this.setLang = data.SET_LANGUAGE
       this.translate.setDefaultLang(this.setLang);
     })

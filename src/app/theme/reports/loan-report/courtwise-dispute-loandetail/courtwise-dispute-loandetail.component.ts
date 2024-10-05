@@ -12,7 +12,12 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+<<<<<<< Updated upstream
 import { TranslateService } from '@ngx-translate/core';
+=======
+import { TranslateService } from "@ngx-translate/core";
+
+>>>>>>> Stashed changes
 
 @Component({
   selector: 'app-courtwise-dispute-loandetail',
@@ -59,6 +64,7 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
 
   name: any;
   iframe5url:any='';
+  setLang: string;
 
 
   constructor(
@@ -68,9 +74,20 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
+<<<<<<< Updated upstream
     private systemParameter: SystemMasterParametersService,private translate:TranslateService,
     private schemeAccountNoService:SchemeAccountNoService
+=======
+    private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService:SchemeAccountNoService,
+    private translate:TranslateService,
+>>>>>>> Stashed changes
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

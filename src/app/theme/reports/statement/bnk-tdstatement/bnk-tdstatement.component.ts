@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { HttpClient } from "@angular/common/http";
-
+import { TranslateService } from "@ngx-translate/core";
 
 
 @Component({
@@ -62,7 +62,7 @@ export class BnkTDStatementComponent implements OnInit{
   fromdate: moment.Moment;
   isOpen: boolean = false
   acCloseDate: null;
-
+  setLang:any;
 
   constructor(
     private fb: FormBuilder,
@@ -72,8 +72,13 @@ export class BnkTDStatementComponent implements OnInit{
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService, private translate:TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.endingdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -255,7 +260,8 @@ export class BnkTDStatementComponent implements OnInit{
     
    }
    else {
-         Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
+    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning');
+        //  Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
         }
    
  }

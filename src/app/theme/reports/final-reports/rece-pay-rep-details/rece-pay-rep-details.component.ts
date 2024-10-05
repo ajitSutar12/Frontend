@@ -41,6 +41,7 @@ export class RecePayRepDetailsComponent implements OnInit {
  iframeurl: any = ' ';
  clicked:boolean=false;
   branchName: string;
+  setLang: string;
 
 
   constructor(private fb: FormBuilder,
@@ -70,6 +71,8 @@ export class RecePayRepDetailsComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {

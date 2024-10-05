@@ -11,7 +11,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 
 import { NarrationService } from '../../../shared/elements/Narration.service';
 
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../user-auth.interceptor';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
@@ -22,9 +22,11 @@ import { MultiVoucherService } from '../multi-voucher/multi-voucher.service';
 import { SavingPigmyAccountClosingService } from './savings-Pigmy-Account-Closing.service';
 import { CustomerIdService } from '../../master/customer/customer-id/customer-id.service'
 //import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { ThemeModule } from '../../theme.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ThemeModule } from '../../theme.module'
+import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
+import { SavingMasterService } from '../../master/customer/saving-master/saving-master.service';
+import { SchemeTypeService } from 'src/app/shared/elements/scheme-type.service';
+import { VoucherEntryService } from '../voucher-entry/voucher-entry.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,22 +34,15 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     DataTablesModule,
     FileUploadModule,
     NgSelectModule,
-    //  SelectModule,
-    // BrowserAnimationsModule,
-    SharedModule,
     FormsModule, ReactiveFormsModule,
+    SharedModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    ThemeModule,
-    TranslateModule.forRoot({
-      loader:{
-       provide:TranslateLoader,
-       useFactory:HttpLoaderFactory,
-       deps:[HttpClient]
-     }
-    })
+    ThemeModule
   ],
-  providers: [OwnbranchMasterService, NarrationService, SystemMasterParametersService, SchemeCodeDropdownService, SchemeAccountNoService, MultiVoucherService, SavingPigmyAccountClosingService, CustomerIdService, {
+  providers: [OwnbranchMasterService, NarrationService, SystemMasterParametersService, SchemeCodeDropdownService,
+     SchemeAccountNoService, MultiVoucherService, SavingPigmyAccountClosingService, CustomerIdService, 
+     ACMasterDropdownService, SavingMasterService, SchemeTypeService, VoucherEntryService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
@@ -56,7 +51,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   exports: [SavingsPigmyAccountClosingComponent],
 })
 export class SavingsPigmyAccountClosingModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}
-

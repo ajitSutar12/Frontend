@@ -54,6 +54,7 @@ export class InterestListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +64,11 @@ export class InterestListComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private translate:TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

@@ -126,18 +126,23 @@ export class UserDefinationComponent implements OnInit {
   selectedRoleName: string;
 
   maxDate
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private userdefinationservice: UserDefinationService,
     private UserdefinationServiceD: UserdefinationServiceD,
     private _branchMasterServices: OwnbranchMasterService
-    , private systemParameter: SystemMasterParametersService,private translate:TranslateService
+    , private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+
 
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d    
+      this.maxDate = this.maxDate._d   
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);  
     })
     }
 
@@ -202,39 +207,39 @@ export class UserDefinationComponent implements OnInit {
       
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'First Name',
+          title: this.translate.instant('master.User_Defination.First_Name'),
           data: 'F_NAME',
         },
         {
-          title: 'Last Name',
+          title:  this.translate.instant('master.User_Defination.Last_Name'),
           data: 'L_NAME',
         },
         {
-          title: 'DOB',
+          title:  this.translate.instant('master.User_Defination.Birth_Date'),
           data: 'DOB',
         },
         {
-          title: 'Mobile',
+          title:  this.translate.instant('master.User_Defination.Mobile'),
           data: 'MOB_NO',
         },
         {
-          title: 'Email',
+          title:  this.translate.instant('master.User_Defination.Email'),
           data: 'EMAIL',
         },
 
         {
-          title: 'Role',
+          title:  this.translate.instant('master.User_Defination.Role'),
           data: 'ROLE',
         },
 
         {
-          title: 'User Name',
+          title:  this.translate.instant('master.User_Defination.User_Name'),
           data: 'USER_NAME',
         },
         // {
@@ -242,7 +247,7 @@ export class UserDefinationComponent implements OnInit {
         //   data: 'PASSWORD',
         // },
         {
-          title: 'Status',
+          title:  this.translate.instant('master.User_Defination.Status'),
           data: 'STATUS',
         },
         // {

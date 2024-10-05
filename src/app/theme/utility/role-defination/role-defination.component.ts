@@ -8,9 +8,9 @@ import { UserDefinationService } from '../user-defination/user-defination.servic
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MenuItems } from '../../../shared/menu-items/menu-items'
-import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
+import { MenuItems } from '../../../shared/menu-items/menu-items';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from '../scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-role-defination',
@@ -60,10 +60,21 @@ export class RoleDefinationComponent implements OnInit {
   ROLE: any;
   RoleResult: any;
   public checkedItems: any[] = [];
-  constructor(private menuItems: MenuItems, private _service: RoleDefinationService, private _roleServices: UserDefinationService,private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService,
-     private fb: FormBuilder,) {
+  setLang: string;
+  constructor(private menuItems: MenuItems,
+    private _service: RoleDefinationService,
+    private _roleServices: UserDefinationService,
+    private fb: FormBuilder,
+    private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
+
+
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

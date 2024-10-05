@@ -41,6 +41,7 @@ export class BnkTrialBalComponent implements OnInit {
   ngbranch
   branchOption: any;
   iframeurl: any = ' ';
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -70,6 +71,7 @@ export class BnkTrialBalComponent implements OnInit {
     
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+
     });
     this.createForm();
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -79,6 +81,8 @@ export class BnkTrialBalComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 

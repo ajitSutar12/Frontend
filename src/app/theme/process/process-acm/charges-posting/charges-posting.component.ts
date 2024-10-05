@@ -12,7 +12,7 @@ import { SystemMasterParametersService } from '../../../utility/scheme-parameter
 import Swal from 'sweetalert2';
 import * as moment from 'moment';
 import { error } from 'console';
-import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-charges-posting',
   templateUrl: './charges-posting.component.html',
@@ -43,7 +43,6 @@ export class ChargesPostingComponent implements OnInit {
   ngBranchCode
   label: string = 'Service Charges'
   modalClass: string = 'modalHide';
-  setLang: any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
@@ -53,16 +52,11 @@ export class ChargesPostingComponent implements OnInit {
     private _ACMasterDropdownService: ACMasterDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
-    private translate: TranslateService,
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.minDate = this.maxDate
-
-      //Translation
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -381,24 +375,24 @@ export class ChargesPostingComponent implements OnInit {
             }
             this.http.post(this.url + '/voucher/chargesPosting', obj).subscribe((data1: any) => {
               this.modalClass = 'modalHide';
-              Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, data1.msg, 'success')
+              Swal.fire('success', data1.msg, 'success')
               this.angForm.reset()
             })
           }
           else if (result.dismiss === Swal.DismissReason.cancel) {
             this.modalClass = 'modalHide';
-            Swal.fire(`${this.translate.instant('Swal_Msg.Cancelled')}`, `${this.translate.instant('Swal_Msg.Posting_cancelled')}`, "warning");
+            Swal.fire("Cancelled", "Posting cancelled", "warning");
             this.angForm.reset()
           }
         })
       } else {
         this.modalClass = 'modalHide';
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, data.msg, 'success')
+        Swal.fire('success', data.msg, 'success')
         this.angForm.reset()
       }
     }, error => {
       this.modalClass = 'modalHide';
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, error?.error?.message, 'error')
+      Swal.fire('OOps', error?.error?.message, 'error')
     })
   }
   getDecimalPoint(event) {

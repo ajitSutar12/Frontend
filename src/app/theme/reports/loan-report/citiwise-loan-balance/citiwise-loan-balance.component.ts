@@ -64,18 +64,28 @@ bsValue = new Date();
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
-    private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
+    private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter:SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private cityMaster: cityMasterService,
     private directorMasterDropdown: DirectorMasterDropdownService,
 
     private sanitizer: DomSanitizer,
+    private translate:TranslateService
+
    
   ) {
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+    
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();

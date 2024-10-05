@@ -47,14 +47,15 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
   shemeDetails: any
   showLoading: boolean = false;
   base_url = environment.base_url;
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
-    private systemParameter: SystemMasterParametersService,    private translate:TranslateService,
-
+    private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
@@ -63,6 +64,11 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
 
   }
 

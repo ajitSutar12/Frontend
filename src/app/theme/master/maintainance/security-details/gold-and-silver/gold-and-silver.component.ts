@@ -28,7 +28,7 @@ import { NgSelectComponent, NgSelectConfig } from '@ng-select/ng-select';
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
-
+import { TranslateService } from "@ngx-translate/core";
 // Handling datatable data
 class DataTableResponse {
   data: any[];
@@ -113,13 +113,14 @@ export class GoldAndSilverComponent
   //varaible for total value calculation
   ClearWeight: number;
   rate: number
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     public _goldsilverService: goldandsilverService,
     private _golddrop: GoldsilverService,
     private http: HttpClient, private systemParameter: SystemMasterParametersService,
-    public router: Router,
+    public router: Router,  private translate:TranslateService
+,
     private config: NgSelectConfig,) {
 
     // this.maxDate = new Date();
@@ -128,7 +129,8 @@ export class GoldAndSilverComponent
     // this.maxDate.setDate(this.maxDate.getDate())
 
     this.systemParameter.getFormData(1).subscribe(data => {
-
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
