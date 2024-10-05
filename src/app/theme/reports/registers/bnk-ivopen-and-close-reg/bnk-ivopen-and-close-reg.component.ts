@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { environment } from 'src/environments/environment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -52,6 +52,7 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
   showRepo: boolean = false;
   scheme_code: any;
   tScheme
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -59,13 +60,18 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private systemParameter: SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,  private translate:TranslateService
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
   }
   // Method to handle validation of form
   createForm() {
@@ -175,7 +181,8 @@ export class BnkIVOpenAndCloseRegComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
 

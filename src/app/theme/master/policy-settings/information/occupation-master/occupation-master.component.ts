@@ -70,7 +70,7 @@ export class OccupationMasterComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private occupationMasterService: OccupationMasterService,
-    private fb: FormBuilder, private translate: TranslateService) {
+    private fb: FormBuilder,private translate:TranslateService) {
 
   }
 
@@ -132,7 +132,7 @@ export class OccupationMasterComponent implements OnInit {
           data: 'CODE',
         },
         {
-          title: this.translate.instant('master.Occupation_Master.name'),
+          title:this.translate.instant('master.Occupation_Master.name'),
           data: 'NAME',
         },
 
@@ -156,7 +156,7 @@ export class OccupationMasterComponent implements OnInit {
       'NAME': formVal.NAME,
     }
     this.occupationMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`);
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -164,7 +164,7 @@ export class OccupationMasterComponent implements OnInit {
     }, (error) => {
 
     })
-
+    
     //To clear form
     this.resetForm();
   }
@@ -187,7 +187,7 @@ export class OccupationMasterComponent implements OnInit {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.occupationMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -209,8 +209,8 @@ export class OccupationMasterComponent implements OnInit {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
-      text: `${this.translate.instant('Swal_Msg.occupation_master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete occupation master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -221,7 +221,8 @@ export class OccupationMasterComponent implements OnInit {
         this.occupationMasterService.deleteData(id).subscribe(data1 => {
           this.occupationMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -233,7 +234,8 @@ export class OccupationMasterComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -282,10 +284,10 @@ export class OccupationMasterComponent implements OnInit {
     });
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

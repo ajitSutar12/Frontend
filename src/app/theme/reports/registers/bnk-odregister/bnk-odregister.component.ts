@@ -10,6 +10,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bnk-odregister',
@@ -61,13 +62,14 @@ export class BnkODRegisterComponent implements OnInit {
   mem: any
   //api
   url = environment.base_url;
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private schemeAccountNoService: SchemeAccountNoService, private systemParameter: SystemMasterParametersService,
+    private schemeAccountNoService: SchemeAccountNoService, private systemParameter: SystemMasterParametersService,private translate:TranslateService
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -75,6 +77,11 @@ export class BnkODRegisterComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
   }
   // Method to handle validation of form
   createForm() {
@@ -209,7 +216,8 @@ export class BnkODRegisterComponent implements OnInit {
 
     }
     else {
-      Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      // Swal.fire('Info', 'Ending Account Number Must Greater Than Starting  Account Number', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg6')}`, 'info')
     }
   }
   scrollToTop() {
@@ -263,7 +271,8 @@ sample=tem_perOD == 'Temporary' ? 1 : 0
       this.iframe3url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe3url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
     // setTimeout(()=>{

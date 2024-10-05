@@ -24,7 +24,7 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { DepositLoanInterestRateEditChangeService } from "src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service";
 import { data } from "jquery";
 import { NgbTabChangeEvent } from "@ng-bootstrap/ng-bootstrap";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-acwise-loanoverdue-list',
@@ -105,23 +105,32 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   // @ViewChild('ctdTabset') ctdTabset;
   // id: any;
 
-
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-    private http: HttpClient,
+    private http: HttpClient,  private translate:TranslateService
+,
     private schemeAccountNoService: SchemeAccountNoService,
     private _interestRateChange: DepositLoanInterestRateEditChangeService,
 
   ) {
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+     
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    });
+
   }
 
   ngOnInit(): void {
@@ -298,9 +307,10 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
 
 
+
   view(event) {
 
-
+   
     let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
     console.log(this.selectedItems);
     event.preventDefault();
@@ -376,13 +386,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
         tabValue = 0;
       }
 
-      let flag1 = obj.checkboxValue;
-      let show
-      if (flag1 == true) {
-        show = 1
-      } else {
-        show = 0
-      }
 
 
       // if (value == 'Detail') {
@@ -394,6 +397,7 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       if (branch == 0) {
         this.branchName = 'Consolidate';
       }
+
 
 
       this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + show + "&flag1=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
@@ -466,9 +470,13 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
       //   this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
       // }
     }
-    else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
-    }
+      else {
+        // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(()=>{ this.clicked=false});
+      }
+
+  }
+
 
   }
 

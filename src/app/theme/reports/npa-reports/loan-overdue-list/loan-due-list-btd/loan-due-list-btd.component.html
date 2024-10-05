@@ -4,14 +4,16 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>Loan Due List Between Two Dates</h5>
+                <h5>
+                    {{'master.Loan_overdue_report.T3'|translate}}      <!-- Loan Due List Between Two Dates -->
+                </h5>
             </div>
-
-         
             <form [formGroup]="angForm" novalidate>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Branch<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
+                            <!-- Branch -->{{'master.Loan_overdue_report.Branch'|translate}}
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -28,13 +30,15 @@
                                 *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['branch'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}} <!-- This field is required. -->
                                 </div>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
+                            <!-- Scheme -->{{'master.Loan_overdue_report.Scheme'|translate}}
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -51,7 +55,7 @@
                                 *ngIf="angForm.controls['scheme'].invalid && (angForm.controls['scheme'].dirty || angForm.controls['scheme'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['scheme'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}}   <!-- This field is required. -->
                                 </div>
                             </div>
 
@@ -59,7 +63,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="Date">From Date<sub
+                        <div class="col-sm-12 col-md-2"> <label for="Date">
+                            {{'master.Loan_overdue_report.From_Date'|translate}}  <!-- From Date -->
+                            <sub
                                     class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
@@ -76,12 +82,14 @@
                                 *ngIf="angForm.controls['fdate'].invalid && (angForm.controls['fdate'].dirty || angForm.controls['fdate'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['fdate'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}}   <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="Date">To Date<sub class="required">*</sub></label>
+                        <div class="col-sm-12 col-md-2"> <label for="Date">
+                            <!-- To Date -->{{'master.Loan_overdue_report.To_Date'|translate}}
+                            <sub class="required">*</sub></label>
                         </div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -97,14 +105,17 @@
                                 *ngIf="angForm.controls['tdate'].invalid && (angForm.controls['tdate'].dirty || angForm.controls['tdate'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['tdate'].errors?.required">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}}    <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Minimum Installment<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
+                            <!-- Minimum Installment --> {{'master.Loan_overdue_report.Min._installment'|translate}}
+                            <sub
+
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -119,12 +130,14 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['mininst'].errors?.pattern || angForm.controls['mininst'].errors?.required || angForm.controls['mininst'].errors?.maxlength">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}}  <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Maximum Installment<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">
+                            <!-- Maximum Installment -->{{'master.Loan_overdue_report.Max._installment'|translate}}
+                            <sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-3">
                             <div class="form-group input-group">
@@ -139,7 +152,7 @@
                                 class="alert alert-danger">
                                 <div
                                     *ngIf="angForm.controls['maxinst'].errors?.pattern || angForm.controls['maxinst'].errors?.required || angForm.controls['maxinst'].errors?.maxlength">
-                                    This field is required.
+                                    {{'master.Validation.Val1'|translate}}  <!-- This field is required. -->
                                 </div>
                             </div>
                         </div>
@@ -147,17 +160,22 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">Close</button>
+                            <button class="btn  btn-outline-primary btn-sm" (click)="close()">
+                                {{'master.Action.Close'|translate}}  <!-- Close -->
+                            </button>
 
                             <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                            (click)="view($event); clicked = true ">View</button>
+                            (click)="view($event); clicked = true;scrollToTop() ">
+                            {{'master.Action.View'|translate}}   <!-- View -->
+                        </button>
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5>Report Frame</h5>
+                                    <h5> {{'master.Report_NPA_Registration.Report_Frame'|translate}} </h5>
                                 </div>
                                 <div *ngIf="showRepo">
 

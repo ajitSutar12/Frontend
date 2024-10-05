@@ -17,7 +17,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [CourtwiseDisputeLoandetailComponent],
@@ -34,6 +36,14 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   providers: [
     SchemeCodeDropdownService, 
@@ -43,3 +53,6 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
   ]
 })
 export class CourtwiseDisputeLoandetailModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

@@ -5,7 +5,8 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { VoucherEntryComponent } from 'src/app/theme/transaction/voucher-entry/voucher-entry.component';
-
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -49,7 +50,14 @@ export class VoucherComponent implements OnInit, AfterViewInit {
   // Store data from backend
   voucherEntry: VoucherEntry[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  setLang:any;
+  constructor(private http: HttpClient, private translate:TranslateService, private systemParameter: SystemMasterParametersService,) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) 
+  }
 
   voucherData: any = {};
 
@@ -109,26 +117,26 @@ export class VoucherComponent implements OnInit, AfterViewInit {
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Voucher Number ',
+          title: this.translate.instant('master.Voucher.Voucher_Number'),
           data: 'TRAN_NO'
         },
         {
-          title: 'Amount',
+          title: this.translate.instant('master.Voucher.Amount'),
           data: 'TRAN_AMOUNT'
         },
         {
-          title: 'Debit/Credit',
+          title: this.translate.instant('master.Voucher.Debit/Credit'),
           data: 'TRAN_DRCR'
         },
         {
-          title: 'Time',
+          title: this.translate.instant('master.Voucher.Time'),
           data: 'TRAN_TIME'
         },
         {
-          title: 'Scheme Type',
+          title:this.translate.instant('master.Voucher.Scheme_Type'),
           data: 'tran_actype'
         },
         // {
@@ -136,11 +144,11 @@ export class VoucherComponent implements OnInit, AfterViewInit {
         //   data: 'scheme'
         // },
         {
-          title: 'Transaction Type',
+          title:this.translate.instant('master.Voucher.Transaction_Type'),
           data: 'TRAN_TYPE'
         },
         {
-          title: 'Account Number',
+          title:this.translate.instant('master.Voucher.Account_Number'),
           data: 'TRAN_ACNO'
         },
         // {
@@ -148,7 +156,7 @@ export class VoucherComponent implements OnInit, AfterViewInit {
         //   data: 'TRAN_ACNO'
         // },
         {
-          title: 'User',
+          title:this.translate.instant('master.Voucher.User'),
           data: 'USER_CODE'
         },
         // {

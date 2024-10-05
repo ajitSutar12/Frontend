@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5>{{'master.Vehicle.Title' | translate}}</h5>
+        <h5>Vehicle</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -20,8 +20,7 @@
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE"
                     #SUBMISSION_DATE="bsDatepicker" (keydown.Tab)="SUBMISSION_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="subm_date">{{'master.Vehicle.Submission_Date' | translate}}<sub class="required">*
-                    </sub></label>
+                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -30,11 +29,10 @@
                     angForm.controls['SUBMISSION_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
-
+                  This field is required
                 </div>
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                  <!-- Fill valid Date -->{{master.Validation.Val_Date}}
+                  Fill valid Date
                 </div>
               </div>
             </div>
@@ -50,8 +48,7 @@
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="RTO_REG_DATE"
                     #RTO_REG_DATE="bsDatepicker" (keydown.Tab)="RTO_REG_DATE.hide()"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="RTORegistrationDate">{{'master.Vehicle.RTO_Registration_Date' | translate}}<sub
-                      class="required">* </sub></label>
+                  <label for="RTORegistrationDate">RTO Registration Date<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -60,10 +57,10 @@
                     angForm.controls['RTO_REG_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['RTO_REG_DATE'].errors?.required">
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                  This field is required
                 </div>
                 <div *ngIf="angForm.controls['RTO_REG_DATE'].invalid">
-                  <!-- Fill valid Date -->{{master.Validation.Val_Date}}
+                  Fill valid Date
                 </div>
               </div>
             </div>
@@ -75,8 +72,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)"
                     maxlength="50" formControlName="VEHICLE_MAKE" />
-                  <label for="vehicle_make">{{'master.Vehicle.Vehicle_Make' | translate}}<sub class="required">*
-                    </sub></label>
+                  <label for="vehicle_make">Vehicle Make<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -88,8 +84,8 @@
                     angForm.controls['VEHICLE_MAKE'].errors?.pattern ||
                     angForm.controls['VEHICLE_MAKE'].errors?.required
                   ">
-                  <!-- This field is required and Input allowed only A-Z a-z - / .
-                  (Space) --> {{master.Validation.Val}}
+                  This field is required and Input allowed only A-Z a-z - / .
+                  (Space)
                 </div>
               </div>
             </div>
@@ -103,8 +99,7 @@
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="^[0-9]+$" maxlength="4"
                     formControlName="MANUFACTURE_YEAR" title="Input allowed only  0-9" />
-                  <label for="YearofManufacture">{{'master.Vehicle.Year_of_Manufacture' | translate}}<sub
-                      class="required">* </sub></label>
+                  <label for="YearofManufacture">Year of Manufacture<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -116,7 +111,7 @@
                     angForm.controls['MANUFACTURE_YEAR'].errors?.pattern ||
                     angForm.controls['MANUFACTURE_YEAR'].errors?.required
                   ">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Receipt}}
+                  This field is required and Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -128,8 +123,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode <= 57)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     required="" pattern="^[A-Za-z0-9\./ -]+$" maxlength="30"
                     title="Input allowed only A-Z a-z 0-9  - / . (Space)" formControlName="VEHICLE_NO" />
-                  <label for="VehicleNumber">{{'master.Vehicle.Vehicle_Number' | translate}}<sub class="required">*
-                    </sub></label>
+                  <label for="VehicleNumber">Vehicle Number<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -141,8 +135,8 @@
                     angForm.controls['VEHICLE_NO'].errors?.pattern ||
                     angForm.controls['VEHICLE_NO'].errors?.required
                   ">
-                  <!-- This field is required and Input allowed only A-Z a-z 0-9 - /
-                  . (Space) -->{{master.Validation.Val_M}}
+                  This field is required and Input allowed only A-Z a-z 0-9 - /
+                  . (Space)
                 </div>
               </div>
             </div>
@@ -154,7 +148,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) ||($event.charCode >= 48 && $event.charCode <= 57)|| ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z0-9\./ -]+$" maxlength="30" title="Input allowed only A-Z a-z 0-9  - / . (Space)"
                     formControlName="CHASSIS_NO" />
-                  <label for="ChasisNumber">{{'master.Vehicle.Chasis_Number' | translate}}</label>
+                  <label for="ChasisNumber">Chasis Number</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -163,7 +157,7 @@
                     angForm.controls['CHASSIS_NO'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['CHASSIS_NO'].errors?.pattern">
-                  <!-- Input allowed only A-Z a-z 0-9 - / . (Space) --> {{master.Validation.Val_ward}}
+                  Input allowed only A-Z a-z 0-9 - / . (Space)
                 </div>
               </div>
             </div>
@@ -178,7 +172,7 @@
                     (keydown.Tab)="AQUISITION_DATE.hide()" [maxDate]="maxDate"
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="AQUISITION_DATE"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="DateofAcquisition">{{'master.Vehicle.Date_of_Acquisition' | translate}}</label>
+                  <label for="DateofAcquisition">Date of Acquisition</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -186,8 +180,7 @@
                   (angForm.controls['AQUISITION_DATE'].dirty ||
                     angForm.controls['AQUISITION_DATE'].touched)
                 " class="alert alert-danger">
-                <!-- This field is required -->{{'master.Validation.Val1'|translate}}
-
+                Please fill this field
               </div>
             </div>
 
@@ -206,7 +199,7 @@
               <div class="checkbox checkbox-primary">
                 <div class="border-checkbox-group border-checkbox-group-primary">
                   <input type="checkbox" class="border-checkbox" id="checkbox1" formControlName="NEW_VEHICLE">
-                  <label class="border-checkbox-label" for="checkbox1">{{'master.Vehicle.New_Vehicle?' | translate}}
+                  <label class="border-checkbox-label" for="checkbox1">New Vehicle?
                   </label>
                 </div>
               </div>
@@ -218,7 +211,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z  - / . (Space)" maxlength="90"
                     formControlName="SUPPLIER_NAME" />
-                  <label for="SupplierName">{{'master.Vehicle.Supplier_Name' | translate}}</label>
+                  <label for="SupplierName">Supplier Name</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -227,7 +220,7 @@
                     angForm.controls['SUPPLIER_NAME'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SUPPLIER_NAME'].errors?.pattern">
-                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{master.Validation.Val_Repre}}
+                  Input allowed only A-Z a-z - / . (Space)
                 </div>
               </div>
             </div>
@@ -238,8 +231,7 @@
                     placeholder=" " id="PurchasePrice" [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )" required=""
                     pattern="\d{1,20}(\.\d{2})?" title="Input allowed only  0-9" formControlName="PURCHASE_PRICE" />
-                  <label for="PurchasePrice">{{'master.Vehicle.Purchase_Price' | translate}}<sub class="required">*
-                    </sub></label>
+                  <label for="PurchasePrice">Purchase Price<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -251,7 +243,7 @@
                     angForm.controls['PURCHASE_PRICE'].errors?.pattern ||
                     angForm.controls['PURCHASE_PRICE'].errors?.required
                   ">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Receipt}}
+                  This field is required and Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -267,7 +259,7 @@
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     (keyup)="checkmargin(margin.value);getDecimal($event) " title="Input allowed only  0-9"
                     formControlName="MARGIN" />
-                  <label for="margin">{{'master.Vehicle.Margin%' | translate}}</label>
+                  <label for="margin">Margin %</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -276,7 +268,7 @@
                     angForm.controls['MARGIN'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['MARGIN'].errors?.pattern">
-                  <!-- Input allowed only 0-9 -->{{master.Validation.Val_Tan}}
+                  Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -287,7 +279,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" maxlength="90" title="Input allowed only  A-Z a-z  - / . (Space)"
                     formControlName="REMARK" />
-                  <label for="remarks">{{'master.Vehicle.Remarks' | translate}}</label>
+                  <label for="remarks">Remarks</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -296,19 +288,17 @@
                     angForm.controls['REMARK'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
-                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{master.Validation.Val_Repre}}
+                  Input allowed only A-Z a-z - / . (Space)
                 </div>
               </div>
             </div>
             <div class="col-sm">
 
               <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton"
-                (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit'|translate}}</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()"
-                *ngIf="updateShow">{{'master.Action.Update'|translate}}</button>
+                (keydown.Tab)="focus()" appTheme>Submit</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow"
-                (click)="addNewData()">{{'master.Action.Cancel'|translate}}</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
             </div>
           </div>
 
@@ -328,19 +318,19 @@
               <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                 class="table table-striped table-bordered table-hover compact">
                 <thead>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Action' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Submission_Date' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.RTO_Registration_Date' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Vehicle_Make' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Year_of_Manufacture' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Vehicle_Number' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Chasis_Number' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Date_of_Acquisition' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.New_Vehicle?' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Supplier_Name' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Purchase_Price' | translate}}</th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Margin%' | translate}} </th>
-                  <th style="text-transform: captalize;">{{'master.Vehicle.Remarks' | translate}} </th>
+                  <th style="text-transform: captalize;">Action</th>
+                  <th style="text-transform: captalize;">Submission Date</th>
+                  <th style="text-transform: captalize;">RTO Registration Date</th>
+                  <th style="text-transform: captalize;">Vehicle Make</th>
+                  <th style="text-transform: captalize;">Year of Manufacture</th>
+                  <th style="text-transform: captalize;">Vehicle Number</th>
+                  <th style="text-transform: captalize;">Chassis Number</th>
+                  <th style="text-transform: captalize;">Date of Acquisition</th>
+                  <th style="text-transform: captalize;">New Vehicle</th>
+                  <th style="text-transform: captalize;">Supplier Name</th>
+                  <th style="text-transform: captalize;">Purchase Price</th>
+                  <th style="text-transform: captalize;">Margin </th>
+                  <th style="text-transform: captalize;">Remarks </th>
                 </thead>
                 <tbody *ngIf="vehiclemasters?.length != 0">
                   <tr *ngFor="let data of vehiclemasters">
@@ -367,7 +357,7 @@
                 </tbody>
                 <tbody *ngIf="vehiclemasters?.length == 0">
                   <tr>
-                    <td colspan="6" class="no-data-available">{{'master.Vehicle.No_Data' | translate}}</td>
+                    <td colspan="6" class="no-data-available">No data!</td>
                   </tr>
                 </tbody>
                 <!-- <tfoot #filters class="filters">

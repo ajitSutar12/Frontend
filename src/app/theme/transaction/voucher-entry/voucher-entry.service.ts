@@ -243,4 +243,7 @@ export class VoucherEntryService {
     return this.http.post(this.url + '/voucher/printingNo', data);
   }
 
+  getCheckList(id: any): Observable<any> {
+    return this.http.get(this.url + "/voucher/getChequelist/" + id).pipe(catchError(this.handleError));
+  }
 }

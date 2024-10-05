@@ -74,7 +74,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
   constructor(
     private http: HttpClient,
     private minimumBalanceMasterService: MinimumBalanceMasterService,
-    private fb: FormBuilder, private translate: TranslateService) { }
+    private fb: FormBuilder,private translate:TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -157,11 +157,11 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
       'BC_MINBAL': formVal.BC_MINBAL
     }
     this.minimumBalanceMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
-      // to reload after insertion of data
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        dtInstance.ajax.reload()
-      });
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
+     // to reload after insertion of data
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
     }, (error) => {
       console.log(error)
     })
@@ -189,7 +189,7 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.minimumBalanceMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -209,8 +209,8 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Success')}`,
-      text: `${this.translate.instant('Swal_Msg.Min_Bal_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Minimum Balance Master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -221,23 +221,23 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
         this.minimumBalanceMasterService.deleteData(id).subscribe(data1 => {
           this.minimumBalanceMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
           console.log(error)
         }
-        // to reload after insertion of data
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.ajax.reload()
-        });
+       // to reload after insertion of data
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload()
+    });
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -296,10 +296,10 @@ export class MinimumBalanceMasterComponent implements OnInit, AfterViewInit, OnD
       event.target.value = 0
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

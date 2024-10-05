@@ -10,8 +10,7 @@ import { first } from 'rxjs/operators';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { TranslateService } from "@ngx-translate/core";
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 @Component({
   selector: 'app-npamarking',
   templateUrl: './npamarking.component.html',
@@ -68,20 +67,12 @@ export class NPAMarkingComponent implements OnInit {
     { id: 'D3', label: 'Doubtfull Assets 3' },
     { id: 'L', label: 'Loss Assets' }
   ]
-  setLang: any;
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private ownbranchMasterService: OwnbranchMasterService,
-    private config: NgSelectConfig, private cdr: ChangeDetectorRef,
-    private translate: TranslateService,
-    private systemParameter: SystemMasterParametersService
+    private config: NgSelectConfig, private cdr: ChangeDetectorRef
   ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-      //Translation
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate());
@@ -228,7 +219,7 @@ export class NPAMarkingComponent implements OnInit {
       value2 = moment(this.todate).format('DD/MM/YYYY');
       // console.log(value2)
       if (moment(value1).isSame(value2)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.same_date')}`)
+        Swal.fire("from date should not be same as to date")
         this.angForm.controls['TO_DATE'].reset()
       }
     }
@@ -307,8 +298,8 @@ export class NPAMarkingComponent implements OnInit {
 
     }
 
-    this.http.post(this.url + '/voucher/npaupdaterecords', obj).subscribe((data: any[]) => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg1')}`, 'success');
+    this.http.post(this.url+'/voucher/npaupdaterecords', obj).subscribe((data: any[]) => {
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.isTableShow = false
     });
 

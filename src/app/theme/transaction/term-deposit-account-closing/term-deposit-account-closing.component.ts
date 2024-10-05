@@ -22,6 +22,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import { VoucherEntryService } from '../voucher-entry/voucher-entry.service';
 import { ACMasterDropdownService } from 'src/app/shared/dropdownService/ac-master-dropdown.service';
 import { TermDepositInterestRateService } from '../../master/policy-settings/definations/term-deposit-ir/term-deposit-ir.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-term-deposit-account-closing',
   templateUrl: './term-deposit-account-closing.component.html',
@@ -185,7 +186,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
   BANKACNO: any;
   difference: number;
   customer1: null;
-
+  setLang:any;
 
   constructor(public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -204,7 +205,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private _ACMasterDropdownService: ACMasterDropdownService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
-    private systemParameter: SystemMasterParametersService,) {
+    private systemParameter: SystemMasterParametersService,private translate:TranslateService) {
     if (this.childMessage != undefined) {
 
       this.editClickHandler(this.childMessage);
@@ -217,14 +218,15 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this.minDate = new Date(lastDate);
       this.minDate.setDate(this.minDate.getDate());
       this.logDate = data.CURRENT_DATE
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
   ngOnInit(): void {
     this.createForm();
 
-    this.jointShowButton = true;
-    this.jointUpdateShow = false;
+
     //Day opening Amount
     // this.DayOpBal = 1000;
     // get session branch data
@@ -474,22 +476,26 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
       this.modalClass = 'modalHide';
       if (data[0].ODGIVEN == true) {
-        Swal.fire('Oops', 'Overdraft given so Account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`,`${this.translate.instant('Swal_Msg.Overdraft')}`, 'error')
+        // Swal.fire('Oops', 'Overdraft given so Account cannot close', 'error')
         this.customer = null
         return
       }
       else if (data[0].ISFREEZ == true) {
-        Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Freezed_account')}`, 'error')
+        // Swal.fire('Oops', 'Freezed account so Account cannot close', 'error')
         this.customer = null
         return
       }
       else if (data[0].ISCLOSED == true) {
-        Swal.fire('Oops', 'Account is already closed so account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.account_cannot_close')}`, 'error')
+        // Swal.fire('Oops', 'Account is already closed so account cannot close', 'error')
         this.customer = null
         return
       }
       else if (data[0].PASSINGPENDING == true) {
-        Swal.fire('Oops', 'Account is already closed but passing pending', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.passing_pending')}`, 'error')
+        // Swal.fire('Oops', 'Account is already closed but passing pending', 'error')
         this.customer = null
         return
       }
@@ -497,8 +503,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
         let cashRadio = document.getElementById('formT') as HTMLInputElement;
 
         Swal.fire({
-          title: 'Transfer to Loan Account?',
-          text: 'This Account is LIEN, Do you want to transfer to the loan account?',
+          // title: 'Transfer to Loan Account?',
+          // text: 'This Account is LIEN, Do you want to transfer to the loan account?',
+          title: `${this.translate.instant('Swal_Msg.Transfer_to_loan_account')}`,
+          text: `${this.translate.instant('Swal_Msg.Do_you_want_to_transfer')}`,
           icon: 'warning',
           showCancelButton: true,
           confirmButtonText: 'Continue',
@@ -551,7 +559,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         });
       }
       if (Number(data[0].LedgerBal) >= 0) {
-        Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Balance_is_insufficient')}`, 'error')
+        // Swal.fire('Oops', 'Balance is insufficient so account cannot close', 'error')
         this.customer = null
         return
       }
@@ -656,7 +665,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
           })
 
-
+          
 
         }
 
@@ -672,7 +681,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
           let maturedDaysDiff = Math.abs(a1.diff(b, 'days'))
           this.angForm.patchValue({
             maturedInterest: this.afterMatureIntRate,
-            InterestRate: this.INTRATE,
+            InterestRate:   this.INTRATE ,
             afterMaturityDays: maturedDaysDiff,
             MaturedDays: data[0].totDays,
             TOTAL_INT: Math.round(data[0].InterestAmount)
@@ -699,7 +708,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
         //   let maturedDays = Math.abs(a1.diff(b, 'days'))
         //   this.angForm.patchValue({
         //     MaturedDays: maturedDays,
-
+            
 
         //   })
         // }
@@ -726,7 +735,7 @@ export class TermDepositAccountClosingComponent implements OnInit {
       }
       let total_int = this.angForm.controls['TOTAL_INT'].value
       let post_int = this.angForm.controls['POSTED_INT'].value
-      let netInt = (Math.abs(Number(total_int) - Number(post_int))).toFixed(2)
+      let netInt = (Math.abs(Number(total_int) - Number(post_int))).toFixed(0)
       this.angForm.patchValue({
         NET_INTAMT: (netInt)
       })
@@ -1201,7 +1210,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
   decimalAllContent($event) {
     if (this.submitTranMode == undefined) {
-      Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
+      // Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`,`${this.translate.instant('Swal_Msg.O_Msg1')}`, 'error');
       this.tran_mode.focus()
       let value = Number($event);
       this.totalAmt = 0;
@@ -1493,7 +1503,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     if (Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS') {
       Swal.fire({
-        title: 'Are you sure?',
+        // title: 'Are you sure?',
+        title:`${this.translate.instant('Swal_Msg.Title')}`,
         html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1516,7 +1527,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
     } if (Number(obj.value) >= 200000) {
 
       Swal.fire({
-        title: 'Are you sure?',
+        // title: 'Are you sure?',
+        title:`${this.translate.instant('Swal_Msg.Title')}`,
         html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1586,23 +1598,27 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     this._vservice.StandingOrInterestInstruction(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Oops!', data.message, 'error');
+        // Swal.fire('Oops!', data.message, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
         this.selectedMode = null
       } else {
         this._vservice.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
-            Swal.fire('Oops!', data.message, 'error');
+            // Swal.fire('Oops!', data.message, 'error');
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
             this.selectedMode = null
           } else {
             this._vservice.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Oops!', data.message, 'error');
+                // Swal.fire('Oops!', data.message, 'error');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                 this.selectedMode = null
 
               } else {
                 this._vservice.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Oops!', data.message, 'error');
+                    // Swal.fire('Oops!', data.message, 'error');
+                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                     this.selectedMode = null
 
                   }
@@ -1699,7 +1715,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         total_amt: 0.00,
         amt: 0.00
       })
-      Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
+      // Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg2')}. ${sancAmt}`, 'error');
       this.swiper.nativeElement.focus();
       this.submitForm = true
       this.angForm.patchValue({
@@ -1733,7 +1750,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         this.amount.nativeElement.focus();
         this.submitForm = true
         // this.modalClass = 'modalHide';
-        Swal.fire('Oops!', data.message, 'error');
+        // Swal.fire('Oops!', data.message, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
       } else {
         this._service.clearWithdrawBal(obj).subscribe(data => {
           if (data != 0) {
@@ -1743,7 +1761,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
             this.amount.nativeElement.focus();
             this.submitForm = true
             // this.modalClass = 'modalHide';
-            Swal.fire('Oops!', data.message, 'error');
+            // Swal.fire('Oops!', data.message, 'error');
+            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
@@ -1777,7 +1796,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                     this.amount.nativeElement.focus();
                     this.submitForm = true
                     // this.modalClass = 'modalHide';
-                    Swal.fire('Oops!', data.message, 'error');
+                    // Swal.fire('Oops!', data.message, 'error');
+                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                   } else {
                     this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
                       if (data != 0) {
@@ -1787,7 +1807,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                         this.amount.nativeElement.focus();
                         this.submitForm = true
                         // this.modalClass = 'modalHide';
-                        Swal.fire('Oops!', data.message, 'error');
+                        // Swal.fire('Oops!', data.message, 'error');
+                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                       } else {
                         this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
                           if (data != 0) {
@@ -1797,7 +1818,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                             this.amount.nativeElement.focus();
                             this.submitForm = true
                             // this.modalClass = 'modalHide';
-                            Swal.fire('Oops!', data.message, 'error');
+                            // Swal.fire('Oops!', data.message, 'error');
+                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                           } else {
                             this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                               if (data != 0) {
@@ -1807,7 +1829,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                 this.amount.nativeElement.focus();
                                 this.submitForm = true
                                 // this.modalClass = 'modalHide';
-                                Swal.fire('Oops!', data.message, 'error');
+                                // Swal.fire('Oops!', data.message, 'error');
+                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                               } else {
                                 this._vservice.MinBalanceChecking(obj).subscribe(data => {
                                   if (data != 0) {
@@ -1817,7 +1840,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                     this.amount.nativeElement.focus();
                                     this.submitForm = true
                                     // this.modalClass = 'modalHide';
-                                    Swal.fire('Oops!', data.message, 'error');
+                                    // Swal.fire('Oops!', data.message, 'error');
+                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                   } else {
                                     this._vservice.CheckClearBalAndAmt(obj).subscribe(data => {
                                       if (data != 0) {
@@ -1827,7 +1851,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                         this.amount.nativeElement.focus();
                                         this.submitForm = true
                                         // this.modalClass = 'modalHide';
-                                        Swal.fire('Oops!', data.message, 'error');
+                                        // Swal.fire('Oops!', data.message, 'error');
+                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                       } else {
                                         this._vservice.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
                                           if (data != 0) {
@@ -1837,7 +1862,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                             this.amount.nativeElement.focus();
                                             this.submitForm = true
                                             // this.modalClass = 'modalHide';
-                                            Swal.fire('Oops!', data.message, 'error');
+                                            // Swal.fire('Oops!', data.message, 'error');
+                                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                           } else {
                                             this._vservice.DepositeAmountAndIntallments(obj).subscribe(data => {
                                               if (data != 0) {
@@ -1847,7 +1873,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                 this.amount.nativeElement.focus();
                                                 this.submitForm = true
                                                 // this.modalClass = 'modalHide';
-                                                Swal.fire('Oops!', data.message, 'error');
+                                                // Swal.fire('Oops!', data.message, 'error');
+                                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                               } else {
                                                 this._vservice.DepositAndTotalInstallments(obj).subscribe(data => {
                                                   if (data != 0) {
@@ -1857,7 +1884,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                     this.amount.nativeElement.focus();
                                                     this.submitForm = true
                                                     // this.modalClass = 'modalHide';
-                                                    Swal.fire('Oops!', data.message, 'error');
+                                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                    // Swal.fire('Oops!', data.message, 'error');
                                                   } else {
                                                     this._vservice.DepositAndDepositAmount(obj).subscribe(data => {
                                                       if (data != 0) {
@@ -1867,7 +1895,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                         this.amount.nativeElement.focus();
                                                         this.submitForm = true
                                                         // this.modalClass = 'modalHide';
-                                                        Swal.fire('Oops!', data.message, 'error');
+                                                        // Swal.fire('Oops!', data.message, 'error');
+                                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                       } else {
                                                         this._vservice.PremcloseTdateTamtCom(obj).subscribe(data => {
                                                           if (data != 0) {
@@ -1877,7 +1906,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                             this.amount.nativeElement.focus();
                                                             this.submitForm = true
                                                             // this.modalClass = 'modalHide';
-                                                            Swal.fire('Oops!', data.message, 'error');
+                                                            // Swal.fire('Oops!', data.message, 'error');
+                                                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                           } else {
                                                             this._vservice.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
                                                               if (data != 0) {
@@ -1887,7 +1917,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                 this.amount.nativeElement.focus();
                                                                 this.submitForm = true
                                                                 // this.modalClass = 'modalHide';
-                                                                Swal.fire('Oops!', data.message, 'error');
+                                                                // Swal.fire('Oops!', data.message, 'error');
+                                                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                               } else {
                                                                 this._vservice.ComVouamtClearbalAndStrs(obj).subscribe(data => {
                                                                   if (data != 0) {
@@ -1897,7 +1928,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                     this.amount.nativeElement.focus();
                                                                     this.submitForm = true
                                                                     // this.modalClass = 'modalHide';
-                                                                    Swal.fire('Oops!', data.message, 'error');
+                                                                    // Swal.fire('Oops!', data.message, 'error');
+                                                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                                   } else {
                                                                     this._vservice.DepositGreaterShareLimitAmt(obj).subscribe(data => {
                                                                       if (data != 0) {
@@ -1907,7 +1939,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                         this.amount.nativeElement.focus();
                                                                         this.submitForm = true
                                                                         // this.modalClass = 'modalHide';
-                                                                        Swal.fire('Oops!', data.message, 'error');
+                                                                        // Swal.fire('Oops!', data.message, 'error');
+                                                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                                       } else {
                                                                         this._vservice.ZeroBalance(obj).subscribe(data => {
                                                                           if (data != 0) {
@@ -1917,7 +1950,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                             this.amount.nativeElement.focus();
                                                                             this.submitForm = true
                                                                             // this.modalClass = 'modalHide';
-                                                                            Swal.fire('Oops!', data.message, 'error');
+                                                                            // Swal.fire('Oops!', data.message, 'error');
+                                                                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                                           } else {
                                                                             this._vservice.CashWithdraw(obj).subscribe(data => {
                                                                               if (data != 0) {
@@ -1927,7 +1961,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                                 this.amount.nativeElement.focus();
                                                                                 this.submitForm = true
                                                                                 // this.modalClass = 'modalHide';
-                                                                                Swal.fire('Oops!', data.message, 'error');
+                                                                                // Swal.fire('Oops!', data.message, 'error');
+                                                                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                                                 // } else {
                                                                                 //   this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                 //     if (data != 0) {
@@ -1948,7 +1983,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                                     this.amount.nativeElement.focus();
                                                                                     this.submitForm = true
                                                                                     // this.modalClass = 'modalHide';
-                                                                                    Swal.fire('Oops!', data.message, 'error');
+                                                                                    // Swal.fire('Oops!', data.message, 'error');
+                                                                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                                                   } else {
                                                                                     this._vservice.withdrawClosingCondition(obj).subscribe(data => {
                                                                                       if (data != 0) {
@@ -1958,7 +1994,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                                                                                         this.selectMode.focus()
                                                                                         this.submitForm = true
                                                                                         // this.modalClass = 'modalHide';
-                                                                                        Swal.fire('Oops!', data.message, 'error');
+                                                                                        // Swal.fire('Oops!', data.message, 'error');
+                                                                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                                                                                       }
                                                                                       else {
                                                                                         this.submitForm = false
@@ -2066,7 +2103,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       else
         this.NOTINTAMT.nativeElement.focus();
       this.submitForm = true
-      Swal.fire('Info', 'Please fill proper amount!', 'info')
+      // Swal.fire('Info', 'Please fill proper amount!', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.S9')}`, 'info')
     }
     else {
       if (this.headData[i].IS_GLBAL_MAINTAIN == '1' && Number(this.headData[i].Balance) != 0 && Number(this.headData[i].Balance) != Number(ele.target.value)) {
@@ -2076,7 +2114,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
         else
           this.NOTINTAMT.nativeElement.focus();
         this.submitForm = true
-        Swal.fire('Oops!', `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
+        // Swal.fire('Oops!', `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
       }
       else {
         if (Number(this.headData[i].Amount) != 0)
@@ -2102,7 +2141,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       else
         this.NOTINTAMT.nativeElement.focus();
       this.submitForm = true
-      Swal.fire('Info', 'Please fill proper amount!', 'info')
+      // Swal.fire('Info', 'Please fill proper amount!', 'info')
+      Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Information')}`, 'info')
     }
   }
 
@@ -2167,7 +2207,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
       // this.calculateVoucher()
     } else {
-      Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
+      // Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Inf')}`, 'error')
     }
 
   }
@@ -2657,7 +2698,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     this._vservice.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire('Oops!', data.message, 'error');
+        // Swal.fire('Oops!', data.message, 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
         this.customer = null;
         this.showlgindetails()
       } else {
@@ -2672,7 +2714,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
             }
 
             Swal.fire({
-              title: 'Warning',
+              // title: 'Warning',
+              title: `${this.translate.instant('Swal_Msg.Warning')}`,
               icon: 'warning',
               html:
                 data.message + '<br>' +
@@ -2682,14 +2725,16 @@ export class TermDepositAccountClosingComponent implements OnInit {
           } else {
             this._vservice.CheckLoginFlagInDpmaster(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire('Oops!', data.message, 'error');
+                // Swal.fire('Oops!', data.message, 'error');
+                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                 this.customer = null
                 this.showlgindetails()
 
               } else {
                 this._vservice.checkDormantAccount(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire('Oops!', data.message, 'error');
+                    // Swal.fire('Oops!', data.message, 'error');
+                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                     this.customer = null
                     this.showlgindetails()
 
@@ -2697,7 +2742,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                     this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                       if (data != 0) {
                         Swal.fire({
-                          title: 'Are you sure?',
+                          // title: 'Are you sure?',
+                          title:`${this.translate.instant('Swal_Msg.Sure')}`,
                           text: data.message,
                           icon: 'warning',
                           showCancelButton: true,
@@ -2715,7 +2761,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
                       } else {
                         this._vservice.IsDirectEntryAllow(obj).subscribe(data => {
                           if (data != 0) {
-                            Swal.fire('Oops!', data.message, 'error');
+                            // Swal.fire('Oops!', data.message, 'error');
+                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
                           }
                         }, err => {
                           console.log(err);
@@ -2947,39 +2994,40 @@ export class TermDepositAccountClosingComponent implements OnInit {
       ACNO: this.customer,
       NARRATION: formVal.particulars,
       TRAN_AMOUNT: formVal.total_amt,
-      AC_CLOSED: '0',
-      depoCloseTranAc: {
-        S_APPL: formVal.scheme1.S_APPL,
-        S_NAME: formVal.scheme1.S_NAME,
-      }
-
+      AC_CLOSED: '0'
     }
     // console.log(this.multigrid)
 
     this.getTransferAccountList(event)
     if (formVal.scheme == "" || formVal.scheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      // Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.W1')}`, "error");
     } else if (formVal.ac_no == "" || formVal.ac_no == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Account!",
+        // "Warning!",
+        // "Please Select Account!",
+        // "info"
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Select_Account')}`,
         "info"
-
       );
       // this.resetgrid()
     }
     else if (formVal.total_amt == "" || formVal.total_amt == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
+        // "Warning!",
+        // "Please Insert Amount!",
+        // "info"
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_Amount')}`,
         "info"
       );
       // this.resetgrid()
     }
 
     else if (this.multigrid.find(ob => ob['TRANSFER_ACNO'] === object.TRANSFER_ACNO)) {
-      Swal.fire('Info', 'This Account is Already Exists!', 'error');
-
+      // Swal.fire('Info', 'This Account is Already Exists!', 'error');
+      Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Acc_Already_E')}`, 'error');
     }
     else {
       if (object.TRANSFER_ACNO != this.bankacno) {
@@ -3003,13 +3051,15 @@ export class TermDepositAccountClosingComponent implements OnInit {
               // this.resetgrid();
             }
             else {
-              Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              // Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Amount_less_same')} ${termAmount}`, 'info')
               this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
             }
           }
           else {
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
           }
         }
         else if (this.transferSchemeDetails.name == 'LN' || this.transferSchemeDetails.name == 'DS') {
@@ -3030,7 +3080,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
               }
               else {
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.total_amt)
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
               }
             }
             else if (Number(ledgerBal) > Number(formVal.total_amt)) {
@@ -3042,12 +3093,13 @@ export class TermDepositAccountClosingComponent implements OnInit {
               }
               else {
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.total_amt)
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')}  ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
               }
             }
             else if (Number(ledgerBal) < Number(formVal.total_amt)) {
-              Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
-
+              // Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Closing_Balance')}`, 'info')
             }
           })
         }
@@ -3059,16 +3111,18 @@ export class TermDepositAccountClosingComponent implements OnInit {
           }
           else {
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.total_amt)
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
           }
         }
       }
       else {
-        Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        // Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Clo_Acc_Tra_Acc')}`, 'info')
         // this.resetgrid();
 
       }
-      this.resetgrid()
+      // this.resetgrid()
     }
   }
 
@@ -3101,59 +3155,37 @@ export class TermDepositAccountClosingComponent implements OnInit {
 
     this.particulars = this.multigrid[id].NARRATION,
       this.amount = this.multigrid[id].TRAN_AMOUNT,
-      this.selectedCode = this.multigrid[id].TRANSFER_ACNOTYPE,
-      this.selectedScheme1 = this.multigrid[id].depoCloseTranAc.S_APPL + " " + this.multigrid[id].depoCloseTranAc.S_NAME,
-      this.angForm.patchValue({
-        amount: this.multigrid[id].TRAN_AMOUNT,
-        total_amt: this.multigrid[id].TRAN_AMOUNT,
-      })
+      this.scheme_type = this.multigrid[id].TRANSFER_ACNOTYPE,
+      // this.ac_no =  this.multigrid[id].TRANSFER_ACNO,
 
-    this.customer1 = this.multigrid[id].TRANSFER_ACNO
-
-    this.ngacno = this.multigrid[id].ACNO
+      this.ngacno = this.multigrid[id].ACNO
     this.selectedTransScheme = this.multigrid[id].TRANSFER_ACTYPE
-    // this.selectedScheme1 = this.multigrid[id].scheme1
   }
 
   updateTransferAcccount() {
-    this.transferTotalAmount = 0
     let index = this.transferIndex;
     let formVal = this.angForm.value;
     var object = {
-      // Scheme: this.submitScheme.S_NAME,
-      // TRANSFER_ACNO: this.submitAccountNo.AC_NO,
-      // TRANSFER_ACTYPE: this.selectedTransScheme,
-      // NARRATION: formVal.particulars,
-      // TRAN_AMOUNT: formVal.amount,
-
-      Scheme: this.schemeget,
-
-      // TRANSFER_ACNOTYPE: this.transferSchemeDetails.name,
-      TRANSFER_ACNO: this.submitAccountNo.BANKACNO,
-      TRANSFER_ACTYPE: this.submitAccountNo.AC_TYPE,
-      TRANSFER_ACNOTYPE: formVal.scheme_type,
-      ACNO: this.customer,
+      Scheme: this.submitScheme.S_NAME,
+      TRANSFER_ACNO: this.submitAccountNo.AC_NO,
+      TRANSFER_ACTYPE: this.selectedTransScheme,
       NARRATION: formVal.particulars,
-      TRAN_AMOUNT: formVal.total_amt,
-      AC_CLOSED: '0',
-      depoCloseTranAc: {
-        S_APPL: formVal.scheme1.S_APPL,
-        S_NAME: formVal.scheme1.S_NAME,
-      }
+      TRAN_AMOUNT: formVal.amount,
     }
     if (formVal.scheme == "" || formVal.scheme == null) {
-      Swal.fire("Warning!", "Please Select Scheme!", "error");
+      // Swal.fire("Warning!", "Please Select Scheme!", "error");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Select_Scheme')}`, "error");
     } else if (formVal.ac_no == "" || formVal.ac_no == null) {
       Swal.fire(
-        "Warning!",
-        "Please Select Acoount!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+       `${this.translate.instant('Swal_Msg.Select_Acoount')}`,
         "info"
       );
     }
     else if (formVal.amount == "" || formVal.amount == null) {
       Swal.fire(
-        "Warning!",
-        "Please Insert Amount!",
+        `${this.translate.instant('Swal_Msg.Warning')}`,
+        `${this.translate.instant('Swal_Msg.Insert_Amount')}`,
         "info"
       );
     }
@@ -3191,29 +3223,24 @@ export class TermDepositAccountClosingComponent implements OnInit {
             termAmount = Number(this.transferAccountDetails.depositAmount) - Number(ledgerBal)
           })
           let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
-          // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
-          this.multigrid.forEach(element => {
-            this.transferTotalAmount += element.TRAN_AMOUNT
-          });
+          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
           if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
             if (formVal.amount >= termAmount) {
               this.multigrid[index] = object
               this.jointShowButton = true;
               this.jointUpdateShow = false;
-              this.multigrid.forEach(element => {
-                this.transferTotalAmount += element.TRAN_AMOUNT
-              });
               this.resetgrid();
             }
             else {
-              Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              // Swal.fire('info', `Amount Must be less than or same as ${termAmount}`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`,`${this.translate.instant('Swal_Msg.Amount_less_same')} ${termAmount}`, 'info')
               this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
             }
           }
           else {
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
-
+            // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
           }
         }
         else if (this.transferSchemeDetails.name == 'LN' || this.transferSchemeDetails.name == 'DS') {
@@ -3227,64 +3254,60 @@ export class TermDepositAccountClosingComponent implements OnInit {
             ledgerBal = bal
             if (Number(ledgerBal) == Number(formVal.amount)) {
               object['AC_CLOSED'] = '1'
-              // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
               let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
               if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
                 this.multigrid[index] = object
                 this.jointShowButton = true;
                 this.jointUpdateShow = false;
-                this.multigrid.forEach(element => {
-                  this.transferTotalAmount += element.TRAN_AMOUNT
-                });
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
             else if (Number(ledgerBal) > Number(formVal.amount)) {
               let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
-              // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+              this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
               if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
                 this.multigrid[index] = object
                 this.jointShowButton = true;
                 this.jointUpdateShow = false;
-                this.multigrid.forEach(element => {
-                  this.transferTotalAmount += element.TRAN_AMOUNT
-                });
                 this.resetgrid();
               }
               else {
-                Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+                Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
                 this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
               }
             }
             else if (Number(ledgerBal) < Number(formVal.amount)) {
-              Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+              // Swal.fire('info', `Amount Is Greater Than Closing Balance`, 'info')
+              Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Closing_Balance')}`, 'info')
             }
           })
         }
         else {
           let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
-          // this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
+          this.transferTotalAmount = this.transferTotalAmount + Number(formVal.amount)
           if (Number(this.angForm.controls['NETPAYABLEAMT'].value) >= this.transferTotalAmount) {
             this.multigrid[index] = object
             this.jointShowButton = true;
             this.jointUpdateShow = false;
-            this.multigrid.forEach(element => {
-              this.transferTotalAmount += Number(element.TRAN_AMOUNT)
-            });
             this.resetgrid();
           }
           else {
-            Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            // Swal.fire('info', `Please check Transfer Amount with ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
+            Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.check_Transfer')} ${(comparison - this.transferTotalAmount).toFixed(2)}`, 'info')
             this.transferTotalAmount = this.transferTotalAmount - Number(formVal.amount)
           }
         }
       }
       else {
-        Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        // Swal.fire('info', 'Closing Account And Transfer Account Cannot Be Same', 'info')
+        Swal.fire(`${this.translate.instant('Swal_Msg.Information')}`, `${this.translate.instant('Swal_Msg.Clo_Acc_Tra_Acc')}`, 'info')
         this.resetgrid();
       }
     }
@@ -3356,7 +3379,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
     let result = JSON.parse(data);
     let comparison = Number(this.angForm.controls['NETPAYABLEAMT'].value)
     if (formValue.SAVING_PIGMY == 'FormT' && comparison != this.transferTotalAmount) {
-      Swal.fire("Warning!", `Transfer Amount should be  Rs.${comparison}!`, "info");
+      // Swal.fire("Warning!", `Transfer Amount should be  Rs.${comparison}!`, "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.W8')}${comparison}!`, "info");
     }
     else if ((formValue.SAVING_PIGMY == 'FormT' && comparison == this.transferTotalAmount) || formValue.SAVING_PIGMY == 'FormC') {
       let dataToSend = {
@@ -3390,7 +3414,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this._TDService.postData(dataToSend).subscribe(data => {
         // this.getVoucherData();
         const successMessage = `Account Closed Successfully ! <b> Please Note Voucher Number </b> <br> ${data.TRAN_NO}`;
-        Swal.fire('Success!', successMessage, 'success');
+        // Swal.fire('Success!', successMessage, 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, successMessage, 'success');
 
         let totalDebit = formValue.amount;
         let totalCredit = data.NET_PAYABLE_AMOUNT;
@@ -3491,14 +3516,13 @@ export class TermDepositAccountClosingComponent implements OnInit {
   }
 
   resetgrid() {
-    this.headShow = false
     this.angForm.controls["Tscheme"].reset();
     this.angForm.controls["particulars"].reset();
     this.angForm.controls["TschemeAC"].reset();
     this.angForm.controls["amount"].reset();
     this.angForm.controls["scheme_type"].reset();
-    this.angForm.controls["scheme1"].reset();
-    this.angForm.controls["ac_no"].reset();
+    // this.angForm.controls["scheme"].reset();
+    // this.angForm.controls["account_no"].reset();
     this.angForm.controls["tran_mode"].reset();
     this.angForm.controls["total_amt"].reset();
     this.angForm.controls["chequeNo"].reset();
@@ -3887,17 +3911,6 @@ export class TermDepositAccountClosingComponent implements OnInit {
           if (data1.TRAN_TYPE == 'TR') {
             this.isTransfer = true;
             this.multigrid = data1.multigrid;
-            this.jointShowButton = false;
-            this.jointUpdateShow = false;
-            this.particulars = this.multigrid[0].NARRATION,
-              this.amount = this.multigrid[0].TRAN_AMOUNT,
-              this.selectedCode = this.multigrid[0].TRANSFER_ACNOTYPE,
-              this.selectedScheme1 = this.multigrid[0].depoCloseTranAc.S_APPL + " " + this.multigrid[0].depoCloseTranAc.S_NAME,
-              this.customer1 = this.multigrid[0].TRANSFER_ACNO
-            this.angForm.patchValue({
-              amount: this.multigrid[0].TRAN_AMOUNT,
-              total_amt: this.multigrid[0].TRAN_AMOUNT,
-            })
           } else {
             this.isTransfer = false;
           }
@@ -3936,11 +3949,10 @@ export class TermDepositAccountClosingComponent implements OnInit {
             ? (Number(this.angForm.controls['LEDGER_BAL'].value) + Number(this.angForm.controls['NET_INTAMT'].value) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2)
             : (Number(this.angForm.controls['LEDGER_BAL'].value) - Math.abs(Number(this.angForm.controls['NET_INTAMT'].value)) - Number(this.angForm.controls['TDS_AMT'].value) - Number(this.angForm.controls['SURCHARGE_AMT'].value) - Number(this.angForm.controls['PENAL_INT'].value)).toFixed(2);
 
-          this.transferTotalAmount = this.totalAmt
+
           this.angForm.patchValue({
             NETPAYABLEAMT: this.totalNetAmt
           });
-
 
           this.showCustomerDeatils();
         });
@@ -3951,7 +3963,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   updateData() {
     let formValue = this.angForm.value
     if (formValue.SAVING_PIGMY == 'FormT' && Number(this.angForm.controls['NETPAYABLEAMT'].value) != this.transferTotalAmount) {
-      Swal.fire("Warning!", "Please Check Net Payable Amount and Transfer Amount!", "info");
+      // Swal.fire("Warning!", "Please Check Net Payable Amount and Transfer Amount!", "info");
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.W11')}`, "info");
     }
     else if ((formValue.SAVING_PIGMY == 'FormT' && Number(this.angForm.controls['NETPAYABLEAMT'].value) == this.transferTotalAmount) || formValue.SAVING_PIGMY == 'FormC') {
       let ChequeDate
@@ -3994,7 +4007,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
       this._TDService.updateData(dataToSend).subscribe(data => {
         // this.getVoucherData();
         this.angForm.enable()
-        Swal.fire('Success!', 'Account Close Updated Successfully !', 'success');
+        // Swal.fire('Success!', 'Account Close Updated Successfully !', 'success');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.W12')}`, 'success');
         this.multigrid = []
         this.resetForm()
         var button = document.getElementById('trigger');
@@ -4028,7 +4042,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
 
       if (data == true) {
-        Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
+        // Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
+        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg3')}`, 'error');
         return 0;
       }
     }, err => {
@@ -4140,8 +4155,11 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this._TDService.approve(dataToSend).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Approved',
-        'Term Deposit Account Closing Approved Successfully',
+        // 'Approved',
+        // 'Term Deposit Account Closing Approved Successfully',
+        // 'success'
+        `${this.translate.instant('Swal_Msg.Approve')}`,
+        `${this.translate.instant('Swal_Msg.W13')}`,
         'success'
       );
       // this.child.reload()
@@ -4196,9 +4214,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
     this._TDService.reject(dataToSend).subscribe(data => {
       this.angForm.enable()
       Swal.fire(
-        'Rejected',
-        'Term Deposit Account Closing Rejected Successfully',
-        'success'
+        // 'Rejected',
+        // 'Term Deposit Account Closing Rejected Successfully',
+        // 'success'
+        `${this.translate.instant('Swal_Msg.Rejected')}`,
+        `${this.translate.instant('Swal_Msg.W14')}`,
+         'success'
       );
       // this.child.reload()
       var button = document.getElementById('trigger');
@@ -4223,9 +4244,12 @@ export class TermDepositAccountClosingComponent implements OnInit {
     }
     this._TDService.unapprove(obj).subscribe(data => {
       Swal.fire(
-        'Unapproved',
-        'Account unapproved successfully',
-        'success'
+        // 'Unapproved',
+        // 'Account unapproved successfully',
+        // 'success'
+        `${this.translate.instant('Swal_Msg.Unapprove')}`,
+        `${this.translate.instant('Swal_Msg.U_Msg')}`,
+         'success'
       );
       this.angForm.enable()
       var button = document.getElementById('trigger');
@@ -4287,11 +4311,8 @@ export class TermDepositAccountClosingComponent implements OnInit {
   scheme_type
 
   ResetForm() {
-    this.resetgrid()
     this.ngOnInit()
     this.resetForm()
-    this.particulars = ''
-    this.selectedCode = ''
     this.scheme_type = ''
     this.DayOpBal = 0
     this.Pass = 0

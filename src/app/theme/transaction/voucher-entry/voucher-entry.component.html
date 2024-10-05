@@ -263,9 +263,9 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" name="ChequeNo" class="form-control"
                                                         placeholder=" " id="ChequeNo" value=""
-                                                        style="text-transform: capitalize;"
+                                                        style="text-transform: uppercase;"
                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                                        (keyup)="chequeNoData($event)" formControlName="chequeNo"
+                                                        (focusout)="chequeNoData($event)" formControlName="chequeNo"  
                                                         maxlength="10">
                                                 </span>
                                             </div>
@@ -829,7 +829,7 @@
                             </div>
                             <div class="col-md">
                                 <!-- Cleared Balance -->
-                                <!-- <div class="transaction-item">
+                                <div class="transaction-item">
                                     <div class="d-flex">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -847,7 +847,7 @@
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
                                             aria-hidden="true"></i> {{ClearBalance}} {{typeclearbal}}</div>
-                                </div> -->
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">

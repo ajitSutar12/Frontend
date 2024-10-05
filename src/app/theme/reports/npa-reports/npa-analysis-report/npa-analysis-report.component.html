@@ -2,16 +2,19 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>NPA Analysis Report</h5>
+                <!-- <h5>NPA Analysis Report</h5> -->
+                <h5>{{'master.Report_NPA_Registration.T6'|translate}}</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
+                    {{'master.Action.F1'|translate}} (<sub class="required"> * </sub>) {{'master.Action.F2'|translate}}
                 </h6>
             </div>
             <div class="card">
                 <form [formGroup]="ngForm">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-sm-12 col-md-1"> <label for="Branch">Branch <sub
+                            <div class="col-sm-12 col-md-2"> <label for="Branch">
+                                {{'master.Report_NPA_Registration.Branch'|translate}}    <!-- Branch -->
+                                 <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-12 col-md-2">
@@ -30,11 +33,13 @@
                                     *ngIf="ngForm.controls['BRANCH_CODE'].invalid && (ngForm.controls['BRANCH_CODE'].dirty || ngForm.controls['BRANCH_CODE'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['BRANCH_CODE'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}    <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">Scheme Code<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">
+                                {{'master.Report_NPA_Registration.Scheme_Code'|translate}} <!-- Scheme Code -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-sm-2 col-md-2">
@@ -52,11 +57,13 @@
                                     *ngIf="ngForm.controls['Scheme_code'].invalid && (ngForm.controls['Scheme_code'].dirty || ngForm.controls['Scheme_code'].touched)"
                                     class="alert alert-danger">
                                     <div *ngIf="ngForm.controls['Scheme_code'].errors?.required">
-                                        This field is required
+                                        {{'master.Validation.Val1'|translate}}  <!-- This field is required -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 col-md-2"> <label for=" Date">NPA DATE<sub
+                            <div class="col-sm-12 col-md-2"> <label for=" Date">
+                                {{'master.Report_NPA_Registration.NPA_Date'|translate}}  <!-- NPA DATE -->
+                                <sub
                                 class="required">*</sub></label>
                     </div>
                     <div class="col-sm-2 col-md-2">
@@ -75,7 +82,9 @@
                     </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-2"> <label for="START_DATE">Overdue Interest Rate GL Code<sub
+                            <div class="col-md-2"> <label for="START_DATE">
+                                {{'master.Report_NPA_Registration.Overdue'|translate}}   <!-- Overdue Interest Rate GL Code -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -100,11 +109,13 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['OVER_CODE'].errors?.required ||ngForm.controls['OVER_CODE'].invalid">
-                                        This field is required.
+                                        {{'master.Validation.Val1'|translate}}    <!-- This field is required. -->
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2"> <label for="START_DATE">Anamat GL Code<sub
+                            <div class="col-md-2"> <label for="START_DATE">
+                                {{'master.Report_NPA_Registration.Anamat'|translate}}   <!-- Anamat GL Code -->
+                                <sub
                                         class="required">*</sub></label>
                             </div>
                             <div class="col-md-2">
@@ -123,7 +134,7 @@
                                     class="alert alert-danger">
                                     <div
                                         *ngIf="ngForm.controls['AGL_CODE'].errors?.required ||ngForm.controls['AGL_CODE'].invalid">
-                                        This field is required.
+                                        {{'master.Validation.Val1'|translate}}   <!-- This field is required. -->
                                     </div>
                                 </div>
                             </div>
@@ -134,18 +145,23 @@
                             <div class="col-md-9"></div>
                             <div class="col-md-2">
                                 <button class="btn btn-outline-primary btn-sm" value="submit" [disabled]="clicked"
-                                    (click)="view($event);scrollToTop()">View</button>
+                                    (click)="view($event);scrollToTop()">
+                                    {{'master.Action.View'|translate}}   <!-- View -->
+                                </button>
 
                             </div>
                             <div class="col-md-1">
-                                <button class="btn btn-outline-primary btn-sm" (click)="close()">Close</button>
+                                <button class="btn btn-outline-primary btn-sm" (click)="close()">
+                                    {{'master.Action.Close'|translate}}   <!-- Close -->
+                                </button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5>Report Frame</h5>
+                                        <!-- <h5>Report Frame</h5> -->
+                                        <h5>{{'master.Report_NPA_Registration.Report_Frame'|translate}}</h5>
                                     </div>
                                     <div *ngIf="showRepo">
                                         <app-iframe5 [url]='iframe5url' (load)="onLoad()"></app-iframe5>

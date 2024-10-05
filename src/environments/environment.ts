@@ -12,8 +12,8 @@ export const environment = {
   
   // Localhost
 
-  // base_url: 'http://192.168.1.119:7281', 
-  //  base_url: 'http://192.168.1.150:7276',  //Jagannath
+  base_url: 'http://192.168.1.150:7277',
+
 
   base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
@@ -96,11 +96,6 @@ export const environment = {
   // base_url: 'https://patsevacompservtech.com:7286',  
   // report_url: 'https://patsevacompservtech.com/SAISAMRAT/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/SAISAMRAT/CBS'
-
-  // BAGWANPAT
-  // base_url: 'https://patsevacompservtech.com:7287',  
-  // report_url: 'https://patsevacompservtech.com/BAGWANPAT/REPORTS/', 
-  // sitename: 'https://patsevacompservtech.com/BAGWANPAT/CBS'
 // };
 
 /*

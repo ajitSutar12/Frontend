@@ -13,7 +13,6 @@ import { data } from 'jquery';
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cd-ration-analysis',
@@ -53,21 +52,16 @@ export class CdRationAnalysisComponent implements OnInit {
   formSubmitted: boolean;
   isShow: boolean = true;
   isCancel: boolean = true;
-  setLang: any;
   // dtExportButtonOptions: any = {};
   constructor(private fb: FormBuilder, private ownbranchMasterService: OwnbranchMasterService, private sanitizer: DomSanitizer,
 
     private _service: EditInterestCalculationService, private http: HttpClient,
     private other_service: OtherViewService,
     private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService,
-
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -141,9 +135,7 @@ export class CdRationAnalysisComponent implements OnInit {
       this.modalClass = 'modalShow';
       this.other_service.updateCdData(data).subscribe(data => {
         this.modalClass = 'modalHide';
-        // Swal.fire('Success', 'CD ratio updated successfully', 'success')
-        Swal.fire(`${this.translate.instant('Swal_Msg.cd_update')}`)
-
+        Swal.fire('Success', 'CD ratio updated successfully', 'success')
         this.angForm.reset()
         this.profitloss = 0
         this.tableData = []
@@ -489,9 +481,7 @@ let partAbalanceBal=partAbalance
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`,`${this.translate.instant('Swal_Msg.Fill')}`)
-
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
   showLoading: boolean = false;

@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LoanDueCertificateComponent implements OnInit {
 
-  ngForm:FormGroup
+  ngForm: FormGroup
   branchOption: any[];
   scode: any = null;
   shemeDetails: any
@@ -31,21 +31,28 @@ export class LoanDueCertificateComponent implements OnInit {
   bsValue = new Date();
   accdetails: any[];
   showRepo: boolean = false;
-  clicked:boolean=false;
-  iframe5url:any='';
-  showLoading:boolean = false;
+  clicked: boolean = false;
+  iframe5url: any = '';
+  showLoading: boolean = false;
   ngbranch: any;
-  formSubmitted = false;  
+  formSubmitted = false;
   selectedmemNo
-  base_url=environment.base_url;
+  base_url = environment.base_url;
   report_url = environment.report_url;
-  constructor(private fb: FormBuilder,private _ownbranchmasterservice: OwnbranchMasterService,private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService,private http: HttpClient, private sanitizer: DomSanitizer,) { 
+  setLang: string;
+  constructor(private fb: FormBuilder, private _ownbranchmasterservice: OwnbranchMasterService,
+    private systemParameter: SystemMasterParametersService, private http: HttpClient, private sanitizer: DomSanitizer,private translate:TranslateService,) {
     this.todate = moment().format('DD/MM/YYYY');
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1); 
-      this.maxDate.setDate(this.maxDate.getDate())
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
   createForm() {
     this.ngForm = this.fb.group({
@@ -53,9 +60,9 @@ export class LoanDueCertificateComponent implements OnInit {
       Scheme_code: [''],
       date: [''],
       Acno: [''],
-      END_DATE:['']
+      END_DATE: ['']
     });
-   
+
   }
   ngOnInit(): void {
     this.createForm()
@@ -63,41 +70,41 @@ export class LoanDueCertificateComponent implements OnInit {
     // this.account()
     //branchlist
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-     this.branchOption = data;
-   })
-   this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    this.todate = data.CURRENT_DATE;
-  });
+      this.branchOption = data;
+    })
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.todate = data.CURRENT_DATE;
+    });
 
-  this.systemParameter.getFormData(1).subscribe(data => {
-    let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-    // this.fromdate = `01/04/${year - 1}`      
-    this.todate = data.CURRENT_DATE
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      // this.fromdate = `01/04/${year - 1}`      
+      this.todate = data.CURRENT_DATE
 
-    this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
-    this.fromdate = this.fromdate._d
-  })
+      this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
+    })
   }
   actype
   AddSchemeData() {
     // this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
-    this.http.get(this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get(this.base_url + '/ledger-view/cschem').subscribe((data: any[]) => {
 
-      this.shemeDetails = data.map(item => ({ ...item, isSelected: false,S_NAME: item.S_NAME }))
+      this.shemeDetails = data.map(item => ({ ...item, isSelected: false, S_NAME: item.S_NAME }))
       if (this.shemeDetails.length > 0) {
-        this.actype = this.shemeDetails[0].id; 
+        this.actype = this.shemeDetails[0].id;
       }
       console.log(this.shemeDetails);
     });
   }
-  
+
   account() {
-    let acty=
+    let acty =
     {
-      'name':this.schemename
+      'name': this.schemename
     }
     console.log(acty)
-    this.http.post('http://192.168.1.128:7266/term-loan-master/getcloseaccts',acty).subscribe((data: any[]) =>{
+    this.http.post('http://192.168.1.128:7266/term-loan-master/getcloseaccts', acty).subscribe((data: any[]) => {
       // this.http.post(this.base_url +'/term-loan-master/getcloseaccts',acty).subscribe((data: any[]) => {
       this.accdetails = data
       console.log(this.accdetails);
@@ -108,25 +115,25 @@ export class LoanDueCertificateComponent implements OnInit {
   acc
   AC_TYPE
   BANKACNO
-  getEvent(event){
-    this.schemename=event.S_NAME
-    this.AC_TYPE=event.id
+  getEvent(event) {
+    this.schemename = event.S_NAME
+    this.AC_TYPE = event.id
     this.account()
   }
-  getEvent1(event){
-this.acc=event.AC_NO
-this.BANKACNO=event.BANKACNO
-this.getDate(event)
+  getEvent1(event) {
+    this.acc = event.AC_NO
+    this.BANKACNO = event.BANKACNO
+    this.getDate(event)
   }
   date
-  getDate(event){
-    this.date=event.DATE
+  getDate(event) {
+    this.date = event.DATE
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
-  view(event:any) {
-    
+  }
+  view(event: any) {
+
     event.preventDefault();
     this.formSubmitted = true;
 
@@ -163,25 +170,24 @@ this.getDate(event)
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
-
   }
-  close(){
+  close() {
     this.resetForm()
 
   }
-  onLoad(){
+  onLoad() {
     this.showLoading = true;
 
   }
   resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
-  this.ngForm.controls.Acno.reset();
-  this.ngForm.controls.END_DATE.reset();
+    this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Acno.reset();
+    this.ngForm.controls.END_DATE.reset();
 
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()

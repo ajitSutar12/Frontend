@@ -20,7 +20,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { newArray } from '@angular/compiler/src/util';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-npa-register',
   templateUrl: './npa-register.component.html',
@@ -66,7 +66,7 @@ export class NpaRegisterComponent implements OnInit {
   OD_TEMP = "0";
   reportDate: any;
   nasf: any
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
@@ -74,6 +74,7 @@ export class NpaRegisterComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
+    private translate:TranslateService
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -81,6 +82,10 @@ export class NpaRegisterComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() + 1);
     this.maxDate.setDate(this.maxDate.getDate())
+    this.systemParameter.getFormData(1).subscribe(data => {
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
   }
 
   ngOnInit(): void {
@@ -251,7 +256,8 @@ export class NpaRegisterComponent implements OnInit {
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+      Swal.fire(`${this.translate.instant('Swal_Msg.Citywise_Npa')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning').then(() => { this.clicked = false });
+      // Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
   close() {
