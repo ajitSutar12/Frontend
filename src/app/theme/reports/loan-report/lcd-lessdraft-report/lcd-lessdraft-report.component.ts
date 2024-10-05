@@ -21,7 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-lcd-lessdraft-report',
@@ -61,6 +61,7 @@ export class LcdLessdraftReportComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -69,6 +70,7 @@ export class LcdLessdraftReportComponent implements OnInit {
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
     private directorMasterDropdown: DirectorMasterDropdownService,
+    private translate: TranslateService,
 
 
   ) {
@@ -93,7 +95,7 @@ export class LcdLessdraftReportComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'CC' || scheme.name == 'LN' );
+        return (scheme.name == 'CC' || scheme.name == 'LN');
       });
       this.scheme = filtered;
 
@@ -108,6 +110,9 @@ export class LcdLessdraftReportComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');
@@ -146,7 +151,7 @@ export class LcdLessdraftReportComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
 
 
@@ -193,7 +198,7 @@ export class LcdLessdraftReportComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/cash_credit_less_report.php/?&Branch='" + this.branchName + " '&sdate='" + obj.START_DATE+ "'&edate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE='" + scheme + "'&BRANCH_CODE='" +   this.ngbranch + "'&bankName='" + bankName + "'";
+      this.iframe5url = this.report_url + "examples/cash_credit_less_report.php/?&Branch='" + this.branchName + " '&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE='" + scheme + "'&BRANCH_CODE='" + this.ngbranch + "'&bankName='" + bankName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }

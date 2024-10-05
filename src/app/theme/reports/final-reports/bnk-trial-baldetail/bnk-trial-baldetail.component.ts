@@ -13,7 +13,7 @@ import * as moment from 'moment';
 import { environment } from "src/environments/environment";
 import { DomSanitizer } from '@angular/platform-browser';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-trial-baldetail',
@@ -42,6 +42,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
   branchOption: any;
   iframeurl: any = ' ';
   branchName
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -50,6 +51,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService,
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -65,10 +67,11 @@ export class BnkTrialBaldetailComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
-   
+      }
+    })
+
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -81,6 +84,10 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
   }
 
@@ -111,7 +118,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
     event.preventDefault();
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -135,9 +142,9 @@ export class BnkTrialBaldetailComponent implements OnInit {
       var sdate = moment(obj.START_DATE).startOf('quarter').format('DD/MM/YYYY');
       let branch = obj.BRANCH_CODE;
       let tran = obj.TRANSCATION;
-      if(branch == 0){
-        this.branchName='Consolidate';
-     }
+      if (branch == 0) {
+        this.branchName = 'Consolidate';
+      }
       let preViousStartdate = moment(obj.START_DATE).subtract(1, "days").format('DD/MM/YYYY');
       this.iframeurl = this.report_url + "examples/TrialBalDetail.php?startdate='" + startdate + "'&endDate='" + endDate + "'&sdate='" + sdate + "'&branched=" + this.ngbranch + "&tran=" + tran + "'&bankName=" + bankName + "" + "'&branchCode=" + branch + "&preViousStartdate='" + preViousStartdate + "'" + "&branchName=" + this.branchName;;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);

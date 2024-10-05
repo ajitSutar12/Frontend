@@ -415,10 +415,10 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.bal_category = data;
     })
     this._intrestCategory.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'SB')
-      // });
-      this.int_category = data;
+      this.int_category = data.filter(function (schem) {
+        return (schem.scheme == 'SB')
+      });
+      // this.int_category = data;
     })
     this.savingMasterService.getcityList().pipe(first()).subscribe(data => {
       this.city = data;
@@ -819,7 +819,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   is_reqired_auto
   // Method to insert data into database through NestJS
-  isDisable=false
+  isDisable = false
   submit(event) {
     let temdate
     let opdate
@@ -1185,7 +1185,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.savingMasterService.deleteData(id).subscribe(data1 => {
           this.savingMaster = data1;
           Swal.fire(
-           `${this.translate.instant('Swal_Msg.Delete')}`,
+            `${this.translate.instant('Swal_Msg.Delete')}`,
             `${this.translate.instant('Swal_Msg.D_Msg')}`,
             'success'
           )
@@ -1692,7 +1692,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.resetJointAC()
       }
     } else {
-      Swal.fire('',`${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
+      Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1976,7 +1976,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (date1 != "") {
       if (moment(date).isAfter(date1)) {
         Swal.fire(
-        `${this.translate.instant('Swal_Msg.Cancel')}`,
+          `${this.translate.instant('Swal_Msg.Cancel')}`,
           `${this.translate.instant('Swal_Msg.Exp_Date')}`,
           'error'
         );
@@ -2115,7 +2115,7 @@ export class SavingMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
-        Swal.fire('',  `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
+        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
       })
     }
 

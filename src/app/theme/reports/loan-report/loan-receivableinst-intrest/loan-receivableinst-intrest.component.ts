@@ -20,7 +20,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-loan-receivableinst-intrest',
@@ -28,68 +28,74 @@ import { NgSelectComponent } from "@ng-select/ng-select";
   styleUrls: ['./loan-receivableinst-intrest.component.scss']
 })
 export class LoanReceivableinstIntrestComponent implements OnInit {
-  iframe5url:any='';
-  @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
-formSubmitted = false;
+  iframe5url: any = '';
+  @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
+  formSubmitted = false;
 
-//fromgroup
-ngForm:FormGroup
- // for dropdown ng module
+  //fromgroup
+  ngForm: FormGroup
+  // for dropdown ng module
 
-ngbranch: any = null; 
- scode: any = null;
- //ngfor
- scheme: any[];
-branchOption: any[];
-clicked:boolean=false;
-showRepo: boolean = false;
-showLoading:boolean = false;
-transferSchemeDetails: any;
-tScheme
+  ngbranch: any = null;
+  scode: any = null;
+  //ngfor
+  scheme: any[];
+  branchOption: any[];
+  clicked: boolean = false;
+  showRepo: boolean = false;
+  showLoading: boolean = false;
+  transferSchemeDetails: any;
+  tScheme
 
- //date
-dates: any = null
-maxDate: Date;
+  //date
+  dates: any = null
+  maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-   
+    private translate: TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1); 
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
     this.createForm()
-   //branchlist
-   this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-    this.branchOption = data;
-  })
+    //branchlist
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
 
- // Scheme Code
- this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    
-  var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'LN'|| scheme.name == 'CC');
-  });
-  this.scheme = filtered;
- 
-  this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-    this.dates = data.CURRENT_DATE;
-  });
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
-})
-  
-  let data: any = localStorage.getItem('user');
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC');
+      });
+      this.scheme = filtered;
+
+      this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+        this.dates = data.CURRENT_DATE;
+      });
+
+    })
+
+    let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
@@ -104,25 +110,25 @@ maxDate: Date;
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.tScheme = event.name
-  
+
   }
- 
+
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      Scheme_code: ["",[ Validators.required]],
+      Scheme_code: ["", [Validators.required]],
       date: ['', [Validators.required]],
       Show_Ac: [""],
 
-     
+
     });
-   
+
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
-   
+
 
     event.preventDefault();
     this.formSubmitted = true;
@@ -132,52 +138,51 @@ maxDate: Date;
     let branchName = userData.branch.NAME;
 
 
-    if(this.ngForm.valid){
+    if (this.ngForm.valid) {
 
-   this.showRepo = true;
-    let obj = this.ngForm.value
+      this.showRepo = true;
+      let obj = this.ngForm.value
 
-    if(this.dates == userData.branch.syspara.CURRENT_DATE)
-    {
-      obj['date'] =userData.branch.syspara.CURRENT_DATE
+      if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+        obj['date'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.dates).format('DD/MM/YYYY');
+        let tDate = moment(date, 'DD/MM/YYYY')
+        obj['date'] = date
+      }
+
+
+      let scheme = obj.Scheme_code
+
+      let branch = obj.BRANCH_CODE;
+
+      let schemeName = this.tScheme
+
+      //  let startingcode= obj.Starting_Account;
+      // let endingcode =obj.Ending_Account; 
+
+      this.iframe5url = this.report_url + "examples/receivable_installmentandinterest.php?date='" + obj.date + "'&branchName='" + branchName + "'&FLAG=1&scheme_name='" + schemeName + "'&branch='" + this.ngbranch + "'&bankName='" + bankName + "'&scheme='" + scheme + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
-    else{
-    let date = moment(this.dates).format('DD/MM/YYYY');
-    let tDate = moment(date, 'DD/MM/YYYY')
-    obj['date']=date 
+    else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+    }
   }
-
-
-  let scheme = obj.Scheme_code
-
-    let branch = obj.BRANCH_CODE;
-
-    let schemeName = this.tScheme
-
-    //  let startingcode= obj.Starting_Account;
-    // let endingcode =obj.Ending_Account; 
-    
- this.iframe5url=this.report_url+ "examples/receivable_installmentandinterest.php?date='"+ obj.date +"'&branchName='"+ branchName +"'&FLAG=1&scheme_name='"+schemeName+"'&branch='"+  this.ngbranch +"'&bankName='"+bankName +"'&scheme='"+scheme +"'";
-  console.log(this.iframe5url); 
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
-  }
-  else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
-  }
-  }
-  close(){
+  close() {
     this.resetForm()
 
   }
-  onLoad(){
+  onLoad() {
     this.showLoading = false;
 
   }
   resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Scheme_code.reset();
 
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()

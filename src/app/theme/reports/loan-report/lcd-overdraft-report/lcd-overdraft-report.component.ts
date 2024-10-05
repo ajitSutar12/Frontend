@@ -21,7 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-lcd-overdraft-report',
@@ -63,13 +63,15 @@ export class LcdOverdraftReportComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
-    private sanitizer: DomSanitizer,    private directorMasterDropdown: DirectorMasterDropdownService,
+    private sanitizer: DomSanitizer, private directorMasterDropdown: DirectorMasterDropdownService,
+    private translate: TranslateService,
 
 
   ) {
@@ -91,13 +93,13 @@ export class LcdOverdraftReportComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN'|| scheme.name == 'CC');
+        return (scheme.name == 'LN' || scheme.name == 'CC');
       });
       this.scheme = filtered;
-  //director
-  this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
-    this.director = data;
-  })
+      //director
+      this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+        this.director = data;
+      })
       // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       //   this.dates = data.CURRENT_DATE;
       // });
@@ -109,6 +111,9 @@ export class LcdOverdraftReportComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');
@@ -147,7 +152,7 @@ export class LcdOverdraftReportComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
 
 
@@ -196,7 +201,7 @@ export class LcdOverdraftReportComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/cash_creadit_overdraft_report.php?&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH_CODE='"+ this.ngbranch  +"'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'";
+      this.iframe5url = this.report_url + "examples/cash_creadit_overdraft_report.php?&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH_CODE='" + this.ngbranch + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
@@ -205,7 +210,7 @@ export class LcdOverdraftReportComponent implements OnInit {
     }
   }
   close() {
-    this.resetForm() 
+    this.resetForm()
 
   }
 

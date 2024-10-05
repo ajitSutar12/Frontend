@@ -198,7 +198,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   barnchCode
   narrations: string[];
   setLang: any;
-  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService, public router: Router,
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService, public router: Router,private translateService: TranslateService,
     private http: HttpClient, private translate: TranslateService, private systemParameter: SystemMasterParametersService,) {
     this.systemParameter.getFormData(1).subscribe(data => {
 
@@ -865,23 +865,37 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.filteredMenuListData = [];
       return;
     }
-    const filterMenus = (menus) => {
-      return menus
-        .filter(menuItem =>
-          menuItem.name.toLowerCase().includes(searchTerm) ||
-          (menuItem.children && filterMenus(menuItem.children).length > 0)
-        )
-        .map(menuItem => {
+  
+    const filterMenus = async (menus) => {
+      const filteredMenus = [];
+      
+      for (const menuItem of menus) {
+        // Translate the menu name to the actual value
+        const translatedName = await this.translateService.get(menuItem.name).toPromise();
+        
+        // Check if the translated name includes the search term
+        const isMatch = translatedName.toLowerCase().includes(searchTerm);
+        
+        if (isMatch || (menuItem.children && (await filterMenus(menuItem.children)).length > 0)) {
+          const filteredMenuItem = { ...menuItem };
+          
           if (menuItem.children) {
-            menuItem.filteredChildren = filterMenus(menuItem.children);
+            filteredMenuItem.filteredChildren = await filterMenus(menuItem.children);
           }
-          return menuItem;
-        });
+          
+          filteredMenus.push(filteredMenuItem);
+        }
+      }
+      
+      return filteredMenus;
     };
-
+  
     // Filter main menus and their submenus recursively
-    this.filteredMenuListData = filterMenus(this.meunItemList);
+    filterMenus(this.meunItemList).then(filteredData => {
+      this.filteredMenuListData = filteredData;
+    });
   }
+  
   resetSearchInput(inputElement: HTMLInputElement) {
     inputElement.value = '';
     this.filteredMenuListData = [];

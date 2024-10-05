@@ -11,6 +11,7 @@ import { BalanceSheetService } from '../balance-sheet.service';
 import { date } from 'ngx-custom-validators/src/app/date/validator';
 import { data } from 'jquery';
 import { NgSelectConfig } from "@ng-select/ng-select";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-balance-sheet',
@@ -42,12 +43,14 @@ export class BalanceSheetComponent implements OnInit {
   balSheetdataset: [];
   allFilters: any;
   branchName
+  setLang: any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
     private http: HttpClient,
     private systemParameter: SystemMasterParametersService,
-    private _service: BalanceSheetService
+    private _service: BalanceSheetService,
+    private translate: TranslateService,
   ) {
     this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -63,14 +66,18 @@ export class BalanceSheetComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
-    
+      }
+    })
+
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-      
+
       this.fromdate = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     let data: any = localStorage.getItem('user');
@@ -98,7 +105,7 @@ export class BalanceSheetComponent implements OnInit {
 
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
     // this.branchName = event.branchName
     event.preventDefault();
@@ -134,9 +141,9 @@ export class BalanceSheetComponent implements OnInit {
 
           this.balSheetdataset = data;
           console.log(this.balSheetdataset);
-          if(branch == 0){
-            this.branchName='Consolidate';
-         }
+          if (branch == 0) {
+            this.branchName = 'Consolidate';
+          }
           this.iframeurl = this.report_url + "examples/BalanceSheet.php?&date=" + date + "&branch_code=" + this.ngbranch + "&bankName=" + bankName + "&branchName=" + this.branchName;
           console.log(this.iframeurl);
           this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);

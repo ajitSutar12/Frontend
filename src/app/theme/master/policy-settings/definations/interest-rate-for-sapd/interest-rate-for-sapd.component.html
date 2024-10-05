@@ -21,7 +21,7 @@
                                 <span class="border-lable-flt"> 
                                     <ng-select id="ACNOTYPE" appTheme bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="ACNOTYPE" bindLabel="id" title="Compulsory Selection"
-                                        [virtualScroll]="true"
+                                        [virtualScroll]="true" (change)="getScheme($event)"
                                          [ngClass]="{'form-submitted': formSubmitted}" required 
                                         #scheme (focus)="onFocus(scheme)" [selectOnTab]='true' autofocus >
                                         <ng-option *ngFor="let values of allScheme" [value]="values" >

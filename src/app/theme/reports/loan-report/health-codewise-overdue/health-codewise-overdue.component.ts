@@ -9,7 +9,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-health-codewise-overdue',
   templateUrl: './health-codewise-overdue.component.html',
@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
 })
 export class HealthCodewiseOverdueComponent implements OnInit {
 
-  
+
   iframe5url: any = '';
   // Date variables
   todate: any = null;
@@ -53,15 +53,23 @@ export class HealthCodewiseOverdueComponent implements OnInit {
   shemeDetails: any
   showLoading: boolean = false;
   isShow: boolean = true;
+  setLang: any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
     private systemParameter: SystemMasterParametersService,
+    private translate: TranslateService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -98,8 +106,8 @@ export class HealthCodewiseOverdueComponent implements OnInit {
   }
   actype
   AddSchemeData() {
-    this.http.get(this.base_url +'/ledger-view/cschem').subscribe((data: any[]) => {
-    // this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get(this.base_url + '/ledger-view/cschem').subscribe((data: any[]) => {
+      // this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
       if (this.shemeDetails.length > 0) {
         this.actype = this.shemeDetails[0].id; // Assuming id is a property of the first item in the array
@@ -197,7 +205,7 @@ export class HealthCodewiseOverdueComponent implements OnInit {
 
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
 
   view(event) {
     this.formSubmitted = true;
@@ -244,11 +252,11 @@ export class HealthCodewiseOverdueComponent implements OnInit {
   }
 
   show() {
-      this.isShow = false
+    this.isShow = false
   }
   show1() {
     this.isShow = true
-}
+  }
   close() {
     this.resetForm()
   }

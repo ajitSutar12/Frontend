@@ -17,25 +17,36 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DepositLoanInterestRateEditChangeService } from 'src/app/theme/master/maintainance/deposit-loan-interest-rate-edit-change/deposit-loan-interest-rate-edit-change.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [HealthCodewiseOverdueComponent],
-  exports:[HealthCodewiseOverdueComponent],
+  exports: [HealthCodewiseOverdueComponent],
   imports: [
     CommonModule,
     HealthCodewiseOverdueRoutingModule,
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    
+
     SharedModule,
     // BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers:[
+  providers: [
     SystemMasterParametersService,
     OwnbranchMasterService,
     SchemeCodeDropdownService,
@@ -44,8 +55,12 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
     DepositLoanInterestRateEditChangeService,
     DirectorMasterDropdownService,
     cityMasterService
-    
-   
+
+
   ],
 })
 export class HealthCodewiseOverdueModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

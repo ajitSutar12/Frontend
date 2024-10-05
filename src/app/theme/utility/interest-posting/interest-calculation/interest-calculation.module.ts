@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterestCalculationComponent } from './interest-calculation.component';
 import { InterestCalculationRoutingModule } from './interest-calculation-routing.module';
-import {DataTablesModule} from 'angular-datatables';
+import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -15,7 +15,9 @@ import { InterestPostingFlagUpdationService } from 'src/app/theme/master/maintai
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { CurrentSchemeService } from './interest-calculation.service';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,13 +27,26 @@ import { CurrentSchemeService } from './interest-calculation.service';
     ReactiveFormsModule,
     NgSelectModule,
     BsDatepickerModule.forRoot(),
-    DatepickerModule.forRoot()
+    DatepickerModule.forRoot(),
+
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [InterestCalculationComponent],
-  providers:[SystemMasterParametersService,OwnbranchMasterService,SchemeCodeDropdownService,CurrentSchemeService,InterestPostingFlagUpdationService,SchemeAccountNoService,{
+  providers: [SystemMasterParametersService, OwnbranchMasterService, SchemeCodeDropdownService, CurrentSchemeService, InterestPostingFlagUpdationService, SchemeAccountNoService, {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,
     multi: true
   },]
 })
 export class InterestCalculationModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

@@ -13,15 +13,17 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrol
 import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [CourtwiseDisputeLoandetailComponent],
-  exports:[CourtwiseDisputeLoandetailComponent],
+  exports: [CourtwiseDisputeLoandetailComponent],
   imports: [
     CommonModule,
     CourtwiseDisputeLoandetailRoutingModule,
@@ -34,12 +36,24 @@ import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
-    SchemeCodeDropdownService, 
+    SchemeCodeDropdownService,
     SchemeAccountNoService,
     OwnbranchMasterService,
-    SystemMasterParametersService,SchemeCodeDropdownService
+    SystemMasterParametersService, SchemeCodeDropdownService
   ]
 })
 export class CourtwiseDisputeLoandetailModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

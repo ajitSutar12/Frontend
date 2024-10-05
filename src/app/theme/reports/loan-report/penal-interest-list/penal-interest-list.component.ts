@@ -21,7 +21,7 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-penal-interest-list',
@@ -29,89 +29,94 @@ import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/di
   styleUrls: ['./penal-interest-list.component.scss']
 })
 export class PenalInterestListComponent implements OnInit {
-  iframe5url:any='';
-  @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
-formSubmitted = false;
+  iframe5url: any = '';
+  @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
+  formSubmitted = false;
 
-//fromgroup
-ngForm:FormGroup
- // for dropdown ng module
- fromdate: any = null
- ngbranch: any = null; 
- scode: any = null;
- //ngfor
- scheme: any[];
-branchOption: any[];
-clicked:boolean=false;
-showRepo: boolean = false;
-showLoading:boolean = false;
-transferSchemeDetails: any;
-tScheme
-isTdsForm: boolean = false;
-ngdirectorFrom: any = null;
-ngdirectorTo: any = null;
+  //fromgroup
+  ngForm: FormGroup
+  // for dropdown ng module
+  fromdate: any = null
+  ngbranch: any = null;
+  scode: any = null;
+  //ngfor
+  scheme: any[];
+  branchOption: any[];
+  clicked: boolean = false;
+  showRepo: boolean = false;
+  showLoading: boolean = false;
+  transferSchemeDetails: any;
+  tScheme
+  isTdsForm: boolean = false;
+  ngdirectorFrom: any = null;
+  ngdirectorTo: any = null;
 
-director: any[]
+  director: any[]
 
- //date
-todate: any = null
-bsValue = new Date();
+  //date
+  todate: any = null
+  bsValue = new Date();
 
-maxDate: Date;
+  maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
     private directorMasterDropdown: DirectorMasterDropdownService,
+    private translate: TranslateService,
 
-   
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1); 
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
     this.createForm()
-   //branchlist
-   this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-    this.branchOption = data;
-  })
-  //director
-  this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
-    this.director = data;
-  })
+    //branchlist
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+    //director
+    this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+      this.director = data;
+    })
 
- // Scheme Code
- this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    
-  var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'LN'|| scheme.name == 'CC');
-  });
-  this.scheme = filtered;
- 
-  // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-  //   this.todate = data.CURRENT_DATE;
-  // });
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
-})
-this.systemParameter.getFormData(1).subscribe(data => {
-  let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-  this.todate = data.CURRENT_DATE
-  
-  this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
-  this.fromdate = this.fromdate._d
-})
-  
-  let data: any = localStorage.getItem('user');
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC');
+      });
+      this.scheme = filtered;
+
+      // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      //   this.todate = data.CURRENT_DATE;
+      // });
+
+    })
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      this.todate = data.CURRENT_DATE
+
+      this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
+
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+
+    let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
@@ -132,26 +137,26 @@ this.systemParameter.getFormData(1).subscribe(data => {
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.tScheme = event.name
-  
+
   }
- 
+
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      Scheme_code: ["",[ Validators.required]], 
+      Scheme_code: ["", [Validators.required]],
       END_DATE: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       F_DIRECTOR: [''],
       T_DIRECTOR: [''],
-      TDSDOCUMNET:['']
+      TDSDOCUMNET: ['']
     });
-   
+
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
-   
+
 
     event.preventDefault();
     this.formSubmitted = true;
@@ -161,24 +166,24 @@ this.systemParameter.getFormData(1).subscribe(data => {
     let branchName = userData.branch.NAME;
 
 
-    if(this.ngForm.valid){
+    if (this.ngForm.valid) {
 
-   this.showRepo = true;
-    let obj = this.ngForm.value
+      this.showRepo = true;
+      let obj = this.ngForm.value
 
- let Date = moment(obj.date).format('DD/MM/YYYY');
- let toDate = moment(Date, 'DD/MM/YYYY')
+      let Date = moment(obj.date).format('DD/MM/YYYY');
+      let toDate = moment(Date, 'DD/MM/YYYY')
 
-     //for start date
-     if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
-      obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
-    }
-    else {
-      let date = moment(this.fromdate).format('DD/MM/YYYY');
-      let tDate = moment(date, 'DD/MM/YYYY')
-      obj['START_DATE'] = date
-    }
- //for end date
+      //for start date
+      if (this.fromdate == userData.branch.syspara.CURRENT_DATE) {
+        obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.fromdate).format('DD/MM/YYYY');
+        let tDate = moment(date, 'DD/MM/YYYY')
+        obj['START_DATE'] = date
+      }
+      //for end date
       if (this.todate == userData.branch.syspara.CURRENT_DATE) {
         obj['END_DATE'] = userData.branch.syspara.CURRENT_DATE
       }
@@ -188,49 +193,49 @@ this.systemParameter.getFormData(1).subscribe(data => {
         obj['END_DATE'] = date
       }
 
-  let scheme = obj.Scheme_code
-    let branch = obj.BRANCH_CODE;
-    let schemeName = this.tScheme
+      let scheme = obj.Scheme_code
+      let branch = obj.BRANCH_CODE;
+      let schemeName = this.tScheme
 
-    //  let startingcode= obj.Starting_Account;
-    // let endingcode =obj.Ending_Account;
-    
-this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName=' "+ this.branchName +"'&sdate='"+ obj.START_DATE +"'&edate='"+ obj.END_DATE +"'&TRAN='LN'&TRAN_ACTYPE='"+scheme+"'&BRANCH_CODE='"+ this.ngbranch+"'&bankname='"+bankName+"' ";
-// this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName='kotoli'&sdate='01/04/2022'&edate='30/11/2022'&TRAN='LN'";
+      //  let startingcode= obj.Starting_Account;
+      // let endingcode =obj.Ending_Account;
 
-  console.log(this.iframe5url); 
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+      this.iframe5url = this.report_url + "examples/penal interest list.php/?&BranchName=' " + this.branchName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&TRAN='LN'&TRAN_ACTYPE='" + scheme + "'&BRANCH_CODE='" + this.ngbranch + "'&bankname='" + bankName + "' ";
+      // this.iframe5url=this.report_url+ "examples/penal interest list.php/?&BranchName='kotoli'&sdate='01/04/2022'&edate='30/11/2022'&TRAN='LN'";
+
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+    }
   }
-  else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
-  }
-  }
-  close(){
+  close() {
     this.resetForm()
 
   }
 
-isReceivedTds($event) {
+  isReceivedTds($event) {
 
-if ($event.target.checked) {
-  this.isTdsForm = true;
-  
-} else {
-  this.isTdsForm = false;
-  
-}
-}
+    if ($event.target.checked) {
+      this.isTdsForm = true;
+
+    } else {
+      this.isTdsForm = false;
+
+    }
+  }
 
 
-  onLoad(){
+  onLoad() {
     this.showLoading = false;
 
   }
   resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Scheme_code.reset();
 
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()

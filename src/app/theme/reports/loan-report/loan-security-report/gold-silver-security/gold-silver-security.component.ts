@@ -21,7 +21,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-gold-silver-security',
@@ -56,6 +56,7 @@ export class GoldSilverSecurityComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -63,7 +64,7 @@ export class GoldSilverSecurityComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
-
+    private translate: TranslateService,
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -83,7 +84,7 @@ export class GoldSilverSecurityComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN' && scheme.IS_GOLD_LOAN == '1' );
+        return (scheme.name == 'LN' && scheme.IS_GOLD_LOAN == '1');
       });
       this.scheme = filtered;
 
@@ -98,6 +99,9 @@ export class GoldSilverSecurityComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');
@@ -134,7 +138,7 @@ export class GoldSilverSecurityComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
 
 
@@ -180,7 +184,7 @@ export class GoldSilverSecurityComponent implements OnInit {
       //  let startingcode= obj.Starting_Account;
       // let endingcode =obj.Ending_Account;
 
-      this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE+ "'&END_DATE='" + obj.END_DATE+ "'&BRANCH='"+this.branchName+"'&BANK_NAME='"+bankName+"'&AC_TYPE='" +scheme+ "'&AC_ACNOTYPE='" + schemeName+ "'&branchCode='" + branchCode+ "'";
+      this.iframe5url = this.report_url + "examples/GoldSilverSecurity.php?START_DATE='" + obj.START_DATE + "'&END_DATE='" + obj.END_DATE + "'&BRANCH='" + this.branchName + "'&BANK_NAME='" + bankName + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'&branchCode='" + branchCode + "'";
 
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

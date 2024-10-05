@@ -16,6 +16,7 @@ import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/cus
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { InterestRateForLoanandCCService } from 'src/app/theme/master/policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
 import { PurposeMasterDropdownService } from 'src/app/shared/dropdownService/purpose-master-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @Component({
@@ -44,8 +45,13 @@ export class LoanApplicationComponent implements OnInit {
   GuarantorID
   coBorrowerIndex
   getCustInfo = []
+  maxDate: Date;
+  bsConfig: any;
+  meetDate: any;
+  fromdate: Date;
   // selectedValue
   constructor(
+    private systemParameter: SystemMasterParametersService,
     private fb: FormBuilder,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
@@ -59,7 +65,21 @@ export class LoanApplicationComponent implements OnInit {
     private InterestRateForLoanandCC: InterestRateForLoanandCCService,
   ) {
     // this.selectedValue=null
+    this.maxDate = new Date();
+
+    // Initialize the bsConfig object
+    this.bsConfig = {
+      dateInputFormat: 'DD/MM/YYYY',
+      maxDate: this.maxDate
+    };
     this.dates = moment().format('DD/MM/YYYY');
+    this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      this.maxDate = new Date();
+      this.loanDate = data.CURRENT_DATE;
+      this.meetDate = data.CURRENT_DATE;
+
+      this.maxDate = new Date(this.loanDate);
+    });
 
   }
   dates
@@ -132,13 +152,9 @@ export class LoanApplicationComponent implements OnInit {
         return (Schemecode.name == 'SH');
       });
       this.Schemecode = filtered;
-
-
-      // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-      //   this.dates = data.CURRENT_DATE;
-      // });
-
     })
+
+
 
     //Demand Scheme Code Dropdown
     // this.schemeCodeDropdownService.getSchemeCodeList(this.dschemeType).pipe(first()).subscribe(data => {
@@ -154,23 +170,29 @@ export class LoanApplicationComponent implements OnInit {
       });
       this.demand_Scheme = filtered.slice(0, 5);
 
-      // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-      //   this.dates = data.CURRENT_DATE;
-      // });
+
 
     })
+
+
 
     this.purposeMaster.getPurposeMasterList().pipe(first()).subscribe(data => {
       this.purpose_Loan = data;
     })
 
-    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
+    this.http.post(this.url + '/term-loan-master/getacctretdt', {}).subscribe((data: any[]) => {
       this.Cust_ID = data;
+    })
+
+    this.customerID.getCustomerIDMasterList().pipe(first()).subscribe(data => {
       this.CCust_ID = data;
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      this.intCat = data;
+      this.intCat = data.filter(function (schem) {
+        return (schem.scheme == 'LN')
+      });
+      // this.intCat = data;
     })
 
   }
@@ -192,12 +214,12 @@ export class LoanApplicationComponent implements OnInit {
     this.seValue = this.selectedTransMemno
     console.log("mem", this.seValue)
     let formValues = this.angForm.value;
-    let mydate = formValues.loandDate
+    let mydate = formValues.loanDate
     let edate: any;
-    if (this.dates == formValues.loandDate) {
+    if (this.dates == formValues.loanDate) {
       edate = moment(this.dates, 'DD/MM/YYYY').format('DD/MM/YYYY')
     } else {
-      edate = moment(formValues.loandDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      edate = moment(formValues.loanDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
     };
 
     let userData = JSON.parse(localStorage.getItem('user'));
@@ -328,7 +350,7 @@ export class LoanApplicationComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       demandApplNo: ['', [Validators.required]],
-      loandDate: ['', [Validators.required]],
+      loanDate: ['', [Validators.required]],
       meetDate: ['', [Validators.required]],
       ReDate: ['', [Validators.required]],
       branch: ['', [Validators.required]],
@@ -355,7 +377,7 @@ export class LoanApplicationComponent implements OnInit {
       othSdeduct: ['', [Validators.required]],
 
       cust_id: ['', [Validators.required]],
-      loan: ['newLoan', [Validators.required]],
+      loan: ['', [Validators.required]],
 
       //Modal FormControls
       AC_TYPE: [''],
@@ -372,8 +394,12 @@ export class LoanApplicationComponent implements OnInit {
       SAN_AMT: ['', [Validators.required]],
       CAC_CUSTID: ['', [Validators.required]],
       CAC_NAME: [''],
+      monthsBetween: [''],
 
     });
+
+    let userData = JSON.parse(localStorage.getItem('user'));
+    this.selectedTransBranch = userData.branch.CODE + " " + userData.branch.NAME
   }
 
   // tableData = [
@@ -387,7 +413,7 @@ export class LoanApplicationComponent implements OnInit {
     this.Cust_ID = []
     this.Deposit = null
     this.angForm.controls['demandApplNo'].reset()
-    this.angForm.controls['loandDate'].reset()
+    this.angForm.controls['loanDate'].reset()
     this.angForm.controls['meetDate'].reset()
     this.angForm.controls['scode'].reset()
     this.angForm.controls['memno'].reset()
@@ -590,7 +616,7 @@ export class LoanApplicationComponent implements OnInit {
 
     let obj = {
       'APPLICATION_NO': this.DeApp,
-      'APPLICATION_DATE': moment(formValues.loandDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
+      'APPLICATION_DATE': moment(formValues.loanDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
       'MEETING_DATE': moment(formValues.meetDate, 'DD/MM/YYYY').format('DD/MM/YYYY'),
       'AC_TYPE': this.schemeid,
       'AC_NO': this.mem_num,
@@ -650,7 +676,7 @@ export class LoanApplicationComponent implements OnInit {
     this.isShowMoedal = true
     this.isRenew = false
     this.angForm.patchValue({
-      "AC_TYPE" : null
+      "AC_TYPE": null
     })
     this.isNew = true
     this.display = "block";
@@ -683,10 +709,29 @@ export class LoanApplicationComponent implements OnInit {
   getCustomer(event) {
     this.getCustInfo = []
 
+    if (event.AC_RETIRE_DATE === null) {
+      Swal.fire({
+        title: 'Retirement date not found!',
+        text: "Do you want to continue?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, continue',
+        cancelButtonText: 'No, cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          console.log('Proceed with the logic');
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          console.log('canceled');
+        }
+      });
+    }
+
+
+
     this.angForm.patchValue({
-      "memno": event.AC_MEMBNO + " " + event.AC_NAME
+      "memno": event.AC_NO + " " + event.AC_NAME
     })
-    this.customerIdService.getFormData(event.value).subscribe(data => {
+    this.customerIdService.getFormData(event.idmasterID).subscribe(data => {
       this.customerDoc = data.custdocument
       let obj = {
         SCHEME_CODE: 'LN'
@@ -727,10 +772,11 @@ export class LoanApplicationComponent implements OnInit {
       this.id = data.id
       this.angForm.patchValue({
         AC_TITLE: data.AC_TITLE,
+        OP_DATE: event.AC_OPDATE,
         AC_NAME: data.AC_NAME,
         MEMB_SCHEME: data.AC_MEMBTYPE,
         MEMB_NO: data.AC_MEMBNO,
-        CAST: data.AC_CAST,
+        CAST: event.NAME,
         OCCUPATION: data.occupMaster.NAME,
         BIRTH_DATE: data.AC_BIRTH_DT,
         AC_CUSTID: data.AC_NO + " " + data.AC_NAME,
@@ -775,40 +821,40 @@ export class LoanApplicationComponent implements OnInit {
       //   }
       // }
       // else {
-        let formVal = this.angForm.value;
-        let retirementDateString = this.getCustInfo[0].AC_RETIRE_DATE;
+      let formVal = this.angForm.value;
+      let retirementDateString = this.getCustInfo[0].AC_RETIRE_DATE;
 
-        // Assuming the format is 'DD-MM-YYYY'
-        let [day, month, year] = retirementDateString.split('-');
-        
-        // Convert to the correct date format (year, month - 1, day)
-        let retireMentDate = new Date(Number(year), Number(month) - 1, Number(day));
-        
-        console.log(retireMentDate);
-        
-        console.log(retireMentDate);  // Should now show the correct date
-        
-        
-        // Calculate the difference in years and months
-        // let yearDiff = retireMentDate.getFullYear() - loanDate.getFullYear();
-        // let monthDiff = retireMentDate.getMonth() - loanDate.getMonth();
-        
-        // Adjust for negative month difference
-        // if (monthDiff < 0) {
-        //   yearDiff--;
-        //   monthDiff += 12;
-        // }
-        
-        // // Final months difference (including day adjustment)
-        // let totalMonthsDiff = yearDiff * 12 + monthDiff;
-        
-        // // Adjust if day of month is earlier in retirement date
-        // if (retireMentDate.getDate() < loanDate.getDate()) {
-        //   totalMonthsDiff--;
-        // }
-        
-        // console.log("Difference in months:", totalMonthsDiff);
-        
+      // Assuming the format is 'DD-MM-YYYY'
+      let [day, month, year] = retirementDateString.split('-');
+
+      // Convert to the correct date format (year, month - 1, day)
+      let retireMentDate = new Date(Number(year), Number(month) - 1, Number(day));
+
+      console.log(retireMentDate);
+
+      console.log(retireMentDate);  // Should now show the correct date
+
+
+      // Calculate the difference in years and months
+      // let yearDiff = retireMentDate.getFullYear() - loanDate.getFullYear();
+      // let monthDiff = retireMentDate.getMonth() - loanDate.getMonth();
+
+      // Adjust for negative month difference
+      // if (monthDiff < 0) {
+      //   yearDiff--;
+      //   monthDiff += 12;
+      // }
+
+      // // Final months difference (including day adjustment)
+      // let totalMonthsDiff = yearDiff * 12 + monthDiff;
+
+      // // Adjust if day of month is earlier in retirement date
+      // if (retireMentDate.getDate() < loanDate.getDate()) {
+      //   totalMonthsDiff--;
+      // }
+
+      // console.log("Difference in months:", totalMonthsDiff);
+
 
 
       // }
@@ -1077,31 +1123,31 @@ export class LoanApplicationComponent implements OnInit {
       AC_NAME: formVal.CAC_NAME,
     }
 
-    // if (formVal.AC_CUSTID != "") {
-    if (object.CAC_CUSTID != undefined) {
-      if (this.id != this.Cid) {
-        if (this.multiCoBorrower.length == 0) {
-          this.multiCoBorrower.push(object);
-        }
-        else {
-          if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-            Swal.fire("This Customer is Already CoBorrower", "error");
-          } else {
+    if (formVal.AC_CUSTID != "") {
+      if (object.CAC_CUSTID != undefined) {
+        if (this.id != this.Cid) {
+          if (this.multiCoBorrower.length == 0) {
             this.multiCoBorrower.push(object);
           }
+          else {
+            if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
+              Swal.fire("This Customer is Already CoBorrower", "error");
+            } else {
+              this.multiCoBorrower.push(object);
+            }
+          }
+        }
+        else {
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        // Swal.fire("Please Select Different Customer id", "error");
+        Swal.fire("Please Select CoBorrower Customer Id", "error");
       }
-    }
-    else {
-      Swal.fire("Please Select CoBorrower Customer Id", "error");
-    }
 
-    // } else {
-    //   Swal.fire("Please Select Customer Id", "error");
-    // }
+    } else {
+      Swal.fire("Please Select Customer Id", "error");
+    }
     this.resetCoBorrower()
   }
 
@@ -1149,15 +1195,15 @@ export class LoanApplicationComponent implements OnInit {
           }
         }
         else {
-          // Swal.fire("Please Select Different Customer id", "error");
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        // Swal.fire("Please Select CoBorrower Customer Id", "error");
+        Swal.fire("Please Select CoBorrower Customer Id", "error");
       }
 
     } else {
-      // Swal.fire("Please Select Customer Id", "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
 
     this.resetCoBorrower()
@@ -1203,5 +1249,58 @@ export class LoanApplicationComponent implements OnInit {
     this.isRenew = true
     this.isNew = false
   }
+
+  newLoanApplication: boolean = false
+  reNewLoanApplication: boolean = false
+  newLoan() {
+    this.newLoanApplication = true
+    this.reNewLoanApplication = false
+    this.isRenew = false
+    this.isNew = true
+    this.angForm.controls['demandScheme'].reset()
+  }
+
+  renewLoan() {
+    this.newLoanApplication = false
+    this.reNewLoanApplication = true
+    this.isRenew = true
+    this.isNew = false
+    this.angForm.controls['demandScheme'].reset()
+  }
+
+  next() {
+    this.reNewLoanApplication = true
+  }
+
+  ReDate
+  monthsBetween
+  monthDifference
+  calculateMonths() {
+
+    let userData = JSON.parse(localStorage.getItem("user"));
+
+
+    let currentDate = userData.branch.syspara.CURRENT_DATE;
+
+    let startDate = moment(currentDate, 'DD/MM/YYYY');
+    let endDate = moment(this.ReDate, 'DD/MM/YYYY');
+    let monthsDifference = endDate.diff(startDate, 'months', true);
+    let value = Math.floor(monthsDifference);
+
+    this.angForm.patchValue({
+      'monthsBetween': value
+    })
+
+
+
+
+
+
+  }
+
+
+
+
+
 
 }

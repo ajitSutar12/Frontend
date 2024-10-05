@@ -691,21 +691,30 @@ export class AccountEnquiryComponent implements OnInit {
   custId
   minor
   tableDataMinor = []
-  // patchToTable(grdName: string, custId: string) {
-  //   // if (grdName && custId) {
-  //   //   this.tableData.push({ grdName: grdName, custId: custId });
-  //   // }
+  patchToTable(grdName: string, custId: string) {
+    // if (grdName && custId) {
+    //   this.tableData.push({ grdName: grdName, custId: custId });
+    // }
 
-  //   const exists = this.tableDataMinor.some(item => item.grdName === grdName && item.custId === custId);
+    const exists = this.tableDataMinor.some(item => item.grdName === grdName && item.custId === custId);
 
-  //   if (!exists && grdName && custId) {
-  //     this.tableDataMinor.push({ grdName: grdName, custId: custId });
-  //   }
-  // }
+    if (!exists && grdName && custId) {
+      this.tableDataMinor.push({ grdName: grdName, custId: custId });
+    }
+  }
   AC_MINOR
   //get account details
-
+  jointCustId
   getAccountDetails(event) {
+    this.accountEvent = event
+    this.grdName = this.accountEvent.AC_GRDNAME;
+    this.custId = this.accountEvent.AC_CUSTID;
+    this.patchToTable(this.grdName, this.custId);
+
+
+    this.customerImg = 'assets/images/nouser.png';
+    this.signture = 'assets/images/nosignature.png'
+    this.viewView(event)
 
   
     this.accountEvent = event

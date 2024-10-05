@@ -16,8 +16,7 @@ import Swal from 'sweetalert2';
 import { data, event } from 'jquery';
 import { async } from 'rxjs/internal/scheduler/async';
 import * as moment from 'moment';
-import { TranslateService } from '@ngx-translate/core';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-interest-calculation',
   templateUrl: './interest-calculation.component.html',
@@ -66,6 +65,7 @@ export class InterestCalculationComponent implements OnInit {
   selectedSchemeData: any;
   schemewiseRadio: boolean = true;
   modalClass: string = 'modalHide';
+  setLang: any;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private schemeAccountNoService: SchemeAccountNoService,
@@ -75,8 +75,15 @@ export class InterestCalculationComponent implements OnInit {
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
     private _serviceScheme: CurrentSchemeService,
-    private translate:TranslateService
+    private translate: TranslateService,
+
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+
     this.maxDate = new Date();
     this.minDate = new Date();
     this.minDate.setDate(this.minDate.getDate() - 1);
@@ -162,8 +169,9 @@ export class InterestCalculationComponent implements OnInit {
 
         //Send Data for Interest Calculation Scheme Wise;
 
-      
+
         this._service.IntrestCalculation(apiObj).subscribe((data) => {
+          this.isloader = false
           this.modalClass = 'modalHide';
           Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
@@ -206,7 +214,7 @@ export class InterestCalculationComponent implements OnInit {
         //Send Data for Interest Calculation Scheme Wise;
         this._service.IntrestCalculation(apiObj).subscribe(data => {
           this.modalClass = 'modalHide';
-          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
+          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Calculation_Successfully')}`, "success");
           this.ngOnInit()
           this.showButton = true;
         }, (error) => {
@@ -291,7 +299,7 @@ export class InterestCalculationComponent implements OnInit {
 
   //get scheme wise account number
   getSchemeAcno(event) {
-  
+
     let obj = [this.ngscheme, this.ngBranchCode]
     this.ngfromac = null
     this.ngtoac = null
@@ -486,6 +494,7 @@ export class InterestCalculationComponent implements OnInit {
         'INT_UPTO_DATE': data.CURRENT_DATE,
         'Ledger_Date': data.CURRENT_DATE,
       })
+
     })
   }
 

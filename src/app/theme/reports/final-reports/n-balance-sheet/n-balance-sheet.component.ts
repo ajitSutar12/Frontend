@@ -6,7 +6,8 @@ import * as moment from 'moment';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from 'src/environments/environment';
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 @Component({
   selector: 'app-n-balance-sheet',
   templateUrl: './n-balance-sheet.component.html',
@@ -35,6 +36,8 @@ export class NBalanceSheetComponent implements OnInit {
   // errorMessage: string = '';
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private translate:TranslateService,
+  private systemParameter: SystemMasterParametersService,
     private sanitizer: DomSanitizer,) {
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -48,10 +51,23 @@ export class NBalanceSheetComponent implements OnInit {
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
+      
       let result = JSON.parse(data1);
       if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
       }    })
+
+      
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    if (result.RoleDefine[0].Role.id == 1) {
+      this.ngbranch = result.branch.id
+      this.angForm.controls['BRANCH_CODE'].enable()
+    }
+    else {
+      this.angForm.controls['BRANCH_CODE'].disable()
+      this.ngbranch = result.branch.id
+    }
   }
 
   // updateEndDate() {

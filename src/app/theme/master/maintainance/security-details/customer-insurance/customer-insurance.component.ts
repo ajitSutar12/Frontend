@@ -107,6 +107,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
   filterData = {};
   insuranceoption
 
+
   constructor(
     private fb: FormBuilder,
     private _customerservice: customerinsuranceService,
@@ -124,6 +125,7 @@ export class CustomerInsuranceComponent implements OnInit, AfterViewInit, OnDest
     // this.maxDate.setDate(this.maxDate.getDate())
 
     this.systemParameter.getFormData(1).subscribe(data => {
+
 
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d 

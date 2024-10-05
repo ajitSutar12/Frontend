@@ -21,11 +21,10 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { EditoverdueInterestReceivableAmountComponent } from './editoverdue-interest-receivable-amount/editoverdue-interest-receivable-amount.component';
 import { EditInterestCalculationComponent } from './edit-interest-calculation/edit-interest-calculation.component';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+//Translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SystemMasterParametersService } from '../../scheme-parameters/system-master-parameters/system-master-parameters.service';
-
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -38,18 +37,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule,
+    //Translation
     TranslateModule.forRoot({
-      loader:{
-        provide:TranslateLoader,
-        useFactory:HttpLoaderFactory,
-        deps:[HttpClient]
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
     })
-    
-    
-  ],
-  providers: [SchemeAccountNoService,SchemeCodeDropdownService,OwnbranchMasterService,SystemMasterParametersService,
 
+  ],
+  providers: [SchemeAccountNoService, SchemeCodeDropdownService, OwnbranchMasterService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
@@ -63,8 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [InterestPassingComponent, EditInterestCalculationComponent, CalculateInterestPassingComponent, CalculateInterestUnpassingComponent, CalculateInterestDeletionComponent, EditoverdueInterestReceivableAmountComponent]
 })
 export class InterestPassingModule { }
-export function HttpLoaderFactory(http:HttpClient){
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
-
-

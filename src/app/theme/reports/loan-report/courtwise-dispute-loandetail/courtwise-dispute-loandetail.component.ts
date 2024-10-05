@@ -12,7 +12,7 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-courtwise-dispute-loandetail',
   templateUrl: './courtwise-dispute-loandetail.component.html',
@@ -32,44 +32,51 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
   schemeCode: any = null;
   getschemename: any;
   allScheme: any = null
-  fromdate:any=null
+  fromdate: any = null
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
   todate: any = null;
-  showLoading:boolean = false;
-    //dropdown ngmodel variables
-    ngscheme: any = null
-    obj: any
-    mem: any
-    equal:any
-    memFrom
-    startfrom
-    memTo
-    startto
-    branch
-    scheme
-   
-    clicked:boolean=false;
-    getbankAcNo: any;
-    getbankAcNo2: any;
+  showLoading: boolean = false;
+  //dropdown ngmodel variables
+  ngscheme: any = null
+  obj: any
+  mem: any
+  equal: any
+  memFrom
+  startfrom
+  memTo
+  startto
+  branch
+  scheme
+
+  clicked: boolean = false;
+  getbankAcNo: any;
+  getbankAcNo2: any;
   branchName: any;
   introducerACNo
 
   name: any;
-  iframe5url:any='';
+  iframe5url: any = '';
+  setLang: any;
 
 
   constructor(
-    private  fb: FormBuilder,
+    private fb: FormBuilder,
     private http: HttpClient,
     public router: Router,
     private sanitizer: DomSanitizer,
     private ownbranchMasterService: OwnbranchMasterService,
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private systemParameter: SystemMasterParametersService,
-    private schemeAccountNoService:SchemeAccountNoService
+    private schemeAccountNoService: SchemeAccountNoService,
+    private translate: TranslateService,
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -79,7 +86,7 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    
+
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       var allscheme = data.filter(function (scheme) {
         return (scheme.name == 'LN' || scheme.name == 'CC');
@@ -100,7 +107,7 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
       let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
       // this.fromdate = `01/04/${year - 1}`      
       this.todate = data.CURRENT_DATE
-      
+
       this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
       this.fromdate = this.fromdate._d
     })
@@ -119,16 +126,16 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
       this.branchName = result.branch.NAME
 
     }
-    
+
   }
 
-  createForm(){
+  createForm() {
     this.angForm = this.fb.group({
       BRANCH: ['', [Validators.required]],
       START_DATE: ['', [Validators.required]],
       END_DATE: ['', [Validators.required]],
       AC_TYPE: [''],
-      S_TYPE:[''],
+      S_TYPE: [''],
     });
 
     let data: any = localStorage.getItem('user');
@@ -151,23 +158,23 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
     this.getInterestTransfer()
   }
   //get acnotype from selected scheme
-  getIntTrans(event) { 
+  getIntTrans(event) {
     this.getschemename = event.name
     this.getInterestTransfer()
   }
-  getIntTranscus(event) { 
-    this.getbankAcNo =  event.bankacno
+  getIntTranscus(event) {
+    this.getbankAcNo = event.bankacno
     this.name = event.name
 
   }
 
   getIntTrans1(event) {
-    this.getbankAcNo2 =  event.bankacno
+    this.getbankAcNo2 = event.bankacno
     this.getInterestTransfer()
     this.getschemename = event.name
     this.introducerACNo = []
   }
- 
+
   getInterestTransfer() {
 
     // let data: any = localStorage.getItem('user');
@@ -175,85 +182,85 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
     // let branchCode = result.branch.id;
     this.obj = [this.ngscheme, this.ngBranchCode]
     switch (this.getschemename) {
-        case 'LN':
+      case 'LN':
         // this.schemeAccountNoService.getTermLoanSchemeList1(this.obj).subscribe(data => {
-          this.schemeAccountNoService.getTermLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+        this.schemeAccountNoService.getTermLoanMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
           this.introducerACNo = data;
 
         })
         break;
-          case 'CC':
-            // this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
-              this.schemeAccountNoService.getCashCreditMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
-              this.introducerACNo = data;
-             
-            })
-            break;
+      case 'CC':
+        // this.schemeAccountNoService.getCashCreditSchemeList1(this.obj).subscribe(data => {
+        this.schemeAccountNoService.getCashCreditMasterAcListForLedger(this.obj).pipe(first()).subscribe(data => {
+          this.introducerACNo = data;
+
+        })
+        break;
     }
   }
-end(){
-  this.startfrom = this.angForm.controls['START_DATE'].value
-  this.startto = this.angForm.controls['END_DATE'].value
-  if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
-    this.equal = [this.startfrom, this.startto]
+  end() {
+    this.startfrom = this.angForm.controls['START_DATE'].value
+    this.startto = this.angForm.controls['END_DATE'].value
+    if (this.angForm.controls['START_DATE'].value <= this.angForm.controls['END_DATE'].value) {
+      this.equal = [this.startfrom, this.startto]
+    }
+    else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.E_S_Date')}`, 'info')
+    }
   }
-  else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.E_S_Date')}`, 'info')
+  scrollToTop() {
+    window.scrollTo({ top: 200, behavior: 'smooth' });
   }
-}
-scrollToTop() {
-  window.scrollTo({ top: 200, behavior: 'smooth' });
-} 
-View(event) {
-  event.preventDefault();
+  View(event) {
+    event.preventDefault();
 
-  let userData = JSON.parse(localStorage.getItem('user'));
-  let bankName = userData.branch.syspara.BANK_NAME;
-  let branchName = userData.branch.NAME
+    let userData = JSON.parse(localStorage.getItem('user'));
+    let bankName = userData.branch.syspara.BANK_NAME;
+    let branchName = userData.branch.NAME
 
-  if (this.angForm.valid) {
-    this.showRepo = true;
-    let obj = this.angForm.value
-    let edate:any;
-    if (this.todate == obj.END_DATE) {
-      edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-    }else{ 
-      edate = moment(this.todate,'DD/MM/YYYY').format('DD/MM/YYYY')
-    };
+    if (this.angForm.valid) {
+      this.showRepo = true;
+      let obj = this.angForm.value
+      let edate: any;
+      if (this.todate == obj.END_DATE) {
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      };
 
-    let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
-    // let edate = moment(obj.TO_DATE).format('DD/MM/YYYY');
-    var sdate = moment(obj.START_DATE).subtract(1, "day").format('DD/MM/YYYY');
-    let branch = obj.BRANCH;
-    let scheme = obj.AC_TYPE;
-  
-  
-    this.iframe5url = this.report_url + "examples/CourtwiseDisputeloandetailslist.php?&startdate='" + stadate + "'&enddate='" + edate + "'&AC_ACNOTYPE='" + this.getschemename + "'&branchName='" + branchName + "'&bankName='" + bankName +  "'";
+      let stadate = moment(obj.START_DATE).format('DD/MM/YYYY');
+      // let edate = moment(obj.TO_DATE).format('DD/MM/YYYY');
+      var sdate = moment(obj.START_DATE).subtract(1, "day").format('DD/MM/YYYY');
+      let branch = obj.BRANCH;
+      let scheme = obj.AC_TYPE;
 
-    this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+      this.iframe5url = this.report_url + "examples/CourtwiseDisputeloandetailslist.php?&startdate='" + stadate + "'&enddate='" + edate + "'&AC_ACNOTYPE='" + this.getschemename + "'&branchName='" + branchName + "'&bankName='" + bankName + "'";
+
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+    }
+    else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+    }
 
   }
-  else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+  close() {
+    this.resetForm()
   }
 
-}
-close(){
-  this.resetForm() 
-}
+  // Reset Function
+  resetForm() {
+    this.angForm.controls.S_TYPE.reset();
+    this.angForm.controls.AC_TYPE.reset();
+    this.angForm.controls.END_DATE.reset();
+    this.angForm.controls.START_DATE.reset();
+    this.showRepo = false;
+    this.clicked = false;
+  }
+  onLoad() {
+    this.showLoading = true;
 
-// Reset Function
-resetForm() {
-  this.angForm.controls.S_TYPE.reset();
-  this.angForm.controls.AC_TYPE.reset();
-  this.angForm.controls.END_DATE.reset();
-  this.angForm.controls.START_DATE.reset();
-  this.showRepo = false;
-  this.clicked=false;
-}
-onLoad(){
-  this.showLoading = true;
-
-}
+  }
 
 }

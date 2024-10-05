@@ -12,28 +12,43 @@ import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [LoanCCACOpenSanctionDatewiseComponent],
-  exports:[LoanCCACOpenSanctionDatewiseComponent],
+  exports: [LoanCCACOpenSanctionDatewiseComponent],
   imports: [
     CommonModule,
     LoanCCACOpenSanctionDatewiseRoutingModule,
     PerfectScrollbarModule,
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    
+
     SharedModule,
     // BrowserAnimationsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     Iframe5Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers:[
+  providers: [
     SystemMasterParametersService,
     OwnbranchMasterService,
     SchemeCodeDropdownService,
   ],
 })
 export class LoanCCACOpenSanctionDatewiseModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

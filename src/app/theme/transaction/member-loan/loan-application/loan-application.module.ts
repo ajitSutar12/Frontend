@@ -23,6 +23,7 @@ import { CustomerIdService } from 'src/app/theme/master/customer/customer-id/cus
 import { ThemeModule } from 'src/app/theme/theme.module';
 import { InterestRateForLoanandCCService } from 'src/app/theme/master/policy-settings/definations/interest-rate-for-lacc/interest-rate-for-lacc.service';
 import { PurposeMasterDropdownService } from 'src/app/shared/dropdownService/purpose-master-dropdown.service';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { PurposeMasterDropdownService } from 'src/app/shared/dropdownService/pur
   IntrestCategoryMasterDropdownService,
   CustomerIdService,
   InterestRateForLoanandCCService,
-  PurposeMasterDropdownService
+  PurposeMasterDropdownService,
+  SystemMasterParametersService
 ]
 })
 export class LoanApplicationModule { }

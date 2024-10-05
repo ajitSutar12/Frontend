@@ -62,7 +62,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class CustomerInsuranceModule { }
+//Translation
 export function HttpLoaderFactory(http:HttpClient){
   return new TranslateHttpLoader(http);
 }
-

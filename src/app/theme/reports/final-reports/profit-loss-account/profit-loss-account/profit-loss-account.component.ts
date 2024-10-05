@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import Swal from "sweetalert2";
 import { environment } from "src/environments/environment";
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-profit-loss-account',
@@ -33,9 +33,11 @@ export class ProfitLossAccountComponent implements OnInit {
   ngbranch
   branchOption: any;
   branchName
+  setLang: any;
   constructor(private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private sanitizer: DomSanitizer,
+    private translate: TranslateService,
     private systemParameter: SystemMasterParametersService,) {
     // this.fromdate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -51,12 +53,16 @@ export class ProfitLossAccountComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      }    })
+      }
+    })
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.fromdate = data.CURRENT_DATE;
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
   }
@@ -82,7 +88,7 @@ export class ProfitLossAccountComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
     // debugger
     event.preventDefault();
@@ -103,10 +109,10 @@ export class ProfitLossAccountComponent implements OnInit {
       };
 
       let branch = obj.BRANCH_CODE;
-      if(branch == 0){
-        this.branchName='Consolidate';
-     }
-      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch + "&bankName=" + bankName + "" + "'&branchCode="+this.ngbranch+ "&branchName=" + this.branchName;
+      if (branch == 0) {
+        this.branchName = 'Consolidate';
+      }
+      this.iframeurl = this.report_url + "examples/ProfitAndLossAccount.php?date=" + date + "&branch_code=" + branch + "&bankName=" + bankName + "" + "'&branchCode=" + this.ngbranch + "&branchName=" + this.branchName;
       this.iframeurl = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframeurl);
 
     }

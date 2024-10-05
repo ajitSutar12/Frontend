@@ -1,37 +1,17 @@
-<!-- <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Member Loan Demand Application </h5>
-                <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
-                    Fields marked with (<sub class="required"> * </sub>) are mandatory
-                </h6>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="row">
-
     <div class="col-md-12">
-
         <div class="row">
-
             <div class="col-md-12">
-
                 <div class="card">
-
                     <div class="card-header">
                         <h5>Member Loan Demand Application</h5>
                         <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                             Fields marked with (<sub class="required"> * </sub>) are mandatory
                         </h6>
-
                     </div>
 
                     <form [formGroup]="angForm" novalidate>
                         <div class="card-body">
-                            <!-- <h1><span>Recovery Process</span></h1> -->
-                            <!-- <form [formGroup]="angForm" novalidate> -->
 
                             <div class="solid">
                                 <div class="row">
@@ -41,7 +21,7 @@
                                         <div class="form-group form-primary form-static-label">
                                             <span class="border-lable-flt">
                                                 <ng-select [(ngModel)]="selectedTransBranch" #scheme
-                                                    formControlName="branch" bindValue="value" bindLabel="label"
+                                                    formControlName="branch"
                                                     (change)="getIntroducer(); getbranchid($event)">
                                                     <ng-option *ngFor="let item of branch_code" [value]="item">
                                                         {{item.id}} {{item.label}}</ng-option>
@@ -85,17 +65,19 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                                    formControlName="loandDate" appButton minlength="10" maxlength="10"
+                                                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', maxDate: maxDate }"
+                                                    [maxDate]="maxDate" class="form-control" formControlName="loanDate"
+                                                    appButton minlength="10" maxlength="10" [(ngModel)]="loanDate"
                                                     (change)="forGetDate($event)"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
                                         </div>
+
                                         <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['loandDate'].invalid && (angForm.controls['loandDate'].dirty || angForm.controls['loandDate'].touched)"
+                                            *ngIf="angForm.controls['loanDate'].invalid && (angForm.controls['loanDate'].dirty || angForm.controls['loanDate'].touched)"
                                             class="alert alert-danger">
-                                            <div *ngIf="angForm.controls['loandDate'].errors?.required">
+                                            <div *ngIf="angForm.controls['loanDate'].errors?.required">
                                                 This field is required.
                                             </div>
                                         </div>
@@ -111,6 +93,7 @@
                                                 <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
                                                     formControlName="meetDate" appButton minlength="10" maxlength="10"
+                                                    [(ngModel)]="meetDate"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -123,6 +106,28 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Customer Id<sub
+                                                class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select formControlName="cust_id" (change)="getCustomer($event)">
+                                                    <ng-option *ngFor="let item of Cust_ID" [value]="item">
+                                                        {{item.AC_CUSTID}} {{item.AC_NAME}}</ng-option>
+                                                </ng-select>
+                                            </span>
+                                        </div>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['cust_id'].invalid && (angForm.controls['cust_id'].dirty || angForm.controls['cust_id'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['cust_id'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                     <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Scheme<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
@@ -145,26 +150,7 @@
 
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Customer Id<sub
-                                                class="required">*</sub></label></div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <ng-select formControlName="cust_id" (change)="getCustomer($event)">
-                                                    <ng-option *ngFor="let item of Cust_ID" [value]="item">
-                                                        {{item.label}}</ng-option>
-                                                </ng-select>
-                                            </span>
-                                        </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['cust_id'].invalid && (angForm.controls['cust_id'].dirty || angForm.controls['cust_id'].touched)"
-                                            class="alert alert-danger">
-                                            <div *ngIf="angForm.controls['cust_id'].errors?.required">
-                                                This field is required.
-                                            </div>
-                                        </div>
 
-                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -197,8 +183,10 @@
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
                                                 <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
+                                                    (change)="calculateMonths()"
                                                     [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" class="form-control"
-                                                    formControlName="ReDate" appButton minlength="10" maxlength="10"
+                                                    [(ngModel)]="ReDate" formControlName="ReDate" appButton
+                                                    minlength="10" maxlength="10"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                     bsDatepicker>
                                             </span>
@@ -212,15 +200,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-12 col-md-2"> <label for="calMonths">Months<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="monthsBetween">Months<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" name="calMonths" class="form-control" placeholder=" "
-                                                    id="calMonths" maxlength="10" formControlName="calMonths"
-                                                    (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                    [(ngModel)]="DeApp" disabled>
+                                                <input type="text" name="monthsBetween" class="form-control"
+                                                    placeholder=" " formControlName="monthsBetween" disabled>
                                             </span>
                                         </div>
 
@@ -228,12 +214,26 @@
 
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="form-radio">
+                                            <div class="radio radio-inline">
+                                                <label>
+                                                    <input type="radio" name="loan" value="newLoan"
+                                                        formControlName="loan" [checked]="true" (click)="newLoan()">
+                                                    <i class="helper"></i>New Loan </label>
+                                            </div>
+                                            <div class="radio radio-inline">
+                                                <label>
+                                                    <input type="radio" name="loan" value="renewLoan"
+                                                        formControlName="loan" (click)="renewLoan()">
+                                                    <i class="helper"></i>Renew Loan </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
-
-
-
-                            <!-- </form> -->
                         </div>
 
                         <div class="card-body" id="cb">
@@ -241,7 +241,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="solid">
-
                                         <table class="table table-bordered table-hover compact">
                                             <thead style="text-align: center;">
                                                 <td>Type</td>
@@ -275,53 +274,346 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
+                        <div class="card-body" *ngIf="newLoanApplication">
+                            <div class="solid">
+                                <div class="row">
 
-                        <div class="card-body" id="cb">
-                            <h1><span>Demand Details</span></h1>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="form-radio">
-                                        <div class="radio radio-inline">
-                                            <label>
-                                                <input type="radio" name="loan" value="newLoan" formControlName="loan"
-                                                    [checked]="true" (click)="openModal()">
-                                                <i class="helper"></i>New Loan </label>
+                                    <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Demand
+                                            Scheme<sub class="required">*</sub></label></div>
+                                    <div class="col-sm-12 col-md-2">
+                                        <div class="form-group form-primary form-static-label">
+                                            <span class="border-lable-flt">
+                                                <ng-select [(ngModel)]="selectedDScheme" #scheme
+                                                    formControlName="demandScheme" bindValue="value" bindLabel="label"
+                                                    (change)="getDeScheme($event)">
+                                                    <ng-option *ngFor="let item of demand_Scheme" [value]="item">
+                                                        {{item.id}} {{item.label}}</ng-option>
+                                                </ng-select>
+                                            </span>
                                         </div>
-                                        <div class="radio radio-inline">
-                                            <label>
-                                                <input type="radio" name="loan" value="renewLoan"
-                                                    formControlName="loan" (click)="radioFun()">
-                                                <i class="helper"></i>Renew Loan </label>
+                                        <div class="form-group form-primary form-static-label"
+                                            *ngIf="angForm.controls['demandScheme'].invalid && (angForm.controls['demandScheme'].dirty || angForm.controls['demandScheme'].touched)"
+                                            class="alert alert-danger">
+                                            <div *ngIf="angForm.controls['demandScheme'].errors?.required">
+                                                This field is required.
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="AC_CUSTID" class="form-control" placeholder=" "
+                                                    id="AC_CUSTID" formControlName="AC_CUSTID" disabled>
+                                                <label for="AC_CUSTID">Customer Id</label>
+                                            </span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <!-- <div class="col-sm-12 col-md-2"> <label for="AC_BRANCH">Demand Scheme<sub
-                                            class="required">*</sub></label></div>
-                                <div class="col-sm-12 col-md-2">
+                                    <!-- <div class="col-sm-1">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="AC_TITLE" class="form-control" placeholder=" "
+                                                    id="AC_TITLE" formControlName="AC_TITLE" disabled>
+                                                <label for="AC_TITLE">Title<sub class="required">*
+                                                    </sub></label>
+                                            </span>
+                                        </div>
+
+                                    </div> -->
+                                    <div class="col-sm-4">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="AC_NAME" class="form-control" placeholder=" "
+                                                    id="AC_NAME" formControlName="AC_NAME" disabled>
+                                                <label for="AC_NAME">Name</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="OP_DATE" class="form-control" placeholder=" "
+                                                    id="OP_DATE" formControlName="OP_DATE" disabled>
+                                                <label for="OP_DATE">Opening Date</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="BIRTH_DATE" class="form-control"
+                                                    placeholder=" " id="BIRTH_DATE" formControlName="BIRTH_DATE"
+                                                    disabled>
+                                                <label for="BIRTH_DATE">Birth Date</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="MEMB_SCHEME" class="form-control"
+                                                    placeholder=" " id="MEMB_SCHEME" formControlName="MEMB_SCHEME"
+                                                    disabled>
+                                                <label for="MEMB_SCHEME">Member Scheme<sub class="required">*
+                                                    </sub></label>
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="MEMB_NO" class="form-control" placeholder=" "
+                                                    id="MEMB_NO" formControlName="MEMB_NO" disabled>
+                                                <label for="MEMB_NO">Memeber No.</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="CAST" class="form-control" placeholder=" "
+                                                    id="CAST" formControlName="CAST" disabled>
+                                                <label for="CAST">Cast</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="OCCUPATION" class="form-control"
+                                                    placeholder=" " id="OCCUPATION" formControlName="OCCUPATION"
+                                                    disabled>
+                                                <label for="OCCUPATION">Occupation</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-sm-12 col-md-2"> 
+                                    <label for="AC_BRANCH">Branch<sub
+                                            class="required">*</sub></label></div> -->
+                                    <!-- <div class="col-sm-12 col-md-3">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select [(ngModel)]="selectedDScheme" #scheme
-                                                formControlName="demandScheme" bindValue="value" bindLabel="label"
-                                                (change)="getDeScheme($event)">
-                                                <ng-option *ngFor="let item of demand_Scheme" [value]="item">
-                                                    {{item.id}} {{item.label}}</ng-option>
+                                            <ng-select appTheme id="AC_INTCATA" bindValue="value"
+                                                [(ngModel)]="int_category" formControlName="AC_INTCATA"
+                                                bindLabel="label" title="Compulsory Selection"
+                                                [ngClass]="{'form-submitted': formSubmitted}" required
+                                                placeholder="Interest Category" #AC_INTCATA
+                                                (focus)="onFocus(AC_INTCATA)" [selectOnTab]='true'>
+                                                <ng-option *ngFor="let values of intCat"
+                                                    [value]="values">
+                                                    {{values.label}}</ng-option>
                                             </ng-select>
+                                            <label for="AC_INTCATA">Interest Category<sub
+                                                    class="required"> * </sub></label>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
-                                        *ngIf="angForm.controls['demandScheme'].invalid && (angForm.controls['demandScheme'].dirty || angForm.controls['demandScheme'].touched)"
+                                        *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
                                         class="alert alert-danger">
-                                        <div *ngIf="angForm.controls['demandScheme'].errors?.required">
+                                        <div *ngIf="angForm.controls['branch'].errors?.required">
                                             This field is required.
                                         </div>
                                     </div>
 
                                 </div> -->
 
+                                    <!-- <div class="col-sm-3">
+                                    <div class="form-group input-group">
+                                        <span class="border-lable-flt">
+                                            <ng-select appTheme id="AC_INTCATA"
+                                                bindValue="value"
+                                                formControlName="AC_INTCATA" bindLabel="label"
+                                                title="Compulsory Selection"
+                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                required placeholder="Interest Category" #AC_INTCATA
+                                                [selectOnTab]='true'>
+                                                <ng-option *ngFor="let values of intCat"
+                                                    [value]="values">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+                                            <label for="AC_INTCATA">Interest Category<sub
+                                                    class="required"> * </sub></label>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)"
+                                        class="alert alert-danger">
+                                        <div
+                                            *ngIf="angForm.controls['AC_INTCATA'].errors?.required">
+                                            This field is required
+                                        </div>
+                                    </div>
+
+                                </div> -->
+                                    <div class="col-sm-3">
+                                        <div class="form-group input-group">
+                                            <span class="border-lable-flt">
+                                                <input type="text" name="SAN_AMT" class="form-control"
+                                                    [(ngModel)]="demandAmt" placeholder=" " id="SAN_AMT"
+                                                    formControlName="SAN_AMT">
+                                                <label for="SAN_AMT">Sanction Amount</label>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card border-primary">
+                                    <div class="card-block highlight ">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="checkbox checkbox-primary">
+                                                    <div class="border-checkbox-group border-checkbox-group-primary">
+                                                        <input class="border-checkbox" type="checkbox" id="CoBorrowerid"
+                                                            (click)="clickCoBorrower($event)" />
+                                                        <label class="border-checkbox-label" for="CoBorrowerid"
+                                                            [ngClass]="{ isActive: CoBorrowerTrue }"><b
+                                                                style="color: dodgerblue;">CoBorrower</b></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="row" *ngIf="CoBorrowerTrue">
+
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group form-primary form-static-label">
+                                                    <span class="border-lable-flt">
+                                                        <ng-select appTheme id="CAC_CUSTID" [(ngModel)]="Cid"
+                                                            (change)="getCCustomer(Cid)" bindValue="value"
+                                                            formControlName="CAC_CUSTID" bindLabel="label"
+                                                            title="Compulsory Selection"
+                                                            [ngClass]="{'form-submitted': formSubmitted}" required
+                                                            placeholder="" #CAC_CUSTID (focus)="onFocus(CAC_CUSTID)"
+                                                            [selectOnTab]='true'>
+                                                            <ng-option *ngFor="let values of CCust_ID" [value]="values">
+                                                                {{values.label}}</ng-option>
+                                                        </ng-select>
+                                                        <label for="CAC_CUSTID">Customer Id<sub class="required"> *
+                                                            </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['CAC_CUSTID'].invalid && (angForm.controls['CAC_CUSTID'].dirty || angForm.controls['CAC_CUSTID'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['CAC_CUSTID'].errors?.required">
+                                                        This field is required.
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-sm-4">
+                                                <div class="form-group input-group">
+                                                    <span class="border-lable-flt">
+                                                        <input type="text" name="CAC_NAME" class="form-control"
+                                                            placeholder=" " id="CAC_NAME" disabled
+                                                            formControlName="CAC_NAME">
+                                                        <label for="CAC_NAME">Full Name<sub class="required">*
+                                                            </sub></label>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group form-primary form-static-label"
+                                                    *ngIf="angForm.controls['CAC_NAME'].invalid && (angForm.controls['CAC_NAME'].dirty || angForm.controls['CAC_NAME'].touched)"
+                                                    class="alert alert-danger">
+                                                    <div *ngIf="angForm.controls['CAC_NAME'].errors?.pattern">
+                                                        This field is required and Input
+                                                        allowed only A-Z a-z - / . (Space)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <button type="button" class="btn btn-outline-primary btn-sm"
+                                                    *ngIf="CoBorrowerShowButton" (click)="addCoBorrower()">Add
+                                                    CoBorrower
+                                                </button>
+                                                <button class="btn btn-outline-primary btn-sm"
+                                                    (click)="updateCoBorrower()"
+                                                    *ngIf="CoBorrowerUpdateShow">Update</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table
+                                                        class="table table-striped table-bordered table-hover compact">
+                                                        <thead>
+                                                            <td>Action</td>
+                                                            <td>Customer Id</td>
+                                                            <td>Full Name</td>
+
+                                                        </thead>
+                                                        <tbody *ngIf="multiCoBorrower?.length != 0">
+
+                                                            <tr
+                                                                *ngFor="let data of multiCoBorrower; let indexOfelement=index;">
+                                                                <td>
+                                                                    <span class="fa fa-fw fa-edit field-icon"
+                                                                        id="editbutton"
+                                                                        (click)="editCoBorrower(indexOfelement)"
+                                                                        placement="top" ngbTooltip="Edit"></span>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    <span class="fa fa-fw fa-trash-o" id="deletebutton"
+                                                                        (click)="delCoBorrower(indexOfelement)"
+                                                                        placement="right" ngbTooltip="Delete"></span>
+
+
+                                                                </td>
+                                                                <td>{{data.CAC_CUSTID }}
+                                                                </td>
+                                                                <td>{{data.AC_NAME }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody *ngIf="multiCoBorrower?.length == 0">
+                                                            <tr>
+                                                                <td colspan="6" class="no-data-available">
+                                                                    No data!
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button class="btn  btn-outline-primary btn-sm"
+                                                    (click)="next()">Next</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body" id="cb" *ngIf="reNewLoanApplication">
+                            <h1><span>Demand Details</span></h1>
+
+
+                            <div class="row">
                                 <div class="col-sm-12 col-md-1"> <label for="AC_TYPE">Scheme<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-3" *ngIf="isNew">
@@ -336,10 +628,9 @@
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
                                             <ng-select [(ngModel)]="selectedDScheme" #scheme
-                                                formControlName="demandScheme" bindValue="value"
-                                                bindLabel="label" (change)="getDeScheme($event)">
-                                                <ng-option *ngFor="let item of demand_Scheme"
-                                                    [value]="item">
+                                                formControlName="demandScheme" bindValue="value" bindLabel="label"
+                                                (change)="getDeScheme($event)">
+                                                <ng-option *ngFor="let item of demand_Scheme" [value]="item">
                                                     {{item.id}} {{item.label}}</ng-option>
                                             </ng-select>
                                         </span>
@@ -857,510 +1148,6 @@
                                     <button class="btn  btn-outline-primary btn-sm" (click)="reset()">Cancel</button>
 
                                     <button class="btn  btn-outline-primary btn-sm" (click)=" submit()">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div *ngIf="isShowMoedal">
-                            <div class="modal text-black" tabindex="-1" role="dialog"
-                                [ngStyle]="{'display':display, 'background-color': 'rgba(0, 0, 0, 0.5)'}">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <!-- <label style="font-weight: bold;">Ledger View</label> -->
-                                            <button type="button" class="close" aria-label="Close"
-                                                (click)="onCloseHandled()">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body scrollable-modal-body">
-
-                                            <div class="row">
-
-                                                <div class="col-sm-12 col-md-1"> <label for="AC_BRANCH">Demand
-                                                        Scheme<sub class="required">*</sub></label></div>
-                                                <div class="col-sm-12 col-md-2">
-                                                    <div class="form-group form-primary form-static-label">
-                                                        <span class="border-lable-flt">
-                                                            <ng-select [(ngModel)]="selectedDScheme" #scheme
-                                                                formControlName="demandScheme" bindValue="value"
-                                                                bindLabel="label" (change)="getDeScheme($event)">
-                                                                <ng-option *ngFor="let item of demand_Scheme"
-                                                                    [value]="item">
-                                                                    {{item.id}} {{item.label}}</ng-option>
-                                                            </ng-select>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group form-primary form-static-label"
-                                                        *ngIf="angForm.controls['demandScheme'].invalid && (angForm.controls['demandScheme'].dirty || angForm.controls['demandScheme'].touched)"
-                                                        class="alert alert-danger">
-                                                        <div *ngIf="angForm.controls['demandScheme'].errors?.required">
-                                                            This field is required.
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div class="col-sm-4">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="AC_CUSTID" class="form-control"
-                                                                placeholder=" " id="AC_CUSTID"
-                                                                formControlName="AC_CUSTID" disabled>
-                                                            <label for="AC_CUSTID">Customer Id</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-1">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="AC_TITLE" class="form-control"
-                                                                placeholder=" " id="AC_TITLE" formControlName="AC_TITLE"
-                                                                disabled>
-                                                            <label for="AC_TITLE">Title<sub class="required">*
-                                                                </sub></label>
-                                                        </span>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="AC_NAME" class="form-control"
-                                                                placeholder=" " id="AC_NAME" formControlName="AC_NAME"
-                                                                disabled>
-                                                            <label for="AC_NAME">Name</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="OP_DATE" class="form-control"
-                                                                placeholder=" " id="OP_DATE" formControlName="OP_DATE"
-                                                                disabled>
-                                                            <label for="OP_DATE">Opening Date</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="BIRTH_DATE" class="form-control"
-                                                                placeholder=" " id="BIRTH_DATE"
-                                                                formControlName="BIRTH_DATE" disabled>
-                                                            <label for="BIRTH_DATE">Birth Date</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="MEMB_SCHEME" class="form-control"
-                                                                placeholder=" " id="MEMB_SCHEME"
-                                                                formControlName="MEMB_SCHEME" disabled>
-                                                            <label for="MEMB_SCHEME">Member Scheme<sub
-                                                                    class="required">*
-                                                                </sub></label>
-                                                        </span>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="MEMB_NO" class="form-control"
-                                                                placeholder=" " id="MEMB_NO" formControlName="MEMB_NO"
-                                                                disabled>
-                                                            <label for="MEMB_NO">Memeber No.</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="CAST" class="form-control"
-                                                                placeholder=" " id="CAST" formControlName="CAST"
-                                                                disabled>
-                                                            <label for="CAST">Cast</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="OCCUPATION" class="form-control"
-                                                                placeholder=" " id="OCCUPATION"
-                                                                formControlName="OCCUPATION" disabled>
-                                                            <label for="OCCUPATION">Occupation</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                                <!-- <div class="col-sm-12 col-md-2"> 
-                                                    <label for="AC_BRANCH">Branch<sub
-                                                            class="required">*</sub></label></div> -->
-                                                <!-- <div class="col-sm-12 col-md-3">
-                                                    <div class="form-group form-primary form-static-label">
-                                                        <span class="border-lable-flt">
-                                                            <ng-select appTheme id="AC_INTCATA" bindValue="value"
-                                                                [(ngModel)]="int_category" formControlName="AC_INTCATA"
-                                                                bindLabel="label" title="Compulsory Selection"
-                                                                [ngClass]="{'form-submitted': formSubmitted}" required
-                                                                placeholder="Interest Category" #AC_INTCATA
-                                                                (focus)="onFocus(AC_INTCATA)" [selectOnTab]='true'>
-                                                                <ng-option *ngFor="let values of intCat"
-                                                                    [value]="values">
-                                                                    {{values.label}}</ng-option>
-                                                            </ng-select>
-                                                            <label for="AC_INTCATA">Interest Category<sub
-                                                                    class="required"> * </sub></label>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group form-primary form-static-label"
-                                                        *ngIf="angForm.controls['branch'].invalid && (angForm.controls['branch'].dirty || angForm.controls['branch'].touched)"
-                                                        class="alert alert-danger">
-                                                        <div *ngIf="angForm.controls['branch'].errors?.required">
-                                                            This field is required.
-                                                        </div>
-                                                    </div>
-
-                                                </div> -->
-
-                                                <!-- <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <ng-select appTheme id="AC_INTCATA"
-                                                                bindValue="value"
-                                                                formControlName="AC_INTCATA" bindLabel="label"
-                                                                title="Compulsory Selection"
-                                                                [ngClass]="{'form-submitted': formSubmitted}"
-                                                                required placeholder="Interest Category" #AC_INTCATA
-                                                                [selectOnTab]='true'>
-                                                                <ng-option *ngFor="let values of intCat"
-                                                                    [value]="values">
-                                                                    {{values.label}}</ng-option>
-                                                            </ng-select>
-                                                            <label for="AC_INTCATA">Interest Category<sub
-                                                                    class="required"> * </sub></label>
-                                                        </span>
-                                                    </div>
-                                                    <div class="form-group form-primary form-static-label"
-                                                        *ngIf="angForm.controls['AC_INTCATA'].invalid && (angForm.controls['AC_INTCATA'].dirty || angForm.controls['AC_INTCATA'].touched)"
-                                                        class="alert alert-danger">
-                                                        <div
-                                                            *ngIf="angForm.controls['AC_INTCATA'].errors?.required">
-                                                            This field is required
-                                                        </div>
-                                                    </div>
-
-                                                </div> -->
-                                                <div class="col-sm-3">
-                                                    <div class="form-group input-group">
-                                                        <span class="border-lable-flt">
-                                                            <input type="text" name="SAN_AMT" class="form-control"
-                                                                [(ngModel)]="demandAmt" placeholder=" " id="SAN_AMT"
-                                                                formControlName="SAN_AMT">
-                                                            <label for="SAN_AMT">Sanction Amount</label>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="card border-primary">
-                                                <div class="card-block highlight ">
-                                                    <div class="row">
-                                                        <div class="col-sm">
-                                                            <div class="checkbox checkbox-primary">
-                                                                <div
-                                                                    class="border-checkbox-group border-checkbox-group-primary">
-                                                                    <input class="border-checkbox" type="checkbox"
-                                                                        id="CoBorrowerid"
-                                                                        (click)="clickCoBorrower($event)" />
-                                                                    <label class="border-checkbox-label"
-                                                                        for="CoBorrowerid"
-                                                                        [ngClass]="{ isActive: CoBorrowerTrue }"><b
-                                                                            style="color: dodgerblue;">CoBorrower</b></label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                    <div class="row" *ngIf="CoBorrowerTrue">
-
-                                                        <div class="col-sm-12 col-md-4">
-                                                            <div class="form-group form-primary form-static-label">
-                                                                <span class="border-lable-flt">
-                                                                    <ng-select appTheme id="CAC_CUSTID"
-                                                                        [(ngModel)]="Cid" (change)="getCCustomer(Cid)"
-                                                                        bindValue="value" formControlName="CAC_CUSTID"
-                                                                        bindLabel="label" title="Compulsory Selection"
-                                                                        [ngClass]="{'form-submitted': formSubmitted}"
-                                                                        required placeholder="Interest Category"
-                                                                        #CAC_CUSTID (focus)="onFocus(CAC_CUSTID)"
-                                                                        [selectOnTab]='true'>
-                                                                        <ng-option *ngFor="let values of CCust_ID"
-                                                                            [value]="values">
-                                                                            {{values.label}}</ng-option>
-                                                                    </ng-select>
-                                                                    <label for="CAC_CUSTID">Customer Id<sub
-                                                                            class="required"> * </sub></label>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['CAC_CUSTID'].invalid && (angForm.controls['CAC_CUSTID'].dirty || angForm.controls['CAC_CUSTID'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf="angForm.controls['CAC_CUSTID'].errors?.required">
-                                                                    This field is required.
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-
-                                                        <div class="col-sm-4">
-                                                            <div class="form-group input-group">
-                                                                <span class="border-lable-flt">
-                                                                    <input type="text" name="CAC_NAME"
-                                                                        class="form-control" placeholder=" "
-                                                                        id="CAC_NAME" disabled
-                                                                        formControlName="CAC_NAME">
-                                                                    <label for="CAC_NAME">Full Name<sub
-                                                                            class="required">*
-                                                                        </sub></label>
-                                                                </span>
-                                                            </div>
-                                                            <div class="form-group form-primary form-static-label"
-                                                                *ngIf="angForm.controls['CAC_NAME'].invalid && (angForm.controls['CAC_NAME'].dirty || angForm.controls['CAC_NAME'].touched)"
-                                                                class="alert alert-danger">
-                                                                <div
-                                                                    *ngIf="angForm.controls['CAC_NAME'].errors?.pattern">
-                                                                    This field is required and Input
-                                                                    allowed only A-Z a-z - / . (Space)
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                                                *ngIf="CoBorrowerShowButton"
-                                                                (click)="addCoBorrower()">Add CoBorrower
-                                                            </button>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                (click)="updateCoBorrower()"
-                                                                *ngIf="CoBorrowerUpdateShow">Update</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="table-responsive">
-                                                                <table
-                                                                    class="table table-striped table-bordered table-hover compact">
-                                                                    <thead>
-                                                                        <td>Action</td>
-                                                                        <td>Customer Id</td>
-                                                                        <td>Full Name</td>
-
-                                                                    </thead>
-                                                                    <tbody *ngIf="multiCoBorrower?.length != 0">
-
-                                                                        <tr
-                                                                            *ngFor="let data of multiCoBorrower; let indexOfelement=index;">
-                                                                            <td>
-                                                                                <span
-                                                                                    class="fa fa-fw fa-edit field-icon"
-                                                                                    id="editbutton"
-                                                                                    (click)="editCoBorrower(indexOfelement)"
-                                                                                    placement="top"
-                                                                                    ngbTooltip="Edit"></span>
-                                                                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                                <span class="fa fa-fw fa-trash-o"
-                                                                                    id="deletebutton"
-                                                                                    (click)="delCoBorrower(indexOfelement)"
-                                                                                    placement="right"
-                                                                                    ngbTooltip="Delete"></span>
-
-
-                                                                            </td>
-                                                                            <td>{{data.CAC_CUSTID }}
-                                                                            </td>
-                                                                            <td>{{data.AC_NAME }}</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                    <tbody *ngIf="multiCoBorrower?.length == 0">
-                                                                        <tr>
-                                                                            <td colspan="6" class="no-data-available">
-                                                                                No data!
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="card border-primary">
-                                                <div class="card-block highlight">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="table-responsive">
-                                                                <table
-                                                                    class="table table-striped table-bordered table-hover compact">
-                                                                    <thead>
-                                                                        <td>Code</td>
-                                                                        <td>Description</td>
-                                                                        <td>Upload Attachment</td>
-                                                                        <td>View Document
-                                                                        </td>
-                                                                        <td>Is Linked Document Uploaded</td>
-                                                                    </thead>
-                                                                    <tbody *ngIf="customerDoc?.length != 0">
-                                                                        <tr *ngFor="let data of customerDoc;
-                                                                                    let indexOfelement = index">
-                                                                            <td>{{ indexOfelement + 1 }}</td>
-                                                                            <td>{{
-                                                                                data.schemeDocumentMaster?.NAME
-                                                                                }}</td>
-                                                                            <td style="align-items: center;">
-                                                                                <div class="row">
-                                                                                    <div class="col-sm">
-                                                                                        <div
-                                                                                            class="input-group-prepend selfcss">
-                                                                                            <span
-                                                                                                class="input-group-text">
-                                                                                                <i class="fa fa-upload"
-                                                                                                    aria-hidden="true"></i>
-                                                                                            </span>
-                                                                                            <input type="file"
-                                                                                                name="file" id="file"
-                                                                                                style="height: auto;"
-                                                                                                class="form-control"
-                                                                                                [id]="'file'+indexOfelement"
-                                                                                                accept="application/pdf,image/x-png,image/jpeg"
-                                                                                                (change)="fileChangeEvent($event, indexOfelement,data.DOCUMENT_CODE)" />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td style="align-items: center;">
-                                                                                <div class="col-sm-2">
-                                                                                    <span
-                                                                                        style="font-size: 20px;color: #0f459b; cursor: pointer;"
-                                                                                        (click)="viewImagePreview($event,data.DOCUMENT_CODE)"
-                                                                                        placement="right"
-                                                                                        ngbTooltip="Show Image"
-                                                                                        class="fa fa-fw fa-eye field-icon"></span>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td style="align-items: center;">
-                                                                                <div class="col-sm-2">
-                                                                                    <span *ngIf="data.status"
-                                                                                        class="fa fa-check-circle"
-                                                                                        id="editbutton"
-                                                                                        style="color: green;font-size: 20px;"
-                                                                                        placement="left"
-                                                                                        ngbTooltip="file uploaded"></span>
-                                                                                    &nbsp;
-                                                                                    <span *ngIf="!data.status"
-                                                                                        class="fa fa-times-circle-o"
-                                                                                        id="editbutton"
-                                                                                        style="color: red;font-size: 20px;"
-                                                                                        placement="left"
-                                                                                        ngbTooltip="file not uploaded"></span>
-                                                                                </div>
-
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                    <tbody *ngIf="customerDoc?.length == 0">
-                                                                        <tr>
-                                                                            <td class="no-data-available" colspan="5"
-                                                                                style="text-align: center;">No
-                                                                                data!
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-
-                                                                <div *ngIf="isdocument">
-                                                                    <div class="modal text-black" tabindex="-1"
-                                                                        role="dialog"
-                                                                        [ngStyle]="{'display':display1, 'background-color': 'rgba(0, 0, 0, 0.5)'}">
-                                                                        <div class="modal-dialog modal-xl"
-                                                                            role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <button type="button" class="close"
-                                                                                        aria-label="Close"
-                                                                                        (click)="onClose()">
-                                                                                        <span
-                                                                                            aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="modal-body scrollable-modal-body">
-                                                                                    <perfect-scrollbar>
-                                                                                        <div *ngIf="isImgPreview && (selectedImagePreview.startsWith('data:image') || selectedImagePreview.toLowerCase().endsWith('.jpg') || selectedImagePreview.toLowerCase().endsWith('.jpeg') || selectedImagePreview.toLowerCase().endsWith('.png'))"
-                                                                                            class='embed-responsive'
-                                                                                            style='padding-bottom:60%;'>
-                                                                                            <img [src]="selectedImagePreview"
-                                                                                                style="width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0;">
-                                                                                        </div>
-                                                                                        <div *ngIf="isPdf || (isImgPreview && (selectedImagePreview.startsWith('data:application/pdf') || selectedImagePreview.toLowerCase().endsWith('.pdf')))"
-                                                                                            class='embed-responsive'
-                                                                                            style='padding-bottom:60%;'>
-                                                                                            <iframe
-                                                                                                [src]="urlMap"></iframe>
-                                                                                        </div>
-
-
-                                                                                        <p
-                                                                                            *ngIf="!isImgPreview && !isPdf">
-                                                                                            No File For Preview</p>
-                                                                                    </perfect-scrollbar>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button"
-                                                                                        class="btn btn-outline-primary btn-sm"
-                                                                                        (click)="onClose()">Close</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-primary btn-sm"
-                                                (click)="onCloseHandled()">Close</button>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>

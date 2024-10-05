@@ -15,10 +15,12 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAccountNo.service';
 import { SchemeTypeDropdownService } from 'src/app/shared/dropdownService/scheme-type-dropdown.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { DirectorMasterDropdownService } from 'src/app/shared/dropdownService/director-master-dropdown.service';
-
+//Translation
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -34,22 +36,30 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    Iframe5Module
+    Iframe5Module,
+    //Translation
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [LcdRenewalListComponent],
-  exports:[LcdRenewalListComponent],
+  exports: [LcdRenewalListComponent],
   providers: [
     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG, 
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
 
     },
     SystemMasterParametersService,
     OwnbranchMasterService,
     SchemeCodeDropdownService,
     SchemeAccountNoService,
-    SchemeTypeDropdownService,DirectorMasterDropdownService,
+    SchemeTypeDropdownService, DirectorMasterDropdownService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: UserAuthInterceptor,
@@ -57,4 +67,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     },
   ]
 })
-export class LcdRenewalListModule { } 
+export class LcdRenewalListModule { }
+//Translation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

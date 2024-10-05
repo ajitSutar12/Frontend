@@ -20,7 +20,7 @@ import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../report-frame/report-frame.component";
 import { NgSelectComponent } from "@ng-select/ng-select";
-
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-pending-stock-statement-list',
@@ -55,6 +55,7 @@ export class PendingStockStatementListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +63,7 @@ export class PendingStockStatementListComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+    private translate: TranslateService,
 
   ) {
     this.todate = moment().format('DD/MM/YYYY');
@@ -82,7 +84,7 @@ export class PendingStockStatementListComponent implements OnInit {
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
       var filtered = data.filter(function (scheme) {
-        return (scheme.name == 'LN' || scheme.name == 'CC' );
+        return (scheme.name == 'LN' || scheme.name == 'CC');
       });
       this.scheme = filtered;
 
@@ -97,6 +99,9 @@ export class PendingStockStatementListComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');
@@ -133,7 +138,7 @@ export class PendingStockStatementListComponent implements OnInit {
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
 
 
@@ -177,7 +182,7 @@ export class PendingStockStatementListComponent implements OnInit {
       }
 
 
-      this.iframe5url = this.report_url + "examples/Pending_Stock_Statement.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='"+  this.ngbranch +"'&AC_ACNOTYPE='"+schemeName+"'&AC_TYPE='"+scheme+"'";
+      this.iframe5url = this.report_url + "examples/Pending_Stock_Statement.php?&Branch='" + this.branchName + "'&BankName='" + bankName + "'&sdate='" + obj.START_DATE + "'&edate='" + obj.END_DATE + "'&branch_code='" + this.ngbranch + "'&AC_ACNOTYPE='" + schemeName + "'&AC_TYPE='" + scheme + "'";
 
       // console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);

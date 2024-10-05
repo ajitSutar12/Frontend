@@ -24,8 +24,7 @@ import { data, event } from 'jquery';
 import { id } from '@swimlane/ngx-datatable';
 import * as moment from 'moment';
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from '@ngx-translate/core';
-
+import { TranslateService } from "@ngx-translate/core";
 
 // Handling datatable data
 class DataTableResponse {

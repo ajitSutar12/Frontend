@@ -9,7 +9,7 @@ import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branc
 import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-loan-cc-ac-open-sanction-datewise',
   templateUrl: './loan-cc-ac-open-sanction-datewise.component.html',
@@ -46,6 +46,7 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
   shemeDetails: any
   showLoading: boolean = false;
   base_url = environment.base_url;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -55,6 +56,7 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+    private translate: TranslateService,
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -71,9 +73,10 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
       this.branchOption = data;
       let data1: any = localStorage.getItem('user');
       let result = JSON.parse(data1);
-      if (result.branchId == 100 && result.RoleDefine[0].Role.id==1) {
+      if (result.branchId == 100 && result.RoleDefine[0].Role.id == 1) {
         this.branchOption.push({ value: '0', label: 'Consolidate' })
-      } });
+      }
+    });
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
@@ -86,13 +89,16 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
     this.AddSchemeData();
   }
   actype
   AddSchemeData() {
     // this.http.get('http://192.168.1.113:7276/ledger-view/cschem').subscribe((data: any[]) => {
-      this.http.get(this.base_url + '/ledger-view/cschem').subscribe((data: any[]) => {
+    this.http.get(this.base_url + '/ledger-view/cschem').subscribe((data: any[]) => {
 
       this.shemeDetails = data.map(item => ({ ...item, isSelected: false }))
       if (this.shemeDetails.length > 0) {
@@ -102,7 +108,7 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
     });
   }
 
-  
+
   selectedSchemeIds: any[] = [];
 
   selectAll() {
@@ -112,29 +118,29 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
     } else {
       this.shemeDetails.forEach(item => item.isSelected = true);
       this.updateSelectedSchemeIds();
-      
-    
+
+
     }
   }
-  
+
 
   unselectAll() {
     this.shemeDetails.forEach(item => item.isSelected = false);
     this.updateSelectedSchemeIds();
   }
-  
+
   areAllSelected() {
     return this.shemeDetails.every(item => item.isSelected);
   }
- 
+
 
   updateSelectedSchemeIds() {
     this.selectedIds = this.shemeDetails.filter(item => item.isSelected).map(item => item.id);
     console.log(this.selectedIds);
-    console.log("alll",this.selectedIds);
+    console.log("alll", this.selectedIds);
 
   }
-  
+
   selectedIds: number[] = [];
 
   toggleSelection(item: any) {
@@ -160,12 +166,12 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.required]],
-      RADIO:[''],
+      RADIO: [''],
       FROM_DATE: ['', [Validators.required]],
       TO_DATE: ['', [Validators.required]],
       close_Ac: [''],
       checked: [''],
-      checkboxValue:[''],
+      checkboxValue: [''],
     });
 
     let data: any = localStorage.getItem('user');
@@ -186,7 +192,7 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
   end() { }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
     this.formSubmitted = true;
     event.preventDefault();
@@ -207,31 +213,31 @@ export class LoanCCACOpenSanctionDatewiseComponent implements OnInit {
         edate = moment(this.todate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
 
-      let branch = obj.BRANCH_CODE;     
+      let branch = obj.BRANCH_CODE;
       let startscheme = obj.NEWPAGE;
       let schemeid = event.dataObject;
       let myArray = this.selectedIds
-      if(branch == 0){
-        this.branchName='Consolidate';
-     }
-      this.iframe5url = this.report_url + "examples/duebalancesummary.php?date='" + edate +"'&branch='" + this.ngbranch  + "'&schemeid=" + myArray +"&branchName='" + this.branchName + "'&bankName='" + bankName +  "'";
+      if (branch == 0) {
+        this.branchName = 'Consolidate';
+      }
+      this.iframe5url = this.report_url + "examples/duebalancesummary.php?date='" + edate + "'&branch='" + this.ngbranch + "'&schemeid=" + myArray + "&branchName='" + this.branchName + "'&bankName='" + bankName + "'";
       console.log(this.iframe5url);
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-  }
+    }
     else {
       this.formSubmitted = false;
       Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
     }
 
   }
-  
+
   close() {
     this.resetForm()
   }
   resetForm() {
     this.angForm.controls.END_DATE.reset();
     this.angForm.controls.checked.reset();
-        this.showRepo = false;
+    this.showRepo = false;
     this.clicked = false;
   }
   getBranch(event) {

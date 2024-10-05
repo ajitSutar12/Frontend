@@ -23,102 +23,108 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 import { cityMasterService } from "src/app/shared/dropdownService/city-master-dropdown.service";
 import { DirectorMasterDropdownService } from "src/app/shared/dropdownService/director-master-dropdown.service";
 
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
-    selector: 'app-citiwise-loan-balance',
-    templateUrl: './citiwise-loan-balance.component.html',
-    styleUrls: ['./citiwise-loan-balance.component.scss']
-  })
-  export class CitiwiseLoanBalanceComponent implements OnInit {
+  selector: 'app-citiwise-loan-balance',
+  templateUrl: './citiwise-loan-balance.component.html',
+  styleUrls: ['./citiwise-loan-balance.component.scss']
+})
+export class CitiwiseLoanBalanceComponent implements OnInit {
 
-  iframe5url:any='';
-  @ViewChild(ReportFrameComponent ) child: ReportFrameComponent ; 
-formSubmitted = false;
+  iframe5url: any = '';
+  @ViewChild(ReportFrameComponent) child: ReportFrameComponent;
+  formSubmitted = false;
 
-//fromgroup
-ngForm:FormGroup
- // for dropdown ng module
- fromdate: any = null
- ngbranch: any = null; 
- scode: any = null;
- //ngfor
- scheme: any[];
-branchOption: any[];
-clicked:boolean=false;
-showRepo: boolean = false;
-showLoading:boolean = false;
-transferSchemeDetails: any;
-tScheme
-isTdsForm: boolean = false;
-ngCity: any = null
-city: any[];
-ngdirectorFrom: any = null;
-ngdirectorTo: any = null;
+  //fromgroup
+  ngForm: FormGroup
+  // for dropdown ng module
+  fromdate: any = null
+  ngbranch: any = null;
+  scode: any = null;
+  //ngfor
+  scheme: any[];
+  branchOption: any[];
+  clicked: boolean = false;
+  showRepo: boolean = false;
+  showLoading: boolean = false;
+  transferSchemeDetails: any;
+  tScheme
+  isTdsForm: boolean = false;
+  ngCity: any = null
+  city: any[];
+  ngdirectorFrom: any = null;
+  ngdirectorTo: any = null;
 
-director: any[]
- //date
-dates: any = null
-bsValue = new Date();
+  director: any[]
+  //date
+  dates: any = null
+  bsValue = new Date();
 
-maxDate: Date;
+  maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter:SystemMasterParametersService,
+    private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private cityMaster: cityMasterService,
     private directorMasterDropdown: DirectorMasterDropdownService,
 
+    private translate: TranslateService,
     private sanitizer: DomSanitizer,
-   
+
   ) {
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1); 
+    this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
 
   ngOnInit(): void {
     this.createForm()
-   //branchlist
-   this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
-    this.branchOption = data;
-  })
- //director
- this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
-  this.director = data;
-})
- // Scheme Code
- this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    
-  var filtered = data.filter(function (scheme) {
-    return (scheme.name == 'LN'|| scheme.name == 'CC');
-  });
-  this.scheme = filtered;
- 
-  // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
-  //   this.dates = data.CURRENT_DATE;
-  // });
+    //branchlist
+    this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
+      this.branchOption = data;
+    })
+    //director
+    this.directorMasterDropdown.getDirectorMastertrueList().pipe(first()).subscribe(data => {
+      this.director = data;
+    })
+    // Scheme Code
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
 
-})
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'LN' || scheme.name == 'CC');
+      });
+      this.scheme = filtered;
 
-this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
-  this.city = data;
-});
+      // this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
+      //   this.dates = data.CURRENT_DATE;
+      // });
 
-this.systemParameter.getFormData(1).subscribe(data => {
-  let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
-  this.dates = data.CURRENT_DATE
-  
-  this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
-  this.fromdate = this.fromdate._d
-})
-  
-  let data: any = localStorage.getItem('user');
+    })
+
+    this.cityMaster.getcityList().pipe(first()).subscribe((data) => {
+      this.city = data;
+    });
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+      let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
+      this.dates = data.CURRENT_DATE
+
+      this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
+      this.fromdate = this.fromdate._d
+      //Translation
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+
+    let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
     if (result.RoleDefine[0].Role.id == 1) {
       this.ngbranch = result.branch.id
@@ -133,26 +139,26 @@ this.systemParameter.getFormData(1).subscribe(data => {
   getTransferAccountList(event) {
     this.transferSchemeDetails = event
     this.tScheme = event.name
-  
+
   }
- 
+
   createForm() {
     this.ngForm = this.fb.group({
       BRANCH_CODE: ['', [Validators.required]],
-      Scheme_code: ["",[ Validators.required]],
+      Scheme_code: ["", [Validators.required]],
       START_DATE: ['', [Validators.required]],
       AC_CTCODE: ['', [Validators.required]],
       F_DIRECTOR: ['',],
       T_DIRECTOR: ['',],
-      TDSDOCUMNET:['']
+      TDSDOCUMNET: ['']
     });
-   
+
   }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
+  }
   view(event) {
-   
+
 
     event.preventDefault();
     this.formSubmitted = true;
@@ -162,66 +168,66 @@ this.systemParameter.getFormData(1).subscribe(data => {
     let branchName = userData.branch.NAME;
 
 
-    if(this.ngForm.valid){
+    if (this.ngForm.valid) {
 
-   this.showRepo = true;
-    let obj = this.ngForm.value
+      this.showRepo = true;
+      let obj = this.ngForm.value
 
- let Date = moment(obj.date).format('DD/MM/YYYY');
- let toDate = moment(Date, 'DD/MM/YYYY')
-   //for start date
-   if (this.dates == userData.branch.syspara.CURRENT_DATE) {
-    obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
-  }
-  else {
-    let date = moment(this.dates).format('DD/MM/YYYY');
-    let toDate = moment(date, 'DD/MM/YYYY')
-    obj['START_DATE'] = date
-  }
-  let scheme = obj.Scheme_code
+      let Date = moment(obj.date).format('DD/MM/YYYY');
+      let toDate = moment(Date, 'DD/MM/YYYY')
+      //for start date
+      if (this.dates == userData.branch.syspara.CURRENT_DATE) {
+        obj['START_DATE'] = userData.branch.syspara.CURRENT_DATE
+      }
+      else {
+        let date = moment(this.dates).format('DD/MM/YYYY');
+        let toDate = moment(date, 'DD/MM/YYYY')
+        obj['START_DATE'] = date
+      }
+      let scheme = obj.Scheme_code
 
-let ctcode = obj.AC_CTCODE
-    let branch = obj.BRANCH_CODE;
+      let ctcode = obj.AC_CTCODE
+      let branch = obj.BRANCH_CODE;
 
-    let schemeName = this.tScheme
+      let schemeName = this.tScheme
 
-    //  let startingcode= obj.Starting_Account;
-    // let endingcode =obj.Ending_Account;
-    
-this.iframe5url=this.report_url+ "examples/citywise_loan_balance_report.php?branchName='"+branchName+"'&stdate='"+ obj.START_DATE +"'&etdate='"+ obj.START_DATE +"'&AC_TYPE='"+scheme +"'&AC_ACNOTYPE='"+schemeName +"'&AC_CTCODE='"+ ctcode +"'&bankName='"+bankName+"'&branch_code='"+ this.ngbranch+"'"
-  console.log(this.iframe5url); 
-   this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
+      //  let startingcode= obj.Starting_Account;
+      // let endingcode =obj.Ending_Account;
+
+      this.iframe5url = this.report_url + "examples/citywise_loan_balance_report.php?branchName='" + branchName + "'&stdate='" + obj.START_DATE + "'&etdate='" + obj.START_DATE + "'&AC_TYPE='" + scheme + "'&AC_ACNOTYPE='" + schemeName + "'&AC_CTCODE='" + ctcode + "'&bankName='" + bankName + "'&branch_code='" + this.ngbranch + "'"
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+    }
+    else {
+      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+    }
   }
-  else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
-  }
-  }
-  close(){
+  close() {
     this.resetForm()
 
   }
 
-isReceivedTds($event) {
+  isReceivedTds($event) {
 
-if ($event.target.checked) {
-  this.isTdsForm = true;
-  
-} else {
-  this.isTdsForm = false;
-  
-}
-}
+    if ($event.target.checked) {
+      this.isTdsForm = true;
+
+    } else {
+      this.isTdsForm = false;
+
+    }
+  }
 
 
-  onLoad(){
+  onLoad() {
     this.showLoading = false;
 
   }
   resetForm() {
-  this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Scheme_code.reset();
 
     this.showRepo = false;
-    this.clicked=false;
+    this.clicked = false;
   }
   onFocus(ele: NgSelectComponent) {
     ele.open()

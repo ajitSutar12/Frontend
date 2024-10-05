@@ -20,7 +20,7 @@ import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 import { ReportFrameComponent } from "../../../reports/report-frame/report-frame.component";
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-interest-list',
   templateUrl: './interest-list.component.html',
@@ -53,6 +53,7 @@ export class InterestListComponent implements OnInit {
   minDate: Date;
   report_url = environment.report_url;
   branchName: any;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +61,7 @@ export class InterestListComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     public schemeCodeDropdownService: SchemeCodeDropdownService,
     private sanitizer: DomSanitizer,
+    private translate: TranslateService,
   ) {
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -91,6 +93,10 @@ export class InterestListComponent implements OnInit {
         let year = moment(data.CURRENT_DATE, "DD/MM/YYYY").year()
         // this.fromdate = `01/04/${year - 1}`      
         this.dates = data.CURRENT_DATE
+
+        //Translation
+        this.setLang = data.SET_LANGUAGE
+        this.translate.setDefaultLang(this.setLang);
 
         // this.fromdate = moment(`01/04/${year - 1}`, 'DD/MM/YYYY')
         // this.fromdate = this.fromdate._d

@@ -9,16 +9,17 @@ export const environment = {
   // base_url: 'http://192.168.1.113:7271',     
   // base_url: 'http://192.168.1.174:7266',
 
-  
+
   // Localhost
 
   // base_url: 'http://192.168.1.119:7281', 
   //  base_url: 'http://192.168.1.150:7276',  //Jagannath
+  //  base_url: 'http://192.168.1.150:7276',  //Jagannath
 
   base_url: 'http://localhost:7276',
 
-   report_url: 'http://localhost/phpjasper/', //report folder local path
-  sitename: 'http://localhost/SIDHANERLI/CBS'   
+  report_url: 'http://localhost/phpjasper/', //report folder local path
+  sitename: 'http://localhost/SIDHANERLI/CBS'
 
   // //SIDHANERLI 
   // base_url: 'https://patsevacompservtech.com:4713', 
@@ -39,7 +40,7 @@ export const environment = {
   // report_url: 'https://patsevacompservtech.com/VADGAON_SARAF/REPORTS/',
   // sitename: 'https://patsevacompservtech.com/VADGAON_SARAF/CBS' 
 
- //Jijamata Arjunwada
+  //Jijamata Arjunwada
   // base_url: 'https://patsevacompservtech.com:7274',
   // report_url: 'https://patsevacompservtech.com/JIJAMATA_ARJUNWADA/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/JIJAMATA_ARJUNWADA/CBS'
@@ -55,24 +56,24 @@ export const environment = {
   // report_url: 'https://patsevacompservtech.com/VENKATESH/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/VENKATESH/CBS'
 
-  
 
-// //VITTHALDHARASHIV 
+
+  // //VITTHALDHARASHIV 
   // base_url: 'https://patsevacompservtech.com:7277',  
   // report_url: 'https://patsevacompservtech.com/VITTHALDHARASHIV/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/VITTHALDHARASHIV/CBS' 
 
-   // //DEMO COMPSERV 
+  // //DEMO COMPSERV 
   // base_url: 'https://patsevacompservtech.com:7796',  
   // report_url: 'https://patsevacompservtech.com/COMPSERV/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/COMPSERV/CBS'
 
-     // //DONGAON Trimurti 
+  // //DONGAON Trimurti 
   // base_url: 'https://patsevacompservtech.com:7278',  
   // report_url: 'https://patsevacompservtech.com/TRIMURTIDONGAON/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/TRIMURTIDONGAON/CBS'
 
-    //  DATTAPARGAON
+  //  DATTAPARGAON
   // base_url: 'https://patsevacompservtech.com:7280',  
   // report_url: 'https://patsevacompservtech.com/DATTAPARGAON/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/DATTAPARGAON/CBS'
@@ -83,11 +84,11 @@ export const environment = {
   // sitename: 'https://patsevacompservtech.com/SANJAYSINH_KOTOLI/CBS'
 
 
-      // PANHALA_URBAN
+  // PANHALA_URBAN
   // base_url: 'https://patsevacompservtech.com:7284',  
   // report_url: 'https://patsevacompservtech.com/PANHALA_URBAN/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/PANHALA_URBAN/CBS'
-    
+
   // SACHINSOCITY
   // base_url: 'https://patsevacompservtech.com:7285',  
   // report_url: 'https://patsevacompservtech.com/SACHINSOCITY/REPORTS/', 
@@ -102,14 +103,14 @@ export const environment = {
   // base_url: 'https://patsevacompservtech.com:7287',  
   // report_url: 'https://patsevacompservtech.com/BAGWANPAT/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/BAGWANPAT/CBS'
-// };
+  // };
 
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+  /*
+   * For easier debugging in development mode, you can import the following file
+   * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+   *
+   * This import should be commented out in production mode because it will have a negative impact
+   * on performance if an error is thrown.
+   */
+  // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 }

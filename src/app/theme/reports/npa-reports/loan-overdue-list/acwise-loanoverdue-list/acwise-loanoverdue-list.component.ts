@@ -294,7 +294,6 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
   // selectedArrayItem: any[]
   view(event) {
 
-
     let bankacno = this.selectedItems.map(item => `'${item.id}'`).join(', ');
     console.log(this.selectedItems);
     event.preventDefault();
@@ -404,6 +403,10 @@ export class AcwiseLoanoverdueListComponent implements OnInit {
 
 
       this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&LIST=" + show + "&flag1=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+
+
+      // this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&value=" + flag1 + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";
+
 
 
       // this.iframe5url = this.report_url + "examples/AccountWiseLoanOverdue.php?AC_TYPE='" + schemeName + "'&BRANCH_CODE=" + this.ngbranch + "&FIRST_NO='" + Acno1 + "'&SECOND_NO='" + Acno2 + "'&FLAG=" + tabValue + "&flag=" + flag + "&value=" + flag1 + "&LIST=" + list + "&DUEINSTALLMENTFROM=" + minvalue + "&DUEINSTALLMENTO=" + maxvalue + "&BranchName='" + this.branchName + "'&schemeCode='" + scheme + "'&id=" + bankacno + "&date1='" + Dates + "'&bankName='" + bankName + "'";

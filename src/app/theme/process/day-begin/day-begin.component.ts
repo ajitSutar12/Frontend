@@ -6,8 +6,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
 import Swal from 'sweetalert2';
 import { DayBeginService } from './day-begin.service';
 import { AuthService } from '../../../theme/auth/auth.service';
-import { TranslateService } from '@ngx-translate/core';
-
+import { TranslateService } from "@ngx-translate/core";
 @Component({
   selector: 'app-day-begin',
   templateUrl: './day-begin.component.html',

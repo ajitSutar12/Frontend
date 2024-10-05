@@ -424,10 +424,10 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.bal_category = data;
     })
     this.intrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'CA')
-      // });
-      this.int_category = data;
+      this.int_category = data.filter(function (schem) {
+        return (schem.scheme == 'CA')
+      });
+      // this.int_category = data;
     })
     this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
       this.allScheme = data;

@@ -461,10 +461,10 @@ export class TermDepositsMasterComponent implements OnInit, AfterViewInit, OnDes
       this.categoryMasterdropdown = data;
     })
     this.IntrestCategoryMasterDropdownService.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'TD')
-      // });
-      this.IntrestCategoryMasterDropdown = data;
+      this.IntrestCategoryMasterDropdown = data.filter(function (schem) {
+        return (schem.scheme == 'TD')
+      });
+      // this.IntrestCategoryMasterDropdown = data;
     })
     this.directorMasterDropdown.getDirectorMasterList().pipe(first()).subscribe(data => {
       this.Recommended = data;
