@@ -8,8 +8,6 @@ import { Observable, interval } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DayEndService } from 'src/app/theme/process/day-end/day-end.service';
 import { Router } from '@angular/router';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-admin',
@@ -194,17 +192,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   };
   newsContent: string;
   marqueeElement: any;
-  url = environment.base_url
+  url=environment.base_url
   barnchCode
   narrations: string[];
-  setLang: any;
-  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService, public router: Router,
-    private http: HttpClient, private translate: TranslateService, private systemParameter: SystemMasterParametersService,) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
+  constructor(public menuItems: MenuItems, private _authService: AuthService, private _dayEndService: DayEndService,public router:Router,
+    private http: HttpClient) {
     this.animateSidebar = '';
     this.navType = 'st2';
     this.themeLayout = 'vertical';
@@ -842,58 +834,57 @@ export class AdminComponent implements OnInit, OnDestroy {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }
+ // Menu search options
+ showMenu: boolean = false;
 
-  // Menu search options
-  showMenu: boolean = false;
+ onSearchBarClick() {
+   this.showMenu = true;
+ }
 
-  onSearchBarClick() {
-    this.showMenu = true;
-  }
+ onSearchBlur() {
+   const inputElement = this.searchInput.nativeElement;
+   inputElement.value = '';
+   setTimeout(() => {
+     this.showMenu = false;
 
-  onSearchBlur() {
-    const inputElement = this.searchInput.nativeElement;
-    inputElement.value = '';
-    setTimeout(() => {
-      this.showMenu = false;
+   }, 200);
+ }
 
-    }, 200);
-  }
+ performSearch() {
+   const searchTerm = (document.querySelector('.search-input') as HTMLInputElement).value.toLowerCase();
+   if (searchTerm.trim() === '') {
+     this.filteredMenuListData = [];
+     return;
+   }
+   const filterMenus = (menus) => {
+     return menus
+       .filter(menuItem =>
+         menuItem.name.toLowerCase().includes(searchTerm) ||
+         (menuItem.children && filterMenus(menuItem.children).length > 0)
+       )
+       .map(menuItem => {
+         if (menuItem.children) {
+           menuItem.filteredChildren = filterMenus(menuItem.children);
+         }
+         return menuItem;
+       });
+   };
 
-  performSearch() {
-    const searchTerm = (document.querySelector('.search-input') as HTMLInputElement).value.toLowerCase();
-    if (searchTerm.trim() === '') {
-      this.filteredMenuListData = [];
-      return;
-    }
-    const filterMenus = (menus) => {
-      return menus
-        .filter(menuItem =>
-          menuItem.name.toLowerCase().includes(searchTerm) ||
-          (menuItem.children && filterMenus(menuItem.children).length > 0)
-        )
-        .map(menuItem => {
-          if (menuItem.children) {
-            menuItem.filteredChildren = filterMenus(menuItem.children);
-          }
-          return menuItem;
-        });
-    };
+   // Filter main menus and their submenus recursively
+   this.filteredMenuListData = filterMenus(this.meunItemList);
+ }
+ resetSearchInput(inputElement: HTMLInputElement) {
+   inputElement.value = '';
+   this.filteredMenuListData = [];
+ }
 
-    // Filter main menus and their submenus recursively
-    this.filteredMenuListData = filterMenus(this.meunItemList);
-  }
-  resetSearchInput(inputElement: HTMLInputElement) {
-    inputElement.value = '';
-    this.filteredMenuListData = [];
-  }
-
-  //   modalClose: boolean = false
-  //   closeMarquee() {
-  //     this.modalClose = false
-  //   }
-  //   openModal(){
-  // this.modalClose=true
-  //   }
+//   modalClose: boolean = false
+//   closeMarquee() {
+//     this.modalClose = false
+//   }
+//   openModal(){
+// this.modalClose=true
+//   }
   modalClose: boolean = true
   closeMarquee() {
     this.modalClose = false
@@ -913,7 +904,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.http.get<any>(this.url + '/remainder' + branchcode).subscribe(
       (apiData) => {
 
-
+       
         for (let i = 0; i < apiData.length; i++) {
           this.newsContent += apiData[i].S_APPL + " " + apiData[i].BANKACNO + " " + apiData[i].AC_NAME + " " + apiData[i].AC_MATUAMT + " ";
           // console.log(this.newsContent);
@@ -921,7 +912,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         if (marqueeState !== 'hidden') {
           localStorage.setItem('marqueeState', 'visible');
         }
-        this.updateMarqueeContent();
+        this.updateMarqueeContent(); 
       },
       (error) => {
         console.error(error);
@@ -944,7 +935,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     let obj = {
       "USERID": this.user,
     }
-    this.http.post(this.url + '/user-defination/getremainderdata', obj).subscribe(
+    this.http.post(this.url+'/user-defination/getremainderdata', obj).subscribe(
       (response) => {
         this.gettable = response;
         this.filteredNarrations = [];
@@ -956,7 +947,7 @@ export class AdminComponent implements OnInit, OnDestroy {
           }
         });
         this.remainDT = this.filteredNarrations
-        this.updateMarqueeContent();
+        this.updateMarqueeContent(); 
       }
     );
   }

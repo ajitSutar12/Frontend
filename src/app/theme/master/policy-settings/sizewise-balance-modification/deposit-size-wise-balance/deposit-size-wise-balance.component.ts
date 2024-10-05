@@ -131,7 +131,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
       ACNOTYPE: 'TD'
     }
     this.http.post(this.url + '/sizewise-balance-updation/insert', obj).subscribe((data) => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Tran_Msg')}`,'success')
+      Swal.fire('Success','Data Updated Successfully','success')
       this.http.get(this.url + '/sizewise-balance-updation/ACNOTYPE/' + obj.ACNOTYPE).subscribe((data) => {
         if (data['amountExist'] == true) {
           this.Amount = data['amount']
@@ -191,7 +191,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.Amount[i].AMOUNT_FROM = amt
     if (i != 0 && Number(this.Amount[i].AMOUNT_FROM) < Number(this.Amount[i - 1].AMOUNT_TO)) {
       this.Amount[i].AMOUNT_FROM = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.From_Amt_Must_Be')} ${this.Amount[i - 1].AMOUNT_TO} ${this.translate.instant('Swal_Msg.or_Greater_Than')} ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
+      Swal.fire('Info', `From Amount Must Be ${this.Amount[i - 1].AMOUNT_TO} or Greater Than ${this.Amount[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
@@ -199,7 +199,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.Amount[i].AMOUNT_TO = amt
     if (Number(this.Amount[i].AMOUNT_FROM) > Number(this.Amount[i].AMOUNT_TO)) {
       this.Amount[i].AMOUNT_TO = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.To_Amt_Must_Greater')} ${this.Amount[i].AMOUNT_FROM}`, 'info')
+      Swal.fire('Info', `To Amount Must Be Greater Than ${this.Amount[i].AMOUNT_FROM}`, 'info')
     }
   }
   //Insurance methods
@@ -222,7 +222,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.Insurance[i].AMOUNT_FROM = amt
     if (i != 0 && Number(this.Insurance[i].AMOUNT_FROM) < Number(this.Insurance[i - 1].AMOUNT_TO)) {
       this.Insurance[i].AMOUNT_FROM = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.From_Amt_Must_Be')} ${this.translate.instant('Swal_Msg.Equal_To_Or_Greater_Than')} ${this.Insurance[i - 1].AMOUNT_TO}`, 'info')
+      Swal.fire('Info', `From Amount Must Be Equal To Or Greater Than ${this.Insurance[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
@@ -230,7 +230,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.Insurance[i].AMOUNT_TO = amt
     if (Number(this.Insurance[i].AMOUNT_FROM) > Number(this.Insurance[i].AMOUNT_TO)) {
       this.Insurance[i].AMOUNT_TO = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.To_Amt_Must_Greater_Or_Equal')} ${this.Insurance[i].AMOUNT_FROM}`, 'info')
+      Swal.fire('Info', `To Amount Must Be Equal To Or Greater Than ${this.Insurance[i].AMOUNT_FROM}`, 'info')
     }
   }
 
@@ -254,7 +254,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.intRate[i].AMOUNT_FROM = amt
     if (i != 0 && Number(this.intRate[i].AMOUNT_FROM) < Number(this.intRate[i - 1].AMOUNT_TO)) {
       this.intRate[i].AMOUNT_FROM = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.From_Interest_Amount_Must_Be')} ${this.intRate[i - 1].AMOUNT_TO} or Greater Than ${this.intRate[i - 1].AMOUNT_TO}`, 'info')
+      Swal.fire('Info', `From Interest Amount Must Be ${this.intRate[i - 1].AMOUNT_TO} or Greater Than ${this.intRate[i - 1].AMOUNT_TO}`, 'info')
     }
   }
 
@@ -262,7 +262,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.intRate[i].AMOUNT_TO = amt
     if (Number(this.intRate[i].AMOUNT_FROM) > Number(this.intRate[i].AMOUNT_TO)) {
       this.intRate[i].AMOUNT_TO = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.To_IntAmt_Must_Greater')} ${this.intRate[i].AMOUNT_FROM}`, 'info')
+      Swal.fire('Info', `To Interest Amount Must Be Greater Than ${this.intRate[i].AMOUNT_FROM}`, 'info')
     }
   }
 
@@ -286,7 +286,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.peroid[i].FROM_MONTHS = amt
     if (i != 0 && Number(this.peroid[i].FROM_MONTHS) < Number(this.peroid[i - 1].TO_MONTHS)) {
       this.peroid[i].FROM_MONTHS = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.From_Peroid_Equal_Greater')}${this.peroid[i - 1].TO_MONTHS}`, 'info')
+      Swal.fire('Info', `From Peroid Must Be Equal Or Greater Than ${this.peroid[i - 1].TO_MONTHS}`, 'info')
     }
   }
 
@@ -294,7 +294,7 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
     this.peroid[i].TO_MONTHS = amt
     if (Number(this.peroid[i].FROM_MONTHS) > Number(this.peroid[i].TO_MONTHS)) {
       this.peroid[i].TO_MONTHS = ''
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.To_Peroid_Equal_Greater')} ${this.peroid[i].FROM_MONTHS}`, 'info')
+      Swal.fire('Info', `To Peroid Must Be Equal Or Greater Than ${this.peroid[i].FROM_MONTHS}`, 'info')
     }
   }
 
@@ -302,29 +302,29 @@ export class DepositSizeWiseBalanceComponent implements OnInit {
   checkFromTerms(name) {
     if (name == 'mediumTermFromMon') {
       if (Number(this.angForm.controls['shortTermToMon'].value) > Number(this.angForm.controls['mediumTermFromMon'].value)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Medium_Term')} ${this.angForm.controls['shortTermToMon'].value}`, 'info')
+        Swal.fire('Info', `Medium Term From Month Must Be Equal Or Greater Than ${this.angForm.controls['shortTermToMon'].value}`, 'info')
       }
     }
     else if (name == 'longTermFromMon') {
       if (Number(this.angForm.controls['mediumTermToMon'].value) > Number(this.angForm.controls['longTermFromMon'].value)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Long_Term')} ${this.angForm.controls['mediumTermToMon'].value}`, 'info')
+        Swal.fire('Info', `Long Term From Month Must Be Equal Or Greater Than ${this.angForm.controls['mediumTermToMon'].value}`, 'info')
       }
     }
   }
   checkToTerms(name) {
     if (name == 'shortTermToMon') {
       if (Number(this.angForm.controls['shortTermToMon'].value) <= Number(this.angForm.controls['shortTermFromMon'].value)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Long_Term_To_Month')} ${this.angForm.controls['shortTermFromMon'].value}`, 'info')
+        Swal.fire('Info', `Medium Term To Month Must Be Greater Than ${this.angForm.controls['shortTermFromMon'].value}`, 'info')
       }
     }
     else if (name == 'mediumTermToMon') {
       if (Number(this.angForm.controls['mediumTermToMon'].value) <= Number(this.angForm.controls['mediumTermFromMon'].value)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Long_Term_To_Month')} ${this.angForm.controls['mediumTermFromMon'].value}`, 'info')
+        Swal.fire('Info', `Medium Term To Month Must Be Greater Than ${this.angForm.controls['mediumTermFromMon'].value}`, 'info')
       }
     }
     else if (name == 'longTermToMon') {
       if (Number(this.angForm.controls['longTermToMon'].value) <= Number(this.angForm.controls['longTermFromMon'].value)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Long_Term_To_Month_Greater')} ${this.angForm.controls['longTermFromMon'].value}`, 'info')
+        Swal.fire('Info', `Long Term To Month Must Be Greater Than ${this.angForm.controls['longTermFromMon'].value}`, 'info')
       }
     }
   }

@@ -126,18 +126,23 @@ export class UserDefinationComponent implements OnInit {
   selectedRoleName: string;
 
   maxDate
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private userdefinationservice: UserDefinationService,
     private UserdefinationServiceD: UserdefinationServiceD,
     private _branchMasterServices: OwnbranchMasterService
-    , private systemParameter: SystemMasterParametersService,private translate:TranslateService
+    , private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+
 
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
-      this.maxDate = this.maxDate._d    
+      this.maxDate = this.maxDate._d   
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);  
     })
     }
 
@@ -202,39 +207,39 @@ export class UserDefinationComponent implements OnInit {
       
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
           render: function (data: any, type: any, full: any) {
             return '<button class="editbtn btn btn-outline-primary btn-sm" id="editbtn">Edit</button>';
           }
         },
         {
-          title: 'First Name',
+          title: this.translate.instant('master.User_Defination.First_Name'),
           data: 'F_NAME',
         },
         {
-          title: 'Last Name',
+          title:  this.translate.instant('master.User_Defination.Last_Name'),
           data: 'L_NAME',
         },
         {
-          title: 'DOB',
+          title:  this.translate.instant('master.User_Defination.Birth_Date'),
           data: 'DOB',
         },
         {
-          title: 'Mobile',
+          title:  this.translate.instant('master.User_Defination.Mobile'),
           data: 'MOB_NO',
         },
         {
-          title: 'Email',
+          title:  this.translate.instant('master.User_Defination.Email'),
           data: 'EMAIL',
         },
 
         {
-          title: 'Role',
+          title:  this.translate.instant('master.User_Defination.Role'),
           data: 'ROLE',
         },
 
         {
-          title: 'User Name',
+          title:  this.translate.instant('master.User_Defination.User_Name'),
           data: 'USER_NAME',
         },
         // {
@@ -242,7 +247,7 @@ export class UserDefinationComponent implements OnInit {
         //   data: 'PASSWORD',
         // },
         {
-          title: 'Status',
+          title:  this.translate.instant('master.User_Defination.Status'),
           data: 'STATUS',
         },
         // {
@@ -315,7 +320,7 @@ export class UserDefinationComponent implements OnInit {
     
 
     this.userdefinationservice.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.rerender();
       this.createForm()
@@ -375,7 +380,7 @@ export class UserDefinationComponent implements OnInit {
     data['LOG_STATUS']=data.LOG_STATUS=='inactive' ? '0' : '1'
     data['DOB']= this.editData.DOB==data.DOB ? data.DOB: moment(data.DOB).format('DD/MM/YYYY')
     this.userdefinationservice.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.rerender();
@@ -388,8 +393,8 @@ export class UserDefinationComponent implements OnInit {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
-      text: `${this.translate.instant('Swal_Msg.narration_data')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete narration data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -400,7 +405,8 @@ export class UserDefinationComponent implements OnInit {
         this.userdefinationservice.deleteData(id).subscribe(data1 => {
           this.userdef = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -412,7 +418,8 @@ export class UserDefinationComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -459,7 +466,7 @@ export class UserDefinationComponent implements OnInit {
     let data = this.angEditForm.value;
     data['id'] = this.userId;
     this.userdefinationservice.updateRoleBranch(data).subscribe(data=>{
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Role_Update_Successfully')}`, 'success');
+      Swal.fire('Success!', 'Role and Branch Update Successfully !', 'success');
       this.rerender();
     },err=>{
       Swal.fire(err.error.error, err.error.message, 'error');
@@ -479,7 +486,7 @@ export class UserDefinationComponent implements OnInit {
     }
     this.userdefinationservice.checkUserName(obj).subscribe(data=>{
       if(data){
-        Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Username_already')}`, 'warning');    
+        Swal.fire('Warning!', 'Username is already exist!', 'warning');    
         this.angForm.patchValue({
           USER_NAME:''
         })

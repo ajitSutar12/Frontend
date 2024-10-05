@@ -253,7 +253,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     };
     this._lien.postData(dataToSend).subscribe(
       (data1) => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
+        Swal.fire("Success!", "Data Added Successfully !", "success");
         // to reload after insertion of data
         this.rerender();
       },
@@ -292,8 +292,8 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
   //function for delete button clicked
   delClickHandler(id: any): void {
     Swal.fire({
-      title:`${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.M1')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Lien Mark data",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -302,19 +302,19 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     }).then((result) => {
       if (result.isConfirmed) {
         this._lien.deleteData(id).subscribe((data1) => {
-          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
-        Swal.fire(
-          `${this.translate.instant('Swal_Msg.Delete')}`,
-          `${this.translate.instant('Swal_Msg.D_Msg')}`,
-          'success'
-        )
+          Swal.fire(
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
+          )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -329,7 +329,7 @@ export class LienMarkClearComponent implements OnInit, AfterViewInit, OnDestroy 
     data["id"] = this.updateID;
     data['IS_LIEN_MARK_CLEAR'] = data.IS_LIEN_MARK_CLEAR == false ? '0' : '1'
     this._lien.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`,`${this.translate.instant('Swal_Msg.Update')}`, "success");
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.showButton = true;
       this.updateShow = false;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -13,7 +13,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { VoucherComponent } from "./voucher.component";
 import { VoucherEntryModule } from "../../../transaction/voucher-entry/voucher-entry.module";
-
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 @NgModule({
   imports: [
     CommonModule,
@@ -21,11 +24,18 @@ import { VoucherEntryModule } from "../../../transaction/voucher-entry/voucher-e
     PerfectScrollbarModule,
     NgbModule,
     SharedModule,
-    VoucherEntryModule
+    VoucherEntryModule,
+    TranslateModule.forRoot({
+      loader:{
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
+    })
   ],
   exports: [VoucherComponent],
   declarations: [VoucherComponent],
-  providers: [
+  providers: [SystemMasterParametersService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -33,3 +43,6 @@ import { VoucherEntryModule } from "../../../transaction/voucher-entry/voucher-e
   ],
 })
 export class VoucherModule {}
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

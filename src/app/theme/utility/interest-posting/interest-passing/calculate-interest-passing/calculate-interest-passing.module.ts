@@ -6,10 +6,9 @@ import { CalculateInterestPassingComponent } from './calculate-interest-passing.
 import { CalculateInterestPassingRoutingModule } from './calculate-interest-passing-routing.module';
 import {SharedModule} from '../../../../../shared/shared.module';
 import {DataTablesModule} from 'angular-datatables';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from '../../../../../user-auth.interceptor';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,14 +17,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    DataTablesModule,
-    TranslateModule.forRoot({
-      loader:{
-        provide:TranslateLoader,
-        useFactory:HttpLoaderFactory,
-        deps:[HttpClient]
-      }
-    })
+    DataTablesModule
   ],
   declarations: [ CalculateInterestPassingComponent],
   providers:[{
@@ -35,6 +27,3 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
   },]
 })
 export class CalculateInterestPassingModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

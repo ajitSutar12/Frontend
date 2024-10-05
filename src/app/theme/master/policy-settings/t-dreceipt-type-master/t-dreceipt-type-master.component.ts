@@ -79,12 +79,12 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   constructor(private fb: FormBuilder, private _receipt: TDReceiptService,
     private http: HttpClient,
     private _tdReceiptService: TdReceiptService,
-    private translate: TranslateService,
+    private translate:TranslateService,
     private systemParameter: SystemMasterParametersService,
 
-  ) {
+  ) { 
     this.systemParameter.getFormData(1).subscribe(data => {
-
+    
       this.setLang = data.SET_LANGUAGE
       this.translate.setDefaultLang(this.setLang);
     })
@@ -197,7 +197,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
       // console.log(dataToSend, "dataToSend");
       this._receipt.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, "success");
+          Swal.fire("Success!", "Data Added Successfully !", "success");
           // to reload after insertion of data
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
@@ -221,7 +221,7 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     let branchCode = result.branch.id;
     data['BRANCH_CODE'] = branchCode
     this._receipt.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Updated_Successfully')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -248,8 +248,8 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
   //function for delete button clicked
   delClickHandler() {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.You_won')}`,
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -258,14 +258,16 @@ export class TDReceiptTypeMasterComponent implements OnInit, AfterViewInit, OnDe
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
+          'Deleted!',
+          'Your file has been deleted.',
           'success'
         )
       } else if (
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your imaginary file is safe.',
           'error'
         )
       }

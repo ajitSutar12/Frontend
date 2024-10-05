@@ -6,8 +6,6 @@ import { StartingacnoService } from '../../../../shared/elements/startingacno.se
 import { EndingacnoService } from '../../../../shared/elements/endingacno.service';
 import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-deposit-receipt-print',
@@ -49,8 +47,7 @@ export class DepositReceiptPrintComponent implements OnInit {
 
   };
 
-  constructor(public SchemeCodeService: SchemeCodeService, public StartingacnoService: StartingacnoService, public EndingacnoService: EndingacnoService, private fb: FormBuilder, private translate:TranslateService,
-    private systemParameter: SystemMasterParametersService) { this.createForm(); }
+  constructor(public SchemeCodeService: SchemeCodeService, public StartingacnoService: StartingacnoService, public EndingacnoService: EndingacnoService, private fb: FormBuilder) { this.createForm(); }
 
   ngOnInit(): void {
     this.dtExportButtonOptions = {

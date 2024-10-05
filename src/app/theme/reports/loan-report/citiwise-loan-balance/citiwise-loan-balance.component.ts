@@ -64,6 +64,7 @@ bsValue = new Date();
 maxDate: Date;
   minDate: Date;
   report_url = environment.report_url;
+  setLang: any;
 
   constructor(
     private fb: FormBuilder,
@@ -74,8 +75,16 @@ maxDate: Date;
     private directorMasterDropdown: DirectorMasterDropdownService,
 
     private sanitizer: DomSanitizer,
+
    
   ) {
+
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+    
     this.dates = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -194,7 +203,7 @@ this.iframe5url=this.report_url+ "examples/citywise_loan_balance_report.php?bran
    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url); 
   }
   else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(()=>{ this.clicked=false});
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
   }
   close(){

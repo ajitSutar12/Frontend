@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h5> {{'master.Stock_Statement.Title' | translate}}</h5>
+        <h5>Stock Statement</h5>
         <!-- <h6 style="float: right;"><sub class="required">* </sub>: Required Fields</h6> -->
       </div>
       <form action="javascript:" appSubmit [formGroup]="angForm" novalidate #myform="ngForm">
@@ -20,7 +20,7 @@
                     #SUBMISSION_DATE="bsDatepicker"  (keydown.Tab)="SUBMISSION_DATE.hide()" 
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="SUBMISSION_DATE" [maxDate]="maxDate"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="subm_date"> {{'master.Stock_Statement.Submission_Date' | translate}}<sub class="required">* </sub></label>
+                  <label for="subm_date">Submission Date<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -29,10 +29,10 @@
                     angForm.controls['SUBMISSION_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].errors?.required">
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                  This field is required
                 </div>
                 <div *ngIf="angForm.controls['SUBMISSION_DATE'].invalid">
-                  <!-- Fill valid Date -->{{master.Validation.Val_Date}}
+                  Fill valid Date
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
                     [ngClass]="{'form-submitted': formSubmitted}" formControlName="STATEMENT_DATE"
                     #STATEMENT_DATE="bsDatepicker"  (keydown.Tab)="STATEMENT_DATE.hide()" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47" bsDatepicker>
-                  <label for="stmt_date"> {{'master.Stock_Statement.Statement_Date' | translate}}<sub class="required">* </sub></label>
+                  <label for="stmt_date">Statement Date<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -57,10 +57,10 @@
                     angForm.controls['STATEMENT_DATE'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['STATEMENT_DATE'].errors?.required">
-                  <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                  This field is required
                 </div>
                 <div *ngIf="angForm.controls['STATEMENT_DATE'].invalid">
-                  <!-- Fill valid Date -->{{master.Validation.Val_Date}}
+                  Fill valid Date
                 </div>
               </div>
             </div>
@@ -71,7 +71,7 @@
                   (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     title="Input allowed only 0-9" formControlName="RAW_MATERIAL" />
-                  <label for="raw_material"> {{'master.Stock_Statement.Raw_Material_Cost' | translate}}</label>
+                  <label for="raw_material">Raw Material Cost</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -80,7 +80,7 @@
                     angForm.controls['RAW_MATERIAL'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['RAW_MATERIAL'].errors?.pattern">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Pin_Code}}
+                  Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     #marginmaterialcost (keyup)="checkmargin(marginmaterialcost.value);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     maxlength="3" title="Input allowed only  0-9" formControlName="RAW_MARGIN" />
-                  <label for="rm_margin"> {{'master.Stock_Statement.(Margin)_Raw_Material_Cost%' | translate}}</label>
+                  <label for="rm_margin">(Margin) Raw Material Cost % </label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -103,7 +103,7 @@
                     angForm.controls['RAW_MARGIN'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['RAW_MARGIN'].errors?.pattern">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Pin_Code}}
+                  Input allowed only . 0-9
                 </div>
               </div>
             </div>
@@ -113,7 +113,7 @@
                   <input style="text-align: right" type="text" name="wp_goods" class="form-control" placeholder=" " id="wp_goods"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)" pattern="\d{1,20}(\.\d{2})?"
                     title="Input allowed only 0-9" formControlName="WORK_PROGRESS" />
-                  <label for="wp_goods"> {{'master.Stock_Statement.Work_In_Progress_Goods' | translate}}</label>
+                  <label for="wp_goods">Work In Progress Goods</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -122,7 +122,7 @@
                     angForm.controls['WORK_PROGRESS'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['WORK_PROGRESS'].errors?.pattern">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Pin_Code}}
+                  Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     #marginworkprogress (keyup)="checkmargin(marginworkprogress.value)" pattern="\d{1,5}(\.\d{2})?"
                     title="Input allowed only  0-9" formControlName="WORK_MARGIN" />
-                  <label for="wp_margin"> {{'master.Stock_Statement.(Margin)_Work_In_Progress_Goods' | translate}}</label>
+                  <label for="wp_margin">(Margin) Work In Progress Goods</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -142,7 +142,7 @@
                     angForm.controls['WORK_MARGIN'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['WORK_MARGIN'].errors?.pattern">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Pin_Code}}
+                  Input allowed only . 0-9
                 </div>
               </div>
             </div>
@@ -156,7 +156,7 @@
                     [ngClass]="{'form-submitted': formSubmitted}"
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 || $event.charCode == 46 )"
                     (keyup)="getDecimal($event)" (focusout)="getDecimalPoint($event)" title="Input allowed only  0-9" formControlName="FINISHED_GOODS" />
-                  <label for="fg_cost"> {{'master.Stock_Statement.Finished_Goods_Cost' | translate}}<sub class="required">* </sub></label>
+                  <label for="fg_cost">Finished Goods Cost<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -168,7 +168,7 @@
                     angForm.controls['FINISHED_GOODS'].errors?.pattern ||
                     angForm.controls['FINISHED_GOODS'].errors?.required
                   ">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Receipt}}
+                  This field is required and Input allowed only 0-9
                 </div>
               </div>
             </div>
@@ -180,7 +180,7 @@
                     (keypress)="($event.charCode >= 48 && $event.charCode < 58 )|| $event.charCode == 46"
                     #margingoodscost (keyup)="checkmargin($event);getDecimal($event)" (focusout)="getDecimalPoint($event)" 
                     title="Input allowed only  0-9" formControlName="FINISHED_MARGIN" />
-                  <label for="fg_margin">{{'master.Stock_Statement.(Margin)_Finished_Goods_Cost%' | translate}}<sub class="required">* </sub></label>
+                  <label for="fg_margin">(Margin) Finished Goods Cost %<sub class="required">* </sub></label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -192,7 +192,7 @@
                     angForm.controls['FINISHED_MARGIN'].errors?.pattern ||
                     angForm.controls['FINISHED_MARGIN'].errors?.required
                   ">
-                  <!-- This field is required and Input allowed only 0-9 -->{{master.Validation.Val_Receipt}}
+                  This field is required and Input allowed only . 0-9
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@
                     (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                     pattern="^[A-Za-z'\.\-\s]+$" title="Input allowed only  A-Z a-z 0-9  - / . (Space)" maxlength="90"
                     formControlName="REMARK" />
-                  <label for="remarks">{{'master.Stock_Statement.Remark' | translate}}</label>
+                  <label for="remarks">Remark</label>
                 </span>
               </div>
               <div class="form-group form-primary form-static-label" *ngIf="
@@ -212,7 +212,7 @@
                     angForm.controls['REMARK'].touched)
                 " class="alert alert-danger">
                 <div *ngIf="angForm.controls['REMARK'].errors?.pattern">
-                  <!-- Input allowed only A-Z a-z - / . (Space) -->{{master.Stock_Statement.Val_Repre}}
+                  Input allowed only A-Z a-z - / . (Space)
                 </div>
               </div>
             </div>
@@ -221,10 +221,10 @@
           <div class="row">
             <div class="col-sm">
               <!-- [disabled]="angForm.invalid" -->
-              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>{{'master.Action.Submit'|translate}}</button>
-              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">{{'master.Action.Update'|translate}}</button>
+              <button class="btn btn-outline-primary btn-sm btn-submit" (click)="submit($event)" *ngIf="showButton" (keydown.Tab)="focus()" appTheme>Submit</button>
+              <button class="btn btn-outline-primary btn-sm" (click)="updateData()" *ngIf="updateShow">Update</button>
               &nbsp;
-              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">{{'master.Action.Cancel'|translate}}</button>
+              <button class="btn btn-outline-primary btn-sm" *ngIf="newbtnShow" (click)="addNewData()">Cancel</button>
             </div>
           </div>
         </div>
@@ -243,15 +243,15 @@
                 <table id="informationtable" datatable [dtOptions]="dtExportButtonOptions" [dtTrigger]="dtTrigger"
                   class="table table-striped table-bordered table-hover compact">
                   <thead>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.Action' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.Statement_Date' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.Raw_Material_Cost' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.R/M_Margin' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.Work_In_Progress' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.Finished_Goods_Cost' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.W/P_Margin' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.F/G_Margin%' | translate}}</th>
-                    <th style="text-transform: captalize;">{{'master.Stock_Statement.Remark' | translate}}</th>
+                    <th style="text-transform: captalize;">Action</th>
+                    <th style="text-transform: captalize;">Submission Date</th>
+                    <th style="text-transform: captalize;">Raw Materials</th>
+                    <th style="text-transform: captalize;">R/M Margin</th>
+                    <th style="text-transform: captalize;">Work In Progress</th>
+                    <th style="text-transform: captalize;">Finished Goods</th>
+                    <th style="text-transform: captalize;">W/P Margin</th>
+                    <th style="text-transform: captalize;">F/G Margin %</th>
+                    <th style="text-transform: captalize;">Remarks</th>
                   </thead>
                   <tbody *ngIf="stockmasters?.length != 0">
                     <tr *ngFor="let data of stockmasters">
@@ -275,7 +275,7 @@
                   </tbody>
                   <tbody *ngIf="stockmasters?.length == 0">
                     <tr>
-                      <td colspan="6" class="no-data-available">{{master.Stock_Statement.No_Data}}</td>
+                      <td colspan="6" class="no-data-available">No data!</td>
                     </tr>
                   </tbody>
                   <!-- <tfoot #filters class="filters">

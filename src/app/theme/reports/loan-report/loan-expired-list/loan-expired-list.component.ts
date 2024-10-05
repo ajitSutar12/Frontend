@@ -62,6 +62,7 @@ export class LoanExpiredListComponent implements OnInit {
   report_url = environment.report_url;
   director: any[];
   branchName: any;
+  setLang: string;
 
   constructor(
     private fb: FormBuilder,
@@ -109,6 +110,8 @@ export class LoanExpiredListComponent implements OnInit {
 
       this.fromdate = moment(`01/04/${year - 1}`, "DD/MM/YYYY")
       this.fromdate = this.fromdate._d
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     })
 
     let data: any = localStorage.getItem('user');
@@ -202,7 +205,7 @@ export class LoanExpiredListComponent implements OnInit {
       this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
   }
   close() {

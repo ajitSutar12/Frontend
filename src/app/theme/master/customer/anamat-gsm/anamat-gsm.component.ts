@@ -328,7 +328,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele <= 100) {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_100')}`, "error");
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
     }
   }
 
@@ -337,7 +337,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.AC_CUSTID1 = '') {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.CustId')}`, "error");
+      Swal.fire("Invalid Input", "Please insert Customer ID", "error");
     }
   }
 
@@ -429,7 +429,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Valid')}`,`${this.translate.instant('Swal_Msg.Valid Date')}`, "warning");
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("AC_CTCODE") as HTMLInputElement).value = ""
       }
     }
@@ -497,7 +497,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
         (data) => {
           Swal.fire({
             icon: 'success',
-            title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
+            title: 'Account Created successfully!',
             html:
               '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
               '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -516,7 +516,7 @@ export class AnamatGSMComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resetForm();
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
 name:any
@@ -593,7 +593,7 @@ ac_no:any
     data["AC_OPDATE"] = opdate;
     data['AC_IS_RECOVERY'] = (data.AC_IS_RECOVERY == true ? '1' : '0'),
       this.anamatGSMService.updateData(data).subscribe(() => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
+        Swal.fire("Success!", "Record Updated Successfully !", "success");
         this.showButton = true;
         this.updateShow = false;
         this.newbtnShow = false;
@@ -625,8 +625,8 @@ ac_no:any
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Narration_Data')}`,
+      title: "Are you sure?",
+      text: "Do you want to delete narration data.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -636,7 +636,7 @@ ac_no:any
       if (result.isConfirmed) {
         this.anamatGSMService.deleteData(id).subscribe((data1) => {
           this.anamat = data1;
-          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`,`${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
           (error) => {
             console.log(error);
@@ -644,7 +644,7 @@ ac_no:any
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
+        Swal.fire("Cancelled", "Your data is safe.", "error");
       }
     });
   }
@@ -701,7 +701,7 @@ ac_no:any
     this.anamatGSMService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Approve')}`,
+        title: 'Anamat Account Approved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -727,7 +727,7 @@ ac_no:any
     this.anamatGSMService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success', 
-        title:  `${this.translate.instant('Swal_Msg.Anamat_Reject')}`,
+        title: 'Anamat Account rejected successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -773,7 +773,7 @@ ac_no:any
     this.anamatGSMService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success', 
-        title: `${this.translate.instant('Swal_Msg.U_Msg')}`,
+        title: 'Account unapproved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>

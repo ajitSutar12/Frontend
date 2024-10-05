@@ -221,7 +221,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
 
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -241,7 +241,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         'FieldData': this.multiField,
       }
       this.prematurePigmyService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -256,8 +256,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     }
     else {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Warning')}`,
-        `${this.translate.instant('Swal_Msg.Slab_Details')}`,
+        'Warning',
+        'Please Input Slab Details ',
         'warning'
       )
     }
@@ -301,7 +301,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     }
     data['AC_ACNOTYPE'] = this.ngschemetype
     this.prematurePigmyService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -321,8 +321,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Warning')}`,
-          `${this.translate.instant('Swal_Msg.From_Months')}`,
+          'Warning!',
+          'From Months Should Be Less Than To Months',
           'warning'
         );
         (document.getElementById("tomonths") as HTMLInputElement).value = ""
@@ -336,7 +336,7 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
       ele.target.value = 0
 
     }
@@ -344,8 +344,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
   // Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Group_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Company Group Master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -356,8 +356,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         this.prematurePigmyService.deleteData(id).subscribe(data1 => {
           this.prematurePigmy = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -369,8 +369,8 @@ export class PrematurePigmyLessIRComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -451,10 +451,10 @@ export class PrematurePigmyLessIRComponent implements OnInit {
     let tomonth = (document.getElementById("tomonths") as HTMLInputElement).value;
     let intrate = (document.getElementById("LESS_INT_RATE") as HTMLInputElement).value;
     if (tomonth == "") {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg2')}`, 'info')
+      Swal.fire('Info', 'Please Input To Month', 'info')
     }
     if (intrate == "") {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.I_Msg3')}`, 'info')
+      Swal.fire('Info', 'Please Add Interest', 'info')
     }
     if (tomonth != "" && intrate != "") {
       const formVal = this.angForm.value;

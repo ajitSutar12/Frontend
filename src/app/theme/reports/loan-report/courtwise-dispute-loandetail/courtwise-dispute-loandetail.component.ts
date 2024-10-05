@@ -59,6 +59,7 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
 
   name: any;
   iframe5url:any='';
+  setLang: string;
 
 
   constructor(
@@ -71,6 +72,11 @@ export class CourtwiseDisputeLoandetailComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,private translate:TranslateService,
     private schemeAccountNoService:SchemeAccountNoService
   ) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
     this.minDate = new Date();
@@ -199,7 +205,7 @@ end(){
     this.equal = [this.startfrom, this.startto]
   }
   else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.E_S_Date')}`, 'info')
+    Swal.fire('Info', 'Ending Date Must Greater Than/Equal To Starting  Date', 'info')
   }
 }
 scrollToTop() {
@@ -235,7 +241,7 @@ View(event) {
 
   }
   else {
-    Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
   }
 
 }

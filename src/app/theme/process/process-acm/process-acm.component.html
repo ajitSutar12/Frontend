@@ -2,7 +2,7 @@
     <div class="col-sm-3">
         <div class="card">
             <div class="card-header">
-                <h5>{{'uti.Process_Option' | translate}}</h5>
+                <h5>Process Options</h5>
             </div>
             <div class="card-block">
                 <div class="col-md-12">
@@ -12,43 +12,44 @@
                             <li>
                                 <h6> <a (click)="OpenLink(1)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': NPAProcess}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">1. {{'uti.NPA_Processing' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">1. NPA Process</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(2)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': NPAMarking}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">2. {{'uti.Npa_Mraking' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">2. NPA Marking</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(3)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': NPAProcessLocking}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">3. {{'uti.NPA_Process_locking' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">3. NPA Process Locking</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(4)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': DeadStockDepreciation}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">4. {{'uti.Dead_Stock' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">4. Dead Stock Depreciation</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(5)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': OverdraftInterestPosting}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">5.{{'uti.O_I_Post' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">5.Overdraft Interest Posting (On Debit
+                                        Bal. only)</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(6)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': PenalInterestCalculation}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">6. {{'uti.Penal_Interest_Calculation' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">6. Penal Interest Calculation</a></h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(7)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': TransferToGLbyClosingAC}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">7. {{'uti.T_Clo' | translate}}</a>
+                                        class="text-right f-w-600" id="pointer">7. Transfer To GL by Closing A/c</a>
                                 </h6>
                             </li>
                             <li>
                                 <h6> <a (click)="OpenLink(10)" routerLink="/utility/processACM"
                                         [ngClass]="{'isActive': ChargesPosting}" routerLinkActive="active"
-                                        class="text-right f-w-600" id="pointer">8.{{'uti.Charges_Posting' | translate}}</a></h6>
+                                        class="text-right f-w-600" id="pointer">8.Charges Posting</a></h6>
                             </li>
                             <!-- <li>
                                 <h6> <a (click)="OpenLink(8)" routerLink="/utility/processACM" [ngClass]="{'isActive': payrollexportfileprocess}" routerLinkActive="active" class="text-right f-w-600" id="pointer">9.Payroll Export File Process</a></h6>

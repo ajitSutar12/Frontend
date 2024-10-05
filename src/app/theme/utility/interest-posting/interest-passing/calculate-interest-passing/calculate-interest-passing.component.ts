@@ -7,8 +7,7 @@ import { environment } from 'src/environments/environment';
 import { EditInterestCalculationComponent } from '../edit-interest-calculation/edit-interest-calculation.component';
 import { EditInterestCalculationService } from '../edit-interest-calculation/edit-interest-calculation.service';
 import Swal from "sweetalert2";
-import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from "@ngx-translate/core";
+
 @Component({
   selector: 'app-calculate-interest-passing',
   templateUrl: './calculate-interest-passing.component.html',
@@ -35,20 +34,11 @@ export class CalculateInterestPassingComponent implements OnInit {
   showMsg: boolean = true;
 
   tableData: any = [];
-  setLang: string;
   constructor(
     private fb: FormBuilder, private http: HttpClient,
     private config: NgSelectConfig,
-    private _service: EditInterestCalculationService,
-    private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService
-  ) {
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-   }
+    private _service: EditInterestCalculationService
+  ) { }
 
   ngOnInit(): void {
 
@@ -112,7 +102,7 @@ export class CalculateInterestPassingComponent implements OnInit {
 
   submit() {
     if (this.AddDataList.length == 0) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
+      Swal.fire('Oops..!', "Please select scheme data", "warning");
     } else {
       let user = JSON.parse(localStorage.getItem('user'));
       let obj = {
@@ -121,7 +111,7 @@ export class CalculateInterestPassingComponent implements OnInit {
         user: user
       }
       this._service.createVoucher(obj).subscribe(data => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Pass_And_Voucher')}`, 'success');
+        Swal.fire('Success', "Passing and Voucher created successfully", 'success');
         this.AddDataList = [];
         this.AddDataList = [];
         this.tableData = [];

@@ -75,7 +75,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
   constructor(
     private http: HttpClient,
     private operationService: OperationService,
-    private fb: FormBuilder, private translate: TranslateService) {
+    private fb: FormBuilder,private translate:TranslateService) {
 
   }
 
@@ -163,7 +163,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
       'NAME': formVal.NAME,
     }
     this.operationService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
@@ -171,7 +171,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
     }, (error) => {
 
     })
-
+   
     //To clear form
     this.resetForm();
   }
@@ -197,7 +197,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
     data['id'] = this.updateID;
 
     this.operationService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -206,7 +206,7 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
       });
       this.resetForm();
     })
-
+    
   }
   addNewData() {
     this.showButton = true;
@@ -217,8 +217,8 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
-      text: `${this.translate.instant('Swal_Msg.delete_operation')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete operation master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -229,7 +229,8 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
         this.operationService.deleteData(id).subscribe(data1 => {
           this.operation = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -241,7 +242,8 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -289,10 +291,10 @@ export class OperationMasterComponent implements OnInit, AfterViewInit, OnDestro
     });
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

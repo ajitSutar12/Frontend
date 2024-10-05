@@ -25,7 +25,6 @@ import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
-import { TranslateService } from '@ngx-translate/core';
 
 // Handling datatable data
 class DataTableResponse {
@@ -65,7 +64,6 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
   datemax: string;
   newbtnShow: boolean;
   logDate: any;
-  setLang: string;
   newItemEvent(value) {
     this.newVehicalEvent.emit(value);
   }
@@ -108,9 +106,7 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private http: HttpClient,
     private _vehicle: VehicleService, private systemParameter: SystemMasterParametersService,
-    public router: Router,
-    private translate:TranslateService,
-
+    public router: Router
   ) {
 
     // this.maxDate = new Date();
@@ -123,8 +119,6 @@ export class VehicleComponent implements OnInit, AfterViewInit, OnDestroy {
       this.maxDate = moment(data.CURRENT_DATE, 'DD/MM/YYYY')
       this.maxDate = this.maxDate._d
       this.logDate = data.CURRENT_DATE
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
     })
 
   }

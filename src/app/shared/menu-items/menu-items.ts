@@ -91,46 +91,46 @@ const MENUITEMS1 = [
       {
         state: 'master',
         short_label: 'D',
-        name: 'TEST.MASTER',
+        name: 'Master',
         type: 'sub',
         icon: 'fa fa-university',
         id: 5,
         children: [
           {
             state: 'generalLedger',
-            name: 'main.generalLedger.generalLedger',
+            name: 'General Ledger',
             short_label: 'D',
             type: 'sub',
             id: 6,
             children: [
               {
                 state: 'gl-statement-code',
-                name: 'main.generalLedger.gl-statement-code',
+                name: 'GL Statement Code',
                 id: 7
               },
               {
                 state: 'gl-accounts-master',
-                name: 'main.generalLedger.gl-accounts-master',
+                name: 'GL Accounts Master',
                 id: 8
               },
               {
                 state: 'gl-report-master',
-                name: 'main.generalLedger.gl-report-master',
+                name: 'GL Report Master',
                 id: 9
               },
               {
                 state: 'gl-report-linking',
-                name: 'main.generalLedger.gl-report-linking',
+                name: 'GL Report Linking',
                 id: 10
               },
               {
                 state: 'budget-master',
-                name: 'main.generalLedger.budget-master',
+                name: 'Budget Allocation Master',
                 id: 11
               },
               {
                 state: 'budget-view',
-                name: 'main.generalLedger.budget-view',
+                name: 'Budget View',
                 id: 359
               },
             ]
@@ -138,79 +138,79 @@ const MENUITEMS1 = [
           },
           {
             state: 'customer',
-            name: 'main.customer.customer',
+            name: 'Customer',
             short_label: 'D',
             type: 'sub',
             id: 12,
             children: [
               {
                 state: 'customerId',
-                name: 'main.customer.custId',
+                name: 'Customer Id',
                 id: 13
               },
               {
                 state: 'sharesMaster',
-                name: 'main.customer.sharesMaster',
+                name: 'Shares Account Master',
                 id: 14
               },
               {
                 state: 'anamatGSM',
-                name: 'main.customer.anamatGSM',
+                name: 'Anamat / General Sub Account Master',
                 id: 15
               },
               {
                 state: 'savingMaster',
-                name: 'main.customer.savingMaster',
+                name: 'Saving Account Master',
                 id: 16
               },
               {
                 state: 'currentAccountMaster',
-                name: 'main.customer.currentAccountMaster',
+                name: 'Current Account Master',
                 id: 17
               },
               {
                 state: 'termDepositsMaster',
-                name: 'main.customer.termDepositsMaster',
+                name: 'Term Deposit Account Master',
                 id: 18
               },
               {
                 state: 'cashCreditMaster',
-                name: 'main.customer.cashCreditMaster',
+                name: 'Cash Credit Account Master',
                 id: 19
               },
               {
                 state: 'termLoanMaster',
-                name: 'main.customer.termLoanMaster',
+                name: 'Term Loan Account Master',
                 id: 20
               },
               {
                 state: 'disputeLoanMaster',
-                name: 'main.customer.disputeLoanMaster',
+                name: 'Dispute Loan Account Master',
                 id: 21
               },
               {
                 state: 'pigmyAgentMaster',
-                name: 'main.customer.pigmyAgentMaster',
+                name: 'Pigmy Agent Account Master',
                 id: 22
               },
               {
                 state: 'pigmyAccountMaster',
-                name: 'main.customer.pigmyAccountMaster',
+                name: 'Pigmy Account Master',
                 id: 23
               },
               {
                 state: 'deadStockMaster',
-                name: 'main.customer.deadStockMaster',
+                name: 'Dead Stock Account Master',
                 id: 24
               },
               {
                 state: 'accountOpening',
-                name: 'main.customer.accountOpening',
+                name: 'Investment Master',
                 id: 25
               },
               {
                 state: 'lockerMaster',
-                name: 'main.customer.lockerMaster',
+                name: 'Locker Master',
                 id: 26
               },
             ]
@@ -218,13 +218,13 @@ const MENUITEMS1 = [
           {
             state: 'balanceEntry',
             short_label: 'D',
-            name: 'main.balanceEntry.balanceEntry',
+            name: 'Balance Entry',
             type: 'sub',
             id: 27,
             children: [
               {
                 state: 'balanceUpdation',
-                name: 'main.balanceEntry.balanceUpdation',
+                name: 'Balance Updation',
                 id: 28
               },
               // {
@@ -268,48 +268,48 @@ const MENUITEMS1 = [
           },
           {
             state: 'PolicySettings',
-            name: 'main.PolicySettings.PolicySettings',
+            name: 'Policy Settings',
             short_label: 'D',
             type: 'sub',
             id: 32,
             children: [
               {
                 state: 'information',
-                name: 'main.PolicySettings.information',
+                name: 'Information',
                 id: 33
               },
               {
                 state: 'definations',
-                name: 'main.PolicySettings.definations',
+                name: 'Definations',
                 id: 34
               },
               {
                 state: 'sizewiseBalanceModification',
-                name: 'main.PolicySettings.sizewiseBalanceModification',
+                name: 'Sizewise Balance Modification',
                 id: 35
               },
               {
                 state: 'tDReceiptTypeMaster',
-                name: 'main.PolicySettings.tDReceiptTypeMaster',
+                name: 'TD Receipt Type Master',
                 id: 36
               },
               {
                 state: 'nPAClassificationSlabMaster',
-                name: 'main.PolicySettings.nPAClassificationSlabMaster',
+                name: 'NPA Classification Slab Master ',
                 id: 37
               },
             ]
           },
           {
             state: 'Maintainance',
-            name: 'main.Maintainance.Maintainance',
+            name: 'Maintainance',
             short_label: 'D',
             type: 'sub',
             id: 38,
             children: [
               {
                 state: 'securityDetails',
-                name: 'main.Maintainance.securityDetails',
+                name: 'Security Details',
                 id: 39
               },
               // {
@@ -319,17 +319,17 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'depositLoanInterestRateEditChange',
-                name: 'main.Maintainance.depositLoanInterestRateEditChange',
+                name: 'Deposit / Loan Interest Rate Edit / Change',
                 id: 41
               },
               {
                 state: 'npaOpeningDetailsEntry',
-                name: 'main.Maintainance.npaOpeningDetailsEntry',
+                name: 'NPA Opening Details Entry',
                 id: 42
               },
               {
                 state: 'interestPostingFlagUpdation',
-                name: 'main.Maintainance.interestPostingFlagUpdation',
+                name: 'Interest Posting Flag Updation',
                 id: 43
               },
               // {
@@ -338,33 +338,33 @@ const MENUITEMS1 = [
               //   id: 44
               // },
               {
-                state: 'recoveryFlag',
-                name: 'main.Maintainance.recoveryFlag',
-                id: 358
-              },
+                  state: 'recoveryFlag',
+                  name: 'Recovery Flag Updation',
+                  id: 358
+                },
               {
                 state: 'notingCharges',
-                name: 'main.Maintainance.notingCharges',
+                name: 'Noting Charges',
                 id: 45
               },
               {
                 state: 'tdsformsubmission',
-                name: 'main.Maintainance.tdsformsubmission',
+                name: 'TDS Form Submission',
                 id: 46
               },
               {
                 state: 'moratoriumperiodmaster',
-                name: 'main.Maintainance.moratoriumperiodmaster',
+                name: 'Moratorium Period Master',
                 id: 47
               },
               {
                 state: 'disputedetail',
-                name: 'main.Maintainance.disputedetail',
+                name: 'Dispute Detail',
                 id: 363
               },
               {
                 state: 'disputedetail',
-                name: 'main.Maintainance.disputedetail',
+                name: 'Dispute Detail',
                 id: 363
               }
             ]
@@ -372,34 +372,34 @@ const MENUITEMS1 = [
           },
           {
             state: 'Instruction',
-            name: 'main.Instruction.Instruction',
+            name: 'Instruction',
             short_label: 'D',
             type: 'sub',
             id: 48,
             children: [
               {
                 state: 'overDraft',
-                name: 'main.Instruction.overDraft',
+                name: 'Over Draft',
                 id: 49
               },
               {
                 state: 'standingInstruction',
-                name: 'main.Instruction.standingInstruction',
+                name: 'Standing Instruction',
                 id: 50
               },
               {
                 state: 'interestInstruction',
-                name: 'main.Instruction.interestInstruction',
+                name: 'Interest Instruction',
                 id: 51
               },
               {
                 state: 'special',
-                name: 'main.Instruction.special',
+                name: 'Special',
                 id: 52
               },
               {
                 state: 'freezeAccount',
-                name: 'main.Instruction.freezeAccount',
+                name: 'Freeze Account',
                 id: 53
               },
               // {
@@ -423,7 +423,7 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'lienMarkClear',
-                name: 'main.Instruction.lienMarkClear',
+                name: 'Lien Mark Clear',
                 id: 58
               },
             ]
@@ -470,7 +470,7 @@ const MENUITEMS1 = [
           // },
           {
             state: 'Shares',
-            name: 'main.Shares.Shares',
+            name: 'Shares/Dividend',
             short_label: 'D',
             type: 'sub',
             id: 66,
@@ -482,33 +482,33 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'yearWiseUnpaidDividendEntry',
-                name: 'main.Shares.yearWiseUnpaidDividendEntry',
+                name: 'Year Wise Unpaid Dividend Entry',
                 id: 68
               },
               {
                 state: 'dividendTransferEntry',
-                name: 'main.Shares.dividendTransferEntry',
+                name: 'Dividend Transfer Instruction',
                 id: 69
               },
               {
                 state: 'dividendCalculation',
-                name: 'main.Shares.dividendCalculation',
+                name: 'Dividend Calculation',
                 id: 70
               },
               {
                 state: 'dividendPosting',
-                name: 'main.Shares.dividendPosting',
+                name: 'Dividend Posting',
                 id: 71
               },
               {
                 state: 'dividendTransferPosting',
-                name: 'main.Shares.dividendTransferPosting',
+                name: 'Dividend Transfer Posting',
                 id: 72
               },
 
               {
                 state: 'generalmeetpresentmem',
-                name: 'main.Shares.generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
                 id: 367
               },
             ]
@@ -530,115 +530,113 @@ const MENUITEMS1 = [
       {
         state: 'transaction',
         short_label: 'D',
-        name: 'TEST.transaction',
+        name: 'Transaction',
         type: 'sub',
         icon: 'fa fa-money',
         id: 75,
         children: [
           {
             state: 'voucherEntry',
-            name: 'main.transaction.voucherEntry',
+            name: 'Voucher Entry',
             id: 76
           },
           {
             state: 'multiVoucher',
-            name: 'main.transaction.multiVoucher',
+            name: 'Multi Voucher',
             id: 77
           },
           {
             state: 'batchVoucher',
-            name: 'main.transaction.batchVoucher',
+            name: 'Batch Transfer Voucher',
             id: 78
           },
           {
             state: 'pigmyChartEntry',
-            name: 'main.transaction.pigmyChartEntry',
+            name: 'Pigmy Chart Entry',
             id: 79
           },
           {
             state: 'deadStockPurchase',
-            name: 'main.transaction.deadStockPurchase',
+            name: 'Dead Stock Purchase',
             id: 80
           },
           {
             state: 'deadStockTransaction',
-            name: 'main.transaction.deadStockTransaction',
+            name: 'Dead Stock Transaction',
             id: 81
           },
 
           {
             state: 'reconciliationEntry',
-            name: 'main.transaction.reconciliationEntry',
+            name: 'Reconciliation Entry',
             id: 82
           },
           {
             state: 'savingspigmyaccountclosing',
-            name: 'main.transaction.savingspigmyaccountclosing',
+            name: 'Savings-Pigmy Account Closing',
             id: 83
           },
           {
             state: 'termDepositAccountClosing',
-            name: 'main.transaction.termDepositAccountClosing',
+            name: 'Term Deposit Account Closing',
             id: 84
           },
           {
             state: 'TermDepositeAcRenewal',
-            name: 'main.transaction.TermDepositeAcRenewal',
+            name: 'Term Deposit A/c Renewal',
             id: 85
           },
           {
             state: 'investmentAccountRenewal',
-            name: 'main.transaction.investmentAccountRenewal',
-
+            name: 'Investment Account Renewal',
             id: 375
           },
           {
             state: 'cashCreditAcRenewal',
-            name: 'main.transaction.cashCreditAcRenewal',
+            name: 'Cash Credit A/c Renewal',
             id: 86
           },
           {
             state: 'shareTransactions',
-            name: 'main.transaction.shareTransactions',
+            name: 'Share Transaction',
             id: 87
           },
 
           {
             state: 'locker',
-            name: 'main.transaction.locker.locker',
+            name: 'Locker Transaction',
             short_label: 'L',
             type: 'sub',
             id: 88,
             children: [
               {
                 state: 'lockerOpenTransaction',
-                name: 'main.transaction.locker.lockerOpenTransaction',
+                name: 'Locker Open Transaction',
                 id: 89
               },
               {
                 state: 'lockerCloseTransaction',
-                name: 'main.transaction.locker.lockerCloseTransaction',
-
+                name: 'Locker Close Transaction',
                 id: 90
               },
               {
                 state: 'lockerRentTransaction',
-                name: 'main.transaction.locker.lockerRentTransaction',
+                name: 'Locker Rent Transaction',
                 id: 91
               },
               // {
               //   state: 'cashOutDenomination',
-              //   name: 'main.transaction.cashDenomination.cashOutDenomination',
+              //   name: 'Cash Out Denomination',
               //   id: 92
               // },
               // {
               //   state: 'cashInitialisationEntry',
-              //    name: 'main.transaction.cashDenomination.cashInitialisationEntry',
+              //   name: 'cash Initialisation Entry',
               //   id: 93
               // },
               // {
               //   state: 'safeValultToCashier',
-              // name: 'main.transaction.cashDenomination.safeValultToCashier',
+              //   name: 'Safe Valult To Cashier',
               //   id: 94
               // },
               // {
@@ -650,44 +648,44 @@ const MENUITEMS1 = [
           },
           {
             state: 'cashDenomination',
-            name: 'main.transaction.cashDenomination.cashDenomination',
+            name: 'Cash Denomination',
             short_label: 'D',
             type: 'sub',
             id: 96,
             children: [
               {
                 state: 'acceptD',
-                name: 'main.transaction.cashDenomination.acceptD',
+                name: 'Accept Denomination',
                 id: 97
               },
               {
                 state: 'paymentDenomination',
-                name: 'main.transaction.cashDenomination.paymentDenomination',
+                name: 'Payment Denomination',
                 id: 98
               },
               {
                 state: 'cashInDenomination',
-                name: 'main.transaction.cashDenomination.cashInDenomination',
+                name: 'Cash In Denomination',
                 id: 99
               },
               {
                 state: 'cashOutDenomination',
-                name: 'main.transaction.cashDenomination.cashOutDenomination',
+                name: 'Cash Out Denomination',
                 id: 100
               },
               {
                 state: 'cashInitialisationEntry',
-                name: 'main.transaction.cashDenomination.cashInitialisationEntry',
+                name: 'cash Initialisation Entry',
                 id: 101
               },
               {
                 state: 'safeValultToCashier',
-                name: 'main.transaction.cashDenomination.safeValultToCashier',
+                name: 'Safe Valult To Cashier',
                 id: 102
               },
               {
                 state: 'cashierToSafeVault',
-                name: 'main.transaction.cashDenomination.cashierToSafeVault',
+                name: 'Cashier To Safe Vault',
                 id: 103
               },
             ]
@@ -701,17 +699,17 @@ const MENUITEMS1 = [
 
           {
             state: 'goldsilverreturnentry',
-            name: 'main.transaction.goldsilverreturnentry',
+            name: 'Gold/Silver Return Entry',
             id: 111
           },
           {
             state: 'memberDAPDT',
-            name: 'main.transaction.memberDAPDT',
+            name: 'Member Dividend And Payable Dividend Transaction ',
             id: 112
           },
           {
             state: 'memberTransfer',
-            name: 'main.transaction.memberTransfer.memberTransfer',
+            name: 'Member Transfer',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -719,13 +717,13 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'MemberTransferTransaction',
-                name: 'main.transaction.memberTransfer.MemberTransferTransaction',
+                name: 'Member Transfer Transaction',
                 id: 114
               },
 
               {
                 state: 'BranchAndSalaryDC',
-                name: 'main.transaction.memberTransfer.BranchAndSalaryDC',
+                name: 'Branch And Salary Division Changes',
                 id: 115
               },
 
@@ -739,7 +737,7 @@ const MENUITEMS1 = [
 
           {
             state: 'recovery',
-            name: 'main.transaction.recovery.recovery',
+            name: 'Recovery',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -747,22 +745,22 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'recoveryProcessing',
-                name: 'main.transaction.recovery.recoveryProcessing',
+                name: 'Recovery Processing',
                 id: 118
               },
               {
                 state: 'recoveryModification',
-                name: 'main.transaction.recovery.recoveryModification',
+                name: 'Recovery Modification',
                 id: 119
               },
               {
                 state: 'recoveryPosting',
-                name: 'main.transaction.recovery.recoveryPosting',
+                name: 'Recovery Posting',
                 id: 120
               },
               {
                 state: 'recoveryDataImportExport',
-                name: 'main.transaction.recovery.recoveryDataImportExport',
+                name: 'Recovery Data Import Export',
                 id: 121
               },
             ]
@@ -770,60 +768,60 @@ const MENUITEMS1 = [
 
           {
             state: 'memberLoan',
-            name: 'main.transaction.memberLoan.memberLoan',
+            name: 'Member Loan',
             short_label: 'D',
             type: 'sub',
             id: 122,
             children: [
               {
                 state: 'loanApplication',
-                name: 'main.transaction.memberLoan.loanApplication',
+                name: 'Loan Application',
                 id: 123
               },
               {
                 state: 'loanSanction',
-                name: 'main.transaction.memberLoan.loanSanction',
+                name: 'Loan Sanction',
                 id: 124
               }
             ]
           },
           {
             state: 'ddtransaction',
-            name: 'main.transaction.memberLoan.ddtransaction',
+            name: 'Check/DD Transaction',
             id: 125
           },
           {
             state: 'dividendPay',
-            name: 'main.transaction.dividendPay.dividendPay',
+            name: 'Dividend Pay',
             short_label: 'D',
             type: 'sub',
             id: 126,
             children: [
               {
                 state: 'dividendPaidMarkSD',
-                name: 'main.transaction.dividendPay.dividendPaidMarkSD',
+                name: 'Dividend Paid Mark(Salary Division)',
                 id: 127
               },
               {
                 state: 'dividendPaidSD',
-                name: 'main.transaction.dividendPay.dividendPaidSD',
+                name: 'Dividend Pay(Salary Division)',
                 id: 128
               },
             ]
           },
           {
             state: 'cashRecoveryTransaction',
-            name: 'main.transaction.cashRecoveryTransaction',
+            name: 'Cash Recovery Transaction',
             id: 129
           },
           {
             state: 'consolidationTransaction',
-            name: 'main.transaction.consolidationTransaction',
+            name: 'Consolidation Transaction',
             id: 130
           },
           {
             state: 'inwardRegister',
-            name: 'main.transaction.inwardRegister',
+            name: 'Inward Register',
             id: 131
           },
 
@@ -833,14 +831,14 @@ const MENUITEMS1 = [
       {
         state: 'passing',
         short_label: 'D',
-        name: 'main.passing.passing',
+        name: 'Passing',
         type: 'sub',
         icon: 'fa fa-check-square-o',
         id: 132,
         children: [
           {
             state: 'centralisedPassing',
-            name: 'main.passing.centralisedPassing',
+            name: 'Centralised Passing',
             id: 133
           },
 
@@ -852,12 +850,12 @@ const MENUITEMS1 = [
 
           {
             state: 'unapprove',
-            name: 'main.passing.unapprove',
+            name: 'Unapprove',
             id: 135
           },
           {
             state: 'neftPassing',
-            name: 'main.passing.neftPassing',
+            name: 'NEFT/RTGS Transaction Passing',
             id: 354
           },
         ]
@@ -888,8 +886,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'fundTransfer',
-            name: 'main.neftRtgs.fundTransfer ',
-
+            name: 'Fund Transfer',
             id: 353
           },
           {
@@ -902,78 +899,76 @@ const MENUITEMS1 = [
       {
         state: 'view',
         short_label: 'D',
-        name: 'main.view.view',
-
+        name: 'View',
         type: 'sub',
         icon: 'fa fa-tag',
         id: 136,
         children: [
           {
             state: 'accountEnquiry',
-            name: 'main.view.accountEnquiry',
+            name: 'Account Enquiry',
             id: 137
           },
           {
             state: 'ledgerView',
-            name: 'main.view.ledgerView',
+            name: 'Ledger View',
             id: 138
           },
           {
             state: 'sharesLedgerView',
-            name: 'main.view.sharesLedgerView',
+            name: 'Shares Ledger View',
             id: 139
           },
           {
             state: 'voucherView',
-            name: 'main.view.voucherView',
+            name: 'Voucher View',
             id: 140
           },
           {
             state: 'customerView',
-            name: 'main.view.customerView',
+            name: 'Customer View',
             id: 141
           },
           {
             state: 'guarantorView',
-            name: 'main.view.guarantorView',
+            name: 'Guarantor View',
             id: 142
           },
           {
             state: 'memberView',
-            name: 'main.view.memberView',
+            name: 'Member View',
             id: 143
           },
           {
             state: 'masterCard',
-            name: 'main.view.masterCard',
+            name: 'Master Card',
             id: 144
           },
           {
             state: 'memberLiablityView',
-            name: 'main.view.memberLiablityView',
+            name: 'Member Liablity View',
             id: 145
           },
           {
             state: 'otherView',
-            name: 'main.view.otherView',
+            name: 'Other View',
             id: 146
           },
           {
             state: 'managerView',
-            name: 'main.view.managerView',
+            name: 'Manager View',
             id: 147
 
           },
           {
             state: 'lockerView',
-            name: 'main.view.lockerView',
+            name: 'Locker View',
             id: 348
 
           },
           {
             state: 'memberguaranter',
-            name: 'main.view.memberguaranter',
-
+            name: 'Member Guaranter Detail',
             id: 368
 
           },
@@ -989,21 +984,20 @@ const MENUITEMS1 = [
       {
         state: 'printing',
         short_label: 'D',
-        name: 'main.printing.printing',
-
+        name: 'Printing',
         type: 'sub',
         icon: 'fa fa-print',
         id: 347,
         children: [
           {
             state: 'voucherPrint',
-            name: 'main.printing.voucherPrint',
+            name: 'Voucher Printing',
             id: 110,
 
           },
           {
             state: 'termDepositReceiptPrinting',
-            name: 'main.printing.termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
             // short_label: 'D',
             // type: 'sub',
             id: 108,
@@ -1017,29 +1011,29 @@ const MENUITEMS1 = [
           },
           {
             state: 'tDReceiptPrinting',
-            name: 'main.printing.tDReceiptPrinting',
+            name: 'TD Receipt Printing',
             id: 377,
           },
           {
             state: 'goldSilverReceipt',
-            name: 'main.printing.goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
             id: 344
           },
           {
             state: 'passbookPrinting',
-            name: 'main.printing.passbookPrinting',
+            name: 'Passbook Printing',
             short_label: 'D',
             type: 'sub',
             id: 105,
             children: [
               {
                 state: 'passbookIssue',
-                name: 'main.printing.passbookIssue',
+                name: 'Passbook Issue',
                 id: 106
               },
               {
                 state: 'passbookEntryPrint',
-                name: 'main.printing.passbookEntryPrint',
+                name: 'Passbook Entry Print',
                 id: 107
               }
             ]
@@ -1055,7 +1049,7 @@ const MENUITEMS1 = [
       {
         state: 'reports',
         short_label: 'D',
-        name: 'main.reports.reports',
+        name: 'Reports',
         type: 'sub',
         icon: 'fa fa-file-text-o',
         id: 148,
@@ -1068,7 +1062,7 @@ const MENUITEMS1 = [
           ////////////////////////////
           {
             state: 'dailyReports',
-            name: 'main.reports.dailyReports',
+            name: 'Daily Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1081,59 +1075,58 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'TFormDayBookComponent',
-                name: 'main.reports.TFormDayBookComponent',
+                name: 'T Form Day Book Details/Summary',
                 id: 152
               },
               {
                 state: 'BnkSubsidaryDetail',
-                name: 'main.reports.BnkSubsidaryDetail',
-
+                name: 'Subsidiary  Debit/Credit',
                 id: 153
               },
               {
                 state: 'BnkScrollDetailBoth',
-                name: 'main.reports.BnkScrollDetailBoth',
+                name: 'Scroll Book Debit/Credit/Both',
                 id: 154
               },
               {
                 state: 'IntInstructionExecutionFailure',
-                name: 'main.reports.IntInstructionExecutionFailure',
+                name: 'Interest Instructions Execution List (Failure/Success)',
                 id: 155
               },
               {
                 state: 'StandingInstExecutionFailure',
-                name: 'main.reports.StandingInstExecutionFailure',
+                name: 'Standing Instructions Execution List (Failure/Success)',
                 id: 156
               },
               {
                 state: 'StandingInstExecutionCredit',
-                name: 'main.reports.StandingInstExecutionCredit',
+                name: 'Standing Instructions Execution List (Expected Credit Scheme)',
                 id: 157
               },
               {
                 state: 'StandingInstExecutionDebit',
-                name: 'main.reports.StandingInstExecutionDebit',
+                name: 'Standing Instructions Execution List (Expected Debit Scheme )',
                 id: 158
               },
               {
                 state: 'IntInstructExecutionCredit',
-                name: 'main.reports.IntInstructExecutionCredit',
+                name: 'Interest Instructions Execution List (Expected Credit Scheme)',
                 id: 159
               },
               {
                 state: 'IntInstructExecutionDebit',
-                name: 'main.reports.IntInstructExecutionDebit',
+                name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
 
               {
                 state: 'otherSubsidiary',
-                name: 'main.reports.otherSubsidiary',
+                name: 'Other Subsidiary ',
                 id: 341
               },
               {
                 state: 'SubsidiarySummery',
-                name: 'main.reports.SubsidiarySummery',
+                name: ' Subsidary Summery ',
                 id: 342
               },
 
@@ -1142,7 +1135,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'statement',
-            name: 'main.statement.statement',
+            name: 'Statement',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1150,22 +1143,22 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkGlAcStatement',
-                name: 'main.statement.BnkGlAcStatement',
+                name: 'GL account Statement',
                 id: 164
               },
               {
                 state: 'BnkAcStatement',
-                name: 'main.statement.BnkAcStatement',
+                name: 'Account Statement',
                 id: 165
               },
               {
                 state: 'BnkLNamtStatement',
-                name: 'main.statement.BnkLNamtStatement',
+                name: 'Term Loan stament with other amount',
                 id: 166
               },
               {
                 state: 'BnkTDStatement',
-                name: 'main.statement.BnkTDStatement',
+                name: 'Term Deposit Statement ',
                 id: 167
               },
               // {
@@ -1183,8 +1176,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'balanceBook',
-            name: 'main.balanceBook.balanceBook',
-
+            name: 'Balance Book',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1192,7 +1184,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkDedskBalList',
-                name: 'main.balanceBook.BnkDedskBalList',
+                name: 'Deadstock Balance List',
                 id: 171
               },
               // {
@@ -1202,52 +1194,52 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'BnkACBalBook',
-                name: 'main.balanceBook.BnkACBalBook',
+                name: 'Account Balance Book',
                 id: 173
               },
               {
                 state: 'BnkACBalList',
-                name: 'main.balanceBook.BnkACBalList',
+                name: 'Account Balance List',
                 id: 174
               },
               {
                 state: 'BnkCustIDBalList',
-                name: 'main.balanceBook.BnkCustIDBalList',
+                name: 'Customer ID wise Balance List',
                 id: 175
               },
               {
                 state: 'BnkGLConsistRepo',
-                name: 'main.balanceBook.BnkGLConsistRepo',
+                name: 'Scheme - General Ledger consistancy Report',
                 id: 176
               },
               {
                 state: 'BnkReceiveIntList',
-                name: 'main.balanceBook.BnkReceiveIntList',
+                name: 'Receivable Interest List',
                 id: 177
               },
               {
                 state: 'BnkPayIntList',
-                name: 'main.balanceBook.BnkPayIntList',
+                name: 'Payable Interest List',
                 id: 178
               },
               {
                 state: 'BnkDedskBalListDepre',
-                name: 'main.balanceBook.BnkDedskBalListDepre',
+                name: 'Deadstock Balance List with depreciation',
                 id: 179
               },
               {
                 state: 'BnkDptAMList',
-                name: 'main.balanceBook.BnkDptAMList',
+                name: 'Deposite Amount Wise Balance List',
                 id: 180
               },
               {
                 state: 'CatbalList',
-                name: 'main.balanceBook.CatbalList',
+                name: 'Categorywise Balance List',
                 id: 181
               },
               {
                 state: 'DebbalReport',
-                name: 'main.balanceBook.DebbalReport',
+                name: 'Debit Balance Report',
                 id: 182
               },
 
@@ -1264,22 +1256,22 @@ const MENUITEMS1 = [
 
               {
                 state: 'AmountBalList',
-                name: 'main.balanceBook.AmountBalList',
+                name: 'AmountWise Balance List',
                 id: 185
               },
               {
                 state: 'DeadStockDepCatList',
-                name: 'main.balanceBook.DeadStockDepCatList',
+                name: 'Deadstock Depriciation Categorywise List',
                 id: 186
               },
               {
                 state: 'BalConCertificate',
-                name: 'main.balanceBook.BalConCertificate',
+                name: 'Balance Confirmation Ceritificate',
                 id: 187
               },
               {
                 state: 'shortballist',
-                name: 'main.balanceBook.shortballist',
+                name: 'Short Balance List',
                 id: 188
               },
 
@@ -1288,7 +1280,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'registers',
-            name: 'main.registers.registers',
+            name: 'Registers',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1296,62 +1288,62 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkRegAccount',
-                name: 'main.registers.BnkRegAccount',
+                name: 'Account Opening & Closing Register',
                 id: 190
               },
               {
                 state: 'BnkRegStandingInstruction',
-                name: 'main.registers.BnkRegStandingInstruction',
+                name: 'Standing Instruction Register (Active/Revoke)',
                 id: 191
               },
               {
                 state: 'BnkRegInterestInstruction',
-                name: 'main.registers.BnkRegInterestInstruction',
+                name: 'Interest Instruction Register  (Active/Revoke)',
                 id: 192
               },
               {
                 state: 'BnkRegSpecialInstruction',
-                name: 'main.registers.BnkRegSpecialInstruction',
+                name: 'Special Instruction Register  (Active/Revoke)',
                 id: 193
               },
               {
                 state: 'BnkRegInsurence',
-                name: 'main.registers.BnkRegInsurence',
+                name: 'Insurance Register',
                 id: 194
               },
               {
                 state: 'BnkODRegister',
-                name: 'main.registers.BnkODRegister',
+                name: 'O.D. Register (Temprary / Periodical)',
                 id: 195
               },
               {
                 state: 'BnkRegDeadStock',
-                name: 'main.registers.BnkRegDeadStock',
+                name: 'Deadstock Register',
                 id: 196
               },
               {
                 state: 'BnkIVOpenAndCloseReg',
-                name: 'main.registers.BnkIVOpenAndCloseReg',
+                name: 'Investment Register (Open/Closed)',
                 id: 197
               },
               {
                 state: 'BnkRegGoldSilverSubReturn',
-                name: 'main.registers.BnkRegGoldSilverSubReturn',
+                name: 'Gold Silver Submission/Return Register',
                 id: 198
               },
               {
                 state: 'DepositReceiptRegister',
-                name: 'main.registers.DepositReceiptRegister',
+                name: 'Deposit Receipt Register',
                 id: 199
               },
               {
                 state: 'lockerRentRegister',
-                name: 'main.registers.lockerRentRegister',
+                name: 'Locker Rent Register',
                 id: 200
               },
               {
                 state: 'lockerRegister',
-                name: 'main.registers.lockerRegister',
+                name: 'Locker Register Report',
                 id: 201
               },
               {
@@ -1361,7 +1353,7 @@ const MENUITEMS1 = [
               },
               {
                 state: 'KYCDocReceivedNotRec',
-                name: 'main.registers.kycdocumentreceivednotreceived',
+                name: 'KYC Document Rec Not Rec',
                 id: 378
               },
             ]
@@ -1369,7 +1361,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'Termdeposit',
-            name: 'main.Termdeposit.Termdeposit',
+            name: 'Term Deposit Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1377,77 +1369,77 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'maturedbutnotpaid',
-                name: 'main.Termdeposit.maturedbutnotpaid',
+                name: 'matured but not paid between two days',
                 id: 204
               },
               {
                 state: 'maturedbutnotclosed',
-                name: 'main.Termdeposit.maturedbutnotclosed',
+                name: 'matured but not closed',
                 id: 205
               },
               {
                 state: 'depositpaidlist',
-                name: 'main.Termdeposit.depositpaidlist',
+                name: 'Deposit Paid List',
                 id: 206
               },
               {
                 state: 'intratewisebalancelist',
-                name: 'main.Termdeposit.intratewisebalancelist',
+                name: 'Interest Rate Wise List',
                 id: 207
               },
               {
                 state: 'custidwiseintpaidlist',
-                name: 'main.Termdeposit.custidwiseintpaidlist',
+                name: 'Customer Id Wise Interest Paid List',
                 id: 208
               },
               {
                 state: 'custidwiseloaninterestCertificate',
-                name: 'main.Termdeposit.custidwiseloaninterestCertificate',
+                name: 'Customer Id Wise Deposit Interest Certificate',
                 id: 209
               },
               {
                 state: 'IntRatewiseMaturityList',
-                name: 'main.Termdeposit.IntRatewiseMaturityList',
+                name: 'Interest Rate wise Maturity List',
                 id: 210
               },
               {
                 state: 'custidwisedepositlist',
-                name: 'main.Termdeposit.custidwisedepositlist',
+                name: 'Customer Id wise Deposit List',
                 id: 211
               },
               {
                 state: 'tddetailrecurroverdue',
-                name: 'main.Termdeposit.tddetailrecurroverdue',
+                name: 'Term Deposite Detail List and Recurring Overdue',
                 id: 212
               },
               {
                 state: 'prematuredAcCloselist',
-                name: 'main.Termdeposit.prematuredAcCloselist',
+                name: 'Prematured A/c Close List',
                 id: 213
               },
               {
                 state: 'renewalDepositList',
-                name: 'main.Termdeposit.renewalDepositList',
+                name: 'Renewal Deposit List',
                 id: 214
               },
               {
                 state: 'directorwiseDepositlist',
-                name: 'main.Termdeposit.directorwiseDepositlist',
+                name: 'Directorwise Deposit List',
                 id: 215
               },
               {
                 state: 'custidwiseInterestList',
-                name: 'main.Termdeposit.custidwiseInterestList',
+                name: 'Customer Id Wise Interest List',
                 id: 216
               },
               {
                 state: 'custidwiseMaturedList',
-                name: 'main.Termdeposit.custidwiseMaturedList',
+                name: 'Customer Id Wise Matured Deposit List',
                 id: 217
               },
               {
                 state: 'abtypeDepositList',
-                name: 'main.Termdeposit.abtypeDepositList',
+                name: 'A/B Type Deposit List',
                 id: 218
               },
 
@@ -1459,7 +1451,7 @@ const MENUITEMS1 = [
 
           {
             state: 'SharesReports',
-            name: 'main.SharesReports.SharesReports',
+            name: 'Shares Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1467,43 +1459,43 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'cityMemberList',
-                name: 'main.SharesReports.cityMemberList',
+                name: 'CityWise Member List',
                 id: 220
               },
 
               {
                 state: 'dividendPaidList',
-                name: 'main.SharesReports.dividendPaidList',
+                name: 'Dividend Paid List Report',
                 id: 221
               },
               {
                 state: 'sharesIssueRegister',
-                name: 'main.SharesReports.sharesIssueRegister',
+                name: 'Shares Issue Register',
                 id: 222
               },
               {
                 state: 'sharesReturnRegister',
-                name: 'main.SharesReports.sharesReturnRegister',
+                name: 'Membership Cancellation',
                 id: 223
               },
               {
                 state: 'sharesTransferRegister',
-                name: 'main.SharesReports.sharesTransferRegister',
+                name: 'Shares Transfer Register',
                 id: 224
               },
               {
                 state: 'unpaidDividendList',
-                name: 'main.SharesReports.unpaidDividendList',
+                name: 'Unpaid Dividend List',
                 id: 225
               },
               {
                 state: 'monthlyRecoveryPrint',
-                name: 'main.SharesReports.monthlyRecoveryPrint',
+                name: 'Monthly Recovery Print',
                 id: 226
               },
               {
                 state: 'monthlyRecoverySubsidiary',
-                name: 'main.SharesReports.monthlyRecoverySubsidiary',
+                name: 'Monthly Recovery Subsidiary',
                 id: 227
               }
             ]
@@ -1525,7 +1517,7 @@ const MENUITEMS1 = [
           // },
           {
             state: 'LoanReport',
-            name: 'main.LoanReport.LoanReport',
+            name: 'Term Loan/Cash Credit Reports',
             short_label: 'D',
             type: 'sub',
             id: 230,
@@ -1539,112 +1531,110 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'loansecurityreport',
-                name: 'main.LoanReport.loansecurityreport',
+                name: 'Loan Security Reports',
                 type: 'sub',
                 id: 232,
 
               },
               {
                 state: 'citiwiseLoanBalancereport',
-                name: 'main.LoanReport.citiwiseLoanBalancereport',
+                name: 'Citiwise Loan Balance Report',
                 type: 'sub',
                 id: 233,
               },
               {
                 state: 'lcdLessdraftReport',
-                name: 'main.LoanReport.lcdLessdraftReport',
+                name: 'Loan Cash Credit Less Draft Report',
                 type: 'sub',
                 id: 234,
               },
               {
                 state: 'lcdOverdraftReport',
-                name: 'main.LoanReport.lcdOverdraftReport',
+                name: 'Loan Cash Credit Over Draft Report',
                 type: 'sub',
                 id: 235,
               },
               {
                 state: 'lcd-renewal-list',
-                name: 'main.LoanReport.lcd-renewal-list',
+                name: 'Loan Cash Credit Renewal List',
                 type: 'sub',
                 id: 236,
               },
               {
                 state: 'lcd-turnover-list',
-                name: 'main.LoanReport.lcd-turnover-list',
+                name: 'Loan Cash Credit Turnover List',
                 type: 'sub',
                 id: 237,
               },
               {
                 state: 'penalinterestlist',
-                name: 'main.LoanReport.penalinterestlist',
+                name: 'Received and Penal Interest List',
                 type: 'sub',
                 id: 238,
               },
               {
                 state: 'pendingStockStatementlist',
-                name: 'main.LoanReport.pendingStockStatementlist',
+                name: 'Pending Stock Statement List',
                 type: 'sub',
                 id: 239,
               },
               {
                 state: 'receivedStockstatementList',
-                name: 'main.LoanReport.receivedStockstatementList',
+                name: 'Received Stock Statement List',
                 type: 'sub',
                 id: 240,
               },
               {
                 state: 'recoverycwBalanceList',
-                name: 'main.LoanReport.recoverycwBalanceList',
+                name: 'Recovery Balance List',
                 type: 'sub',
                 id: 241,
               },
               {
                 state: 'receivableInstallInterest',
-                name: 'main.LoanReport.receivableInstallInterest',
+                name: 'Receivable Installment and Intrest List',
                 type: 'sub',
                 id: 242,
               },
               {
                 state: 'loanExpiredList',
-                name: 'main.LoanReport.loanExpiredList',
+                name: 'Loan / CC Expired List',
                 type: 'sub',
                 id: 343,
               },
               {
                 state: 'loanduecertificate',
-                name: 'main.LoanReport.loanduecertificate',
+                name: 'No Due Certificate',
                 type: 'sub',
                 id: 355,
               },
               {
                 state: 'CourtwiseDisputeLoandetail',
-                name: 'main.LoanReport.CourtwiseDisputeLoandetail',
-
+                name: 'Courtwise Dispute Loan Detail',
                 type: 'sub',
                 id: 369,
               },
               {
                 state: 'CourtwiseDisputeLoanList',
-                name: 'main.LoanReport.CourtwiseDisputeList',
+                name: 'Courtwise Dispute Loan List',
                 type: 'sub',
                 id: 370,
               },
               {
                 state: 'DisputeLoanList',
-                name: 'main.LoanReport.DisputeLoanList',
+                name: 'Dispute Loan List',
                 type: 'sub',
                 id: 371,
               },
               {
                 state: 'loanCCACSanctionDatewise',
-                name: 'main.LoanReport.loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
                 type: 'sub',
                 id: 372,
               },
               {
                 state: 'healthCodewise',
-                name: 'main.LoanReport.healthCodewise',
-
+                name: 'Health Code Wise Report',
                 type: 'sub',
                 id: 373,
               },
@@ -1655,61 +1645,61 @@ const MENUITEMS1 = [
 
           {
             state: 'npaReports',
-            name: 'main.npaReports.npaReports',
+            name: 'NPA & Overdue Reports',
             short_label: 'D',
             type: 'sub',
             id: 243,
             children: [
               {
                 state: 'loanoverduelist',
-                name: 'main.npaReports.loanoverduelist',
+                name: 'Loan Overdue Reports',
                 type: 'sub',
                 id: 252,
 
               },
               {
                 state: 'npaRegister',
-                name: 'main.npaReports.npaRegister',
+                name: 'NPA Register',
                 id: 244
               },
               {
                 state: 'npaRegPercentage',
-                name: 'main.npaReports.npaRegPercentage',
+                name: 'NPA Register Percentage',
                 id: 245
               },
               {
                 state: 'nonNpaRecovery',
-                name: 'main.npaReports.nonNpaRecovery',
+                name: 'To be Recovery Non NPA Report',
                 id: 246
               },
               {
                 state: 'directorwise',
-                name: 'main.npaReports.directorwise',
+                name: 'Directorwise Recommanded by',
                 id: 247
               },
               {
                 state: 'citiwisenpa',
-                 name: 'main.npaReports.citiwisenpa',
+                name: 'Citywise NPA Register',
                 type: 'sub',
                 id: 248,
 
               },
               {
                 state: 'analysisnpa',
-                name: 'main.npaReports.analysisnpa',
+                name: 'NPA Analysis Report',
                 type: 'sub',
                 id: 249,
 
               },
               {
                 state: 'classificationsecnpa',
-                  name: 'main.npaReports.classificationsecnpa',
+                name: 'NPA Classification -Secured Or Unsecured',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-              name: 'main.npaReports.classificationstandardnpa',
+                name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
               },
@@ -1794,7 +1784,7 @@ const MENUITEMS1 = [
           // },
           {
             state: 'PigmyReport',
-             name: 'main.PigmyReport.PigmyReport',
+            name: 'Pigmy Report',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1802,37 +1792,37 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkPigmyCollectionChart',
-               name: 'main.PigmyReport.BnkPigmyCollectionChart',
+                name: 'Pigmy Agentwise Collection Chart',
                 id: 255
               },
               {
                 state: 'BnkPigmyBalanceList',
-              name: 'main.PigmyReport.BnkPigmyBalanceList',
+                name: 'Pigmy Agent Wise Balance List',
                 id: 256
               },
               {
                 state: 'BnkPigmyBalanceBook',
-                 name: 'main.PigmyReport.BnkPigmyBalanceBook',
+                name: 'Pigmy Agent Wise Balance Book',
                 id: 257
               },
               {
                 state: 'BnkPigmyBlankChart',
-              name: 'main.PigmyReport.BnkPigmyBlankChart',
+                name: 'Pigmy Agent Collection Blank Chart',
                 id: 258
               },
               {
                 state: 'BnkPigmyCommissionRepo',
-               name: 'main.PigmyReport.BnkPigmyCommissionRepo',
+                name: 'Pigmy Agent Commission Report',
                 id: 259
               },
               {
                 state: 'pigmyhandbook',
-                name: 'main.PigmyReport.pigmyhandbook',
+                name: 'Pigmy  HandBook',
                 id: 260
               },
               {
                 state: 'pigmymaturedAclist',
-                name: 'main.PigmyReport.pigmymaturedAclist',
+                name: 'Pigmy  Matured A/C List',
                 id: 261
               },
             ]
@@ -1841,29 +1831,29 @@ const MENUITEMS1 = [
           {
             state: 'otherReports',
             short_label: 'D',
-            name: 'main.otherReports.otherReports',
+            name: 'Other Reports',
             type: 'sub',
             icon: 'icon-home',
             id: 262,
             children: [
               {
                 state: 'BnkMinorsList',
-             name: 'main.otherReports.BnkMinorsList',
+                name: 'Minor List',
                 id: 263
               },
               {
                 state: 'BnkNomineeList',
-                name: 'main.otherReports.BnkNomineeList',
+                name: 'Nominee List',
                 id: 264
               },
               {
                 state: 'BnkGuaranterList',
-                 name: 'main.otherReports.BnkGuaranterList',
+                name: 'Guaranter List',
                 id: 265
               },
               {
                 state: 'BnkLienMarkedAcList',
-                 name: 'main.otherReports.BnkLienMarkedAcList',
+                name: 'Lein mark Account List ',
                 id: 266
               },
               // {
@@ -1873,52 +1863,52 @@ const MENUITEMS1 = [
               // },
               {
                 state: 'BnkAmountMovement',
-                name: 'main.otherReports.BnkAmountMovement',
+                name: 'Transaction Amount Movement',
                 id: 268
               },
               {
                 state: 'BnkDepAmountMovementDetail',
-                name: 'main.otherReports.BnkDepAmountMovementDetail',
+                name: 'Deposit Amount Movement',
                 id: 269
               },
               {
                 state: 'BnkLNAmountMovementDetail',
-                name: 'main.otherReports.BnkLNAmountMovementDetail',
+                name: 'Loan Amount Movement',
                 id: 270
               },
               {
                 state: 'BnkGurDetailsList',
-                name: 'main.otherReports.BnkGurDetailsList',
+                name: 'Guaranter Details',
                 id: 271
               },
               {
                 state: 'BnkNonGuaranteerView',
-                name: 'main.otherReports.BnkNonGuaranteerView',
+                name: 'Non Guarantor (A-Type Members Only) List',
                 id: 272
               },
               {
                 state: 'custidIntroducerList',
-                name: 'main.otherReports.custidIntroducerList',
+                name: 'CustomerIdwise Introducer List',
                 id: 273
               },
               {
                 state: 'serviceChargeList',
-                name: 'main.otherReports.serviceChargeList',
+                name: 'Service Charges List',
                 id: 274
               },
               {
                 state: 'minorToMajorlist',
-                name: 'main.otherReports.minorToMajorlist',
+                name: 'Minor To Major List',
                 id: 275
               },
               {
                 state: 'tranLessAclist',
-                name: 'main.otherReports.tranLessAclist',
+                name: 'Transactionless Account List',
                 id: 276
               },
               {
                 state: 'dormantAccountList',
-                name: 'main.otherReports.dormantAccountList',
+                name: 'Dormant Account List',
                 id: 277
               },
 
@@ -1927,7 +1917,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'misReports',
-            name: 'main.misReports.misReports',
+            name: 'MIS Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1935,7 +1925,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'loanBalanceBetTwoDates',
-                name: 'main.misReports.loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
                 id: 356
               },
               {
@@ -1945,26 +1935,50 @@ const MENUITEMS1 = [
               },
               {
                 state: 'swnidhi',
-                name: 'main.misReports.swnidhi',
+                name: 'Swnidhi Report',
                 id: 376
               },
               {
                 state: 'MISInfo',
-                name: 'main.misReports.MISInfo',
+                name: 'MIS Information',
                 id: 377
               },
               {
                 state: 'expensive',
-                name: 'main.misReports.expensive',
-
+                name: 'Expenses List',
                 id: 381
-              }
+              },
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 383
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 384
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 385
+              },
+              {
+                state: 'slr',
+                name: 'SLR Report',
+                id: 386
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                id: 387
+              },
             ]
           },
           //
           {
             state: 'managerViewReports',
-             name: 'main.managerViewReports',
+            name: 'Manager View Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1973,7 +1987,7 @@ const MENUITEMS1 = [
           //
           {
             state: 'finalReports',
-           name: 'main.finalReports.finalReports',
+            name: 'Final Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -1981,42 +1995,42 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'BnkTrialBal',
-               name: 'main.finalReports.BnkTrialBal',
+                name: 'Trial Balance ',
                 id: 283
               },
               {
                 state: 'BnkTrialBaldetail',
-                name: 'main.finalReports.BnkTrialBaldetail',
+                name: 'Trial Balance Detail',
                 id: 284
               },
               {
                 state: 'BalanceSheet',
-               name: 'main.finalReports.BalanceSheet',
+                name: 'Balance Sheet',
                 id: 285
               },
               {
                 state: 'NBalanceSheet',
-                 name: 'main.finalReports.NBalanceSheet',
+                name: 'N Form Balance Sheet',
                 id: 286
               },
               {
                 state: 'ProfitLossAccount',
-                  name: 'main.finalReports.ProfitLossAccount',
+                name: 'Profit & Loss Account',
                 id: 287
               },
               {
                 state: 'NProfitLoss',
-              name: 'main.finalReports.NProfitLoss',
+                name: 'N Form Profit & Loss Account',
                 id: 288
               },
               {
                 state: 'RecePayRep',
-                name: 'main.finalReports.RecePayRep',
+                name: 'Receipt & Payment Report',
                 id: 289
               },
               {
                 state: 'RecePayRepDetails',
-                 name: 'main.finalReports.RecePayRepDetails',
+                name: 'Receipt & Payment Report Detail',
                 id: 290
               },
 
@@ -2024,7 +2038,7 @@ const MENUITEMS1 = [
           },
           {
             state: 'RecoveryReport',
-            name: 'main.RecoveryReport.RecoveryReport',
+            name: 'Recovery Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -2032,7 +2046,7 @@ const MENUITEMS1 = [
             children: [
               {
                 state: 'memberAckReport',
-                   name: 'main.RecoveryReport.memberAckReport',
+                name: 'Member Acknowledgement Report',
                 id: 292
               },
 
@@ -2044,7 +2058,7 @@ const MENUITEMS1 = [
       {
         state: 'utility',
         short_label: 'D',
-       name: 'main.utility.utility',
+        name: 'Utility',
         type: 'sub',
         icon: 'fa fa-university',
         id: 293,
@@ -2063,25 +2077,25 @@ const MENUITEMS1 = [
 
           {
             state: 'interestPosting',
-              name: 'main.utility.interestPosting.interestPosting',
+            name: 'Interest Posting',
             short_label: 'D',
             type: 'sub',
             id: 302,
             children: [
               {
                 state: 'interestCalculation',
-                  name: 'main.utility.interestPosting.interestCalculation',
+                name: 'Interest Calculation',
                 id: 303
               },
 
               {
                 state: 'interestPassing',
-               name: 'main.utility.interestPosting.interestPassing',
+                name: 'Interest Passing',
                 id: 304
               },
               {
                 state: 'interestList',
-                 name: 'main.utility.interestPosting.interestList',
+                name: 'Interest List',
                 id: 305
               },
             ]
@@ -2089,80 +2103,80 @@ const MENUITEMS1 = [
 
           {
             state: 'pigmyMachineProcess',
-            name: 'main.utility.pigmyMachineProcess',
+            name: 'Pigmy Machine Process',
             id: 307
           },
-
+          
           {
             state: 'monthRecProc',
-            name: 'main.utility.monthRecProc',
+            name: 'Monthly Recovery Process',
             id: 357
           },
-
+          
           {
             state: 'whatsappmessages',
-            name: 'main.utility.whatsappmessages',
+            name: 'Whatsapp Messages',
             id: 345
           },
           {
             state: 'deadStockP',
-            name: 'main.utility.deadStockP',
+            name: 'Dead Stock Process',
             id: 309
           },
           {
             state: 'dividend',
-            name: 'main.utility.dividend.dividend',
+            name: 'Dividend',
             short_label: 'D',
             type: 'sub',
             id: 310,
             children: [
               {
                 state: 'dividendList',
-              name: 'main.utility.dividend.dividendList',
+                name: 'Dividend List',
                 id: 311
               },
               {
                 state: 'dividendPost',
-                 name: 'main.utility.dividend.dividendPost',
+                name: 'Dividend Post',
                 id: 312
               }
             ]
           },
           {
             state: 'statementHeadInsert',
-           name: 'main.utility.statementHeadInsert',
+            name: 'Statement Head Insert',
             id: 313
           },
 
 
           {
             state: 'roleDefination',
-            name: 'main.utility.roleDefination',
+            name: 'Role Defination',
             id: 315
           },
           {
             state: 'roleMaster',
-           name: 'main.utility.roleMaster',
+            name: 'Role Master',
             id: 316
           },
           {
             state: 'userDefination',
-            name: 'main.utility.userDefination',
+            name: 'User Defination',
             id: 317
           },
           {
             state: 'cashierMaintance',
-            name: 'main.utility.cashierMaintance',
+            name: 'Cashier Maintenace',
             id: 318
           },
           {
             state: 'cashierUM',
-             name: 'main.utility.cashierUM',
+            name: 'Cashier User Maintainance',
             id: 319
           },
           {
             state: 'sharesCCTS',
-              name: 'main.utility.sharesCCTS',
+            name: 'Shares Contribution Credit To Shares',
             id: 320
           },
           // {
@@ -2177,17 +2191,17 @@ const MENUITEMS1 = [
           // },
           {
             state: 'schemeATE',
-              name: 'main.utility.schemeATE',
+            name: 'Scheme Amount Transfer Entry',
             id: 323
           },
           {
             state: 'schemeParameters',
-            name: 'main.utility.schemeParameters',
+            name: 'Scheme Parameters',
             id: 324
           },
           {
             state: 'calculator',
-            name: 'main.utility.calculator',
+            name: 'Calculator',
             id: 325
           },
           // {
@@ -2198,12 +2212,12 @@ const MENUITEMS1 = [
 
           {
             state: 'pataSevaSupportR',
-            name: 'main.utility.pataSevaSupportR',
+            name: 'PataSeva Support Register',
             id: 328
           },
           {
             state: 'sharesDataEI',
-             name: 'main.utility.sharesDataEI',
+            name: 'Sheres Data Export / Import',
             id: 329
           },
           // {
@@ -2213,32 +2227,32 @@ const MENUITEMS1 = [
           // },
           {
             state: 'demandDraftDEI',
-            name: 'main.utility.demandDraftDEI',
+            name: 'Demand Draft Data Export/ Import',
             id: 331
           },
           {
             state: 'gmaMemberUpdation',
-          name: 'main.utility.gmaMemberUpdation',
+            name: 'General Meeting Appear Meeting Updation',
             id: 332
           },
           {
             state: 'amtTransferTransaction',
-           name: 'main.utility.amtTransferTransaction',
+            name: 'Amount Transfer Transaction',
             id: 333
           },
           {
             state: 'recAmtTrToGL',
-            name: 'main.utility.recAmtTrToGL',
+            name: 'Recurring Amount Transfer to GL',
             id: 334
           },
           {
             state: 'conversion',
-           name: 'main.utility.conversion',
+            name: 'Conversion',
             id: 374
           },
           {
             state: 'remainder',
-            name: 'main.utility.remainder',
+            name: 'Remainder',
             id: 379
           },
         ]
@@ -2246,41 +2260,41 @@ const MENUITEMS1 = [
       {
         state: 'process',
         short_label: 'D',
-        name: 'TEST.process',
+        name: 'Process',
         type: 'sub',
         icon: 'fa fa-cogs',
         id: 346,
         children: [
           {
             state: 'dayBegin',
-           name: 'main.process.dayBegin',
+            name: 'Day Begin',
             id: 294
           },
           {
             state: 'dayEnd',
-            name: 'main.process.dayEnd.dayEnd',
+            name: 'Day End',
             short_label: 'D',
             type: 'sub',
             id: 295,
             children: [
               {
                 state: 'counterWorkDayEnd',
-               name: 'main.process.dayEnd.counterWorkDayEnd',
+                name: 'Day End Handover',
                 id: 296
               },
               {
                 state: 'FinalDayEnd',
-                name: 'main.process.dayEnd.FinalDayEnd',
+                name: 'Day End',
                 id: 297
               },
               {
                 state: 'pigmyDayEnd',
-               name: 'main.process.dayEnd.pigmyDayEnd',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
                 state: 'yearEnd',
-               name: 'main.process.dayEnd.yearEnd',
+                name: 'Year End',
                 id: 299
               },
             ]
@@ -2288,43 +2302,41 @@ const MENUITEMS1 = [
 
           {
             state: 'pigmyAppProcess',
-            name: 'main.process.pigmyAppProcess',
-
+            name: 'Pigmy App Process',
             id: 308
           },
 
           {
             state: 'holiday',
-             name: 'main.process.holiday',
+            name: 'Holiday',
             id: 301
           },
 
 
           {
             state: 'processACM',
-          name: 'main.process.processACM',
+            name: 'Process And Calculation Menu',
             id: 306
           },
 
           {
             state: 'deadStockP',
-             name: 'main.process.deadStockP',
+            name: 'Dead Stock Process',
             id: 309
           },
           {
             state: 'dataBackup',
-             name: 'main.process.dataBackup',
+            name: 'Data Backup',
             id: 327
           },
           {
-            state: 'monthlyrecoveryprocess',
-            name: 'main.process.monthlyrecoveryprocess',
+            state: 'monthly recovery process',
+            name: 'Monthly Recovery Process',
             id: 360
           },
           {
             state: 'yearEndBranchwise',
-            name: 'main.process.yearEndBranchwise',
-
+            name: 'Year End BranchWise',
             id: 361
           },
          
@@ -2334,24 +2346,24 @@ const MENUITEMS1 = [
       {
         state: 'windows',
         short_label: 'D',
-       name: 'TEST.windows',
+        name: 'Windows',
         type: 'sub',
         icon: 'icon-home',
         id: 335,
         children: [
           {
             state: 'casecade',
-            name: 'main.process.windows.casecade',
+            name: 'CaseCade',
             id: 336
           },
           {
             state: 'tileHorizontaily',
-             name: 'main.process.windows.tileHorizontaily',
+            name: 'Tile Horizontaily',
             id: 337
           },
           {
             state: 'tileVertically',
-           name: 'main.process.windows.tileVertically',
+            name: 'Tile Vertically',
             id: 338
           },
 
@@ -2360,7 +2372,7 @@ const MENUITEMS1 = [
       {
         state: 'hotKeys',
         short_label: 'D',
-        name: 'main.process.hotKeys',
+        name: 'Hot Key',
         type: 'link',
         icon: 'fa fa-key',
         id: 339
@@ -2368,7 +2380,7 @@ const MENUITEMS1 = [
       {
         state: 'exit',
         short_label: 'D',
-       name: 'main.process.exit',
+        name: 'Sign Out',
         type: 'link',
         icon: 'fa fa-sign-out',
         id: 340
@@ -3113,46 +3125,46 @@ const MENUITEMS = [
       {
         state: 'master',
         short_label: 'D',
-        name: 'TEST.MASTER',
+        name: 'Master',
         type: 'sub',
         icon: 'fa fa-university',
         id: 5,
         children: [
           {
             state: 'generalLedger',
-            name: 'main.generalLedger.generalLedger',
+            name: 'General Ledger',
             short_label: 'D',
             type: 'sub',
             id: 6,
             children: [
               {
                 state: 'gl-statement-code',
-                name: 'main.generalLedger.gl-statement-code',
+                name: 'GL Statement Code',
                 id: 7
               },
               {
                 state: 'gl-accounts-master',
-                name: 'main.generalLedger.gl-accounts-master',
+                name: 'GL Accounts Master',
                 id: 8
               },
               {
                 state: 'gl-report-master',
-                name: 'main.generalLedger.gl-report-master',
+                name: 'GL Report Master',
                 id: 9
               },
               {
                 state: 'gl-report-linking',
-                name: 'main.generalLedger.gl-report-linking',
+                name: 'GL Report Linking',
                 id: 10
               },
               {
                 state: 'budget-master',
-                name: 'main.generalLedger.budget-master',
+                name: 'Budget Allocation Master',
                 id: 11
               },
               {
                 state: 'budget-view',
-                name: 'main.generalLedger.budget-view',
+                name: 'Budget View',
                 id: 359
               },
             ]
@@ -3160,78 +3172,79 @@ const MENUITEMS = [
           },
           {
             state: 'customer',
-            name: 'main.customer.customer',
+            name: 'Customer',
             short_label: 'D',
             type: 'sub',
             id: 12,
             children: [
               {
                 state: 'customerId',
-                name: 'main.customer.custId',
+                name: 'Customer Id',
                 id: 13
               },
               {
                 state: 'sharesMaster',
-                name: 'main.customer.sharesMaster',
+                name: 'Shares Account Master',
                 id: 14
               },
               {
                 state: 'anamatGSM',
-                name: 'main.customer.anamatGSM',
+                name: 'Anamat / General Sub Account Master',
                 id: 15
               },
               {
                 state: 'savingMaster',
-                name: 'main.customer.savingMaster',
+                name: 'Saving Account Master',
                 id: 16
               },
               {
                 state: 'currentAccountMaster',
-                name: 'main.customer.currentAccountMaster',
+                name: 'Current Account Master',
                 id: 17
               },
               {
                 state: 'termDepositsMaster',
-                name: 'main.customer.termDepositsMaster',
+                name: 'Term Deposit Account Master',
                 id: 18
               },
               {
                 state: 'cashCreditMaster',
-                name: 'main.customer.cashCreditMaster',
+                name: 'Cash Credit Account Master',
                 id: 19
               },
               {
                 state: 'termLoanMaster',
-                name: 'main.customer.termLoanMaster',                id: 20
+                name: 'Term Loan Account Master',
+                id: 20
               },
               {
                 state: 'disputeLoanMaster',
-                name: 'main.customer.disputeLoanMaster',
+                name: 'Dispute Loan Account Master',
                 id: 21
               },
               {
                 state: 'pigmyAgentMaster',
-                name: 'main.customer.pigmyAgentMaster',
+                name: 'Pigmy Agent Account Master',
                 id: 22
               },
               {
                 state: 'pigmyAccountMaster',
-                name: 'main.customer.pigmyAccountMaster',
+                name: 'Pigmy Account Master',
                 id: 23
               },
               {
                 state: 'deadStockMaster',
-                name: 'main.customer.deadStockMaster',
+                name: 'Dead Stock Account Master',
                 id: 24
               },
               {
                 state: 'accountOpening',
-                name: 'main.customer.accountOpening',
+                name: 'Investment Master',
                 id: 25
               },
               {
                 state: 'lockerMaster',
-                name: 'main.customer.lockerMaster',
+                name: 'Locker Master',
                 id: 26
               },
             ]
@@ -3239,13 +3252,13 @@ const MENUITEMS = [
           {
             state: 'balanceEntry',
             short_label: 'D',
-            name: 'main.balanceEntry.balanceEntry',
+            name: 'Balance Entry',
             type: 'sub',
             id: 27,
             children: [
               {
                 state: 'balanceUpdation',
-                name: 'main.balanceEntry.balanceUpdation',
+                name: 'Balance Updation',
                 id: 28
               },
               // {
@@ -3289,48 +3302,48 @@ const MENUITEMS = [
           },
           {
             state: 'PolicySettings',
-            name: 'main.PolicySettings.PolicySettings',
+            name: 'Policy Settings',
             short_label: 'D',
             type: 'sub',
             id: 32,
             children: [
               {
                 state: 'information',
-                name: 'main.PolicySettings.information',
+                name: 'Information',
                 id: 33
               },
               {
                 state: 'definations',
-                name: 'main.PolicySettings.definations',
+                name: 'Definations',
                 id: 34
               },
               {
                 state: 'sizewiseBalanceModification',
-                name: 'main.PolicySettings.sizewiseBalanceModification',
+                name: 'Sizewise Balance Modification',
                 id: 35
               },
               {
                 state: 'tDReceiptTypeMaster',
-                name: 'main.PolicySettings.tDReceiptTypeMaster',
+                name: 'TD Receipt Type Master',
                 id: 36
               },
               {
                 state: 'nPAClassificationSlabMaster',
-                name: 'main.PolicySettings.nPAClassificationSlabMaster',
+                name: 'NPA Classification Slab Master ',
                 id: 37
               },
             ]
           },
           {
             state: 'Maintainance',
-            name: 'main.Maintainance.Maintainance',
+            name: 'Maintainance',
             short_label: 'D',
             type: 'sub',
             id: 38,
             children: [
               {
                 state: 'securityDetails',
-                name: 'main.Maintainance.securityDetails',
+                name: 'Security Details',
                 id: 39
               },
               // {
@@ -3340,17 +3353,17 @@ const MENUITEMS = [
               // },
               {
                 state: 'depositLoanInterestRateEditChange',
-                name: 'main.Maintainance.depositLoanInterestRateEditChange',
+                name: 'Deposit / Loan Interest Rate Edit / Change',
                 id: 41
               },
               {
                 state: 'npaOpeningDetailsEntry',
-                name: 'main.Maintainance.npaOpeningDetailsEntry',
+                name: 'NPA Opening Details Entry',
                 id: 42
               },
               {
                 state: 'interestPostingFlagUpdation',
-                name: 'main.Maintainance.interestPostingFlagUpdation',
+                name: 'Interest Posting Flag Updation',
                 id: 43
               },
               // {
@@ -3360,26 +3373,26 @@ const MENUITEMS = [
               // },
               {
                 state: 'recoveryFlag',
-                name: 'main.Maintainance.recoveryFlag',
+                name: 'Recovery Flag Updation',
                 id: 358
               },
               {
                 state: 'notingCharges',
-                name: 'main.Maintainance.notingCharges',
+                name: 'Noting Charges',
                 id: 45
               },
               {
                 state: 'tdsformsubmission',
-                name: 'main.Maintainance.tdsformsubmission',
+                name: 'TDS Form Submission',
                 id: 46
               },
               {
                 state: 'moratoriumperiodmaster',
-                name: 'main.Maintainance.moratoriumperiodmaster',
+                name: 'Moratorium Period Master',
                 id: 47
               }, {
                 state: 'disputedetail',
-                name: 'main.Maintainance.disputedetail',
+                name: 'Dispute Detail',
                 id: 363
               }
             ]
@@ -3387,34 +3400,34 @@ const MENUITEMS = [
           },
           {
             state: 'Instruction',
-            name: 'main.Instruction.Instruction',
+            name: 'Instruction',
             short_label: 'D',
             type: 'sub',
             id: 48,
             children: [
               {
                 state: 'overDraft',
-                name: 'main.Instruction.overDraft',
+                name: 'Over Draft',
                 id: 49
               },
               {
                 state: 'standingInstruction',
-                name: 'main.Instruction.standingInstruction',
+                name: 'Standing Instruction',
                 id: 50
               },
               {
                 state: 'interestInstruction',
-                name: 'main.Instruction.interestInstruction',
+                name: 'Interest Instruction',
                 id: 51
               },
               {
                 state: 'special',
-                name: 'main.Instruction.special',
+                name: 'Special',
                 id: 52
               },
               {
                 state: 'freezeAccount',
-                name: 'main.Instruction.freezeAccount',
+                name: 'Freeze Account',
                 id: 53
               },
               // {
@@ -3438,7 +3451,7 @@ const MENUITEMS = [
               // },
               {
                 state: 'lienMarkClear',
-                name: 'main.Instruction.lienMarkClear',
+                name: 'Lien Mark Clear',
                 id: 58
               },
             ]
@@ -3485,7 +3498,7 @@ const MENUITEMS = [
           // },
           {
             state: 'Shares',
-            name: 'main.Shares.Shares',
+            name: 'Shares/Dividend',
             short_label: 'D',
             type: 'sub',
             id: 66,
@@ -3497,32 +3510,32 @@ const MENUITEMS = [
               // },
               {
                 state: 'yearWiseUnpaidDividendEntry',
-                name: 'main.Shares.yearWiseUnpaidDividendEntry',
+                name: 'Year Wise Unpaid Dividend Entry',
                 id: 68
               },
               {
                 state: 'dividendTransferEntry',
-                name: 'main.Shares.dividendTransferEntry',
+                name: 'Dividend Transfer Instruction',
                 id: 69
               },
               {
                 state: 'dividendCalculation',
-                name: 'main.Shares.dividendCalculation',
+                name: 'Dividend Calculation',
                 id: 70
               },
               {
                 state: 'dividendPosting',
-                name: 'main.Shares.dividendPosting',
+                name: 'Dividend Posting',
                 id: 71
               },
               {
                 state: 'dividendTransferPosting',
-                name: 'main.Shares.dividendTransferPosting',
+                name: 'Dividend Transfer Posting',
                 id: 72
               },
               {
                 state: 'generalmeetpresentmem',
-                name: 'main.Shares.generalmeetpresentmem',
+                name: 'General Meeting Present Mem',
                 id: 367
               },
             ]
@@ -3544,108 +3557,108 @@ const MENUITEMS = [
       {
         state: 'transaction',
         short_label: 'D',
-        name: 'TEST.transaction',
+        name: 'Transaction',
         type: 'sub',
         icon: 'fa fa-money',
         id: 75,
         children: [
           {
             state: 'voucherEntry',
-            name: 'main.transaction.voucherEntry',
+            name: 'Voucher Entry',
             id: 76
           },
           {
             state: 'multiVoucher',
-            name: 'main.transaction.multiVoucher',
+            name: 'Multi Voucher',
             id: 77
           },
           {
             state: 'batchVoucher',
-            name: 'main.transaction.batchVoucher',
+            name: 'Batch Transfer Voucher',
             id: 78
           },
           {
             state: 'pigmyChartEntry',
-            name: 'main.transaction.pigmyChartEntry',
+            name: 'Pigmy Chart Entry',
             id: 79
           },
           {
             state: 'deadStockPurchase',
-            name: 'main.transaction.deadStockPurchase',
+            name: 'Dead Stock Purchase',
             id: 80
           },
           {
             state: 'deadStockTransaction',
-            name: 'main.transaction.deadStockTransaction',
+            name: 'Dead Stock Transaction',
             id: 81
           },
 
           {
             state: 'reconciliationEntry',
-            name: 'main.transaction.reconciliationEntry',
+            name: 'Reconciliation Entry',
             id: 82
           },
           {
             state: 'savingspigmyaccountclosing',
-            name: 'main.transaction.savingspigmyaccountclosing',
+            name: 'Savings-Pigmy Account Closing',
             id: 83
           },
           {
             state: 'termDepositAccountClosing',
-            name: 'main.transaction.termDepositAccountClosing',
+            name: 'Term Deposit Account Closing',
             id: 84
           },
           {
             state: 'TermDepositeAcRenewal',
-            name: 'main.transaction.TermDepositeAcRenewal',
+            name: 'Term Deposit A/c Renewal',
             id: 85
           },
           {
             state: 'investmentAccountRenewal',
-            name: 'main.transaction.investmentAccountRenewal',
+            name: 'Investment Account Renewal',
             id: 375
           },
           {
             state: 'cashCreditAcRenewal',
-            name: 'main.transaction.cashCreditAcRenewal',
+            name: 'Cash Credit A/c Renewal',
             id: 86
           },
           {
             state: 'shareTransactions',
-            name: 'main.transaction.shareTransactions',
+            name: 'Share Transaction',
             id: 87
           },
 
           {
             state: 'locker',
-            name: 'main.transaction.locker.locker',
+            name: 'Locker Transaction',
             short_label: 'L',
             type: 'sub',
             id: 88,
             children: [
               {
                 state: 'lockerOpenTransaction',
-                name: 'main.transaction.locker.lockerOpenTransaction',
+                name: 'Locker Open Transaction',
                 id: 89
               },
               {
                 state: 'lockerCloseTransaction',
-                name: 'main.transaction.locker.lockerCloseTransaction',
+                name: 'Locker Close Transaction',
                 id: 90
               },
               {
                 state: 'lockerRentTransaction',
-                name: 'main.transaction.locker.lockerRentTransaction',
+                name: 'Locker Rent Transaction',
                 id: 91
               },
               // {
               //   state: 'cashOutDenomination',
-              //   name: 'main.transaction.cashDenomination.cashOutDenomination',
+              //   name: 'Cash Out Denomination',
               //   id: 92
               // },
               // {
               //   state: 'cashInitialisationEntry',
-              //  name: 'main.transaction.cashDenomination.cashInitialisationEntry',
+              //   name: 'cash Initialisation Entry',
               //   id: 93
               // },
               // {
@@ -3655,51 +3668,51 @@ const MENUITEMS = [
               // },
               // {
               //   state: 'cashierToSafeVault',
-              // name: 'main.transaction.cashDenomination.cashierToSafeVault',
+              //   name: 'Cashier To Safe Vault',
               //   id: 95
               // },
             ]
           },
           {
             state: 'cashDenomination',
-            name: 'main.transaction.cashDenomination.cashDenomination',
+            name: 'Cash Denomination',
             short_label: 'D',
             type: 'sub',
             id: 96,
             children: [
               {
                 state: 'acceptD',
-                name: 'main.transaction.cashDenomination.acceptD',
+                name: 'Accept Denomination',
                 id: 97
               },
               {
                 state: 'paymentDenomination',
-                name: 'main.transaction.cashDenomination.paymentDenomination',
+                name: 'Payment Denomination',
                 id: 98
               },
               {
                 state: 'cashInDenomination',
-                name: 'main.transaction.cashDenomination.cashInDenomination',
+                name: 'Cash In Denomination',
                 id: 99
               },
               {
                 state: 'cashOutDenomination',
-                name: 'main.transaction.cashDenomination.cashOutDenomination',
+                name: 'Cash Out Denomination',
                 id: 100
               },
               {
                 state: 'cashInitialisationEntry',
-                name: 'main.transaction.cashDenomination.cashInitialisationEntry',
+                name: 'cash Initialisation Entry',
                 id: 101
               },
               {
                 state: 'safeValultToCashier',
-                name: 'main.transaction.cashDenomination.safeValultToCashier',
+                name: 'Safe Valult To Cashier',
                 id: 102
               },
               {
                 state: 'cashierToSafeVault',
-                name: 'main.transaction.cashDenomination.cashierToSafeVault',
+                name: 'Cashier To Safe Vault',
                 id: 103
               },
             ]
@@ -3713,17 +3726,17 @@ const MENUITEMS = [
 
           {
             state: 'goldsilverreturnentry',
-            name: 'main.transaction.goldsilverreturnentry',
+            name: 'Gold/Silver Return Entry',
             id: 111
           },
           {
             state: 'memberDAPDT',
-            name: 'main.transaction.memberDAPDT',
+            name: 'Member Dividend And Payable Dividend Transaction ',
             id: 112
           },
           {
             state: 'memberTransfer',
-            name: 'main.transaction.memberTransfer.memberTransfer',
+            name: 'Member Transfer',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -3731,13 +3744,13 @@ const MENUITEMS = [
             children: [
               {
                 state: 'MemberTransferTransaction',
-                name: 'main.transaction.memberTransfer.MemberTransferTransaction',
+                name: 'Member Transfer Transaction',
                 id: 114
               },
 
               {
                 state: 'BranchAndSalaryDC',
-                name: 'main.transaction.memberTransfer.BranchAndSalaryDC',
+                name: 'Branch And Salary Division Changes',
                 id: 115
               },
 
@@ -3751,7 +3764,7 @@ const MENUITEMS = [
 
           {
             state: 'recovery',
-            name: 'main.transaction.recovery.recovery',
+            name: 'Recovery',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -3759,22 +3772,22 @@ const MENUITEMS = [
             children: [
               {
                 state: 'recoveryProcessing',
-                name: 'main.transaction.recovery.recoveryProcessing',
+                name: 'Recovery Processing',
                 id: 118
               },
               {
                 state: 'recoveryModification',
-                name: 'main.transaction.recovery.recoveryModification',
+                name: 'Recovery Modification',
                 id: 119
               },
               {
                 state: 'recoveryPosting',
-                name: 'main.transaction.recovery.recoveryPosting',
+                name: 'Recovery Posting',
                 id: 120
               },
               {
                 state: 'recoveryDataImportExport',
-                name: 'main.transaction.recovery.recoveryDataImportExport',
+                name: 'Recovery Data Import Export',
                 id: 121
               },
             ]
@@ -3782,61 +3795,60 @@ const MENUITEMS = [
 
           {
             state: 'memberLoan',
-            name: 'main.transaction.memberLoan.memberLoan',
+            name: 'Member Loan',
             short_label: 'D',
             type: 'sub',
             id: 122,
             children: [
               {
                 state: 'loanApplication',
-                name: 'main.transaction.memberLoan.loanApplication',
+                name: 'Loan Application',
                 id: 123
               },
               {
                 state: 'loanSanction',
-                name: 'main.transaction.memberLoan.loanSanction',
+                name: 'Loan Sanction',
                 id: 124
               }
             ]
           },
           {
             state: 'ddtransaction',
-            name: 'main.transaction.memberLoan.ddtransaction',
-
+            name: 'Check/DD Transaction',
             id: 125
           },
           {
             state: 'dividendPay',
-            name: 'main.transaction.dividendPay.dividendPay',
+            name: 'Dividend Pay',
             short_label: 'D',
             type: 'sub',
             id: 126,
             children: [
               {
                 state: 'dividendPaidMarkSD',
-                name: 'main.transaction.dividendPay.dividendPaidMarkSD',
+                name: 'Dividend Paid Mark(Salary Division)',
                 id: 127
               },
               {
                 state: 'dividendPaidSD',
-                name: 'main.transaction.dividendPay.dividendPaidSD',
+                name: 'Dividend Pay(Salary Division)',
                 id: 128
               },
             ]
           },
           {
             state: 'cashRecoveryTransaction',
-            name: 'main.transaction.cashRecoveryTransaction',
+            name: 'Cash Recovery Transaction',
             id: 129
           },
           {
             state: 'consolidationTransaction',
-            name: 'main.transaction.consolidationTransaction',
+            name: 'Consolidation Transaction',
             id: 130
           },
           {
             state: 'inwardRegister',
-            name: 'main.transaction.inwardRegister',
+            name: 'Inward Register',
             id: 131
           },
         ]
@@ -3845,14 +3857,14 @@ const MENUITEMS = [
       {
         state: 'passing',
         short_label: 'D',
-        name: 'main.passing.passing',
+        name: 'Passing',
         type: 'sub',
         icon: 'fa fa-check-square-o',
         id: 132,
         children: [
           {
             state: 'centralisedPassing',
-            name: 'main.passing.centralisedPassing',
+            name: 'Centralised Passing',
             id: 133
           },
 
@@ -3864,12 +3876,12 @@ const MENUITEMS = [
 
           {
             state: 'unapprove',
-            name: 'main.passing.unapprove',
+            name: 'Unapprove',
             id: 135
           },
           {
             state: 'neftPassing',
-            name: 'main.passing.neftPassing',
+            name: 'NEFT/RTGS Transaction Passing',
             id: 354
           },
         ]
@@ -3914,76 +3926,76 @@ const MENUITEMS = [
       {
         state: 'view',
         short_label: 'D',
-        name: 'main.view.view',
+        name: 'View',
         type: 'sub',
         icon: 'fa fa-book',
         id: 136,
         children: [
           {
             state: 'accountEnquiry',
-            name: 'main.view.accountEnquiry',
+            name: 'Account Enquiry',
             id: 137
           },
           {
             state: 'ledgerView',
-            name: 'main.view.ledgerView',
+            name: 'Ledger View',
             id: 138
           },
           {
             state: 'sharesLedgerView',
-            name: 'main.view.sharesLedgerView',
+            name: 'Shares Ledger View',
             id: 139
           },
           {
             state: 'voucherView',
-            name: 'main.view.voucherView',
+            name: 'Voucher View',
             id: 140
           },
           {
             state: 'customerView',
-            name: 'main.view.customerView',
+            name: 'Customer View',
             id: 141
           },
           {
             state: 'guarantorView',
-            name: 'main.view.guarantorView',
+            name: 'Guarantor View',
             id: 142
           },
           {
             state: 'memberView',
-            name: 'main.view.memberView',
+            name: 'Member View',
             id: 143
           },
           {
             state: 'masterCard',
-            name: 'main.view.masterCard',
+            name: 'Master Card',
             id: 144
           },
           {
             state: 'memberLiablityView',
-            name: 'main.view.memberLiablityView',
+            name: 'Member Liablity View',
             id: 145
           },
           {
             state: 'otherView',
-            name: 'main.view.otherView',
+            name: 'Other View',
             id: 146
           },
           {
             state: 'managerView',
-            name: 'main.view.managerView',
+            name: 'Manager View',
             id: 147
 
           },
           {
             state: 'lockerView',
-            name: 'main.view.lockerView',
+            name: 'Locker View',
             id: 348
 
           },
           {
             state: 'memberguaranter',
-            name: 'main.view.memberguaranter',
+            name: 'Member Guaranter Detail',
             id: 368
 
           },
@@ -3999,20 +4011,20 @@ const MENUITEMS = [
       {
         state: 'printing',
         short_label: 'D',
-        name: 'main.printing.printing',
+        name: 'Printing',
         type: 'sub',
         icon: 'fa fa-print',
         id: 347,
         children: [
           {
             state: 'voucherPrint',
-            name: 'main.printing.voucherPrint',
+            name: 'Voucher Printing',
             id: 110,
 
           },
           {
             state: 'termDepositReceiptPrinting',
-            name: 'main.printing.termDepositReceiptPrinting',
+            name: 'Term Deposit Receipt Printing',
             // short_label: 'D',
             // type: 'sub',
             id: 108,
@@ -4026,32 +4038,32 @@ const MENUITEMS = [
           },
           {
             state: 'tDReceiptPrinting',
-            name: 'main.printing.tDReceiptPrinting',
+            name: 'TD Receipt Printing',
             id: 377,
           },
           {
             state: 'goldSilverReceipt',
-            name: 'main.printing.goldSilverReceipt',
+            name: 'Gold/Silver Receipt Print',
             id: 344
           },
           {
             state: 'passbookPrinting',
-            name: 'main.printing.passbookPrinting',
+            name: 'Passbook Printing',
             short_label: 'D',
             type: 'sub',
             id: 105,
             children: [
               {
                 state: 'passbookIssue',
-                name: 'main.printing.passbookIssue',
+                name: 'Passbook Issue',
                 id: 106
               },
               {
                 state: 'passbookEntryPrint',
-                name: 'main.printing.passbookEntryPrint',
+                name: 'Passbook Entry Print',
                 id: 107
               },
-
+              
             ]
           },
           // {
@@ -4065,7 +4077,7 @@ const MENUITEMS = [
       {
         state: 'reports',
         short_label: 'D',
-        name: 'main.reports.reports',
+        name: 'Reports',
         type: 'sub',
         icon: 'fa fa-file-text-o',
         id: 148,
@@ -4078,7 +4090,7 @@ const MENUITEMS = [
           ////////////////////////////
           {
             state: 'dailyReports',
-            name: 'main.reports.dailyReports',
+            name: 'Daily Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4091,59 +4103,58 @@ const MENUITEMS = [
               // },
               {
                 state: 'TFormDayBookComponent',
-                name: 'main.reports.TFormDayBookComponent',
+                name: 'T Form Day Book Details/Summary',
                 id: 152
               },
               {
                 state: 'BnkSubsidaryDetail',
-                name: 'main.reports.BnkSubsidaryDetail',
-
+                name: 'Subsidiary  Debit/Credit',
                 id: 153
               },
               {
                 state: 'BnkScrollDetailBoth',
-                name: 'main.reports.BnkScrollDetailBoth',
+                name: 'Scroll Book Debit/Credit/Both',
                 id: 154
               },
               {
                 state: 'IntInstructionExecutionFailure',
-                name: 'main.reports.IntInstructionExecutionFailure',
+                name: 'Interest Instructions Execution List (Failure/Success)',
                 id: 155
               },
               {
                 state: 'StandingInstExecutionFailure',
-                name: 'main.reports.StandingInstExecutionFailure',
+                name: 'Standing Instructions Execution List (Failure/Success)',
                 id: 156
               },
               {
                 state: 'StandingInstExecutionCredit',
-                name: 'main.reports.StandingInstExecutionCredit',
+                name: 'Standing Instructions Execution List (Expected Credit Scheme)',
                 id: 157
               },
               {
                 state: 'StandingInstExecutionDebit',
-                name: 'main.reports.StandingInstExecutionDebit',
+                name: 'Standing Instructions Execution List (Expected Debit Scheme )',
                 id: 158
               },
               {
                 state: 'IntInstructExecutionCredit',
-                name: 'main.reports.IntInstructExecutionCredit',
+                name: 'Interest Instructions Execution List (Expected Credit Scheme)',
                 id: 159
               },
               {
                 state: 'IntInstructExecutionDebit',
-                name: 'main.reports.IntInstructExecutionDebit',
+                name: 'Interest Instructions Execution List (Expected Debit Scheme)',
                 id: 160
               },
 
               {
                 state: 'otherSubsidiary',
-                name: 'main.reports.otherSubsidiary',
+                name: 'Other Subsidiary ',
                 id: 341
               },
               {
                 state: 'SubsidiarySummery',
-                name: 'main.reports.SubsidiarySummery',
+                name: ' Subsidary Summery ',
                 id: 342
               },
 
@@ -4152,7 +4163,7 @@ const MENUITEMS = [
           //
           {
             state: 'statement',
-            name: 'main.statement.statement',
+            name: 'Statement',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4160,22 +4171,22 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkGlAcStatement',
-                name: 'main.statement.BnkGlAcStatement',
+                name: 'GL account Statement',
                 id: 164
               },
               {
                 state: 'BnkAcStatement',
-                name: 'main.statement.BnkAcStatement',
+                name: 'Account Statement',
                 id: 165
               },
               {
                 state: 'BnkLNamtStatement',
-                name: 'main.statement.BnkLNamtStatement',
+                name: 'Term Loan stament with other amount',
                 id: 166
               },
               {
                 state: 'BnkTDStatement',
-                name: 'main.statement.BnkTDStatement',
+                name: 'Term Deposit Statement ',
                 id: 167
               },
               // {
@@ -4193,7 +4204,7 @@ const MENUITEMS = [
           //
           {
             state: 'balanceBook',
-            name: 'main.balanceBook.balanceBook',
+            name: 'Balance Book',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4201,7 +4212,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkDedskBalList',
-                name: 'main.balanceBook.BnkDedskBalList',
+                name: 'Deadstock Balance List',
                 id: 171
               },
               // {
@@ -4211,52 +4222,52 @@ const MENUITEMS = [
               // },
               {
                 state: 'BnkACBalBook',
-                name: 'main.balanceBook.BnkACBalBook',
+                name: 'Account Balance Book',
                 id: 173
               },
               {
                 state: 'BnkACBalList',
-                name: 'main.balanceBook.BnkACBalList',
+                name: 'Account Balance List',
                 id: 174
               },
               {
                 state: 'BnkCustIDBalList',
-                name: 'main.balanceBook.BnkCustIDBalList',
+                name: 'Customer ID wise Balance List',
                 id: 175
               },
               {
                 state: 'BnkGLConsistRepo',
-                name: 'main.balanceBook.BnkGLConsistRepo',
+                name: 'Scheme - General Ledger consistancy Report',
                 id: 176
               },
               {
                 state: 'BnkReceiveIntList',
-                name: 'main.balanceBook.BnkReceiveIntList',
+                name: 'Receivable Interest List',
                 id: 177
               },
               {
                 state: 'BnkPayIntList',
-                name: 'main.balanceBook.BnkPayIntList',
+                name: 'Payable Interest List',
                 id: 178
               },
               {
                 state: 'BnkDedskBalListDepre',
-                name: 'main.balanceBook.BnkDedskBalListDepre',
+                name: 'Deadstock Balance List with depreciation',
                 id: 179
               },
               {
                 state: 'BnkDptAMList',
-                name: 'main.balanceBook.BnkDptAMList',
+                name: 'Deposite Amount Wise Balance List',
                 id: 180
               },
               {
                 state: 'CatbalList',
-                name: 'main.balanceBook.CatbalList',
+                name: 'Categorywise Balance List',
                 id: 181
               },
               {
                 state: 'DebbalReport',
-                name: 'main.balanceBook.DebbalReport',
+                name: 'Debit Balance Report',
                 id: 182
               },
 
@@ -4273,22 +4284,22 @@ const MENUITEMS = [
 
               {
                 state: 'AmountBalList',
-                name: 'main.balanceBook.AmountBalList',
+                name: 'AmountWise Balance List',
                 id: 185
               },
               {
                 state: 'DeadStockDepCatList',
-                name: 'main.balanceBook.DeadStockDepCatList',
+                name: 'Deadstock Depriciation Categorywise List',
                 id: 186
               },
               {
                 state: 'BalConCertificate',
-                name: 'main.balanceBook.BalConCertificate',
+                name: 'Balance Confirmation Ceritificate',
                 id: 187
               },
               {
                 state: 'shortballist',
-                name: 'main.balanceBook.shortballist',
+                name: 'Short Balance List',
                 id: 188
               },
 
@@ -4297,7 +4308,7 @@ const MENUITEMS = [
           //
           {
             state: 'registers',
-            name: 'main.registers.registers',
+            name: 'Registers',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4305,72 +4316,72 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkRegAccount',
-                name: 'main.registers.BnkRegAccount',
+                name: 'Account Opening & Closing Register',
                 id: 190
               },
               {
                 state: 'BnkRegStandingInstruction',
-                name: 'main.registers.BnkRegStandingInstruction',
+                name: 'Standing Instruction Register (Active/Revoke)',
                 id: 191
               },
               {
                 state: 'BnkRegInterestInstruction',
-                name: 'main.registers.BnkRegInterestInstruction',
+                name: 'Interest Instruction Register  (Active/Revoke)',
                 id: 192
               },
               {
                 state: 'BnkRegSpecialInstruction',
-                name: 'main.registers.BnkRegSpecialInstruction',
+                name: 'Special Instruction Register  (Active/Revoke)',
                 id: 193
               },
               {
                 state: 'BnkRegInsurence',
-                name: 'main.registers.BnkRegInsurence',
+                name: 'Insurance Register',
                 id: 194
               },
               {
                 state: 'BnkODRegister',
-                name: 'main.registers.BnkODRegister',
+                name: 'O.D. Register (Temprary / Periodical)',
                 id: 195
               },
               {
                 state: 'BnkRegDeadStock',
-                name: 'main.registers.BnkRegDeadStock',
+                name: 'Deadstock Register',
                 id: 196
               },
               {
                 state: 'BnkIVOpenAndCloseReg',
-                name: 'main.registers.BnkIVOpenAndCloseReg',
+                name: 'Investment Register (Open/Closed)',
                 id: 197
               },
               {
                 state: 'BnkRegGoldSilverSubReturn',
-                name: 'main.registers.BnkRegGoldSilverSubReturn',
+                name: 'Gold Silver Submission/Return Register',
                 id: 198
               },
               {
                 state: 'DepositReceiptRegister',
-                name: 'main.registers.DepositReceiptRegister',
+                name: 'Deposit Receipt Register',
                 id: 199
               },
               {
                 state: 'lockerRentRegister',
-                name: 'main.registers.lockerRentRegister',
+                name: 'Locker Rent Register',
                 id: 200
               },
               {
                 state: 'lockerRegister',
-                name: 'main.registers.lockerRegister',
+                name: 'Locker Register Report',
                 id: 201
               },
               {
                 state: 'excessCashBalance',
-                name: 'main.registers.excessCashBalance',
+                name: 'Excess Cash Balance Report',
                 id: 202
               },
               {
                 state: 'KYCDocReceivedNotRec',
-                name: 'main.registers.kycdocumentreceivednotreceived',
+                name: 'KYC Document Rec Not Rec',
                 id: 378
               },
 
@@ -4379,7 +4390,7 @@ const MENUITEMS = [
           //
           {
             state: 'Termdeposit',
-            name: 'main.Termdeposit.Termdeposit',
+            name: 'Term Deposit Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4387,77 +4398,77 @@ const MENUITEMS = [
             children: [
               {
                 state: 'maturedbutnotpaid',
-                name: 'main.Termdeposit.maturedbutnotpaid',
+                name: 'matured but not paid between two days',
                 id: 204
               },
               {
                 state: 'maturedbutnotclosed',
-                name: 'main.Termdeposit.maturedbutnotclosed',
+                name: 'matured but not closed',
                 id: 205
               },
               {
                 state: 'depositpaidlist',
-                name: 'main.Termdeposit.depositpaidlist',
+                name: 'Deposit Paid List',
                 id: 206
               },
               {
                 state: 'intratewisebalancelist',
-                name: 'main.Termdeposit.intratewisebalancelist',
+                name: 'Interest Rate Wise List',
                 id: 207
               },
               {
                 state: 'custidwiseintpaidlist',
-                name: 'main.Termdeposit.custidwiseintpaidlist',
+                name: 'Customer Id Wise Interest Paid List',
                 id: 208
               },
               {
                 state: 'custidwiseloaninterestCertificate',
-                name: 'main.Termdeposit.custidwiseloaninterestCertificate',
+                name: 'Customer Id Wise Deposit Interest Certificate',
                 id: 209
               },
               {
                 state: 'IntRatewiseMaturityList',
-                name: 'main.Termdeposit.IntRatewiseMaturityList',
+                name: 'Interest Rate wise Maturity List',
                 id: 210
               },
               {
                 state: 'custidwisedepositlist',
-                name: 'main.Termdeposit.custidwisedepositlist',
+                name: 'Customer Id wise Deposit List',
                 id: 211
               },
               {
                 state: 'tddetailrecurroverdue',
-                name: 'main.Termdeposit.tddetailrecurroverdue',
+                name: 'Term Deposite Detail List and Recurring Overdue',
                 id: 212
               },
               {
                 state: 'prematuredAcCloselist',
-                name: 'main.Termdeposit.prematuredAcCloselist',
+                name: 'Prematured A/c Close List',
                 id: 213
               },
               {
                 state: 'renewalDepositList',
-                name: 'main.Termdeposit.renewalDepositList',
+                name: 'Renewal Deposit List',
                 id: 214
               },
               {
                 state: 'directorwiseDepositlist',
-                name: 'main.Termdeposit.directorwiseDepositlist',
+                name: 'Directorwise Deposit List',
                 id: 215
               },
               {
                 state: 'custidwiseInterestList',
-                name: 'main.Termdeposit.custidwiseInterestList',
+                name: 'Customer Id Wise Interest List',
                 id: 216
               },
               {
                 state: 'custidwiseMaturedList',
-                name: 'main.Termdeposit.custidwiseMaturedList',
+                name: 'Customer Id Wise Matured Deposit List',
                 id: 217
               },
               {
                 state: 'abtypeDepositList',
-                name: 'main.Termdeposit.abtypeDepositList',
+                name: 'A/B Type Deposit List',
                 id: 218
               },
 
@@ -4469,7 +4480,7 @@ const MENUITEMS = [
 
           {
             state: 'SharesReports',
-            name: 'main.SharesReports.SharesReports',
+            name: 'Shares Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4477,43 +4488,43 @@ const MENUITEMS = [
             children: [
               {
                 state: 'cityMemberList',
-                name: 'main.SharesReports.cityMemberList',
+                name: 'CityWise Member List',
                 id: 220
               },
 
               {
                 state: 'dividendPaidList',
-                name: 'main.SharesReports.dividendPaidList',
+                name: 'Dividend Paid List Report',
                 id: 221
               },
               {
                 state: 'sharesIssueRegister',
-                name: 'main.SharesReports.sharesIssueRegister',
+                name: 'Shares Issue Register',
                 id: 222
               },
               {
                 state: 'sharesReturnRegister',
-                name: 'main.SharesReports.sharesReturnRegister',
+                name: 'Membership Cancellation',
                 id: 223
               },
               {
                 state: 'sharesTransferRegister',
-                name: 'main.SharesReports.sharesTransferRegister',
+                name: 'Shares Transfer Register',
                 id: 224
               },
               {
                 state: 'unpaidDividendList',
-                name: 'main.SharesReports.unpaidDividendList',
+                name: 'Unpaid Dividend List',
                 id: 225
               },
               {
                 state: 'monthlyRecoveryPrint',
-                name: 'main.SharesReports.monthlyRecoveryPrint',
+                name: 'Monthly Recovery Print',
                 id: 226
               },
               {
                 state: 'monthlyRecoverySubsidiary',
-                name: 'main.SharesReports.monthlyRecoverySubsidiary',
+                name: 'Monthly Recovery Subsidiary',
                 id: 227
               }
             ]
@@ -4535,7 +4546,7 @@ const MENUITEMS = [
           // },
           {
             state: 'LoanReport',
-            name: 'main.LoanReport.LoanReport',
+            name: 'Term Loan/Cash Credit Reports',
             short_label: 'D',
             type: 'sub',
             id: 230,
@@ -4549,110 +4560,110 @@ const MENUITEMS = [
               // },
               {
                 state: 'loansecurityreport',
-                name: 'main.LoanReport.loansecurityreport',
+                name: 'Loan Security Reports',
                 type: 'sub',
                 id: 232,
 
               },
               {
                 state: 'citiwiseLoanBalancereport',
-                name: 'main.LoanReport.citiwiseLoanBalancereport',
+                name: 'Citiwise Loan Balance Report',
                 type: 'sub',
                 id: 233,
               },
               {
                 state: 'lcdLessdraftReport',
-                name: 'main.LoanReport.lcdLessdraftReport',
+                name: 'Loan Cash Credit Less Draft Report',
                 type: 'sub',
                 id: 234,
               },
               {
                 state: 'lcdOverdraftReport',
-                name: 'main.LoanReport.lcdOverdraftReport',
+                name: 'Loan Cash Credit Over Draft Report',
                 type: 'sub',
                 id: 235,
               },
               {
                 state: 'lcd-renewal-list',
-                name: 'main.LoanReport.lcd-renewal-list',
+                name: 'Loan Cash Credit Renewal List',
                 type: 'sub',
                 id: 236,
               },
               {
                 state: 'lcd-turnover-list',
-                name: 'main.LoanReport.lcd-turnover-list',
+                name: 'Loan Cash Credit Turnover List',
                 type: 'sub',
                 id: 237,
               },
               {
                 state: 'penalinterestlist',
-                name: 'main.LoanReport.penalinterestlist',
+                name: 'Received and Penal Interest List',
                 type: 'sub',
                 id: 238,
               },
               {
                 state: 'pendingStockStatementlist',
-                name: 'main.LoanReport.pendingStockStatementlist',
+                name: 'Pending Stock Statement List',
                 type: 'sub',
                 id: 239,
               },
               {
                 state: 'receivedStockstatementList',
-                name: 'main.LoanReport.receivedStockstatementList',
+                name: 'Received Stock Statement List',
                 type: 'sub',
                 id: 240,
               },
               {
                 state: 'recoverycwBalanceList',
-                name: 'main.LoanReport.recoverycwBalanceList',
+                name: 'Recovery Balance List',
                 type: 'sub',
                 id: 241,
               },
               {
                 state: 'receivableInstallInterest',
-                name: 'main.LoanReport.receivableInstallInterest',
+                name: 'Receivable Installment and Intrest List',
                 type: 'sub',
                 id: 242,
               },
               {
                 state: 'loanExpiredList',
-                name: 'main.LoanReport.loanExpiredList',
+                name: 'Loan / CC Expired List',
                 type: 'sub',
                 id: 343,
               },
               {
                 state: 'loanduecertificate',
-                name: 'main.LoanReport.loanduecertificate',
+                name: 'No Due Certificate',
                 type: 'sub',
                 id: 355,
               },
               {
                 state: 'CourtwiseDisputeLoandetail',
-                name: 'main.LoanReport.CourtwiseDisputeLoandetail',
+                name: 'Courtwise Dispute Loan Detail',
                 type: 'sub',
                 id: 369,
               },
               {
                 state: 'CourtwiseDisputeList',
-                name: 'main.LoanReport.CourtwiseDisputeList',
+                name: 'Courtwise Dispute Loan List',
                 type: 'sub',
                 id: 370,
               },
               {
                 state: 'DisputeLoanList',
-                name: 'main.LoanReport.DisputeLoanList',
+                name: 'Dispute Loan List',
                 type: 'sub',
                 id: 371,
               },
               {
                 state: 'loanCCACSanctionDatewise',
-                name: 'main.LoanReport.loanCCACSanctionDatewise',
+                name: 'loan-CC-AC-Sanction Datewise',
                 type: 'sub',
                 id: 372,
               },
               {
                 state: 'healthCodewise',
-                name: 'main.LoanReport.healthCodewise',
+                name: 'Health Code Wise Report',
                 type: 'sub',
                 id: 373,
               },
@@ -4663,61 +4674,61 @@ const MENUITEMS = [
 
           {
             state: 'npaReports',
-            name: 'main.npaReports.npaReports',
+            name: 'NPA & Overdue Reports',
             short_label: 'D',
             type: 'sub',
             id: 243,
             children: [
               {
                 state: 'loanoverduelist',
-                name: 'main.npaReports.loanoverduelist',
+                name: 'Loan Overdue Reports',
                 type: 'sub',
                 id: 252,
 
               },
               {
                 state: 'npaRegister',
-                name: 'main.npaReports.npaRegister',
+                name: 'NPA Register',
                 id: 244
               },
               {
                 state: 'npaRegPercentage',
-                name: 'main.npaReports.npaRegPercentage',
+                name: 'NPA Register Percentage',
                 id: 245
               },
               {
                 state: 'nonNpaRecovery',
-                name: 'main.npaReports.nonNpaRecovery',
+                name: 'To be Recovery Non NPA Report',
                 id: 246
               },
               {
                 state: 'directorwise',
-                name: 'main.npaReports.directorwise',
+                name: 'Directorwise Recommanded by',
                 id: 247
               },
               {
                 state: 'citiwisenpa',
-                 name: 'main.npaReports.citiwisenpa',
+                name: 'Citywise NPA Register',
                 type: 'sub',
                 id: 248,
 
               },
               {
                 state: 'analysisnpa',
-                name: 'main.npaReports.analysisnpa',
+                name: 'NPA Analysis Report',
                 type: 'sub',
                 id: 249,
 
               },
               {
                 state: 'classificationsecnpa',
-                  name: 'main.npaReports.classificationsecnpa',
+                name: 'NPA Classification -Secured Or Unsecured',
                 type: 'sub',
                 id: 250,
               },
               {
                 state: 'classificationstandardnpa',
-              name: 'main.npaReports.classificationstandardnpa',
+                name: 'NPA Classification -Standard Or Non Standard',
                 type: 'sub',
                 id: 251,
               },
@@ -4773,41 +4784,37 @@ const MENUITEMS = [
           //
           {
             state: 'nottice',
-            name: 'main.nottice.nottice',
-
-            short_label: 'D',
-            type: 'sub',
-            icon: 'icon-home',
-            id: 362,
-            children: [
-              {
-                state: 'noticereport',
-                name: 'main.nottice.noticereport',
-
-                id: 363
-              },
-              {
-                state: 'noticeformat',
-                name: 'main.nottice.noticeformat',
-
-                id: 364
-              },
-              {
-                state: 'blankNotice',
-                name: 'main.nottice.blankNotice',
-
-                id: 365
-              },
-              {
-                state: 'showNotice',
-                name: 'Get Notice Format',
-                id: 366
-              },
-            ]
-          },
+                  name: 'Nottice',
+                  short_label: 'D',
+                  type: 'sub',
+                  icon: 'icon-home',
+                  id: 362,
+                  children: [
+                    {
+                      state: 'noticereport',
+                      name: 'Notice Report',
+                      id: 363
+                    },
+                    {
+                      state: 'noticeformat',
+                      name: 'Notice Format',
+                      id: 364
+                    },
+                    {
+                      state: 'blankNotice',
+                      name: 'Blank Notice Format',
+                      id: 365
+                    },
+                    {
+                      state: 'showNotice',
+                      name: 'Get Notice Format',
+                      id: 366
+                    },
+                  ]
+                },
           {
             state: 'PigmyReport',
-             name: 'main.PigmyReport.PigmyReport',
+            name: 'Pigmy Report',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4815,37 +4822,37 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkPigmyCollectionChart',
-               name: 'main.PigmyReport.BnkPigmyCollectionChart',
+                name: 'Pigmy Agentwise Collection Chart',
                 id: 255
               },
               {
                 state: 'BnkPigmyBalanceList',
-              name: 'main.PigmyReport.BnkPigmyBalanceList',
+                name: 'Pigmy Agent Wise Balance List',
                 id: 256
               },
               {
                 state: 'BnkPigmyBalanceBook',
-                 name: 'main.PigmyReport.BnkPigmyBalanceBook',
+                name: 'Pigmy Agent Wise Balance Book',
                 id: 257
               },
               {
                 state: 'BnkPigmyBlankChart',
-              name: 'main.PigmyReport.BnkPigmyBlankChart',
+                name: 'Pigmy Agent Collection Blank Chart',
                 id: 258
               },
               {
                 state: 'BnkPigmyCommissionRepo',
-               name: 'main.PigmyReport.BnkPigmyCommissionRepo',
+                name: 'Pigmy Agent Commission Report',
                 id: 259
               },
               {
                 state: 'pigmyhandbook',
-                name: 'main.PigmyReport.pigmyhandbook',
+                name: 'Pigmy  HandBook',
                 id: 260
               },
               {
                 state: 'pigmymaturedAclist',
-                name: 'main.PigmyReport.pigmymaturedAclist',
+                name: 'Pigmy  Matured A/C List',
                 id: 261
               },
             ]
@@ -4854,84 +4861,84 @@ const MENUITEMS = [
           {
             state: 'otherReports',
             short_label: 'D',
-            name: 'main.otherReports.otherReports',
+            name: 'Other Reports',
             type: 'sub',
             icon: 'icon-home',
             id: 262,
             children: [
               {
                 state: 'BnkMinorsList',
-             name: 'main.otherReports.BnkMinorsList',
+                name: 'Minor List',
                 id: 263
               },
               {
                 state: 'BnkNomineeList',
-                name: 'main.otherReports.BnkNomineeList',
+                name: 'Nominee List',
                 id: 264
               },
               {
                 state: 'BnkGuaranterList',
-                 name: 'main.otherReports.BnkGuaranterList',
+                name: 'Guaranter List',
                 id: 265
               },
               {
                 state: 'BnkLienMarkedAcList',
-                 name: 'main.otherReports.BnkLienMarkedAcList',
+                name: 'Lein mark Account List ',
                 id: 266
               },
               // {
               //   state: 'BnkDormantAcList',
-              //   name: 'main.otherReports.dormantAccountList',
+              //   name: 'Dormant Account List',
               //   id: 267
               // },
               {
                 state: 'BnkAmountMovement',
-                name: 'main.otherReports.BnkAmountMovement',
+                name: 'Transaction Amount Movement',
                 id: 268
               },
               {
                 state: 'BnkDepAmountMovementDetail',
-                name: 'main.otherReports.BnkDepAmountMovementDetail',
+                name: 'Deposit Amount Movement',
                 id: 269
               },
               {
                 state: 'BnkLNAmountMovementDetail',
-                name: 'main.otherReports.BnkLNAmountMovementDetail',
+                name: 'Loan Amount Movement',
                 id: 270
               },
               {
                 state: 'BnkGurDetailsList',
-                name: 'main.otherReports.BnkGurDetailsList',
+                name: 'Guaranter Details',
                 id: 271
               },
               {
                 state: 'BnkNonGuaranteerView',
-                name: 'main.otherReports.BnkNonGuaranteerView',
+                name: 'Non Guarantor (A-Type Members Only) List',
                 id: 272
               },
               {
                 state: 'custidIntroducerList',
-                name: 'main.otherReports.custidIntroducerList',
+                name: 'CustomerIdwise Introducer List',
                 id: 273
               },
               {
                 state: 'serviceChargeList',
-                name: 'main.otherReports.serviceChargeList',
+                name: 'Service Charges List',
                 id: 274
               },
               {
                 state: 'minorToMajorlist',
-                name: 'main.otherReports.minorToMajorlist',
+                name: 'Minor To Major List',
                 id: 275
               },
               {
                 state: 'tranLessAclist',
-                name: 'main.otherReports.tranLessAclist',
+                name: 'Transactionless Account List',
                 id: 276
               },
               {
                 state: 'dormantAccountList',
-                name: 'main.otherReports.dormantAccountList',
+                name: 'Dormant Account List',
                 id: 277
               },
 
@@ -4940,7 +4947,7 @@ const MENUITEMS = [
           //
           {
             state: 'misReports',
-            name: 'main.misReports.misReports',
+            name: 'MIS Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4948,35 +4955,60 @@ const MENUITEMS = [
             children: [
               {
                 state: 'loanBalanceBetTwoDates',
-                name: 'main.misReports.loanBalanceBetTwoDates',
+                name: 'Loan Balance Bet Two Dates Report',
                 id: 356
               },
               {
                 state: 'excessCashBalance',
-                name: 'main.registers.excessCashBalance',
+                name: 'Excess Cash Balance Report',
                 id: 280
               },
               {
                 state: 'swnidhi',
-                name: 'main.misReports.swnidhi',
+                name: 'Swnidhi Report',
                 id: 376
               },
               {
                 state: 'MISInfo',
-                name: 'main.misReports.MISInfo',
+                name: 'MIS Information',
                 id: 377
               },
               {
                 state: 'expensive',
-                name: 'main.misReports.expensive',
+                name: 'Expenses List',
                 id: 381
-              }
+              },
+              {
+                state: 'crar',
+                name: 'CRAR Report',
+                id: 383
+              },
+              {
+                state: 'memberIncreaseDecrease',
+                name: 'Member Increase Decrease Report',
+                id: 384
+              },
+              {
+                state: 'abrAlr',
+                name: 'Abr-Alr Report',
+                id: 385
+              },
+              {
+                state: 'slr',
+                name: 'SLR Report',
+                id: 386
+              },
+              {
+                state: 'crr',
+                name: 'CRR Report',
+                id: 387
+              },
             ]
           },
           //
           {
             state: 'managerViewReports',
-             name: 'main.managerViewReports',
+            name: 'Manager View Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4985,7 +5017,7 @@ const MENUITEMS = [
           //
           {
             state: 'finalReports',
-           name: 'main.finalReports.finalReports',
+            name: 'Final Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -4993,42 +5025,42 @@ const MENUITEMS = [
             children: [
               {
                 state: 'BnkTrialBal',
-               name: 'main.finalReports.BnkTrialBal',
+                name: 'Trial Balance ',
                 id: 283
               },
               {
                 state: 'BnkTrialBaldetail',
-                name: 'main.finalReports.BnkTrialBaldetail',
+                name: 'Trial Balance Detail',
                 id: 284
               },
               {
                 state: 'BalanceSheet',
-               name: 'main.finalReports.BalanceSheet',
+                name: 'Balance Sheet',
                 id: 285
               },
               {
                 state: 'NBalanceSheet',
-                 name: 'main.finalReports.NBalanceSheet',
+                name: 'N Form Balance Sheet',
                 id: 286
               },
               {
                 state: 'ProfitLossAccount',
-                  name: 'main.finalReports.ProfitLossAccount',
+                name: 'Profit & Loss Account',
                 id: 287
               },
               {
                 state: 'NProfitLoss',
-              name: 'main.finalReports.NProfitLoss',
+                name: 'N Form Profit & Loss Account',
                 id: 288
               },
               {
                 state: 'RecePayRep',
-                name: 'main.finalReports.RecePayRep',
+                name: 'Receipt & Payment Report',
                 id: 289
               },
               {
                 state: 'RecePayRepDetails',
-                 name: 'main.finalReports.RecePayRepDetails',
+                name: 'Receipt & Payment Report Detail',
                 id: 290
               },
 
@@ -5036,7 +5068,7 @@ const MENUITEMS = [
           },
           {
             state: 'RecoveryReport',
-            name: 'main.RecoveryReport.RecoveryReport',
+            name: 'Recovery Reports',
             short_label: 'D',
             type: 'sub',
             icon: 'icon-home',
@@ -5044,7 +5076,7 @@ const MENUITEMS = [
             children: [
               {
                 state: 'memberAckReport',
-                   name: 'main.RecoveryReport.memberAckReport',
+                name: 'Member Acknowledgement Report',
                 id: 292
               },
 
@@ -5056,7 +5088,7 @@ const MENUITEMS = [
       {
         state: 'utility',
         short_label: 'D',
-       name: 'main.utility.utility',
+        name: 'Utility',
         type: 'sub',
         icon: 'fa fa-university',
         id: 293,
@@ -5075,25 +5107,25 @@ const MENUITEMS = [
 
           {
             state: 'interestPosting',
-              name: 'main.utility.interestPosting.interestPosting',
+            name: 'Interest Posting',
             short_label: 'D',
             type: 'sub',
             id: 302,
             children: [
               {
                 state: 'interestCalculation',
-                  name: 'main.utility.interestPosting.interestCalculation',
+                name: 'Interest Calculation',
                 id: 303
               },
 
               {
                 state: 'interestPassing',
-               name: 'main.utility.interestPosting.interestPassing',
+                name: 'Interest Passing',
                 id: 304
               },
               {
                 state: 'interestList',
-                 name: 'main.utility.interestPosting.interestList',
+                name: 'Interest List',
                 id: 305
               },
             ]
@@ -5104,7 +5136,7 @@ const MENUITEMS = [
             name: 'Pigmy Machine Process',
             id: 307
           },
-
+         
           {
             state: 'monthRecProc',
             name: 'Monthly Recovery Process',
@@ -5117,63 +5149,63 @@ const MENUITEMS = [
           },
           {
             state: 'deadStockP',
-            name: 'main.utility.deadStockP',
+            name: 'Dead Stock Process',
             id: 309
           },
           {
             state: 'dividend',
-            name: 'main.utility.dividend.dividend',
+            name: 'Dividend',
             short_label: 'D',
             type: 'sub',
             id: 310,
             children: [
               {
                 state: 'dividendList',
-              name: 'main.utility.dividend.dividendList',
+                name: 'Dividend List',
                 id: 311
               },
               {
                 state: 'dividendPost',
-                 name: 'main.utility.dividend.dividendPost',
+                name: 'Dividend Post',
                 id: 312
               }
             ]
           },
           {
             state: 'statementHeadInsert',
-           name: 'main.utility.statementHeadInsert',
+            name: 'Statement Head Insert',
             id: 313
           },
 
 
           {
             state: 'roleDefination',
-            name: 'main.utility.roleDefination',
+            name: 'Role Defination',
             id: 315
           },
           {
             state: 'roleMaster',
-           name: 'main.utility.roleMaster',
+            name: 'Role Master',
             id: 316
           },
           {
             state: 'userDefination',
-            name: 'main.utility.userDefination',
+            name: 'User Defination',
             id: 317
           },
           {
             state: 'cashierMaintance',
-            name: 'main.utility.cashierMaintance',
+            name: 'Cashier Maintenace',
             id: 318
           },
           {
             state: 'cashierUM',
-             name: 'main.utility.cashierUM',
+            name: 'Cashier User Maintainance',
             id: 319
           },
           {
             state: 'sharesCCTS',
-              name: 'main.utility.sharesCCTS',
+            name: 'Shares Contribution Credit To Shares',
             id: 320
           },
           // {
@@ -5188,17 +5220,17 @@ const MENUITEMS = [
           // },
           {
             state: 'schemeATE',
-              name: 'main.utility.schemeATE',
+            name: 'Scheme Amount Transfer Entry',
             id: 323
           },
           {
             state: 'schemeParameters',
-            name: 'main.utility.schemeParameters',
+            name: 'Scheme Parameters',
             id: 324
           },
           {
             state: 'calculator',
-            name: 'main.utility.calculator',
+            name: 'Calculator',
             id: 325
           },
           // {
@@ -5209,12 +5241,12 @@ const MENUITEMS = [
 
           {
             state: 'pataSevaSupportR',
-            name: 'main.utility.pataSevaSupportR',
+            name: 'PataSeva Support Register',
             id: 328
           },
           {
             state: 'sharesDataEI',
-             name: 'main.utility.sharesDataEI',
+            name: 'Sheres Data Export / Import',
             id: 329
           },
           // {
@@ -5224,32 +5256,32 @@ const MENUITEMS = [
           // },
           {
             state: 'demandDraftDEI',
-            name: 'main.utility.demandDraftDEI',
+            name: 'Demand Draft Data Export/ Import',
             id: 331
           },
           {
             state: 'gmaMemberUpdation',
-          name: 'main.utility.gmaMemberUpdation',
+            name: 'General Meeting Appear Meeting Updation',
             id: 332
           },
           {
             state: 'amtTransferTransaction',
-           name: 'main.utility.amtTransferTransaction',
+            name: 'Amount Transfer Transaction',
             id: 333
           },
           {
             state: 'recAmtTrToGL',
-            name: 'main.utility.recAmtTrToGL',
+            name: 'Recurring Amount Transfer to GL',
             id: 334
           },
           {
             state: 'conversion',
-           name: 'main.utility.conversion',
+            name: 'Conversion',
             id: 374
           },
           {
             state: 'remainder',
-            name: 'main.utility.remainder',
+            name: 'Remainder',
             id: 379
           },
         ]
@@ -5257,82 +5289,81 @@ const MENUITEMS = [
       {
         state: 'process',
         short_label: 'D',
-        name: 'TEST.process',
+        name: 'Process',
         type: 'sub',
         icon: 'fa fa-tasks',
         id: 346,
         children: [
           {
             state: 'dayBegin',
-           name: 'main.process.dayBegin',
+            name: 'Day Begin',
             id: 294
           },
           {
             state: 'dayEnd',
-            name: 'main.process.dayEnd.dayEnd',
+            name: 'Day End',
             short_label: 'D',
             type: 'sub',
             id: 295,
             children: [
               {
                 state: 'counterWorkDayEnd',
-               name: 'main.process.dayEnd.counterWorkDayEnd',
+                name: 'Day End Handover',
                 id: 296
               },
               {
                 state: 'FinalDayEnd',
-                name: 'main.process.dayEnd.FinalDayEnd',
+                name: 'Day End',
                 id: 297
               },
               {
                 state: 'pigmyDayEnd',
-               name: 'main.process.dayEnd.pigmyDayEnd',
+                name: 'Pigmy Day End',
                 id: 298
               },
               {
                 state: 'yearEnd',
-               name: 'main.process.dayEnd.yearEnd',
+                name: 'Year End',
                 id: 299
               },
             ]
           },
           {
             state: 'pigmyAppProcess',
-            name: 'main.process.pigmyAppProcess',
+            name: 'Pigmy App Process',
             id: 308
           },
           {
             state: 'holiday',
-             name: 'main.process.holiday',
+            name: 'Holiday',
             id: 301
           },
 
 
           {
             state: 'processACM',
-          name: 'main.process.processACM',
+            name: 'Process And Calculation Menu',
             id: 306
           },
 
           {
             state: 'deadStockP',
-             name: 'main.process.deadStockP',
+            name: 'Dead Stock Process',
             id: 309
           },
           {
             state: 'dataBackup',
-             name: 'main.process.dataBackup',
+            name: 'Data Backup',
             id: 327
           },
           {
-            state: 'monthlyrecoveryprocess',
-            name: 'main.process.monthlyrecoveryprocess',
-
+            state: 'monthly recovery process',
+            name: 'Monthly recovery process',
             id: 360
           },
           {
             state: 'yearEndBranchwise',
-            name: 'main.process.yearEndBranchwise',
+            name: 'Year End BranchWise',
             id: 361
           },
           
@@ -5341,24 +5372,24 @@ const MENUITEMS = [
       {
         state: 'windows',
         short_label: 'D',
-       name: 'TEST.windows',
+        name: 'Windows',
         type: 'sub',
         icon: 'icon-home',
         id: 335,
         children: [
           {
             state: 'casecade',
-            name: 'main.process.windows.casecade',
+            name: 'CaseCade',
             id: 336
           },
           {
             state: 'tileHorizontaily',
-             name: 'main.process.windows.tileHorizontaily',
+            name: 'Tile Horizontaily',
             id: 337
           },
           {
             state: 'tileVertically',
-           name: 'main.process.windows.tileVertically',
+            name: 'Tile Vertically',
             id: 338
           },
 
@@ -5367,7 +5398,7 @@ const MENUITEMS = [
       {
         state: 'hotKeys',
         short_label: 'D',
-        name: 'main.process.hotKeys',
+        name: 'Hot Key',
         type: 'link',
         icon: 'fa fa-key',
         id: 339
@@ -5375,7 +5406,7 @@ const MENUITEMS = [
       {
         state: 'exit',
         short_label: 'D',
-       name: 'main.process.exit',
+        name: 'Sign Out',
         type: 'link',
         icon: 'fa fa-sign-out',
         id: 340

@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  NpaclassificationStandardNonstandardComponent,
     data: {
-      title: 'Transaction Amount Movement',
+      title: 'NPA Std. or Non-Std',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

@@ -269,7 +269,7 @@ export class MultiVoucherComponent implements OnInit {
       scheme_type: ['', [Validators.required]],
       date: [''],
       type: new FormControl('cash'),
-      chequeDate: [''],
+      chequeDate: ['', [Validators.required]],
       chequeNo: [''],
       bank: [''],
       Intdate: ['']
@@ -673,7 +673,7 @@ export class MultiVoucherComponent implements OnInit {
 
       this.calculateVoucher()
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Opps')}`, `${this.translate.instant('Swal_Msg.O_Msg5')}`, 'error');
+      Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
     }
 
   }
@@ -683,7 +683,7 @@ export class MultiVoucherComponent implements OnInit {
       this._service.insertVoucher(this.mainMaster).subscribe(data => {
         Swal.fire({
           icon: 'success',
-          title: `${this.translate.instant('Swal_Msg.Sw1')}`,
+          title: 'Multi Voucher updated Successfully!',
           html:
             '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>'
         })
@@ -723,7 +723,7 @@ export class MultiVoucherComponent implements OnInit {
         console.log(err);
       })
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Sw2')}` + this.totalCredit + `${this.translate.instant('Swal_Msg.And')}`+ `${this.translate.instant('Swal_Msg.Sw3')}` + this.totalDebit + `${this.translate.instant('Swal_Msg.Sw4')}`)
+      Swal.fire('Oops', 'Total credit amount ' + this.totalCredit + ' and ' + 'total debit amount' + this.totalDebit + ' are not match')
     }
 
   }
@@ -925,7 +925,7 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.checkAccountCloseOrNot(Obj).subscribe(data => {
       if (data == true) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`,`${this.translate.instant('Swal_Msg.O_Msg3')}`, 'error');
+        Swal.fire('Oops!', 'Access dined Account Close Already!', 'error');
         return 0;
       }
     }, err => {
@@ -1025,7 +1025,7 @@ export class MultiVoucherComponent implements OnInit {
       else
         this.NOTINTAMT.nativeElement.focus();
       this.submitForm = true
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.S9')}`, 'info')
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
     else {
       if (this.headData[i].IS_GLBAL_MAINTAIN == '1' && Number(this.headData[i].Balance) != 0 && Number(this.headData[i].Balance) != Number(ele.target.value)) {
@@ -1035,7 +1035,7 @@ export class MultiVoucherComponent implements OnInit {
         else
           this.NOTINTAMT.nativeElement.focus();
         this.submitForm = true
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.S10')} ${this.headData[i].Balance}`, 'error');
+        Swal.fire('Oops!', `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
       }
       else {
         if (Number(this.headData[i].Amount) != 0)
@@ -1062,11 +1062,11 @@ export class MultiVoucherComponent implements OnInit {
 
     if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
       if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(data.Amount) != Number(data.Balance)) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`,`${this.translate.instant('Swal_Msg.Please_Fill')}` + data.DESCRIPTION + `${this.translate.instant('Swal_Msg.Amount')}`, 'error')
+        Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
         this.headData[i].Amount = '0.00'
       } else {
         if (data.CHECK_REQUIRE == '1' && Number(data.Amount) != Number(data.Balance)) {
-          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Please_Fill')}` + data.DESCRIPTION +`${this.translate.instant('Swal_Msg.Amount')}`, 'error')
+          Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
           this.headData[i].Amount = '0.00'
         }
       }
@@ -1078,7 +1078,7 @@ export class MultiVoucherComponent implements OnInit {
   decimalAllContent($event) {
 
     if (this.submitTranMode == undefined) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg4')}`, 'error');
+      Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
       let value = Number($event);
       this.totalAmt = 0;
       $event = 0
@@ -1219,7 +1219,7 @@ export class MultiVoucherComponent implements OnInit {
       this.showChequeDetails = false;
       this.calculateVoucher()
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg5')}`, 'error');
+      Swal.fire('Oops!', 'Please once check your voucher, and fill requied data', 'error');
 
     }
   }
@@ -1317,8 +1317,8 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Apporve')}`,
-        `${this.translate.instant('Swal_Msg.Sw5')}`,
+        'Approved',
+        'Multi Voucher approved successfully',
         'success'
       );
       var button = document.getElementById('trigger');
@@ -1339,8 +1339,8 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
-    `${this.translate.instant('Swal_Msg.Reject')}`,
-        `${this.translate.instant('Swal_Msg.Sw6')}`,
+        'Rejected',
+        'Multi Voucher rejected successfully',
         'success'
       );
       var button = document.getElementById('trigger');
@@ -1362,8 +1362,8 @@ export class MultiVoucherComponent implements OnInit {
     }
     this._service.unapporveMultiVoucher(obj).subscribe(data => {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Unapporove')}`,
-        `${this.translate.instant('Swal_Msg.Sw7')}`,
+        'Unapproved',
+        'Multivoucher unapproved successfully',
         'success'
       );
       var button = document.getElementById('trigger');
@@ -1551,7 +1551,7 @@ export class MultiVoucherComponent implements OnInit {
         total_amt: 0
       })
       this.amt.nativeElement.focus();
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg6')} ${sancAmt}`, 'error');
+      Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
       this.submitForm = true
     }
   }
@@ -1576,7 +1576,7 @@ export class MultiVoucherComponent implements OnInit {
 
     if (Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS') {
       Swal.fire({
-        title: `${this.translate.instant('Swal_Msg.Sure')}`,
+        title: 'Are you sure?',
         html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1599,7 +1599,7 @@ export class MultiVoucherComponent implements OnInit {
     } if (Number(obj.value) >= 200000) {
 
       Swal.fire({
-        title: `${this.translate.instant('Swal_Msg.Sure')}`,
+        title: 'Are you sure?',
         html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1656,7 +1656,7 @@ export class MultiVoucherComponent implements OnInit {
         this.amt.nativeElement.focus();
         this.submitForm = true
         this.modalClass = 'modalHide';
-           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
       } else {
         this._service.clearWithdrawBal(obj).subscribe(data => {
           if (data != 0) {
@@ -1666,7 +1666,7 @@ export class MultiVoucherComponent implements OnInit {
             this.amt.nativeElement.focus();
             this.submitForm = true
             this.modalClass = 'modalHide';
-               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
           } else {
             this._service.CheckPanNoInIDMaster(obj).subscribe(data => {
               if (data != 0) {
@@ -1700,7 +1700,7 @@ export class MultiVoucherComponent implements OnInit {
                     this.amt.nativeElement.focus();
                     this.submitForm = true
                     this.modalClass = 'modalHide';
-                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                   } else {
                     this._service.BalancePresentOrOverdraft(obj).subscribe(data => {
                       if (data != 0) {
@@ -1710,7 +1710,7 @@ export class MultiVoucherComponent implements OnInit {
                         this.amt.nativeElement.focus();
                         this.submitForm = true
                         this.modalClass = 'modalHide';
-                           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                        Swal.fire('Oops!', data.message, 'error');
                       } else {
                         this._service.ClearBalanceDebitAmt(obj).subscribe(data => {
                           if (data != 0) {
@@ -1720,7 +1720,7 @@ export class MultiVoucherComponent implements OnInit {
                             this.amt.nativeElement.focus();
                             this.submitForm = true
                             this.modalClass = 'modalHide';
-                               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                           } else {
                             this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                               if (data != 0) {
@@ -1730,7 +1730,7 @@ export class MultiVoucherComponent implements OnInit {
                                 this.amt.nativeElement.focus();
                                 this.submitForm = true
                                 this.modalClass = 'modalHide';
-                                   Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                Swal.fire('Oops!', data.message, 'error');
                               } else {
                                 this._vservice.MinBalanceChecking(obj).subscribe(data => {
                                   if (data != 0) {
@@ -1740,7 +1740,7 @@ export class MultiVoucherComponent implements OnInit {
                                     this.amt.nativeElement.focus();
                                     this.submitForm = true
                                     this.modalClass = 'modalHide';
-                                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                    Swal.fire('Oops!', data.message, 'error');
                                   } else {
                                     this._vservice.CheckClearBalAndAmt(obj).subscribe(data => {
                                       if (data != 0) {
@@ -1750,7 +1750,7 @@ export class MultiVoucherComponent implements OnInit {
                                         this.amt.nativeElement.focus();
                                         this.submitForm = true
                                         this.modalClass = 'modalHide';
-                                           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                        Swal.fire('Oops!', data.message, 'error');
                                       } else {
                                         this._vservice.WithdrawAmtClosingEqualClearBal(obj).subscribe(data => {
                                           if (data != 0) {
@@ -1760,7 +1760,7 @@ export class MultiVoucherComponent implements OnInit {
                                             this.amt.nativeElement.focus();
                                             this.submitForm = true
                                             this.modalClass = 'modalHide';
-                                               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                            Swal.fire('Oops!', data.message, 'error');
                                           } else {
                                             this._vservice.DepositeAmountAndIntallments(obj).subscribe(data => {
                                               if (data != 0) {
@@ -1770,7 +1770,7 @@ export class MultiVoucherComponent implements OnInit {
                                                 this.amt.nativeElement.focus();
                                                 this.submitForm = true
                                                 this.modalClass = 'modalHide';
-                                                   Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                Swal.fire('Oops!', data.message, 'error');
                                               } else {
                                                 this._vservice.DepositAndTotalInstallments(obj).subscribe(data => {
                                                   if (data != 0) {
@@ -1780,7 +1780,7 @@ export class MultiVoucherComponent implements OnInit {
                                                     this.amt.nativeElement.focus();
                                                     this.submitForm = true
                                                     this.modalClass = 'modalHide';
-                                                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                    Swal.fire('Oops!', data.message, 'error');
                                                   } else {
                                                     this._vservice.DepositAndDepositAmount(obj).subscribe(data => {
                                                       if (data != 0) {
@@ -1790,7 +1790,7 @@ export class MultiVoucherComponent implements OnInit {
                                                         this.amt.nativeElement.focus();
                                                         this.submitForm = true
                                                         this.modalClass = 'modalHide';
-                                                           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                        Swal.fire('Oops!', data.message, 'error');
                                                       } else {
                                                         this._vservice.PremcloseTdateTamtCom(obj).subscribe(data => {
                                                           if (data != 0) {
@@ -1800,7 +1800,7 @@ export class MultiVoucherComponent implements OnInit {
                                                             this.amt.nativeElement.focus();
                                                             this.submitForm = true
                                                             this.modalClass = 'modalHide';
-                                                               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                            Swal.fire('Oops!', data.message, 'error');
                                                           } else {
                                                             this._vservice.PrecloseTrDateTrAmtComCol(obj).subscribe(data => {
                                                               if (data != 0) {
@@ -1810,7 +1810,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                 this.amt.nativeElement.focus();
                                                                 this.submitForm = true
                                                                 this.modalClass = 'modalHide';
-                                                                   Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                Swal.fire('Oops!', data.message, 'error');
                                                               } else {
                                                                 this._vservice.ComVouamtClearbalAndStrs(obj).subscribe(data => {
                                                                   if (data != 0) {
@@ -1820,7 +1820,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                     this.amt.nativeElement.focus();
                                                                     this.submitForm = true
                                                                     this.modalClass = 'modalHide';
-                                                                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                   } else {
                                                                     this._vservice.DepositGreaterShareLimitAmt(obj).subscribe(data => {
                                                                       if (data != 0) {
@@ -1830,7 +1830,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                         this.amt.nativeElement.focus();
                                                                         this.submitForm = true
                                                                         this.modalClass = 'modalHide';
-                                                                           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                       } else {
                                                                         this._vservice.ZeroBalance(obj).subscribe(data => {
                                                                           if (data != 0) {
@@ -1840,7 +1840,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                             this.amt.nativeElement.focus();
                                                                             this.submitForm = true
                                                                             this.modalClass = 'modalHide';
-                                                                               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                           } else {
                                                                             this._vservice.CashWithdraw(obj).subscribe(data => {
                                                                               if (data != 0) {
@@ -1850,7 +1850,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                 this.amt.nativeElement.focus();
                                                                                 this.submitForm = true
                                                                                 this.modalClass = 'modalHide';
-                                                                                   Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                Swal.fire('Oops!', data.message, 'error');
                                                                                 // } else {
                                                                                 //   this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                 //     if (data != 0) {
@@ -1860,7 +1860,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                 //       this.amt.nativeElement.focus();
                                                                                 //       this.submitForm = true
                                                                                 //       this.modalClass = 'modalHide';
-                                                                                //          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                //       Swal.fire('Oops!', data.message, 'error');
                                                                               } else {
                                                                                 this._vservice.CheckClearBalNotEqualAmt(obj).subscribe(data => {
                                                                                   // debugger
@@ -1871,7 +1871,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                     this.amt.nativeElement.focus();
                                                                                     this.submitForm = true
                                                                                     this.modalClass = 'modalHide';
-                                                                                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                                   } else {
                                                                                     this._vservice.withdrawClosingCondition(obj).subscribe(data => {
                                                                                       if (data != 0) {
@@ -1881,7 +1881,7 @@ export class MultiVoucherComponent implements OnInit {
                                                                                         this.selectMode.focus()
                                                                                         this.submitForm = true
                                                                                         this.modalClass = 'modalHide';
-                                                                                           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                                       }
                                                                                       else {
                                                                                         this.submitForm = false
@@ -2008,7 +2008,7 @@ export class MultiVoucherComponent implements OnInit {
 
     this._vservice.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
       if (data != 0) {
-           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.customer = null;
         this.showlgindetails()
       } else {
@@ -2023,7 +2023,7 @@ export class MultiVoucherComponent implements OnInit {
             }
 
             Swal.fire({
-              title:`${this.translate.instant('Swal_Msg.Warning')}`,
+              title: 'Warning',
               icon: 'warning',
               html:
                 data.message + '<br>' +
@@ -2033,14 +2033,14 @@ export class MultiVoucherComponent implements OnInit {
           } else {
             this._vservice.CheckLoginFlagInDpmaster(obj).subscribe(data => {
               if (data != 0) {
-                   Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.customer = null
                 this.showlgindetails()
 
               } else {
                 this._vservice.checkDormantAccount(obj).subscribe(data => {
                   if (data != 0) {
-                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.customer = null
                     this.showlgindetails()
 
@@ -2048,7 +2048,7 @@ export class MultiVoucherComponent implements OnInit {
                     this._vservice.InstructionFreezeAc(obj).subscribe(data => {
                       if (data != 0) {
                         Swal.fire({
-                          title: `${this.translate.instant('Swal_Msg.Sure')}`,
+                          title: 'Are you sure?',
                           text: data.message,
                           icon: 'warning',
                           showCancelButton: true,
@@ -2066,7 +2066,7 @@ export class MultiVoucherComponent implements OnInit {
                       } else {
                         this._vservice.IsDirectEntryAllow(obj).subscribe(data => {
                           if (data != 0) {
-                               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                           }
                         }, err => {
                           console.log(err);
@@ -2143,23 +2143,23 @@ export class MultiVoucherComponent implements OnInit {
 
     this._vservice.StandingOrInterestInstruction(obj).subscribe(data => {
       if (data != 0) {
-           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.selectedMode = null
       } else {
         this._vservice.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
-               Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
             this.selectedMode = null
           } else {
             this._vservice.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
-                   Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.selectedMode = null
 
               } else {
                 this._vservice.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
-                       Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.selectedMode = null
 
                   }
@@ -2197,12 +2197,12 @@ export class MultiVoucherComponent implements OnInit {
 
       this._vservice.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
-             Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+          Swal.fire('Oops!', data.message, 'error');
           this.angForm.controls['Intdate'].reset()
         } else {
           this._vservice.ComInterestDateAndLastDMonth(obj).subscribe(data => {
             if (data != 0) {
-                 Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+              Swal.fire('Oops!', data.message, 'error');
             }
           }, err => {
             console.log(err);
@@ -2231,7 +2231,7 @@ export class MultiVoucherComponent implements OnInit {
 
     this._vservice.ComInterestDateAndLastDMonth(obj).subscribe(data => {
       if (data != 0) {
-           Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
       }
     }, err => {
       console.log(err);
@@ -2573,7 +2573,7 @@ export class MultiVoucherComponent implements OnInit {
       else
         this.NOTINTAMT.nativeElement.focus();
       this.submitForm = true
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.S9')}`, 'info')
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
   }
   getBranch() {
