@@ -258,6 +258,9 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
       PENAL_INT_RATE: ['', [Validators.pattern]]
     });
   }
+
+
+ 
   // Method to insert data into database through NestJS
   submit() {
     let effectdate
@@ -361,23 +364,23 @@ export class TermDepositIRComponent implements OnInit, AfterViewInit, OnDestroy 
 
   //compare from and to Month
   compareMonths() {
-    // if (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value)) {
-    //   Swal.fire('Info', 'To Months Must Greater Than From Months', 'info')
-    //   this.angForm.patchValue({
-    //     TO_MONTHS: ''
-    //   })
-    // }
+    if (Number(this.angForm.controls['TO_MONTHS'].value) <= Number(this.angForm.controls['FROM_MONTHS'].value)) {
+      Swal.fire('Info', 'To Months Must Greater Than From Months', 'info')
+      this.angForm.patchValue({
+        TO_MONTHS: ''
+      })
+    }
   }
 
   //compare from and to Days
   compareDays() {
-    // if (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value)) {
-    //   Swal.fire('Info', 'To Days Must Greater Than From Days', 'info')
-    //   this.angForm.patchValue({
-    //     TO_DAYS: ''
-    //   })
+    if (Number(this.angForm.controls['TO_DAYS'].value) <= Number(this.angForm.controls['FROM_DAYS'].value)) {
+      Swal.fire('Info', 'To Days Must Greater Than From Days', 'info')
+      this.angForm.patchValue({
+        TO_DAYS: ''
+      })
 
-    // }
+    }
   }
 
   compareamountdays() {

@@ -1776,20 +1776,13 @@ export class AccountEnquiryComponent implements OnInit {
     if (view == 'minor') {
       this.isMinor = true
       this.isJoint = false
-      this.display = "block";
+      this.display1 = "block";
     }
     else if (view == 'joint') {
       this.isJoint = true
       this.isMinor = false
-      this.display = "block";
+      this.display1 = "block";
     }
-  }
-  openModal() {
-    this.display = "block";
-    
-  }
-  onCloseHandled() {
-    this.display = "none";
   }
 
 

@@ -49,6 +49,7 @@ export class SafeVaultToCashierComponent implements OnInit {
 
 
   dtExportButtonOptions: any = {};
+  totalSum: number;
   // available: number;
   constructor(private fb: FormBuilder, private systemParameter: SystemMasterParametersService,
     private _service: CashDenominationService, private _services: CashierUmService,
@@ -74,6 +75,9 @@ export class SafeVaultToCashierComponent implements OnInit {
       //Get Cashier List
       this._service.getList({ branch_id: this.SelectedBranch }).subscribe(data => {
         this.cashier_list = data;
+        console.log("cashire data", data);
+        // this.changeData(data);
+
         this.safeCashier1 = this.cashier_list.filter(el => el.CASHIER_CODE == 'SAFE VAULT');
         this.safeCashier = this.cashier_list.filter(el => el.CASHIER_CODE !== 'SAFE VAULT');
 
@@ -193,6 +197,7 @@ export class SafeVaultToCashierComponent implements OnInit {
   reset() {
     // this.angForm.sum.reset()
     this.currencyData.forEach(entry => {
+      this.DenominationChart = false;
 
       // this.available = 0;
     })
@@ -200,7 +205,7 @@ export class SafeVaultToCashierComponent implements OnInit {
   changeData(ele) {
     // console.log(ele);
 
-  
+
     this.currencyData[0].available = this.safeCashier1[0].DENO_2000;
     this.currencyData[1].available = this.safeCashier1[0].DENO_1000;
     this.currencyData[2].available = this.safeCashier1[0].DENO_500;
@@ -214,6 +219,29 @@ export class SafeVaultToCashierComponent implements OnInit {
     this.currencyData[10].available = this.safeCashier1[0].DENO_1;
     this.currencyData[11].available = this.safeCashier1[0].DENO_COINS_AMT
 
+   
+    console.log("Changedata", this.currencyData);
+    let totalCal
+    let da1 = 0
+    let totalSum
+    let totalarr = []
+    let abc = this.currencyData[0].currency
+    let abc1 = this.currencyData[0].available
+
+    // console.log(Number(abc) * abc1)
+
+
+    this.totalSum = 0;
+
+    for (let i = 0; i < this.currencyData.length; i++) {
+      let totalCal = Math.abs(Number(this.currencyData[i].currency)) || 0;
+      let available = Math.abs(Number(this.currencyData[i].available)) || 0;
+      let da1 = totalCal * available;
+      this.currencyData[i]['totalcurrency'] = da1;
+      this.totalSum += da1;
+    }
+
+
     // // this.currencyData[0].qty
 
     // for (let item of this.currencyData) {
@@ -226,3 +254,7 @@ export class SafeVaultToCashierComponent implements OnInit {
     // }, 0);
   }
 }
+function calculateTotal(data: any, any: any) {
+  throw new Error('Function not implemented.');
+}
+

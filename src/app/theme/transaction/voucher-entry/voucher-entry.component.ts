@@ -43,6 +43,9 @@ export class VoucherEntryComponent implements OnInit {
   // @ViewChild('tran_mode') tran_mode: ElementRef;
   @ViewChild('tran_mode') tran_mode: NgSelectComponent;
   @ViewChild('myDiv') myDiv: ElementRef;
+  @Input() isRadioVisible: boolean = true; // accept denomination
+  @Input() istranModeShow: boolean = false; // accept denomination
+
 
   iframe5url: any = '';
   report_url = environment.report_url;
@@ -173,7 +176,7 @@ export class VoucherEntryComponent implements OnInit {
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
   DayOpBalance: string;
-  setLang:any;
+  setLang: any;
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -187,11 +190,11 @@ export class VoucherEntryComponent implements OnInit {
     private _bankmasterService: BankMasterService,
     private fb: FormBuilder,
     private router: Router,
-    private translate:TranslateService,
+    private translate: TranslateService,
     private systemParameter: SystemMasterParametersService,
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
-    
+
       this.setLang = data.SET_LANGUAGE
       this.translate.setDefaultLang(this.setLang);
     })
@@ -215,20 +218,19 @@ export class VoucherEntryComponent implements OnInit {
     // this.tranModeList = this.TranModeCash;
 
 
-     //get syspara details
-     this._service.getSysParaData().subscribe(data => {
+    //get syspara details
+    this._service.getSysParaData().subscribe(data => {
       // this.date =  moment(data[0].CURRENT_DATE).format('DD/MM/YYYY');
       //debugger
       this.date = data[0].CURRENT_DATE;
-      let currentDate = moment(this.date, 'DD/MM/YYYY').toDate();
-      this.maxDate = currentDate;
+      let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
+      let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
 
-      // let nextDate = moment(this.date, 'DD/MM/YYYY').add(3, 'month').format('YYYY-MM-DD');
-      // let lastDate = moment(this.date, 'DD/MM/YYYY').subtract(3, 'month').format('YYYY-MM-DD');
-      // this.maxDate = new Date(nextDate);
-      // this.maxDate.setDate(this.maxDate.getDate());
-      // this.minDate = new Date(lastDate);
-      // this.minDate.setDate(this.minDate.getDate());
+      this.maxDate = new Date(nextDate);
+      this.maxDate.setDate(this.maxDate.getDate());
+
+      this.minDate = new Date(lastDate);
+      this.minDate.setDate(this.minDate.getDate());
     })
 
     this._bankmasterService.getBankList().subscribe(banks => {
@@ -327,7 +329,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme_type: ['', [Validators.required]],
       date: [''],
       type: ['cash'],
-      chequeDate: ['', [Validators.required]],
+      chequeDate: [''],
       chequeNo: [''],
       bank: [''],
       Intdate: ['']
@@ -454,8 +456,25 @@ export class VoucherEntryComponent implements OnInit {
 
     let object = this.TranData.find(t => t.key === this.selectedCode);
     //debugger
-    if (this.type == 'cash') {
+    // accept denomination 1st if condition tran mode 1,2
+    if (this.istranModeShow) {
+      if (this.type == 'cash') {
+          this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+      }
+    }
+    else if (this.type == 'cash') {
+
       this.tranModeList = [];
+
+      // object.data.cash.forEach(ele => {
+      //   let obj1 = this.TranModeCash.find(t => t.tran_drcr === 'C');
+      //   this.tranModeList.push(obj1);
+      // })
+
+      //accept denomination code
+
+
+
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
@@ -512,7 +531,13 @@ export class VoucherEntryComponent implements OnInit {
       //debugger
       this.DayOpBal = Math.abs(data);
       let object = this.TranData.find(t => t.key === this.selectedCode);
-      if (this.type == 'cash') {
+     // accept denomination 1st if condition tran mode 1,2
+      if (this.istranModeShow) {
+        if (this.type == 'cash') {
+            this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+        }
+      }
+      else if (this.type == 'cash') {
         this.tranModeList = [];
         object.data.cash.forEach(ele => {
           let obj = this.TranModeCash.find(t => t.id === ele);
@@ -1248,8 +1273,14 @@ export class VoucherEntryComponent implements OnInit {
       this.DayOpBal = Number(this.DayOpBal).toFixed(2)
       let object = this.TranData.find(t => t.key === this.selectedCode);
       //debugger
-      if (this.type == 'cash') {
-        this.tranModeList = [];
+   // accept denomination 1st if condition tran mode 1,2
+   if (this.istranModeShow) {
+    if (this.type == 'cash') {
+        this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+    }
+  }
+  else if (this.type == 'cash') {
+            this.tranModeList = [];
         object.data.cash.forEach(ele => {
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
@@ -2263,8 +2294,14 @@ export class VoucherEntryComponent implements OnInit {
   }
   getTranMode() {
     let object = this.TranData.find(t => t.key === this.selectedCode);
-    if (this.type == 'cash') {
-      this.tranModeList = [];
+ // accept denomination 1st if condition tran mode 1,2
+ if (this.istranModeShow) {
+  if (this.type == 'cash') {
+      this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+  }
+}
+else if (this.type == 'cash') {
+        this.tranModeList = [];
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
@@ -2698,9 +2735,9 @@ export class VoucherEntryComponent implements OnInit {
     var startdate = this.angForm.controls['date'].value
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom: any;
-   
+
     addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
-    
+
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     // this.angForm.controls['amt'].reset()
@@ -2730,7 +2767,7 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowLNCC = false
       this.ShownotLNCC = false
     }
-    
+
     if (this.submitCustomer.AC_ACNOTYPE == 'PG') {
       let obj = {
         scheme: this.Submitscheme.S_APPL,
@@ -2749,7 +2786,7 @@ export class VoucherEntryComponent implements OnInit {
     this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
     this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
     this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
-//POJADAM 050924
+    //POJADAM 050924
     // var startdate = this.angForm.controls['date'].value
 
     // let formDT = moment(startdate, 'DD/MM/YYYY')

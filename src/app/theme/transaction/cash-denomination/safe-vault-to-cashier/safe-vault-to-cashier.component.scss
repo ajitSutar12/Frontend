@@ -1,24 +1,86 @@
 .required {
-    color: red;
-  }
-div.solid {border-style: solid;padding:2%}
-
-div.solid h1{
-  text-align: left;
-  margin-top: -3%;
-  height: 20px;
-  line-height: 20px;
-  font-size: 17px;
+  color: red;
 }
-div.solid h1 span{
-  background-color: white;
+
+div.solid {
+  border-style: solid;
+  padding:0.5%;
+  width: auto;
 }
 .h{
   content: "";
   width: 210px;
-  height: 2px;
+  // height: 2px;
   display: block;
   background: black;
   position: absolute;
   
 }
+
+  .errspan {
+    float: right;
+    margin-right: 21px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 2;
+    color: red;
+  } 
+  .td_center {
+    text-align: center;
+    vertical-align: middle;
+    border-color: black;
+    color: black;
+    
+}
+
+.td-padding {
+  padding: 5px;
+  margin-right: 5%;
+}
+
+.tr-padding {
+  padding: 5px;
+}
+
+
+//table for cash denomination
+.table-container {
+  margin: 0 auto; /* This centers the table horizontally */
+  width: fit-content;
+}
+
+/* Style for tbody element */
+.table-centered {
+  width: 100%;
+  box-sizing: border-box;
+  margin-right: 10%;
+}
+
+/* Style for tr elements */
+.table-row {
+  padding: 5px;
+}
+
+/* Style for td elements */
+.table-cell {
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid black;
+  color: black;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 1.1em; 
+}
+
+/* Style for input fields */
+.input-field {
+  width: 100px; 
+}
+.input-field.text-right {
+  text-align: right;
+}
+
+.input-field.font-bold {
+  font-weight: bold;
+}
+

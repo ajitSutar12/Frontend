@@ -234,7 +234,7 @@ this._SchemeCodeDropdown.getAllSchemeList().pipe(first()).subscribe(data => {
       let obj = this.ngForm.value;
       this.showRepo = true;
   
-      if (this.defaultDate === userData.branch.syspara.CURRENT_DATE) {
+      if (this.defaultDate >= userData.branch.syspara.CURRENT_DATE) {
         obj['FROM_DATE'] = userData.branch.syspara.CURRENT_DATE;
       } else {
         let date = moment(this.defaultDate).format('DD/MM/YYYY');

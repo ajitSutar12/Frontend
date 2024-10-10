@@ -323,14 +323,12 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for append data into fields
   editClickHandler(id) {
-
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.securityCodeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-
         'SECU_CODE': data.SECU_CODE,
         'SECU_NAME': data.SECU_NAME,
         'MARGIN': data.MARGIN,
