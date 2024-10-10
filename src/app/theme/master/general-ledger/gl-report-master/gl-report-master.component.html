@@ -216,23 +216,23 @@
                                 <div class="row">
                                     <div class="col-md-2">
 
-                                        <label for="code1">{{'master.GL_Report_Master.Code' | translate}}<sub
+                                        <label for="code">{{'master.GL_Report_Master.Code' | translate}}<sub
                                                 class="required">*</sub></label>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group input-group">
                                             <span class="border-lable-flt">
-                                                <input type="text" name="CODE1" class="form-control" placeholder=" "
-                                                    maxlength="8"
+                                                <input type="text" name="CODE" class="form-control" placeholder=" "
+                                                    maxlength="6"
                                                     (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                    formControlName="CODE1">
+                                                    formControlName="CODE">
                                             </span>
                                         </div>
                                         <div class="form-group form-primary form-static-label"
-                                            *ngIf="ngForm.controls['CODE1'].invalid && (ngForm.controls['CODE1'].dirty || ngForm.controls['CODE1'].touched)"
+                                            *ngIf="ngForm.controls['CODE'].invalid && (ngForm.controls['CODE'].dirty || ngForm.controls['CODE'].touched)"
                                             class="alert alert-danger">
                                             <div
-                                                *ngIf="ngForm.controls['CODE1'].errors?. maxlength || ngForm.controls['CODE1'].errors?. minlength || ngForm.controls['CODE1'].errors?.required">
+                                                *ngIf="ngForm.controls['CODE'].errors?. maxlength || ngForm.controls['CODE'].errors?. minlength || ngForm.controls['CODE'].errors?.required">
 
                                                 <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
                                             </div>

@@ -55,7 +55,9 @@
                                                     [selectOnTab]='true' [ngClass]="{'form-submitted': formSubmitted}"
                                                     required placeholder="Scheme">
                                                     <ng-option *ngFor="let values of allScheme" [value]="values">
-                                                        <div [ngClass]="{'movable-text': isOptionTooLong(values)}">  {{values.id}} {{values.label}}</div> </ng-option>
+                                                        <div [ngClass]="{'movable-text': isOptionTooLong(values)}">
+                                                            {{values.id}} {{values.label}}</div>
+                                                    </ng-option>
                                                 </ng-select>
                                             </span>
                                         </div>
@@ -83,7 +85,8 @@
                                                     <ng-option *ngFor="let values of schemeACNo" [value]="values">
                                                         {{values.AC_NO}} {{values.AC_NAME}}
                                                         <!-- {{values.idmaster?.custAddress.length==0 ?'---' : values.custAddress}} -->
-                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ? "-"
+                                                        {{ values?.idmaster?.custAddress[0]?.city?.CITY_NAME === "" ?
+                                                        "-"
                                                         :
                                                         values?.idmaster?.custAddress[0]?.city?.CITY_NAME }}
                                                         <!-- <div *ngFor="let val of values.idmaster" > 

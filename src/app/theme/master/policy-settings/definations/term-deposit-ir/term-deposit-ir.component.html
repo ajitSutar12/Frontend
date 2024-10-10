@@ -114,7 +114,7 @@
                                                 class="form-control" placeholder=" " id="Formdays" pattern="^[0-9]+$"
                                                 title="Input allowed only 0-9" #fromdays
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                (focusout)="disableMonth()" (focus)="selectAllContent($event)" min="1"
+                                                (focusout)="disableMonth();compareMonths()" (focus)="selectAllContent($event)" min="1"
                                                 maxlength="3" formControlName="FROM_DAYS">
                                             <label for="FROM_DAYS">
                                                 <!-- From Days -->
