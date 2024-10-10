@@ -20,20 +20,19 @@
                                         bindLabel="label" formControlName="AC_TYPE" [disabled]="AC_TYPE"
                                         (change)="getShareScheme($event)" title="Compulsory Selection"
                                         [virtualScroll]="true" [ngClass]="{'form-submitted': formSubmitted}" required
-                                        placeholder="Scheme" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
+                                        placeholder="" #ACTYPE (focus)="onFocus(ACTYPE)" [selectOnTab]='true'
                                         autofocus>
                                         <ng-option *ngFor="let values of scheme" [value]="values">
                                             {{values.label}} </ng-option>
                                     </ng-select>
-                                    <label for="AC_TYPE">{{'master.Master_Shares_Holders.Scheme' | translate}} <sub
-                                            class="required"> * </sub></label>
+                                    <label for="AC_TYPE">{{'master.Master_Shares_Holders.Scheme' | translate}} <sub class="required"> * </sub></label>
                                 </span>
                             </div>
                             <div class="form-group form-primary form-static-label"
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    <!-- This field is required --> {{'master.Validation.Val1'|translate}}
+                                 <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -45,8 +44,9 @@
                                     <ng-select [(ngModel)]="id" appTheme id="AC_CUSTID" bindValue="value"
                                         formControlName="AC_CUSTID" [ngClass]="{'form-submitted': formSubmitted}"
                                         [virtualScroll]="true" (change)="customer($event)" style="width: 85%;"
-                                        [virtualScroll]="true" title="Compulsory Selection" required #CUSTID
-                                        (focus)="onFocus(CUSTID)" [selectOnTab]='true'>
+                                        [virtualScroll]="true" title="Compulsory Selection" required
+                                        placeholder="" #CUSTID (focus)="onFocus(CUSTID)"
+                                        [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -61,7 +61,7 @@
                                 *ngIf="angForm.controls['AC_CUSTID'].invalid && (angForm.controls['AC_CUSTID'].dirty || angForm.controls['AC_CUSTID'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_CUSTID'].errors?.required">
-                                    <!-- This field is required --> {{'master.Validation.Val1'|translate}}
+                                 <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                 </div>
                             </div>
                         </div>
@@ -116,8 +116,7 @@
                         <div class="col-sm">
                             <div class="card-block">
                                 <ngb-tabset #ctdTabset="ngbTabset" class="nav-pills tabFont">
-                                    <ngb-tab title="{{'master.Master_Shares_Holders.Basic' | translate}}" class="tab"
-                                        id="Basic">
+                                    <ngb-tab title="{{'master.Master_Shares_Holders.Basic' | translate}}" class="tab" id="Basic">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -133,15 +132,15 @@
                                                                             title="Compulsory Selection"
                                                                             [virtualScroll]="true"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            required #CATG (focus)="onFocus(CATG)"
+                                                                            required placeholder="" #CATG
+                                                                            (focus)="onFocus(CATG)"
                                                                             [selectOnTab]='true'>
                                                                             <ng-option *ngFor="let values of category"
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
                                                                         </ng-select>
-                                                                        <label
-                                                                            for="AC_CATG">{{'master.Master_Shares_Holders.Category'
-                                                                            | translate}}<sub class="required"> *
+                                                                        <label for="AC_CATG">{{'master.Master_Shares_Holders.Category' | translate}}<sub
+                                                                                class="required"> *
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
@@ -150,8 +149,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['AC_CATG'].errors?.required">
-                                                                        <!-- This field is required -->
-                                                                        {{'master.Validation.Val1'|translate}}
+                                                                     <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -163,10 +161,10 @@
                                                                             name="EMP_NO" class="form-control"
                                                                             placeholder=" " id="EMP_NO" maxlength="16"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                            pattern="^[0-9\u0966-\u096F]*$"
-                                                                            formControlName="EMP_NO">
-                                                                        <label
-                                                                            for="EMP_NO">{{'master.Master_Shares_Holders.Emp_No'
+
+
+                                                                            pattern="^[0-9]+$" formControlName="EMP_NO">
+                                                                        <label for="EMP_NO">{{'master.Master_Shares_Holders.Emp_No'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -175,8 +173,8 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['EMP_NO'].errors?.pattern || angForm.controls['EMP_NO'].errors?.maxlength">
-                                                                        <!-- Input allowed only 0-9 -->
-                                                                        {{'master.Validation.Val_Pin_Code'|translate}}
+                                                                      <!-- Input allowed only 0-9 -->
+                                                                      {{'master.Validation.Val_Pin_Code'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -188,8 +186,7 @@
                                                                             id="AC_MEM_BIRTH_DT" minlength="8"
                                                                             maxlength="10"
                                                                             formControlName="AC_MEM_BIRTH_DT" disabled>
-                                                                        <label
-                                                                            for="AC_MEM_BIRTH_DT">{{'master.Master_Shares_Holders.Birth_Date'
+                                                                        <label for="AC_MEM_BIRTH_DT">{{'master.Master_Shares_Holders.Birth_Date'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -234,6 +231,7 @@
                                                                     <span class="border-lable-flt">
                                                                         <ng-select [(ngModel)]="selectmembershipType"
                                                                             appTheme
+                                                                            placeholder=""
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             id="MEMBERSHIP_BY" [virtualScroll]="true"
                                                                             formControlName="MEMBERSHIP_BY" #MEMBERSHIP
@@ -244,10 +242,9 @@
                                                                                 [value]="type.value">{{type.label}}
                                                                             </ng-option>
                                                                         </ng-select>
-                                                                        <label
-                                                                            for="MEMBERSHIP_BY">{{'master.Master_Shares_Holders.Memb_Type'
-                                                                            | translate}}<sub class="required"> *
-                                                                            </sub></label>
+                                                                        <label for="MEMBERSHIP_BY">{{'master.Master_Shares_Holders.Memb_Type'
+                                                                            | translate}}<sub
+                                                                                class="required"> * </sub></label>
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group form-primary form-static-label"
@@ -255,8 +252,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['MEMBERSHIP_BY'].errors?.required">
-                                                                        <!-- This field is required -->
-                                                                        {{'master.Validation.Val1'|translate}}
+                                                                     <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -268,20 +264,19 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_SREPRESENT"
                                                                             style="text-transform: capitalize;"
+                                                                            pattern="^[A-Za-z\./ -]+$"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                             formControlName="AC_SREPRESENT">
-                                                                        <label
-                                                                            for="AC_SREPRESENT">{{'master.Master_Shares_Holders.Represent_by'
+                                                                        <label for="AC_SREPRESENT">{{'master.Master_Shares_Holders.Represent_by'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                                 <div class="form-group form-primary form-static-label"
                                                                     *ngIf="angForm.controls['AC_SREPRESENT'].invalid && (angForm.controls['AC_SREPRESENT'].dirty || angForm.controls['AC_SREPRESENT'].touched)"
-                                                                    class="alert alert-danger">.
-                                                                    <div>
-                                                                        <!-- <div
-                                                                        *ngIf="angForm.controls['AC_SREPRESENT'].errors?.pattern"> -->
+                                                                    class="alert alert-danger">
+                                                                    <div
+                                                                        *ngIf="angForm.controls['AC_SREPRESENT'].errors?.pattern">
                                                                         <!-- Input allowed only A-Z a-z - / . (Space) -->
                                                                         {{'master.Validation.Val1'|translate}}
                                                                     </div>
@@ -304,8 +299,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_HONO" formControlName="AC_HONO"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_HONO">{{'master.Master_Shares_Holders.House'
+                                                                        <label for="AC_HONO">{{'master.Master_Shares_Holders.House'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -315,11 +309,10 @@
                                                       (angForm.controls['AC_HONO'].dirty ||
                                                         angForm.controls['AC_HONO'].touched)
                                                     " class="alert alert-danger">
-                                                                    <div>
-                                                                        <!-- <div *ngIf="
+                                                                    <div *ngIf="
                                                         angForm.controls['AC_HONO'].errors?.pattern
-                                                      "> -->
-                                                                        <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->
+                                                      ">
+                                                                        <!--  Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}} 
                                                                         {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
@@ -331,8 +324,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_WARD" formControlName="AC_WARD"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_WARD">{{'master.Master_Shares_Holders.Ward'
+                                                                        <label for="AC_WARD">{{'master.Master_Shares_Holders.Ward'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -342,12 +334,11 @@
                                                       (angForm.controls['AC_WARD'].dirty ||
                                                         angForm.controls['AC_WARD'].touched)
                                                     " class="alert alert-danger">
-                                                                    <div>
-                                                                        <!-- <div *ngIf="
+                                                                    <div *ngIf="
                                                         angForm.controls['AC_WARD'].errors?.pattern
-                                                      "> -->
-                                                                        <!-- Input allowed only A-Z a-z - / . (Space) -->
-                                                                        {{'master.Validation.Val1'|translate}}
+                                                      ">
+                                                                       <!-- Input allowed only A-Z a-z - / . (Space) -->
+                                                                       {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -358,8 +349,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_GALLI" formControlName="AC_GALLI"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_GALLI">{{'master.Master_Shares_Holders.Galli'
+                                                                        <label for="AC_GALLI">{{'master.Master_Shares_Holders.Galli'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -369,11 +359,10 @@
                                                       (angForm.controls['AC_GALLI'].dirty ||
                                                         angForm.controls['AC_GALLI'].touched)
                                                     " class="alert alert-danger">
-                                                                    <div>
-                                                                        <!-- <div *ngIf="
+                                                                    <div *ngIf="
                                                         angForm.controls['AC_GALLI'].errors?.pattern
-                                                      "> -->
-                                                                        <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val'|translate}}
+                                                      ">
+                                                                        <!--  Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -384,8 +373,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_AREA" formControlName="AC_AREA"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_AREA">{{'master.Master_Shares_Holders.Area'
+                                                                        <label for="AC_AREA">{{'master.Master_Shares_Holders.Area'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -395,10 +383,9 @@
                                                       (angForm.controls['AC_AREA'].dirty ||
                                                         angForm.controls['AC_AREA'].touched)
                                                     " class="alert alert-danger">
-                                                                    <div>
-                                                                        <!-- <div *ngIf="
+                                                                    <div *ngIf="
                                                         angForm.controls['AC_AREA'].errors?.pattern
-                                                      "> -->
+                                                      ">
                                                                         <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
@@ -410,8 +397,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_ADDR" formControlName="AC_ADDR"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_ADDR">{{'master.Master_Shares_Holders.Detail'
+                                                                        <label for="AC_ADDR">{{'master.Master_Shares_Holders.Detail'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -421,10 +407,9 @@
                                                       (angForm.controls['AC_ADDR'].dirty ||
                                                         angForm.controls['AC_ADDR'].touched)
                                                     " class="alert alert-danger">
-                                                                    <div>
-                                                                        <!-- <div *ngIf="
+                                                                    <div *ngIf="
                                                         angForm.controls['AC_ADDR'].errors?.pattern
-                                                      "> -->
+                                                      ">
                                                                         <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
@@ -438,8 +423,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_CTCODE" formControlName="AC_CTCODE"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_CTCODE">{{'master.Master_Shares_Holders.City'
+                                                                        <label for="AC_CTCODE">{{'master.Master_Shares_Holders.City'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -451,8 +435,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_PIN" formControlName="AC_PIN"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_PIN">{{'master.Master_Shares_Holders.Pin_Code'
+                                                                        <label for="AC_PIN">{{'master.Master_Shares_Holders.Pin_Code'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -476,8 +459,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_PHNO" formControlName="AC_PHNO"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_PHNO">{{'master.Master_Shares_Holders.Residential'
+                                                                        <label for="AC_PHNO">{{'master.Master_Shares_Holders.Residential'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -489,8 +471,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_MOBNO" formControlName="AC_MOBNO"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_MOBNO">{{'master.Master_Shares_Holders.Mobile'
+                                                                        <label for="AC_MOBNO">{{'master.Master_Shares_Holders.Mobile'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -502,8 +483,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_EMAIL" formControlName="AC_EMAIL"
                                                                             disabled />
-                                                                        <label
-                                                                            for="AC_EMAIL">{{'master.Master_Shares_Holders.Email'
+                                                                        <label for="AC_EMAIL">{{'master.Master_Shares_Holders.Email'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -531,12 +511,12 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-sm-3">
                                                                 <div class="checkbox checkbox-primary">
                                                                     <div
                                                                         class="border-checkbox-group border-checkbox-group-primary">
-                                                                        <input type="checkbox"
-                                                                            class="border-checkbox"
+                                                                        <input type="checkbox" class="border-checkbox"
                                                                             id="IS_REQUIRED_AUTOMAILER"
                                                                             formControlName="IS_REQUIRED_AUTOMAILER">
                                                                         <label class="border-checkbox-label"
@@ -559,8 +539,7 @@
                                                                                 style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                 formControlName="AC_THONO" />
-                                                                            <label
-                                                                                for="AC_THONO">{{'master.Master_Shares_Holders.House'
+                                                                            <label for="AC_THONO">{{'master.Master_Shares_Holders.House'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -571,10 +550,9 @@
                                                         (angForm.controls['AC_THONO'].dirty ||
                                                           angForm.controls['AC_THONO'].touched)
                                                       " class="alert alert-danger">
-                                                                        <div>
-                                                                            <!-- <div *ngIf="
+                                                                        <div *ngIf="
                                                           angForm.controls['AC_THONO'].errors?.pattern
-                                                        "> -->
+                                                        ">
                                                                             <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                         </div>
                                                                     </div>
@@ -584,13 +562,13 @@
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="AC_TWARD"
                                                                                 class="form-control" placeholder=" "
-                                                                                id="AC_TWARD" maxlength="10"
+                                                                                id="AC_TWARD" pattern="^[A-Za-z\./ -]+$"
+                                                                                maxlength="10"
                                                                                 style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                                 formControlName="AC_TWARD" />
-                                                                            <label
-                                                                                for="AC_TWARD">{{'master.Master_Shares_Holders.Ward'
+                                                                            <label for="AC_TWARD">{{'master.Master_Shares_Holders.Ward'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -601,11 +579,10 @@
                                                         (angForm.controls['AC_TWARD'].dirty ||
                                                           angForm.controls['AC_TWARD'].touched)
                                                       " class="alert alert-danger">
-                                                                        <div>
-                                                                            <!-- <div *ngIf="
+                                                                        <div *ngIf="
                                                           angForm.controls['AC_TWARD'].errors?.pattern
-                                                        "> -->
-                                                                            <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
+                                                        ">
+                                                                             <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -618,8 +595,7 @@
                                                                                 style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                                 formControlName="AC_TGALLI" />
-                                                                            <label
-                                                                                for="AC_TGALLI">{{'master.Master_Shares_Holders.Galli'
+                                                                            <label for="AC_TGALLI">{{'master.Master_Shares_Holders.Galli'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -630,11 +606,10 @@
                                                         (angForm.controls['AC_TGALLI'].dirty ||
                                                           angForm.controls['AC_TGALLI'].touched)
                                                       " class="alert alert-danger">
-                                                                        <div>
-                                                                            <!-- <div *ngIf="
+                                                                        <div *ngIf="
                                                           angForm.controls['AC_TGALLI'].errors
                                                             ?.pattern
-                                                        "> -->
+                                                        ">
                                                                             <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                         </div>
                                                                     </div>
@@ -648,8 +623,7 @@
                                                                                 style="text-transform: capitalize;"
                                                                                 title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                 formControlName="AC_TAREA" />
-                                                                            <label
-                                                                                for="AC_TAREA">{{'master.Master_Shares_Holders.Area'
+                                                                            <label for="AC_TAREA">{{'master.Master_Shares_Holders.Area'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -660,10 +634,9 @@
                                                         (angForm.controls['AC_TAREA'].dirty ||
                                                           angForm.controls['AC_TAREA'].touched)
                                                       " class="alert alert-danger">
-                                                                        <div>
-                                                                            <!-- <div *ngIf="
+                                                                        <div *ngIf="
                                                           angForm.controls['AC_TAREA'].errors?.pattern
-                                                        "> -->
+                                                        ">
                                                                             <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                         </div>
                                                                     </div>
@@ -677,8 +650,7 @@
                                                                                 id="AC_TADDR"
                                                                                 style="text-transform: capitalize;"
                                                                                 formControlName="AC_TADDR" />
-                                                                            <label
-                                                                                for="AC_TADDR">{{'master.Master_Shares_Holders.Detail'
+                                                                            <label for="AC_TADDR">{{'master.Master_Shares_Holders.Detail'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -687,10 +659,9 @@
                                                         (angForm.controls['AC_TADDR'].dirty ||
                                                           angForm.controls['AC_TADDR'].touched)
                                                       " class="alert alert-danger">
-                                                                        <div>
-                                                                            <!-- <div *ngIf="
+                                                                        <div *ngIf="
                                                           angForm.controls['AC_TADDR'].errors?.pattern
-                                                        "> -->
+                                                        ">
                                                                             <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                         </div>
                                                                     </div>
@@ -707,13 +678,13 @@
                                                                                 [virtualScroll]="true"
                                                                                 formControlName="AC_TCTCODE"
                                                                                 title="Compulsory Selection"
-                                                                                [ngClass]="{'form-submitted': formSubmitted}">
+                                                                                [ngClass]="{'form-submitted': formSubmitted}"
+                                                                                placeholder="">
                                                                                 <ng-option *ngFor="let values of city"
                                                                                     [value]="values">
                                                                                     {{values.CITY_NAME}}</ng-option>
                                                                             </ng-select>
-                                                                            <label
-                                                                                for="AC_TCTCODE">{{'master.Master_Shares_Holders.City'
+                                                                            <label for="AC_TCTCODE">{{'master.Master_Shares_Holders.City'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -723,14 +694,13 @@
                                                                         <span class="border-lable-flt">
                                                                             <input type="text" name="AC_TPIN"
                                                                                 class="form-control" placeholder=" "
-                                                                                id="AC_TPIN"
-                                                                                pattern="^[0-9\u0966-\u096F]*$"
+
+                                                                                id="AC_TPIN" pattern="^[0-9]+$"
                                                                                 minlength="6" maxlength="6"
                                                                                 title="Input allowed only  0-9"
                                                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                 formControlName="AC_TPIN" />
-                                                                            <label
-                                                                                for="AC_TPIN">{{'master.Master_Shares_Holders.Pin_Code'
+                                                                            <label for="AC_TPIN">{{'master.Master_Shares_Holders.Pin_Code'
                                                                                 | translate}}</label>
                                                                         </span>
                                                                     </div>
@@ -749,7 +719,7 @@
                                                           angForm.controls['AC_TPIN'].errors
                                                             ?.maxlength
                                                         ">
-                                                                            <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
+                                                                             <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -769,8 +739,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="{{'master.Master_Shares_Holders.Other' | translate}}" role="tab"
-                                        data-toggle="tab" id="otherTab">
+                                    <ngb-tab title="{{'master.Master_Shares_Holders.Other' | translate}}" role="tab" data-toggle="tab" id="otherTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -786,13 +755,13 @@
                                                                             [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_OPDATE" minlength="8"
-                                                                            maxlength="10" [(ngModel)]="openingDate"
+                                                                            maxlength="10" [(ngModel)]="opdate"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                                                             bsDatepicker #OPDATE="bsDatepicker"
-                                                                            (keydown.Tab)="OPDATE.hide()">
-                                                                        <label
-                                                                            for="AC_OPDATE">{{'master.Master_Shares_Holders.Open_Date'
-                                                                            | translate}}<sub class="required">*
+                                                                            (keydown.Tab)="OPDATE.hide()" disabled>
+                                                                        <label for="AC_OPDATE">{{'master.Master_Shares_Holders.Open_Date'
+                                                                            | translate}}
+                                                                            <sub class="required">*
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
@@ -801,7 +770,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['AC_OPDATE'].errors?.required">
-                                                                        <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                                                     <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -819,8 +788,7 @@
                                                                             minlength="10" maxlength="10" bsDatepicker
                                                                             #_EXPDT="bsDatepicker"
                                                                             (keydown.Tab)="_EXPDT.hide()">
-                                                                        <label
-                                                                            for="AC_EXPDT">{{'master.Master_Shares_Holders.Expiry_Date'
+                                                                        <label for="AC_EXPDT">{{'master.Master_Shares_Holders.Expiry_Date'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -839,8 +807,7 @@
                                                                             maxlength="10" bsDatepicker
                                                                             #DEATH_DATE="bsDatepicker"
                                                                             (keydown.Tab)="DEATH_DATE.hide()">
-                                                                        <label
-                                                                            for="DEATH_DATE">{{'master.Master_Shares_Holders.Death_Date'
+                                                                        <label for="DEATH_DATE">{{'master.Master_Shares_Holders.Death_Date'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -852,8 +819,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_CAST" formControlName="AC_CAST"
                                                                             disabled>
-                                                                        <label
-                                                                            for="AC_CAST">{{'master.Master_Shares_Holders.Cast'
+                                                                        <label for="AC_CAST">{{'master.Master_Shares_Holders.Cast'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -867,8 +833,7 @@
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_OCODE" formControlName="AC_OCODE"
                                                                             disabled>
-                                                                        <label
-                                                                            for="AC_OCODE">{{'master.Master_Shares_Holders.Occupation'
+                                                                        <label for="AC_OCODE">{{'master.Master_Shares_Holders.Occupation'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -882,15 +847,16 @@
                                                                             formControlName="AC_DIRECT"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            #AC_DIRECT (focus)="onFocus(AC_DIRECT)"
+                                                                            placeholder="" #AC_DIRECT
+                                                                            (focus)="onFocus(AC_DIRECT)"
                                                                             [selectOnTab]='true'>
                                                                             <ng-option *ngFor="let values of director"
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
                                                                         </ng-select>
-                                                                        <label
-                                                                            for="AC_DIRECT">{{'master.Master_Shares_Holders.Director'
-                                                                            | translate}}<sub class="required"> *
+                                                                        <label for="AC_DIRECT">{{'master.Master_Shares_Holders.Director'
+                                                                            | translate}}<sub
+                                                                                class="required"> *
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
@@ -899,7 +865,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['AC_DIRECT'].errors?.required">
-                                                                        {{'master.Validation.Val1'|translate}}
+                                                                     <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -913,7 +879,8 @@
                                                                             bindLabel="label" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            #AC_BRANCH (focus)="onFocus(AC_BRANCH)"
+                                                                            placeholder="" #AC_BRANCH
+                                                                            (focus)="onFocus(AC_BRANCH)"
                                                                             [selectOnTab]='true'>
                                                                             <ng-option
                                                                                 *ngFor="let values of branch_code"
@@ -931,9 +898,9 @@
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
                                                                         </ng-select> -->
-                                                                        <label
-                                                                            for="AC_BRANCH">{{'master.Master_Shares_Holders.Branch_Code'
-                                                                            | translate}}<sub class="required">
+                                                                        <label for="AC_BRANCH">{{'master.Master_Shares_Holders.Branch_Code'
+                                                                            | translate}}<sub
+                                                                                class="required">
                                                                                 *
                                                                             </sub></label>
                                                                     </span>
@@ -943,7 +910,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf=" angForm.controls['AC_BRANCH'].errors?.required">
-                                                                        <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                                                     <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1001,14 +968,13 @@
                                                                     <span class="border-lable-flt">
                                                                         <input style="text-align: right;" type="text"
                                                                             name="AC_SBNO" class="form-control"
-                                                                            placeholder=" "
-                                                                            pattern="^[0-9\u0966-\u096F]*$"
+
+                                                                            placeholder=" " pattern="^[0-9]+$"
                                                                             minlength="1" maxlength="16"
                                                                             title="Input allowed only 0-9" id="AC_SBNO"
                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                             formControlName="AC_SBNO">
-                                                                        <label
-                                                                            for="AC_SBNO">{{'master.Master_Shares_Holders.Bank_Ac_No'
+                                                                        <label for="AC_SBNO">{{'master.Master_Shares_Holders.Bank_Ac_No'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -1017,7 +983,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['AC_SBNO'].errors?.pattern || angForm.controls['AC_SBNO'].errors?.minlength || angForm.controls['AC_SBNO'].errors?.maxlength">
-                                                                        <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
+                                                                      <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1035,9 +1001,9 @@
                                                                             minlength="10" maxlength="10" bsDatepicker
                                                                             #AC_RESDT="bsDatepicker"
                                                                             (keydown.Tab)="AC_RESDT.hide()">
-                                                                        <label
-                                                                            for="AC_RESDT">{{'master.Master_Shares_Holders.Resolution_Date'
-                                                                            | translate}}<sub class="required">*
+                                                                        <label for="AC_RESDT">{{'master.Master_Shares_Holders.Resolution_Date'
+                                                                            | translate}}<sub
+                                                                                class="required">*
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
@@ -1046,7 +1012,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['AC_RESDT'].errors?.required">
-                                                                        <!-- This field is required -->{{'master.Validation.Val1'|translate}}
+                                                                     <!-- This field is required --> {{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1061,9 +1027,9 @@
                                                                             title="Input allowed only 0-9"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             formControlName="AC_RESNO">
-                                                                        <label
-                                                                            for="AC_RESNO">{{'master.Master_Shares_Holders.Resolution_No'
-                                                                            | translate}}<sub class="required">*
+                                                                        <label for="AC_RESNO">{{'master.Master_Shares_Holders.Resolution_No'
+                                                                            | translate}}<sub
+                                                                                class="required">*
                                                                             </sub></label>
                                                                     </span>
                                                                 </div>
@@ -1072,7 +1038,7 @@
                                                                     class="alert alert-danger">
                                                                     <div
                                                                         *ngIf="angForm.controls['AC_RESNO'].errors?.maxlength || angForm.controls['AC_RESNO'].errors?.required">
-                                                                        <!-- This field is required and Input allowed only
+                                                                   <!-- This field is required and Input allowed only
                                                                         0-9 -->{{'master.Validation.Val_Receipt'|translate}}
                                                                     </div>
                                                                 </div>
@@ -1125,11 +1091,11 @@
                                                                         <input style="text-align: right" type="text"
                                                                             name="REF_ACNO" class="form-control"
                                                                             placeholder=" " id="REF_ACNO"
+                                                                            pattern="^[A-Za-z0-9\./ -]+$"
                                                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47 || ($event.charCode >= 48 && $event.charCode < 58)"
                                                                             maxlength="25" formControlName="REF_ACNO">
-                                                                        <label
-                                                                            for="REF_ACNO">{{'master.Master_Shares_Holders.Manual_No'
+                                                                        <label for="REF_ACNO">{{'master.Master_Shares_Holders.Manual_No'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -1137,7 +1103,7 @@
                                                                     *ngIf="angForm.controls['REF_ACNO'].invalid && (angForm.controls['REF_ACNO'].dirty || angForm.controls['REF_ACNO'].touched)"
                                                                     class="alert alert-danger">
                                                                     <div
-                                                                        *ngIf="angForm.controls['REF_ACNO'].errors?.maxlength">
+                                                                        *ngIf="angForm.controls['REF_ACNO'].errors?.pattern || angForm.controls['REF_ACNO'].errors?.maxlength">
                                                                         <!-- Input allowed only A-Z a-z 0-9 - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
@@ -1148,12 +1114,12 @@
                                                                         <input type="text" name="AC_NARR"
                                                                             class="form-control" placeholder=" "
                                                                             id="AC_NARR" maxlength="100"
+                                                                            pattern="^[A-Za-z\./ -]+$"
                                                                             style="text-transform: capitalize;"
                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32) || $event.charCode == 46 || $event.charCode == 45 || $event.charCode == 47"
                                                                             formControlName="AC_NARR">
-                                                                        <label
-                                                                            for="AC_NARR">{{'master.Master_Shares_Holders.Reason_Remark'
+                                                                        <label for="AC_NARR">{{'master.Master_Shares_Holders.Reason_Remark'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -1161,7 +1127,7 @@
                                                                     *ngIf="angForm.controls['AC_NARR'].invalid && (angForm.controls['AC_NARR'].dirty || angForm.controls['AC_NARR'].touched)"
                                                                     class="alert alert-danger">
                                                                     <div
-                                                                        *ngIf=" angForm.controls['AC_NARR'].errors?.maxlength">
+                                                                        *ngIf="angForm.controls['AC_NARR'].errors?.pattern || angForm.controls['AC_NARR'].errors?.maxlength">
                                                                         <!-- Input allowed only A-Z a-z - / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                     </div>
                                                                 </div>
@@ -1170,7 +1136,7 @@
                                                         <div class="row">
                                                             <div class="col-sm">
                                                                 <h6><b style="color: dodgerblue;">{{'master.Master_Shares_Holders.Dividend'
-                                                                        | translate}}</b>
+                                                                    | translate}}</b>
                                                                 </h6>
                                                             </div>
                                                         </div>
@@ -1185,7 +1151,7 @@
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (change)="getBranch($event)"
-                                                                            placeholder="Branch" #DIV_TRANSFER_BRANCH
+                                                                            placeholder="" #DIV_TRANSFER_BRANCH
                                                                             (focus)="onFocus(DIV_TRANSFER_BRANCH)"
                                                                             [selectOnTab]='true'>
                                                                             <ng-option
@@ -1193,8 +1159,7 @@
                                                                                 [value]="values">
                                                                                 {{values.label}}</ng-option>
                                                                         </ng-select>
-                                                                        <label
-                                                                            for="DIV_TRANSFER_BRANCH">{{'master.Master_Shares_Holders.Branch'
+                                                                        <label for="DIV_TRANSFER_BRANCH">{{'master.Master_Shares_Holders.Branch'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -1209,7 +1174,7 @@
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                             (change)="getDivTrans($event)"
-                                                                            #TRANSFER_ACTYPE
+                                                                            placeholder="" #TRANSFER_ACTYPE
                                                                             (focus)="onFocus(TRANSFER_ACTYPE)"
                                                                             [selectOnTab]='true'>
                                                                             <ng-option *ngFor="let values of allScheme"
@@ -1217,8 +1182,7 @@
                                                                                 {{values.id}} {{values.label}}
                                                                             </ng-option>
                                                                         </ng-select>
-                                                                        <label
-                                                                            for="DIV_TRANSFER_ACTYPE">{{'master.Master_Shares_Holders.Ac_Type'
+                                                                        <label for="DIV_TRANSFER_ACTYPE">{{'master.Master_Shares_Holders.Ac_Type'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -1232,7 +1196,8 @@
                                                                             bindLabel="AC_NO" [virtualScroll]="true"
                                                                             title="Compulsory Selection"
                                                                             [ngClass]="{'form-submitted': formSubmitted}"
-                                                                            (focus)="getDiviTransfer()" #TRANSFER_ACNO
+                                                                            (focus)="getDiviTransfer()"
+                                                                            placeholder="" #TRANSFER_ACNO
                                                                             (focus)="onFocus(TRANSFER_ACNO)"
                                                                             [virtualScroll]="true" [selectOnTab]='true'>
                                                                             <ng-option
@@ -1241,8 +1206,7 @@
                                                                                 {{values.label}} {{values.name}}
                                                                             </ng-option>
                                                                         </ng-select>
-                                                                        <label
-                                                                            for="DIV_TRANSFER_ACNO">{{'master.Master_Shares_Holders.Ac_Number'
+                                                                        <label for="DIV_TRANSFER_ACNO">{{'master.Master_Shares_Holders.Ac_Number'
                                                                             | translate}}</label>
                                                                     </span>
                                                                 </div>
@@ -1259,8 +1223,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="{{'master.Master_Shares_Holders.Nominee' | translate}}"
-                                        id="nomineeTab">
+                                    <ngb-tab title="{{'master.Master_Shares_Holders.Nominee' | translate}}" id="nomineeTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -1296,13 +1259,13 @@
                                                                                             placeholder=" "
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
                                                                                             id="AC_NNAME"
+                                                                                            pattern="^[A-Za-z\./ -]+$"
                                                                                             style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             formControlName="AC_NNAME"
                                                                                             maxlength="100"
                                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)" />
-                                                                                        <label
-                                                                                            for="AC_NNAME">{{'master.Master_Shares_Holders.Name'
+                                                                                        <label for="AC_NNAME">{{'master.Master_Shares_Holders.Name'
                                                                                             | translate}}<sub
                                                                                                 class="required">*
                                                                                             </sub></label>
@@ -1318,7 +1281,8 @@
                                                                           angForm.controls['AC_NNAME'].touched)
                                                                       " class="alert alert-danger">
                                                                                     <div *ngIf="
-                                                                          angForm.controls['AC_NNAME'].errors?.maxlength
+                                                                          angForm.controls['AC_NNAME'].errors
+                                                                            ?.pattern || angForm.controls['AC_NNAME'].errors?.maxlength
                                                                         ">
                                                                                         <!-- Input allowed only A-Z a-z - / .
                                                                                         (Space) -->{{'master.Validation.Val1'|translate}}
@@ -1333,6 +1297,7 @@
                                                                                             class="form-control"
                                                                                             placeholder=" "
                                                                                             id="AC_NRELA"
+                                                                                            pattern="^[A-Za-z\./ -]+$"
                                                                                             style="text-transform: capitalize;"
                                                                                             (keypress)="($event.charCode >= 65 && $event.charCode <= 90)||($event.charCode >= 97 && $event.charCode <= 122) || ($event.charCode <= 32)"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
@@ -1356,7 +1321,8 @@
                                                                           angForm.controls['AC_NRELA'].touched)
                                                                       " class="alert alert-danger">
                                                                                     <div *ngIf="
-                                                                           angForm.controls['AC_NRELA'].errors
+                                                                          angForm.controls['AC_NRELA'].errors
+                                                                            ?.pattern || angForm.controls['AC_NRELA'].errors
                                                                             ?.maxlength
                                                                         ">
                                                                                         <!-- Input allowed only A-Z a-z - / . -->
@@ -1369,6 +1335,7 @@
                                                                                     <span class="border-lable-flt">
                                                                                         <input type="text" appTheme
                                                                                             appButton
+                                                                                            placeholder="Datepicker"
                                                                                             placeholder="dd/mm/yyyy"
                                                                                             name="AC_NDATE"
                                                                                             minlength="10"
@@ -1382,10 +1349,8 @@
                                                                                             bsDatepicker
                                                                                             #AC_NDATE="bsDatepicker"
                                                                                             (keydown.Tab)="AC_NDATE.hide()">
-                                                                                        <label
-                                                                                            for="AC_NDATE">{{'master.Master_Shares_Holders.Nomination_Date'
-                                                                                            | translate}}
-                                                                                            <sub class="required">*
+                                                                                        <label for="AC_NDATE">{{'master.Master_Shares_Holders.Nomination_Date'
+                                                                                            | translate}}<sub class="required">*
                                                                                             </sub></label>
                                                                                     </span>
                                                                                 </div>
@@ -1402,7 +1367,7 @@
                                                                           angForm.controls['AC_NDATE'].errors
                                                                             ?.required
                                                                         ">
-                                                                                        <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
+                                                                                       <!-- This fiels is required -->{{'master.Validation.Val1'|translate}}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1415,13 +1380,13 @@
                                                                                             style="text-align: right;"
                                                                                             (focusout)="age()"
                                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
-                                                                                            pattern="^[0-9\u0966-\u096F]*$"
-                                                                                            min="1" max="100"
+
+                                                                                            pattern="^[0-9]+$" min="1"
+                                                                                            max="100"
                                                                                             title="Input allowed only 0-9"
                                                                                             id="AGE"
                                                                                             formControlName="AGE" />
-                                                                                        <label
-                                                                                            for="AGE">{{'master.Master_Shares_Holders.Age'
+                                                                                        <label for="AGE">{{'master.Master_Shares_Holders.Age'
                                                                                             | translate}}</label>
                                                                                     </span>
                                                                                 </div>
@@ -1453,7 +1418,9 @@
                                                                                             name="AC_NHONO"
                                                                                             class="form-control"
                                                                                             placeholder=" "
-                                                                                            id="AC_NHONO" maxlength="25"
+                                                                                            id="AC_NHONO"
+                                                                                            pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                            maxlength="25"
                                                                                             style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                             formControlName="AC_NHONO" />
@@ -1471,12 +1438,11 @@
                                                                         (angForm.controls['AC_NHONO'].dirty ||
                                                                           angForm.controls['AC_NHONO'].touched)
                                                                       " class="alert alert-danger">
-                                                                                    <div>
-                                                                                        <!-- <div *ngIf="
+                                                                                    <div *ngIf="
                                                                           angForm.controls['AC_NHONO'].errors
                                                                             ?.pattern
-                                                                        "> -->
-                                                                                        <!-- Input allowed only A-Z a-z 0-9 -
+                                                                        ">
+                                                                                       <!-- Input allowed only A-Z a-z 0-9 -
                                                                                         / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                     </div>
                                                                                 </div>
@@ -1488,7 +1454,9 @@
                                                                                             name="AC_NWARD"
                                                                                             class="form-control"
                                                                                             placeholder=" "
-                                                                                            id="AC_NWARD" maxlength="10"
+                                                                                            id="AC_NWARD"
+                                                                                            pattern="^[A-Za-z0-9\./ -]+$"
+                                                                                            maxlength="10"
                                                                                             style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             formControlName="AC_NWARD" />
@@ -1506,12 +1474,11 @@
                                                                         (angForm.controls['AC_NWARD'].dirty ||
                                                                           angForm.controls['AC_NWARD'].touched)
                                                                       " class="alert alert-danger">
-                                                                                    <div>
-                                                                                        <!-- <div *ngIf="
+                                                                                    <div *ngIf="
                                                                           angForm.controls['AC_NWARD'].errors
                                                                             ?.pattern
-                                                                        "> -->
-                                                                                        <!-- Input allowed only A-Z a-z 0-9 -
+                                                                        ">
+  <!-- Input allowed only A-Z a-z 0-9 -
                                                                                         / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                     </div>
                                                                                 </div>
@@ -1526,6 +1493,7 @@
                                                                                             class="form-control"
                                                                                             placeholder=" "
                                                                                             id="AC_NGALLI"
+                                                                                            pattern="^[A-Za-z0-9\./ -]+$"
                                                                                             maxlength="40"
                                                                                             style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
@@ -1544,12 +1512,11 @@
                                                                         (angForm.controls['AC_NGALLI'].dirty ||
                                                                           angForm.controls['AC_NGALLI'].touched)
                                                                       " class="alert alert-danger">
-                                                                                    <div>
-                                                                                        <!-- <div *ngIf="
+                                                                                    <div *ngIf="
                                                                           angForm.controls['AC_NGALLI'].errors
                                                                             ?.pattern
-                                                                        "> -->
-                                                                                        <!-- Input allowed only A-Z a-z 0-9 -
+                                                                        ">
+                                                                                       <!-- Input allowed only A-Z a-z 0-9 -
                                                                                         / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                     </div>
                                                                                 </div>
@@ -1561,7 +1528,9 @@
                                                                                             name="AC_NAREA"
                                                                                             class="form-control"
                                                                                             placeholder=" "
-                                                                                            id="AC_NAREA" maxlength="60"
+                                                                                            id="AC_NAREA"
+                                                                                            pattern="^[A-Za-z\./ -]+$"
+                                                                                            maxlength="60"
                                                                                             title="Input allowed only  A-Z a-z  - / . (Space)"
                                                                                             style="text-transform: capitalize;"
                                                                                             formControlName="AC_NAREA" />
@@ -1579,11 +1548,10 @@
                                                                         (angForm.controls['AC_NAREA'].dirty ||
                                                                           angForm.controls['AC_NAREA'].touched)
                                                                       " class="alert alert-danger">
-                                                                                    <div>
-                                                                                        <!-- <div *ngIf="
+                                                                                    <div *ngIf="
                                                                           angForm.controls['AC_NAREA'].errors
                                                                             ?.pattern
-                                                                        "> -->
+                                                                        ">
                                                                                         <!-- Input allowed only A-Z a-z - / .
                                                                                         (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                     </div>
@@ -1596,13 +1564,13 @@
                                                                                             name="AC_NADDR"
                                                                                             class="form-control"
                                                                                             placeholder=" "
+                                                                                            pattern="^[A-Za-z0-9\./ -]+$"
                                                                                             style="text-transform: capitalize;"
                                                                                             title="Input allowed only  A-Z a-z 0-9  - / . (Space)"
                                                                                             id="AC_NADDR"
                                                                                             formControlName="AC_NADDR" />
                                                                                         <label
-                                                                                            for="AC_NADDR">{{'master.Master_Shares_Holders.Detail'
-                                                                                            | translate}}</label>
+                                                                                            for="AC_NADDR">{{'master.Master_Shares_Holders.Detail' | translate}}</label>
                                                                                     </span>
                                                                                 </div>
                                                                                 <div class="
@@ -1614,12 +1582,11 @@
                                                                         (angForm.controls['AC_NADDR'].dirty ||
                                                                           angForm.controls['AC_NADDR'].touched)
                                                                       " class="alert alert-danger">
-                                                                                    <div>
-                                                                                        <!-- <div *ngIf="
+                                                                                    <div *ngIf="
                                                                           angForm.controls['AC_NADDR'].errors
                                                                             ?.pattern
-                                                                        "> -->
-                                                                                        <!-- Input allowed only A-Z a-z 0-9 -
+                                                                        ">
+                                                                                     <!-- Input allowed only A-Z a-z 0-9 -
                                                                                         / . (Space) -->{{'master.Validation.Val1'|translate}}
                                                                                     </div>
                                                                                 </div>
@@ -1638,13 +1605,12 @@
                                                                                             [virtualScroll]="true"
                                                                                             formControlName="AC_NCTCODE"
                                                                                             [ngClass]="{'form-submitted': formSubmitted}"
+                                                                                            placeholder=""
                                                                                             #AC_NCTCODE
                                                                                             (focus)="onFocus(AC_NCTCODE)"
                                                                                             [selectOnTab]='true'>
                                                                                         </ng-select>
-                                                                                        <label
-                                                                                            for="AC_NCTCODE">{{'master.Master_Shares_Holders.City'
-                                                                                            | translate}}<sub
+                                                                                        <label for="AC_NCTCODE">{{'master.Master_Shares_Holders.City' | translate}}<sub
                                                                                                 class="required"> *
                                                                                             </sub></label>
                                                                                     </span>
@@ -1657,14 +1623,13 @@
                                                                                             name="AC_NPIN"
                                                                                             class="form-control"
                                                                                             placeholder=" " id="AC_NPIN"
-                                                                                            pattern="^[0-9\u0966-\u096F]*$"
+
+                                                                                            pattern="^[0-9]+$"
                                                                                             minlength="6" maxlength="6"
                                                                                             (keypress)="($event.charCode >= 48 && $event.charCode < 58)"
                                                                                             title="Input allowed only  0-9"
                                                                                             formControlName="AC_NPIN" />
-                                                                                        <label
-                                                                                            for="AC_NPIN">{{'master.Master_Shares_Holders.Pin_Code'
-                                                                                            | translate}}</label>
+                                                                                        <label for="AC_NPIN">{{'master.Master_Shares_Holders.Pin_Code' | translate}}</label>
                                                                                     </span>
                                                                                 </div>
                                                                                 <div class="
@@ -1684,7 +1649,7 @@
                                                                           angForm.controls['AC_NPIN'].errors
                                                                             ?.maxlength
                                                                         ">
-                                                                                        <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
+                                                                                       <!-- Input allowed only 0-9 -->{{'master.Validation.Val_Pin_Code'|translate}}
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1694,15 +1659,13 @@
                                                                                 class="btn btn-outline-primary btn-sm"
                                                                                 *ngIf="nomineeShowButton"
                                                                                 (click)="addNominee()">
-                                                                                {{'master.Master_Shares_Holders.Add_nomi'
-                                                                                | translate}}
+                                                                                {{'master.Master_Shares_Holders.Add_nomi' | translate}}
                                                                             </button>
                                                                             <button
                                                                                 class="btn btn-outline-primary btn-sm"
                                                                                 (click)="updateNominee()"
                                                                                 *ngIf="nomineeUpdateShow">
-                                                                                {{'master.Master_Shares_Holders.update_nomi'
-                                                                                | translate}}
+                                                                                {{'master.Master_Shares_Holders.update_nomi' | translate}}
                                                                             </button>
 
                                                                         </div>
@@ -1716,32 +1679,20 @@
                                                                     <table class="
                                                               table table-striped table-bordered table-hover compact
                                                             ">
-                                                                        <thead>
-                                                                            <td>{{'master.Action.Action'| translate}}
-                                                                            </td>
-                                                                            <td>{{'master.Master_Shares_Holders.Name' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Relation'
-                                                                                | translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Age' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Nomination_Date'
-                                                                                | translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.House' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Ward' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Detail'
-                                                                                | translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Galli' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Area' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.City' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Pin_Code'
-                                                                                | translate}}</td>
-                                                                        </thead>
+                                                            <thead>
+                                                                <td>{{'master.Action.Action'| translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Name' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Relation' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Age' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Nomination_Date' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.House' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Ward' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Detail' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Galli' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Area' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.City' | translate}}</td>
+                                                                <td>{{'master.Master_Shares_Holders.Pin_Code' | translate}}</td>
+                                                            </thead>
                                                                         <tbody *ngIf="multiNominee?.length != 0">
                                                                             <tr *ngFor="let data of multiNominee;
                                                                   let indexOfelement = index">
@@ -1758,7 +1709,7 @@
                                                                                             <span
                                                                                                 class="fa fa-fw fa-trash-o"
                                                                                                 id="deletebutton"
-                                                                                                (click)="delNominee(indexOfelement)"
+                                                                                                (click)="delNominee(indexOfelement,data)"
                                                                                                 placement="right"
                                                                                                 ngbTooltip="Delete"></span>
                                                                                         </div>
@@ -1823,8 +1774,7 @@
                                                                                 <td colspan="12"
                                                                                     class="no-data-available"
                                                                                     style="text-align: center;">
-                                                                                    {{'master.Master_Shares_Holders.No_Data'
-                                                                                    | translate}}
+                                                                                    {{'master.Master_Shares_Holders.No_Data' | translate}}
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -1835,8 +1785,7 @@
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right;margin-top: 6px;">
                                                                 <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('DocumentTab')">{{'master.Action.Next'
-                                                                    | translate}}
+                                                                    (click)="switchNgBTab('DocumentTab')">{{'master.Action.Next' | translate}}
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -1845,8 +1794,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="{{'master.Master_Shares_Holders.Doc' | translate}}"
-                                        id="DocumentTab">
+                                    <ngb-tab title="{{'master.Master_Shares_Holders.Doc' | translate}}" id="DocumentTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -1857,16 +1805,11 @@
                                                                     <table
                                                                         class="table table-striped table-bordered table-hover compact">
                                                                         <thead>
-                                                                            <td>{{'master.Master_Shares_Holders.Code' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Description'
-                                                                                | translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Attach'
-                                                                                | translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.View' |
-                                                                                translate}}</td>
-                                                                            <td>{{'master.Master_Shares_Holders.Upload'
-                                                                                | translate}}</td>
+                                                                            <td>{{'master.Master_Shares_Holders.Code' | translate}}</td>
+                                                                            <td>{{'master.Master_Shares_Holders.Description' | translate}}</td>
+                                                                            <td>{{'master.Master_Shares_Holders.Attach' | translate}}</td>
+                                                                            <td>{{'master.Master_Shares_Holders.View' | translate}}</td>
+                                                                            <td>{{'master.Master_Shares_Holders.Upload' | translate}}</td>
                                                                         </thead>
                                                                         <tbody *ngIf="customerDoc?.length != 0">
                                                                             <tr *ngFor="let data of customerDoc;
@@ -1930,9 +1873,7 @@
                                                                             <tr>
                                                                                 <td class="no-data-available"
                                                                                     colspan="5"
-                                                                                    style="text-align: center;">
-                                                                                    {{'master.Master_Shares_Holders.No_Data'
-                                                                                    | translate}}
+                                                                                    style="text-align: center;"> {{'master.Master_Shares_Holders.No_Data' | translate}}
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
@@ -1940,9 +1881,7 @@
                                                                     <app-modal-basic #modalLarge
                                                                         [dialogClass]="'modal-lg'">
                                                                         <div class="app-modal-header">
-                                                                            <h4 class="modal-title">
-                                                                                {{'master.Master_Shares_Holders.Documnet'
-                                                                                | translate}} </h4>
+                                                                            <h4 class="modal-title"> {{'master.Master_Shares_Holders.Documnet' | translate}} </h4>
                                                                             <button type="button"
                                                                                 class="close basic-close"
                                                                                 (click)="modalLarge.hide()">
@@ -1957,17 +1896,14 @@
                                                                                     <embed [src]="urlMap" width="10px"
                                                                                         height="50px" />
                                                                                 </div>
-                                                                                <p *ngIf="!isImgPreview">
-                                                                                    {{'master.Master_Shares_Holders.preview'
-                                                                                    | translate}}</p>
+                                                                                <p *ngIf="!isImgPreview">{{'master.Master_Shares_Holders.preview' | translate}}</p>
                                                                             </perfect-scrollbar>
                                                                         </div>
 
                                                                         <div class="app-modal-footer">
                                                                             <button type="button"
                                                                                 class="btn btn-outline-primary btn-sm"
-                                                                                (click)="modalLarge.hide()">{{'master.Action.Close'|
-                                                                                trasnlate}}</button>
+                                                                                (click)="modalLarge.hide()">{{'master.Action.Close' | translate}}</button>
                                                                         </div>
                                                                     </app-modal-basic>
                                                                 </div>
@@ -1976,8 +1912,7 @@
                                                         <div class="row">
                                                             <div class="col-sm" style="float: right;margin-top: 6px;">
                                                                 <button class="btn btn-outline-primary btn-sm"
-                                                                    (click)="switchNgBTab('RegionalTab')">{{'master.Action.Next'|
-                                                                    trasnlate}}
+                                                                    (click)="switchNgBTab('RegionalTab')">{{'master.Action.Next' | translate}}
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -1986,8 +1921,7 @@
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
-                                    <ngb-tab title="{{'master.Master_Shares_Holders.Regional_Details' | translate}}"
-                                        id="RegionalTab">
+                                    <ngb-tab title="{{'master.Master_Shares_Holders.Regional_Details' | translate}}" id="RegionalTab">
                                         <ng-template ngbTabContent>
                                             <div [@fadeInOutTranslate] class="m-t-15">
                                                 <div class="card border-primary">
@@ -2001,9 +1935,7 @@
                                                                             id="AC_DEV_NAME"
                                                                             style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_NAME">
-                                                                        <label
-                                                                            for="AC_DEV_NAME">{{'master.Master_Shares_Holders.Name'
-                                                                            | translate}}</label>
+                                                                        <label for="AC_DEV_NAME">{{'master.Master_Shares_Holders.Name' | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -2015,9 +1947,7 @@
                                                                             id="AC_DEV_WARD"
                                                                             style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_WARD">
-                                                                        <label
-                                                                            for="AC_DEV_WARD">{{'master.Master_Shares_Holders.Ward'
-                                                                            | translate}}</label>
+                                                                        <label for="AC_DEV_WARD">{{'master.Master_Shares_Holders.Ward' | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -2029,9 +1959,7 @@
                                                                             id="AC_DEV_ADD"
                                                                             style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_ADD">
-                                                                        <label
-                                                                            for="AC_DEV_ADD">{{'master.Master_Shares_Holders.Address'
-                                                                            | translate}}</label>
+                                                                        <label for="AC_DEV_ADD">{{'master.Master_Shares_Holders.Address' | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -2045,9 +1973,7 @@
                                                                             id="AC_DEV_GALLI"
                                                                             style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_GALLI">
-                                                                        <label
-                                                                            for="AC_DEV_GALLI">{{'master.Master_Shares_Holders.Galli'
-                                                                            | translate}}</label>
+                                                                        <label for="AC_DEV_GALLI">{{'master.Master_Shares_Holders.Galli' | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -2059,9 +1985,7 @@
                                                                             id="AC_DEV_AREA"
                                                                             style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_AREA">
-                                                                        <label
-                                                                            for="AC_DEV_AREA">{{'master.Master_Shares_Holders.Area'
-                                                                            | translate}}</label>
+                                                                        <label for="AC_DEV_AREA">{{'master.Master_Shares_Holders.Area' | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -2073,9 +1997,7 @@
                                                                             id="AC_DEV_CITYCODE"
                                                                             style="text-transform: capitalize;"
                                                                             formControlName="AC_DEV_CITYCODE">
-                                                                        <label
-                                                                            for="AC_DEV_CITYCODE">{{'master.Master_Shares_Holders.City'
-                                                                            | translate}}</label>
+                                                                        <label for="AC_DEV_CITYCODE">{{'master.Master_Shares_Holders.City' | translate}}</label>
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -2085,30 +2007,29 @@
                                                                 <button type="submit"
                                                                     class="btn btn-outline-primary btn-sm btn-submit"
                                                                     *ngIf="showButton" (click)="submit($event)"
-                                                                    (keydown.Tab)="focus()" appTheme>
-                                                                    {{'master.Action.Submit'| translate}}
+                                                                    (keydown.Tab)="focus()" appTheme
+                                                                    [disabled]="angForm.invalid">
+                                                                    {{'master.Action.Submit' | translate}}
                                                                 </button>
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     *ngIf="approveShow" (click)="closeModal()">
-                                                                    {{'master.Action.Close'| translate}}</button>
+                                                                    {{'master.Action.Close' | translate}}</button>
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     (click)="addNewData()" *ngIf="newbtnShow">
-                                                                    {{'master.Action.Cancel'| translate}}
+                                                                    {{'master.Action.Cancel' | translate}}
                                                                 </button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     (click)="updateData()" *ngIf="updateShow">
-                                                                    {{'master.Action.Update'|
-                                                                    translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    {{'master.Action.Update' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     *ngIf="rejectShow" (click)="reject()">
-                                                                    {{'master.Action.Rejecct'|
-                                                                    translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    {{'master.Action.Rejecct' | translate}}</button>&nbsp;&nbsp;&nbsp;&nbsp;
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     *ngIf="approveShow" (click)="Approve()">
-                                                                    {{'master.Action.Approve'| translate}}</button>
+                                                                    {{'master.Action.Approve' | translate}}</button>
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     *ngIf="unapproveShow" (click)="unApprove()">
-                                                                    {{'master.Action.Unapprove'| translate}}</button>
+                                                                    {{'master.Action.Unapprove' | translate}}</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2192,8 +2113,7 @@
                                 </tbody>
                                 <tbody *ngIf="shareMaster?.length == 0">
                                     <tr>
-                                        <td colspan="6" class="no-data-available">
-                                            {{'master.Master_Shares_Holders.No_Data' | translate}}</td>
+                                        <td colspan="6" class="no-data-available"> {{'master.Master_Shares_Holders.No_Data' | translate}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot #filters class="filters">
@@ -2221,4 +2141,7 @@
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="isDisable">
+    <div class="modal-overlay" [ngClass]="{'hidden': !modalClose}"></div>
 </div>

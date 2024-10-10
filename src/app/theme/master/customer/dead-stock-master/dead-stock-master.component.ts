@@ -320,7 +320,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   disabledate(data: any) {
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Valid_Date')}`, "warning");
+        Swal.fire("Invalid Input", "Please insert valid date ", "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -395,7 +395,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
           this.isDisable = false
           Swal.fire({
             icon: 'success',
-            title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
+            title: 'Account Created successfully!',
             html:
               '<b>ITEM NAME : </b>' + data1.ITEM_NAME + ',' + '<br>' +
               '<b>ITEM CODE : </b>' + data1.ITEM_CODE + '<br>'
@@ -421,7 +421,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       this.angForm.reset();
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
   lddate: any
@@ -599,7 +599,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     data['PURCHASE_VALUE'] = this.firstnumber * this.secondnumber
     this.deadstockmasterService.updateData(data).subscribe(() => {
       console.log(data)
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, "success");
+      Swal.fire("Success!", "Record Updated Successfully !", "success");
       this.ngOnInit()
       this.showButton = true;
       this.updateShow = false;
@@ -645,7 +645,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
   delClickHandler(id: number) {
     Swal.fire({
       title: "Are you sure?",
-      text: `${this.translate.instant('Swal_Msg.Narration_Data')}`,
+      text: "Do you want to delete narration data.",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#229954",
@@ -655,7 +655,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
       if (result.isConfirmed) {
         this.deadstockmasterService.deleteData(id).subscribe((data1) => {
           this.customerMaster = data1;
-          Swal.fire(`${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`, "success");
+          Swal.fire("Deleted!", "Your data has been deleted.", "success");
         }),
           (error) => {
             console.log(error);
@@ -663,7 +663,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
         // to reload after delete of data
         this.rerender();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`, "error");
+        Swal.fire("Cancelled", "Your data is safe.", "error");
       }
     });
   }
@@ -721,7 +721,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.deadstockmasterService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Dead_Stock')}`,
+        title: 'DeadStock Approved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -744,7 +744,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.deadstockmasterService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Dead_Stock_Reject')}`,
+        title: 'DeadStock rejected successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -768,7 +768,7 @@ export class DeadStockMasterComponent implements OnInit, AfterViewInit, OnDestro
     this.deadstockmasterService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.U_Msg')}`,
+        title: 'Account unapproved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>

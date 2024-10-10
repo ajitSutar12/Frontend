@@ -1,4 +1,4 @@
-import {AfterViewInit,Component,OnDestroy,OnInit,ViewChild,Input,Output,EventEmitter,ElementRef,}from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Input, Output, EventEmitter, ElementRef, } from "@angular/core";
 import { Subject, Subscription } from "rxjs";
 // Creating and maintaining form fields with validation
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -10,7 +10,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { environment } from "src/environments/environment";
-import { DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { OwnbranchMasterService } from "src/app/shared/dropdownService/own-branch-master-dropdown.service";
 import { SchemeCodeDropdownService } from "src/app/shared/dropdownService/scheme-code-dropdown.service";
 import { SchemeAccountNoService } from "src/app/shared/dropdownService/schemeAccountNo.service";
@@ -18,6 +18,7 @@ import { first } from "rxjs/operators";
 import { SchemeTypeDropdownService } from "src/app/shared/dropdownService/scheme-type-dropdown.service";
 import { IOption } from "ng-select";
 import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bnk-pigmy-balance-list',
@@ -25,27 +26,27 @@ import { SystemMasterParametersService } from "src/app/theme/utility/scheme-para
   styleUrls: ['./bnk-pigmy-balance-list.component.scss']
 })
 export class BnkPigmyBalanceListComponent implements OnInit {
- 
+
   code: any;
   schemeType: any;
   maxDate: Date;
   minDate: Date;
   formSubmitted = false;
-  clicked:boolean=false;
-   //dropdown
-   scheme: any[];
-   startingacc: any[];
-   endingacc: any[];
-   branchOption: any[];
-   // for dropdown ng module
- 
-   ngbranch: any = null;
-   schemeCode: any = null;
-   obj: any;
-   startingAccount: any = null;
-   EndingAccount: any = null;
+  clicked: boolean = false;
+  //dropdown
+  scheme: any[];
+  startingacc: any[];
+  endingacc: any[];
+  branchOption: any[];
+  // for dropdown ng module
+
+  ngbranch: any = null;
+  schemeCode: any = null;
+  obj: any;
+  startingAccount: any = null;
+  EndingAccount: any = null;
   //Dropdown option variable
-  
+
   ngscheme: any = null;
   ngacno: any = null;
   ACNo: any;
@@ -69,6 +70,7 @@ export class BnkPigmyBalanceListComponent implements OnInit {
   url = environment.base_url;
   report_url = environment.report_url;
   iframe5url: any = ' ';
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -79,12 +81,18 @@ export class BnkPigmyBalanceListComponent implements OnInit {
     public SchemeTypes: SchemeTypeDropdownService,
     private _ownbranchmasterservice: OwnbranchMasterService,
     private schemeAccountNoService: SchemeAccountNoService,
-    private schemeCodeDropdownService: SchemeCodeDropdownService,) { 
-      this.defaultDate = moment().format('DD/MM/YYYY');
-      this.maxDate = new Date();
-      this.minDate = new Date();
-      this.minDate.setDate(this.minDate.getDate() - 1);
-      this.maxDate.setDate(this.maxDate.getDate())
+    private schemeCodeDropdownService: SchemeCodeDropdownService,
+    private translate: TranslateService) {
+    this.systemParameter.getFormData(1).subscribe(data => {
+
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+    this.defaultDate = moment().format('DD/MM/YYYY');
+    this.maxDate = new Date();
+    this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() - 1);
+    this.maxDate.setDate(this.maxDate.getDate())
   }
   createForm() {
     this.ngForm = this.fb.group({
@@ -118,51 +126,51 @@ export class BnkPigmyBalanceListComponent implements OnInit {
 
 
     // Scheme Code
-  this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
-    var filtered = data.filter(function (scheme) {
-      return (scheme.name == 'AG');
-    });
-    this.scheme = filtered;
+    this.schemeCodeDropdownService.getAllSchemeList().pipe(first()).subscribe(data => {
+      var filtered = data.filter(function (scheme) {
+        return (scheme.name == 'AG');
+      });
+      this.scheme = filtered;
 
-  })
- 
+    })
+
   }
-   //For Starting account and Ending Account dropdown
-   getschemename: any
+  //For Starting account and Ending Account dropdown
+  getschemename: any
 
-   getBranch() {
-     this.getIntroducer()
-   }
-   getIntro(event) {
-     this.getschemename = event.name
-     this.getIntroducer()
-   }
- 
- 
-   getIntroducer() {
- 
-     let data: any = localStorage.getItem('user');
-     let result = JSON.parse(data);
-     let branchCode = result.branch.id;
-     this.obj = [this.schemeCode, branchCode]
-     switch (this.getschemename) {
- 
- 
-       case 'AG':
+  getBranch() {
+    this.getIntroducer()
+  }
+  getIntro(event) {
+    this.getschemename = event.name
+    this.getIntroducer()
+  }
+
+
+  getIntroducer() {
+
+    let data: any = localStorage.getItem('user');
+    let result = JSON.parse(data);
+    let branchCode = result.branch.id;
+    this.obj = [this.schemeCode, branchCode]
+    switch (this.getschemename) {
+
+
+      case 'AG':
         //  this.schemeAccountNoService.getPigmyAgentSchemeList1(this.obj).subscribe(data => {
-          this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + this.obj).subscribe(data => {
-           this.startingacc = data;
-           this.startingAccount = null
- 
-          
-          
-         })
-         break;
- 
-     }
-   }
- 
-  
+        this.http.get<any>(this.url + '/pigmy-agent-master/balUpdate/' + this.obj).subscribe(data => {
+          this.startingacc = data;
+          this.startingAccount = null
+
+
+
+        })
+        break;
+
+    }
+  }
+
+
   //set open date, appointed date and expiry date
   // getSystemParaDate() {
   //   this.systemParameter.getFormData(1).subscribe(data => {
@@ -171,8 +179,8 @@ export class BnkPigmyBalanceListComponent implements OnInit {
   // }
   scrollToTop() {
     window.scrollTo({ top: 200, behavior: 'smooth' });
-  } 
-  
+  }
+
   src: any;
   view(event) {
     // debugger
@@ -183,64 +191,64 @@ export class BnkPigmyBalanceListComponent implements OnInit {
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME
 
-    if(this.ngForm.valid){
-    let obj = this.ngForm.value
-    this.showRepo = true;
-    // let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
+    if (this.ngForm.valid) {
+      let obj = this.ngForm.value
+      this.showRepo = true;
+      // let date =  moment(obj.FROM_DATE).format('DD/MM/YYYY');
 
-    let date:any;
+      let date: any;
       if (this.defaultDate == obj.FROM_DATE) {
-        date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
-      }else{ 
-        date = moment(this.defaultDate,'DD/MM/YYYY').format('DD/MM/YYYY')
+        date = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      } else {
+        date = moment(this.defaultDate, 'DD/MM/YYYY').format('DD/MM/YYYY')
       };
-    
-    let scheme = obj.Scheme_code
-    let schemeAccountNo = obj.Scheme_acc
-    let branch = obj.BRANCH_CODE
-  
-    this.iframe5url=this.report_url+"examples/AgentwisePigmyBalList.php?date='" + date + "'&scheme=" + scheme + "&branch="+ branch +"&schemeAccountNo='" + schemeAccountNo +"'&bankName=" + bankName + "" ;
-    this.iframe5url=this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
-    
-   
+
+      let scheme = obj.Scheme_code
+      let schemeAccountNo = obj.Scheme_acc
+      let branch = obj.BRANCH_CODE
+
+      this.iframe5url = this.report_url + "examples/AgentwisePigmyBalList.php?date='" + date + "'&scheme=" + scheme + "&branch=" + branch + "&schemeAccountNo='" + schemeAccountNo + "'&bankName=" + bankName + "";
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
+
+
+    }
+    else {
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
+    }
+
   }
-  else {
-    Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(()=>{ this.clicked=false});
+  acCloseDate
+  isOpen
+  acclosedon: boolean = false
+  getAccountDetails(event) {
+    this.acCloseDate = event.acClose == null || event.acClose == '' ? null : event.acClose
+    this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
+    if (this.acCloseDate != null) {
+      this.acCloseDate = event.acClose
+      this.isOpen = false
+    }
+    else {
+      this.acCloseDate = null
+      this.isOpen = true
+    }
   }
-  
-}
-acCloseDate
-isOpen
-acclosedon: boolean = false
-getAccountDetails(event) {
-  this.acCloseDate = event.acClose == null || event.acClose == '' ? null: event.acClose
-  this.acclosedon = event.acClose == null || event.acClose == '' ? false : true
-  if (this.acCloseDate != null) {
-    this.acCloseDate = event.acClose
+  schemechange(event) {
+
+    this.acCloseDate = null
     this.isOpen = false
   }
-  else {
-    this.acCloseDate = null
-    this.isOpen = true
+  close() {
+    this.resetForm()
+    this.isOpen = false
   }
-}
-schemechange(event) {
 
-  this.acCloseDate = null
-  this.isOpen = false
-}
-close(){
-  this.resetForm()
-  this.isOpen = false
-}
-
-// Reset Function
-resetForm() {
-  // this.createForm()
-  // this.ngForm.controls.BRANCH_CODE.reset();
-  this.ngForm.controls.Scheme_code.reset();
-  this.ngForm.controls.Scheme_acc.reset();
-  this.showRepo = false;
-  this.clicked=false;
-}
+  // Reset Function
+  resetForm() {
+    // this.createForm()
+    // this.ngForm.controls.BRANCH_CODE.reset();
+    this.ngForm.controls.Scheme_code.reset();
+    this.ngForm.controls.Scheme_acc.reset();
+    this.showRepo = false;
+    this.clicked = false;
+  }
 }

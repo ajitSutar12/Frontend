@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component:  NpaRegPercentageComponent,
     data: {
-      title: 'Transaction Amount Movement',
+      title: 'NPA Register Percentage',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

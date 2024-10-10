@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h5>{{'uti.Charges_Posting' | translate}}</h5>
+                <h5>Charges Posting</h5>
                 <h6 style="float: right; font-size: 12px; color: black;" class="requiredlable">
                     Fields marked with (<sub class="required"> * </sub>) are mandatory
                 </h6>
@@ -10,14 +10,14 @@
             <form action="javascript:" [formGroup]="angForm" novalidate #myform="ngForm">
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">{{'uti.Branch' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="BRANCH_CODE">Branch<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="BRANCH_CODE" bindValue="value" [(ngModel)]="ngBranchCode"
                                         formControlName="BRANCH_CODE" bindLabel="label" title="Compulsory Selection"
-                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="{{'uti.Branch' | translate}}">
+                                        [ngClass]="{'form-submitted': formSubmitted}" placeholder="Branch">
                                         <ng-option *ngFor="let values of branch_code" [value]="values">
                                             {{values.label}}</ng-option>
                                     </ng-select>
@@ -27,11 +27,11 @@
                                 *ngIf="angForm.controls['BRANCH_CODE'].invalid && (angForm.controls['BRANCH_CODE'].dirty || angForm.controls['BRANCH_CODE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['BRANCH_CODE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">{{'uti.Scheme' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="AC_TYPE">Scheme<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -39,7 +39,7 @@
                                     <ng-select id="AC_TYPE" bindValue="value" [(ngModel)]="ngscheme"
                                         formControlName="AC_TYPE" bindLabel="label" title="Compulsory Selection"
                                         (change)="getIntroducer($event)" [ngClass]="{'form-submitted': formSubmitted}"
-                                        required placeholder="{{'uti.Scheme' | translate}}">
+                                        required placeholder="Scheme">
                                         <ng-option *ngFor="let values of allScheme" [value]="values">
                                             {{values.id}} {{values.label}} </ng-option>
                                     </ng-select>
@@ -49,13 +49,13 @@
                                 *ngIf="angForm.controls['AC_TYPE'].invalid && (angForm.controls['AC_TYPE'].dirty || angForm.controls['AC_TYPE'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['AC_TYPE'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="Starting Account">{{'uti.S_Acc' | translate}} <sub
+                        <div class="col-sm-12 col-md-2"><label for="Starting Account">Starting Account <sub
                                     class="required"> *
                                 </sub></label></div>
                         <div class="col-sm-12 col-md-4">
@@ -63,7 +63,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select id="FROM_AC" bindValue="BANKACNO" formControlName="FROM_AC"
                                         bindLabel="label" title="Compulsory Selection" required
-                                        placeholder="{{'uti.S_Acc' | translate}}">
+                                        placeholder="Starting Account">
                                         <ng-option *ngFor="let values of fromAC" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
@@ -74,18 +74,18 @@
                                 *ngIf="angForm.controls['FROM_AC'].invalid && (angForm.controls['FROM_AC'].dirty || angForm.controls['FROM_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['FROM_AC'].errors?.required">
-                                   <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2"> <label for="Ending Account">{{'uti.E_Acc' | translate}}<sub
+                        <div class="col-sm-12 col-md-2"> <label for="Ending Account">Ending Account<sub
                                     class="required"> *
                                 </sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
                                 <span class="border-lable-flt">
                                     <ng-select id="TO_AC" bindValue="BANKACNO" formControlName="TO_AC" bindLabel="label"
-                                        title="Compulsory Selection" required placeholder="{{'uti.E_Acc' | translate}}">
+                                        title="Compulsory Selection" required placeholder="Ending Account">
                                         <ng-option *ngFor="let values of ToAC" [value]="values">
                                             {{values.AC_NO}} {{values.AC_NAME}}</ng-option>
                                     </ng-select>
@@ -96,7 +96,7 @@
                                 *ngIf="angForm.controls['TO_AC'].invalid && (angForm.controls['TO_AC'].dirty || angForm.controls['TO_AC'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['TO_AC'].errors?.required">
-                                    <!-- This field is required -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                         <input type="radio" formControlName="FORM_TYPE" #charges1 name="FORM_TYPE"
                                             value="Service Charges" id="FORM_TYPE" (change)="isForm(1,charges1.value)"
                                             checked>
-                                        <i class="helper"></i>{{'uti.Service_Charges' | translate}}
+                                        <i class="helper"></i>Service Charges
                                     </label>
                                 </div>
                                 <div class="radio radio-inline" *ngIf="showminBalance">
@@ -117,7 +117,7 @@
                                         <input type="radio" value="Minimum Balance Charges" #charges2
                                             formControlName="FORM_TYPE" id="form2" name="FORM_TYPE"
                                             (change)="isForm(2,charges2.value)">
-                                        <i class="helper"></i>{{'uti.Minimum_Balance_Charges' | translate}}
+                                        <i class="helper"></i>Minimum Balance Charges
                                     </label>
                                 </div>
                                 <div class="radio radio-inline" *ngIf="showminBalance">
@@ -125,7 +125,7 @@
                                         <input type="radio" value="Dormant Charges" #charges3
                                             formControlName="FORM_TYPE" id="form3" name="FORM_TYPE"
                                             (change)="isForm(3,charges3.value)">
-                                        <i class="helper"></i>{{'uti.Dormant_Charges' | translate}}
+                                        <i class="helper"></i>Dormant Charges
                                     </label>
                                 </div>
                                 <div class="radio radio-inline">
@@ -133,7 +133,7 @@
                                         <input type="radio" value="Charges Per Entry" #charges4
                                             formControlName="FORM_TYPE" id="form4" name="FORM_TYPE"
                                             (change)="isForm(4,charges4.value)">
-                                        <i class="helper"></i>{{'uti.Charges_Per_Entry' | translate}}
+                                        <i class="helper"></i>Charges Per Entry
                                     </label>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
                                 <div class="row" id="form1" *ngIf="isServiceCharges">
 
 
-                                    <div class="col-sm-12 col-md-2"> <label for="CHARGES_AMT">{{'uti.C_Am' | translate}}<sub
+                                    <div class="col-sm-12 col-md-2"> <label for="CHARGES_AMT">Charges Amount<sub
                                                 class="required">*</sub></label></div>
                                     <div class="col-sm-12 col-md-2">
                                         <div class="form-group input-group">
@@ -165,7 +165,7 @@
                                             class="alert alert-danger">
                                             <div
                                                 *ngIf="angForm.controls['CHARGES_AMT'].errors?.pattern || angForm.controls['CHARGES_AMT'].errors?.required || angForm.controls['CHARGES_AMT'].errors?.maxlength">
-                                               <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
+                                                Input allowed only 0-9 .(after decimal 2 digits)
                                             </div>
                                         </div>
                                     </div>
@@ -174,7 +174,8 @@
                                 <div class="row" id="form2" *ngIf="isMinimumBalanceCharges">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="TRANFROM_DATE">T{{'uti.Transaction_Date' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="TRANFROM_DATE">Transaction Date
+                                                    From<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -194,11 +195,12 @@
                                                     *ngIf="angForm.controls['TRANFROM_DATE'].invalid && (angForm.controls['TRANFROM_DATE'].dirty || angForm.controls['TRANFROM_DATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['TRANFROM_DATE'].errors?.required">
-                                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                                        This field is required.
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-2"> <label for="TRANTO_DATE">{{'uti.Transaction_Date_To' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="TRANTO_DATE">Transaction Date
+                                                    To<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -217,13 +219,14 @@
                                                     *ngIf="angForm.controls['TRANTO_DATE'].invalid && (angForm.controls['TRANTO_DATE'].dirty || angForm.controls['TRANTO_DATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['TRANTO_DATE'].errors?.required">
-                                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                                        This field is required.
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="BALCHARGES_AMT">{{'uti.Charges_Amount' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="BALCHARGES_AMT">Charges
+                                                    Amount<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -244,7 +247,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['BALCHARGES_AMT'].errors?.pattern || angForm.controls['BALCHARGES_AMT'].errors?.required || angForm.controls['BALCHARGES_AMT'].errors?.maxlength">
-                                                       <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
+                                                        Input allowed only 0-9 .(after decimal 2 digits)
                                                     </div>
                                                 </div>
                                             </div>
@@ -257,7 +260,8 @@
                                 <div class="row" id="form3" *ngIf="isDormantCharges">
                                     <div class="col-sm-12">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="DORMANTFROM_DATE">{{'uti.Transaction_Date_From' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="DORMANTFROM_DATE">Transaction
+                                                    Date From<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -278,11 +282,12 @@
                                                     *ngIf="angForm.controls['DORMANTFROM_DATE'].invalid && (angForm.controls['DORMANTFROM_DATE'].dirty || angForm.controls['DORMANTFROM_DATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['DORMANTFROM_DATE'].errors?.required">
-                                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                                        This field is required.
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-2"> <label for="DORMANTTO_DATE">{{'uti.Transaction_Date_To' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="DORMANTTO_DATE">Transaction
+                                                    Date To<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -302,13 +307,14 @@
                                                     *ngIf="angForm.controls['DORMANTTO_DATE'].invalid && (angForm.controls['DORMANTTO_DATE'].dirty || angForm.controls['DORMANTTO_DATE'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['DORMANTTO_DATE'].errors?.required">
-                                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                                        This field is required.
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="DORMANTCHARGES_AMT">{{'uti.Charges_Amount' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="DORMANTCHARGES_AMT">Charges
+                                                    Amount<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -330,7 +336,7 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['DORMANTCHARGES_AMT'].errors?.pattern || angForm.controls['DORMANTCHARGES_AMT'].errors?.required || angForm.controls['DORMANTCHARGES_AMT'].errors?.maxlength">
-                                                       <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
+                                                        Input allowed only 0-9 .(after decimal 2 digits)
                                                     </div>
                                                 </div>
                                             </div>
@@ -343,7 +349,7 @@
                                 </div>
                                 <div class="row" id="form4" *ngIf="isChargesEntry">
                                     <div class="col-sm-12">
-                                        <h6>{{'uti.Transaction_Type' | translate}}</h6>
+                                        <h6>Transaction Type</h6>
                                         <div class="row">
                                             <div class="col-sm">
                                                 <div class="form-radio">
@@ -351,14 +357,14 @@
                                                         <label class="inputRadio">
                                                             <input type="radio" formControlName="BALANCE" name="BALANCE"
                                                                 value="bal1" id="BAL1">
-                                                            <i class="helper"></i>{{'uti.Charges_Per_Entry' | translate}}
+                                                            <i class="helper"></i>Minimum Balance
                                                         </label>
                                                     </div>
                                                     <div class="radio radio-inline">
                                                         <label class="inputRadio">
                                                             <input type="radio" formControlName="BALANCE" name="BALANCE"
                                                                 value="bal2" id="BAL2">
-                                                            <i class="helper"></i>{{'uti.Max_Balance' | translate}}
+                                                            <i class="helper"></i>Maximum Balance
                                                         </label>
                                                     </div>
                                                 </div>
@@ -366,7 +372,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="BAL_AMT">{{'uti.Balance_A' | translate}}<sub
+                                            <div class="col-sm-12 col-md-2"> <label for="BAL_AMT">Balance Amount<sub
                                                         class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
@@ -387,12 +393,13 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['BAL_AMT'].errors?.pattern || angForm.controls['BAL_AMT'].errors?.required || angForm.controls['BAL_AMT'].errors?.maxlength">
-                                                       <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
+                                                        Input allowed only 0-9 .(after decimal 2 digits)
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12 col-md-2"> <label for="ENTRY_CHARGES">{{'uti.Per_Entry_Charges' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="ENTRY_CHARGES">Per Entry
+                                                    Charges<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -413,14 +420,15 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['ENTRY_CHARGES'].errors?.pattern || angForm.controls['ENTRY_CHARGES'].errors?.required || angForm.controls['ENTRY_CHARGES'].errors?.maxlength">
-                                                       <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
+                                                        Input allowed only 0-9 .(after decimal 2 digits)
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="MIN_CHARGES">{{'uti.Minimum_Charges' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="MIN_CHARGES">Minimum
+                                                    Charges<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -440,13 +448,14 @@
                                                     class="alert alert-danger">
                                                     <div
                                                         *ngIf="angForm.controls['MIN_CHARGES'].errors?.pattern || angForm.controls['MIN_CHARGES'].errors?.required || angForm.controls['MIN_CHARGES'].errors?.maxlength">
-                                                       <!-- Input allowed only 0-9 .(after decimal 2 digits) -->{{'Utility.Validation.Val_Pin_Code' | translate}}
+                                                        Input allowed only 0-9 .(after decimal 2 digits)
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-2"> <label for="TRAN_PERIOD">{{'uti.Transaction_Period_From' | translate}}<sub class="required">*</sub></label></div>
+                                            <div class="col-sm-12 col-md-2"> <label for="TRAN_PERIOD">Transaction
+                                                    Period From<sub class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
                                                     <span class="border-lable-flt">
@@ -465,11 +474,11 @@
                                                     *ngIf="angForm.controls['TRAN_PERIOD'].invalid && (angForm.controls['TRAN_PERIOD'].dirty || angForm.controls['TRAN_PERIOD'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['TRAN_PERIOD'].errors?.required">
-                                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                                        This field is required.
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-1"> <label for="TRANPERIOD_TO">{{'uti.Charges_Per_Entry' | translate}}<sub
+                                            <div class="col-sm-12 col-md-1"> <label for="TRANPERIOD_TO">To<sub
                                                         class="required">*</sub></label></div>
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group input-group">
@@ -490,7 +499,7 @@
                                                     *ngIf="angForm.controls['TRANPERIOD_TO'].invalid && (angForm.controls['TRANPERIOD_TO'].dirty || angForm.controls['TRANPERIOD_TO'].touched)"
                                                     class="alert alert-danger">
                                                     <div *ngIf="angForm.controls['TRANPERIOD_TO'].errors?.required">
-                                                        <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                                        This field is required.
                                                     </div>
                                                 </div>
                                             </div>
@@ -504,21 +513,21 @@
                                                                 <label class="inputRadio">
                                                                     <input type="radio" formControlName="TYPE"
                                                                         name="TYPE" value="D" id="TYPE1">
-                                                                    <i class="helper"></i>{{'uti.Debit' | translate}}
+                                                                    <i class="helper"></i>Debit
                                                                 </label>
                                                             </div>
                                                             <div class="radio radio-inline">
                                                                 <label class="inputRadio">
                                                                     <input type="radio" formControlName="TYPE"
                                                                         name="TYPE" value="C" id="TYPE2">
-                                                                    <i class="helper"></i>{{'uti.Credit' | translate}}
+                                                                    <i class="helper"></i>Credit
                                                                 </label>
                                                             </div>
                                                             <div class="radio radio-inline">
                                                                 <label class="inputRadio">
                                                                     <input type="radio" formControlName="TYPE"
                                                                         name="TYPE" value="type3" id="TYPE3">
-                                                                    <i class="helper"></i>{{'uti.All' | translate}}
+                                                                    <i class="helper"></i>All
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -532,7 +541,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-4"> <label for="GL_ACNO">{{'uti.Charges_c_GL_Acc_Num' | translate}}<sub
+                        <div class="col-sm-12 col-md-4"> <label for="GL_ACNO">Charges credit to GL Account Number<sub
                                     class="required">*</sub></label></div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-group form-primary form-static-label">
@@ -549,13 +558,13 @@
                                 *ngIf="angForm.controls['GL_ACNO'].invalid && (angForm.controls['GL_ACNO'].dirty || angForm.controls['GL_ACNO'].touched)"
                                 class="alert alert-danger">
                                 <div *ngIf="angForm.controls['GL_ACNO'].errors?.required">
-                                    <!-- This field is required. -->{{'Utility.Validation.Val1' | translate}}
+                                    This field is required.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 col-md-2"><label for="PARTICULAR">{{'uti.Particulars' | translate}}</label></div>
+                        <div class="col-sm-12 col-md-2"><label for="PARTICULAR">Particulars</label></div>
                         <div class="col-md-4">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
@@ -583,7 +592,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <button class="btn btn-outline-primary btn-sm" (click)="Posting()">{{'uti.Posting' | translate}}</button>
+                            <button class="btn btn-outline-primary btn-sm" (click)="Posting()">Posting</button>
                         </div>
                     </div>
                 </div>

@@ -8,10 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
-import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
+
 
 @NgModule({
   declarations: [KYCDocumentComponent],
@@ -25,18 +22,7 @@ import { SystemMasterParametersService } from '../../utility/scheme-parameters/s
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
-    TranslateModule.forRoot({
-      loader:{
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps:[HttpClient]
-      }
-    })
-  ],
-  providers: [ SystemMasterParametersService,]
-
+   
+  ]
 })
 export class KYCDocumentModule { }
-export function HttpLoaderFactory(http:HttpClient){
-  return new TranslateHttpLoader(http);
-}

@@ -56,15 +56,16 @@
                                                     {{'master.Voucher_Entry.Cash' | translate}} <!-- Cash  -->
                                                 </label>
                                             </div>
-                                            <div class="radio radio-inline">
+                                            <div *ngIf="isRadioVisible" class="radio radio-inline">
                                                 <label class="inputRadio">
-                                                    <input type="radio" name="type" value="transfer"
-                                                        formControlName="type" (change)="transactionMode('transfer')">
-                                                    <i class="helper"></i>
-                                                    {{'master.Voucher_Entry.Transfer' | translate}}   <!-- Transfer -->
-                                                 </label>
-                                            </div>
+                                                  <input type="radio" name="type" value="transfer" formControlName="type" (change)="transactionMode('transfer')">
+                                                  <i class="helper"></i>
+                                                  {{'master.Voucher_Entry.Transfer' | translate}}   <!-- Transfer -->
+
+                                                </label>
+                                              </div>
                                         </div>
+                                        
                                     </div>
                                     <div class="col-sm-12 col-md-1"> <label for="date">
                                         {{'master.Voucher_Entry.Date' | translate}}    <!-- Date -->
@@ -266,9 +267,9 @@
                                                 <span class="border-lable-flt">
                                                     <input type="text" name="ChequeNo" class="form-control"
                                                         placeholder=" " id="ChequeNo" value=""
-                                                        style="text-transform: capitalize;"
+                                                        style="text-transform: uppercase;"
                                                         title="Input allowed only  A-Z a-z 0-9 - / . (Space)"
-                                                        (keyup)="chequeNoData($event)" formControlName="chequeNo"
+                                                        (focusout)="chequeNoData($event)" formControlName="chequeNo"  
                                                         maxlength="10">
                                                 </span>
                                             </div>
@@ -809,7 +810,7 @@
                             </div>
                             <div class="col-md">
                                 <!-- Cleared Balance -->
-                                <!-- <div class="transaction-item">
+                                <div class="transaction-item">
                                     <div class="d-flex">
                                         <div class="avatar bg-light-success rounded float-start">
                                             <div class="avatar-content">
@@ -827,7 +828,7 @@
                                     <div class="fw-bolder transaction-title text-success"
                                         style="margin-left: auto;order: 2;font-size: 15px;"><i class="fa fa-inr"
                                             aria-hidden="true"></i> {{ClearBalance}} {{typeclearbal}}</div>
-                                </div> -->
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="transaction-item">

@@ -43,6 +43,9 @@ export class VoucherEntryComponent implements OnInit {
   // @ViewChild('tran_mode') tran_mode: ElementRef;
   @ViewChild('tran_mode') tran_mode: NgSelectComponent;
   @ViewChild('myDiv') myDiv: ElementRef;
+  @Input() isRadioVisible: boolean = true; // accept denomination
+  @Input() istranModeShow: boolean = false; // accept denomination
+
 
   iframe5url: any = '';
   report_url = environment.report_url;
@@ -453,8 +456,25 @@ export class VoucherEntryComponent implements OnInit {
 
     let object = this.TranData.find(t => t.key === this.selectedCode);
     //debugger
-    if (this.type == 'cash') {
+    // accept denomination 1st if condition tran mode 1,2
+    if (this.istranModeShow) {
+      if (this.type == 'cash') {
+          this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+      }
+    }
+    else if (this.type == 'cash') {
+
       this.tranModeList = [];
+
+      // object.data.cash.forEach(ele => {
+      //   let obj1 = this.TranModeCash.find(t => t.tran_drcr === 'C');
+      //   this.tranModeList.push(obj1);
+      // })
+
+      //accept denomination code
+
+
+
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
@@ -511,7 +531,13 @@ export class VoucherEntryComponent implements OnInit {
       //debugger
       this.DayOpBal = Math.abs(data);
       let object = this.TranData.find(t => t.key === this.selectedCode);
-      if (this.type == 'cash') {
+     // accept denomination 1st if condition tran mode 1,2
+      if (this.istranModeShow) {
+        if (this.type == 'cash') {
+            this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+        }
+      }
+      else if (this.type == 'cash') {
         this.tranModeList = [];
         object.data.cash.forEach(ele => {
           let obj = this.TranModeCash.find(t => t.id === ele);
@@ -575,7 +601,7 @@ export class VoucherEntryComponent implements OnInit {
       this.angForm.markAllAsTouched();
     }
     else if (this.submitTranMode.tran_drcr == 'D' && this.angForm.controls['type'].value == 'cash' && this.selectedCode != 'GL' && (this.angForm.controls['token'].value == 0 || this.angForm.controls['token'].value == null || this.angForm.controls['token'].value == '')) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Token')}`, 'warning')
+      Swal.fire('warning', 'Please enter token number', 'warning')
     }
     // else if (Number(this.angForm.controls['amt'].value) == 0) {
     //   Swal.fire('Oops!', 'Amount cannot be 0', 'error');
@@ -613,7 +639,7 @@ export class VoucherEntryComponent implements OnInit {
           // Swal.fire('Success!', 'Voucher update Successfully !', 'success');
           Swal.fire({
             icon: 'success',
-            title: `${this.translate.instant('Swal_Msg.S4')}`,
+            title: 'Voucher update Successfully!',
             html:
               '<b>Please Note Down Voucher Number : </b>' + data.TRAN_NO + '<br>',
             showCancelButton: true, //true
@@ -678,7 +704,7 @@ export class VoucherEntryComponent implements OnInit {
       } else {
         this.swiper.nativeElement.focus()
         this.disableSubmit = false
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg')}`, 'error');
+        Swal.fire('Oops!', 'Invalid Amount Details', 'error');
       }
     }
   }
@@ -1247,8 +1273,14 @@ export class VoucherEntryComponent implements OnInit {
       this.DayOpBal = Number(this.DayOpBal).toFixed(2)
       let object = this.TranData.find(t => t.key === this.selectedCode);
       //debugger
-      if (this.type == 'cash') {
-        this.tranModeList = [];
+   // accept denomination 1st if condition tran mode 1,2
+   if (this.istranModeShow) {
+    if (this.type == 'cash') {
+        this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+    }
+  }
+  else if (this.type == 'cash') {
+            this.tranModeList = [];
         object.data.cash.forEach(ele => {
           let obj = this.TranModeCash.find(t => t.id === ele);
           this.tranModeList.push(obj);
@@ -1299,7 +1331,7 @@ export class VoucherEntryComponent implements OnInit {
       else
         this.NOTINTAMT.nativeElement.focus();
       this.submitForm = true
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.S9')}`, 'info')
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
     else {
       if (this.headData[i].IS_GLBAL_MAINTAIN == '1' && Number(this.headData[i].Balance) != 0 && Number(this.headData[i].Balance) != Number(ele.target.value)) {
@@ -1309,7 +1341,7 @@ export class VoucherEntryComponent implements OnInit {
         else
           this.NOTINTAMT.nativeElement.focus();
         this.submitForm = true
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.S10')} ${this.headData[i].Balance}`, 'error');
+        Swal.fire('Oops!', `Amount Must Be Equal to ${this.headData[i].Balance}`, 'error');
       }
       else {
         if (Number(this.headData[i].Amount) != 0)
@@ -1336,11 +1368,11 @@ export class VoucherEntryComponent implements OnInit {
     if (data.FIELD_AMOUNT != 'PENAL_INT_AMOUNT') {
       if ((this.submitTranMode.id == 5 || this.submitTranMode.id == 2) && Number(data.Balance) != 0 && Number(value)) {
         this.headData[i].Amount = 0
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Please_Fill')}` + data.DESCRIPTION + `${this.translate.instant('master.Deposite_size_Wise_Balance')}`, 'error')
+        Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
       } else {
         if (data.CHECK_REQUIRE == '1' && Number(value) != Number(data.Balance)) {
           this.headData[i].Amount = 0
-          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.Please_Fill')}` + data.DESCRIPTION + `${this.translate.instant('master.Deposite_size_Wise_Balance')}`, 'error')
+          Swal.fire('Oops', 'Please Fill ' + data.DESCRIPTION + ' Amount', 'error')
         }
       }
 
@@ -1350,9 +1382,31 @@ export class VoucherEntryComponent implements OnInit {
   //cheque no captial functionOops
   chequeNoData(event) {
     //debugger
-    this.angForm.patchValue({
-      chequeNo: event.target.value.toUpperCase()
-    })
+    // this.angForm.patchValue({
+    //   chequeNo: event.target.value.toUpperCase()
+    // })
+
+    let chequeNoEntered = event.target.value.trim().toUpperCase();
+    if (chequeNoEntered) {
+      setTimeout(() => {
+      let userData: any = localStorage.getItem('user');
+      let userResult = JSON.parse(userData);
+
+      this._service.getCheckList(userResult.branch.id).subscribe((chequeList) => {
+        let duplicateCheque = chequeList.find(t => t.CHEQUE_NO == Number(chequeNoEntered));
+        if (duplicateCheque) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Given Cheque Number Already Exist!',
+            // text: 'The cheque number entered is already in use.',
+            showConfirmButton: true,
+          });
+          event.target.value = '';
+        }
+       
+      });
+    }, 500);
+    }
   }
 
   extenstionaftervoucher = ''
@@ -1417,7 +1471,7 @@ export class VoucherEntryComponent implements OnInit {
   //decimal content show purpose wrote below function
   decimalAllContent($event) {
     if (this.submitTranMode == undefined) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg1')}`, 'error');
+      Swal.fire('Oops', 'Please First Select Tran Mode then enter Amount', 'error');
       this.tran_mode.focus()
       let value = Number($event);
       this.totalAmt = 0;
@@ -1462,7 +1516,7 @@ export class VoucherEntryComponent implements OnInit {
         total_amt: 0.00,
         amt: 0.00
       })
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, `${this.translate.instant('Swal_Msg.O_Msg1')}`, 'error');
+      Swal.fire('Oops!', `Access Denied, Amount Can't Be Withdraw More Than Rs. ${sancAmt}`, 'error');
       this.swiper.nativeElement.focus();
       this.submitForm = true
       this.angForm.patchValue({
@@ -1489,7 +1543,7 @@ export class VoucherEntryComponent implements OnInit {
     }
     if (Number(obj.value) >= 20000 && this.submitTranMode.tran_type == 'CS') {
       Swal.fire({
-        title: `${this.translate.instant('Sure.)')}`,
+        title: 'Are you sure?',
         html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1513,7 +1567,7 @@ export class VoucherEntryComponent implements OnInit {
     }
     if (Number(obj.value) >= 50000 && this.submitTranMode.tran_type == 'CS') {
       Swal.fire({
-        title: `${this.translate.instant('Sure.)')}`,
+        title: 'Are you sure?',
         html: '<span style="text-justify: inter-word;">If you want to countinue please click Yes button but This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1536,7 +1590,7 @@ export class VoucherEntryComponent implements OnInit {
       })
     } if (Number(obj.value) >= 200000 && this.submitTranMode.tran_type == 'CS') {
       Swal.fire({
-        title: `${this.translate.instant('Sure.)')}`,
+        title: 'Are you sure?',
         html: '<span style="text-justify: inter-word;">The government has banned cash transactions of Rs 2 lakh or more from April 1, 2017, through the Finance Act 2017.The newly inserted section 269ST in the Income Tax Act bans such cash dealings on a single day, in respect of a single transaction or transactions relating to one event or occasion from an individual. Contravention  of Section 269ST would entail levy of 100 percent penalty on receiver of the amount the tax department said in a public advertisement in leading dailies. This transaction make on your own risk</span>',
         icon: 'warning',
         showCancelButton: true,
@@ -1584,7 +1638,7 @@ export class VoucherEntryComponent implements OnInit {
         this.angForm.controls['amt'].reset();
         this.swiper.nativeElement.focus();
         this.angForm.controls['total_amt'].reset(0);
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         // this.submitForm = true
         this.modalClass = 'modalHide';
       } else {
@@ -1593,7 +1647,7 @@ export class VoucherEntryComponent implements OnInit {
             this.angForm.controls['amt'].reset();
             this.swiper.nativeElement.focus();
             this.angForm.controls['total_amt'].reset(0);
-            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
             // this.submitForm = true
             this.modalClass = 'modalHide';
           } else {
@@ -1628,7 +1682,7 @@ export class VoucherEntryComponent implements OnInit {
                     this.angForm.controls['amt'].reset();
                     this.angForm.controls['total_amt'].reset(0);
                     this.swiper.nativeElement.focus();
-                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     // this.submitForm = true
                     this.modalClass = 'modalHide';
                   } else {
@@ -1639,7 +1693,7 @@ export class VoucherEntryComponent implements OnInit {
                         this.angForm.controls['amt'].reset();
                         this.angForm.controls['total_amt'].reset(0);
                         this.swiper.nativeElement.focus();
-                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                        Swal.fire('Oops!', data.message, 'error');
                         // this.submitForm = true
                         this.modalClass = 'modalHide';
                       } else {
@@ -1650,7 +1704,7 @@ export class VoucherEntryComponent implements OnInit {
                             this.angForm.controls['amt'].reset();
                             this.angForm.controls['total_amt'].reset(0);
                             this.swiper.nativeElement.focus();
-                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                             // this.submitForm = true
                             this.modalClass = 'modalHide';
                           } else {
@@ -1662,7 +1716,7 @@ export class VoucherEntryComponent implements OnInit {
                                 this.angForm.controls['total_amt'].reset(0);
                                 this.swiper.nativeElement.focus();
                                 let el: HTMLElement = this.focusbutton.nativeElement;
-                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                Swal.fire('Oops!', data.message, 'error');
                                 // this.submitForm = true
                                 this.modalClass = 'modalHide';
                               } else {
@@ -1673,7 +1727,7 @@ export class VoucherEntryComponent implements OnInit {
                                     this.angForm.controls['amt'].reset();
                                     this.angForm.controls['total_amt'].reset(0);
                                     this.swiper.nativeElement.focus();
-                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                    Swal.fire('Oops!', data.message, 'error');
                                     // this.submitForm = true
                                     this.modalClass = 'modalHide';
                                   } else {
@@ -1684,7 +1738,7 @@ export class VoucherEntryComponent implements OnInit {
                                         this.angForm.controls['amt'].reset();
                                         this.angForm.controls['total_amt'].reset(0);
                                         this.swiper.nativeElement.focus();
-                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                        Swal.fire('Oops!', data.message, 'error');
                                         // this.submitForm = true
                                         this.modalClass = 'modalHide';
                                       } else {
@@ -1696,7 +1750,7 @@ export class VoucherEntryComponent implements OnInit {
                                             this.angForm.controls['total_amt'].reset(0);
                                             this.swiper.nativeElement.focus();
                                             // let el: HTMLElement = this.focusbutton.nativeElement;
-                                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                            Swal.fire('Oops!', data.message, 'error');
                                             // this.submitForm = true
                                             this.modalClass = 'modalHide';
                                           } else {
@@ -1708,7 +1762,7 @@ export class VoucherEntryComponent implements OnInit {
                                                 this.angForm.controls['total_amt'].reset(0);
                                                 this.swiper.nativeElement.focus();
                                                 let el: HTMLElement = this.focusbutton.nativeElement;
-                                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                Swal.fire('Oops!', data.message, 'error');
                                                 // this.submitForm = true
                                                 this.modalClass = 'modalHide';
                                               } else {
@@ -1720,7 +1774,7 @@ export class VoucherEntryComponent implements OnInit {
                                                     this.angForm.controls['total_amt'].reset(0);
                                                     this.swiper.nativeElement.focus();
                                                     let el: HTMLElement = this.focusbutton.nativeElement;
-                                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                    Swal.fire('Oops!', data.message, 'error');
                                                     // this.submitForm = true
                                                     this.modalClass = 'modalHide';
                                                   } else {
@@ -1731,7 +1785,7 @@ export class VoucherEntryComponent implements OnInit {
                                                         this.angForm.controls['amt'].reset();
                                                         this.angForm.controls['total_amt'].reset(0);
                                                         this.swiper.nativeElement.focus();
-                                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                        Swal.fire('Oops!', data.message, 'error');
                                                         // this.submitForm = true
                                                         this.modalClass = 'modalHide';
                                                       } else {
@@ -1743,7 +1797,7 @@ export class VoucherEntryComponent implements OnInit {
                                                             this.angForm.controls['total_amt'].reset(0);
                                                             this.swiper.nativeElement.focus();
                                                             let el: HTMLElement = this.focusbutton.nativeElement;
-                                                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                            Swal.fire('Oops!', data.message, 'error');
                                                             // this.submitForm = true
                                                             this.modalClass = 'modalHide';
                                                           } else {
@@ -1755,7 +1809,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                 this.angForm.controls['total_amt'].reset(0);
                                                                 this.swiper.nativeElement.focus();
                                                                 let el: HTMLElement = this.focusbutton.nativeElement;
-                                                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                Swal.fire('Oops!', data.message, 'error');
                                                                 // this.submitForm = true
                                                                 this.modalClass = 'modalHide';
                                                               } else {
@@ -1767,7 +1821,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                     this.angForm.controls['total_amt'].reset(0);
                                                                     this.swiper.nativeElement.focus();
                                                                     let el: HTMLElement = this.focusbutton.nativeElement;
-                                                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                     // this.submitForm = true
                                                                     this.modalClass = 'modalHide';
                                                                   } else {
@@ -1778,7 +1832,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                         this.angForm.controls['amt'].reset();
                                                                         this.angForm.controls['total_amt'].reset(0);
                                                                         this.swiper.nativeElement.focus();
-                                                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                         // this.submitForm = true
                                                                         this.modalClass = 'modalHide';
                                                                       } else {
@@ -1789,7 +1843,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                             this.angForm.controls['amt'].reset();
                                                                             this.angForm.controls['total_amt'].reset(0);
                                                                             this.swiper.nativeElement.focus();
-                                                                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                            Swal.fire('Oops!', data.message, 'error');
                                                                             // this.submitForm = true
                                                                             this.modalClass = 'modalHide';
                                                                           } else {
@@ -1800,7 +1854,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                                 this.angForm.controls['amt'].reset();
                                                                                 this.angForm.controls['total_amt'].reset(0);
                                                                                 this.swiper.nativeElement.focus();
-                                                                                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                Swal.fire('Oops!', data.message, 'error');
                                                                                 // this.submitForm = true
                                                                                 this.modalClass = 'modalHide';
                                                                               } else {
@@ -1811,7 +1865,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                                     this.angForm.controls['amt'].reset();
                                                                                     this.angForm.controls['total_amt'].reset(0);
                                                                                     this.swiper.nativeElement.focus();
-                                                                                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                    Swal.fire('Oops!', data.message, 'error');
                                                                                     // this.submitForm = true
                                                                                     this.modalClass = 'modalHide';
                                                                                   } else {
@@ -1823,7 +1877,7 @@ export class VoucherEntryComponent implements OnInit {
                                                                                         this.angForm.controls['total_amt'].reset(0);
                                                                                         // this.tran_mode.nativeElement.focus()
                                                                                         this.tran_mode.focus()
-                                                                                        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                                                                                        Swal.fire('Oops!', data.message, 'error');
                                                                                         // this.submitForm = true
                                                                                         this.modalClass = 'modalHide';
                                                                                       }
@@ -1940,7 +1994,7 @@ export class VoucherEntryComponent implements OnInit {
 
     this._service.CheckAccountCloseFlagInDailytran(obj).subscribe(data => {
       if (data != 0) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
         this.selectedAccountno = null;
         this.showlgindetails()
       } else {
@@ -1954,7 +2008,7 @@ export class VoucherEntryComponent implements OnInit {
               this.selectedAccountno = tempacno
             }
             Swal.fire({
-              title: `${this.translate.instant('Swal_Msg.Warning')}`,
+              title: 'Warning',
               icon: 'warning',
               html:
                 data.message + '<br>' +
@@ -1964,14 +2018,14 @@ export class VoucherEntryComponent implements OnInit {
           } else {
             this._service.CheckLoginFlagInDpmaster(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
                 this.selectedAccountno = null
                 this.showlgindetails()
 
               } else {
                 this._service.checkDormantAccount(obj).subscribe(data => {
                   if (data != 0) {
-                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                     this.selectedAccountno = null
                     this.showlgindetails()
 
@@ -1979,7 +2033,7 @@ export class VoucherEntryComponent implements OnInit {
                     this._service.InstructionFreezeAc(obj).subscribe(data => {
                       if (data != 0) {
                         Swal.fire({
-                          title: `${this.translate.instant('Swal_Msg.Sure')}`,
+                          title: 'Are you sure?',
                           text: data.message,
                           icon: 'warning',
                           showCancelButton: true,
@@ -1997,7 +2051,7 @@ export class VoucherEntryComponent implements OnInit {
                       } else {
                         this._service.IsDirectEntryAllow(obj).subscribe(data => {
                           if (data != 0) {
-                            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                            Swal.fire('Oops!', data.message, 'error');
                             this.selectedAccountno = null
                             this.selectedMode = null
                           }
@@ -2076,28 +2130,28 @@ export class VoucherEntryComponent implements OnInit {
         this.selectedMode = null
         // this.submitForm = true
         this.modalClass = 'modalHide';
-        Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+        Swal.fire('Oops!', data.message, 'error');
       } else {
         this._service.VoucherPassing(obj).subscribe(data => {
           if (data != 0) {
             this.selectedMode = null
             // this.submitForm = true
             this.modalClass = 'modalHide';
-            Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+            Swal.fire('Oops!', data.message, 'error');
           } else {
             this._service.LienMarkChecking(obj).subscribe(data => {
               if (data != 0) {
                 this.selectedMode = null
                 // this.submitForm = true
                 this.modalClass = 'modalHide';
-                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
               } else {
                 this._service.RecurringTypeDeposite(obj).subscribe(data => {
                   if (data != 0) {
                     this.selectedMode = null
                     // this.submitForm = true
                     this.modalClass = 'modalHide';
-                    Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                    Swal.fire('Oops!', data.message, 'error');
                   }
                 }, err => {
                   console.log(err);
@@ -2132,12 +2186,12 @@ export class VoucherEntryComponent implements OnInit {
       this.updateheadbalance(date)
       this._service.ComInterestDateAndCurrentDate(obj).subscribe(data => {
         if (data != 0) {
-          Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+          Swal.fire('Oops!', data.message, 'error');
           this.angForm.controls['Intdate'].reset()
         } else {
           this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
             if (data != 0) {
-              Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+              Swal.fire('Oops!', data.message, 'error');
             }
           }, err => {
             console.log(err);
@@ -2160,7 +2214,7 @@ export class VoucherEntryComponent implements OnInit {
             Swal.fire({
               // position: 'top-end',
               icon: 'warning',
-              title: `${this.translate.instant('Swal_Msg.S5')}`,
+              title: 'Token number in use',
               showConfirmButton: false,
               timer: 1000
             })
@@ -2182,7 +2236,7 @@ export class VoucherEntryComponent implements OnInit {
             }
             this._service.ComInterestDateAndLastDMonth(obj).subscribe(data => {
               if (data != 0) {
-                Swal.fire(`${this.translate.instant('Swal_Msg.Oops')}`, data.message, 'error');
+                Swal.fire('Oops!', data.message, 'error');
               }
             }, err => {
               console.log(err);
@@ -2195,7 +2249,7 @@ export class VoucherEntryComponent implements OnInit {
         Swal.fire({
           // position: 'top-end',
           icon: 'warning',
-          title: `${this.translate.instant('Swal_Msg.Token')}`,
+          title: 'Please enter token number',
           showConfirmButton: false,
           timer: 1000
         })
@@ -2240,8 +2294,14 @@ export class VoucherEntryComponent implements OnInit {
   }
   getTranMode() {
     let object = this.TranData.find(t => t.key === this.selectedCode);
-    if (this.type == 'cash') {
-      this.tranModeList = [];
+ // accept denomination 1st if condition tran mode 1,2
+ if (this.istranModeShow) {
+  if (this.type == 'cash') {
+      this.tranModeList = this.TranModeCash.filter(item => item.id === 1 || item.id === 2)
+  }
+}
+else if (this.type == 'cash') {
+        this.tranModeList = [];
       object.data.cash.forEach(ele => {
         let obj = this.TranModeCash.find(t => t.id === ele);
         this.tranModeList.push(obj);
@@ -2587,8 +2647,8 @@ export class VoucherEntryComponent implements OnInit {
     }
     this._service.approve(obj).subscribe(data => {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Approve')}`,
-        `${this.translate.instant('Swal_Msg.S6')}`,
+        'Approved',
+        'Voucher approved successfully',
         'success'
       );
       var button = document.getElementById('trigger');
@@ -2607,8 +2667,8 @@ export class VoucherEntryComponent implements OnInit {
     }
     this._service.reject(obj).subscribe(data => {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Reject')}`,
-        `${this.translate.instant('Swal_Msg.S7')}`,
+        'Rejected',
+        'Voucher rejected successfully',
         'success'
       );
       var button = document.getElementById('trigger');
@@ -2630,8 +2690,8 @@ export class VoucherEntryComponent implements OnInit {
     }
     this._service.unapporveVoucher(obj).subscribe(data => {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Unapporove')}`,
-        `${this.translate.instant('Swal_Msg.S8')}`,
+        'Unapproved',
+        'Voucher unapproved successfully',
         'success'
       );
       var button = document.getElementById('trigger');
@@ -2835,7 +2895,7 @@ export class VoucherEntryComponent implements OnInit {
       else
         this.NOTINTAMT.nativeElement.focus();
       // this.submitForm = true
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.S9')}`, 'info')
+      Swal.fire('Info', 'Please fill proper amount!', 'info')
     }
   }
   branchCODE

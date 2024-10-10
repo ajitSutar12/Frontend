@@ -250,7 +250,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
       'CUST_INSURANCE': (formVal.CUST_INSURANCE == true ? '1' : '0'),
     }
     this.securityCodeService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
@@ -274,7 +274,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     if (ele.target.value <= 100) {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit100')}`, "error");
+      Swal.fire("Invalid Input", "Please insert values below 100", "error");
       ele.target.value = 0 
 
     }
@@ -323,14 +323,12 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //Method for append data into fields
   editClickHandler(id) {
-
     this.showButton = false;
     this.updateShow = true;
     this.newbtnShow = true;
     this.securityCodeService.getFormData(id).subscribe(data => {
       this.updateID = data.id;
       this.angForm.setValue({
-
         'SECU_CODE': data.SECU_CODE,
         'SECU_NAME': data.SECU_NAME,
         'MARGIN': data.MARGIN,
@@ -371,7 +369,7 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
     data['PLANT_MACHINARY'] = (data.PLANT_MACHINARY == true ? '1' : '0')
     data['FIRE_POLICY'] = (data.FIRE_POLICY == true ? '1' : '0')
     this.securityCodeService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -389,8 +387,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Bank_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete bank master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -401,8 +399,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.securityCodeService.deleteData(id).subscribe(data1 => {
           this.securityCode = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -413,8 +411,8 @@ export class SecurityCodeComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }

@@ -23,16 +23,14 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrls: ['./bnk-expect-int-instruct-credit.component.scss']
 })
 export class BnkExpectIntInstructCreditComponent implements OnInit {
-  iframe1url: any = '';
+  iframe5url: any = '';
   clicked: boolean = false;
   // Date variables
-
   date: any = null
   maxDate: Date;
   minDate: Date;
   bsValue = new Date();
   formSubmitted = false;
-
   showRepo: boolean = false;
   // Created Form Group
   angForm: FormGroup;
@@ -42,23 +40,14 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   //Dropdown option variable
   ngbranch
   branchOption: any;
-
-  //for Status
-  selectedType
-  Types = [
-    { id: 1, name: "S", value: "Success" },
-    { id: 2, name: "F", value: "Failure" },
-  ];
-
-
   //for frequency
   selectedFrequency
   SortingFrequency = [
-    { id: 1, name: "Monthly" },
-    { id: 2, name: "Querterly" },
-    { id: 3, name: "Fixed Querterly" },
-    { id: 4, name: "Half Yearly" },
-    { id: 5, name: "None" },
+    { id: 1, name: "Monthly",value:"M" },
+    { id: 2, name: "Querterly" ,value:"Q"},
+    { id: 3, name: "Fixed Querterly",value:"F" },
+    { id: 4, name: "Half Yearly" ,value:"H"},
+    { id: 5, name: "Days" ,value:"H"},
   ];
   setLang: any;
 
@@ -78,7 +67,6 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     this.minDate.setDate(this.minDate.getDate() - 1);
     this.maxDate.setDate(this.maxDate.getDate())
   }
-
   ngOnInit(): void {
     this.createForm();
     this._ownbranchmasterservice.getOwnbranchList().pipe(first()).subscribe(data => {
@@ -107,10 +95,10 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   createForm() {
     this.angForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.required]],
-      STATUS: ["", [Validators.required]],
       Date: ["", [Validators.required]],
       FREQUENCY: ["", [Validators.required]],
-      NEWPAGE: [""],
+      NEWPAGE: [''],
+      Scroll_Type:['']
     });
   }
   src: any;
@@ -118,38 +106,29 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     window.scrollTo({ top: 200, behavior: 'smooth' });
   }
   view(event) {
-
     event.preventDefault();
     this.formSubmitted = true;
-
     let userData = JSON.parse(localStorage.getItem('user'));
     let bankName = userData.branch.syspara.BANK_NAME;
     let branchName = userData.branch.NAME;
 
     if (this.angForm.valid) {
-
-      // this.showRepo = true;
+      this.showRepo = true;
       let obj = this.angForm.value
-      // let date = this.date;
-
-      let date: any;
-      if (this.date == obj.Date) {
-        date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      } else {
-        date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      };
-
-      let status = obj.STATUS;
+      // let date: any;
+      // if (this.date == obj.Date) {
+      //   date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      // } else {
+      //   date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      // };
       let branch = obj.BRANCH_CODE;
       let frequency = obj.FREQUENCY;
-      let PrintClosedAccounts = obj.Print_Closed_Accounts;
-
-
-      this.iframe1url = this.report_url + "examples/InterestExecutionListCredit.php?date='" + date + "'&status='" + status + "'&branch='" + branch + "'&PrintClosedAccounts='" + PrintClosedAccounts + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+     let scrolltype=obj.Scroll_Type
+      this.iframe5url = this.report_url + "examples/InterestExecutionListCredit.php?date='" + this.date +  "'&branch='" + branch + "'&frequency='" + frequency + "'&bankName='" + bankName + "'&scrolltype='" + scrolltype +"'&branchName='" + branchName +"' ";
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }
@@ -160,7 +139,7 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
 
   resetForm() {
     // this.createForm()
-    this.angForm.controls.STATUS.reset();
+    
     this.angForm.controls.FREQUENCY.reset();
     this.showRepo = false;
     this.clicked = false;

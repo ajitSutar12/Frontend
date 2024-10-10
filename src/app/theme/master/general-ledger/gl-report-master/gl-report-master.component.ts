@@ -307,7 +307,7 @@ export class GlReportMasterComponent implements OnInit {
       sno: ['', Validators.required],
       tno: ['', Validators.required],
       CODE: ['',],
-      CODE1: ['',],
+      // CODE1: ['',],
       AltCode: ['',],
       HOcode1: ['',],
       HOcode2: ['',],
@@ -592,7 +592,7 @@ export class GlReportMasterComponent implements OnInit {
     else if (this.Btn3) {
       this.dataToSend = {
         REPORT_TYPE: 'CRAR',
-        CODE: formVal.CODE1,
+        CODE: formVal.CODE,
         NAME: formVal.NAME,
         FIRST_SRNO: formVal.fno,
         Second_NO: formVal.sno,
@@ -642,7 +642,7 @@ export class GlReportMasterComponent implements OnInit {
     else if (this.Btn6) {
       this.dataToSend = {
         REPORT_TYPE: 'CRR',
-        CODE: formVal.CODE1,
+        CODE: formVal.CODE,
         NAME: formVal.NAME,
         FIRST_SRNO: formVal.fno,
         Second_NO: formVal.sno,
@@ -658,7 +658,7 @@ export class GlReportMasterComponent implements OnInit {
     else if (this.Btn7) {
       this.dataToSend = {
         REPORT_TYPE: 'SLR',
-        CODE: formVal.CODE1,
+        CODE: formVal.CODE,
         NAME: formVal.NAME,
         FIRST_SRNO: formVal.fno,
         Second_NO: formVal.sno,
@@ -674,7 +674,7 @@ export class GlReportMasterComponent implements OnInit {
     else if (this.Btn8) {
       this.dataToSend = {
         REPORT_TYPE: 'NIDHI',
-        CODE: formVal.CODE1,
+        CODE: formVal.CODE,
         NAME: formVal.NAME,
         // FIRST_SRNO: formVal.fno,
         Second_NO: formVal.sno,
@@ -692,7 +692,7 @@ export class GlReportMasterComponent implements OnInit {
     else if (this.Btn9) {
       this.dataToSend = {
         REPORT_TYPE: 'FRIDAY LIRUIDITY',
-        CODE: formVal.CODE1,
+        CODE: formVal.CODE,
         NAME: formVal.NAME,
         FNAME: formVal.FNAME,
         FIRST_SRNO: formVal.fno,
@@ -710,7 +710,7 @@ export class GlReportMasterComponent implements OnInit {
     else if (this.Btn10) {
       this.dataToSend = {
         REPORT_TYPE: 'MISINFO',
-        CODE: formVal.CODE1,
+        CODE: formVal.CODE,
         NAME: formVal.NAME,
         // FIRST_SRNO: formVal.fno,
         Second_NO: formVal.sno,
@@ -754,6 +754,10 @@ export class GlReportMasterComponent implements OnInit {
         NAME: data.NAME,
         CODE_TYPE: data.CODE_TYPE,
         SERIAL_NO: data.SERIAL_NO,
+        FIRST_SRNO: data.FIRST_SRNO,
+        SECOND_SRNO: data.SECOND_SRNO ,
+        THIRD_SRNO: data.THIRD_SRNO,
+        ALTERNET_CODE: data.ALTERNET_CODE,
         PERCENTAGE: data.PERCENTAGE,
         PERCENTAGE_CONSIDARATION: data.PERCENTAGE_CONSIDARATION,
         PERCENTAGE_OF_CODE: data.PERCENTAGE_OF_CODE,
