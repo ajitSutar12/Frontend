@@ -79,14 +79,18 @@ export class InterestCalculationComponent implements OnInit {
     private translate:TranslateService
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
-    
-      this.setLang = data.SET_LANGUAGE
+      this.setLang = data.SET_LANGUAGE;
       this.translate.setDefaultLang(this.setLang);
-    })
-    this.maxDate = new Date();
+      
+      // Set maxDate to one year from today
+      const currentDate = new Date();
+      this.maxDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
+    });
+    
+
     this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() - 1);
-    this.maxDate.setDate(this.maxDate.getDate())
+    this.minDate.setDate(this.minDate.getDate() - 1); // Setting minimum date to yesterday
+    
   }
 
   ngOnInit(): void {
@@ -491,19 +495,6 @@ export class InterestCalculationComponent implements OnInit {
   // }
 
 
-
-
-  //get sys para current date
-  // getSystemParaDate() {
-  //   this.systemParameter.getFormData(1).subscribe(data => {
-  //     this.angForm.patchValue({
-  //       'INT_UPTO_DATE': data.CURRENT_DATE,
-  //       'Ledger_Date': data.CURRENT_DATE,
-  //     })
-  //   })
-  // }
-
-  
   getSystemParaDate() {
     this.systemParameter.getFormData(1).subscribe(data => {
       const currentDate = new Date(data.CURRENT_DATE);

@@ -173,7 +173,7 @@ export class VoucherEntryComponent implements OnInit {
   disableSubmit: any = false;
   modalClass: string = 'modalHide';
   DayOpBalance: string;
-  setLang: any;
+  setLang:any;
   constructor(private sanitizer: DomSanitizer,
     public TransactionCashModeService: TransactionCashModeService,
     public TransactionTransferModeService: TransactionTransferModeService,
@@ -187,11 +187,11 @@ export class VoucherEntryComponent implements OnInit {
     private _bankmasterService: BankMasterService,
     private fb: FormBuilder,
     private router: Router,
-    private translate: TranslateService,
+    private translate:TranslateService,
     private systemParameter: SystemMasterParametersService,
   ) {
     this.systemParameter.getFormData(1).subscribe(data => {
-
+    
       this.setLang = data.SET_LANGUAGE
       this.translate.setDefaultLang(this.setLang);
     })
@@ -327,7 +327,7 @@ export class VoucherEntryComponent implements OnInit {
       scheme_type: ['', [Validators.required]],
       date: [''],
       type: ['cash'],
-      chequeDate: [''],
+      chequeDate: ['', [Validators.required]],
       chequeNo: [''],
       bank: [''],
       Intdate: ['']
@@ -2698,9 +2698,9 @@ export class VoucherEntryComponent implements OnInit {
     var startdate = this.angForm.controls['date'].value
     let formDT = moment(startdate, 'DD/MM/YYYY')
     var addInFrom: any;
-
+   
     addInFrom = moment(formDT, "DD/MM/YYYY").subtract(1, 'days').format('DD/MM/YYYY')
-
+    
     this.AfterVoucher = 0
     this.extenstionaftervoucher = ''
     // this.angForm.controls['amt'].reset()
@@ -2730,7 +2730,7 @@ export class VoucherEntryComponent implements OnInit {
       this.ShowLNCC = false
       this.ShownotLNCC = false
     }
-
+    
     if (this.submitCustomer.AC_ACNOTYPE == 'PG') {
       let obj = {
         scheme: this.Submitscheme.S_APPL,
@@ -2749,7 +2749,7 @@ export class VoucherEntryComponent implements OnInit {
     this.submitCustomer.AC_SODAMT == undefined ? this.submitCustomer.AC_SODAMT = 0 : this.submitCustomer.AC_SODAMT = this.submitCustomer.AC_SODAMT
     this.overdraftAmt = Number(this.submitCustomer.AC_ODAMT) + Number(this.submitCustomer.AC_SODAMT)
     this.overdraftAmt = Number(this.overdraftAmt).toFixed(2)
-    //POJADAM 050924
+//POJADAM 050924
     // var startdate = this.angForm.controls['date'].value
 
     // let formDT = moment(startdate, 'DD/MM/YYYY')

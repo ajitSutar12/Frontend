@@ -701,6 +701,7 @@ export class AccountEnquiryComponent implements OnInit {
   AC_MINOR
   //get account details
   getAccountDetails(event) {
+
     this.viewView(event)
 
     this.accountEvent = event
@@ -1783,6 +1784,14 @@ export class AccountEnquiryComponent implements OnInit {
       this.display = "block";
     }
   }
-  
+  openModal() {
+    this.display = "block";
+    
+  }
+  onCloseHandled() {
+    this.display = "none";
+  }
+
+
 }
 

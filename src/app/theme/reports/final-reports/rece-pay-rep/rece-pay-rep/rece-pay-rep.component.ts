@@ -48,6 +48,7 @@ export class RecePayRepComponent implements OnInit {
     private systemParameter: SystemMasterParametersService,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
+
     private translate:TranslateService
 
   ) {

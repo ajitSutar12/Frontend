@@ -20,6 +20,7 @@ import { NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 //Translation
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Iframe5Module } from '../../pigmy-report/iframe5/iframe5.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -37,6 +38,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DatepickerModule.forRoot(),
     BnkInstructionsInterestDebitRoutingModule,
     Iframe1Module,
+    Iframe5Module,
     //Translation
     TranslateModule.forRoot({
       loader: {

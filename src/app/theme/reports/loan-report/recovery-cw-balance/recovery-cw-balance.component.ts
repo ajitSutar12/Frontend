@@ -66,6 +66,7 @@ export class RecoveryCwBalanceComponent implements OnInit {
     private translate:TranslateService
 
 
+
   ) {
 
     this.systemParameter.getFormData(1).subscribe(data => {
