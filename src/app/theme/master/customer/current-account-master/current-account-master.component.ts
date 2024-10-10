@@ -453,8 +453,9 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
     this.AC_TYPE = this.selectedValue
 
   }
-
+  nam
   customer(event) {
+    this.nam=event.benfname
     this.getCustomer(event.value);
     let data: any = localStorage.getItem('user');
     let result = JSON.parse(data);
@@ -539,7 +540,8 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.newcustid = data.id
       this.angForm.patchValue({
         AC_TITLE: data.AC_TITLE,
-        AC_NAME: data.AC_NAME,
+        // AC_NAME: data.AC_NAME,
+        AC_NAME: data.AC_NAME && data.AC_NAME.trim() !== '' ? data.AC_NAME : this.nam,
         AC_MEMBTYPE: data.AC_MEMBTYPE,
         AC_MEMBNO: data.AC_MEMBNO,
         AC_CAST: data.castMaster.NAME,
@@ -814,6 +816,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
       this.updatecheckdata = data
       this.name = data.AC_NAME
       this.ac_no = data.BANKACNO
+
       if (data.SYSCHNG_LOGIN != null && data.status == 0) {
         this.unapproveShow = true
         this.showButton = false;
@@ -958,6 +961,7 @@ export class CurrentAccountMasterComponent implements OnInit, AfterViewInit, OnD
         'AC_GRDRELE': data.AC_GRDRELE,
         'AC_INTRNAME': data.AC_INTRNAME,
         'SIGNATURE_AUTHORITY': data.SIGNATURE_AUTHORITY,
+        AC_NAME:data.AC_NAME,
         AC_TYPE: data.AC_TYPE
       })
       this.selectedValue = data.AC_TYPE
