@@ -1643,7 +1643,7 @@ export class MultiVoucherComponent implements OnInit {
         if (duplicateCheque) {
           Swal.fire({
             icon: 'warning',
-            title: 'Duplicate Cheque Number!',
+            title: 'Given Cheque Number Already Exist!',
             // text: 'The cheque number entered is already in use.',
             showConfirmButton: true,
           });

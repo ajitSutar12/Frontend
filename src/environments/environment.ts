@@ -12,10 +12,11 @@ export const environment = {
   
   // Localhost
 
-  base_url: 'http://192.168.1.150:7277',
+  // base_url: 'http://192.168.1.150:7276',
 
+  base_url: 'http://localhost:7271',
 
-  base_url: 'http://localhost:7276',
+  // base_url: 'http://localhost:7276',
    report_url: 'http://localhost/phpjasper/', //report folder local path
   sitename: 'http://localhost/SIDHANERLI/CBS'   
 

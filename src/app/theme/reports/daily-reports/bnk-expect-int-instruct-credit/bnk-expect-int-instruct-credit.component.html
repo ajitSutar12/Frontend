@@ -39,9 +39,8 @@
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
                                     <input type="text" placeholder="dd/mm/yyyy" name="Date" id="Date"
-                                        class="form-control" [(ngModel)]="date" [bsValue]="bsValue" [maxDate]="maxDate"
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton minlength="10"
-                                        maxlength="10" [ngClass]="{'form-submitted': formSubmitted}"
+                                        class="form-control" [(ngModel)]="date" [bsValue]="bsValue" 
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" appButton  [ngClass]="{'form-submitted': formSubmitted}"
                                         formControlName="Date"
                                         (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
                                         bsDatepicker required>
@@ -86,13 +85,13 @@
                             <div class="form-radio">
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="Scroll_Type" value="debit"
+                                        <input type="radio" name="Scroll_Type" value="D"
                                             formControlName="Scroll_Type" [checked]="true">
                                         <i class="helper"></i>Debit</label>
                                 </div>
                                 <div class="radio radio-inline">
                                     <label>
-                                        <input type="radio" name="Scroll_Type" value="credit"
+                                        <input type="radio" name="Scroll_Type" value="C"
                                             formControlName="Scroll_Type">
                                         <i class="helper"></i>Credit</label>
                                 </div>
@@ -128,7 +127,7 @@
                                 <span class="border-lable-flt">
                                     <ng-select [(ngModel)]="selectedFrequency" formControlName="FREQUENCY"
                                         placeholder="Frequency">
-                                        <ng-option *ngFor="let type of SortingFrequency" [value]="type.name">{{type.name
+                                        <ng-option *ngFor="let type of SortingFrequency" [value]="type.value">{{type.name
                                             }}
                                         </ng-option>
                                     </ng-select>
@@ -190,7 +189,7 @@
                                     <h5>Report Frame</h5>
                                 </div>
                                 <div *ngIf="showRepo">
-                                    <app-iframe [url]='iframeurl'></app-iframe>
+                                    <app-iframe5 [url]='iframe5url'></app-iframe5>
                                 </div>
                             </div>
                         </div>
