@@ -42,7 +42,7 @@
                                         required placeholder="" [virtualScroll]="true" #CUSTID
                                         [virtualScroll]="true" (focus)="onFocus(CUSTID )" [selectOnTab]='true'>
                                         <ng-option *ngFor="let values of Cust_ID" [value]="values">
-                                            {{values.label}}</ng-option>
+                                            {{values.label}}{{values.benfname}}</ng-option>
                                     </ng-select>
                                     <label for="AC_CUSTID">{{'master.Customer.Customer_Id'|translate}}<sub class="required"> * </sub></label>
                                     <span class="fa fa-fw fa-plus-circle field-icon" id="custicon"
@@ -87,7 +87,7 @@
                         <div class="col-sm">
                             <div class="form-group input-group">
                                 <span class="border-lable-flt">
-                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME"
+                                    <input type="text" name="AC_NAME" class="form-control" placeholder=" " id="AC_NAME" 
                                         formControlName="AC_NAME" disabled>
                                     <label for="AC_NAME">{{'master.Customer.Name'|translate}}</label>
                                 </span>

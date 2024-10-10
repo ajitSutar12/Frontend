@@ -23,7 +23,7 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrls: ['./bnk-expect-int-instruct-credit.component.scss']
 })
 export class BnkExpectIntInstructCreditComponent implements OnInit {
-  iframe1url: any = '';
+  iframe5url: any = '';
   clicked: boolean = false;
   // Date variables
   date: any = null
@@ -43,11 +43,11 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
   //for frequency
   selectedFrequency
   SortingFrequency = [
-    { id: 1, name: "Monthly" },
-    { id: 2, name: "Querterly" },
-    { id: 3, name: "Fixed Querterly" },
-    { id: 4, name: "Half Yearly" },
-    { id: 5, name: "None" },
+    { id: 1, name: "Monthly",value:"M" },
+    { id: 2, name: "Querterly" ,value:"Q"},
+    { id: 3, name: "Fixed Querterly",value:"F" },
+    { id: 4, name: "Half Yearly" ,value:"H"},
+    { id: 5, name: "Days" ,value:"H"},
   ];
   setLang: any;
 
@@ -115,17 +115,17 @@ export class BnkExpectIntInstructCreditComponent implements OnInit {
     if (this.angForm.valid) {
       this.showRepo = true;
       let obj = this.angForm.value
-      let date: any;
-      if (this.date == obj.Date) {
-        date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      } else {
-        date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
-      };
+      // let date: any;
+      // if (this.date == obj.Date) {
+      //   date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      // } else {
+      //   date = moment(this.date, 'DD/MM/YYYY').format('DD/MM/YYYY')
+      // };
       let branch = obj.BRANCH_CODE;
       let frequency = obj.FREQUENCY;
-     
-      this.iframe1url = this.report_url + "examples/InterestExecutionListCredit.php?date='" + date +  "'&branch='" + branch + "'&frequency='" + frequency + "'&bankName='" + bankName + "' ";
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+     let scrolltype=obj.Scroll_Type
+      this.iframe5url = this.report_url + "examples/InterestExecutionListCredit.php?date='" + this.date +  "'&branch='" + branch + "'&frequency='" + frequency + "'&bankName='" + bankName + "'&scrolltype='" + scrolltype +"'&branchName='" + branchName +"' ";
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
       Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
