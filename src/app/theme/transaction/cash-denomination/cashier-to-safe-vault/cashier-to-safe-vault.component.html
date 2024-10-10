@@ -11,38 +11,40 @@
                     </div>
                     <form action="javascript:" [formGroup]="angForm">
                         <div class="card-block">
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Branch<sub class="required">*</sub></label></div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group form-primary form-static-label">
-                                            <span class="border-lable-flt">
-                                                <ng-select id="d/c" [(ngModel)]="SelectedBranch" formControlName="Branch"
-                                                    title="Compulsory Selection"
-                                                    placeholder="">
-                                                    <ng-option *ngFor="let values of branch_list" [value]="values.value">
-                                                        {{values.label}}</ng-option>
-                                                </ng-select>
-                                            </span>
-                                        </div>
-                                        <div class="form-group form-primary form-static-label"
-                                            *ngIf="angForm.controls['Branch'].invalid && (angForm.controls['Branch'].dirty || angForm.controls['Branch'].touched)"
-                                            class="alert alert-danger">
-                                            <div *ngIf="angForm.controls['Branch'].errors?.required">
-                                                This field is required.
-                                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-2  "><label for="AC_PARTICULAR">Branch<sub
+                                            class="required">*</sub></label></div>
+                                <div class="col-sm-4">
+                                    <div class="form-group form-primary form-static-label">
+                                        <span class="border-lable-flt">
+                                            <ng-select id="d/c" [(ngModel)]="SelectedBranch" formControlName="Branch"
+                                                title="Compulsory Selection" placeholder="">
+                                                <ng-option *ngFor="let values of branch_list" [value]="values.value">
+                                                    {{values.label}}</ng-option>
+                                            </ng-select>
+                                        </span>
+                                    </div>
+                                    <div class="form-group form-primary form-static-label"
+                                        *ngIf="angForm.controls['Branch'].invalid && (angForm.controls['Branch'].dirty || angForm.controls['Branch'].touched)"
+                                        class="alert alert-danger">
+                                        <div *ngIf="angForm.controls['Branch'].errors?.required">
+                                            This field is required.
                                         </div>
                                     </div>
+                                </div>
 
-                        
+
                                 <div class="col-sm-12 col-md-2"> <label for="CASHIER">Cashier<sub
                                             class="required">*</sub></label></div>
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group form-primary form-static-label">
                                         <span class="border-lable-flt">
-                                            <ng-select id="CASHIER"  [(ngModel)]="cashier"
-                                                formControlName="CASHIER" title="Compulsory Selection"
-                                                 placeholder="" autofocus tabindex="0" (change)="changeData($event)">
-                                                 <ng-option *ngFor="let values of safeCashier" [value]="values" [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}} {{values.name}}</ng-option>
+                                            <ng-select id="CASHIER" [(ngModel)]="cashier" formControlName="CASHIER"
+                                                title="Compulsory Selection" placeholder="" autofocus tabindex="0"
+                                                (change)="changeData($event)">
+                                                <ng-option *ngFor="let values of safeCashier" [value]="values"
+                                                    [disabled]="values.CASHIER_CODE =='SAFE VALUT' ? true : false">{{values.id}}
+                                                    {{values.name}}</ng-option>
                                             </ng-select>
                                         </span>
                                     </div>
@@ -76,10 +78,9 @@
                                     <div class="form-group input-group">
                                         <span class="border-lable-flt">
                                             <input type="text" placeholder="dd/mm/yyyy" name="TRAN_DATE" id="TRAN_DATE"
-                                                class="form-control"
-                                                formControlName="TRAN_DATE"
+                                                class="form-control" formControlName="TRAN_DATE"
                                                 (keypress)="($event.charCode >= 48 && $event.charCode < 58) || $event.charCode == 47"
-                                                 tabindex="2" readonly>
+                                                tabindex="2" readonly>
                                         </span>
                                     </div>
                                     <div class="form-group form-primary form-static-label"
@@ -92,30 +93,29 @@
                                 </div>
 
                             </div>
-                            
+
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-  
+
 </div>
 <div class="row">
     <div class="col-md-4 col-sm-12 col-xm-12">
-        <div class="row mx-2"  id="FORMA" *ngIf="DenominationChart">
+        <div class="row mx-2" id="FORMA" *ngIf="DenominationChart">
             <div class="card" style="width: 500px;">
                 <div class="card-header">
                     <h5>Cashier to Safe Vault</h5>
                 </div>
                 <div class="card-block">
                     <div class="solid">
-                        <table>
+                        <!-- <table>
                             <tr *ngFor="let data of currencyData; let indexOfelement = index">
                                 <td class="td_center">{{data.currency}} X</td>
                                 <td ><input type="text"  style="width:100px;" (focusout)="calculation(data,indexOfelement,$event)" value="{{data.qty}}" disabled>=</td>
                                 <td><input type="text"  style="width:100px;" value="{{data.total}}" disabled></td>
-                                <!-- <td><input type="text" value="{{data.available}}"></td> -->
                             </tr>
                             <div></div>
                             <div class="h" style="width: 100px;"></div>
@@ -132,6 +132,32 @@
                            
                             
                             
+                        </table> -->
+
+                        <table style="text-align: center; width: 100%;">
+                            <tr *ngFor="let data of currencyData; let indexOfelement = index">
+                                <td class="td_center" *ngIf="data.currency === 'Coin'">Coins</td>
+                                <td class="td_center" *ngIf="data.currency !== 'Coin'">
+                                    {{data.currency}} X</td>
+                                <td class="td_center"><input type="text" class="text-right" style="width: 60px;"
+                                        value="{{data.qty}}" disabled> =
+                                </td>
+                                <td class="td_center"><input type="text" class="text-right" style="width: 100px;"
+                                        value="{{data.totalcurrency}}" disabled></td>
+                            </tr>
+                            <div></div>
+                            <div class="h" style="width: 350px;"></div>
+                            <div></div>
+                            <tr>
+                                <td class="td_center" align="right">
+                                    Total Cash :
+                                </td>
+                                <td></td>
+                                <td class="td_center">
+                                    <input type="text" class="text-right" style="width: 100px; font-weight: bold;"
+                                        [value]="this.totalSum">
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -144,7 +170,7 @@
                             <!-- <button class="btn btn-outline-primary btn-sm" >
                                 Accept
                             </button> -->
-                            <button class="btn btn-outline-primary btn-sm">
+                            <button class="btn btn-outline-primary btn-sm" (click)="close()">
                                 Close
                             </button>
                         </div>

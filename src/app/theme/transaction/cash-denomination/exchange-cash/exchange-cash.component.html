@@ -1,0 +1,48 @@
+<div class="col-sm-3">
+    <div class="card" style="margin-top: 5px;">
+        <div class="card-header" (click)="hideShow1()">
+            <h5><u>Exchange List</u>&nbsp;&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></h5>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3" *ngIf="isShow">
+        <div class="card">
+
+            <div class="card-block">
+                <div class="col-md-12">
+                    <perfect-scrollbar style="max-width: 600px; max-height: 450px;">
+                        <ul class="basic-list">
+
+                            <li>
+                                <h6> <a (click)="OpenLink(2)" routerLink="/reports/loan-reports/loan-overdue-list"
+                                        routerLinkActive="active" [ngClass]="{'isActive': cashInDenomination}"
+                                        class="text-right f-w-600" id="pointer" (click)="hideShow()">1. Cash In
+                                        Denomation</a></h6>
+                            </li>
+
+                            <li>
+                                <h6> <a (click)="OpenLink(3)" routerLink="/reports/loan-reports/loan-overdue-list"
+                                        routerLinkActive="active" [ngClass]="{'isActive': cashOutDenomination}"
+                                        class="text-right f-w-600" id="pointer" (click)="hideShow()">2. Cash Out
+                                        Denomation</a></h6>
+                            </li>
+                        </ul>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="isHide">
+        <div class="card-block">
+
+            <div *ngIf="cashInDenomination">
+                <app-cash-in-denomination></app-cash-in-denomination>
+            </div>
+            <div *ngIf="cashOutDenomination">
+                <app-cash-out-denomination></app-cash-out-denomination>
+            </div>
+        </div>
+
+    </div>
+</div>
