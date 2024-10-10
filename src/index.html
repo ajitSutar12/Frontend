@@ -41,7 +41,7 @@
             <div class="loader-track">
                 <div class="preloader-wrapper">
                     <div class="spinner-layer spinner-blue">
-                        <div class="circle-clipper left"> 
+                        <div class="circle-clipper left">
                             <div class="circle"></div>
                         </div>
                         <div class="gap-patch">
@@ -96,7 +96,7 @@
     window.addEventListener('popstate', function (event) {
 
 
-        if (window.location.href == 'https://patsevacompservtech.com/COMPSERV/CBS/auth/login/simple') { 
+        if (window.location.href == 'https://patsevacompservtech.com/SANJAYSINH_KOTOLI/CBS/auth/login/simple') { 
 
            
 
@@ -111,7 +111,7 @@
             $.ajax({
 
 
-                 url: 'https://patsevacompservtech.com:7796/user-defination/logout',
+                 url: 'https://patsevacompservtech.com:7281/user-defination/logout',
 
                 method: 'POST',
                 data: obj,
@@ -120,7 +120,7 @@
             $.ajax({
 
 
-                 url: 'https://patsevacompservtech.com:7796/user-defination/logoffhistory',
+                 url: 'https://patsevacompservtech.com:7281/user-defination/logoffhistory',
 
 
               method: 'POST',
@@ -180,7 +180,7 @@
                     $.ajax({
 
 
-                        url: 'https://patsevacompservtech.com:7796/user-defination/logout',
+                        url: 'https://patsevacompservtech.com:7281/user-defination/logout',
 
                         method: 'POST',
                         data: obj,
@@ -189,7 +189,7 @@
                     $.ajax({
 
 
-                        url: 'https://patsevacompservtech.com:7796/user-defination/logoffhistory',
+                        url: 'https://patsevacompservtech.com:7281/user-defination/logoffhistory',
                         method: 'POST',
                         data: obj,
                         success: function (result) { }
@@ -205,7 +205,7 @@
             // your function for too long inactivity goes here
 
 
-            window.location.href = 'https://patsevacompservtech.com/COMPSERV/CBS/auth/login/simple'; 
+            window.location.href = 'https://patsevacompservtech.com/SANJAYSINH_KOTOLI/CBS/auth/login/simple'; 
             window.close()
         }
 
@@ -225,7 +225,7 @@
                     $.ajax({
 
 
-                        url: 'https://patsevacompservtech.com:7796/refresh-token',
+                        url: 'https://patsevacompservtech.com:7287/refresh-token',                                                           
                         method: 'POST',
                         data: payload,
                         success: function (result) {

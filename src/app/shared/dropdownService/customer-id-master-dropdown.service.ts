@@ -20,7 +20,7 @@ export class CustomerIDMasterDropdownService {
             .pipe(map(ele => {
                 ele.forEach(element => {
                     // let obj = { label: element.AC_NAME, value: element.id, name: element.AC_NO };
-                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME, value: element.id, name: element.AC_NO };
+                    let obj = { label: element.AC_NO + ' ' + element.AC_NAME, value: element.id, name: element.AC_NO ,benfname:element.BENEF_NAME};
                     this.customerIDMasterObject.push(obj)
                 });
                 return this.customerIDMasterObject;

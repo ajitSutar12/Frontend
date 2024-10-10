@@ -31,26 +31,6 @@ children:[
     path: 'expensive',
     loadChildren: () => import('./expensive-list/expensive-list.module').then(m => m.ExpensiveListModule)
   },
-  {
-    path: 'slr',
-    loadChildren: () => import('./slr/slr.module').then(m => m.SlrModule)
-  },
-  {
-    path: 'crr',
-    loadChildren: () => import('./crr/crr.module').then(m => m.CrrModule)
-  },
-  {
-    path: 'memberIncreaseDecrease',
-    loadChildren: () => import('./member-increase-decrease/member-increase-decrease.module').then(m => m.MemberIncreaseDecreaseModule)
-  },
-  {
-    path: 'abrAlr',
-    loadChildren: () => import('./abr-alr/abr-alr.module').then(m => m.AbrAlrModule)
-  },
-  {
-    path: 'crar',
-    loadChildren: () => import('./crar/crar.module').then(m => m.CrarModule)
-  },
 ]
 }];
 @NgModule({

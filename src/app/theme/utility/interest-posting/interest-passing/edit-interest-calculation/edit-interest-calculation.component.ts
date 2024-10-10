@@ -11,8 +11,6 @@ import { SchemeAccountNoService } from 'src/app/shared/dropdownService/schemeAcc
 import { environment } from 'src/environments/environment';
 import { EditInterestCalculationService } from './edit-interest-calculation.service';
 import Swal from 'sweetalert2';
-import { SystemMasterParametersService } from '../../../scheme-parameters/system-master-parameters/system-master-parameters.service';
-import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-edit-interest-calculation',
@@ -60,8 +58,6 @@ export class EditInterestCalculationComponent implements OnInit {
   scheme: any[];
   showButton: boolean = true;
   submitData: boolean = false;
-  setLang: string;
-
 
   constructor(
     private fb: FormBuilder, private http: HttpClient,
@@ -69,17 +65,8 @@ export class EditInterestCalculationComponent implements OnInit {
     private schemeCodeDropdownService: SchemeCodeDropdownService,
     private ownbranchMasterService: OwnbranchMasterService,
     private config: NgSelectConfig,
-    private _service: EditInterestCalculationService,
-    private systemParameter: SystemMasterParametersService,
-    private translate:TranslateService
-  ) { 
-    this.systemParameter.getFormData(1).subscribe(data => {
-    
-
-      this.setLang = data.SET_LANGUAGE
-      this.translate.setDefaultLang(this.setLang);
-    })
-  }
+    private _service: EditInterestCalculationService
+  ) { }
 
   ngOnInit(): void {
     let user = JSON.parse(localStorage.getItem('user'));
@@ -230,7 +217,7 @@ export class EditInterestCalculationComponent implements OnInit {
   submit(event) {
     //To clear form
     if (this.angForm.status == 'INVALID') {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.select_required_field')}`, "error");
+      Swal.fire('Oops', "Please select required data", 'error');
     } else {
       //fetch data
       let angValue = this.angForm.value;
@@ -279,10 +266,10 @@ export class EditInterestCalculationComponent implements OnInit {
 
   AlterData() {
     if (this.InterestTableData.length == 0) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Oops...')}`, `${this.translate.instant('Swal_Msg.Something_went_wrong')}`, "error");
+      Swal.fire('Oops', 'Something went wrong', 'error')
     } else {
       this._service.submitAlterData(this.InterestTableData).subscribe(data => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Interest_Cal_Edit_uccessfully')}`, 'success');
+        Swal.fire('Success', "Interest Calculation Edit Successfully", 'success');
         this.angForm.reset();
         this.InterestTableData = [];
       }, err => {
@@ -316,7 +303,7 @@ export class EditInterestCalculationComponent implements OnInit {
     // this.InterestArr = []
 
     if (this.angForm.controls['FROM_AC'].value > this.angForm.controls['TO_AC'].value && this.ngtoac != null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Ac_Gre_Than_equal')}`);
+      Swal.fire("To Account Number Must Be Greater Than or Equal to From Account Number");
       // this.InterestArr = []
       this.angForm.patchValue({
         TO_AC: ''

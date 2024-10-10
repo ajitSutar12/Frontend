@@ -218,7 +218,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
       }
 
       this.SizeSlabWiseService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -235,8 +235,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Warning')}`,
-        `${this.translate.instant('Swal_Msg.W_Msg')}`,
+        'Warning',
+        'Please Input Slab details ',
         'warning'
       )
     }
@@ -304,8 +304,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.All_Row')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete all rows data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -316,8 +316,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
         this.SizeSlabWiseService.deleteData(id).subscribe(data1 => {
           this.rowData = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -329,8 +329,8 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -343,7 +343,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`,`${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
       ele.target.value = 0
 
     }
@@ -357,7 +357,7 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     data['id'] = this.updateID;
     data['FieldData'] = this.multiField
     this.SizeSlabWiseService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -393,16 +393,16 @@ export class SizeSlabWiseARComponent implements OnInit, AfterViewInit, OnDestroy
     let intrate = (document.getElementById("INT_RATE") as HTMLInputElement).value;
     if (effectdate == "") {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Info')}`,
-        `${this.translate.instant('Swal_Msg.I_Ms')}`,
+        'Info',
+        'Please Add Effect Date',
         'info'
       )
     }
     if (intrate == "") {
 
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Info')}`,
-        `${this.translate.instant('Swal_Msg.I_Msg1')}`,
+        'Info',
+        'Please Input Interest Rate ',
         'info')
     }
     let date

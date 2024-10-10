@@ -43,6 +43,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
   branchOption: any;
   iframeurl: any = ' ';
   branchName
+  setLang: string;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -50,7 +51,9 @@ export class BnkTrialBaldetailComponent implements OnInit {
     private sanitizer: DomSanitizer,
     // dropdown
     private _ownbranchmasterservice: OwnbranchMasterService,
-    private systemParameter: SystemMasterParametersService,private translate:TranslateService,
+    private systemParameter: SystemMasterParametersService,
+    private translate:TranslateService
+
   ) {
     this.todate = moment().format('DD/MM/YYYY');
     this.maxDate = new Date();
@@ -73,6 +76,8 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
     this.systemParameter.getFormData(1).pipe(first()).subscribe(data => {
       this.todate = data.CURRENT_DATE;
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
     });
 
     this.systemParameter.getFormData(1).subscribe(data => {
@@ -145,7 +150,7 @@ export class BnkTrialBaldetailComponent implements OnInit {
 
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Re1')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

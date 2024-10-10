@@ -43,7 +43,7 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
   //Dropdown option variable
   ngbranch
   branchOption: any;
-  iframe1url: any = ' ';
+  iframe5url: any = '';
   clicked: boolean = false;
   // selectedType
   // Types = [
@@ -209,9 +209,9 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       //   sort = 'Credit';
       // }
 
-      this.iframe1url = this.report_url + "examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + branchName + "'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      this.iframe5url = this.report_url + "examples/intinstructionslogSuccess.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + success + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + branchName + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else if (this.angForm.controls['RADIO'].value == "failure" && this.angForm.valid) {
       this.showRepo = true;
@@ -232,13 +232,13 @@ export class BnkInstructionsInterestDebitComponent implements OnInit {
       let startscheme = obj.NEWPAGE;
       // let sort = obj.SORT;
 
-      this.iframe1url = this.report_url + "examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'";
-      console.log(this.iframe1url);
-      this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
+      this.iframe5url = this.report_url + "examples/intinstructionslogFailure.php?stadate='" + stadate + "'&edate='" + edate + "'&branched='" + branched + "'&success='" + failure + "'&frequency='" + frequency + "'&startscheme='" + startscheme + "'&bankName='" + bankName + "'&branchName='" + this.branchName + "'";
+      console.log(this.iframe5url);
+      this.iframe5url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe5url);
     }
     else {
       this.formSubmitted = false;
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

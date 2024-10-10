@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: PaymentDenominationComponent,
     data: {
-      title: 'Payment Denomination',
+      title: 'Pay Denomination',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

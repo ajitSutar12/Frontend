@@ -3,8 +3,8 @@ import Swal from 'sweetalert2';
 import { DayEndService } from '../day-end.service';
 import * as moment from 'moment';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 
 @Component({
   selector: 'app-counter-work-day-end',
@@ -17,10 +17,17 @@ export class CounterWorkDayEndComponent implements OnInit {
   ngbdate
   systemInfo: any;
   isLoading: boolean = false;
-  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService ,
+  setLang: string;
+  constructor(private _services: DayEndService, private _hotkeysService: HotkeysService,
     private systemParameter: SystemMasterParametersService,
     private translate:TranslateService
-  ) { }
+  ) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   ngOnInit(): void {
     this._services.getSysparaDetails().subscribe(data => {
@@ -44,12 +51,12 @@ export class CounterWorkDayEndComponent implements OnInit {
     this._services.checkDayHandOverStatus({ date: this.ngbdate, branch_id: user.branchId }).subscribe(data => {
       flag = data.flag
       if (flag == 1) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `Already day handovered for ${this.ngbdate}`, 'info')
+        Swal.fire('Info', `Already day handovered for ${this.ngbdate}`, 'info')
       } else {
         //  let current_date = this.ngdate;
         Swal.fire({
-          title: `${this.translate.instant('Swal_Msg.Are_you_sure')}`,
-          text: `${this.translate.instant('Swal_Msg.Do_you_want_day_handover.')}`,
+          title: 'Are you sure?',
+          text: "Do you want day handover to Admin.",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#229954',
@@ -65,17 +72,17 @@ export class CounterWorkDayEndComponent implements OnInit {
             //check Is valid today all transaction 
             this._services.dayEndHandoverProcess(obj).subscribe(data => {
               this._services.dayHandOver(obj).subscribe(data => {
-                Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
+                Swal.fire('Success', 'Day End Handovered On ' + this.systemInfo.CURRENT_DATE + ' Successfully!', 'success');
               }, err => {
                 this.isLoading = false;
                 if (err.error.statusCode == 400) {
-                  Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, err.error.message, 'error');
+                  Swal.fire('Cancelled', err.error.message, 'error');
                 }
               })
             }, err => {
               this.isLoading = false;
               if (err.error.statusCode == 400) {
-                Swal.fire(`${this.translate.instant('Swal_Msg.Cancel')}`, err.error.message, 'error');
+                Swal.fire('Cancelled', err.error.message, 'error');
               }
             })
           } else if (
@@ -83,7 +90,8 @@ export class CounterWorkDayEndComponent implements OnInit {
           ) {
             this.isLoading = false;
             Swal.fire(
-              `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+              'Cancelled',
+              'Your Action is revert',
               'error'
             )
           }

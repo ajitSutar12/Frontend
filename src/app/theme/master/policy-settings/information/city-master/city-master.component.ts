@@ -256,7 +256,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'TALUKA_CODE': this.selectedTaluka,
     }
     this.citytMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       this.formSubmitted = false;
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -299,7 +299,7 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     data['id'] = this.updateID;
 
     this.citytMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -319,8 +319,8 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.city_master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete city master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -331,8 +331,9 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.citytMasterService.deleteData(id).subscribe(data1 => {
           this.cityMaster = data1;
           Swal.fire(
-           `${this.translate.instant('Swal_Msg.Delete')}`, `${this.translate.instant('Swal_Msg.D_Msg')}`,
-          'success'
+            'Deleted!',
+            'Your data has been deleted.',
+            'success'
           )
         }), (error) => {
 
@@ -343,7 +344,8 @@ export class CityMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`, `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }

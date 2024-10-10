@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'; 
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DisputeLoanMasterRoutingModule } from './dispute-loan-master-routing.module';
@@ -7,10 +7,10 @@ import { DisputeLoanMasterComponent } from './dispute-loan-master.component';
 import { TitleService } from '../../../../shared/elements/title.service';
 import { RepayModeService } from '../../../../shared/elements/repay-mode.service';
 import { SelectModule } from 'ng-select';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule  }   from '@angular/forms';
 import { StatementTypeService } from '../../../../shared/elements/statment-type.service';
 import { SchemeCodeService } from '../../../../shared/elements/scheme-code.service';
-import { DisputeLoanMasterService } from './dispute-loan-master.service';
+import { DisputeLoanMasterService} from './dispute-loan-master.service';
 import { CustomerIdModule } from '../customer-id/customer-id.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -24,24 +24,21 @@ import { IntrestCategoryMasterDropdownService } from '../../../../shared/dropdow
 import { OccupationMasterService } from '../../../../shared/dropdownService/occupation-master-dropdown.service';
 import { HealthMasterDropdownService } from '../../../../shared/dropdownService/health-master-dropdown.service';
 import { SchemeCodeDropdownService } from '../../../../shared/dropdownService/scheme-code-dropdown.service';
-import { AuthorityMasterDropdownService } from '../../../../shared/dropdownService/authority-master-dropdown.service'
-import { PrioritySectorMasterDropdownService } from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
-import { PurposeMasterDropdownService } from '../../../../shared/dropdownService/purpose-master-dropdown.service';
-import { IndustryMasterDropdownService } from '../../../../shared/dropdownService/industry-master-dropdown.service';
-import { WeakerMasterDropdownService } from '../../../../shared/dropdownService/weaker-master-dropdown.service';
-import { AdvocateMasterDropdownService } from '../../../../shared/dropdownService/advocate-master-dropdown.service';
-import { DirectorMasterDropdownService } from '../../../../shared/dropdownService/director-master-dropdown.service';
-import { LoanStageMasterDropdownService } from '../../../../shared/dropdownService/loan-stage-master-dropdown.service'
-import { CourtMasterDropdownService } from '../../../../shared/dropdownService/court-master-dropdown.service';
+import {AuthorityMasterDropdownService} from '../../../../shared/dropdownService/authority-master-dropdown.service'
+import {PrioritySectorMasterDropdownService} from '../../../../shared/dropdownService/priority-sector-master-dropdown.service';
+import {PurposeMasterDropdownService} from '../../../../shared/dropdownService/purpose-master-dropdown.service';
+import {IndustryMasterDropdownService} from '../../../../shared/dropdownService/industry-master-dropdown.service';
+import {WeakerMasterDropdownService} from '../../../../shared/dropdownService/weaker-master-dropdown.service';
+import {AdvocateMasterDropdownService } from '../../../../shared/dropdownService/advocate-master-dropdown.service';
+import { DirectorMasterDropdownService} from '../../../../shared/dropdownService/director-master-dropdown.service';
+import {LoanStageMasterDropdownService} from '../../../../shared/dropdownService/loan-stage-master-dropdown.service'
+import {CourtMasterDropdownService} from '../../../../shared/dropdownService/court-master-dropdown.service';
 import { InstallmentMethodService } from '../../../../shared/dropdownService/installment-method.service';
 import { cityMasterService } from '../../../../shared/dropdownService/city-master-dropdown.service';
 import { CustomeridService } from '../../../../shared/elements/customerid.service'
-import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor'
-import { TermLoanService } from '../term-loan-master/term-loan-master.service'
-//Translation
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {TermLoanService} from '../term-loan-master/term-loan-master.service'
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -52,48 +49,40 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DataTablesModule,
     NgbModule,
     SelectModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule,ReactiveFormsModule,
     PerfectScrollbarModule,
     CustomerIdModule,
-    SharedModule,
-    //Translation
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+    SharedModule
   ],
   declarations: [DisputeLoanMasterComponent],
   providers: [
-    TitleService,
-    RepayModeService,
-    StatementTypeService,
-    SchemeCodeService,
-    DisputeLoanMasterService,
-    CustomerIDMasterDropdownService,
-    TermLoanMasterDropdownService,
-    CastMasterService,
-    IntrestCategoryMasterDropdownService,
-    OccupationMasterService,
-    HealthMasterDropdownService,
-    SchemeCodeDropdownService,
-    TermLoanService,
-    AuthorityMasterDropdownService,
-    PrioritySectorMasterDropdownService,
-    PurposeMasterDropdownService,
-    IndustryMasterDropdownService,
-    WeakerMasterDropdownService,
-    AdvocateMasterDropdownService,
-    DirectorMasterDropdownService,
-    LoanStageMasterDropdownService,
-    CourtMasterDropdownService,
-    InstallmentMethodService,
-    cityMasterService,
-    CustomeridService,
+     TitleService,
+     RepayModeService,
+     StatementTypeService,
+     SchemeCodeService,
+     DisputeLoanMasterService,
+     CustomerIDMasterDropdownService,
+     TermLoanMasterDropdownService,
+     CastMasterService,
+     IntrestCategoryMasterDropdownService,
+     OccupationMasterService,
+     HealthMasterDropdownService,
+     SchemeCodeDropdownService,
+     TermLoanService,
+     AuthorityMasterDropdownService,
+     PrioritySectorMasterDropdownService,
+     PurposeMasterDropdownService,
+     IndustryMasterDropdownService,
+     WeakerMasterDropdownService,
+     AdvocateMasterDropdownService,
+     DirectorMasterDropdownService,
+     LoanStageMasterDropdownService,
+     CourtMasterDropdownService,
+     InstallmentMethodService,
+     cityMasterService,
+     CustomeridService,
 
-    {
+     {
 
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
@@ -104,10 +93,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useClass: UserAuthInterceptor,
       multi: true
     },
-  ]
+    ]
 })
 export class DisputeLoanMasterModule { }
-//Translation
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}

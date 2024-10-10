@@ -191,12 +191,13 @@ export class BnkScrollDetailBothComponent implements OnInit {
         };
 
         let stype = obj.Scroll_Type
-        let branch = obj.Branch
+        let branch = obj.branchName
         let ccode = obj.Cashier_Code
         let pcode = obj.Print_Code
         // let rdio  = obj.radio
 
-        this.iframe1url = this.report_url + "examples/ScrollBookDebit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branch + "'&branchcode='" + this.branchno + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&bankName=" + bankName + "&opDate=" + OpeningData;
+        this.iframe1url = this.report_url + "examples/ScrollBookDebit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branchName + "'&branchcode='" + this.branchno + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&bankName=" + bankName + "&opDate=" + OpeningData;
+        console.log(this.iframe1url);
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 
@@ -226,7 +227,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
         let pcode = obj.Print_Code
         let rdio = obj.radio
 
-        this.iframe1url = this.report_url + "examples/ScrollBookCredit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branch + "'&branchcode='" + this.branchno + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate=" + OpeningData;
+        this.iframe1url = this.report_url + "examples/ScrollBookCredit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branchName + "'&branchcode='" + this.branchno + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "'&bankName='" + bankName + "'&opDate='" + OpeningData + "'";
+        console.log(this.iframe1url);
+
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
 
@@ -255,7 +258,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
         let pcode = obj.Print_Code
         let rdio = obj.radio
 
-        this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branch + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate='" + OpeningData + "'";
+        this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branchName + "'&branchcode='" + this.branchno + "'&ccode='" + ccode + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate='" + OpeningData + "'";
+        console.log(this.iframe1url);
+
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
     }
@@ -284,7 +289,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
         let pcode = obj.Print_Code
         // let rdio  = obj.radio
 
-        this.iframe1url = this.report_url + "examples/ScrollBookDebit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branch + "'&branchcode='" + this.branchno + "'&pcode='" + pcode + "'&bankName=" + bankName + "&opDate=" + OpeningData;
+        this.iframe1url = this.report_url + "examples/ScrollBookDebit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branchName + "'&branchcode='" + this.branchno + "'&pcode='" + pcode + "'&bankName='" + bankName + "'&opDate='" + OpeningData+ "'";
+        console.log(this.iframe1url);
+
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
       else if (this.angForm.controls['Print_Code'].value == "Credit") {
@@ -312,7 +319,9 @@ export class BnkScrollDetailBothComponent implements OnInit {
         let pcode = obj.Print_Code
         let rdio = obj.radio
 
-        this.iframe1url = this.report_url + "examples/ScrollBookCredit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branch + "'&branchcode='" + this.branchno + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate=" + OpeningData;
+        this.iframe1url = this.report_url + "examples/ScrollBookCredit.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branchName + "'&branchcode='" + this.branchno + "'&pcode='" + pcode + "'&rdio='" + rdio + "'&bankName='" + bankName + "'&opDate='" + OpeningData + "'";
+        console.log(this.iframe1url);
+
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
       else {
@@ -340,12 +349,14 @@ export class BnkScrollDetailBothComponent implements OnInit {
         let pcode = obj.Print_Code
         let rdio = obj.radio
 
-        this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branch + "'&pcode='" + pcode + "'&rdio='" + rdio + "&bankName=" + bankName + "&opDate='" + OpeningData + "'";
+        this.iframe1url = this.report_url + "examples/ScrollBookBoth.php?Startdate='" + Startdate + "'&stype='" + stype + "'&branch='" + branchName + "'&branchcode='" + this.branchno + "'&pcode='" + pcode + "'&rdio='" + rdio + "'&bankName='" + bankName + "'&opDate='" + OpeningData + "'";
+        console.log(this.iframe1url);
+
         this.iframe1url = this.sanitizer.bypassSecurityTrustResourceUrl(this.iframe1url);
       }
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warning')}`, `${this.translate.instant('Swal_Msg.Mandatory_Field')}`, 'warning').then(() => { this.clicked = false });
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning').then(() => { this.clicked = false });
     }
 
   }

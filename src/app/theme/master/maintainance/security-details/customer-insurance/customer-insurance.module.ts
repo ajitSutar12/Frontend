@@ -15,11 +15,8 @@ import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { CustomerInsuranceRoutingModule } from './customer-insurance-routing.module';
 import { DataTablesModule } from "angular-datatables";
 import { ThemeModule } from 'src/app/theme/theme.module';
-
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -39,15 +36,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ThemeModule,
     TranslateModule.forRoot({
       loader:{
-        provide:TranslateLoader,
-        useFactory:HttpLoaderFactory,
-        deps:[HttpClient]
-      }
+       provide:TranslateLoader,
+       useFactory:HttpLoaderFactory,
+       deps:[HttpClient]
+     }
     })
-
-    
   ],
-  providers: [customerinsuranceService,SystemMasterParametersService,
+  providers: [customerinsuranceService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

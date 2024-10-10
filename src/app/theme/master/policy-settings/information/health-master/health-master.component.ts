@@ -75,7 +75,7 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private healthMasterService: HealthMasterService,
-    private fb: FormBuilder, private translate: TranslateService) { }
+    private fb: FormBuilder,private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -123,7 +123,7 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       columns: [
         {
-          title: this.translate.instant('master.Health_Master.Action')
+          title:  this.translate.instant('master.Health_Master.Action')
         },
         {
           title: this.translate.instant('master.Health_Master.code'),
@@ -152,12 +152,11 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       'NAME': formVal.NAME
     }
     this.healthMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      });
-    }, (error) => {
+      });    }, (error) => {
       console.log(error)
     })
     //To clear form
@@ -178,7 +177,7 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       })
     })
   }
-  addNewData() {
+  addNewData(){
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -189,7 +188,7 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.healthMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -197,15 +196,15 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
       });
-      this.resetForm();
+            this.resetForm();
     })
   }
 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Health_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Health master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -216,8 +215,8 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.healthMasterService.deleteData(id).subscribe(data1 => {
           this.healthMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -229,8 +228,8 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -278,10 +277,10 @@ export class HealthMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

@@ -20,15 +20,15 @@ const routes: Routes = [
       loadChildren: () => import('./payment-denomination/payment-denomination.module').then(m => m.PaymentDenominationModule)
     },
 
-    {
-      path: 'cashInDenomination',
-      loadChildren: () => import('./cash-in-denomination/cash-in-denomination.module').then(m => m.CashInDenominationModule)
-    },
+    // {
+    //   path: 'cashInDenomination',
+    //   loadChildren: () => import('./cash-in-denomination/cash-in-denomination.module').then(m => m.CashInDenominationModule)
+    // },
 
-    {
-      path: 'cashOutDenomination',
-      loadChildren: () => import('./cash-out-denomination/cash-out-denomination.module').then(m => m.CashOutDenominationModule)
-    },
+    // {
+    //   path: 'cashOutDenomination',
+    //   loadChildren: () => import('./cash-out-denomination/cash-out-denomination.module').then(m => m.CashOutDenominationModule)
+    // },
 
     {
       path: 'cashInitialisationEntry',
@@ -43,6 +43,10 @@ const routes: Routes = [
     {
       path: 'cashierToSafeVault',
       loadChildren: () => import('./cashier-to-safe-vault/cashier-to-safe-vault.module').then(m => m.CashierToSafeVaultModule)
+    },
+    {
+      path: 'exchangeCash',
+      loadChildren: () => import('./exchange-cash/exchange-cash.module').then(m => m.ExchangeCashModule)
     },
   ]
   }

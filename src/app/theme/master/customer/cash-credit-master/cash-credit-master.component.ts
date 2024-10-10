@@ -322,7 +322,7 @@ export class CashCreditMasterComponent implements OnInit {
   guarantordate: any
   maxDate: any
   minDate: any
-  setLang:any;
+  setLang: any;
   constructor(
     private http: HttpClient,
     private cashCreditService: CashCreditService,
@@ -353,7 +353,7 @@ export class CashCreditMasterComponent implements OnInit {
     private el: ElementRef,
     public router: Router,
     public sanitizer: DomSanitizer,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     if (this.childMessage != undefined) {
       this.editClickHandler(this.childMessage, 1);
@@ -538,10 +538,10 @@ export class CashCreditMasterComponent implements OnInit {
     })
 
     this.interstCate.getIntrestCategoaryMasterList().pipe(first()).subscribe(data => {
-      // var allscheme = data.filter(function (schem) {
-      //   return (schem.scheme == 'CC')
-      // });
-      this.intCat = data;
+      this.intCat = data.filter(function (schem) {
+        return (schem.scheme == 'CC')
+      });
+      // this.intCat = data;
     })
 
     this.authorityMasterDropdown.getAuthorityMasterList().pipe(first()).subscribe(data => {
@@ -831,7 +831,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.selectedImagePreview = ''
     }
   }
-  isDisable=false
+  isDisable = false
   // Method to insert data into database through NestJS
   submit() {
     this.formSubmitted = true;
@@ -957,7 +957,7 @@ export class CashCreditMasterComponent implements OnInit {
         this.isDisable = false
         Swal.fire({
           icon: 'success',
-          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
+          title: 'Account Created successfully!',
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -993,7 +993,7 @@ export class CashCreditMasterComponent implements OnInit {
       this.vehicleid = []
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
 
@@ -1031,8 +1031,8 @@ export class CashCreditMasterComponent implements OnInit {
     this.getSystemParaDate()
     this.switchNgBTab('Basic')
   }
-  name:any
-  ac_no:any
+  name: any
+  ac_no: any
   //Method for append data into fields
   tempbankacno
   editClickHandler(id, status) {
@@ -1235,7 +1235,7 @@ export class CashCreditMasterComponent implements OnInit {
 
 
     this.cashCreditService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -1256,8 +1256,8 @@ export class CashCreditMasterComponent implements OnInit {
 
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Term_Loan')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Term loan master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -1268,8 +1268,8 @@ export class CashCreditMasterComponent implements OnInit {
         this.cashCreditService.deleteData(id).subscribe(data1 => {
           this.cashCreditMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -1281,8 +1281,8 @@ export class CashCreditMasterComponent implements OnInit {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -1502,16 +1502,16 @@ export class CashCreditMasterComponent implements OnInit {
         }
         else {
           if (this.multiSecurity.find(ob => ob['SECURITY_CODE'] === this.SECU_CODE)) {
-            Swal.fire(`${this.translate.instant('Swal_Msg.Security')}`, "error");
+            Swal.fire("This Security is Already Added", "error");
           } else {
             this.multiSecurity.push(object);
           }
         }
       } else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Select_Sec_Code')}`, "error");
+        Swal.fire("Please Select Security Code", "error");
       }
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
     this.resetField()
   }
@@ -1840,21 +1840,21 @@ export class CashCreditMasterComponent implements OnInit {
           }
           else {
             if (this.multiGuarantor.find(ob => ob['GAC_CUSTID'] === formVal.GAC_CUSTID)) {
-              Swal.fire(`${this.translate.instant('Swal_Msg.G_Exist')}`, "error");
+              Swal.fire("This Customer is Already Guarantor", "error");
             } else {
               this.multiGuarantor.push(object);
             }
           }
         }
         else {
-          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.G_CustId')}`, "error");
+        Swal.fire("Please Select Guarantor Customer Id", "error");
       }
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
     this.resetGuarantor()
   }
@@ -1911,14 +1911,14 @@ export class CashCreditMasterComponent implements OnInit {
           }
         }
         else {
-          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.G_CustId')}`, "error");
+        Swal.fire("Please Select Guarantor Customer Id", "error");
       }
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
 
     this.resetGuarantor()
@@ -1976,22 +1976,22 @@ export class CashCreditMasterComponent implements OnInit {
           }
           else {
             if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-              Swal.fire(`${this.translate.instant('Swal_Msg.Coborrow')}`, "error");
+              Swal.fire("This Customer is Already CoBorrower", "error");
             } else {
               this.multiCoBorrower.push(object);
             }
           }
         }
         else {
-          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.CoBorrow_Id')}`, "error");
+        Swal.fire("Please Select CoBorrower Customer Id", "error");
       }
 
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
     this.resetCoBorrower()
   }
@@ -2030,22 +2030,22 @@ export class CashCreditMasterComponent implements OnInit {
           }
           else {
             if (this.multiCoBorrower.find(ob => ob['CAC_CUSTID'] === formVal.CAC_CUSTID)) {
-              Swal.fire(`${this.translate.instant('Swal_Msg.Coborrow')}`, "error");
+              Swal.fire("This Customer is Already CoBorrower", "error");
             } else {
               this.multiCoBorrower[index] = object;
             }
           }
         }
         else {
-          Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
+          Swal.fire("Please Select Different Customer id", "error");
         }
       }
       else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.CoBorrow_Id')}`, "error");
+        Swal.fire("Please Select CoBorrower Customer Id", "error");
       }
 
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
     }
 
     this.resetCoBorrower()
@@ -2073,7 +2073,7 @@ export class CashCreditMasterComponent implements OnInit {
     this.cashCreditService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Cash_Credit')}`,
+        title: 'CashCredit Approved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2097,8 +2097,9 @@ export class CashCreditMasterComponent implements OnInit {
     }
     this.cashCreditService.reject(obj).subscribe(data => {
       Swal.fire({
-        icon: 'success', 
-        title:`${this.translate.instant('Swal_Msg.Cash_Reject')}`,
+
+        icon: 'success',
+        title: `${this.translate.instant('Swal_Msg.Cash_Reject')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -2123,7 +2124,8 @@ export class CashCreditMasterComponent implements OnInit {
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`,`${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
+
+      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid')}`, `${this.translate.instant('Swal_Msg.Input_Limit_50')}`, "error");
       ele.target.value = 0
 
     }
@@ -2158,7 +2160,8 @@ export class CashCreditMasterComponent implements OnInit {
     }
     this.cashCreditService.unapporve(obj).subscribe(data => {
       Swal.fire({
-        icon: 'success', 
+
+        icon: 'success',
         title: `${this.translate.instant('Swal_Msg.Ac_Unapprove')}`,
         html: `
           <b>NAME : </b> ${this.name},<br>
@@ -2179,7 +2182,8 @@ export class CashCreditMasterComponent implements OnInit {
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-         `${this.translate.instant('Swal_Msg.Warn')}`,
+
+          `${this.translate.instant('Swal_Msg.Warn')}`,
           `${this.translate.instant('Swal_Msg.Drawing')}`,
           'warning'
         );

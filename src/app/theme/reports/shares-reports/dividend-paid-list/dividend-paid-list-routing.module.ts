@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component:  DividendPaidListComponent,
     data: {
-      title: 'Investment Register(Open/Closed)',
+      title: 'Dividend Paid Register',
       icon: 'icon-home',
       caption: 'lorem ipsum dolor sit amet, consectetur adipisicing elit',
       status: true

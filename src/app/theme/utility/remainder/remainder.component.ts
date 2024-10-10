@@ -90,7 +90,7 @@ export class RemainderComponent implements OnInit {
     this.angForm = this.fb.group({
       BRANCH_CODE: ["", [Validators.required]],
       END_DATE: ["", [Validators.required]],
-      time: [''],
+      // time: [''],
       FROM_DATE: [''],
       UPTO_DATE: [''],
       USER: [''],
@@ -126,7 +126,7 @@ export class RemainderComponent implements OnInit {
       "FREQUENCY": formvalues.FREQUENCY,
       "DETAILS": formvalues.DETAILS,
       "USERID":formvalues.USER,
-      "INOUTTIME":formvalues.time
+      // "INOUTTIME":formvalues.time
     };
 
     this.http.post(this.url + '/user-defination/insertremainder', obj).subscribe(
@@ -221,7 +221,7 @@ export class RemainderComponent implements OnInit {
       FREQUENCY: selectedItem.FREQUENCY,
       DETAILS: selectedItem.DETAILS,
       USER: selectedItem.USERID,
-      time: selectedItem.INOUTTIME,
+      // time: selectedItem.INOUTTIME,
     });
     this.recordId = index;
     // Toggle buttons
@@ -240,7 +240,7 @@ export class RemainderComponent implements OnInit {
       "FREQUENCY": formvalues.FREQUENCY,
       "DETAILS": formvalues.DETAILS,
       "USERID":formvalues.USER,
-      "INOUTTIME":formvalues.time,
+      // "INOUTTIME":formvalues.time,
       "ID": selectedItem
     };
     this.http.post(this.url + '/user-defination/updateRemainder', obj).subscribe(

@@ -5,7 +5,8 @@ import { environment } from '../../../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
 import { interval, Subject, Subscription } from 'rxjs';
 import { GoldSilverReturnEntryComponent } from 'src/app/theme/transaction/gold-silver-return-entry/gold-silver-return-entry.component';
-
+import { TranslateService } from '@ngx-translate/core';
+import { SystemMasterParametersService } from 'src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 class DataTableResponse {
   data: any[];
   draw: number;
@@ -45,7 +46,14 @@ export class PassgoldSilverReturnEntryComponent implements OnInit, AfterViewInit
   // Store data from backend
   goldSilverReturnEntry: GoldSilverReturnEntry[];
   savingData: any;
-  constructor(private http: HttpClient,) { }
+  setLang:any;
+  constructor(private http: HttpClient, private translate:TranslateService, private systemParameter: SystemMasterParametersService,) { 
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    })
+  }
 
   goldSilverReturnEntryData: any = {};
   ngOnInit(): void {
@@ -104,19 +112,19 @@ export class PassgoldSilverReturnEntryComponent implements OnInit, AfterViewInit
       }],
       columns: [
         {
-          title: 'Action',
+          title: this.translate.instant('master.Action.Action'),
         },
         {
-          title: 'Account Number',
+          title: this.translate.instant('master.All.Account_Number'),
           data: 'AC_NO'
         },
         {
-          title: 'Return date',
+          title: this.translate.instant('master.All.Return_Date'),
           data: 'RETURN_DATE'
         },
 
         {
-          title: 'User code',
+          title: this.translate.instant('master.All.User_Code'),
           data: 'USER_CODE'
         },
       ],

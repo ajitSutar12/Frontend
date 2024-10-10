@@ -78,7 +78,7 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private prefixMasterService: PrefixMasterService,
-    private fb: FormBuilder, private translate: TranslateService) { }
+    private fb: FormBuilder,private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -132,11 +132,11 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           title: this.translate.instant('master.Prefix_Master.SNo'),
           data: 'SR_NO'
         }, {
-          title: this.translate.instant('master.Prefix_Master.Prefix'),
+          title:  this.translate.instant('master.Prefix_Master.Prefix'),
           data: 'PREFIX'
         },
         {
-          title: this.translate.instant('master.Prefix_Master.Prefix_Regional'),
+          title:  this.translate.instant('master.Prefix_Master.Prefix_Regional'),  
           data: 'PREFIX_REG'
         },
         {
@@ -167,17 +167,16 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     const formVal = this.angForm.value;
     const dataToSend = {
       'SR_NO': formVal.SR_NO,
-      'PREFIX': formVal.PREFIX,
-      'PREFIX_REG': formVal.PREFIX_REG,
+      'PREFIX': formVal.PREFIX, 
+      'PREFIX_REG':formVal.PREFIX_REG,
       'SEX': formVal.SEX
     }
     this.prefixMasterService.postData(dataToSend).subscribe(data1 => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+      Swal.fire('Success!', 'Data Added Successfully !', 'success');
       // to reload after insertion of data
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      });
-    }, (error) => {
+      });    }, (error) => {
       console.log(error)
     })
     //To clear form
@@ -195,12 +194,12 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.angForm.setValue({
         'SR_NO': data.SR_NO,
         'PREFIX': data.PREFIX,
-        'PREFIX_REG': data.PREFIX_REG,
+        'PREFIX_REG':data.PREFIX_REG,
         'SEX': data.SEX,
       })
     })
   }
-  addNewData() {
+  addNewData(){
     this.showButton = true;
     this.updateShow = false;
     this.newbtnShow = false;
@@ -212,22 +211,22 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     let data = this.angForm.value;
     data['id'] = this.updateID;
     this.prefixMasterService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
 
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.ajax.reload()
-      }); this.resetForm();
+      });      this.resetForm();
     })
   }
 
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Prefix_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Prefix master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -238,8 +237,8 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.prefixMasterService.deleteData(id).subscribe(data1 => {
           this.prefixMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -251,8 +250,8 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -300,10 +299,10 @@ export class PrefixMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
   gotoTop() {
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
     });
   }
 }

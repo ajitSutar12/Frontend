@@ -10,14 +10,19 @@ import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
 import { SchemeCodeDropdownService } from 'src/app/shared/dropdownService/scheme-code-dropdown.service';
 import { CashierUmService } from '../../utility/cashier-um/cashier-um.service';
+import { ExchangeCashComponent } from './exchange-cash/exchange-cash.component';
+import { CashDenominationService } from './cash-denomination.service';
 @NgModule({
   imports: [
     CommonModule,
     CashDenominationRoutingModule,
     SharedModule
   ],
-  declarations: [CashDenominationComponent],
-  providers:[    SystemMasterParametersService,SchemeCodeDropdownService,CashierUmService,
+  declarations: [CashDenominationComponent, ],
+  providers:[ SystemMasterParametersService,
+    SchemeCodeDropdownService,
+    CashierUmService,
+    CashDenominationService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: UserAuthInterceptor,

@@ -12,12 +12,13 @@ export const environment = {
   
   // Localhost
 
-  // base_url: 'http://192.168.1.119:7281', 
-  //  base_url: 'http://192.168.1.150:7276',  //Jagannath
+
+
+  base_url: 'http://localhost:7271',
 
   // base_url: 'http://localhost:7276',
-  //  report_url: 'http://localhost/phpjasper/', //report folder local path
-  // sitename: 'http://localhost/SIDHANERLI/CBS'   
+   report_url: 'http://localhost/phpjasper/', //report folder local path
+  sitename: 'http://localhost/SIDHANERLI/CBS'   
 
   // //SIDHANERLI 
   // base_url: 'https://patsevacompservtech.com:4713', 
@@ -62,9 +63,9 @@ export const environment = {
   // sitename: 'https://patsevacompservtech.com/VITTHALDHARASHIV/CBS' 
 
    // //DEMO COMPSERV 
-  base_url: 'https://patsevacompservtech.com:7796',  
-  report_url: 'https://patsevacompservtech.com/COMPSERV/REPORTS/', 
-  sitename: 'https://patsevacompservtech.com/COMPSERV/CBS'
+  // base_url: 'https://patsevacompservtech.com:7796',  
+  // report_url: 'https://patsevacompservtech.com/COMPSERV/REPORTS/', 
+  // sitename: 'https://patsevacompservtech.com/COMPSERV/CBS'
 
      // //DONGAON Trimurti 
   // base_url: 'https://patsevacompservtech.com:7278',  
@@ -96,11 +97,6 @@ export const environment = {
   // base_url: 'https://patsevacompservtech.com:7286',  
   // report_url: 'https://patsevacompservtech.com/SAISAMRAT/REPORTS/', 
   // sitename: 'https://patsevacompservtech.com/SAISAMRAT/CBS'
-
-  // BAGWANPAT
-  // base_url: 'https://patsevacompservtech.com:7287',  
-  // report_url: 'https://patsevacompservtech.com/BAGWANPAT/REPORTS/', 
-  // sitename: 'https://patsevacompservtech.com/BAGWANPAT/CBS'
 // };
 
 /*

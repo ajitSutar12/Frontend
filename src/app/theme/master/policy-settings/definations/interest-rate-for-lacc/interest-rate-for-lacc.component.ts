@@ -215,7 +215,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
     if (data != "") {
       if (data > this.datemax) {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Date')}`, "warning");
+        Swal.fire("Invalid Input", "Please Insert Valid Date ", "warning");
         (document.getElementById("EFFECT_DATE") as HTMLInputElement).value = ""
 
       }
@@ -239,7 +239,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
 
 
       this.interestRateForLoanandCCService.postData(dataToSend).subscribe(data1 => {
-        Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_Msg')}`, 'success');
+        Swal.fire('Success!', 'Data Added Successfully !', 'success');
         this.formSubmitted = false;
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.ajax.reload()
@@ -252,8 +252,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     }
     else {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Warning')}`,
-        `${this.translate.instant('Swal_Msg.W_Ms')}`,
+        'Warning',
+        'Please Input Slab Details ',
         'warning'
       )
     }
@@ -293,7 +293,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
       (data.EFFECT_DATE == 'Invalid date' || data.EFFECT_DATE == '' || data.EFFECT_DATE == null) ? (effectdate = '', data['EFFECT_DATE'] = effectdate) : (effectdate = data.EFFECT_DATE, data['EFFECT_DATE'] = moment(effectdate).format('DD/MM/YYYY'))
     }
     this.interestRateForLoanandCCService.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -318,7 +318,7 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     if (ele.target.value <= 50) {
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Invalid_Input')}`, `${this.translate.instant('Swal_Msg.Input_Limit50')}`, "error");
+      Swal.fire("Invalid Input", "Please Insert Values Below 50", "error");
       ele.target.value = 0
 
     }
@@ -329,8 +329,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     if (to != 0) {
       if (from > to) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Warning')}`,
-          `${this.translate.instant('Swal_Msg.W_Msg1')}`,
+          'Warning!',
+          'From Amount Should Be Less Than Upto Amount',
           'warning'
         );
         (document.getElementById("toamt") as HTMLInputElement).value = ""
@@ -342,8 +342,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Text')}`,
+      title: 'Are you sure?',
+      text: "Do You Want To Delete Interest Rate For loan And CC Data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -354,8 +354,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         this.interestRateForLoanandCCService.deleteData(id).subscribe(data1 => {
           this.interestRateForLoanandCC = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -366,8 +366,8 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -429,15 +429,15 @@ export class InterestRateForLACCComponent implements OnInit, AfterViewInit, OnDe
     let penint = (document.getElementById("PENAL_INT_RATE") as HTMLInputElement).value;
     if (penint == "") {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Info')}`,
-        `${this.translate.instant('Swal_Msg.I_Msg')}`,
+        'Info',
+        'Please Add Panel Interest',
         'info'
       )
     }
     if (intrate == "") {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Info')}`,
-        `${this.translate.instant('Swal_Msg.I_Msg1')}`,
+        'Info',
+        'Please Input Interest Rate',
         'info'
       )
     }

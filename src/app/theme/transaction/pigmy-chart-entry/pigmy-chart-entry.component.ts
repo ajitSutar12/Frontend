@@ -348,7 +348,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       if (data == 1) {
         Swal.fire({
           icon: 'info',
-          title: `${this.translate.instant('Swal_Msg.P1')}`,
+          title: 'This Agent Chart is Already Exist',
         })
         this.angForm.patchValue({
           CHART_NO: ''
@@ -507,7 +507,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       };
       this._pigmy.postData(dataToSend).subscribe(
         (data) => {
-          Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.S_msg')}`, "success");
+          Swal.fire("Success!", "Data Added Successfully !", "success");
           this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
             dtInstance.ajax.reload()
           });
@@ -524,7 +524,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
       this.pigmyChartTable = []
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Info')}`, `${this.translate.instant('Swal_Msg.P2')}`, 'info')
+      Swal.fire('Info', 'Please fill pigmy chart', 'info')
     }
   }
 
@@ -620,7 +620,7 @@ export class PigmyChartEntryComponent implements OnInit, AfterViewInit, OnDestro
     data['AGENTBANKAC'] = this.agentBankACNO
     data['PigmyChartArr'] = this.pigmyChartTable
     this._pigmy.updateData(data).subscribe(() => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;

@@ -26,7 +26,8 @@ import { environment } from "src/environments/environment";
 import { Router } from "@angular/router";
 import * as moment from 'moment';
 import { first } from "rxjs/operators";
-
+import { TranslateService } from "@ngx-translate/core";
+import { SystemMasterParametersService } from "src/app/theme/utility/scheme-parameters/system-master-parameters/system-master-parameters.service";
 
 // Handling datatable data
 class DataTableResponse {
@@ -93,14 +94,19 @@ export class OtherSecurityComponent
   dtTrigger: Subject<any> = new Subject();
   filterData = {};
   page: number;
-
+  setLang:any;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private _security: othersecuritycomponentservice,
-    public router: Router
+    public router: Router,  private translate:TranslateService,
+    private systemParameter:SystemMasterParametersService,
   ) {
-
+    this.systemParameter.getFormData(1).subscribe(data => {
+    
+      this.setLang = data.SET_LANGUAGE
+      this.translate.setDefaultLang(this.setLang);
+    }) 
 
   }
 

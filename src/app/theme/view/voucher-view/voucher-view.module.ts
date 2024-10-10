@@ -5,7 +5,7 @@ import { VoucherViewComponent } from './voucher-view.component';
 import { VoucherViewRoutingModule } from './voucher-view-routing.module'
 import { SharedModule } from '../../../shared/shared.module';
 import { DataTablesModule } from 'angular-datatables';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { OwnbranchMasterService } from 'src/app/shared/dropdownService/own-branch-master-dropdown.service';
 import { UserAuthInterceptor } from 'src/app/user-auth.interceptor';
 import { SystemMasterParametersService } from '../../utility/scheme-parameters/system-master-parameters/system-master-parameters.service';
@@ -14,6 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VoucherEntryModule } from '../../transaction/voucher-entry/voucher-entry.module'
 import { MultiVoucherModule } from '../../transaction/multi-voucher/multi-voucher.module'
 import { ThemeModule } from '../../theme.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
 
 @NgModule({
   imports: [
@@ -27,7 +30,14 @@ import { ThemeModule } from '../../theme.module';
     FormsModule, ReactiveFormsModule,
     VoucherEntryModule,
     MultiVoucherModule,
-    ThemeModule
+    ThemeModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide:TranslateLoader,
+        useFactory:HttpLoaderFactory,
+        deps:[HttpClient]
+      }
+    })
   ],
   exports: [VoucherViewComponent],
   declarations: [VoucherViewComponent],
@@ -38,3 +48,6 @@ import { ThemeModule } from '../../theme.module';
   },]
 })
 export class VoucherViewModule { }
+export function HttpLoaderFactory(http:HttpClient){
+  return new TranslateHttpLoader(http);
+}

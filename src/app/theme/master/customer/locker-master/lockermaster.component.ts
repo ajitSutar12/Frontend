@@ -453,7 +453,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
           Swal.fire({
             icon: 'info',
-            title: `${this.translate.instant('Swal_Msg.Locker_Ac')}`,
+            title: 'Locker Account Already Exists For This Scheme',
           })
           //  this.resetForm()
           event.id = null
@@ -712,7 +712,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.isDisable = false
         Swal.fire({
           icon: 'success',
-          title: `${this.translate.instant('Swal_Msg.Ac_Success')}`,
+          title: 'Account Created successfully!',
           html:
             '<b>NAME : </b>' + data.AC_NAME + ',' + '<br>' +
             '<b>ACCOUNT NO : </b>' + data.BANKACNO + '<br>'
@@ -734,7 +734,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.customerDoc = []
     }
     else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Warn')}`, `${this.translate.instant('Swal_Msg.Citywise_Npa_Msg')}`, 'warning');
+      Swal.fire('Warning!', 'Please Fill All Mandatory Field!', 'warning');
     }
   }
   name: any
@@ -862,7 +862,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     this.LockerMasterService.updateData(data).subscribe((data1) => {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Success')}`, `${this.translate.instant('Swal_Msg.Update')}`, 'success');
+      Swal.fire('Success!', 'Record Updated Successfully !', 'success');
       this.showButton = true;
       this.updateShow = false;
       this.newbtnShow = false;
@@ -905,8 +905,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   //Method for delete data
   delClickHandler(id: number) {
     Swal.fire({
-      title: `${this.translate.instant('Swal_Msg.Sure')}`,
-      text: `${this.translate.instant('Swal_Msg.Ac_Master')}`,
+      title: 'Are you sure?',
+      text: "Do you want to delete Account master data.",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#229954',
@@ -917,8 +917,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         this.LockerMasterService.deleteData(id).subscribe(data1 => {
           this.LockerMaster = data1;
           Swal.fire(
-            `${this.translate.instant('Swal_Msg.Delete')}`,
-            `${this.translate.instant('Swal_Msg.D_Msg')}`,
+            'Deleted!',
+            'Your data has been deleted.',
             'success'
           )
         }), (error) => {
@@ -932,8 +932,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         result.dismiss === Swal.DismissReason.cancel
       ) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.C_Msg')}`,
+          'Cancelled',
+          'Your data is safe.',
           'error'
         )
       }
@@ -1298,26 +1298,26 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+      Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
 
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
 
-          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
         } else if (formVal.AC_NCTCODE != "") {
 
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
 
-            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           } else {
 
             if (this.multiNominee.find(ob => ob['AC_NNAME'].toUpperCase() === formVal.AC_NNAME.toUpperCase())) {
 
-              Swal.fire('', `${this.translate.instant('Swal_Msg.Nomi_Exist')}`, 'error');
+              Swal.fire('', 'This Nominee is Already Exists!', 'error');
 
             } else {
 
@@ -1401,17 +1401,17 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       object['AC_CITYNAME'] = formVal.AC_NCTCODE.CITY_NAME
     }
     if (formVal.AC_NNAME == "" || formVal.AC_NNAME == null) {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Nominee')}`);
+      Swal.fire("Please Insert Mandatory Record For Nominee");
     }
     else if (formVal.AC_NNAME != "") {
       if (formVal.AC_NRELA == "" || formVal.AC_NRELA == null) {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+        Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
       } else if (formVal.AC_NRELA != "") {
         if (formVal.AC_NDATE == "" || formVal.AC_NDATE == null) {
-          Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+          Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
         } else if (formVal.AC_NCTCODE != "") {
           if (formVal.AC_NCTCODE == "" || formVal.AC_NCTCODE == null) {
-            Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee')}`, 'warning');
+            Swal.fire('', 'Please Insert Mandatory Record For Nominee!', 'warning');
           }
           else {
             this.multiNominee[index] = object;
@@ -1490,8 +1490,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     if (date1 != "") {
       if (moment(date).isAfter(date1)) {
         Swal.fire(
-          `${this.translate.instant('Swal_Msg.Cancel')}`,
-          `${this.translate.instant('Swal_Msg.Exp_Date')}`,
+          'Cancelled',
+          'Expiry Date must be greater than Appointed date',
           'error'
         );
         this.resetexpirydate = "";
@@ -1503,8 +1503,8 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
   age() {
     if (this.angForm.controls['AGE'].value > 100) {
       Swal.fire(
-        `${this.translate.instant('Swal_Msg.Cancel')}`,
-        `${this.translate.instant('Swal_Msg.Input_Age')}`,
+        'Cancelled',
+        'Please Input Proper Age',
         'error'
       );
       this.angForm.controls['AGE'].reset()
@@ -1526,7 +1526,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.LockerMasterService.approve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Ac_Approve')}`,
+        title: 'Account Approved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1549,7 +1549,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.LockerMasterService.reject(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.Ac_Reject')}`,
+        title: 'Account rejected successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1597,7 +1597,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
               let id = arr.find(arr => Number(arr['LOCKER_NO']) == Number(this.angForm.controls['LOC_NO'].value))
               Swal.fire({
                 icon: 'info',
-                title: `${this.translate.instant('Swal_Msg.Locker_Exist')}` + id.BANKACNO,
+                title: 'This Locker Number is Already Exists For Account ' + id.BANKACNO,
               })
               this.angForm.controls['LOC_NO'].reset();
             }
@@ -1616,7 +1616,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.LockerMasterService.unapporve(obj).subscribe(data => {
       Swal.fire({
         icon: 'success',
-        title: `${this.translate.instant('Swal_Msg.U_Msg')}`,
+        title: 'Account unapproved successfully!',
         html: `
           <b>NAME : </b> ${this.name},<br>
           <b>ACCOUNT NO : </b> ${this.ac_no}<br>
@@ -1683,7 +1683,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           else {
             if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] == this.joint)) {
 
-              Swal.fire('', `${this.translate.instant('Swal_Msg.Joint_Ac')}`, 'warning');
+              Swal.fire('', 'This Customer is Already Joint Account Holder', 'warning');
               this.multiJointAC.push(object);
               this.jointID = null
               this.jointID = ''
@@ -1699,7 +1699,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         }
         else {
-          Swal.fire('', `${this.translate.instant('Swal_Msg.D_CustId')}`, 'warning');
+          Swal.fire('', "Please Select Different Customer id", 'warning');
           this.jointID = null
           this.jointID = ''
           this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1707,14 +1707,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       else {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
+        Swal.fire('', "Please Select Customer Id", 'warning');
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
         this.resetJointAC()
       }
     } else {
-      Swal.fire('', `${this.translate.instant('Swal_Msg.Select_CustId')}`, 'warning');
+      Swal.fire('', "Please Select Customer Id", 'warning');
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1765,7 +1765,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         else {
           if (this.multiJointAC.find(ob => ob['JOINT_AC_CUSTID'] === formVal.JOINT_AC_CUSTID)) {
-            Swal.fire(`${this.translate.instant('Swal_Msg.Cust_Exist')}`, "error");
+            Swal.fire("This Customer is Already Exists", "error");
             this.jointID = null
             this.jointID = ''
             this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1781,14 +1781,14 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
       else {
-        Swal.fire(`${this.translate.instant('Swal_Msg.D_CustId')}`, "error");
+        Swal.fire("Please Select Different Customer id", "error");
         this.jointID = null
         this.jointID = ''
         this.angForm.controls['JOINT_AC_CUSTID'].reset()
         this.resetJointAC()
       }
     } else {
-      Swal.fire(`${this.translate.instant('Swal_Msg.Select_CustId')}`, "error");
+      Swal.fire("Please Select Customer Id", "error");
       this.jointID = null
       this.jointID = ''
       this.angForm.controls['JOINT_AC_CUSTID'].reset()
@@ -1822,7 +1822,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       // console.log(data)
 
       this.http.delete(this.url + '/nominee/delete/' + data.id).subscribe(data => {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Nominee_del')}`, 'success');
+        Swal.fire('', 'Nominee Deleted Successfully!', 'success');
       })
     }
   }
@@ -1832,7 +1832,7 @@ export class LockerMasterComponent implements OnInit, AfterViewInit, OnDestroy {
       this.multiJointAC.splice(id, 1)
 
       this.http.delete(this.url + '/term-deposits-master/jointacdelete/' + data.id).subscribe(data => {
-        Swal.fire('', `${this.translate.instant('Swal_Msg.Joint_Acc_del')}`, 'success');
+        Swal.fire('', 'Joint Account Deleted Successfully!', 'success');
       })
     }
   }
